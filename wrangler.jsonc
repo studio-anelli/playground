@@ -1,0 +1,6 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "anelli-prototype-platform",
+  "compatibility_date": "2026-09-12",
+  "compatibility_flags": ["nodejs_compat"]
+}

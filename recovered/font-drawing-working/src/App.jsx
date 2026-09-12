@@ -1,0 +1,655 @@
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+
+const GRID = 24;
+const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const STORAGE_KEY = 'variable-font-block-editor-v1';
+const BACKUP_KEY = 'variable-font-block-editor-backup-v1';
+
+const makeFullBlock = () =>
+  Array.from({ length: GRID }, () => Array.from({ length: GRID }, () => 'letter'));
+
+const cloneGrid = (grid) => grid.map((row) => [...row]);
+
+const makeAlphabet = () => Object.fromEntries(LETTERS.map((letter) => [letter, makeFullBlock()]));
+
+const isValidCell = (cell) => ['letter', 'carving', 'portal'].includes(cell);
+
+const isValidGrid = (grid) =>
+  Array.isArray(grid) &&
+  grid.length === GRID &&
+  grid.every(
+    (row) => Array.isArray(row) && row.length === GRID && row.every((cell) => isValidCell(cell))
+  );
+
+const sanitizeLettersData = (raw) => {
+  const fallback = makeAlphabet();
+  if (!raw || typeof raw !== 'object') return fallback;
+
+  return Object.fromEntries(
+    LETTERS.map((letter) => {
+      const candidate = raw[letter];
+      return [letter, isValidGrid(candidate) ? candidate : fallback[letter]];
+    })
+  );
+};
+
+const loadSavedAlphabet = () => {
+  if (typeof window === 'undefined') return makeAlphabet();
+
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      return sanitizeLettersData(JSON.parse(raw));
+    }
+
+    const backupRaw = window.localStorage.getItem(BACKUP_KEY);
+    if (backupRaw) {
+      const parsedBackup = JSON.parse(backupRaw);
+      return sanitizeLettersData(parsedBackup?.letters ?? parsedBackup);
+    }
+
+    return makeAlphabet();
+  } catch {
+    return makeAlphabet();
+  }
+};
+
+const makeBackupSnapshot = (letters) => ({
+  savedAt: new Date().toISOString(),
+  letters,
+});
+
+const cellStyleMap = {
+  bw: {
+    letter: '#000000',
+    carving: '#ffffff',
+    portal: '#ffffff',
+  },
+  color: {
+    letter: '#9ca3af',
+    carving: '#ef4444',
+    portal: '#3b82f6',
+  },
+};
+
+function getVisibleColor(cell, viewMode, visibility) {
+  if (cell === 'letter' && visibility.letter) return cellStyleMap[viewMode].letter;
+  if (cell === 'carving' && visibility.carving) return cellStyleMap[viewMode].carving;
+  if (cell === 'portal' && visibility.portal) return cellStyleMap[viewMode].portal;
+
+  if (viewMode === 'bw') {
+    return '#ffffff';
+  }
+  return '#f3f4f6';
+}
+
+function applyVerticalShift(grid, settings) {
+  const shiftedGrid = makeFullBlock();
+
+  grid.forEach((row, y) => {
+    row.forEach((cell, x) => {
+      if (cell === 'letter') return;
+
+      const layerSettings = settings[cell];
+      if (!layerSettings) {
+        shiftedGrid[y][x] = cell;
+        return;
+      }
+
+      const orderedMin = Math.min(layerSettings.min, layerSettings.max);
+      const orderedMax = Math.max(layerSettings.min, layerSettings.max);
+      const shiftedY = Math.max(orderedMin, Math.min(orderedMax, y + layerSettings.shift));
+      shiftedGrid[shiftedY][x] = cell;
+    });
+  });
+
+  return shiftedGrid;
+}
+
+export default function VariableFontBlockEditor() {
+  const fileInputRef = useRef(null);
+  const [currentLetter, setCurrentLetter] = useState('A');
+  const [tool, setTool] = useState('carving');
+  const [viewMode, setViewMode] = useState('color');
+  const [isDrawing, setIsDrawing] = useState(false);
+  const [lettersData, setLettersData] = useState(loadSavedAlphabet);
+  const [visibility, setVisibility] = useState({
+    letter: true,
+    carving: true,
+    portal: true,
+  });
+  const [saveMessage, setSaveMessage] = useState('Autosave active');
+  const [showGrid, setShowGrid] = useState(true);
+  const [verticalControls, setVerticalControls] = useState({
+    carving: { shift: 0, min: 0, max: GRID - 1 },
+    portal: { shift: 0, min: 0, max: GRID - 1 },
+  });
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    try {
+      const previousRaw = window.localStorage.getItem(STORAGE_KEY);
+      if (previousRaw) {
+        const previousParsed = JSON.parse(previousRaw);
+        window.localStorage.setItem(BACKUP_KEY, JSON.stringify(makeBackupSnapshot(previousParsed)));
+      }
+
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(lettersData));
+      setSaveMessage('Saved locally');
+    } catch {
+      setSaveMessage('Local save unavailable');
+    }
+  }, [lettersData]);
+
+  useEffect(() => {
+    if (!saveMessage) return undefined;
+    const timeout = window.setTimeout(() => {
+      setSaveMessage('Autosave active');
+    }, 1600);
+    return () => window.clearTimeout(timeout);
+  }, [saveMessage]);
+
+  const grid = useMemo(() => lettersData[currentLetter], [lettersData, currentLetter]);
+  const previewGrid = useMemo(() => applyVerticalShift(grid, verticalControls), [grid, verticalControls]);
+  const previewAlphabet = useMemo(
+    () =>
+      Object.fromEntries(
+        LETTERS.map((letter) => [letter, applyVerticalShift(lettersData[letter], verticalControls)])
+      ),
+    [lettersData, verticalControls]
+  );
+
+  const paintCell = (x, y) => {
+    setLettersData((prev) => {
+      const next = { ...prev };
+      const nextGrid = cloneGrid(prev[currentLetter]);
+      const current = nextGrid[y][x];
+
+      if (tool === 'carving') {
+        nextGrid[y][x] = current === 'carving' ? 'letter' : 'carving';
+      }
+
+      if (tool === 'portal') {
+        nextGrid[y][x] = current === 'portal' ? 'letter' : 'portal';
+      }
+
+      next[currentLetter] = nextGrid;
+      return next;
+    });
+  };
+
+  const resetCurrentLetter = () => {
+    setLettersData((prev) => ({
+      ...prev,
+      [currentLetter]: makeFullBlock(),
+    }));
+  };
+
+  const resetAllLetters = () => {
+    setLettersData(makeAlphabet());
+    setSaveMessage('All letters reset');
+  };
+
+  const exportAlphabet = () => {
+    const payload = {
+      version: 1,
+      grid: GRID,
+      letters: lettersData,
+    };
+
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'variable-font-alphabet.json';
+    a.click();
+    window.URL.revokeObjectURL(url);
+    setSaveMessage('JSON exported');
+  };
+
+  const importAlphabet = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const parsed = JSON.parse(text);
+      const importedLetters = sanitizeLettersData(parsed?.letters ?? parsed);
+      setLettersData(importedLetters);
+      setSaveMessage('JSON imported');
+    } catch {
+      setSaveMessage('Import failed');
+    }
+
+    event.target.value = '';
+  };
+
+  const clearLocalSave = () => {
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem(STORAGE_KEY);
+      window.localStorage.removeItem(BACKUP_KEY);
+    }
+    setLettersData(makeAlphabet());
+    setSaveMessage('Local save cleared');
+  };
+
+  const restoreBackup = () => {
+    if (typeof window === 'undefined') return;
+
+    try {
+      const backupRaw = window.localStorage.getItem(BACKUP_KEY);
+      if (!backupRaw) {
+        setSaveMessage('No backup found');
+        return;
+      }
+
+      const parsedBackup = JSON.parse(backupRaw);
+      const restoredLetters = sanitizeLettersData(parsedBackup?.letters ?? parsedBackup);
+      setLettersData(restoredLetters);
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(restoredLetters));
+      setSaveMessage('Backup restored');
+    } catch {
+      setSaveMessage('Backup restore failed');
+    }
+  };
+
+  const updateVerticalControl = (layer, key, value) => {
+    setVerticalControls((prev) => ({
+      ...prev,
+      [layer]: {
+        ...prev[layer],
+        [key]: value,
+      },
+    }));
+  };
+
+  const goToLetter = (direction) => {
+    const index = LETTERS.indexOf(currentLetter);
+    const nextIndex = (index + direction + LETTERS.length) % LETTERS.length;
+    setCurrentLetter(LETTERS[nextIndex]);
+  };
+
+  return (
+    <div className="min-h-screen bg-neutral-100 text-neutral-900 p-6 md:p-8">
+      <div className="max-w-7xl mx-auto grid gap-6 lg:grid-cols-[320px_1fr]">
+        <aside className="bg-white rounded-3xl shadow-sm border border-neutral-200 p-5 space-y-5 h-fit">
+          <div>
+            <div className="text-xs uppercase tracking-[0.2em] text-neutral-500 mb-2">Variable font block editor</div>
+            <h1 className="text-2xl font-semibold leading-tight">24×24 letter drawing tool</h1>
+            <p className="text-sm text-neutral-600 mt-2">
+              Each letter starts as a full block. Draw by assigning cells to carving or portals.
+            </p>
+            <div className="mt-3 inline-flex items-center rounded-full border border-neutral-300 bg-neutral-50 px-3 py-1 text-xs text-neutral-600">
+              {saveMessage}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <div className="text-sm font-medium">Current letter</div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => goToLetter(-1)}
+                className="px-3 py-2 rounded-2xl border border-neutral-300 hover:bg-neutral-50"
+              >
+                ←
+              </button>
+              <div className="flex-1 rounded-2xl border border-neutral-300 bg-neutral-50 px-4 py-3 text-center text-3xl font-semibold">
+                {currentLetter}
+              </div>
+              <button
+                onClick={() => goToLetter(1)}
+                className="px-3 py-2 rounded-2xl border border-neutral-300 hover:bg-neutral-50"
+              >
+                →
+              </button>
+            </div>
+            <div className="grid grid-cols-6 gap-2 pt-1">
+              {LETTERS.map((letter) => (
+                <button
+                  key={letter}
+                  onClick={() => setCurrentLetter(letter)}
+                  className={`rounded-xl px-2 py-2 text-sm border transition ${
+                    currentLetter === letter
+                      ? 'bg-black text-white border-black'
+                      : 'bg-white border-neutral-300 hover:bg-neutral-50'
+                  }`}
+                >
+                  {letter}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <div className="text-sm font-medium">Tools</div>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { id: 'carving', label: 'Carving' },
+                { id: 'portal', label: 'Portals' },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setTool(item.id)}
+                  className={`rounded-2xl px-4 py-3 border text-sm font-medium transition ${
+                    tool === item.id
+                      ? 'bg-black text-white border-black'
+                      : 'bg-white border-neutral-300 hover:bg-neutral-50'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs text-neutral-500">
+              Click or drag to paint. Click the same marked cell again to return it to the base letter.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <div className="text-sm font-medium">View switcher</div>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { id: 'bw', label: 'Black / White' },
+                { id: 'color', label: 'Color' },
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setViewMode(item.id)}
+                  className={`rounded-2xl px-4 py-3 border text-sm font-medium transition ${
+                    viewMode === item.id
+                      ? 'bg-black text-white border-black'
+                      : 'bg-white border-neutral-300 hover:bg-neutral-50'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <div className="text-sm font-medium">Visibility</div>
+            <div className="space-y-2">
+              {[
+                ['letter', 'Letter / grey'],
+                ['carving', 'Carving / red'],
+                ['portal', 'Portals / blue'],
+              ].map(([key, label]) => (
+                <label
+                  key={key}
+                  className="flex items-center justify-between rounded-2xl border border-neutral-300 px-4 py-3 bg-white"
+                >
+                  <span className="text-sm">{label}</span>
+                  <input
+                    type="checkbox"
+                    checked={visibility[key]}
+                    onChange={() =>
+                      setVisibility((prev) => ({
+                        ...prev,
+                        [key]: !prev[key],
+                      }))
+                    }
+                    className="h-4 w-4"
+                  />
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <div className="text-sm font-medium">Vertical shift</div>
+            <div className="space-y-3">
+              {[
+                ['carving', 'Carving'],
+                ['portal', 'Portals'],
+              ].map(([layer, label]) => (
+                <div key={layer} className="rounded-2xl border border-neutral-300 bg-neutral-50 p-4 space-y-4">
+                  <div className="text-sm font-medium">{label}</div>
+
+                  <label className="block">
+                    <div className="flex items-center justify-between text-xs uppercase tracking-[0.16em] text-neutral-500 mb-2">
+                      <span>Shift amount</span>
+                      <span>{verticalControls[layer].shift}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={-12}
+                      max={12}
+                      step={1}
+                      value={verticalControls[layer].shift}
+                      onChange={(event) => updateVerticalControl(layer, 'shift', Number(event.target.value))}
+                      className="w-full"
+                    />
+                  </label>
+
+                  <label className="block">
+                    <div className="flex items-center justify-between text-xs uppercase tracking-[0.16em] text-neutral-500 mb-2">
+                      <span>Min row</span>
+                      <span>{Math.min(verticalControls[layer].min, verticalControls[layer].max)}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={0}
+                      max={GRID - 1}
+                      step={1}
+                      value={verticalControls[layer].min}
+                      onChange={(event) => updateVerticalControl(layer, 'min', Number(event.target.value))}
+                      className="w-full"
+                    />
+                  </label>
+
+                  <label className="block">
+                    <div className="flex items-center justify-between text-xs uppercase tracking-[0.16em] text-neutral-500 mb-2">
+                      <span>Max row</span>
+                      <span>{Math.max(verticalControls[layer].min, verticalControls[layer].max)}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min={0}
+                      max={GRID - 1}
+                      step={1}
+                      value={verticalControls[layer].max}
+                      onChange={(event) => updateVerticalControl(layer, 'max', Number(event.target.value))}
+                      className="w-full"
+                    />
+                  </label>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-neutral-500">
+              Carving and portals now have separate vertical controls, so each part can be shifted and clamped with its own minimum and maximum positions.
+            </p>
+          </div>
+
+          <div className="space-y-2">
+            <div className="text-sm font-medium">Grid</div>
+            <label className="flex items-center justify-between rounded-2xl border border-neutral-300 px-4 py-3 bg-white">
+              <span className="text-sm">Show grid lines</span>
+              <input
+                type="checkbox"
+                checked={showGrid}
+                onChange={() => setShowGrid((prev) => !prev)}
+                className="h-4 w-4"
+              />
+            </label>
+          </div>
+
+          <div className="grid grid-cols-1 gap-2 pt-2">
+            <button
+              onClick={resetCurrentLetter}
+              className="rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
+            >
+              Reset current letter to full block
+            </button>
+            <button
+              onClick={resetAllLetters}
+              className="rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
+            >
+              Reset all letters
+            </button>
+          </div>
+
+          <div className="space-y-2 pt-1">
+            <div className="text-sm font-medium">Save / load</div>
+            <button
+              onClick={exportAlphabet}
+              className="w-full rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
+            >
+              Export JSON
+            </button>
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="w-full rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
+            >
+              Import JSON
+            </button>
+            <button
+              onClick={restoreBackup}
+              className="w-full rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
+            >
+              Restore backup
+            </button>
+            <button
+              onClick={clearLocalSave}
+              className="w-full rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
+            >
+              Clear local save
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="application/json,.json"
+              onChange={importAlphabet}
+              className="hidden"
+            />
+          </div>
+        </aside>
+
+        <main className="bg-white rounded-3xl shadow-sm border border-neutral-200 p-5 md:p-6">
+          <div className="mb-6">
+            <div className="text-xs uppercase tracking-[0.2em] text-neutral-500 mb-2">Preview strip</div>
+            <div className="flex gap-3 overflow-x-auto pb-2">
+              {LETTERS.map((letter) => (
+                <button
+                  key={letter}
+                  onClick={() => setCurrentLetter(letter)}
+                  className={`shrink-0 rounded-2xl border p-3 transition ${
+                    currentLetter === letter
+                      ? 'border-black bg-black text-white'
+                      : 'border-neutral-200 bg-neutral-50 hover:bg-white'
+                  }`}
+                >
+                  <div
+                    className={`grid rounded-lg overflow-hidden ${showGrid ? 'gap-px bg-neutral-300' : 'gap-0 bg-transparent'}`}
+                    style={{
+                      gridTemplateColumns: `repeat(${GRID}, 1fr)`,
+                      width: 96,
+                      aspectRatio: '1 / 1',
+                    }}
+                  >
+                    {previewAlphabet[letter].map((row, y) =>
+                      row.map((cell, x) => (
+                        <div
+                          key={`${letter}-${x}-${y}`}
+                          style={{
+                            background: getVisibleColor(cell, viewMode, visibility),
+                            aspectRatio: '1 / 1',
+                          }}
+                        />
+                      ))
+                    )}
+                  </div>
+                  <div className="mt-2 text-center text-xs font-medium">{letter}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-start justify-between gap-4 mb-5">
+            <div>
+              <div className="text-xs uppercase tracking-[0.2em] text-neutral-500 mb-2">Editor</div>
+              <div className="text-lg font-medium">
+                Drawing letter <span className="font-semibold">{currentLetter}</span>
+              </div>
+            </div>
+            <div className="text-sm text-neutral-500">
+              24 × 24 grid
+            </div>
+          </div>
+
+          <div className="mb-5 rounded-2xl border border-neutral-200 bg-neutral-50 p-4">
+            <div className="text-xs uppercase tracking-[0.16em] text-neutral-500 mb-3">Shift preview</div>
+            <div
+              className={`inline-grid rounded-2xl ${showGrid ? 'gap-[1px] bg-neutral-300 p-[1px]' : 'gap-0 bg-transparent p-0'}`}
+              style={{
+                gridTemplateColumns: `repeat(${GRID}, minmax(0, 1fr))`,
+                width: 'min(32vw, 280px)',
+                aspectRatio: '1 / 1',
+              }}
+            >
+              {previewGrid.map((row, y) =>
+                row.map((cell, x) => (
+                  <div
+                    key={`preview-${x}-${y}`}
+                    style={{
+                      background: getVisibleColor(cell, viewMode, visibility),
+                      aspectRatio: '1 / 1',
+                    }}
+                  />
+                ))
+              )}
+            </div>
+          </div>
+
+          <div
+            className={`inline-grid rounded-2xl select-none ${showGrid ? 'gap-[1px] bg-neutral-300 p-[1px]' : 'gap-0 bg-transparent p-0'}`}
+            style={{
+              gridTemplateColumns: `repeat(${GRID}, minmax(0, 1fr))`,
+              width: 'min(85vw, 840px)',
+              aspectRatio: '1 / 1',
+            }}
+            onMouseLeave={() => setIsDrawing(false)}
+          >
+            {grid.map((row, y) =>
+              row.map((cell, x) => (
+                <button
+                  key={`${x}-${y}`}
+                  onMouseDown={() => {
+                    setIsDrawing(true);
+                    paintCell(x, y);
+                  }}
+                  onMouseEnter={() => {
+                    if (isDrawing) paintCell(x, y);
+                  }}
+                  onMouseUp={() => setIsDrawing(false)}
+                  className="w-full h-full"
+                  style={{
+                    background: getVisibleColor(cell, viewMode, visibility),
+                    aspectRatio: '1 / 1',
+                  }}
+                  aria-label={`Cell ${x + 1}, ${y + 1}, ${cell}`}
+                />
+              ))
+            )}
+          </div>
+
+          <div className="mt-5 grid sm:grid-cols-3 gap-3 text-sm">
+            <div className="rounded-2xl border border-neutral-200 p-3 bg-neutral-50">
+              <div className="font-medium mb-1">Grey / letter</div>
+              <div className="text-neutral-600">Base mass of the glyph, the original 24×24 block.</div>
+            </div>
+            <div className="rounded-2xl border border-neutral-200 p-3 bg-neutral-50">
+              <div className="font-medium mb-1">Red / carving</div>
+              <div className="text-neutral-600">Subtractive cuts inside the block.</div>
+            </div>
+            <div className="rounded-2xl border border-neutral-200 p-3 bg-neutral-50">
+              <div className="font-medium mb-1">Blue / portals</div>
+              <div className="text-neutral-600">Openings or entry points in the letter system.</div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}
