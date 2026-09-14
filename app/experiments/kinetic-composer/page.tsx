@@ -1,22 +1,19 @@
-import { ArrowLeft, Maximize2 } from "lucide-react";
+"use client";
+
+import { ArrowLeft } from "lucide-react";
+import KineticComposer from "@/recovered/kinetic-composer-original/kinetic_composer/src/App";
 
 export default function KineticComposerPage() {
   return (
     <main className="import-page">
-      <header className="import-header">
+      <header className="import-header import-header-native">
         <a href="/" className="back-link"><ArrowLeft aria-hidden="true" /> Index</a>
         <h1>Kinetic Composer</h1>
         <span>REC-01 / Tool / Test</span>
-        <a className="fullscreen-link" href="/experiments/kinetic-composer/app/index.html">
-          Open full screen <Maximize2 aria-hidden="true" />
-        </a>
       </header>
-      <iframe
-        className="experiment-embed"
-        src="/experiments/kinetic-composer/app/index.html"
-        title="Kinetic Composer interactive application"
-        allow="fullscreen"
-      />
+      <section className="experiment-native" aria-label="Kinetic Composer interactive application">
+        <KineticComposer />
+      </section>
     </main>
   );
 }
