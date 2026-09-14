@@ -526,25 +526,24 @@ export default function VariableFontBlockEditor() {
           </div>
         </aside>
 
-        <main className="bg-white rounded-3xl shadow-sm border border-neutral-200 p-5 md:p-6">
+        <main className="min-w-0 bg-white rounded-3xl shadow-sm border border-neutral-200 p-5 md:p-6">
           <div className="mb-6">
             <div className="text-xs uppercase tracking-[0.2em] text-neutral-500 mb-2">Preview strip</div>
-            <div className="flex gap-3 overflow-x-auto pb-2">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(56px,1fr))] gap-2">
               {LETTERS.map((letter) => (
                 <button
                   key={letter}
                   onClick={() => setCurrentLetter(letter)}
-                  className={`shrink-0 rounded-2xl border p-3 transition ${
+                  className={`min-w-0 rounded-xl border p-1.5 transition ${
                     currentLetter === letter
                       ? 'border-black bg-black text-white'
                       : 'border-neutral-200 bg-neutral-50 hover:bg-white'
                   }`}
                 >
                   <div
-                    className={`grid rounded-lg overflow-hidden ${showGrid ? 'gap-px bg-neutral-300' : 'gap-0 bg-transparent'}`}
+                    className={`grid w-full rounded-md overflow-hidden ${showGrid ? 'gap-px bg-neutral-300' : 'gap-0 bg-transparent'}`}
                     style={{
                       gridTemplateColumns: `repeat(${GRID}, 1fr)`,
-                      width: 96,
                       aspectRatio: '1 / 1',
                     }}
                   >
