@@ -140,6 +140,7 @@ button, input { font: inherit; }
 
 .import-page { width: min(100%, 1280px); min-height: 100vh; display: grid; grid-template-rows: auto 1fr; margin: 0 auto; background: var(--ink); color: var(--paper); }
 .import-header { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; gap: 28px; align-items: center; min-height: 52px; padding: 0 18px; border-bottom: 1px solid rgba(244, 241, 235, 0.4); }
+.import-header-native { grid-template-columns: auto minmax(0, 1fr) auto; }
 .import-header span, .import-header h1, .fullscreen-link { font-family: "Courier New", Courier, monospace; font-size: 0.75rem; font-weight: 400; line-height: 1; text-transform: uppercase; }
 .import-header h1 { margin: 0; }
 .import-header > span { color: rgba(244, 241, 235, 0.64); }
@@ -147,6 +148,8 @@ button, input { font: inherit; }
 .fullscreen-link svg { width: 14px; }
 .experiment-embed { width: 100%; min-height: 850px; border: 0; background: #0a0a0a; }
 .experiment-embed-tall { min-height: 1100px; background: #f5f5f5; }
+.experiment-native { min-width: 0; overflow: auto; background: #0a0a0a; }
+.experiment-native-light { background: #f5f5f5; color: #121212; }
 .back-link { font-family: "Courier New", Courier, monospace; font-size: 0.75rem; text-transform: uppercase; }
 .back-link { display: flex; align-items: center; gap: 8px; }
 .back-link svg { width: 16px; }
