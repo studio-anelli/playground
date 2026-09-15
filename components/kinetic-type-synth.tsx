@@ -1366,9 +1366,6 @@ export default function KineticTypeSynth() {
           </div>
               </div>
             )}
-          </div>
-              </div>
-            )}
           </aside>
         </div>
 
