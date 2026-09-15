@@ -9,6 +9,27 @@ const makeFullBlock = () =>
   Array.from({ length: GRID }, () => Array.from({ length: GRID }, () => 'letter'));
 
 const cloneGrid = (grid) => grid.map((row) => [...row]);
+const makeGridSizes = () => Array.from({ length: GRID }, () => 1);
+const sumGridSizes = (sizes) => sizes.reduce((total, size) => total + size, 0);
+
+const makeGridOffsets = (sizes) => {
+  const offsets = [0];
+  sizes.forEach((size) => offsets.push(offsets[offsets.length - 1] + size));
+  return offsets;
+};
+
+const getTrackIndexAtPosition = (position, sizes) => {
+  const total = sumGridSizes(sizes);
+  const target = Math.max(0, Math.min(total - Number.EPSILON, position * total));
+  let offset = 0;
+
+  for (let index = 0; index < sizes.length; index += 1) {
+    offset += sizes[index];
+    if (target < offset) return index;
+  }
+
+  return sizes.length - 1;
+};
 
 const getCellsBetween = (start, end) => {
   const cells = [];
@@ -48,8 +69,10 @@ const getDirection = (start, end) => {
   return 3;
 };
 
-const getRoundedCellPath = (grid, includedCells) => {
+const getRoundedCellPath = (grid, includedCells, columnWidths, rowHeights) => {
   const edges = new Map();
+  const xOffsets = makeGridOffsets(columnWidths);
+  const yOffsets = makeGridOffsets(rowHeights);
 
   const addEdge = (start, end) => {
     const reverseKey = edgeKey(end, start);
@@ -64,10 +87,15 @@ const getRoundedCellPath = (grid, includedCells) => {
     row.forEach((cell, x) => {
       if (!includedCells.has(cell)) return;
 
-      addEdge({ x, y }, { x: x + 1, y });
-      addEdge({ x: x + 1, y }, { x: x + 1, y: y + 1 });
-      addEdge({ x: x + 1, y: y + 1 }, { x, y: y + 1 });
-      addEdge({ x, y: y + 1 }, { x, y });
+      const left = xOffsets[x];
+      const right = xOffsets[x + 1];
+      const top = yOffsets[y];
+      const bottom = yOffsets[y + 1];
+
+      addEdge({ x: left, y: top }, { x: right, y: top });
+      addEdge({ x: right, y: top }, { x: right, y: bottom });
+      addEdge({ x: right, y: bottom }, { x: left, y: bottom });
+      addEdge({ x: left, y: bottom }, { x: left, y: top });
     });
   });
 
@@ -150,42 +178,39 @@ const getRoundedCellPath = (grid, includedCells) => {
     .join(' ');
 };
 
-function SmoothGridPreview({ grid, viewMode, visibility, className = '', style }) {
-  const carvingPath = useMemo(() => getRoundedCellPath(grid, new Set(['carving'])), [grid]);
-  const portalPath = useMemo(() => getRoundedCellPath(grid, new Set(['portal'])), [grid]);
+function SmoothGridPreview({
+  grid,
+  viewMode,
+  visibility,
+  columnWidths,
+  rowHeights,
+  className = '',
+  style,
+}) {
   const openingPath = useMemo(
-    () => getRoundedCellPath(grid, new Set(['carving', 'portal'])),
-    [grid]
+    () => getRoundedCellPath(grid, new Set(['carving', 'portal']), columnWidths, rowHeights),
+    [columnWidths, grid, rowHeights]
   );
   const background = viewMode === 'bw' ? '#ffffff' : '#f3f4f6';
   const baseFill = visibility.letter ? cellStyleMap[viewMode].letter : background;
+  const width = sumGridSizes(columnWidths);
+  const height = sumGridSizes(rowHeights);
 
   return (
     <svg
-      viewBox={`0 0 ${GRID} ${GRID}`}
+      viewBox={`0 0 ${width} ${height}`}
       className={className}
       style={style}
       shapeRendering="geometricPrecision"
       aria-label="Smoothed grid preview"
       role="img"
     >
-      <rect width={GRID} height={GRID} fill={baseFill} />
-      {viewMode === 'bw' ? (
-        <path d={openingPath} fill={background} fillRule="evenodd" />
-      ) : (
-        <>
-          <path
-            d={carvingPath}
-            fill={visibility.carving ? cellStyleMap.color.carving : background}
-            fillRule="evenodd"
-          />
-          <path
-            d={portalPath}
-            fill={visibility.portal ? cellStyleMap.color.portal : background}
-            fillRule="evenodd"
-          />
-        </>
-      )}
+      <rect width={width} height={height} fill={baseFill} />
+      <path
+        d={openingPath}
+        fill={visibility.carving ? cellStyleMap[viewMode].carving : background}
+        fillRule="evenodd"
+      />
     </svg>
   );
 }
@@ -193,6 +218,7 @@ function SmoothGridPreview({ grid, viewMode, visibility, className = '', style }
 const makeAlphabet = () => Object.fromEntries(LETTERS.map((letter) => [letter, makeFullBlock()]));
 
 const isValidCell = (cell) => ['letter', 'carving', 'portal'].includes(cell);
+const isCarvingCell = (cell) => cell === 'carving' || cell === 'portal';
 
 const isValidGrid = (grid) =>
   Array.isArray(grid) &&
@@ -243,19 +269,16 @@ const cellStyleMap = {
   bw: {
     letter: '#000000',
     carving: '#ffffff',
-    portal: '#ffffff',
   },
   color: {
     letter: '#9ca3af',
     carving: '#ef4444',
-    portal: '#3b82f6',
   },
 };
 
 function getVisibleColor(cell, viewMode, visibility) {
   if (cell === 'letter' && visibility.letter) return cellStyleMap[viewMode].letter;
-  if (cell === 'carving' && visibility.carving) return cellStyleMap[viewMode].carving;
-  if (cell === 'portal' && visibility.portal) return cellStyleMap[viewMode].portal;
+  if (isCarvingCell(cell) && visibility.carving) return cellStyleMap[viewMode].carving;
 
   if (viewMode === 'bw') {
     return '#ffffff';
@@ -270,7 +293,7 @@ function applyVerticalShift(grid, settings) {
     row.forEach((cell, x) => {
       if (cell === 'letter') return;
 
-      const layerSettings = settings[cell];
+      const layerSettings = settings.carving;
       if (!layerSettings) {
         shiftedGrid[y][x] = cell;
         return;
@@ -290,21 +313,20 @@ export default function VariableFontBlockEditor() {
   const fileInputRef = useRef(null);
   const drawingGridRef = useRef(null);
   const strokeRef = useRef(null);
+  const resizeRef = useRef(null);
   const [currentLetter, setCurrentLetter] = useState('A');
-  const [tool, setTool] = useState('carving');
   const [viewMode, setViewMode] = useState('color');
   const [lettersData, setLettersData] = useState(loadSavedAlphabet);
   const [visibility, setVisibility] = useState({
     letter: true,
     carving: true,
-    portal: true,
   });
   const [saveMessage, setSaveMessage] = useState('Autosave active');
   const [showGrid, setShowGrid] = useState(true);
-  const [smoothPreviews, setSmoothPreviews] = useState(false);
+  const [columnWidths, setColumnWidths] = useState(makeGridSizes);
+  const [rowHeights, setRowHeights] = useState(makeGridSizes);
   const [verticalControls, setVerticalControls] = useState({
     carving: { shift: 0, min: 0, max: GRID - 1 },
-    portal: { shift: 0, min: 0, max: GRID - 1 },
   });
 
   useEffect(() => {
@@ -341,6 +363,14 @@ export default function VariableFontBlockEditor() {
       ),
     [lettersData, verticalControls]
   );
+  const columnTemplate = useMemo(
+    () => columnWidths.map((width) => `minmax(0, ${width}fr)`).join(' '),
+    [columnWidths]
+  );
+  const rowTemplate = useMemo(
+    () => rowHeights.map((height) => `minmax(0, ${height}fr)`).join(' '),
+    [rowHeights]
+  );
 
   const paintCells = (cells, mode) => {
     setLettersData((prev) => {
@@ -349,7 +379,7 @@ export default function VariableFontBlockEditor() {
 
       cells.forEach(({ x, y }) => {
         const current = nextGrid[y][x];
-        const nextCell = mode === 'erase' ? (current === tool ? 'letter' : current) : tool;
+        const nextCell = mode === 'erase' ? (isCarvingCell(current) ? 'letter' : current) : 'carving';
 
         if (nextCell !== current) {
           nextGrid[y][x] = nextCell;
@@ -377,8 +407,8 @@ export default function VariableFontBlockEditor() {
     }
 
     return {
-      x: Math.min(GRID - 1, Math.floor(((event.clientX - bounds.left) / bounds.width) * GRID)),
-      y: Math.min(GRID - 1, Math.floor(((event.clientY - bounds.top) / bounds.height) * GRID)),
+      x: getTrackIndexAtPosition((event.clientX - bounds.left) / bounds.width, columnWidths),
+      y: getTrackIndexAtPosition((event.clientY - bounds.top) / bounds.height, rowHeights),
     };
   };
 
@@ -390,7 +420,7 @@ export default function VariableFontBlockEditor() {
 
     event.preventDefault();
     event.currentTarget.setPointerCapture(event.pointerId);
-    const mode = grid[cell.y][cell.x] === tool ? 'erase' : 'paint';
+    const mode = isCarvingCell(grid[cell.y][cell.x]) ? 'erase' : 'paint';
     strokeRef.current = { pointerId: event.pointerId, lastCell: cell, mode };
     paintCells([cell], mode);
   };
@@ -501,6 +531,69 @@ export default function VariableFontBlockEditor() {
     }));
   };
 
+  const updateGridSize = (axis, index, nextSize) => {
+    const setSizes = axis === 'column' ? setColumnWidths : setRowHeights;
+    setSizes((previous) =>
+      previous.map((size, sizeIndex) =>
+        sizeIndex === index ? Math.max(0.2, Math.min(4, nextSize)) : size
+      )
+    );
+  };
+
+  const startGridResize = (event, axis, index) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    const sizes = axis === 'column' ? columnWidths : rowHeights;
+    resizeRef.current = {
+      axis,
+      index,
+      pointerId: event.pointerId,
+      startPosition: axis === 'column' ? event.clientX : event.clientY,
+      startSize: sizes[index],
+      totalSize: sumGridSizes(sizes),
+    };
+  };
+
+  const continueGridResize = (event) => {
+    const resize = resizeRef.current;
+    if (!resize || resize.pointerId !== event.pointerId) return;
+
+    const bounds = drawingGridRef.current?.getBoundingClientRect();
+    if (!bounds) return;
+
+    event.preventDefault();
+    const currentPosition = resize.axis === 'column' ? event.clientX : event.clientY;
+    const dimension = resize.axis === 'column' ? bounds.width : bounds.height;
+    const delta = ((currentPosition - resize.startPosition) / dimension) * resize.totalSize;
+    updateGridSize(resize.axis, resize.index, resize.startSize + delta);
+  };
+
+  const endGridResize = (event) => {
+    if (resizeRef.current?.pointerId !== event.pointerId) return;
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    resizeRef.current = null;
+  };
+
+  const handleGridSizeKey = (event, axis, index) => {
+    const negativeKey = axis === 'column' ? 'ArrowLeft' : 'ArrowUp';
+    const positiveKey = axis === 'column' ? 'ArrowRight' : 'ArrowDown';
+    if (event.key !== negativeKey && event.key !== positiveKey) return;
+
+    event.preventDefault();
+    const sizes = axis === 'column' ? columnWidths : rowHeights;
+    updateGridSize(axis, index, sizes[index] + (event.key === positiveKey ? 0.1 : -0.1));
+  };
+
+  const resetGridSizes = () => {
+    setColumnWidths(makeGridSizes());
+    setRowHeights(makeGridSizes());
+  };
+
   const goToLetter = (direction) => {
     const index = LETTERS.indexOf(currentLetter);
     const nextIndex = (index + direction + LETTERS.length) % LETTERS.length;
@@ -515,7 +608,7 @@ export default function VariableFontBlockEditor() {
             <div className="text-xs uppercase tracking-[0.2em] text-neutral-500 mb-2">Variable font block editor</div>
             <h1 className="text-2xl font-semibold leading-tight">24×24 letter drawing tool</h1>
             <p className="text-sm text-neutral-600 mt-2">
-              Each letter starts as a full block. Draw by assigning cells to carving or portals.
+              Each letter starts as a full block. Draw continuous carving strokes to shape it.
             </p>
             <div className="mt-3 inline-flex items-center rounded-full border border-neutral-300 bg-neutral-50 px-3 py-1 text-xs text-neutral-600">
               {saveMessage}
@@ -559,27 +652,9 @@ export default function VariableFontBlockEditor() {
           </div>
 
           <div className="space-y-2">
-            <div className="text-sm font-medium">Tools</div>
-            <div className="grid grid-cols-2 gap-2">
-              {[
-                { id: 'carving', label: 'Carving' },
-                { id: 'portal', label: 'Portals' },
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => setTool(item.id)}
-                  className={`rounded-2xl px-4 py-3 border text-sm font-medium transition ${
-                    tool === item.id
-                      ? 'bg-black text-white border-black'
-                      : 'bg-white border-neutral-300 hover:bg-neutral-50'
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
+            <div className="text-sm font-medium">Drawing</div>
             <p className="text-xs text-neutral-500">
-              Press and drag to draw a continuous stroke. Start on the active layer to erase it.
+              Press and drag to carve. Start on a carved cell to restore the letter.
             </p>
           </div>
 
@@ -611,7 +686,6 @@ export default function VariableFontBlockEditor() {
               {[
                 ['letter', 'Letter / grey'],
                 ['carving', 'Carving / red'],
-                ['portal', 'Portals / blue'],
               ].map(([key, label]) => (
                 <label
                   key={key}
@@ -637,10 +711,7 @@ export default function VariableFontBlockEditor() {
           <div className="space-y-3">
             <div className="text-sm font-medium">Vertical shift</div>
             <div className="space-y-3">
-              {[
-                ['carving', 'Carving'],
-                ['portal', 'Portals'],
-              ].map(([layer, label]) => (
+              {[['carving', 'Carving']].map(([layer, label]) => (
                 <div key={layer} className="rounded-2xl border border-neutral-300 bg-neutral-50 p-4 space-y-4">
                   <div className="text-sm font-medium">{label}</div>
 
@@ -695,7 +766,7 @@ export default function VariableFontBlockEditor() {
               ))}
             </div>
             <p className="text-xs text-neutral-500">
-              Carving and portals now have separate vertical controls, so each part can be shifted and clamped with its own minimum and maximum positions.
+              Shift and clamp the carved parts between minimum and maximum rows.
             </p>
           </div>
 
@@ -710,18 +781,15 @@ export default function VariableFontBlockEditor() {
                 className="h-4 w-4"
               />
             </label>
-            <label className="flex items-center justify-between rounded-2xl border border-neutral-300 px-4 py-3 bg-white">
-              <span className="text-sm">Smooth contours</span>
-              <input
-                type="checkbox"
-                checked={smoothPreviews}
-                onChange={() => setSmoothPreviews((prev) => !prev)}
-                className="h-4 w-4"
-              />
-            </label>
             <p className="text-xs text-neutral-500">
-              Rounds the grid boundaries in previews while preserving the editable 24×24 cells.
+              Drag the handles around the editor to resize individual rows and columns.
             </p>
+            <button
+              onClick={resetGridSizes}
+              className="w-full rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
+            >
+              Reset row and column sizes
+            </button>
           </div>
 
           <div className="grid grid-cols-1 gap-2 pt-2">
@@ -789,35 +857,15 @@ export default function VariableFontBlockEditor() {
                       : 'border-neutral-200 bg-neutral-50 hover:bg-white'
                   }`}
                 >
-                  {smoothPreviews ? (
-                    <SmoothGridPreview
-                      grid={previewAlphabet[letter]}
-                      viewMode={viewMode}
-                      visibility={visibility}
-                      className="block w-full rounded-md overflow-hidden"
-                      style={{ aspectRatio: '1 / 1' }}
-                    />
-                  ) : (
-                    <div
-                      className={`grid w-full rounded-md overflow-hidden ${showGrid ? 'gap-px bg-neutral-300' : 'gap-0 bg-transparent'}`}
-                      style={{
-                        gridTemplateColumns: `repeat(${GRID}, 1fr)`,
-                        aspectRatio: '1 / 1',
-                      }}
-                    >
-                      {previewAlphabet[letter].map((row, y) =>
-                        row.map((cell, x) => (
-                          <div
-                            key={`${letter}-${x}-${y}`}
-                            style={{
-                              background: getVisibleColor(cell, viewMode, visibility),
-                              aspectRatio: '1 / 1',
-                            }}
-                          />
-                        ))
-                      )}
-                    </div>
-                  )}
+                  <SmoothGridPreview
+                    grid={previewAlphabet[letter]}
+                    viewMode={viewMode}
+                    visibility={visibility}
+                    columnWidths={columnWidths}
+                    rowHeights={rowHeights}
+                    className="block w-full rounded-md overflow-hidden"
+                    style={{ aspectRatio: '1 / 1' }}
+                  />
                   <div className="mt-2 text-center text-xs font-medium">{letter}</div>
                 </button>
               ))}
@@ -837,74 +885,106 @@ export default function VariableFontBlockEditor() {
           </div>
 
           <div className="mb-5 rounded-2xl border border-neutral-200 bg-neutral-50 p-4">
-            <div className="text-xs uppercase tracking-[0.16em] text-neutral-500 mb-3">Shift preview</div>
-            {smoothPreviews ? (
-              <SmoothGridPreview
-                grid={previewGrid}
-                viewMode={viewMode}
-                visibility={visibility}
-                className="block rounded-2xl overflow-hidden"
-                style={{ width: 'min(32vw, 280px)', aspectRatio: '1 / 1' }}
-              />
-            ) : (
-              <div
-                className={`inline-grid rounded-2xl ${showGrid ? 'gap-[1px] bg-neutral-300 p-[1px]' : 'gap-0 bg-transparent p-0'}`}
-                style={{
-                  gridTemplateColumns: `repeat(${GRID}, minmax(0, 1fr))`,
-                  width: 'min(32vw, 280px)',
-                  aspectRatio: '1 / 1',
-                }}
-              >
-                {previewGrid.map((row, y) =>
-                  row.map((cell, x) => (
-                    <div
-                      key={`preview-${x}-${y}`}
-                      style={{
-                        background: getVisibleColor(cell, viewMode, visibility),
-                        aspectRatio: '1 / 1',
-                      }}
-                    />
-                  ))
-                )}
-              </div>
-            )}
+            <div className="text-xs uppercase tracking-[0.16em] text-neutral-500 mb-3">Smooth preview</div>
+            <SmoothGridPreview
+              grid={previewGrid}
+              viewMode={viewMode}
+              visibility={visibility}
+              columnWidths={columnWidths}
+              rowHeights={rowHeights}
+              className="block rounded-2xl overflow-hidden"
+              style={{ width: 'min(32vw, 280px)', aspectRatio: '1 / 1' }}
+            />
           </div>
 
           <div
-            ref={drawingGridRef}
-            className={`inline-grid rounded-2xl select-none ${showGrid ? 'gap-[1px] bg-neutral-300 p-[1px]' : 'gap-0 bg-transparent p-0'}`}
+            className="inline-grid gap-1 select-none"
             style={{
-              gridTemplateColumns: `repeat(${GRID}, minmax(0, 1fr))`,
-              width: 'min(85vw, 840px)',
-              aspectRatio: '1 / 1',
-              touchAction: 'none',
+              gridTemplateColumns: '16px minmax(0, 1fr)',
+              gridTemplateRows: '16px minmax(0, 1fr)',
+              width: 'min(88vw, 860px)',
             }}
-            onPointerDown={startStroke}
-            onPointerMove={continueStroke}
-            onPointerUp={endStroke}
-            onPointerCancel={endStroke}
           >
-            {grid.map((row, y) =>
-              row.map((cell, x) => (
+            <div aria-hidden="true" />
+
+            <div className="grid h-4" style={{ gridTemplateColumns: columnTemplate }}>
+              {columnWidths.map((width, index) => (
                 <button
-                  key={`${x}-${y}`}
-                  onClick={(event) => {
-                    if (event.detail !== 0) return;
-                    paintCells([{ x, y }], cell === tool ? 'erase' : 'paint');
-                  }}
-                  className="w-full h-full"
-                  style={{
-                    background: getVisibleColor(cell, viewMode, visibility),
-                    aspectRatio: '1 / 1',
-                  }}
-                  aria-label={`Cell ${x + 1}, ${y + 1}, ${cell}`}
-                  aria-pressed={cell === tool}
-                />
-              ))
-            )}
+                  key={`column-handle-${index}`}
+                  type="button"
+                  role="slider"
+                  aria-label={`Column ${index + 1} width`}
+                  aria-valuemin={0.2}
+                  aria-valuemax={4}
+                  aria-valuenow={Number(width.toFixed(2))}
+                  className="group flex min-w-0 cursor-col-resize items-center justify-center touch-none"
+                  onPointerDown={(event) => startGridResize(event, 'column', index)}
+                  onPointerMove={continueGridResize}
+                  onPointerUp={endGridResize}
+                  onPointerCancel={endGridResize}
+                  onKeyDown={(event) => handleGridSizeKey(event, 'column', index)}
+                >
+                  <span className="h-2.5 w-px bg-neutral-400 transition group-hover:h-4 group-hover:bg-black" />
+                </button>
+              ))}
+            </div>
+
+            <div className="grid w-4" style={{ gridTemplateRows: rowTemplate }}>
+              {rowHeights.map((height, index) => (
+                <button
+                  key={`row-handle-${index}`}
+                  type="button"
+                  role="slider"
+                  aria-label={`Row ${index + 1} height`}
+                  aria-valuemin={0.2}
+                  aria-valuemax={4}
+                  aria-valuenow={Number(height.toFixed(2))}
+                  className="group flex min-h-0 cursor-row-resize items-center justify-center touch-none"
+                  onPointerDown={(event) => startGridResize(event, 'row', index)}
+                  onPointerMove={continueGridResize}
+                  onPointerUp={endGridResize}
+                  onPointerCancel={endGridResize}
+                  onKeyDown={(event) => handleGridSizeKey(event, 'row', index)}
+                >
+                  <span className="h-px w-2.5 bg-neutral-400 transition group-hover:w-4 group-hover:bg-black" />
+                </button>
+              ))}
+            </div>
+
+            <div
+              ref={drawingGridRef}
+              className={`grid rounded-2xl select-none ${showGrid ? 'gap-[1px] bg-neutral-300 p-[1px]' : 'gap-0 bg-transparent p-0'}`}
+              style={{
+                gridTemplateColumns: columnTemplate,
+                gridTemplateRows: rowTemplate,
+                aspectRatio: '1 / 1',
+                touchAction: 'none',
+              }}
+              onPointerDown={startStroke}
+              onPointerMove={continueStroke}
+              onPointerUp={endStroke}
+              onPointerCancel={endStroke}
+            >
+              {grid.map((row, y) =>
+                row.map((cell, x) => (
+                  <button
+                    key={`${x}-${y}`}
+                    type="button"
+                    onClick={(event) => {
+                      if (event.detail !== 0) return;
+                      paintCells([{ x, y }], isCarvingCell(cell) ? 'erase' : 'paint');
+                    }}
+                    className="h-full min-h-0 w-full min-w-0"
+                    style={{ background: getVisibleColor(cell, viewMode, visibility) }}
+                    aria-label={`Cell ${x + 1}, ${y + 1}, ${isCarvingCell(cell) ? 'carving' : 'letter'}`}
+                    aria-pressed={isCarvingCell(cell)}
+                  />
+                ))
+              )}
+            </div>
           </div>
 
-          <div className="mt-5 grid sm:grid-cols-3 gap-3 text-sm">
+          <div className="mt-5 grid sm:grid-cols-2 gap-3 text-sm">
             <div className="rounded-2xl border border-neutral-200 p-3 bg-neutral-50">
               <div className="font-medium mb-1">Grey / letter</div>
               <div className="text-neutral-600">Base mass of the glyph, the original 24×24 block.</div>
@@ -912,10 +992,6 @@ export default function VariableFontBlockEditor() {
             <div className="rounded-2xl border border-neutral-200 p-3 bg-neutral-50">
               <div className="font-medium mb-1">Red / carving</div>
               <div className="text-neutral-600">Subtractive cuts inside the block.</div>
-            </div>
-            <div className="rounded-2xl border border-neutral-200 p-3 bg-neutral-50">
-              <div className="font-medium mb-1">Blue / portals</div>
-              <div className="text-neutral-600">Openings or entry points in the letter system.</div>
             </div>
           </div>
         </main>
