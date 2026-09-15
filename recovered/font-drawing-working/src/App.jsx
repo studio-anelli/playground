@@ -322,6 +322,15 @@ const loadSavedLayout = () => {
   }
 };
 
+const persistLayoutData = (layout) => {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.setItem(LAYOUT_STORAGE_KEY, JSON.stringify(layout));
+  } catch {
+    // Letter drawing remains available when browser storage is blocked.
+  }
+};
+
 const makeBackupSnapshot = (letters) => ({
   savedAt: new Date().toISOString(),
   letters,
@@ -387,16 +396,6 @@ export default function VariableFontBlockEditor() {
       if (errorMessageTimeout) window.clearTimeout(errorMessageTimeout);
     };
   }, [lettersData]);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    try {
-      window.localStorage.setItem(LAYOUT_STORAGE_KEY, JSON.stringify(layoutData));
-    } catch {
-      // Letter drawing remains available when browser storage is blocked.
-    }
-  }, [layoutData]);
 
   useEffect(() => {
     if (!saveMessage) return undefined;
@@ -550,7 +549,11 @@ export default function VariableFontBlockEditor() {
       const parsed = JSON.parse(text);
       const importedLetters = sanitizeLettersData(parsed?.letters ?? parsed);
       setLettersData(importedLetters);
-      if (parsed?.layout) setLayoutData(sanitizeLayoutData(parsed.layout));
+      if (parsed?.layout) {
+        const importedLayout = sanitizeLayoutData(parsed.layout);
+        setLayoutData(importedLayout);
+        persistLayoutData(importedLayout);
+      }
       setSaveMessage('JSON imported');
     } catch {
       setSaveMessage('Import failed');
@@ -595,15 +598,19 @@ export default function VariableFontBlockEditor() {
     const scale = GRID / gridSize;
     const startIndex = index * scale;
     const sizePerCell = Math.max(0.2, Math.min(4, nextSize / scale));
-    setLayoutData((previous) => ({
-      ...previous,
-      [currentLetter]: {
-        ...previous[currentLetter],
-        [property]: previous[currentLetter][property].map((size, sizeIndex) =>
-          sizeIndex >= startIndex && sizeIndex < startIndex + scale ? sizePerCell : size
-        ),
-      },
-    }));
+    setLayoutData((previous) => {
+      const next = {
+        ...previous,
+        [currentLetter]: {
+          ...previous[currentLetter],
+          [property]: previous[currentLetter][property].map((size, sizeIndex) =>
+            sizeIndex >= startIndex && sizeIndex < startIndex + scale ? sizePerCell : size
+          ),
+        },
+      };
+      persistLayoutData(next);
+      return next;
+    });
   };
 
   const startGridResize = (event, axis, index) => {
@@ -657,10 +664,14 @@ export default function VariableFontBlockEditor() {
   };
 
   const resetGridSizes = () => {
-    setLayoutData((previous) => ({
-      ...previous,
-      [currentLetter]: makeLetterLayout(),
-    }));
+    setLayoutData((previous) => {
+      const next = {
+        ...previous,
+        [currentLetter]: makeLetterLayout(),
+      };
+      persistLayoutData(next);
+      return next;
+    });
   };
 
   const goToLetter = (direction) => {
