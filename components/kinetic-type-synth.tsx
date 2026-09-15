@@ -18,6 +18,23 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+const VIBRANT_BACKGROUNDS = [
+  "#ff4f2e",
+  "#5b5cff",
+  "#00a878",
+  "#ed2f87",
+  "#ffc400",
+  "#0077ff",
+  "#8e44ff",
+  "#00b8d9",
+];
+
+const readableInk = (hex: string) => {
+  const rgb = hex.replace("#", "").match(/.{2}/g)?.map((value) => parseInt(value, 16) / 255) ?? [0, 0, 0];
+  const linear = rgb.map((value) => value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4);
+  const luminance = 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
+  return luminance > 0.42 ? "#0f0f10" : "#f2f2f2";
+};
 const smoothstep = (a: number, b: number, t: number) => {
   const x = clamp((t - a) / (b - a), 0, 1);
   return x * x * (3 - 2 * x);
@@ -548,7 +565,25 @@ export default function KineticTypeSynth() {
 
   useEffect(() => {
     setDpr(Math.max(1, Math.min(2, window.devicePixelRatio || 1)));
+
+    const previous = window.sessionStorage.getItem("playground-vibrant-background");
+    const choices = VIBRANT_BACKGROUNDS.filter((color) => color !== previous);
+    const next = choices[Math.floor(Math.random() * choices.length)] ?? VIBRANT_BACKGROUNDS[0];
+    window.sessionStorage.setItem("playground-vibrant-background", next);
+    setBg(next);
+    setInk(readableInk(next));
   }, []);
+
+  useEffect(() => {
+    const shell = document.querySelector<HTMLElement>(".ui-v1-page");
+    if (!shell) return;
+    shell.style.setProperty("--ui-v1-bg", bg);
+    shell.style.setProperty("--ui-v1-fg", ink);
+    return () => {
+      shell.style.removeProperty("--ui-v1-bg");
+      shell.style.removeProperty("--ui-v1-fg");
+    };
+  }, [bg, ink]);
 
   useEffect(() => {
     const matchViewportWidth = () => setCw(clamp(Math.round(window.innerWidth), 200, 4000));
