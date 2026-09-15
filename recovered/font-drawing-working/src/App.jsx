@@ -38,6 +38,158 @@ const getCellsBetween = (start, end) => {
   return cells;
 };
 
+const pointKey = (point) => `${point.x},${point.y}`;
+const edgeKey = (start, end) => `${pointKey(start)}>${pointKey(end)}`;
+
+const getDirection = (start, end) => {
+  if (end.x > start.x) return 0;
+  if (end.y > start.y) return 1;
+  if (end.x < start.x) return 2;
+  return 3;
+};
+
+const getRoundedCellPath = (grid, includedCells) => {
+  const edges = new Map();
+
+  const addEdge = (start, end) => {
+    const reverseKey = edgeKey(end, start);
+    if (edges.has(reverseKey)) {
+      edges.delete(reverseKey);
+      return;
+    }
+    edges.set(edgeKey(start, end), { start, end });
+  };
+
+  grid.forEach((row, y) => {
+    row.forEach((cell, x) => {
+      if (!includedCells.has(cell)) return;
+
+      addEdge({ x, y }, { x: x + 1, y });
+      addEdge({ x: x + 1, y }, { x: x + 1, y: y + 1 });
+      addEdge({ x: x + 1, y: y + 1 }, { x, y: y + 1 });
+      addEdge({ x, y: y + 1 }, { x, y });
+    });
+  });
+
+  const remaining = new Map(edges);
+  const loops = [];
+
+  while (remaining.size > 0) {
+    const [firstKey, firstEdge] = remaining.entries().next().value;
+    remaining.delete(firstKey);
+
+    const loop = [firstEdge.start];
+    let previous = firstEdge.start;
+    let current = firstEdge.end;
+    let guard = edges.size + 1;
+
+    while (pointKey(current) !== pointKey(loop[0]) && guard > 0) {
+      loop.push(current);
+      const candidates = [...remaining.entries()].filter(
+        ([, edge]) => pointKey(edge.start) === pointKey(current)
+      );
+      if (candidates.length === 0) break;
+
+      const previousDirection = getDirection(previous, current);
+      candidates.sort(([, edgeA], [, edgeB]) => {
+        const turnA = (getDirection(edgeA.start, edgeA.end) - previousDirection + 4) % 4;
+        const turnB = (getDirection(edgeB.start, edgeB.end) - previousDirection + 4) % 4;
+        const priority = [1, 0, 3, 2];
+        return priority.indexOf(turnA) - priority.indexOf(turnB);
+      });
+
+      const [nextKey, nextEdge] = candidates[0];
+      remaining.delete(nextKey);
+      previous = current;
+      current = nextEdge.end;
+      guard -= 1;
+    }
+
+    if (pointKey(current) === pointKey(loop[0]) && loop.length >= 3) loops.push(loop);
+  }
+
+  return loops
+    .map((loop) =>
+      loop.filter((point, index) => {
+        const previous = loop[(index - 1 + loop.length) % loop.length];
+        const next = loop[(index + 1) % loop.length];
+        return (
+          (point.x - previous.x) * (next.y - point.y) !==
+          (point.y - previous.y) * (next.x - point.x)
+        );
+      })
+    )
+    .filter((loop) => loop.length >= 3)
+    .map((loop) => {
+      const corners = loop.map((point, index) => {
+        const previous = loop[(index - 1 + loop.length) % loop.length];
+        const next = loop[(index + 1) % loop.length];
+        const previousLength = Math.hypot(point.x - previous.x, point.y - previous.y);
+        const nextLength = Math.hypot(next.x - point.x, next.y - point.y);
+        const radius = Math.min(0.34, previousLength / 2, nextLength / 2);
+
+        return {
+          point,
+          entry: {
+            x: point.x + ((previous.x - point.x) / previousLength) * radius,
+            y: point.y + ((previous.y - point.y) / previousLength) * radius,
+          },
+          exit: {
+            x: point.x + ((next.x - point.x) / nextLength) * radius,
+            y: point.y + ((next.y - point.y) / nextLength) * radius,
+          },
+        };
+      });
+
+      return corners.reduce(
+        (path, corner, index) =>
+          `${path}${index === 0 ? `M ${corner.entry.x} ${corner.entry.y}` : ` L ${corner.entry.x} ${corner.entry.y}`} Q ${corner.point.x} ${corner.point.y} ${corner.exit.x} ${corner.exit.y}`,
+        ''
+      ) + ' Z';
+    })
+    .join(' ');
+};
+
+function SmoothGridPreview({ grid, viewMode, visibility, className = '', style }) {
+  const carvingPath = useMemo(() => getRoundedCellPath(grid, new Set(['carving'])), [grid]);
+  const portalPath = useMemo(() => getRoundedCellPath(grid, new Set(['portal'])), [grid]);
+  const openingPath = useMemo(
+    () => getRoundedCellPath(grid, new Set(['carving', 'portal'])),
+    [grid]
+  );
+  const background = viewMode === 'bw' ? '#ffffff' : '#f3f4f6';
+  const baseFill = visibility.letter ? cellStyleMap[viewMode].letter : background;
+
+  return (
+    <svg
+      viewBox={`0 0 ${GRID} ${GRID}`}
+      className={className}
+      style={style}
+      shapeRendering="geometricPrecision"
+      aria-label="Smoothed grid preview"
+      role="img"
+    >
+      <rect width={GRID} height={GRID} fill={baseFill} />
+      {viewMode === 'bw' ? (
+        <path d={openingPath} fill={background} fillRule="evenodd" />
+      ) : (
+        <>
+          <path
+            d={carvingPath}
+            fill={visibility.carving ? cellStyleMap.color.carving : background}
+            fillRule="evenodd"
+          />
+          <path
+            d={portalPath}
+            fill={visibility.portal ? cellStyleMap.color.portal : background}
+            fillRule="evenodd"
+          />
+        </>
+      )}
+    </svg>
+  );
+}
+
 const makeAlphabet = () => Object.fromEntries(LETTERS.map((letter) => [letter, makeFullBlock()]));
 
 const isValidCell = (cell) => ['letter', 'carving', 'portal'].includes(cell);
@@ -149,6 +301,7 @@ export default function VariableFontBlockEditor() {
   });
   const [saveMessage, setSaveMessage] = useState('Autosave active');
   const [showGrid, setShowGrid] = useState(true);
+  const [smoothPreviews, setSmoothPreviews] = useState(false);
   const [verticalControls, setVerticalControls] = useState({
     carving: { shift: 0, min: 0, max: GRID - 1 },
     portal: { shift: 0, min: 0, max: GRID - 1 },
@@ -557,6 +710,18 @@ export default function VariableFontBlockEditor() {
                 className="h-4 w-4"
               />
             </label>
+            <label className="flex items-center justify-between rounded-2xl border border-neutral-300 px-4 py-3 bg-white">
+              <span className="text-sm">Smooth contours</span>
+              <input
+                type="checkbox"
+                checked={smoothPreviews}
+                onChange={() => setSmoothPreviews((prev) => !prev)}
+                className="h-4 w-4"
+              />
+            </label>
+            <p className="text-xs text-neutral-500">
+              Rounds the grid boundaries in previews while preserving the editable 24×24 cells.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 gap-2 pt-2">
@@ -624,25 +789,35 @@ export default function VariableFontBlockEditor() {
                       : 'border-neutral-200 bg-neutral-50 hover:bg-white'
                   }`}
                 >
-                  <div
-                    className={`grid w-full rounded-md overflow-hidden ${showGrid ? 'gap-px bg-neutral-300' : 'gap-0 bg-transparent'}`}
-                    style={{
-                      gridTemplateColumns: `repeat(${GRID}, 1fr)`,
-                      aspectRatio: '1 / 1',
-                    }}
-                  >
-                    {previewAlphabet[letter].map((row, y) =>
-                      row.map((cell, x) => (
-                        <div
-                          key={`${letter}-${x}-${y}`}
-                          style={{
-                            background: getVisibleColor(cell, viewMode, visibility),
-                            aspectRatio: '1 / 1',
-                          }}
-                        />
-                      ))
-                    )}
-                  </div>
+                  {smoothPreviews ? (
+                    <SmoothGridPreview
+                      grid={previewAlphabet[letter]}
+                      viewMode={viewMode}
+                      visibility={visibility}
+                      className="block w-full rounded-md overflow-hidden"
+                      style={{ aspectRatio: '1 / 1' }}
+                    />
+                  ) : (
+                    <div
+                      className={`grid w-full rounded-md overflow-hidden ${showGrid ? 'gap-px bg-neutral-300' : 'gap-0 bg-transparent'}`}
+                      style={{
+                        gridTemplateColumns: `repeat(${GRID}, 1fr)`,
+                        aspectRatio: '1 / 1',
+                      }}
+                    >
+                      {previewAlphabet[letter].map((row, y) =>
+                        row.map((cell, x) => (
+                          <div
+                            key={`${letter}-${x}-${y}`}
+                            style={{
+                              background: getVisibleColor(cell, viewMode, visibility),
+                              aspectRatio: '1 / 1',
+                            }}
+                          />
+                        ))
+                      )}
+                    </div>
+                  )}
                   <div className="mt-2 text-center text-xs font-medium">{letter}</div>
                 </button>
               ))}
@@ -663,26 +838,36 @@ export default function VariableFontBlockEditor() {
 
           <div className="mb-5 rounded-2xl border border-neutral-200 bg-neutral-50 p-4">
             <div className="text-xs uppercase tracking-[0.16em] text-neutral-500 mb-3">Shift preview</div>
-            <div
-              className={`inline-grid rounded-2xl ${showGrid ? 'gap-[1px] bg-neutral-300 p-[1px]' : 'gap-0 bg-transparent p-0'}`}
-              style={{
-                gridTemplateColumns: `repeat(${GRID}, minmax(0, 1fr))`,
-                width: 'min(32vw, 280px)',
-                aspectRatio: '1 / 1',
-              }}
-            >
-              {previewGrid.map((row, y) =>
-                row.map((cell, x) => (
-                  <div
-                    key={`preview-${x}-${y}`}
-                    style={{
-                      background: getVisibleColor(cell, viewMode, visibility),
-                      aspectRatio: '1 / 1',
-                    }}
-                  />
-                ))
-              )}
-            </div>
+            {smoothPreviews ? (
+              <SmoothGridPreview
+                grid={previewGrid}
+                viewMode={viewMode}
+                visibility={visibility}
+                className="block rounded-2xl overflow-hidden"
+                style={{ width: 'min(32vw, 280px)', aspectRatio: '1 / 1' }}
+              />
+            ) : (
+              <div
+                className={`inline-grid rounded-2xl ${showGrid ? 'gap-[1px] bg-neutral-300 p-[1px]' : 'gap-0 bg-transparent p-0'}`}
+                style={{
+                  gridTemplateColumns: `repeat(${GRID}, minmax(0, 1fr))`,
+                  width: 'min(32vw, 280px)',
+                  aspectRatio: '1 / 1',
+                }}
+              >
+                {previewGrid.map((row, y) =>
+                  row.map((cell, x) => (
+                    <div
+                      key={`preview-${x}-${y}`}
+                      style={{
+                        background: getVisibleColor(cell, viewMode, visibility),
+                        aspectRatio: '1 / 1',
+                      }}
+                    />
+                  ))
+                )}
+              </div>
+            )}
           </div>
 
           <div
