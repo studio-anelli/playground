@@ -53,6 +53,14 @@ export default function ASCIITypoMachine() {
   const [bg, setBg] = useState("#ffffff");
   const [charsetName, setCharsetName] = useState<keyof typeof CHARSETS>("Dense ▓");
 
+  useEffect(() => {
+    const colors = ["#ff4f2e", "#5b5cff", "#00a878", "#ed2f87", "#ffc400", "#0077ff", "#8e44ff", "#00b8d9"];
+    const next = colors[Math.floor(Math.random() * colors.length)];
+    const light = next === "#ffc400" || next === "#00b8d9";
+    setBg(next);
+    setFg(light ? "#0f0f10" : "#f2f2f2");
+  }, []);
+
   // Wave controls
   const [waveform, setWaveform] = useState<Waveform>("sine");
   const [direction, setDirection] = useState<"rows" | "cols">("rows");
@@ -314,11 +322,11 @@ export default function ASCIITypoMachine() {
   }, [lumGrid, period, charsetName, direction, ampChars]);
 
   return (
-    <div className="w-full min-h-screen bg-neutral-50 text-neutral-900 flex flex-col">
+    <div className="ui-rollout-engine ui-rollout-ascii w-full min-h-screen bg-neutral-50 text-neutral-900 flex flex-col">
       {/* Preview 1920×1080 */}
-      <div className="flex-1 w-full flex items-center justify-center p-4">
+      <div className="ui-rollout-stage flex-1 w-full flex items-center justify-center p-4">
         <div className="relative" style={{ width: 1920, height: 1080 }}>
-          <div className="absolute inset-0 overflow-auto rounded-2xl border" style={{ background: bg, color: fg }}>
+          <div className="ui-rollout-canvas absolute inset-0 overflow-auto rounded-2xl border" style={{ background: bg, color: fg }}>
             <pre
               className="font-mono whitespace-pre select-text p-4"
               style={{
@@ -332,8 +340,8 @@ export default function ASCIITypoMachine() {
       </div>
 
       {/* Controls */}
-      <div className="w-full border-t bg-white">
-        <div className="max-w-[1920px] mx-auto px-4 py-3 flex flex-wrap gap-4 items-center">
+      <div className="ui-rollout-panel w-full border-t bg-white">
+        <div className="ui-rollout-panel-body max-w-[1920px] mx-auto px-4 py-3 flex flex-wrap gap-4 items-center">
           <input
             className="flex-1 border rounded-lg px-3 py-2"
             placeholder="Type your text"

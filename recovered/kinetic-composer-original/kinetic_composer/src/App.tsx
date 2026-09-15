@@ -118,6 +118,12 @@ export default function KineticComposer() {
     return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
   const [respectReducedMotion, setRespect] = useState(true);
+  const [stageBackground, setStageBackground] = useState("#5b5cff");
+
+  useEffect(() => {
+    const colors = ["#ff4f2e", "#5b5cff", "#00a878", "#ed2f87", "#ffc400", "#0077ff", "#8e44ff", "#00b8d9"];
+    setStageBackground(colors[Math.floor(Math.random() * colors.length)]);
+  }, []);
 
   // Tabs
   const [tab, setTab] = useState("layers");
@@ -239,17 +245,17 @@ export default function KineticComposer() {
 
   return (
     <div
-      className="min-h-screen w-full flex flex-col items-center gap-4 p-6 bg-neutral-950 text-neutral-50"
+      className="ui-rollout-engine ui-rollout-composer min-h-screen w-full flex flex-col items-center gap-4 p-6 bg-neutral-950 text-neutral-50"
       style={{ fontFamily: sysSans }}
     >
       {/* Canvas (now real canvas, so we can record) */}
-      <StageCanvas items={renderItems} time={tRef.current} />
+      <StageCanvas items={renderItems} time={tRef.current} background={stageBackground} />
 
       {/* Tabs + Panels */}
-      <div className="w-full max-w-[1800px]">
+      <div className="ui-rollout-panel w-full max-w-[1800px]">
         <TabBar tab={tab} setTab={setTab} />
 
-        <div className="mt-3 rounded-2xl bg-white/5 ring-1 ring-white/10">
+        <div className="ui-rollout-panel-body mt-3 rounded-2xl bg-white/5 ring-1 ring-white/10">
           {tab === "layers" ? (
             <div className="p-3 overflow-y-auto" style={{ maxHeight: uiMaxH }}>
               <LayersPanel
@@ -276,7 +282,7 @@ export default function KineticComposer() {
             </div>
           ) : (
             <div className="p-3 overflow-y-auto" style={{ maxHeight: uiMaxH }}>
-              <RenderPanel items={renderItems} nowTime={tRef.current} />
+              <RenderPanel items={renderItems} nowTime={tRef.current} background={stageBackground} />
             </div>
           )}
         </div>
@@ -300,7 +306,7 @@ function TabBar({ tab, setTab }) {
     </button>
   );
   return (
-    <div role="tablist" aria-label="Panels" className="flex flex-wrap gap-2">
+    <div role="tablist" aria-label="Panels" className="ui-rollout-tabs flex flex-wrap gap-2">
       {btn("layers", "Layers")}
       {btn("controls", "Controls")}
       {btn("render", "Render")}
@@ -309,7 +315,7 @@ function TabBar({ tab, setTab }) {
 }
 
 /* ---------------- Stage (Canvas) ---------------- */
-function StageCanvas({ items, time }) {
+function StageCanvas({ items, time, background }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -319,13 +325,13 @@ function StageCanvas({ items, time }) {
     if (!ctx) return;
 
     // draw at 1:1 (CW/CH)
-    drawFrame(ctx, items, time, CW, CH);
-  }, [items, time]);
+    drawFrame(ctx, items, time, CW, CH, background);
+  }, [items, time, background]);
 
   return (
     <div
-      className="relative rounded-2xl shadow-2xl ring-1 ring-neutral-800 overflow-hidden"
-      style={{ width: CW, height: CH, background: "#0b0b0b" }}
+      className="ui-rollout-stage relative rounded-2xl shadow-2xl ring-1 ring-neutral-800 overflow-hidden"
+      style={{ width: CW, height: CH, background }}
       aria-label="Stage"
       role="img"
     >
@@ -335,13 +341,13 @@ function StageCanvas({ items, time }) {
   );
 }
 
-function drawFrame(ctx, items, time, w, h) {
+function drawFrame(ctx, items, time, w, h, background = "#0b0b0b") {
   // Background
   ctx.save();
   ctx.globalAlpha = 1;
   ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, w, h);
-  ctx.fillStyle = "#0b0b0b";
+  ctx.fillStyle = background;
   ctx.fillRect(0, 0, w, h);
   ctx.restore();
 
@@ -410,7 +416,7 @@ function drawTextItem(ctx, layer, clone, time, w, h) {
 }
 
 /* ---------------- Render Panel ---------------- */
-function RenderPanel({ items, nowTime }) {
+function RenderPanel({ items, nowTime, background }) {
   const exportCanvasRef = useRef(null);
   const recRef = useRef({
     recorder: null,
@@ -544,7 +550,7 @@ function RenderPanel({ items, nowTime }) {
     const tickFrame = () => {
       if (cancelled || !recRef.current.running) return;
       const t = startTime + frame / fps;
-      drawFrame(ctx, items, t, outW, outH);
+      drawFrame(ctx, items, t, outW, outH, background);
 
       frame++;
       if (frame >= totalFrames) {
@@ -649,12 +655,12 @@ function RenderPanel({ items, nowTime }) {
 function LayersPanel({ layers, setLayers, activeId, setActiveId, onDragStart, onDragOver, onDrop }) {
   return (
     <div>
-      <div className="flex items-center justify-between mb-3">
+      <div className="composer-layers-header flex items-center justify-between mb-3">
         <div>
           <div className="text-sm font-bold">Layers</div>
           <div className="text-xs opacity-70">Drag ≡ to reorder. Use Dup to copy.</div>
         </div>
-        <div className="flex gap-2">
+        <div className="composer-layer-add flex gap-2">
           <button onClick={() => addText(setLayers)} className="px-3 py-2 rounded bg-white text-black text-xs font-bold">
             + Text
           </button>
@@ -679,7 +685,7 @@ function LayersPanel({ layers, setLayers, activeId, setActiveId, onDragStart, on
             onDrop={onDrop(L.id)}
             className={`rounded-xl border p-2 ${activeId === L.id ? "border-white/50 bg-white/10" : "border-white/10 bg-white/5"}`}
           >
-            <div className="flex items-center gap-2">
+            <div className="composer-layer-row flex items-center gap-2">
               <button title="Drag to reorder" className="w-7 h-7 rounded bg-white/15 flex items-center justify-center text-xs">
                 ≡
               </button>
@@ -688,7 +694,7 @@ function LayersPanel({ layers, setLayers, activeId, setActiveId, onDragStart, on
                 onClick={() => toggleVisible(L.id, setLayers)}
                 aria-label="Toggle visibility"
               />
-              <div className="flex-1 min-w-0">
+              <div className="composer-layer-name flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] uppercase tracking-wide opacity-70 w-20">{L.type}</span>
                   <input
@@ -698,35 +704,37 @@ function LayersPanel({ layers, setLayers, activeId, setActiveId, onDragStart, on
                   />
                 </div>
               </div>
-              <button
-                className="px-3 py-2 rounded bg-white/10 hover:bg-white/15 text-xs font-bold"
-                onClick={() => setActiveId(L.id)}
-              >
-                Edit
-              </button>
-              <button
-                className="px-3 py-2 rounded bg-white/10 hover:bg-white/15 text-xs font-bold"
-                onClick={() => duplicateLayer(L.id, setLayers)}
-                aria-label="Duplicate"
-              >
-                Dup
-              </button>
-              <button
-                className={`px-3 py-2 rounded text-xs font-bold border ${
-                  L.locked ? "border-yellow-400/70 text-yellow-200" : "border-white/15 text-white/70"
-                }`}
-                onClick={() => toggleLocked(L.id, setLayers)}
-                aria-label="Toggle lock"
-              >
-                {L.locked ? "Locked" : "Lock"}
-              </button>
-              <button
-                className="px-3 py-2 rounded border border-red-400/70 text-red-200 hover:bg-red-500/10 text-xs font-bold"
-                onClick={() => removeLayer(L.id, setLayers, setActiveId)}
-                aria-label="Delete"
-              >
-                Del
-              </button>
+              <div className="composer-layer-actions">
+                <button
+                  className="px-3 py-2 rounded bg-white/10 hover:bg-white/15 text-xs font-bold"
+                  onClick={() => setActiveId(L.id)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="px-3 py-2 rounded bg-white/10 hover:bg-white/15 text-xs font-bold"
+                  onClick={() => duplicateLayer(L.id, setLayers)}
+                  aria-label="Duplicate"
+                >
+                  Dup
+                </button>
+                <button
+                  className={`px-3 py-2 rounded text-xs font-bold border ${
+                    L.locked ? "border-yellow-400/70 text-yellow-200" : "border-white/15 text-white/70"
+                  }`}
+                  onClick={() => toggleLocked(L.id, setLayers)}
+                  aria-label="Toggle lock"
+                >
+                  {L.locked ? "Locked" : "Lock"}
+                </button>
+                <button
+                  className="px-3 py-2 rounded border border-red-400/70 text-red-200 hover:bg-red-500/10 text-xs font-bold"
+                  onClick={() => removeLayer(L.id, setLayers, setActiveId)}
+                  aria-label="Delete"
+                >
+                  Del
+                </button>
+              </div>
             </div>
           </li>
         ))}

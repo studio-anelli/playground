@@ -147,6 +147,7 @@ function TabButton({
   return (
     <button
       onClick={onClick}
+      aria-pressed={active}
       className={
         "px-3 py-2 rounded-xl text-sm font-semibold transition whitespace-nowrap " +
         (active
@@ -404,6 +405,15 @@ export default function App() {
   const [txH, setTxH] = useState(0);
   const [txS, setTxS] = useState(0);
   const [txL, setTxL] = useState(100);
+
+  useEffect(() => {
+    const hues = [12, 155, 198, 238, 275, 330];
+    setBgH(hues[Math.floor(Math.random() * hues.length)]);
+    setBgS(82);
+    setBgL(42);
+    setTxS(8);
+    setTxL(96);
+  }, []);
 
   // Type
   const [text, setText] = useState("ANELLI");
@@ -1321,10 +1331,10 @@ export default function App() {
   }, [settings, isRecording, recFps]);
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="max-w-[1400px] mx-auto px-4 py-4">
+    <div className="ui-rollout-engine ui-rollout-distorter min-h-screen bg-black text-white">
+      <div className="ui-rollout-engine-inner max-w-[1400px] mx-auto px-4 py-4">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-3">
+        <div className="ui-rollout-bottom flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-3">
           <div className="flex items-center gap-3">
             <div className="text-lg font-extrabold tracking-tight">
               Particle Type Distorter
@@ -1371,8 +1381,8 @@ export default function App() {
         </div>
 
         {/* Canvas */}
-        <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
-          <div ref={containerRef} className="relative h-[54vh] min-h-[320px]">
+        <div className="ui-rollout-workspace rounded-2xl overflow-hidden border border-white/10 bg-white/5 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+          <div ref={containerRef} className="ui-rollout-stage relative h-[54vh] min-h-[320px]">
             <canvas ref={canvasRef} className="block w-full h-full" />
             <div className="absolute left-3 top-3 rounded-xl bg-black/60 border border-white/10 px-3 py-2 text-xs font-semibold text-white/80 backdrop-blur">
               Move your mouse over the canvas to distort.
@@ -1380,8 +1390,8 @@ export default function App() {
           </div>
 
           {/* Tabs */}
-          <div className="border-t border-white/10 bg-black/60 backdrop-blur">
-            <div className="flex items-center gap-2 px-3 py-3 overflow-x-auto">
+          <div className="ui-rollout-panel border-t border-white/10 bg-black/60 backdrop-blur">
+            <div className="ui-rollout-tabs flex items-center gap-2 px-3 py-3 overflow-x-auto">
               <TabButton active={tab === "noise"} onClick={() => setTab("noise")}>
                 Noise
               </TabButton>
@@ -1408,7 +1418,7 @@ export default function App() {
               </TabButton>
             </div>
 
-            <div className="px-4 pb-4">
+            <div className="ui-rollout-panel-body px-4 pb-4">
               {tab === "noise" && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div className="space-y-3">

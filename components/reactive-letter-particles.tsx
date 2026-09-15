@@ -448,6 +448,14 @@ export default function ReactiveLetterParticles() {
   const [textLit, setTextLit] = useState(100);
   const [textAlpha, setTextAlpha] = useState(0.08);
 
+  useEffect(() => {
+    const hues = [12, 155, 198, 238, 275, 330];
+    setBgHue(hues[Math.floor(Math.random() * hues.length)]);
+    setBgSat(82);
+    setBgLit(42);
+    setTextLit(96);
+  }, []);
+
   // Split-on-collision
   const [splitOnHit, setSplitOnHit] = useState(false);
   const [maxSplitsPerParticle, setMaxSplitsPerParticle] = useState(10);
@@ -913,6 +921,7 @@ export default function ReactiveLetterParticles() {
   const tabBtn = (id: typeof activeTab, label: string) => (
     <button
       key={id}
+      aria-pressed={activeTab === id}
       className={`rounded-xl border px-4 py-2 text-sm font-bold ${
         activeTab === id ? "border-white/60 bg-black/90" : "border-white/30 bg-black/80 hover:bg-black/80"
       }`}
@@ -923,12 +932,18 @@ export default function ReactiveLetterParticles() {
   );
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto p-4 text-white">
-      <div className="rounded-2xl border border-white/30 bg-black/30 p-3">
+    <div className="ui-rollout-engine ui-rollout-particles w-full max-w-[1400px] mx-auto p-4 text-white">
+      <div className="ui-rollout-stage rounded-2xl border border-white/30 bg-black/30 p-3">
         <canvas ref={canvasRef} className="block rounded-xl" />
       </div>
 
-      <div className="mt-3 flex items-center justify-between gap-3">
+      <div className="ui-rollout-bottom mt-3 flex items-center justify-between gap-3">
+        <input
+          className="ui-rollout-text-input"
+          value={text}
+          onChange={(event) => setText(event.target.value)}
+          aria-label="Particle source text"
+        />
         <div className="text-sm font-bold opacity-90">{status}</div>
         <div className="flex gap-2">
           <button
@@ -950,14 +965,14 @@ export default function ReactiveLetterParticles() {
       </div>
 
       {/* Tabs */}
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="ui-rollout-tabs mt-4 flex flex-wrap gap-2">
         {tabBtn("source", "Source")}
         {tabBtn("glyph", "Glyph + Shapes")}
         {tabBtn("colors", "Colors")}
         {tabBtn("interaction", "Interactions")}
       </div>
 
-      <div className="mt-3 rounded-2xl border border-white/30 bg-black/85 p-4 shadow-lg text-white">
+      <div className="ui-rollout-panel-body mt-3 rounded-2xl border border-white/30 bg-black/85 p-4 shadow-lg text-white">
         {activeTab === "source" && (
           <div className="flex flex-col gap-3">
             <div className="text-sm font-bold">Source</div>
@@ -1127,7 +1142,7 @@ export default function ReactiveLetterParticles() {
         )}
       </div>
 
-      <div className="mt-3 text-[10px] opacity-40 select-text">params: {JSON.stringify(params)}</div>
+      <div className="ui-rollout-debug mt-3 text-[10px] opacity-40 select-text">params: {JSON.stringify(params)}</div>
     </div>
   );
 }

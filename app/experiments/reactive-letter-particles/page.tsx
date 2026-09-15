@@ -1,26 +1,15 @@
-"use client";
-
-import { ArrowLeft } from "lucide-react";
 import ReactiveLetterParticles from "@/components/reactive-letter-particles";
+import UIV1ExperimentShell from "@/components/ui-v1-experiment-shell";
 
 export default function ReactiveLetterParticlesPage() {
   return (
-    <main className="import-page">
-      <header className="import-header import-header-native">
-        <a href="/" className="back-link">
-          <ArrowLeft aria-hidden="true" />
-          Index
-        </a>
-        <h1>Reactive Letter Particles</h1>
-        <span>REC-07 / Experiment / Test</span>
-      </header>
-
-      <section
-        className="experiment-native"
-        aria-label="Reactive Letter Particles interactive experiment"
-      >
-        <ReactiveLetterParticles />
-      </section>
-    </main>
+    <UIV1ExperimentShell
+      title="Reactive Letter Particles"
+      rec="007"
+      tags="Particles - Collision - Type - Interaction"
+      className="ui-rollout-rec07"
+    >
+      <ReactiveLetterParticles />
+    </UIV1ExperimentShell>
   );
 }
