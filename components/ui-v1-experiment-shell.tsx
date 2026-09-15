@@ -1,7 +1,7 @@
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
-import { useEffect, useState } from "react";
+import type { CSSProperties, PointerEvent as ReactPointerEvent, ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 
 const PALETTE = [
@@ -36,6 +36,9 @@ export default function UIV1ExperimentShell({
   children: ReactNode;
 }) {
   const [background, setBackground] = useState("#5b5cff");
+  const [controlsOpen, setControlsOpen] = useState(true);
+  const [panelOffset, setPanelOffset] = useState({ x: 0, y: 0 });
+  const dragRef = useRef<{ pointerId: number; x: number; y: number; originX: number; originY: number } | null>(null);
 
   useEffect(() => {
     const previous = window.sessionStorage.getItem("playground-vibrant-background");
@@ -50,6 +53,38 @@ export default function UIV1ExperimentShell({
     "--ui-v1-fg": readableInk(background),
   } as CSSProperties;
 
+  const panelStyle = {
+    "--ui-rollout-panel-x": `${panelOffset.x}px`,
+    "--ui-rollout-panel-y": `${panelOffset.y}px`,
+  } as CSSProperties;
+
+  const beginDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (window.matchMedia("(max-width: 760px)").matches) return;
+    dragRef.current = {
+      pointerId: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      originX: panelOffset.x,
+      originY: panelOffset.y,
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const moveDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    setPanelOffset({
+      x: Math.max(-(window.innerWidth - 340), Math.min(24, drag.originX + event.clientX - drag.x)),
+      y: Math.max(-64, Math.min(window.innerHeight - 260, drag.originY + event.clientY - drag.y)),
+    });
+  };
+
+  const endDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (dragRef.current?.pointerId !== event.pointerId) return;
+    dragRef.current = null;
+    event.currentTarget.releasePointerCapture(event.pointerId);
+  };
+
   return (
     <main className={`ui-v1-page ui-rollout-page ${className}`} style={style}>
       <header className="ui-v1-header">
@@ -63,7 +98,30 @@ export default function UIV1ExperimentShell({
           <span>{tags}</span>
         </div>
       </header>
-      <section className="ui-v1-experiment ui-rollout-experiment" aria-label={`${title} interactive experiment`}>
+      <div
+        className="ui-rollout-panel-handle"
+        style={panelStyle}
+        onPointerDown={beginDrag}
+        onPointerMove={moveDrag}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+      >
+        <span>Controls</span>
+        <span aria-hidden="true">≡</span>
+        <button
+          type="button"
+          aria-label={controlsOpen ? "Collapse controls" : "Open controls"}
+          onPointerDown={(event) => event.stopPropagation()}
+          onClick={() => setControlsOpen((open) => !open)}
+        >
+          {controlsOpen ? "×" : "+"}
+        </button>
+      </div>
+      <section
+        className={`ui-v1-experiment ui-rollout-experiment ${controlsOpen ? "controls-open" : "controls-closed"}`}
+        style={panelStyle}
+        aria-label={`${title} interactive experiment`}
+      >
         {children}
       </section>
     </main>
