@@ -63,16 +63,6 @@ export const experiments: Experiment[] = [
     summary: "An eight-track 8-bit drum machine with sequencing, swing and per-track crushers.",
   },
   {
-    id: "REC-04",
-    slug: "noise-built-type",
-    title: "Noise-Built Type",
-    kind: "experiment",
-    status: "test",
-    year: "2026",
-    tags: ["particle type", "noise", "interaction"],
-    summary: "A particle-built typographic field with noise modes and pointer forces.",
-  },
-  {
     id: "REC-03",
     slug: "font-drawing",
     title: "Font Drawing",
