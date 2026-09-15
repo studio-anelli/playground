@@ -733,7 +733,7 @@ export default function VariableFontBlockEditor() {
               <div className="text-black/50">Visibility</div>
               {[
                 ['letter', 'Letter mass'],
-                ['carving', 'Carving marks'],
+                ['carving', 'Carving'],
               ].map(([key, label]) => (
                 <label key={key} className="flex min-h-9 items-center justify-between border-b border-black/15">
                   <span>{label}</span>
