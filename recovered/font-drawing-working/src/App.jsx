@@ -9,6 +9,9 @@ const LAYOUT_STORAGE_KEY = 'variable-font-block-editor-layout-v1';
 const makeFullBlock = () =>
   Array.from({ length: GRID }, () => Array.from({ length: GRID }, () => 'letter'));
 
+const makeEmptyBlock = () =>
+  Array.from({ length: GRID }, () => Array.from({ length: GRID }, () => 'carving'));
+
 const cloneGrid = (grid) => grid.map((row) => [...row]);
 const makeGridSizes = () => Array.from({ length: GRID }, () => 1);
 const makeLetterLayout = () => ({ columnWidths: makeGridSizes(), rowHeights: makeGridSizes() });
@@ -517,6 +520,13 @@ export default function VariableFontBlockEditor() {
     }));
   };
 
+  const resetCurrentLetterToEmpty = () => {
+    setLettersData((prev) => ({
+      ...prev,
+      [currentLetter]: makeEmptyBlock(),
+    }));
+  };
+
   const resetAllLetters = () => {
     setLettersData(makeAlphabet());
     setSaveMessage('All letters reset');
@@ -853,6 +863,12 @@ export default function VariableFontBlockEditor() {
               className="rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
             >
               Reset current letter to full block
+            </button>
+            <button
+              onClick={resetCurrentLetterToEmpty}
+              className="rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
+            >
+              Reset current letter to empty
             </button>
             <button
               onClick={resetAllLetters}
