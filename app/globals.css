@@ -455,6 +455,7 @@ button, input { font: inherit; }
 .ui-rollout-distorter .ui-rollout-panel-body > div { grid-template-columns: 1fr !important; }
 .ui-rollout-distorter .ui-rollout-panel-body .lg\:grid-cols-3,
 .ui-rollout-distorter .ui-rollout-panel-body .md\:grid-cols-2 { grid-template-columns: 1fr !important; }
+.ui-rollout-distorter .ui-rollout-engine-inner > .mt-3.text-xs { display: none; }
 
 /* REC-06 */
 .ui-rollout-ascii .ui-rollout-stage > div {
@@ -485,6 +486,34 @@ button, input { font: inherit; }
 }
 .ui-rollout-composer .ui-rollout-stage canvas { width: 100% !important; height: 100% !important; }
 .ui-rollout-composer .ui-rollout-panel-body > div { max-height: calc(100dvh - 340px) !important; }
+.ui-rollout-composer .composer-layers-header {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.ui-rollout-composer .composer-layer-add {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+}
+.ui-rollout-composer .composer-layer-row {
+  display: grid !important;
+  grid-template-columns: 28px 28px minmax(0, 1fr);
+  align-items: center;
+}
+.ui-rollout-composer .composer-layer-name { min-width: 0; }
+.ui-rollout-composer .composer-layer-name > div {
+  display: grid !important;
+  grid-template-columns: 50px minmax(0, 1fr);
+}
+.ui-rollout-composer .composer-layer-name span { width: auto !important; }
+.ui-rollout-composer .composer-layer-name input { min-width: 0; width: 100%; }
+.ui-rollout-composer .composer-layer-actions {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+.ui-rollout-composer .composer-layer-actions button { min-width: 0; padding: 7px 3px !important; }
 
 @media (max-width: 760px) {
   .ui-rollout-stage { inset: 70px 12px 160px !important; }
