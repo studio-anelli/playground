@@ -19,6 +19,8 @@ type Waveform = "sine" | "square";
 
 type EdgeMode = "clamp" | "wrap" | "mirror";
 
+type SourceMode = "type" | "image";
+
 type FontPresetKey = "System Sans" | "System Serif" | "System Mono" | "UI Sans" | "UI Rounded";
 
 const FONT_PRESETS: Record<FontPresetKey, string> = {
@@ -39,6 +41,13 @@ const CHARSETS: Record<string, string> = {
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 
 export default function ASCIITypoMachine() {
+  // Source
+  const [sourceMode, setSourceMode] = useState<SourceMode>("type");
+  const [sourceImage, setSourceImage] = useState<HTMLImageElement | null>(null);
+  const [sourceImageName, setSourceImageName] = useState("");
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const imageInputRef = useRef<HTMLInputElement | null>(null);
+
   // Text + font
   const [text, setText] = useState("ASCII Machine");
   const [fontPreset, setFontPreset] = useState<FontPresetKey>("System Sans");
@@ -98,14 +107,24 @@ export default function ASCIITypoMachine() {
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, W, H);
 
-    const fontSize = fitFontSize(ctx, text || " ", fontPreset, bold, italic, W, H);
-    const fontStr = `${italic ? "italic " : ""}${bold ? "bold " : ""}${fontSize}px ${FONT_PRESETS[fontPreset]}`;
-    ctx.font = fontStr;
-    ctx.textBaseline = "middle";
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#000000";
-    // Draw centered
-    ctx.fillText(text || " ", W / 2, H / 2);
+    if (sourceMode === "image" && sourceImage) {
+      const imageWidth = Math.max(1, sourceImage.naturalWidth);
+      const imageHeight = Math.max(1, sourceImage.naturalHeight);
+      const fit = Math.min(W / imageWidth, H / imageHeight);
+      const drawWidth = imageWidth * fit;
+      const drawHeight = imageHeight * fit;
+      const drawX = (W - drawWidth) / 2;
+      const drawY = (H - drawHeight) / 2;
+      ctx.drawImage(sourceImage, drawX, drawY, drawWidth, drawHeight);
+    } else {
+      const fontSize = fitFontSize(ctx, text || " ", fontPreset, bold, italic, W, H);
+      const fontStr = `${italic ? "italic " : ""}${bold ? "bold " : ""}${fontSize}px ${FONT_PRESETS[fontPreset]}`;
+      ctx.font = fontStr;
+      ctx.textBaseline = "middle";
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#000000";
+      ctx.fillText(text || " ", W / 2, H / 2);
+    }
 
     // Downsample to grid luminance
     const img = ctx.getImageData(0, 0, W, H).data;
@@ -124,7 +143,7 @@ export default function ASCIITypoMachine() {
       grid.push(rowArr);
     }
     return grid;
-  }, [cols, rows, text, fontPreset, bold, italic]);
+  }, [cols, rows, sourceMode, sourceImage, text, fontPreset, bold, italic]);
 
   // Fit a font size to the offscreen canvas dimensions
   function fitFontSize(
@@ -227,6 +246,36 @@ export default function ASCIITypoMachine() {
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); rafRef.current = null; t0Ref.current = null; };
   }, [lumGrid, speedHz, renderASCII]);
 
+  const handleImageFile = (files: FileList | null) => {
+    if (!files?.length) return;
+    const file = files[0];
+    const fileName = file.name.toLowerCase();
+
+    if (!file.type.startsWith("image/")) {
+      setUploadError("Choose a PNG, JPEG or WebP image.");
+      return;
+    }
+    if (fileName.endsWith(".heic") || fileName.endsWith(".heif")) {
+      setUploadError("HEIC/HEIF is not supported. Convert it to PNG or JPEG first.");
+      return;
+    }
+
+    setUploadError(null);
+    const reader = new FileReader();
+    reader.onerror = () => setUploadError("The image could not be read. Try another file.");
+    reader.onload = () => {
+      const image = new Image();
+      image.onerror = () => setUploadError("The image could not be decoded. Try PNG, JPEG or WebP.");
+      image.onload = () => {
+        setSourceImage(image);
+        setSourceImageName(file.name);
+        setSourceMode("image");
+      };
+      image.src = String(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
   // Actions
   const handleCopy = async () => { if (!asciiText) return; await navigator.clipboard.writeText(asciiText); alert("ASCII copied to clipboard."); };
   const handleDownload = () => {
@@ -326,7 +375,7 @@ export default function ASCIITypoMachine() {
                 lineHeight: lineHt,
                 fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
               }}
-            >{asciiText || "Type below to render in ASCII…"}</pre>
+            >{asciiText || (sourceMode === "image" ? "Upload an image below to render in ASCII…" : "Type below to render in ASCII…")}</pre>
           </div>
         </div>
       </div>
@@ -334,20 +383,67 @@ export default function ASCIITypoMachine() {
       {/* Controls */}
       <div className="w-full border-t bg-white">
         <div className="max-w-[1920px] mx-auto px-4 py-3 flex flex-wrap gap-4 items-center">
-          <input
-            className="flex-1 border rounded-lg px-3 py-2"
-            placeholder="Type your text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          />
+          <div className="inline-flex rounded-lg border border-neutral-300 p-1">
+            <button
+              type="button"
+              className={`rounded-md px-3 py-1.5 text-sm ${sourceMode === "type" ? "bg-neutral-900 text-white" : "hover:bg-neutral-100"}`}
+              onClick={() => setSourceMode("type")}
+            >
+              Type
+            </button>
+            <button
+              type="button"
+              className={`rounded-md px-3 py-1.5 text-sm ${sourceMode === "image" ? "bg-neutral-900 text-white" : "hover:bg-neutral-100"}`}
+              onClick={() => {
+                if (sourceImage) setSourceMode("image");
+                else imageInputRef.current?.click();
+              }}
+            >
+              Image
+            </button>
+          </div>
 
-          <label className="text-sm">Font
-            <select className="ml-2 border rounded-lg px-2 py-1" value={fontPreset} onChange={(e) => setFontPreset(e.target.value as FontPresetKey)}>
-              {(Object.keys(FONT_PRESETS) as FontPresetKey[]).map(k => <option key={k} value={k}>{k}</option>)}
-            </select>
-          </label>
-          <label className="text-sm inline-flex items-center gap-2"><input type="checkbox" checked={bold} onChange={(e) => setBold(e.target.checked)} /> Bold</label>
-          <label className="text-sm inline-flex items-center gap-2"><input type="checkbox" checked={italic} onChange={(e) => setItalic(e.target.checked)} /> Italic</label>
+          {sourceMode === "type" ? (
+            <>
+              <input
+                className="min-w-[240px] flex-1 border rounded-lg px-3 py-2"
+                placeholder="Type your text"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+              />
+              <label className="text-sm">Font
+                <select className="ml-2 border rounded-lg px-2 py-1" value={fontPreset} onChange={(e) => setFontPreset(e.target.value as FontPresetKey)}>
+                  {(Object.keys(FONT_PRESETS) as FontPresetKey[]).map(k => <option key={k} value={k}>{k}</option>)}
+                </select>
+              </label>
+              <label className="text-sm inline-flex items-center gap-2"><input type="checkbox" checked={bold} onChange={(e) => setBold(e.target.checked)} /> Bold</label>
+              <label className="text-sm inline-flex items-center gap-2"><input type="checkbox" checked={italic} onChange={(e) => setItalic(e.target.checked)} /> Italic</label>
+            </>
+          ) : (
+            <div className="flex min-w-[260px] flex-1 items-center gap-3">
+              <button
+                type="button"
+                className="rounded-lg border border-neutral-300 px-3 py-2 text-sm hover:bg-neutral-100"
+                onClick={() => imageInputRef.current?.click()}
+              >
+                {sourceImage ? "Replace image" : "Upload image"}
+              </button>
+              <span className="truncate text-sm text-neutral-600">
+                {sourceImageName || "PNG, JPEG or WebP"}
+              </span>
+              {uploadError && <span className="text-sm text-red-700">{uploadError}</span>}
+            </div>
+          )}
+          <input
+            ref={imageInputRef}
+            type="file"
+            accept="image/png,image/jpeg,image/webp"
+            className="sr-only"
+            onChange={(e) => {
+              handleImageFile(e.target.files);
+              e.target.value = "";
+            }}
+          />
 
           <div className="h-6 w-px bg-neutral-200" />
           <label className="text-sm">Cols
