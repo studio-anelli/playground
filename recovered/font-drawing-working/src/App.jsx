@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Eraser, Pencil } from 'lucide-react';
 
 const GRID = 24;
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
@@ -10,7 +11,7 @@ const makeFullBlock = () =>
   Array.from({ length: GRID }, () => Array.from({ length: GRID }, () => 'letter'));
 
 const makeEmptyBlock = () =>
-  Array.from({ length: GRID }, () => Array.from({ length: GRID }, () => 'carving'));
+  Array.from({ length: GRID }, () => Array.from({ length: GRID }, () => 'empty'));
 
 const cloneGrid = (grid) => grid.map((row) => [...row]);
 const makeGridSizes = () => Array.from({ length: GRID }, () => 1);
@@ -194,12 +195,12 @@ function SmoothGridPreview({
   className = '',
   style,
 }) {
-  const openingPath = useMemo(
-    () => getRoundedCellPath(grid, new Set(['carving', 'portal']), columnWidths, rowHeights),
+  const letterPath = useMemo(
+    () => getRoundedCellPath(grid, new Set(['letter']), columnWidths, rowHeights),
     [columnWidths, grid, rowHeights]
   );
   const background = viewMode === 'bw' ? '#ffffff' : '#f3f4f6';
-  const baseFill = visibility.letter ? cellStyleMap[viewMode].letter : background;
+  const letterFill = visibility.letter ? cellStyleMap[viewMode].letter : background;
   const width = sumGridSizes(columnWidths);
   const height = sumGridSizes(rowHeights);
 
@@ -212,31 +213,33 @@ function SmoothGridPreview({
       aria-label="Smoothed grid preview"
       role="img"
     >
-      <rect width={width} height={height} fill={baseFill} />
+      <rect width={width} height={height} fill={background} />
       <path
-        d={openingPath}
-        fill={visibility.carving ? cellStyleMap[viewMode].carving : background}
+        d={letterPath}
+        fill={letterFill}
         fillRule="evenodd"
       />
     </svg>
   );
 }
 
-const makeAlphabet = () => Object.fromEntries(LETTERS.map((letter) => [letter, makeFullBlock()]));
+const makeAlphabet = () => Object.fromEntries(LETTERS.map((letter) => [letter, makeEmptyBlock()]));
 
-const isValidCell = (cell) => ['letter', 'carving', 'portal'].includes(cell);
+const isValidCell = (cell) => ['empty', 'letter', 'carving', 'portal'].includes(cell);
 const isCarvingCell = (cell) => cell === 'carving' || cell === 'portal';
 
 const getDisplayGrid = (grid, gridSize) => {
   const scale = GRID / gridSize;
   return Array.from({ length: gridSize }, (_, displayY) =>
     Array.from({ length: gridSize }, (_, displayX) => {
+      let hasCarving = false;
       for (let y = displayY * scale; y < (displayY + 1) * scale; y += 1) {
         for (let x = displayX * scale; x < (displayX + 1) * scale; x += 1) {
-          if (isCarvingCell(grid[y][x])) return 'carving';
+          if (grid[y][x] === 'letter') return 'letter';
+          if (isCarvingCell(grid[y][x])) hasCarving = true;
         }
       }
-      return 'letter';
+      return hasCarving ? 'carving' : 'empty';
     })
   );
 };
@@ -366,7 +369,7 @@ export default function VariableFontBlockEditor() {
   const strokeRef = useRef(null);
   const resizeRef = useRef(null);
   const [currentLetter, setCurrentLetter] = useState('A');
-  const [tool, setTool] = useState('carving');
+  const [tool, setTool] = useState('drawing');
   const [viewMode, setViewMode] = useState('color');
   const [lettersData, setLettersData] = useState(loadSavedAlphabet);
   const [visibility, setVisibility] = useState({
@@ -440,6 +443,8 @@ export default function VariableFontBlockEditor() {
         for (let y = displayY * scale; y < (displayY + 1) * scale; y += 1) {
           for (let x = displayX * scale; x < (displayX + 1) * scale; x += 1) {
             const current = nextGrid[y][x];
+
+            if (paintValue === 'carving' && current !== 'letter') continue;
 
             if (paintValue !== current) {
               nextGrid[y][x] = paintValue;
@@ -691,381 +696,284 @@ export default function VariableFontBlockEditor() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-100 text-neutral-900 p-6 md:p-8">
-      <div className="max-w-7xl mx-auto grid gap-6 lg:grid-cols-[320px_1fr]">
-        <aside className="bg-white rounded-3xl shadow-sm border border-neutral-200 p-5 space-y-5 h-fit">
-          <div>
-            <div className="text-xs uppercase tracking-[0.2em] text-neutral-500 mb-2">Variable font block editor</div>
-            <h1 className="text-2xl font-semibold leading-tight">Grid letter drawing tool</h1>
-            <p className="text-sm text-neutral-600 mt-2">
-              Each letter starts as a full block. Draw continuous carving strokes to shape it.
-            </p>
-            <div className="mt-3 inline-flex items-center rounded-full border border-neutral-300 bg-neutral-50 px-3 py-1 text-xs text-neutral-600">
-              {saveMessage}
-            </div>
+    <div className="min-h-full bg-[#f4f1eb] px-4 pb-4 pt-[70px] text-[#121212] md:px-5 md:pb-5">
+      <div className="grid min-h-[calc(100dvh-90px)] gap-3 lg:grid-cols-[220px_minmax(0,1fr)_280px] xl:grid-cols-[260px_minmax(0,1fr)_320px]">
+        <aside className="border border-black/20 bg-white/35 p-4 font-mono text-[11px] uppercase">
+          <div className="mb-7 flex items-center justify-between border-b border-black/20 pb-2">
+            <span>Other options</span>
+            <span className="normal-case text-black/45">{saveMessage}</span>
           </div>
 
-          <div className="space-y-2">
-            <div className="text-sm font-medium">Current letter</div>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => goToLetter(-1)}
-                className="px-3 py-2 rounded-2xl border border-neutral-300 hover:bg-neutral-50"
-              >
-                ←
-              </button>
-              <div className="flex-1 rounded-2xl border border-neutral-300 bg-neutral-50 px-4 py-3 text-center text-3xl font-semibold">
-                {currentLetter}
+          <div className="space-y-6">
+            <section className="space-y-2">
+              <div className="text-black/50">View</div>
+              <div className="grid grid-cols-2 gap-1">
+                {[
+                  { id: 'bw', label: 'B / W' },
+                  { id: 'color', label: 'Colour' },
+                ].map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setViewMode(item.id)}
+                    aria-pressed={viewMode === item.id}
+                    className={`min-h-9 border px-2 transition ${
+                      viewMode === item.id
+                        ? 'border-black bg-black text-white'
+                        : 'border-black/25 bg-transparent hover:border-black'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
               </div>
-              <button
-                onClick={() => goToLetter(1)}
-                className="px-3 py-2 rounded-2xl border border-neutral-300 hover:bg-neutral-50"
-              >
-                →
-              </button>
-            </div>
-            <div className="grid grid-cols-6 gap-2 pt-1">
-              {LETTERS.map((letter) => (
-                <button
-                  key={letter}
-                  onClick={() => setCurrentLetter(letter)}
-                  className={`rounded-xl px-2 py-2 text-sm border transition ${
-                    currentLetter === letter
-                      ? 'bg-black text-white border-black'
-                      : 'bg-white border-neutral-300 hover:bg-neutral-50'
-                  }`}
-                >
-                  {letter}
-                </button>
-              ))}
-            </div>
-          </div>
+            </section>
 
-          <div className="space-y-2">
-            <div className="text-sm font-medium">Mode</div>
-            <div className="grid grid-cols-2 gap-2">
+            <section className="space-y-2">
+              <div className="text-black/50">Visibility</div>
               {[
-                ['drawing', 'Drawing'],
-                ['carving', 'Carving'],
-              ].map(([mode, label]) => (
+                ['letter', 'Letter mass'],
+                ['carving', 'Carving marks'],
+              ].map(([key, label]) => (
+                <label key={key} className="flex min-h-9 items-center justify-between border-b border-black/15">
+                  <span>{label}</span>
+                  <input
+                    type="checkbox"
+                    checked={visibility[key]}
+                    onChange={() => setVisibility((previous) => ({ ...previous, [key]: !previous[key] }))}
+                    className="h-3.5 w-3.5 accent-black"
+                  />
+                </label>
+              ))}
+              <label className="flex min-h-9 items-center justify-between border-b border-black/15">
+                <span>Grid lines</span>
+                <input
+                  type="checkbox"
+                  checked={showGrid}
+                  onChange={() => setShowGrid((previous) => !previous)}
+                  className="h-3.5 w-3.5 accent-black"
+                />
+              </label>
+            </section>
+
+            <section className="space-y-1">
+              <div className="mb-2 text-black/50">Current letter</div>
+              {[
+                [resetGridSizes, 'Reset proportions'],
+                [resetCurrentLetterToEmpty, 'Reset to empty'],
+                [resetCurrentLetter, 'Reset to full block'],
+              ].map(([action, label]) => (
                 <button
-                  key={mode}
+                  key={label}
                   type="button"
-                  onClick={() => setTool(mode)}
-                  aria-pressed={tool === mode}
-                  className={`rounded-2xl border px-4 py-3 text-sm font-medium transition ${
-                    tool === mode
-                      ? 'border-black bg-black text-white'
-                      : 'border-neutral-300 bg-white hover:bg-neutral-50'
-                  }`}
+                  onClick={action}
+                  className="w-full border border-black/25 px-3 py-2 text-left hover:border-black hover:bg-white"
                 >
                   {label}
                 </button>
               ))}
-            </div>
-            <p className="text-xs text-neutral-500">
-              Drawing restores the letter mass. Carving cuts into it.
-            </p>
-          </div>
+              <button
+                type="button"
+                onClick={resetAllLetters}
+                className="mt-3 w-full border border-black/25 px-3 py-2 text-left hover:border-black hover:bg-white"
+              >
+                Reset all to empty
+              </button>
+            </section>
 
-          <div className="space-y-2">
-            <div className="text-sm font-medium">View switcher</div>
-            <div className="grid grid-cols-2 gap-2">
+            <section className="space-y-1">
+              <div className="mb-2 text-black/50">Save / load</div>
+              <button type="button" onClick={exportAlphabet} className="w-full border border-black/25 px-3 py-2 text-left hover:border-black hover:bg-white">Export JSON</button>
+              <button type="button" onClick={() => fileInputRef.current?.click()} className="w-full border border-black/25 px-3 py-2 text-left hover:border-black hover:bg-white">Import JSON</button>
+              <button type="button" onClick={restoreBackup} className="w-full border border-black/25 px-3 py-2 text-left hover:border-black hover:bg-white">Restore backup</button>
+              <button type="button" onClick={clearLocalSave} className="w-full border border-black/25 px-3 py-2 text-left hover:border-black hover:bg-white">Clear local save</button>
+              <input ref={fileInputRef} type="file" accept="application/json,.json" onChange={importAlphabet} className="hidden" />
+            </section>
+          </div>
+        </aside>
+
+        <main className="flex min-w-0 flex-col border border-black/20 bg-white/35 p-3 md:p-4">
+          <div className="mb-3 flex min-h-10 items-center justify-between gap-4 font-mono text-[11px] uppercase">
+            <div className="flex items-center gap-1">
               {[
-                { id: 'bw', label: 'Black / White' },
-                { id: 'color', label: 'Color' },
-              ].map((item) => (
+                ['drawing', 'Draw', Pencil],
+                ['carving', 'Carve', Eraser],
+              ].map(([mode, label, Icon]) => (
                 <button
-                  key={item.id}
-                  onClick={() => setViewMode(item.id)}
-                  className={`rounded-2xl px-4 py-3 border text-sm font-medium transition ${
-                    viewMode === item.id
-                      ? 'bg-black text-white border-black'
-                      : 'bg-white border-neutral-300 hover:bg-neutral-50'
+                  key={mode}
+                  type="button"
+                  title={label}
+                  aria-label={label}
+                  aria-pressed={tool === mode}
+                  onClick={() => setTool(mode)}
+                  className={`flex h-10 w-10 items-center justify-center border transition ${
+                    tool === mode ? 'border-black bg-black text-white' : 'border-black/25 bg-transparent hover:border-black'
                   }`}
                 >
-                  {item.label}
+                  <Icon aria-hidden="true" className="h-4 w-4" strokeWidth={1.6} />
                 </button>
               ))}
+              <span className="ml-2 text-black/50">{tool === 'drawing' ? 'Draw' : 'Carve'} / {currentLetter}</span>
             </div>
-          </div>
 
-          <div className="space-y-2">
-            <div className="text-sm font-medium">Visibility</div>
-            <div className="space-y-2">
-              {[
-                ['letter', 'Letter / grey'],
-                ['carving', 'Carving / red'],
-              ].map(([key, label]) => (
-                <label
-                  key={key}
-                  className="flex items-center justify-between rounded-2xl border border-neutral-300 px-4 py-3 bg-white"
-                >
-                  <span className="text-sm">{label}</span>
-                  <input
-                    type="checkbox"
-                    checked={visibility[key]}
-                    onChange={() =>
-                      setVisibility((prev) => ({
-                        ...prev,
-                        [key]: !prev[key],
-                      }))
-                    }
-                    className="h-4 w-4"
-                  />
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <div className="text-sm font-medium">Grid</div>
-            <div className="grid grid-cols-2 gap-2">
-              {[24, 12].map((size) => (
+            <div className="flex items-center gap-1">
+              {[12, 24].map((size) => (
                 <button
                   key={size}
                   type="button"
                   onClick={() => setGridSize(size)}
                   aria-pressed={gridSize === size}
-                  className={`rounded-2xl border px-4 py-3 text-sm font-medium transition ${
-                    gridSize === size
-                      ? 'border-black bg-black text-white'
-                      : 'border-neutral-300 bg-white hover:bg-neutral-50'
+                  className={`h-10 border px-3 transition ${
+                    gridSize === size ? 'border-black bg-black text-white' : 'border-black/25 bg-transparent hover:border-black'
                   }`}
                 >
                   {size} × {size}
                 </button>
               ))}
             </div>
-            <label className="flex items-center justify-between rounded-2xl border border-neutral-300 px-4 py-3 bg-white">
-              <span className="text-sm">Show grid lines</span>
-              <input
-                type="checkbox"
-                checked={showGrid}
-                onChange={() => setShowGrid((prev) => !prev)}
-                className="h-4 w-4"
-              />
-            </label>
-            <p className="text-xs text-neutral-500">
-              Drag the handles to resize rows and columns for the current letter.
-            </p>
-            <button
-              onClick={resetGridSizes}
-              className="w-full rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
-            >
-              Reset current letter proportions
-            </button>
           </div>
 
-          <div className="grid grid-cols-1 gap-2 pt-2">
-            <button
-              onClick={resetCurrentLetter}
-              className="rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
-            >
-              Reset current letter to full block
-            </button>
-            <button
-              onClick={resetCurrentLetterToEmpty}
-              className="rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
-            >
-              Reset current letter to empty
-            </button>
-            <button
-              onClick={resetAllLetters}
-              className="rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
-            >
-              Reset all letters
-            </button>
-          </div>
-
-          <div className="space-y-2 pt-1">
-            <div className="text-sm font-medium">Save / load</div>
-            <button
-              onClick={exportAlphabet}
-              className="w-full rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
-            >
-              Export JSON
-            </button>
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              className="w-full rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
-            >
-              Import JSON
-            </button>
-            <button
-              onClick={restoreBackup}
-              className="w-full rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
-            >
-              Restore backup
-            </button>
-            <button
-              onClick={clearLocalSave}
-              className="w-full rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
-            >
-              Clear local save
-            </button>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="application/json,.json"
-              onChange={importAlphabet}
-              className="hidden"
-            />
-          </div>
-        </aside>
-
-        <main className="min-w-0 bg-white rounded-3xl shadow-sm border border-neutral-200 p-5 md:p-6">
-          <div className="mb-6">
-            <div className="text-xs uppercase tracking-[0.2em] text-neutral-500 mb-2">Preview strip</div>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(56px,1fr))] gap-2">
-              {LETTERS.map((letter) => (
-                <button
-                  key={letter}
-                  onClick={() => setCurrentLetter(letter)}
-                  className={`min-w-0 rounded-xl border p-1.5 transition ${
-                    currentLetter === letter
-                      ? 'border-black bg-black text-white'
-                      : 'border-neutral-200 bg-neutral-50 hover:bg-white'
-                  }`}
-                >
-                  <SmoothGridPreview
-                    grid={lettersData[letter]}
-                    viewMode={viewMode}
-                    visibility={visibility}
-                    columnWidths={layoutData[letter].columnWidths}
-                    rowHeights={layoutData[letter].rowHeights}
-                    className="block w-full rounded-md overflow-hidden"
-                    style={{ aspectRatio: '1 / 1' }}
-                  />
-                  <div className="mt-2 text-center text-xs font-medium">{letter}</div>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex items-start justify-between gap-4 mb-5">
-            <div>
-              <div className="text-xs uppercase tracking-[0.2em] text-neutral-500 mb-2">Editor</div>
-              <div className="text-lg font-medium">
-                Drawing letter <span className="font-semibold">{currentLetter}</span>
-              </div>
-            </div>
-            <div className="text-sm text-neutral-500">
-              {gridSize} × {gridSize} grid
-            </div>
-          </div>
-
-          <div className="mb-5 rounded-2xl border border-neutral-200 bg-neutral-50 p-4">
-            <div className="text-xs uppercase tracking-[0.16em] text-neutral-500 mb-3">Smooth preview</div>
-            <SmoothGridPreview
-              grid={grid}
-              viewMode={viewMode}
-              visibility={visibility}
-              columnWidths={columnWidths}
-              rowHeights={rowHeights}
-              className="block rounded-2xl overflow-hidden"
-              style={{ width: 'min(32vw, 280px)', aspectRatio: '1 / 1' }}
-            />
-          </div>
-
-          <div
-            className="inline-grid gap-1 select-none"
-            style={{
-              gridTemplateColumns: '16px minmax(0, 1fr)',
-              gridTemplateRows: '16px minmax(0, 1fr)',
-              width: 'min(88vw, 860px)',
-            }}
-          >
-            <div aria-hidden="true" />
-
-            <div className="grid h-4" style={{ gridTemplateColumns: columnTemplate }}>
-              {displayColumnWidths.map((width, index) => (
-                <button
-                  key={`column-handle-${index}`}
-                  type="button"
-                  role="slider"
-                  aria-label={`Column ${index + 1} width`}
-                  aria-valuemin={0.2 * (GRID / gridSize)}
-                  aria-valuemax={4 * (GRID / gridSize)}
-                  aria-valuenow={Number(width.toFixed(2))}
-                  className="group flex min-w-0 cursor-col-resize items-center justify-center touch-none"
-                  onPointerDown={(event) => startGridResize(event, 'column', index)}
-                  onPointerMove={continueGridResize}
-                  onPointerUp={endGridResize}
-                  onPointerCancel={endGridResize}
-                  onKeyDown={(event) => handleGridSizeKey(event, 'column', index)}
-                >
-                  <span className="h-2.5 w-px bg-neutral-400 transition group-hover:h-4 group-hover:bg-black" />
-                </button>
-              ))}
-            </div>
-
-            <div className="grid w-4" style={{ gridTemplateRows: rowTemplate }}>
-              {displayRowHeights.map((height, index) => (
-                <button
-                  key={`row-handle-${index}`}
-                  type="button"
-                  role="slider"
-                  aria-label={`Row ${index + 1} height`}
-                  aria-valuemin={0.2 * (GRID / gridSize)}
-                  aria-valuemax={4 * (GRID / gridSize)}
-                  aria-valuenow={Number(height.toFixed(2))}
-                  className="group flex min-h-0 cursor-row-resize items-center justify-center touch-none"
-                  onPointerDown={(event) => startGridResize(event, 'row', index)}
-                  onPointerMove={continueGridResize}
-                  onPointerUp={endGridResize}
-                  onPointerCancel={endGridResize}
-                  onKeyDown={(event) => handleGridSizeKey(event, 'row', index)}
-                >
-                  <span className="h-px w-2.5 bg-neutral-400 transition group-hover:w-4 group-hover:bg-black" />
-                </button>
-              ))}
-            </div>
-
+          <div className="flex flex-1 items-center justify-center overflow-hidden border border-black/20 bg-white p-3 md:p-5">
             <div
-              ref={drawingGridRef}
-              className={`grid rounded-2xl select-none ${showGrid ? 'gap-[1px] bg-neutral-300 p-[1px]' : 'gap-0 bg-transparent p-0'}`}
+              className="grid w-full max-w-[900px] select-none gap-1"
               style={{
-                gridTemplateColumns: columnTemplate,
-                gridTemplateRows: rowTemplate,
+                gridTemplateColumns: '18px minmax(0, 1fr)',
+                gridTemplateRows: '18px minmax(0, 1fr)',
+                maxHeight: 'calc(100dvh - 170px)',
                 aspectRatio: '1 / 1',
-                touchAction: 'none',
               }}
-              onPointerDown={startStroke}
-              onPointerMove={continueStroke}
-              onPointerUp={endStroke}
-              onPointerCancel={endStroke}
             >
-              {displayGrid.map((row, y) =>
-                row.map((cell, x) => (
-                  <button
-                    key={`${x}-${y}`}
-                    type="button"
-                    onClick={(event) => {
-                      if (event.detail !== 0) return;
-                      paintCells([{ x, y }]);
-                    }}
-                    className="h-full min-h-0 w-full min-w-0"
-                    style={{ background: getVisibleColor(cell, viewMode, visibility) }}
-                    aria-label={`Cell ${x + 1}, ${y + 1}, ${isCarvingCell(cell) ? 'carving' : 'letter'}`}
-                    aria-pressed={isCarvingCell(cell)}
-                  />
-                ))
-              )}
-            </div>
-          </div>
+              <div aria-hidden="true" />
 
-          <div className="mt-5 grid sm:grid-cols-2 gap-3 text-sm">
-            <div className="rounded-2xl border border-neutral-200 p-3 bg-neutral-50">
-              <div className="font-medium mb-1">Grey / letter</div>
-              <div className="text-neutral-600">Base mass of the glyph, stored on the underlying 24×24 grid.</div>
-            </div>
-            <div className="rounded-2xl border border-neutral-200 p-3 bg-neutral-50">
-              <div className="font-medium mb-1">Red / carving</div>
-              <div className="text-neutral-600">Subtractive cuts inside the block.</div>
+              <div className="grid h-[18px]" style={{ gridTemplateColumns: columnTemplate }}>
+                {displayColumnWidths.map((width, index) => (
+                  <button
+                    key={`column-handle-${index}`}
+                    type="button"
+                    role="slider"
+                    aria-label={`Column ${index + 1} width`}
+                    aria-valuemin={0.2 * (GRID / gridSize)}
+                    aria-valuemax={4 * (GRID / gridSize)}
+                    aria-valuenow={Number(width.toFixed(2))}
+                    className="group flex min-w-0 cursor-col-resize items-center justify-center touch-none"
+                    onPointerDown={(event) => startGridResize(event, 'column', index)}
+                    onPointerMove={continueGridResize}
+                    onPointerUp={endGridResize}
+                    onPointerCancel={endGridResize}
+                    onKeyDown={(event) => handleGridSizeKey(event, 'column', index)}
+                  >
+                    <span className="h-2.5 w-px bg-black/35 transition group-hover:h-[18px] group-hover:bg-black" />
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid w-[18px]" style={{ gridTemplateRows: rowTemplate }}>
+                {displayRowHeights.map((height, index) => (
+                  <button
+                    key={`row-handle-${index}`}
+                    type="button"
+                    role="slider"
+                    aria-label={`Row ${index + 1} height`}
+                    aria-valuemin={0.2 * (GRID / gridSize)}
+                    aria-valuemax={4 * (GRID / gridSize)}
+                    aria-valuenow={Number(height.toFixed(2))}
+                    className="group flex min-h-0 cursor-row-resize items-center justify-center touch-none"
+                    onPointerDown={(event) => startGridResize(event, 'row', index)}
+                    onPointerMove={continueGridResize}
+                    onPointerUp={endGridResize}
+                    onPointerCancel={endGridResize}
+                    onKeyDown={(event) => handleGridSizeKey(event, 'row', index)}
+                  >
+                    <span className="h-px w-2.5 bg-black/35 transition group-hover:w-[18px] group-hover:bg-black" />
+                  </button>
+                ))}
+              </div>
+
+              <div
+                ref={drawingGridRef}
+                className={`grid min-h-0 min-w-0 select-none ${showGrid ? 'gap-px bg-black/20 p-px' : 'gap-0 bg-transparent p-0'}`}
+                style={{
+                  gridTemplateColumns: columnTemplate,
+                  gridTemplateRows: rowTemplate,
+                  aspectRatio: '1 / 1',
+                  touchAction: 'none',
+                }}
+                onPointerDown={startStroke}
+                onPointerMove={continueStroke}
+                onPointerUp={endStroke}
+                onPointerCancel={endStroke}
+              >
+                {displayGrid.map((row, y) =>
+                  row.map((cell, x) => (
+                    <button
+                      key={`${x}-${y}`}
+                      type="button"
+                      onClick={(event) => {
+                        if (event.detail !== 0) return;
+                        paintCells([{ x, y }]);
+                      }}
+                      className="h-full min-h-0 w-full min-w-0"
+                      style={{ background: getVisibleColor(cell, viewMode, visibility) }}
+                      aria-label={`Cell ${x + 1}, ${y + 1}, ${cell === 'empty' ? 'empty' : isCarvingCell(cell) ? 'carving' : 'letter'}`}
+                      aria-pressed={cell === 'letter'}
+                    />
+                  ))
+                )}
+              </div>
             </div>
           </div>
         </main>
+
+        <aside className="flex min-w-0 flex-col gap-3 border border-black/20 bg-white/35 p-3">
+          <div className="flex items-center justify-between font-mono text-[11px] uppercase">
+            <span>Glyphs</span>
+            <div className="flex items-center gap-1">
+              <button type="button" onClick={() => goToLetter(-1)} aria-label="Previous letter" className="h-8 w-8 border border-black/25 hover:border-black">←</button>
+              <button type="button" onClick={() => goToLetter(1)} aria-label="Next letter" className="h-8 w-8 border border-black/25 hover:border-black">→</button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-5 gap-1.5 sm:grid-cols-8 lg:grid-cols-4 xl:grid-cols-5">
+            {LETTERS.map((letter) => (
+              <button
+                key={letter}
+                type="button"
+                onClick={() => setCurrentLetter(letter)}
+                aria-pressed={currentLetter === letter}
+                className={`min-w-0 border p-1 transition ${
+                  currentLetter === letter ? 'border-black bg-black text-white' : 'border-black/20 bg-white hover:border-black'
+                }`}
+              >
+                <SmoothGridPreview
+                  grid={lettersData[letter]}
+                  viewMode="bw"
+                  visibility={{ ...visibility, letter: true }}
+                  columnWidths={layoutData[letter].columnWidths}
+                  rowHeights={layoutData[letter].rowHeights}
+                  className="block w-full"
+                  style={{ aspectRatio: '1 / 1' }}
+                />
+                <span className="mt-1 block font-mono text-[10px]">{letter}</span>
+              </button>
+            ))}
+          </div>
+
+          <section className="mt-auto border border-black/20 bg-white p-3">
+            <div className="mb-3 flex items-center justify-between font-mono text-[11px] uppercase">
+              <span>Smooth preview</span>
+              <span className="text-black/45">{currentLetter}</span>
+            </div>
+            <SmoothGridPreview
+              grid={grid}
+              viewMode="bw"
+              visibility={{ ...visibility, letter: true }}
+              columnWidths={columnWidths}
+              rowHeights={rowHeights}
+              className="block w-full"
+              style={{ aspectRatio: '1 / 1' }}
+            />
+          </section>
+        </aside>
       </div>
     </div>
   );
