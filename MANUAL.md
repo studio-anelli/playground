@@ -119,6 +119,7 @@ Each experiment should have:
 | REC-06 | ASCII Kinetic Typo Machine | tool | test |
 | REC-07 | Reactive Letter Particles | experiment | test |
 | REC-08 | Micro-8 Synth | tool | test |
+| REC-09 | Kinetic Type Synth | tool | test |
 
 Provisional `REC-` identifiers remain stable until a deliberate public-numbering decision is made.
 

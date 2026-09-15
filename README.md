@@ -14,6 +14,7 @@ Live site: [playground.om-voyeur.fr](https://playground.om-voyeur.fr)
 - ASCII Kinetic Typo Machine
 - Reactive Letter Particles
 - Micro-8 Synth
+- Kinetic Type Synth
 
 ## Development
 

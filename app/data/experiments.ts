@@ -13,6 +13,16 @@ export type Experiment = {
 
 export const experiments: Experiment[] = [
   {
+    id: "REC-09",
+    slug: "kinetic-type-synth",
+    title: "Kinetic Type Synth",
+    kind: "tool",
+    status: "test",
+    year: "2026",
+    tags: ["kinetic type", "grid distortion", "feedback"],
+    summary: "A modular kinetic-type synthesizer combining sampling, grid distortion, generated shapes and wave routing.",
+  },
+  {
     id: "REC-08",
     slug: "micro-8-synth",
     title: "Micro-8 Synth",
