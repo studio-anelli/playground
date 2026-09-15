@@ -283,7 +283,8 @@ button, input { font: inherit; }
   max-height: calc(100dvh - 340px) !important;
   margin: 0 !important;
   padding: 10px !important;
-  overflow: auto !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
   border: 0 !important;
   border-radius: 0 !important;
   background: transparent !important;
