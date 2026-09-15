@@ -12,6 +12,8 @@ Live site: [playground.om-voyeur.fr](https://playground.om-voyeur.fr)
 - Noise-Built Type
 - GP888 Drum Machine
 - ASCII Kinetic Typo Machine
+- Reactive Letter Particles
+- Micro-8 Synth
 
 ## Development
 

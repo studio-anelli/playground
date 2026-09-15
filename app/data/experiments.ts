@@ -13,6 +13,26 @@ export type Experiment = {
 
 export const experiments: Experiment[] = [
   {
+    id: "REC-08",
+    slug: "micro-8-synth",
+    title: "Micro-8 Synth",
+    kind: "tool",
+    status: "test",
+    year: "2026",
+    tags: ["sound", "synthesizer", "sequencer"],
+    summary: "A dual-VCO subtractive synth with an eight-step sequencer, accents, slide and overdrive.",
+  },
+  {
+    id: "REC-07",
+    slug: "reactive-letter-particles",
+    title: "Reactive Letter Particles",
+    kind: "experiment",
+    status: "test",
+    year: "2026",
+    tags: ["particle type", "collision", "interaction"],
+    summary: "Glyph-constrained particles repel, collide, grow, split and shift colour.",
+  },
+  {
     id: "REC-06",
     slug: "ascii-kinetic-typo-machine",
     title: "ASCII Kinetic Typo Machine",

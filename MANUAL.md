@@ -117,6 +117,8 @@ Each experiment should have:
 | REC-04 | Noise-Built Type | experiment | test |
 | REC-05 | GP888 Drum Machine | tool | test |
 | REC-06 | ASCII Kinetic Typo Machine | tool | test |
+| REC-07 | Reactive Letter Particles | experiment | test |
+| REC-08 | Micro-8 Synth | tool | test |
 
 Provisional `REC-` identifiers remain stable until a deliberate public-numbering decision is made.
 
