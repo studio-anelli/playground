@@ -370,10 +370,11 @@ export default function VariableFontBlockEditor() {
     [displayRowHeights]
   );
 
-  const paintCells = (cells, mode) => {
+  const paintCells = (cells) => {
     setLettersData((prev) => {
       const nextGrid = cloneGrid(prev[currentLetter]);
       let changed = false;
+      const paintValue = tool === 'drawing' ? 'letter' : 'carving';
 
       const scale = GRID / gridSize;
 
@@ -381,10 +382,9 @@ export default function VariableFontBlockEditor() {
         for (let y = displayY * scale; y < (displayY + 1) * scale; y += 1) {
           for (let x = displayX * scale; x < (displayX + 1) * scale; x += 1) {
             const current = nextGrid[y][x];
-            const nextCell = mode === 'erase' ? (isCarvingCell(current) ? 'letter' : current) : tool;
 
-            if (nextCell !== current) {
-              nextGrid[y][x] = nextCell;
+            if (paintValue !== current) {
+              nextGrid[y][x] = paintValue;
               changed = true;
             }
           }
@@ -430,9 +430,8 @@ export default function VariableFontBlockEditor() {
 
     event.preventDefault();
     event.currentTarget.setPointerCapture(event.pointerId);
-    const mode = isCarvingCell(displayGrid[cell.y][cell.x]) ? 'erase' : 'paint';
-    strokeRef.current = { pointerId: event.pointerId, lastCell: cell, mode };
-    paintCells([cell], mode);
+    strokeRef.current = { pointerId: event.pointerId, lastCell: cell };
+    paintCells([cell]);
   };
 
   const continueStroke = (event) => {
@@ -443,7 +442,7 @@ export default function VariableFontBlockEditor() {
     if (!cell || (cell.x === stroke.lastCell.x && cell.y === stroke.lastCell.y)) return;
 
     event.preventDefault();
-    paintCells(getCellsBetween(stroke.lastCell, cell), stroke.mode);
+    paintCells(getCellsBetween(stroke.lastCell, cell));
     stroke.lastCell = cell;
   };
 
@@ -656,17 +655,29 @@ export default function VariableFontBlockEditor() {
           </div>
 
           <div className="space-y-2">
-            <div className="text-sm font-medium">Tools</div>
-            <button
-              type="button"
-              onClick={() => setTool('carving')}
-              aria-pressed={tool === 'carving'}
-              className="w-full rounded-2xl border border-black bg-black px-4 py-3 text-sm font-medium text-white"
-            >
-              Carving
-            </button>
+            <div className="text-sm font-medium">Mode</div>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                ['drawing', 'Drawing'],
+                ['carving', 'Carving'],
+              ].map(([mode, label]) => (
+                <button
+                  key={mode}
+                  type="button"
+                  onClick={() => setTool(mode)}
+                  aria-pressed={tool === mode}
+                  className={`rounded-2xl border px-4 py-3 text-sm font-medium transition ${
+                    tool === mode
+                      ? 'border-black bg-black text-white'
+                      : 'border-neutral-300 bg-white hover:bg-neutral-50'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
             <p className="text-xs text-neutral-500">
-              Press and drag to carve. Start on a carved cell to restore the letter.
+              Drawing restores the letter mass. Carving cuts into it.
             </p>
           </div>
 
@@ -939,7 +950,7 @@ export default function VariableFontBlockEditor() {
                     type="button"
                     onClick={(event) => {
                       if (event.detail !== 0) return;
-                      paintCells([{ x, y }], isCarvingCell(cell) ? 'erase' : 'paint');
+                      paintCells([{ x, y }]);
                     }}
                     className="h-full min-h-0 w-full min-w-0"
                     style={{ background: getVisibleColor(cell, viewMode, visibility) }}
