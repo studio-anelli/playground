@@ -1,17 +1,22 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 import FontDrawing from "@/recovered/font-drawing-working/src/App";
 
 export default function FontDrawingPage() {
   return (
-    <main className="import-page">
-      <header className="import-header import-header-native">
-        <a href="/" className="back-link"><ArrowLeft aria-hidden="true" /> Index</a>
-        <h1>Font Drawing</h1>
-        <span>REC-03 / Tool / Test</span>
+    <main className="ui-v1-page" style={{ "--ui-v1-bg": "#f4f1eb", "--ui-v1-fg": "#121212" } as CSSProperties}>
+      <header className="ui-v1-header">
+        <Link href="/" className="ui-v1-back"><ArrowLeft aria-hidden="true" /> Back</Link>
+        <h1>Artboard</h1>
+        <div className="ui-v1-meta">
+          <span>REC - 003</span>
+          <span>Tool - Grid warp</span>
+        </div>
       </header>
-      <section className="experiment-native experiment-native-light" aria-label="Font Drawing block-letter editor">
+      <section className="ui-v1-experiment overflow-auto" aria-label="Font Drawing block-letter editor">
         <FontDrawing />
       </section>
     </main>
