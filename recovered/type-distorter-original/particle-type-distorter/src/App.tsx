@@ -147,6 +147,7 @@ function TabButton({
   return (
     <button
       onClick={onClick}
+      aria-pressed={active}
       className={
         "px-3 py-2 rounded-xl text-sm font-semibold transition whitespace-nowrap " +
         (active
