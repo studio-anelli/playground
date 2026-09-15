@@ -10,6 +10,34 @@ const makeFullBlock = () =>
 
 const cloneGrid = (grid) => grid.map((row) => [...row]);
 
+const getCellsBetween = (start, end) => {
+  const cells = [];
+  let x = start.x;
+  let y = start.y;
+  const deltaX = Math.abs(end.x - start.x);
+  const deltaY = Math.abs(end.y - start.y);
+  const stepX = start.x < end.x ? 1 : -1;
+  const stepY = start.y < end.y ? 1 : -1;
+  let error = deltaX - deltaY;
+
+  while (true) {
+    cells.push({ x, y });
+    if (x === end.x && y === end.y) break;
+
+    const doubledError = error * 2;
+    if (doubledError > -deltaY) {
+      error -= deltaY;
+      x += stepX;
+    }
+    if (doubledError < deltaX) {
+      error += deltaX;
+      y += stepY;
+    }
+  }
+
+  return cells;
+};
+
 const makeAlphabet = () => Object.fromEntries(LETTERS.map((letter) => [letter, makeFullBlock()]));
 
 const isValidCell = (cell) => ['letter', 'carving', 'portal'].includes(cell);
@@ -108,10 +136,11 @@ function applyVerticalShift(grid, settings) {
 
 export default function VariableFontBlockEditor() {
   const fileInputRef = useRef(null);
+  const drawingGridRef = useRef(null);
+  const strokeRef = useRef(null);
   const [currentLetter, setCurrentLetter] = useState('A');
   const [tool, setTool] = useState('carving');
   const [viewMode, setViewMode] = useState('color');
-  const [isDrawing, setIsDrawing] = useState(false);
   const [lettersData, setLettersData] = useState(loadSavedAlphabet);
   const [visibility, setVisibility] = useState({
     letter: true,
@@ -160,23 +189,78 @@ export default function VariableFontBlockEditor() {
     [lettersData, verticalControls]
   );
 
-  const paintCell = (x, y) => {
+  const paintCells = (cells, mode) => {
     setLettersData((prev) => {
-      const next = { ...prev };
       const nextGrid = cloneGrid(prev[currentLetter]);
-      const current = nextGrid[y][x];
+      let changed = false;
 
-      if (tool === 'carving') {
-        nextGrid[y][x] = current === 'carving' ? 'letter' : 'carving';
-      }
+      cells.forEach(({ x, y }) => {
+        const current = nextGrid[y][x];
+        const nextCell = mode === 'erase' ? (current === tool ? 'letter' : current) : tool;
 
-      if (tool === 'portal') {
-        nextGrid[y][x] = current === 'portal' ? 'letter' : 'portal';
-      }
+        if (nextCell !== current) {
+          nextGrid[y][x] = nextCell;
+          changed = true;
+        }
+      });
 
-      next[currentLetter] = nextGrid;
-      return next;
+      if (!changed) return prev;
+      return { ...prev, [currentLetter]: nextGrid };
     });
+  };
+
+  const getPointerCell = (event) => {
+    const drawingGrid = drawingGridRef.current;
+    if (!drawingGrid) return null;
+
+    const bounds = drawingGrid.getBoundingClientRect();
+    if (
+      event.clientX < bounds.left ||
+      event.clientX >= bounds.right ||
+      event.clientY < bounds.top ||
+      event.clientY >= bounds.bottom
+    ) {
+      return null;
+    }
+
+    return {
+      x: Math.min(GRID - 1, Math.floor(((event.clientX - bounds.left) / bounds.width) * GRID)),
+      y: Math.min(GRID - 1, Math.floor(((event.clientY - bounds.top) / bounds.height) * GRID)),
+    };
+  };
+
+  const startStroke = (event) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+
+    const cell = getPointerCell(event);
+    if (!cell) return;
+
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    const mode = grid[cell.y][cell.x] === tool ? 'erase' : 'paint';
+    strokeRef.current = { pointerId: event.pointerId, lastCell: cell, mode };
+    paintCells([cell], mode);
+  };
+
+  const continueStroke = (event) => {
+    const stroke = strokeRef.current;
+    if (!stroke || stroke.pointerId !== event.pointerId) return;
+
+    const cell = getPointerCell(event);
+    if (!cell || (cell.x === stroke.lastCell.x && cell.y === stroke.lastCell.y)) return;
+
+    event.preventDefault();
+    paintCells(getCellsBetween(stroke.lastCell, cell), stroke.mode);
+    stroke.lastCell = cell;
+  };
+
+  const endStroke = (event) => {
+    if (strokeRef.current?.pointerId !== event.pointerId) return;
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    strokeRef.current = null;
   };
 
   const resetCurrentLetter = () => {
@@ -342,7 +426,7 @@ export default function VariableFontBlockEditor() {
               ))}
             </div>
             <p className="text-xs text-neutral-500">
-              Click or drag to paint. Click the same marked cell again to return it to the base letter.
+              Press and drag to draw a continuous stroke. Start on the active layer to erase it.
             </p>
           </div>
 
@@ -602,32 +686,34 @@ export default function VariableFontBlockEditor() {
           </div>
 
           <div
+            ref={drawingGridRef}
             className={`inline-grid rounded-2xl select-none ${showGrid ? 'gap-[1px] bg-neutral-300 p-[1px]' : 'gap-0 bg-transparent p-0'}`}
             style={{
               gridTemplateColumns: `repeat(${GRID}, minmax(0, 1fr))`,
               width: 'min(85vw, 840px)',
               aspectRatio: '1 / 1',
+              touchAction: 'none',
             }}
-            onMouseLeave={() => setIsDrawing(false)}
+            onPointerDown={startStroke}
+            onPointerMove={continueStroke}
+            onPointerUp={endStroke}
+            onPointerCancel={endStroke}
           >
             {grid.map((row, y) =>
               row.map((cell, x) => (
                 <button
                   key={`${x}-${y}`}
-                  onMouseDown={() => {
-                    setIsDrawing(true);
-                    paintCell(x, y);
+                  onClick={(event) => {
+                    if (event.detail !== 0) return;
+                    paintCells([{ x, y }], cell === tool ? 'erase' : 'paint');
                   }}
-                  onMouseEnter={() => {
-                    if (isDrawing) paintCell(x, y);
-                  }}
-                  onMouseUp={() => setIsDrawing(false)}
                   className="w-full h-full"
                   style={{
                     background: getVisibleColor(cell, viewMode, visibility),
                     aspectRatio: '1 / 1',
                   }}
                   aria-label={`Cell ${x + 1}, ${y + 1}, ${cell}`}
+                  aria-pressed={cell === tool}
                 />
               ))
             )}
