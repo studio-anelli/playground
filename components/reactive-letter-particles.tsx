@@ -921,6 +921,7 @@ export default function ReactiveLetterParticles() {
   const tabBtn = (id: typeof activeTab, label: string) => (
     <button
       key={id}
+      aria-pressed={activeTab === id}
       className={`rounded-xl border px-4 py-2 text-sm font-bold ${
         activeTab === id ? "border-white/60 bg-black/90" : "border-white/30 bg-black/80 hover:bg-black/80"
       }`}
