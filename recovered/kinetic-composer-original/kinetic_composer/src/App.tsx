@@ -655,12 +655,12 @@ function RenderPanel({ items, nowTime, background }) {
 function LayersPanel({ layers, setLayers, activeId, setActiveId, onDragStart, onDragOver, onDrop }) {
   return (
     <div>
-      <div className="flex items-center justify-between mb-3">
+      <div className="composer-layers-header flex items-center justify-between mb-3">
         <div>
           <div className="text-sm font-bold">Layers</div>
           <div className="text-xs opacity-70">Drag ≡ to reorder. Use Dup to copy.</div>
         </div>
-        <div className="flex gap-2">
+        <div className="composer-layer-add flex gap-2">
           <button onClick={() => addText(setLayers)} className="px-3 py-2 rounded bg-white text-black text-xs font-bold">
             + Text
           </button>
@@ -685,7 +685,7 @@ function LayersPanel({ layers, setLayers, activeId, setActiveId, onDragStart, on
             onDrop={onDrop(L.id)}
             className={`rounded-xl border p-2 ${activeId === L.id ? "border-white/50 bg-white/10" : "border-white/10 bg-white/5"}`}
           >
-            <div className="flex items-center gap-2">
+            <div className="composer-layer-row flex items-center gap-2">
               <button title="Drag to reorder" className="w-7 h-7 rounded bg-white/15 flex items-center justify-center text-xs">
                 ≡
               </button>
@@ -694,7 +694,7 @@ function LayersPanel({ layers, setLayers, activeId, setActiveId, onDragStart, on
                 onClick={() => toggleVisible(L.id, setLayers)}
                 aria-label="Toggle visibility"
               />
-              <div className="flex-1 min-w-0">
+              <div className="composer-layer-name flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] uppercase tracking-wide opacity-70 w-20">{L.type}</span>
                   <input
@@ -704,35 +704,37 @@ function LayersPanel({ layers, setLayers, activeId, setActiveId, onDragStart, on
                   />
                 </div>
               </div>
-              <button
-                className="px-3 py-2 rounded bg-white/10 hover:bg-white/15 text-xs font-bold"
-                onClick={() => setActiveId(L.id)}
-              >
-                Edit
-              </button>
-              <button
-                className="px-3 py-2 rounded bg-white/10 hover:bg-white/15 text-xs font-bold"
-                onClick={() => duplicateLayer(L.id, setLayers)}
-                aria-label="Duplicate"
-              >
-                Dup
-              </button>
-              <button
-                className={`px-3 py-2 rounded text-xs font-bold border ${
-                  L.locked ? "border-yellow-400/70 text-yellow-200" : "border-white/15 text-white/70"
-                }`}
-                onClick={() => toggleLocked(L.id, setLayers)}
-                aria-label="Toggle lock"
-              >
-                {L.locked ? "Locked" : "Lock"}
-              </button>
-              <button
-                className="px-3 py-2 rounded border border-red-400/70 text-red-200 hover:bg-red-500/10 text-xs font-bold"
-                onClick={() => removeLayer(L.id, setLayers, setActiveId)}
-                aria-label="Delete"
-              >
-                Del
-              </button>
+              <div className="composer-layer-actions">
+                <button
+                  className="px-3 py-2 rounded bg-white/10 hover:bg-white/15 text-xs font-bold"
+                  onClick={() => setActiveId(L.id)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="px-3 py-2 rounded bg-white/10 hover:bg-white/15 text-xs font-bold"
+                  onClick={() => duplicateLayer(L.id, setLayers)}
+                  aria-label="Duplicate"
+                >
+                  Dup
+                </button>
+                <button
+                  className={`px-3 py-2 rounded text-xs font-bold border ${
+                    L.locked ? "border-yellow-400/70 text-yellow-200" : "border-white/15 text-white/70"
+                  }`}
+                  onClick={() => toggleLocked(L.id, setLayers)}
+                  aria-label="Toggle lock"
+                >
+                  {L.locked ? "Locked" : "Lock"}
+                </button>
+                <button
+                  className="px-3 py-2 rounded border border-red-400/70 text-red-200 hover:bg-red-500/10 text-xs font-bold"
+                  onClick={() => removeLayer(L.id, setLayers, setActiveId)}
+                  aria-label="Delete"
+                >
+                  Del
+                </button>
+              </div>
             </div>
           </li>
         ))}
