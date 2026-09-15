@@ -526,6 +526,8 @@ button, input { font: inherit; }
 .ui-v1-action-buttons {
   display: flex;
   flex: 0 0 auto;
+  width: auto !important;
+  justify-content: flex-start !important;
   gap: 2px;
   margin-left: auto;
 }
