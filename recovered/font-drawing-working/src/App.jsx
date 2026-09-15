@@ -4,12 +4,16 @@ const GRID = 24;
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 const STORAGE_KEY = 'variable-font-block-editor-v1';
 const BACKUP_KEY = 'variable-font-block-editor-backup-v1';
+const LAYOUT_STORAGE_KEY = 'variable-font-block-editor-layout-v1';
 
 const makeFullBlock = () =>
   Array.from({ length: GRID }, () => Array.from({ length: GRID }, () => 'letter'));
 
 const cloneGrid = (grid) => grid.map((row) => [...row]);
 const makeGridSizes = () => Array.from({ length: GRID }, () => 1);
+const makeLetterLayout = () => ({ columnWidths: makeGridSizes(), rowHeights: makeGridSizes() });
+const makeAlphabetLayout = () =>
+  Object.fromEntries(LETTERS.map((letter) => [letter, makeLetterLayout()]));
 const sumGridSizes = (sizes) => sizes.reduce((total, size) => total + size, 0);
 
 const makeGridOffsets = (sizes) => {
@@ -260,6 +264,32 @@ const sanitizeLettersData = (raw) => {
   );
 };
 
+const sanitizeGridSizes = (sizes) => {
+  if (!Array.isArray(sizes) || sizes.length !== GRID) return makeGridSizes();
+  return sizes.map((size) =>
+    Number.isFinite(Number(size)) ? Math.max(0.2, Math.min(4, Number(size))) : 1
+  );
+};
+
+const sanitizeLayoutData = (raw) => {
+  const fallback = makeAlphabetLayout();
+  if (!raw || typeof raw !== 'object') return fallback;
+
+  return Object.fromEntries(
+    LETTERS.map((letter) => {
+      const candidate = raw[letter];
+      if (!candidate || typeof candidate !== 'object') return [letter, fallback[letter]];
+      return [
+        letter,
+        {
+          columnWidths: sanitizeGridSizes(candidate.columnWidths),
+          rowHeights: sanitizeGridSizes(candidate.rowHeights),
+        },
+      ];
+    })
+  );
+};
+
 const loadSavedAlphabet = () => {
   if (typeof window === 'undefined') return makeAlphabet();
 
@@ -278,6 +308,17 @@ const loadSavedAlphabet = () => {
     return makeAlphabet();
   } catch {
     return makeAlphabet();
+  }
+};
+
+const loadSavedLayout = () => {
+  if (typeof window === 'undefined') return makeAlphabetLayout();
+
+  try {
+    const raw = window.localStorage.getItem(LAYOUT_STORAGE_KEY);
+    return raw ? sanitizeLayoutData(JSON.parse(raw)) : makeAlphabetLayout();
+  } catch {
+    return makeAlphabetLayout();
   }
 };
 
@@ -323,11 +364,12 @@ export default function VariableFontBlockEditor() {
   const [saveMessage, setSaveMessage] = useState('Autosave active');
   const [showGrid, setShowGrid] = useState(true);
   const [gridSize, setGridSize] = useState(GRID);
-  const [columnWidths, setColumnWidths] = useState(makeGridSizes);
-  const [rowHeights, setRowHeights] = useState(makeGridSizes);
+  const [layoutData, setLayoutData] = useState(loadSavedLayout);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
+    let errorMessageTimeout;
 
     try {
       const previousRaw = window.localStorage.getItem(STORAGE_KEY);
@@ -337,11 +379,24 @@ export default function VariableFontBlockEditor() {
       }
 
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(lettersData));
-      setSaveMessage('Saved locally');
     } catch {
-      setSaveMessage('Local save unavailable');
+      errorMessageTimeout = window.setTimeout(() => setSaveMessage('Local save unavailable'), 0);
     }
+
+    return () => {
+      if (errorMessageTimeout) window.clearTimeout(errorMessageTimeout);
+    };
   }, [lettersData]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    try {
+      window.localStorage.setItem(LAYOUT_STORAGE_KEY, JSON.stringify(layoutData));
+    } catch {
+      // Letter drawing remains available when browser storage is blocked.
+    }
+  }, [layoutData]);
 
   useEffect(() => {
     if (!saveMessage) return undefined;
@@ -352,6 +407,7 @@ export default function VariableFontBlockEditor() {
   }, [saveMessage]);
 
   const grid = useMemo(() => lettersData[currentLetter], [lettersData, currentLetter]);
+  const { columnWidths, rowHeights } = layoutData[currentLetter];
   const displayGrid = useMemo(() => getDisplayGrid(grid, gridSize), [grid, gridSize]);
   const displayColumnWidths = useMemo(
     () => getGroupedSizes(columnWidths, gridSize),
@@ -472,6 +528,7 @@ export default function VariableFontBlockEditor() {
       version: 1,
       grid: GRID,
       letters: lettersData,
+      layout: layoutData,
     };
 
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
@@ -493,6 +550,7 @@ export default function VariableFontBlockEditor() {
       const parsed = JSON.parse(text);
       const importedLetters = sanitizeLettersData(parsed?.letters ?? parsed);
       setLettersData(importedLetters);
+      if (parsed?.layout) setLayoutData(sanitizeLayoutData(parsed.layout));
       setSaveMessage('JSON imported');
     } catch {
       setSaveMessage('Import failed');
@@ -505,8 +563,10 @@ export default function VariableFontBlockEditor() {
     if (typeof window !== 'undefined') {
       window.localStorage.removeItem(STORAGE_KEY);
       window.localStorage.removeItem(BACKUP_KEY);
+      window.localStorage.removeItem(LAYOUT_STORAGE_KEY);
     }
     setLettersData(makeAlphabet());
+    setLayoutData(makeAlphabetLayout());
     setSaveMessage('Local save cleared');
   };
 
@@ -531,15 +591,19 @@ export default function VariableFontBlockEditor() {
   };
 
   const updateGridSize = (axis, index, nextSize) => {
-    const setSizes = axis === 'column' ? setColumnWidths : setRowHeights;
+    const property = axis === 'column' ? 'columnWidths' : 'rowHeights';
     const scale = GRID / gridSize;
     const startIndex = index * scale;
     const sizePerCell = Math.max(0.2, Math.min(4, nextSize / scale));
-    setSizes((previous) =>
-      previous.map((size, sizeIndex) =>
-        sizeIndex >= startIndex && sizeIndex < startIndex + scale ? sizePerCell : size
-      )
-    );
+    setLayoutData((previous) => ({
+      ...previous,
+      [currentLetter]: {
+        ...previous[currentLetter],
+        [property]: previous[currentLetter][property].map((size, sizeIndex) =>
+          sizeIndex >= startIndex && sizeIndex < startIndex + scale ? sizePerCell : size
+        ),
+      },
+    }));
   };
 
   const startGridResize = (event, axis, index) => {
@@ -593,8 +657,10 @@ export default function VariableFontBlockEditor() {
   };
 
   const resetGridSizes = () => {
-    setColumnWidths(makeGridSizes());
-    setRowHeights(makeGridSizes());
+    setLayoutData((previous) => ({
+      ...previous,
+      [currentLetter]: makeLetterLayout(),
+    }));
   };
 
   const goToLetter = (direction) => {
@@ -760,13 +826,13 @@ export default function VariableFontBlockEditor() {
               />
             </label>
             <p className="text-xs text-neutral-500">
-              Drag the handles around the editor to resize individual rows and columns.
+              Drag the handles to resize rows and columns for the current letter.
             </p>
             <button
               onClick={resetGridSizes}
               className="w-full rounded-2xl px-4 py-3 border border-neutral-300 hover:bg-neutral-50 text-sm font-medium"
             >
-              Reset row and column sizes
+              Reset current letter proportions
             </button>
           </div>
 
@@ -839,8 +905,8 @@ export default function VariableFontBlockEditor() {
                     grid={lettersData[letter]}
                     viewMode={viewMode}
                     visibility={visibility}
-                    columnWidths={columnWidths}
-                    rowHeights={rowHeights}
+                    columnWidths={layoutData[letter].columnWidths}
+                    rowHeights={layoutData[letter].rowHeights}
                     className="block w-full rounded-md overflow-hidden"
                     style={{ aspectRatio: '1 / 1' }}
                   />
