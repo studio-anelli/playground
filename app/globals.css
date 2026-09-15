@@ -235,7 +235,7 @@ button, input { font: inherit; }
 .ui-rollout-panel {
   position: absolute !important;
   z-index: 25;
-  top: 188px;
+  top: 230px;
   right: 8px;
   width: 300px !important;
   max-width: calc(100% - 16px) !important;
@@ -248,6 +248,42 @@ button, input { font: inherit; }
   color: #f2f2f2;
   box-shadow: none !important;
   backdrop-filter: blur(16px);
+  transform: translate3d(var(--ui-rollout-panel-x, 0), var(--ui-rollout-panel-y, 0), 0);
+}
+
+.ui-rollout-panel-handle {
+  position: absolute;
+  z-index: 27;
+  top: 188px;
+  right: 8px;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  width: 300px;
+  min-height: 42px;
+  background: rgba(15, 15, 16, 0.58);
+  color: #f2f2f2;
+  backdrop-filter: blur(16px);
+  cursor: move;
+  touch-action: none;
+  user-select: none;
+  transform: translate3d(var(--ui-rollout-panel-x, 0), var(--ui-rollout-panel-y, 0), 0);
+}
+
+.ui-rollout-panel-handle span { padding: 0 10px; font-size: 0.68rem; text-transform: uppercase; }
+.ui-rollout-panel-handle button {
+  align-self: stretch;
+  width: 42px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 1.25rem;
+}
+
+.ui-rollout-experiment.controls-closed .ui-rollout-panel,
+.ui-rollout-experiment.controls-closed .ui-rollout-particles .ui-rollout-tabs,
+.ui-rollout-experiment.controls-closed .ui-rollout-particles > .ui-rollout-panel-body {
+  display: none !important;
 }
 
 .ui-rollout-tabs {
@@ -387,22 +423,24 @@ button, input { font: inherit; }
 .ui-rollout-particles .ui-rollout-tabs {
   position: absolute;
   z-index: 26;
-  top: 188px;
+  top: 230px;
   right: 8px;
   width: 300px;
   background: rgba(15, 15, 16, 0.58) !important;
+  transform: translate3d(var(--ui-rollout-panel-x, 0), var(--ui-rollout-panel-y, 0), 0);
 }
 
 .ui-rollout-particles > .ui-rollout-panel-body {
   position: absolute;
   z-index: 25;
-  top: 230px;
+  top: 272px;
   right: 8px;
   width: 300px;
   max-height: calc(100dvh - 322px) !important;
   color: #f2f2f2;
   background: rgba(15, 15, 16, 0.58) !important;
   backdrop-filter: blur(16px);
+  transform: translate3d(var(--ui-rollout-panel-x, 0), var(--ui-rollout-panel-y, 0), 0);
 }
 
 .ui-rollout-particles .ui-rollout-stage canvas {
@@ -428,10 +466,12 @@ button, input { font: inherit; }
 .ui-rollout-ascii .ui-rollout-panel-body {
   display: flex !important;
   flex-direction: column;
+  flex-wrap: nowrap !important;
   align-items: stretch !important;
   gap: 12px !important;
   color: #f2f2f2;
 }
+.ui-rollout-ascii .ui-rollout-canvas { border: 0 !important; border-radius: 0 !important; }
 .ui-rollout-ascii .ui-rollout-panel-body > input { min-height: 34px; padding: 0 8px; background: rgba(242,242,242,.08); color: #f2f2f2; }
 .ui-rollout-ascii .ui-rollout-panel-body label { display: grid; grid-template-columns: 1fr; gap: 5px; }
 .ui-rollout-ascii .ui-rollout-panel-body .ml-2 { margin-left: 0 !important; }
@@ -458,6 +498,16 @@ button, input { font: inherit; }
     left: 10px;
     width: auto !important;
     max-height: 46dvh !important;
+    transform: none !important;
+  }
+  .ui-rollout-panel-handle {
+    top: auto;
+    right: 10px;
+    bottom: calc(46dvh + 64px);
+    left: 10px;
+    width: auto;
+    transform: none !important;
+    cursor: default;
   }
   .ui-rollout-particles .ui-rollout-tabs { bottom: calc(46dvh + 22px); }
   .ui-rollout-bottom { right: 10px; bottom: 10px; left: 10px; overflow-x: auto; }
