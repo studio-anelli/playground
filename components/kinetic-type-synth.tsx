@@ -326,6 +326,15 @@ let __didRunTests = false;
 
 export default function KineticTypeSynth() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [panelOpen, setPanelOpen] = useState(true);
+  const [panelOffset, setPanelOffset] = useState({ x: 0, y: 0 });
+  const panelDragRef = useRef<{
+    pointerId: number;
+    startX: number;
+    startY: number;
+    originX: number;
+    originY: number;
+  } | null>(null);
 
   const [cw, setCw] = useState(1280);
   const [ch, setCh] = useState(800);
@@ -958,10 +967,40 @@ export default function KineticTypeSynth() {
     </label>
   );
 
+  const beginPanelDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (window.matchMedia("(max-width: 760px)").matches) return;
+    panelDragRef.current = {
+      pointerId: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      originX: panelOffset.x,
+      originY: panelOffset.y,
+    };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+
+  const movePanel = (e: React.PointerEvent<HTMLDivElement>) => {
+    const drag = panelDragRef.current;
+    if (!drag || drag.pointerId !== e.pointerId) return;
+    const nextX = drag.originX + e.clientX - drag.startX;
+    const nextY = drag.originY + e.clientY - drag.startY;
+    setPanelOffset({
+      x: clamp(nextX, -Math.max(0, window.innerWidth - 360), 24),
+      y: clamp(nextY, -64, Math.max(0, window.innerHeight - 260)),
+    });
+  };
+
+  const endPanelDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (panelDragRef.current?.pointerId === e.pointerId) {
+      panelDragRef.current = null;
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 p-4">
-      <div className="max-w-[1280px] mx-auto">
-        <div className="flex items-start justify-between gap-4 mb-3">
+    <div className="ui-v1-synth text-neutral-100" style={{ background: bg }}>
+      <div className="ui-v1-synth-inner">
+        <div className="ui-v1-actions">
           <div>
             <div className="text-lg font-semibold">Kinetic Type Synth</div>
             <div className="text-xs text-neutral-400">Sampling · Grid warp · Vertex shapes, wave-modulated</div>
@@ -1007,21 +1046,46 @@ export default function KineticTypeSynth() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-3 shadow-sm">
-          <div className="overflow-auto">
-            <canvas ref={canvasRef} className="block rounded-xl border border-neutral-800" />
+        <div className="ui-v1-layout">
+          <div className="ui-v1-canvas-frame">
+            <canvas ref={canvasRef} className="ui-v1-canvas" />
           </div>
 
-          <div className="mt-3 flex flex-wrap gap-2">
+          <aside
+            className={`ui-v1-panel ${panelOpen ? "is-open" : "is-closed"}`}
+            style={{ transform: `translate3d(${panelOffset.x}px, ${panelOffset.y}px, 0)` }}
+          >
+            <div
+              className="ui-v1-panel-handle"
+              onPointerDown={beginPanelDrag}
+              onPointerMove={movePanel}
+              onPointerUp={endPanelDrag}
+              onPointerCancel={endPanelDrag}
+            >
+              <span>{tab}</span>
+              <span className="ui-v1-drag-mark" aria-hidden="true">≡</span>
+              <button
+                type="button"
+                aria-label={panelOpen ? "Collapse controls" : "Open controls"}
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={() => setPanelOpen((open) => !open)}
+              >
+                {panelOpen ? "×" : "+"}
+              </button>
+            </div>
+
+            {panelOpen && (
+              <div className="ui-v1-panel-content">
+          <div className="ui-v1-panel-tabs">
             <TabButton id="modes">Modes</TabButton>
             <TabButton id="wave">Waves</TabButton>
             <TabButton id="text">Text</TabButton>
             <TabButton id="canvas">Canvas</TabButton>
           </div>
 
-          <div className="mt-3 grid gap-3">
+          <div className="ui-v1-panel-body">
             {tab === "modes" && (
-              <div className="grid md:grid-cols-3 gap-3">
+              <div className="grid gap-3">
                 <div className="rounded-2xl border border-neutral-800 bg-neutral-950/30 p-4">
                   <div className="flex items-center justify-between mb-3">
                     <div className="text-sm font-semibold">Sampling</div>
@@ -1105,7 +1169,7 @@ export default function KineticTypeSynth() {
             )}
 
             {tab === "wave" && (
-              <div className="grid md:grid-cols-2 gap-3">
+              <div className="grid gap-3">
                 <div className="rounded-2xl border border-neutral-800 bg-neutral-950/30 p-4">
                   <div className="text-sm font-semibold mb-3">Wave modulation</div>
                   <div className="grid gap-3">
@@ -1206,7 +1270,7 @@ export default function KineticTypeSynth() {
             )}
 
             {tab === "text" && (
-              <div className="grid md:grid-cols-2 gap-3">
+              <div className="grid gap-3">
                 <div className="rounded-2xl border border-neutral-800 bg-neutral-950/30 p-4">
                   <div className="text-sm font-semibold mb-3">Text</div>
                   <div className="grid gap-3">
@@ -1317,7 +1381,7 @@ export default function KineticTypeSynth() {
             )}
 
             {tab === "canvas" && (
-              <div className="grid md:grid-cols-2 gap-3">
+              <div className="grid gap-3">
                 <div className="rounded-2xl border border-neutral-800 bg-neutral-950/30 p-4">
                   <div className="text-sm font-semibold mb-3">Canvas size</div>
                   <div className="grid gap-3">
@@ -1341,10 +1405,13 @@ export default function KineticTypeSynth() {
               </div>
             )}
           </div>
+              </div>
+            )}
+          </aside>
         </div>
 
-        <div className="mt-4 text-xs text-neutral-500 leading-relaxed">
-          Modes can be combined or solo. Grid-only shows only the warped result (no original underlay).
+        <div className="ui-v1-note">
+          Modes can be combined or solo. Grid-only shows only the warped result.
         </div>
       </div>
     </div>
