@@ -13,6 +13,36 @@ export type Experiment = {
 
 export const experiments: Experiment[] = [
   {
+    id: "REC-09",
+    slug: "kinetic-type-synth",
+    title: "Kinetic Type Synth",
+    kind: "tool",
+    status: "test",
+    year: "2026",
+    tags: ["kinetic type", "grid distortion", "feedback"],
+    summary: "A modular kinetic-type synthesizer combining sampling, grid distortion, generated shapes and wave routing.",
+  },
+  {
+    id: "REC-08",
+    slug: "micro-8-synth",
+    title: "Micro-8 Synth",
+    kind: "tool",
+    status: "test",
+    year: "2026",
+    tags: ["sound", "synthesizer", "sequencer"],
+    summary: "A dual-VCO subtractive synth with an eight-step sequencer, accents, slide and overdrive.",
+  },
+  {
+    id: "REC-07",
+    slug: "reactive-letter-particles",
+    title: "Reactive Letter Particles",
+    kind: "experiment",
+    status: "test",
+    year: "2026",
+    tags: ["particle type", "collision", "interaction"],
+    summary: "Glyph-constrained particles repel, collide, grow, split and shift colour.",
+  },
+  {
     id: "REC-06",
     slug: "ascii-kinetic-typo-machine",
     title: "ASCII Kinetic Typo Machine",
@@ -31,16 +61,6 @@ export const experiments: Experiment[] = [
     year: "2026",
     tags: ["sound", "sequencer", "web audio"],
     summary: "An eight-track 8-bit drum machine with sequencing, swing and per-track crushers.",
-  },
-  {
-    id: "REC-04",
-    slug: "noise-built-type",
-    title: "Noise-Built Type",
-    kind: "experiment",
-    status: "test",
-    year: "2026",
-    tags: ["particle type", "noise", "interaction"],
-    summary: "A particle-built typographic field with noise modes and pointer forces.",
   },
   {
     id: "REC-03",

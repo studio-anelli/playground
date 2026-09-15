@@ -114,9 +114,11 @@ Each experiment should have:
 | REC-01 | Kinetic Composer | tool | test |
 | REC-02 | Particle Type Distorter | tool | test |
 | REC-03 | Font Drawing | tool | test |
-| REC-04 | Noise-Built Type | experiment | test |
 | REC-05 | GP888 Drum Machine | tool | test |
 | REC-06 | ASCII Kinetic Typo Machine | tool | test |
+| REC-07 | Reactive Letter Particles | experiment | test |
+| REC-08 | Micro-8 Synth | tool | test |
+| REC-09 | Kinetic Type Synth | tool | test |
 
 Provisional `REC-` identifiers remain stable until a deliberate public-numbering decision is made.
 
