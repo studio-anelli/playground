@@ -406,7 +406,7 @@ export default function KineticTypeSynth() {
   const [ink, setInk] = useState("#f2f2f2");
   const [strokeW, setStrokeW] = useState(1);
 
-  const [tab, setTab] = useState<"modes" | "wave" | "text" | "canvas">("modes");
+  const [tab, setTab] = useState<"modes" | "wave" | "text">("modes");
 
   const fontFamily = useMemo(
     () =>
@@ -846,11 +846,8 @@ export default function KineticTypeSynth() {
   const TabButton = ({ id, children }: { id: typeof tab; children: React.ReactNode }) => (
     <button
       onClick={() => setTab(id)}
-      className={`px-3 py-2 rounded-xl text-sm transition border ${
-        tab === id
-          ? "bg-neutral-800 border-neutral-700 text-neutral-50"
-          : "bg-neutral-900 border-neutral-800 text-neutral-300 hover:bg-neutral-800"
-      }`}
+      className="ui-v1-tab"
+      aria-pressed={tab === id}
     >
       {children}
     </button>
@@ -997,15 +994,77 @@ export default function KineticTypeSynth() {
     }
   };
 
+  const applyQuickPreset = (preset: string) => {
+    if (preset === "broadcast") {
+      setText("RADIO\nSIGNAL");
+      setFontSize(220);
+      setTracking(14);
+      setAlign("center");
+      setBaseline("middle");
+      setLineHeightFactor(1.06);
+    }
+    if (preset === "kinetic") {
+      setText("MARSEILLE");
+      setFontSize(260);
+      setTracking(2);
+      setWaveShape("triangle");
+      setWaveAmp(0.9);
+      setWaveFreq(1.9);
+      setGridStrength(34);
+      setLegibility(0.7);
+      setShapeType("line");
+      setLineLen(18);
+      setLineHeightFactor(1.12);
+    }
+    if (preset === "shimmer") {
+      setText("ETM");
+      setFontSize(360);
+      setTracking(8);
+      setWaveShape("sine");
+      setWaveAmp(0.45);
+      setWaveFreq(1.2);
+      setGridStrength(16);
+      setLegibility(0.85);
+      setShapeType("dot");
+      setShapeSize(4);
+      setLineHeightFactor(1.12);
+    }
+  };
+
   return (
     <div className="ui-v1-synth text-neutral-100" style={{ background: bg }}>
       <div className="ui-v1-synth-inner">
         <div className="ui-v1-actions">
-          <div>
-            <div className="text-lg font-semibold">Kinetic Type Synth</div>
-            <div className="text-xs text-neutral-400">Sampling · Grid warp · Vertex shapes, wave-modulated</div>
+          <label className="ui-v1-action-field ui-v1-action-text">
+            <span>Text</span>
+            <input type="text" value={text} onChange={(e) => setText(e.target.value)} aria-label="Text input" />
+          </label>
+
+          <label className="ui-v1-action-field ui-v1-action-preset">
+            <span>Quick preset</span>
+            <select
+              aria-label="Quick preset"
+              defaultValue=""
+              onChange={(e) => {
+                applyQuickPreset(e.target.value);
+                e.currentTarget.value = "";
+              }}
+            >
+              <option value="" disabled>Select</option>
+              <option value="broadcast">Broadcast stack</option>
+              <option value="kinetic">Hard kinetic</option>
+              <option value="shimmer">Readable shimmer</option>
+            </select>
+          </label>
+
+          <div className="ui-v1-action-field ui-v1-action-size">
+            <span>Canvas</span>
+            <CommitNumber value={cw} onCommit={(v) => setCw(clamp(Math.round(v), 200, 4000))} min={200} max={4000} step={10} />
+            <i aria-hidden="true">×</i>
+            <CommitNumber value={ch} onCommit={(v) => setCh(clamp(Math.round(v), 200, 3000))} min={200} max={3000} step={10} />
           </div>
-          <div className="flex gap-2 flex-wrap justify-end">
+
+          <div className="ui-v1-action-buttons">
             <button
               onClick={() => {
                 setText("KINETIC TYPE");
@@ -1026,21 +1085,11 @@ export default function KineticTypeSynth() {
                 setGridWarp(0.6);
                 setGridWarpAxis(0.35);
               }}
-              className="px-3 py-2 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-sm"
             >
               Reset
             </button>
-            <button
-              onClick={() => recomputePoints()}
-              className="px-3 py-2 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-sm"
-            >
-              Resample
-            </button>
-            <button
-              onClick={() => setClearFeedbackTick((x) => x + 1)}
-              className="px-3 py-2 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-sm"
-              title="Clears the feedback buffer"
-            >
+            <button onClick={() => recomputePoints()}>Resample</button>
+            <button onClick={() => setClearFeedbackTick((x) => x + 1)} title="Clears the feedback buffer">
               Clear trails
             </button>
           </div>
@@ -1080,7 +1129,6 @@ export default function KineticTypeSynth() {
             <TabButton id="modes">Modes</TabButton>
             <TabButton id="wave">Waves</TabButton>
             <TabButton id="text">Text</TabButton>
-            <TabButton id="canvas">Canvas</TabButton>
           </div>
 
           <div className="ui-v1-panel-body">
@@ -1272,16 +1320,8 @@ export default function KineticTypeSynth() {
             {tab === "text" && (
               <div className="grid gap-3">
                 <div className="rounded-2xl border border-neutral-800 bg-neutral-950/30 p-4">
-                  <div className="text-sm font-semibold mb-3">Text</div>
+                  <div className="text-sm font-semibold mb-3">Typography</div>
                   <div className="grid gap-3">
-                    <Row label="Content">
-                      <textarea
-                        className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-sm text-neutral-100 min-h-[84px]"
-                        value={text}
-                        onChange={(e) => setText(e.target.value)}
-                        placeholder="Type something (multi-line supported)"
-                      />
-                    </Row>
                     <Row label="Font size">
                       <Slider value={fontSize} onChange={setFontSize} min={24} max={420} step={1} />
                     </Row>
@@ -1321,87 +1361,9 @@ export default function KineticTypeSynth() {
                     </Row>
                   </div>
                 </div>
-
-                <div className="rounded-2xl border border-neutral-800 bg-neutral-950/30 p-4">
-                  <div className="text-sm font-semibold mb-3">Quick presets</div>
-                  <div className="grid gap-2">
-                    <button
-                      className="px-3 py-2 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-sm text-left"
-                      onClick={() => {
-                        setText("RADIO\nSIGNAL");
-                        setFontSize(220);
-                        setTracking(14);
-                        setAlign("center");
-                        setBaseline("middle");
-                        setLineHeightFactor(1.06);
-                      }}
-                    >
-                      Broadcast stack
-                    </button>
-                    <button
-                      className="px-3 py-2 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-sm text-left"
-                      onClick={() => {
-                        setText("MARSEILLE");
-                        setFontSize(260);
-                        setTracking(2);
-                        setWaveShape("triangle");
-                        setWaveAmp(0.9);
-                        setWaveFreq(1.9);
-                        setGridStrength(34);
-                        setLegibility(0.7);
-                        setShapeType("line");
-                        setLineLen(18);
-                        setLineHeightFactor(1.12);
-                      }}
-                    >
-                      Hard kinetic
-                    </button>
-                    <button
-                      className="px-3 py-2 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-sm text-left"
-                      onClick={() => {
-                        setText("ETM");
-                        setFontSize(360);
-                        setTracking(8);
-                        setWaveShape("sine");
-                        setWaveAmp(0.45);
-                        setWaveFreq(1.2);
-                        setGridStrength(16);
-                        setLegibility(0.85);
-                        setShapeType("dot");
-                        setShapeSize(4);
-                        setLineHeightFactor(1.12);
-                      }}
-                    >
-                      Readable shimmer
-                    </button>
-                    <div className="text-xs text-neutral-400 leading-relaxed mt-2">Multi-line text is supported, tracking is applied per line.</div>
-                  </div>
-                </div>
               </div>
             )}
-
-            {tab === "canvas" && (
-              <div className="grid gap-3">
-                <div className="rounded-2xl border border-neutral-800 bg-neutral-950/30 p-4">
-                  <div className="text-sm font-semibold mb-3">Canvas size</div>
-                  <div className="grid gap-3">
-                    <Row label="Width">
-                      <CommitNumber value={cw} onCommit={(v) => setCw(clamp(Math.round(v), 200, 4000))} min={200} max={4000} step={10} />
-                    </Row>
-                    <Row label="Height">
-                      <CommitNumber value={ch} onCommit={(v) => setCh(clamp(Math.round(v), 200, 3000))} min={200} max={3000} step={10} />
-                    </Row>
-                    <div className="text-xs text-neutral-400 leading-relaxed">Inputs commit on blur or Enter, so you can type freely.</div>
-                  </div>
-                </div>
-
-                <div className="rounded-2xl border border-neutral-800 bg-neutral-950/30 p-4">
-                  <div className="text-sm font-semibold mb-3">Performance</div>
-                  <div className="text-xs text-neutral-400 leading-relaxed">
-                    If it stutters: raise <b className="text-neutral-200">Step (density)</b>, reduce <b className="text-neutral-200">Font size</b>, or use feedback carefully.
-                    The renderer auto-caps points.
-                  </div>
-                </div>
+          </div>
               </div>
             )}
           </div>
