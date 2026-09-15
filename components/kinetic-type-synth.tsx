@@ -18,6 +18,23 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+const VIBRANT_BACKGROUNDS = [
+  "#ff4f2e",
+  "#5b5cff",
+  "#00a878",
+  "#ed2f87",
+  "#ffc400",
+  "#0077ff",
+  "#8e44ff",
+  "#00b8d9",
+];
+
+const readableInk = (hex: string) => {
+  const rgb = hex.replace("#", "").match(/.{2}/g)?.map((value) => parseInt(value, 16) / 255) ?? [0, 0, 0];
+  const linear = rgb.map((value) => value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4);
+  const luminance = 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
+  return luminance > 0.42 ? "#0f0f10" : "#f2f2f2";
+};
 const smoothstep = (a: number, b: number, t: number) => {
   const x = clamp((t - a) / (b - a), 0, 1);
   return x * x * (3 - 2 * x);
@@ -104,6 +121,53 @@ function drawTextWithTracking(
   }
 }
 
+function fitTextFontSize(
+  ctx: CanvasRenderingContext2D,
+  {
+    text,
+    fontFamily,
+    fontWeight,
+    requestedSize,
+    tracking,
+    maxWidth,
+    maxHeight,
+    lineHeightFactor,
+  }: {
+    text: string;
+    fontFamily: string;
+    fontWeight: number;
+    requestedSize: number;
+    tracking: number;
+    maxWidth: number;
+    maxHeight: number;
+    lineHeightFactor: number;
+  }
+) {
+  const lines = String(text ?? "").split("\n");
+  const fits = (size: number) => {
+    ctx.font = `${fontWeight} ${size}px ${fontFamily}`;
+    const widest = lines.reduce((max, line) => {
+      const chars = Array.from(line);
+      const width = chars.reduce((sum, char) => sum + ctx.measureText(char).width, 0)
+        + tracking * Math.max(0, chars.length - 1);
+      return Math.max(max, width);
+    }, 0);
+    const height = lines.length * size * lineHeightFactor;
+    return widest <= maxWidth && height <= maxHeight;
+  };
+
+  if (fits(requestedSize)) return requestedSize;
+
+  let low = 4;
+  let high = requestedSize;
+  for (let i = 0; i < 14; i++) {
+    const mid = (low + high) / 2;
+    if (fits(mid)) low = mid;
+    else high = mid;
+  }
+  return low;
+}
+
 function textToPoints({
   text,
   fontFamily,
@@ -144,11 +208,21 @@ function textToPoints({
   ctx.fillStyle = "#000";
   ctx.textBaseline = "alphabetic";
   ctx.textAlign = align;
-  ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+  const fittedFontSize = fitTextFontSize(ctx, {
+    text,
+    fontFamily,
+    fontWeight,
+    requestedSize: fontSize,
+    tracking,
+    maxWidth: Math.max(1, width - pad * 2),
+    maxHeight: Math.max(1, height - pad * 2),
+    lineHeightFactor,
+  });
+  ctx.font = `${fontWeight} ${fittedFontSize}px ${fontFamily}`;
 
   const x = align === "left" ? pad : align === "right" ? width - pad : width / 2;
   const y = height / 2;
-  const lineHeight = fontSize * lineHeightFactor;
+  const lineHeight = fittedFontSize * lineHeightFactor;
 
   drawTextWithTracking(ctx, { text, x, y, align, baseline, tracking, lineHeight });
 
@@ -299,6 +373,44 @@ function useCommitNumber(value: number, onCommit: (v: number) => void) {
   return { raw, setRaw, commit };
 }
 
+function ControlRow({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="grid grid-cols-12 gap-3 items-center">
+      <div className="col-span-4 text-xs text-neutral-300">{label}</div>
+      <div className="col-span-8">{children}</div>
+    </div>
+  );
+}
+
+function RangeSlider({
+  value,
+  onChange,
+  min,
+  max,
+  step = 0.01,
+}: {
+  value: number;
+  onChange: (v: number) => void;
+  min: number;
+  max: number;
+  step?: number;
+}) {
+  return (
+    <div className="flex items-center gap-3">
+      <input
+        className="w-full"
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(e) => onChange(parseFloat(e.target.value))}
+      />
+      <div className="w-16 text-right tabular-nums text-xs text-neutral-300">{value.toFixed(2)}</div>
+    </div>
+  );
+}
+
 function __assert(cond: unknown, msg: string) {
   if (!cond) throw new Error(`SelfTest failed: ${msg}`);
 }
@@ -326,6 +438,15 @@ let __didRunTests = false;
 
 export default function KineticTypeSynth() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [panelOpen, setPanelOpen] = useState(true);
+  const [panelOffset, setPanelOffset] = useState({ x: 0, y: 0 });
+  const panelDragRef = useRef<{
+    pointerId: number;
+    startX: number;
+    startY: number;
+    originX: number;
+    originY: number;
+  } | null>(null);
 
   const [cw, setCw] = useState(1280);
   const [ch, setCh] = useState(800);
@@ -397,7 +518,7 @@ export default function KineticTypeSynth() {
   const [ink, setInk] = useState("#f2f2f2");
   const [strokeW, setStrokeW] = useState(1);
 
-  const [tab, setTab] = useState<"modes" | "wave" | "text" | "canvas">("modes");
+  const [tab, setTab] = useState<"modes" | "wave" | "text">("modes");
 
   const fontFamily = useMemo(
     () =>
@@ -444,6 +565,31 @@ export default function KineticTypeSynth() {
 
   useEffect(() => {
     setDpr(Math.max(1, Math.min(2, window.devicePixelRatio || 1)));
+
+    const previous = window.sessionStorage.getItem("playground-vibrant-background");
+    const choices = VIBRANT_BACKGROUNDS.filter((color) => color !== previous);
+    const next = choices[Math.floor(Math.random() * choices.length)] ?? VIBRANT_BACKGROUNDS[0];
+    window.sessionStorage.setItem("playground-vibrant-background", next);
+    setBg(next);
+    setInk(readableInk(next));
+  }, []);
+
+  useEffect(() => {
+    const shell = document.querySelector<HTMLElement>(".ui-v1-page");
+    if (!shell) return;
+    shell.style.setProperty("--ui-v1-bg", bg);
+    shell.style.setProperty("--ui-v1-fg", ink);
+    return () => {
+      shell.style.removeProperty("--ui-v1-bg");
+      shell.style.removeProperty("--ui-v1-fg");
+    };
+  }, [bg, ink]);
+
+  useEffect(() => {
+    const matchViewportWidth = () => setCw(clamp(Math.round(window.innerWidth), 200, 4000));
+    matchViewportWidth();
+    window.addEventListener("resize", matchViewportWidth);
+    return () => window.removeEventListener("resize", matchViewportWidth);
   }, []);
 
   useEffect(() => {
@@ -477,6 +623,16 @@ export default function KineticTypeSynth() {
 
     const W = cw;
     const H = ch;
+    const fittedFontSize = fitTextFontSize(ctx, {
+      text,
+      fontFamily,
+      fontWeight,
+      requestedSize: fontSize,
+      tracking,
+      maxWidth: Math.max(1, W - pad * 2),
+      maxHeight: Math.max(1, H - pad * 2),
+      lineHeightFactor,
+    });
 
     // HiDPI
     if (canvas.width !== Math.floor(W * dpr) || canvas.height !== Math.floor(H * dpr)) {
@@ -516,11 +672,11 @@ export default function KineticTypeSynth() {
       ctx.fillStyle = ink;
       ctx.textBaseline = "alphabetic";
       ctx.textAlign = align;
-      ctx.font = `${fontWeight} ${fontSize}px ${fontFamily}`;
+      ctx.font = `${fontWeight} ${fittedFontSize}px ${fontFamily}`;
 
       const x = align === "left" ? pad : align === "right" ? W - pad : W / 2;
       const y = H / 2;
-      const lineHeight = fontSize * lineHeightFactor;
+      const lineHeight = fittedFontSize * lineHeightFactor;
 
       drawTextWithTracking(ctx, { text, x, y, align, baseline, tracking, lineHeight });
       ctx.restore();
@@ -587,11 +743,11 @@ export default function KineticTypeSynth() {
         bctx.fillStyle = ink;
         bctx.textBaseline = "alphabetic";
         bctx.textAlign = align;
-        bctx.font = `${fontWeight} ${fontSize * dpr}px ${fontFamily}`;
+        bctx.font = `${fontWeight} ${fittedFontSize * dpr}px ${fontFamily}`;
 
         const x = (align === "left" ? pad : align === "right" ? W - pad : W / 2) * dpr;
         const y = (H / 2) * dpr;
-        const lineHeight = fontSize * lineHeightFactor * dpr;
+        const lineHeight = fittedFontSize * lineHeightFactor * dpr;
 
         drawTextWithTracking(bctx, {
           text,
@@ -837,48 +993,11 @@ export default function KineticTypeSynth() {
   const TabButton = ({ id, children }: { id: typeof tab; children: React.ReactNode }) => (
     <button
       onClick={() => setTab(id)}
-      className={`px-3 py-2 rounded-xl text-sm transition border ${
-        tab === id
-          ? "bg-neutral-800 border-neutral-700 text-neutral-50"
-          : "bg-neutral-900 border-neutral-800 text-neutral-300 hover:bg-neutral-800"
-      }`}
+      className="ui-v1-tab"
+      aria-pressed={tab === id}
     >
       {children}
     </button>
-  );
-
-  const Row = ({ label, children }: { label: string; children: React.ReactNode }) => (
-    <div className="grid grid-cols-12 gap-3 items-center">
-      <div className="col-span-4 text-xs text-neutral-300">{label}</div>
-      <div className="col-span-8">{children}</div>
-    </div>
-  );
-
-  const Slider = ({
-    value,
-    onChange,
-    min,
-    max,
-    step = 0.01,
-  }: {
-    value: number;
-    onChange: (v: number) => void;
-    min: number;
-    max: number;
-    step?: number;
-  }) => (
-    <div className="flex items-center gap-3">
-      <input
-        className="w-full"
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(parseFloat(e.target.value))}
-      />
-      <div className="w-16 text-right tabular-nums text-xs text-neutral-300">{value.toFixed(2)}</div>
-    </div>
   );
 
   const CommitNumber = ({
@@ -958,15 +1077,107 @@ export default function KineticTypeSynth() {
     </label>
   );
 
+  const beginPanelDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (window.matchMedia("(max-width: 760px)").matches) return;
+    panelDragRef.current = {
+      pointerId: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
+      originX: panelOffset.x,
+      originY: panelOffset.y,
+    };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+
+  const movePanel = (e: React.PointerEvent<HTMLDivElement>) => {
+    const drag = panelDragRef.current;
+    if (!drag || drag.pointerId !== e.pointerId) return;
+    const nextX = drag.originX + e.clientX - drag.startX;
+    const nextY = drag.originY + e.clientY - drag.startY;
+    setPanelOffset({
+      x: clamp(nextX, -Math.max(0, window.innerWidth - 360), 24),
+      y: clamp(nextY, -64, Math.max(0, window.innerHeight - 260)),
+    });
+  };
+
+  const endPanelDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (panelDragRef.current?.pointerId === e.pointerId) {
+      panelDragRef.current = null;
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+  };
+
+  const applyQuickPreset = (preset: string) => {
+    if (preset === "broadcast") {
+      setText("RADIO\nSIGNAL");
+      setFontSize(220);
+      setTracking(14);
+      setAlign("center");
+      setBaseline("middle");
+      setLineHeightFactor(1.06);
+    }
+    if (preset === "kinetic") {
+      setText("MARSEILLE");
+      setFontSize(260);
+      setTracking(2);
+      setWaveShape("triangle");
+      setWaveAmp(0.9);
+      setWaveFreq(1.9);
+      setGridStrength(34);
+      setLegibility(0.7);
+      setShapeType("line");
+      setLineLen(18);
+      setLineHeightFactor(1.12);
+    }
+    if (preset === "shimmer") {
+      setText("ETM");
+      setFontSize(360);
+      setTracking(8);
+      setWaveShape("sine");
+      setWaveAmp(0.45);
+      setWaveFreq(1.2);
+      setGridStrength(16);
+      setLegibility(0.85);
+      setShapeType("dot");
+      setShapeSize(4);
+      setLineHeightFactor(1.12);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 p-4">
-      <div className="max-w-[1280px] mx-auto">
-        <div className="flex items-start justify-between gap-4 mb-3">
-          <div>
-            <div className="text-lg font-semibold">Kinetic Type Synth</div>
-            <div className="text-xs text-neutral-400">Sampling · Grid warp · Vertex shapes, wave-modulated</div>
+    <div className="ui-v1-synth text-neutral-100" style={{ background: bg }}>
+      <div className="ui-v1-synth-inner">
+        <div className="ui-v1-actions">
+          <label className="ui-v1-action-field ui-v1-action-text">
+            <span>Text</span>
+            <input type="text" value={text} onChange={(e) => setText(e.target.value)} aria-label="Text input" />
+          </label>
+
+          <label className="ui-v1-action-field ui-v1-action-preset">
+            <span>Quick preset</span>
+            <select
+              aria-label="Quick preset"
+              defaultValue=""
+              onChange={(e) => {
+                applyQuickPreset(e.target.value);
+                e.currentTarget.value = "";
+              }}
+            >
+              <option value="" disabled>Select</option>
+              <option value="broadcast">Broadcast stack</option>
+              <option value="kinetic">Hard kinetic</option>
+              <option value="shimmer">Readable shimmer</option>
+            </select>
+          </label>
+
+          <div className="ui-v1-action-field ui-v1-action-size">
+            <span>Canvas</span>
+            <CommitNumber value={cw} onCommit={(v) => setCw(clamp(Math.round(v), 200, 4000))} min={200} max={4000} step={10} />
+            <i aria-hidden="true">×</i>
+            <CommitNumber value={ch} onCommit={(v) => setCh(clamp(Math.round(v), 200, 3000))} min={200} max={3000} step={10} />
           </div>
-          <div className="flex gap-2 flex-wrap justify-end">
+
+          <div className="ui-v1-action-buttons">
             <button
               onClick={() => {
                 setText("KINETIC TYPE");
@@ -987,59 +1198,73 @@ export default function KineticTypeSynth() {
                 setGridWarp(0.6);
                 setGridWarpAxis(0.35);
               }}
-              className="px-3 py-2 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-sm"
             >
               Reset
             </button>
-            <button
-              onClick={() => recomputePoints()}
-              className="px-3 py-2 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-sm"
-            >
-              Resample
-            </button>
-            <button
-              onClick={() => setClearFeedbackTick((x) => x + 1)}
-              className="px-3 py-2 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-sm"
-              title="Clears the feedback buffer"
-            >
+            <button onClick={() => recomputePoints()}>Resample</button>
+            <button onClick={() => setClearFeedbackTick((x) => x + 1)} title="Clears the feedback buffer">
               Clear trails
             </button>
           </div>
         </div>
 
-        <div className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-3 shadow-sm">
-          <div className="overflow-auto">
-            <canvas ref={canvasRef} className="block rounded-xl border border-neutral-800" />
+        <div className="ui-v1-layout">
+          <div className="ui-v1-canvas-frame">
+            <canvas ref={canvasRef} className="ui-v1-canvas" />
           </div>
 
-          <div className="mt-3 flex flex-wrap gap-2">
+          <aside
+            className={`ui-v1-panel ${panelOpen ? "is-open" : "is-closed"}`}
+            style={{ transform: `translate3d(${panelOffset.x}px, ${panelOffset.y}px, 0)` }}
+          >
+            <div
+              className="ui-v1-panel-handle"
+              onPointerDown={beginPanelDrag}
+              onPointerMove={movePanel}
+              onPointerUp={endPanelDrag}
+              onPointerCancel={endPanelDrag}
+            >
+              <span>{tab}</span>
+              <span className="ui-v1-drag-mark" aria-hidden="true">≡</span>
+              <button
+                type="button"
+                aria-label={panelOpen ? "Collapse controls" : "Open controls"}
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={() => setPanelOpen((open) => !open)}
+              >
+                {panelOpen ? "×" : "+"}
+              </button>
+            </div>
+
+            {panelOpen && (
+              <div className="ui-v1-panel-content">
+          <div className="ui-v1-panel-tabs">
             <TabButton id="modes">Modes</TabButton>
             <TabButton id="wave">Waves</TabButton>
             <TabButton id="text">Text</TabButton>
-            <TabButton id="canvas">Canvas</TabButton>
           </div>
 
-          <div className="mt-3 grid gap-3">
+          <div className="ui-v1-panel-body">
             {tab === "modes" && (
-              <div className="grid md:grid-cols-3 gap-3">
+              <div className="grid gap-3">
                 <div className="rounded-2xl border border-neutral-800 bg-neutral-950/30 p-4">
                   <div className="flex items-center justify-between mb-3">
                     <div className="text-sm font-semibold">Sampling</div>
                     <Toggle checked={sampleOn} onChange={setSampleOn} label={sampleOn ? "On" : "Off"} />
                   </div>
                   <div className="grid gap-3">
-                    <Row label="Step (density)">
-                      <Slider value={sampleStep} onChange={setSampleStep} min={2} max={14} step={1} />
-                    </Row>
-                    <Row label="Threshold">
-                      <Slider value={sampleThreshold} onChange={setSampleThreshold} min={0.05} max={0.8} step={0.01} />
-                    </Row>
-                    <Row label="Jitter">
-                      <Slider value={sampleJitter} onChange={setSampleJitter} min={0} max={3} step={0.05} />
-                    </Row>
-                    <Row label="Opacity">
-                      <Slider value={sampleOpacity} onChange={setSampleOpacity} min={0} max={1} step={0.01} />
-                    </Row>
+                    <ControlRow label="Step (density)">
+                      <RangeSlider value={sampleStep} onChange={setSampleStep} min={2} max={14} step={1} />
+                    </ControlRow>
+                    <ControlRow label="Threshold">
+                      <RangeSlider value={sampleThreshold} onChange={setSampleThreshold} min={0.05} max={0.8} step={0.01} />
+                    </ControlRow>
+                    <ControlRow label="Jitter">
+                      <RangeSlider value={sampleJitter} onChange={setSampleJitter} min={0} max={3} step={0.05} />
+                    </ControlRow>
+                    <ControlRow label="Opacity">
+                      <RangeSlider value={sampleOpacity} onChange={setSampleOpacity} min={0} max={1} step={0.01} />
+                    </ControlRow>
                   </div>
                 </div>
 
@@ -1049,27 +1274,27 @@ export default function KineticTypeSynth() {
                     <Toggle checked={gridOn} onChange={setGridOn} label={gridOn ? "On" : "Off"} />
                   </div>
                   <div className="grid gap-3">
-                    <Row label="Grid size">
-                      <Slider value={gridSize} onChange={setGridSize} min={10} max={180} step={1} />
-                    </Row>
-                    <Row label="Strength">
-                      <Slider value={gridStrength} onChange={setGridStrength} min={0} max={80} step={1} />
-                    </Row>
-                    <Row label="Mix">
-                      <Slider value={distMix} onChange={setDistMix} min={0} max={1} step={0.01} />
-                    </Row>
-                    <Row label="Hide originals">
-                      <Slider value={gridCut} onChange={setGridCut} min={0} max={10} step={0.1} />
-                    </Row>
-                    <Row label="Stretch / compress">
-                      <Slider value={gridWarp} onChange={setGridWarp} min={0} max={1.5} step={0.01} />
-                    </Row>
-                    <Row label="Axis">
-                      <Slider value={gridWarpAxis} onChange={setGridWarpAxis} min={0} max={1} step={0.01} />
-                    </Row>
-                    <Row label="Legibility">
-                      <Slider value={legibility} onChange={setLegibility} min={0} max={1} step={0.01} />
-                    </Row>
+                    <ControlRow label="Grid size">
+                      <RangeSlider value={gridSize} onChange={setGridSize} min={10} max={180} step={1} />
+                    </ControlRow>
+                    <ControlRow label="Strength">
+                      <RangeSlider value={gridStrength} onChange={setGridStrength} min={0} max={80} step={1} />
+                    </ControlRow>
+                    <ControlRow label="Mix">
+                      <RangeSlider value={distMix} onChange={setDistMix} min={0} max={1} step={0.01} />
+                    </ControlRow>
+                    <ControlRow label="Hide originals">
+                      <RangeSlider value={gridCut} onChange={setGridCut} min={0} max={10} step={0.1} />
+                    </ControlRow>
+                    <ControlRow label="Stretch / compress">
+                      <RangeSlider value={gridWarp} onChange={setGridWarp} min={0} max={1.5} step={0.01} />
+                    </ControlRow>
+                    <ControlRow label="Axis">
+                      <RangeSlider value={gridWarpAxis} onChange={setGridWarpAxis} min={0} max={1} step={0.01} />
+                    </ControlRow>
+                    <ControlRow label="Legibility">
+                      <RangeSlider value={legibility} onChange={setLegibility} min={0} max={1} step={0.01} />
+                    </ControlRow>
                   </div>
                 </div>
 
@@ -1079,7 +1304,7 @@ export default function KineticTypeSynth() {
                     <Toggle checked={shapeOn} onChange={setShapeOn} label={shapeOn ? "On" : "Off"} />
                   </div>
                   <div className="grid gap-3">
-                    <Row label="Shape">
+                    <ControlRow label="Shape">
                       <Select
                         value={shapeType}
                         onChange={setShapeType}
@@ -1089,27 +1314,27 @@ export default function KineticTypeSynth() {
                           { value: "line", label: "Line" },
                         ]}
                       />
-                    </Row>
-                    <Row label="Size">
-                      <Slider value={shapeSize} onChange={setShapeSize} min={0.5} max={10} step={0.1} />
-                    </Row>
-                    <Row label="Line length">
-                      <Slider value={lineLen} onChange={setLineLen} min={2} max={40} step={1} />
-                    </Row>
-                    <Row label="Mix">
-                      <Slider value={shapeMix} onChange={setShapeMix} min={0} max={1} step={0.01} />
-                    </Row>
+                    </ControlRow>
+                    <ControlRow label="Size">
+                      <RangeSlider value={shapeSize} onChange={setShapeSize} min={0.5} max={10} step={0.1} />
+                    </ControlRow>
+                    <ControlRow label="Line length">
+                      <RangeSlider value={lineLen} onChange={setLineLen} min={2} max={40} step={1} />
+                    </ControlRow>
+                    <ControlRow label="Mix">
+                      <RangeSlider value={shapeMix} onChange={setShapeMix} min={0} max={1} step={0.01} />
+                    </ControlRow>
                   </div>
                 </div>
               </div>
             )}
 
             {tab === "wave" && (
-              <div className="grid md:grid-cols-2 gap-3">
+              <div className="grid gap-3">
                 <div className="rounded-2xl border border-neutral-800 bg-neutral-950/30 p-4">
                   <div className="text-sm font-semibold mb-3">Wave modulation</div>
                   <div className="grid gap-3">
-                    <Row label="Wave shape">
+                    <ControlRow label="Wave shape">
                       <Select
                         value={waveShape}
                         onChange={setWaveShape}
@@ -1120,22 +1345,22 @@ export default function KineticTypeSynth() {
                           { value: "saw", label: "Saw" },
                         ]}
                       />
-                    </Row>
-                    <Row label="Amplitude">
-                      <Slider value={waveAmp} onChange={setWaveAmp} min={0} max={2} step={0.01} />
-                    </Row>
-                    <Row label="Frequency">
-                      <Slider value={waveFreq} onChange={setWaveFreq} min={0.1} max={6} step={0.01} />
-                    </Row>
-                    <Row label="Speed">
-                      <Slider value={waveSpeed} onChange={setWaveSpeed} min={0} max={0.003} step={0.00001} />
-                    </Row>
-                    <Row label="Direction">
-                      <Slider value={waveDir} onChange={setWaveDir} min={0} max={1} step={0.01} />
-                    </Row>
-                    <Row label="Phase">
-                      <Slider value={wavePhase} onChange={setWavePhase} min={0} max={2} step={0.01} />
-                    </Row>
+                    </ControlRow>
+                    <ControlRow label="Amplitude">
+                      <RangeSlider value={waveAmp} onChange={setWaveAmp} min={0} max={2} step={0.01} />
+                    </ControlRow>
+                    <ControlRow label="Frequency">
+                      <RangeSlider value={waveFreq} onChange={setWaveFreq} min={0.1} max={6} step={0.01} />
+                    </ControlRow>
+                    <ControlRow label="Speed">
+                      <RangeSlider value={waveSpeed} onChange={setWaveSpeed} min={0} max={0.003} step={0.00001} />
+                    </ControlRow>
+                    <ControlRow label="Direction">
+                      <RangeSlider value={waveDir} onChange={setWaveDir} min={0} max={1} step={0.01} />
+                    </ControlRow>
+                    <ControlRow label="Phase">
+                      <RangeSlider value={wavePhase} onChange={setWavePhase} min={0} max={2} step={0.01} />
+                    </ControlRow>
 
                     <div className="mt-2 rounded-xl border border-neutral-800 bg-neutral-900/50 p-3">
                       <div className="text-xs font-semibold text-neutral-200 mb-2">Wave destinations</div>
@@ -1152,10 +1377,10 @@ export default function KineticTypeSynth() {
                   <div className="text-sm font-semibold mb-3">Feedback / trails</div>
                   <div className="grid gap-3">
                     <Toggle checked={feedbackOn} onChange={setFeedbackOn} label={feedbackOn ? "On" : "Off"} />
-                    <Row label="Fade (keep)">
-                      <Slider value={feedbackAlpha} onChange={setFeedbackAlpha} min={0.5} max={0.98} step={0.01} />
-                    </Row>
-                    <Row label="Blend mode">
+                    <ControlRow label="Fade (keep)">
+                      <RangeSlider value={feedbackAlpha} onChange={setFeedbackAlpha} min={0.5} max={0.98} step={0.01} />
+                    </ControlRow>
+                    <ControlRow label="Blend mode">
                       <Select
                         value={feedbackBlend}
                         onChange={setFeedbackBlend}
@@ -1168,31 +1393,31 @@ export default function KineticTypeSynth() {
                           { value: "xor", label: "XOR" },
                         ]}
                       />
-                    </Row>
+                    </ControlRow>
 
                     <div className="rounded-xl border border-neutral-800 bg-neutral-900/50 p-3">
                       <div className="text-xs font-semibold text-neutral-200 mb-2">Readability helpers</div>
                       <div className="grid gap-2">
                         <Toggle checked={showGhostText} onChange={setShowGhostText} label="Ghost text underlay" />
-                        <Row label="Stroke width">
-                          <Slider value={strokeW} onChange={setStrokeW} min={0.5} max={3} step={0.5} />
-                        </Row>
-                        <Row label="Ink">
+                        <ControlRow label="Stroke width">
+                          <RangeSlider value={strokeW} onChange={setStrokeW} min={0.5} max={3} step={0.5} />
+                        </ControlRow>
+                        <ControlRow label="Ink">
                           <input
                             type="color"
                             value={ink}
                             onChange={(e) => setInk(e.target.value)}
                             className="w-full h-10 rounded-xl border border-neutral-800 bg-neutral-900"
                           />
-                        </Row>
-                        <Row label="Background">
+                        </ControlRow>
+                        <ControlRow label="Background">
                           <input
                             type="color"
                             value={bg}
                             onChange={(e) => setBg(e.target.value)}
                             className="w-full h-10 rounded-xl border border-neutral-800 bg-neutral-900"
                           />
-                        </Row>
+                        </ControlRow>
                       </div>
                     </div>
 
@@ -1206,31 +1431,23 @@ export default function KineticTypeSynth() {
             )}
 
             {tab === "text" && (
-              <div className="grid md:grid-cols-2 gap-3">
+              <div className="grid gap-3">
                 <div className="rounded-2xl border border-neutral-800 bg-neutral-950/30 p-4">
-                  <div className="text-sm font-semibold mb-3">Text</div>
+                  <div className="text-sm font-semibold mb-3">Typography</div>
                   <div className="grid gap-3">
-                    <Row label="Content">
-                      <textarea
-                        className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3 py-2 text-sm text-neutral-100 min-h-[84px]"
-                        value={text}
-                        onChange={(e) => setText(e.target.value)}
-                        placeholder="Type something (multi-line supported)"
-                      />
-                    </Row>
-                    <Row label="Font size">
-                      <Slider value={fontSize} onChange={setFontSize} min={24} max={420} step={1} />
-                    </Row>
-                    <Row label="Tracking">
-                      <Slider value={tracking} onChange={setTracking} min={-8} max={30} step={1} />
-                    </Row>
-                    <Row label="Line height">
-                      <Slider value={lineHeightFactor} onChange={setLineHeightFactor} min={0.9} max={1.6} step={0.01} />
-                    </Row>
-                    <Row label="Weight">
-                      <Slider value={fontWeight} onChange={setFontWeight} min={200} max={900} step={100} />
-                    </Row>
-                    <Row label="Align">
+                    <ControlRow label="Font size">
+                      <RangeSlider value={fontSize} onChange={setFontSize} min={24} max={420} step={1} />
+                    </ControlRow>
+                    <ControlRow label="Tracking">
+                      <RangeSlider value={tracking} onChange={setTracking} min={-8} max={30} step={1} />
+                    </ControlRow>
+                    <ControlRow label="Line height">
+                      <RangeSlider value={lineHeightFactor} onChange={setLineHeightFactor} min={0.9} max={1.6} step={0.01} />
+                    </ControlRow>
+                    <ControlRow label="Weight">
+                      <RangeSlider value={fontWeight} onChange={setFontWeight} min={200} max={900} step={100} />
+                    </ControlRow>
+                    <ControlRow label="Align">
                       <Select
                         value={align}
                         onChange={setAlign}
@@ -1240,8 +1457,8 @@ export default function KineticTypeSynth() {
                           { value: "right", label: "Right" },
                         ]}
                       />
-                    </Row>
-                    <Row label="Baseline">
+                    </ControlRow>
+                    <ControlRow label="Baseline">
                       <Select
                         value={baseline}
                         onChange={setBaseline}
@@ -1251,100 +1468,22 @@ export default function KineticTypeSynth() {
                           { value: "bottom", label: "Bottom" },
                         ]}
                       />
-                    </Row>
-                    <Row label="Padding">
-                      <Slider value={pad} onChange={setPad} min={0} max={220} step={1} />
-                    </Row>
-                  </div>
-                </div>
-
-                <div className="rounded-2xl border border-neutral-800 bg-neutral-950/30 p-4">
-                  <div className="text-sm font-semibold mb-3">Quick presets</div>
-                  <div className="grid gap-2">
-                    <button
-                      className="px-3 py-2 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-sm text-left"
-                      onClick={() => {
-                        setText("RADIO\nSIGNAL");
-                        setFontSize(220);
-                        setTracking(14);
-                        setAlign("center");
-                        setBaseline("middle");
-                        setLineHeightFactor(1.06);
-                      }}
-                    >
-                      Broadcast stack
-                    </button>
-                    <button
-                      className="px-3 py-2 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-sm text-left"
-                      onClick={() => {
-                        setText("MARSEILLE");
-                        setFontSize(260);
-                        setTracking(2);
-                        setWaveShape("triangle");
-                        setWaveAmp(0.9);
-                        setWaveFreq(1.9);
-                        setGridStrength(34);
-                        setLegibility(0.7);
-                        setShapeType("line");
-                        setLineLen(18);
-                        setLineHeightFactor(1.12);
-                      }}
-                    >
-                      Hard kinetic
-                    </button>
-                    <button
-                      className="px-3 py-2 rounded-xl border border-neutral-800 bg-neutral-900 hover:bg-neutral-800 text-sm text-left"
-                      onClick={() => {
-                        setText("ETM");
-                        setFontSize(360);
-                        setTracking(8);
-                        setWaveShape("sine");
-                        setWaveAmp(0.45);
-                        setWaveFreq(1.2);
-                        setGridStrength(16);
-                        setLegibility(0.85);
-                        setShapeType("dot");
-                        setShapeSize(4);
-                        setLineHeightFactor(1.12);
-                      }}
-                    >
-                      Readable shimmer
-                    </button>
-                    <div className="text-xs text-neutral-400 leading-relaxed mt-2">Multi-line text is supported, tracking is applied per line.</div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {tab === "canvas" && (
-              <div className="grid md:grid-cols-2 gap-3">
-                <div className="rounded-2xl border border-neutral-800 bg-neutral-950/30 p-4">
-                  <div className="text-sm font-semibold mb-3">Canvas size</div>
-                  <div className="grid gap-3">
-                    <Row label="Width">
-                      <CommitNumber value={cw} onCommit={(v) => setCw(clamp(Math.round(v), 200, 4000))} min={200} max={4000} step={10} />
-                    </Row>
-                    <Row label="Height">
-                      <CommitNumber value={ch} onCommit={(v) => setCh(clamp(Math.round(v), 200, 3000))} min={200} max={3000} step={10} />
-                    </Row>
-                    <div className="text-xs text-neutral-400 leading-relaxed">Inputs commit on blur or Enter, so you can type freely.</div>
-                  </div>
-                </div>
-
-                <div className="rounded-2xl border border-neutral-800 bg-neutral-950/30 p-4">
-                  <div className="text-sm font-semibold mb-3">Performance</div>
-                  <div className="text-xs text-neutral-400 leading-relaxed">
-                    If it stutters: raise <b className="text-neutral-200">Step (density)</b>, reduce <b className="text-neutral-200">Font size</b>, or use feedback carefully.
-                    The renderer auto-caps points.
+                    </ControlRow>
+                    <ControlRow label="Padding">
+                      <RangeSlider value={pad} onChange={setPad} min={0} max={220} step={1} />
+                    </ControlRow>
                   </div>
                 </div>
               </div>
             )}
           </div>
+              </div>
+            )}
+          </aside>
         </div>
 
-        <div className="mt-4 text-xs text-neutral-500 leading-relaxed">
-          Modes can be combined or solo. Grid-only shows only the warped result (no original underlay).
+        <div className="ui-v1-note">
+          Modes can be combined or solo. Grid-only shows only the warped result.
         </div>
       </div>
     </div>

@@ -5,20 +5,22 @@ import KineticTypeSynth from "@/components/kinetic-type-synth";
 
 export default function KineticTypeSynthPage() {
   return (
-    <main className="import-page">
-      <header className="import-header import-header-native">
-        <a href="/" className="back-link">
+    <main className="ui-v1-page">
+      <header className="ui-v1-header">
+        <a href="/" className="ui-v1-back">
           <ArrowLeft aria-hidden="true" />
-          Index
+          Back
         </a>
+
         <h1>Kinetic Type Synth</h1>
-        <span>REC-09 / Tool / Test</span>
+
+        <div className="ui-v1-meta">
+          <span>REC - 009</span>
+          <span>Sampling - Grid warp - Vertex shapes - Wave-modulated</span>
+        </div>
       </header>
 
-      <section
-        className="experiment-native"
-        aria-label="Kinetic Type Synth interactive experiment"
-      >
+      <section className="ui-v1-experiment" aria-label="Kinetic Type Synth interactive experiment">
         <KineticTypeSynth />
       </section>
     </main>
