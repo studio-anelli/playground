@@ -1,3 +1,5 @@
+"use client";
+
 import TypeDistorter from "@/recovered/type-distorter-original/particle-type-distorter/src/App";
 import UIV1ExperimentShell from "@/components/ui-v1-experiment-shell";
 
