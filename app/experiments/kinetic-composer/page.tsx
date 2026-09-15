@@ -1,3 +1,5 @@
+"use client";
+
 import KineticComposer from "@/recovered/kinetic-composer-original/kinetic_composer/src/App";
 import UIV1ExperimentShell from "@/components/ui-v1-experiment-shell";
 
