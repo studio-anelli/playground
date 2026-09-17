@@ -768,25 +768,25 @@ function RenderPanel({ items, nowTime, stageWidth, stageHeight }) {
 function LayersPanel({ layers, setLayers, activeId, setActiveId, onDragStart, onDragOver, onDrop }) {
   return (
     <div>
-      <div className="flex items-center justify-between mb-3">
+      <div className="mb-3 flex items-end justify-between gap-3">
         <div>
           <div className="text-sm font-bold">Layers</div>
           <div className="text-xs opacity-70">Drag ≡ to reorder. Use Dup to copy.</div>
         </div>
-        <div className="flex gap-2">
-          <button onClick={() => addText(setLayers)} className="px-3 py-2 rounded bg-white text-black text-xs font-bold">
+        <div className="flex shrink-0 gap-1">
+          <button onClick={() => addText(setLayers)} className="border border-white bg-white px-2 py-2 text-xs font-bold text-black">
             + Text
           </button>
           <button
             onClick={() => addReplicator(setLayers, layers)}
-            className="px-3 py-2 rounded bg-white/10 hover:bg-white/20 text-xs"
+            className="border border-white/20 px-2 py-2 text-xs hover:border-white/60"
           >
             + Replicator
           </button>
         </div>
       </div>
 
-      <ul className="space-y-2" role="listbox" aria-label="Layers">
+      <ul className="space-y-1.5" role="listbox" aria-label="Layers">
         {layers.map((L) => (
           <li
             key={L.id}
@@ -796,56 +796,56 @@ function LayersPanel({ layers, setLayers, activeId, setActiveId, onDragStart, on
             onDragStart={onDragStart(L.id)}
             onDragOver={onDragOver(L.id)}
             onDrop={onDrop(L.id)}
-            className={`rounded-xl border p-2 ${activeId === L.id ? "border-white/50 bg-white/10" : "border-white/10 bg-white/5"}`}
+            className={`border p-2 ${activeId === L.id ? "border-white/50 bg-white/10" : "border-white/10 bg-white/5"}`}
           >
-            <div className="flex items-center gap-2">
-              <button title="Drag to reorder" className="w-7 h-7 rounded bg-white/15 flex items-center justify-center text-xs">
+            <div className="grid grid-cols-[28px_28px_minmax(0,1fr)_auto] items-center gap-2">
+              <button title="Drag to reorder" className="flex h-7 w-7 items-center justify-center border border-white/15 text-xs">
                 ≡
               </button>
               <button
-                className={`w-7 h-7 rounded ${L.visible ? "bg-green-500" : "bg-neutral-600"}`}
+                className={`h-7 w-7 border ${L.visible ? "border-[#00d45a] bg-[#00d45a]" : "border-white/20 bg-neutral-700"}`}
                 onClick={() => toggleVisible(L.id, setLayers)}
                 aria-label="Toggle visibility"
               />
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] uppercase tracking-wide opacity-70 w-20">{L.type}</span>
-                  <input
-                    className="flex-1 bg-transparent outline-none border-b border-white/15 focus:border-white/60 text-sm"
-                    value={L.name}
-                    onChange={(e) => renameLayer(L.id, e.target.value, setLayers)}
-                  />
-                </div>
+              <div className="min-w-0">
+                <span className="block text-[9px] uppercase tracking-wide opacity-50">{L.type}</span>
+                <input
+                  className="w-full border-b border-white/15 bg-transparent text-sm outline-none focus:border-white/60"
+                  value={L.name}
+                  onChange={(e) => renameLayer(L.id, e.target.value, setLayers)}
+                />
               </div>
               <button
-                className="px-3 py-2 rounded bg-white/10 hover:bg-white/15 text-xs font-bold"
+                className="border border-white/20 px-2 py-2 text-xs font-bold hover:border-white/60"
                 onClick={() => setActiveId(L.id)}
               >
                 Edit
               </button>
-              <button
-                className="px-3 py-2 rounded bg-white/10 hover:bg-white/15 text-xs font-bold"
-                onClick={() => duplicateLayer(L.id, setLayers)}
-                aria-label="Duplicate"
-              >
-                Dup
-              </button>
-              <button
-                className={`px-3 py-2 rounded text-xs font-bold border ${
-                  L.locked ? "border-yellow-400/70 text-yellow-200" : "border-white/15 text-white/70"
-                }`}
-                onClick={() => toggleLocked(L.id, setLayers)}
-                aria-label="Toggle lock"
-              >
-                {L.locked ? "Locked" : "Lock"}
-              </button>
-              <button
-                className="px-3 py-2 rounded border border-red-400/70 text-red-200 hover:bg-red-500/10 text-xs font-bold"
-                onClick={() => removeLayer(L.id, setLayers, setActiveId)}
-                aria-label="Delete"
-              >
-                Del
-              </button>
+              <div className="col-span-4 flex justify-end gap-1 border-t border-white/10 pt-2">
+                <button
+                  className="border border-white/15 px-2 py-1 text-[10px] uppercase hover:border-white/60"
+                  onClick={() => duplicateLayer(L.id, setLayers)}
+                  aria-label="Duplicate"
+                >
+                  Duplicate
+                </button>
+                <button
+                  className={`border px-2 py-1 text-[10px] uppercase ${
+                    L.locked ? "border-yellow-400/70 text-yellow-200" : "border-white/15 text-white/70"
+                  }`}
+                  onClick={() => toggleLocked(L.id, setLayers)}
+                  aria-label="Toggle lock"
+                >
+                  {L.locked ? "Locked" : "Lock"}
+                </button>
+                <button
+                  className="border border-red-400/60 px-2 py-1 text-[10px] uppercase text-red-200 hover:bg-red-500/10"
+                  onClick={() => removeLayer(L.id, setLayers, setActiveId)}
+                  aria-label="Delete"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           </li>
         ))}
