@@ -124,8 +124,14 @@ export default function KineticComposer() {
   const [respectReducedMotion, setRespect] = useState(true);
 
   // Tabs
-  const [tab, setTab] = useState("layers");
-  const [panelOpen, setPanelOpen] = useState(true);
+  const [tab, setTab] = useState("controls");
+  const [controlsOpen, setControlsOpen] = useState(true);
+  const [layersOpen, setLayersOpen] = useState(true);
+  const [panelOffsets, setPanelOffsets] = useState({
+    controls: { x: 0, y: 0 },
+    layers: { x: 0, y: 0 },
+  });
+  const panelDragRef = useRef(null);
   const [stageSize, setStageSize] = useState("1800x550");
 
   // Time
@@ -277,6 +283,38 @@ export default function KineticComposer() {
     );
   };
 
+  const startPanelDrag = (event, panel) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    panelDragRef.current = {
+      panel,
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      origin: panelOffsets[panel],
+    };
+  };
+
+  const movePanel = (event) => {
+    const drag = panelDragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    setPanelOffsets((previous) => ({
+      ...previous,
+      [drag.panel]: {
+        x: drag.origin.x + event.clientX - drag.startX,
+        y: drag.origin.y + event.clientY - drag.startY,
+      },
+    }));
+  };
+
+  const endPanelDrag = (event) => {
+    if (panelDragRef.current?.pointerId !== event.pointerId) return;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    panelDragRef.current = null;
+  };
+
   return (
     <div
       className="relative h-full min-h-0 w-full overflow-hidden bg-[#0b0b0b] text-neutral-50"
@@ -287,40 +325,38 @@ export default function KineticComposer() {
       </div>
 
       <section
-        className={`absolute left-5 top-[82px] z-20 flex w-[min(430px,calc(100%-40px))] flex-col border border-white/20 bg-black/70 backdrop-blur-xl transition-[max-height] md:left-8 ${
-          panelOpen ? "max-h-[calc(100dvh-180px)]" : "max-h-11"
+        className={`absolute left-5 top-[82px] z-20 flex w-[min(430px,calc(100%-40px))] flex-col bg-black/75 shadow-2xl backdrop-blur-xl transition-[max-height] md:left-8 ${
+          controlsOpen ? "max-h-[calc(100dvh-180px)]" : "max-h-11"
         }`}
         aria-label="Composer controls"
+        style={{ transform: `translate(${panelOffsets.controls.x}px, ${panelOffsets.controls.y}px)` }}
       >
-        <div className="flex min-h-11 items-center justify-between border-b border-white/15 px-3 font-mono text-[11px] uppercase">
+        <div
+          className="flex min-h-11 cursor-move touch-none items-center justify-between px-3 font-mono text-[11px] uppercase"
+          onPointerDown={(event) => startPanelDrag(event, "controls")}
+          onPointerMove={movePanel}
+          onPointerUp={endPanelDrag}
+          onPointerCancel={endPanelDrag}
+        >
           <span>{tab}</span>
           <button
             type="button"
-            onClick={() => setPanelOpen((open) => !open)}
-            className="h-7 border border-white/20 px-2 hover:border-white/60"
-            aria-expanded={panelOpen}
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={() => setControlsOpen((open) => !open)}
+            className="h-7 bg-white/10 px-2 hover:bg-white/20"
+            aria-expanded={controlsOpen}
           >
-            {panelOpen ? "Minimise" : "Open"}
+            {controlsOpen ? "Minimise" : "Open"}
           </button>
         </div>
 
-        {panelOpen && (
+        {controlsOpen && (
           <>
-            <div className="border-b border-white/15 p-2">
+            <div className="p-2 pt-0">
               <TabBar tab={tab} setTab={setTab} />
             </div>
             <div className="min-h-0 flex-1 overflow-y-auto p-3">
-              {tab === "layers" ? (
-              <LayersPanel
-                layers={layers}
-                setLayers={setLayers}
-                activeId={activeId}
-                setActiveId={setActiveId}
-                onDragStart={onDragStart}
-                onDragOver={onDragOver}
-                onDrop={onDrop}
-              />
-              ) : tab === "controls" ? (
+              {tab === "controls" ? (
                 <>
                   <Transport
                     playing={playing}
@@ -345,16 +381,56 @@ export default function KineticComposer() {
         )}
       </section>
 
-      <div className="absolute bottom-4 left-1/2 z-30 grid w-[min(1040px,calc(100%-40px))] -translate-x-1/2 grid-cols-[auto_minmax(160px,1fr)_auto_auto] items-center border border-white/25 bg-black/70 p-1.5 font-mono text-[11px] uppercase backdrop-blur-xl max-md:grid-cols-[auto_1fr_auto]">
+      <section
+        className={`absolute bottom-[82px] right-5 z-20 flex w-[min(430px,calc(100%-40px))] flex-col bg-black/75 shadow-2xl backdrop-blur-xl transition-[max-height] md:right-8 ${
+          layersOpen ? "max-h-[calc(100dvh-180px)]" : "max-h-11"
+        }`}
+        aria-label="Layers panel"
+        style={{ transform: `translate(${panelOffsets.layers.x}px, ${panelOffsets.layers.y}px)` }}
+      >
+        <div
+          className="flex min-h-11 cursor-move touch-none items-center justify-between px-3 font-mono text-[11px] uppercase"
+          onPointerDown={(event) => startPanelDrag(event, "layers")}
+          onPointerMove={movePanel}
+          onPointerUp={endPanelDrag}
+          onPointerCancel={endPanelDrag}
+        >
+          <span>Layers</span>
+          <button
+            type="button"
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={() => setLayersOpen((open) => !open)}
+            className="h-7 bg-white/10 px-2 hover:bg-white/20"
+            aria-expanded={layersOpen}
+          >
+            {layersOpen ? "Minimise" : "Open"}
+          </button>
+        </div>
+        {layersOpen && (
+          <div className="min-h-0 flex-1 overflow-y-auto p-3 pt-1">
+            <LayersPanel
+              layers={layers}
+              setLayers={setLayers}
+              activeId={activeId}
+              setActiveId={setActiveId}
+              onDragStart={onDragStart}
+              onDragOver={onDragOver}
+              onDrop={onDrop}
+            />
+          </div>
+        )}
+      </section>
+
+      <div className="absolute bottom-4 left-1/2 z-30 grid w-[min(1040px,calc(100%-40px))] -translate-x-1/2 grid-cols-[auto_minmax(160px,1fr)_auto_auto] items-center bg-black/75 p-1.5 font-mono text-[11px] uppercase shadow-2xl backdrop-blur-xl max-md:grid-cols-[auto_1fr_auto]">
         <button
           type="button"
           onClick={() => setPlaying((current) => !current)}
-          className="h-10 min-w-20 border border-white/20 px-3 hover:border-white/60"
+          className="h-10 min-w-20 bg-white/10 px-3 hover:bg-white/20"
         >
           {playing ? "Pause" : "Play"}
         </button>
 
-        <label className="mx-1 flex h-10 min-w-0 items-center border border-white/20 px-3 normal-case">
+        <label className="mx-1 flex h-10 min-w-0 items-center bg-white/[0.06] px-3 normal-case">
           <span className="mr-3 shrink-0 uppercase text-white/45">Text</span>
           <input
             value={activeTextLayer?.params.text || ""}
@@ -364,7 +440,7 @@ export default function KineticComposer() {
           />
         </label>
 
-        <label className="flex h-10 items-center border border-white/20 px-2 max-md:hidden">
+        <label className="flex h-10 items-center bg-white/[0.06] px-2 max-md:hidden">
           <span className="sr-only">Quick preset</span>
           <select
             defaultValue=""
@@ -382,7 +458,7 @@ export default function KineticComposer() {
           </select>
         </label>
 
-        <label className="ml-1 flex h-10 items-center border border-white/20 px-2">
+        <label className="ml-1 flex h-10 items-center bg-white/[0.06] px-2">
           <span className="sr-only">Canvas size</span>
           <select
             value={stageSize}
@@ -407,16 +483,15 @@ function TabBar({ tab, setTab }) {
       role="tab"
       aria-selected={tab === id}
       onClick={() => setTab(id)}
-      className={`min-h-8 border px-3 font-mono text-[11px] uppercase transition ${
-        tab === id ? "border-white bg-white text-black" : "border-white/15 bg-transparent hover:border-white/60"
+      className={`min-h-8 px-3 font-mono text-[11px] uppercase transition ${
+        tab === id ? "bg-white text-black" : "bg-white/[0.06] hover:bg-white/15"
       }`}
     >
       {label}
     </button>
   );
   return (
-    <div role="tablist" aria-label="Panels" className="grid grid-cols-3 gap-1">
-      {btn("layers", "Layers")}
+    <div role="tablist" aria-label="Panels" className="grid grid-cols-2 gap-1">
       {btn("controls", "Controls")}
       {btn("render", "Render")}
     </div>
@@ -439,13 +514,18 @@ function StageCanvas({ items, time, width, height }) {
 
   return (
     <div
-      className="relative max-h-full max-w-full overflow-hidden"
-      style={{ width: "100%", aspectRatio: `${width} / ${height}`, background: "#0b0b0b" }}
+      className="relative flex h-full w-full items-center justify-center overflow-hidden"
+      style={{ background: "#0b0b0b" }}
       aria-label="Stage"
       role="img"
     >
-      <canvas ref={canvasRef} width={width} height={height} className="block h-full w-full" />
-      <div className="absolute inset-0 pointer-events-none border border-white/10" aria-hidden />
+      <canvas
+        ref={canvasRef}
+        width={width}
+        height={height}
+        className="block h-auto w-auto max-h-full max-w-full"
+        style={{ aspectRatio: `${width} / ${height}` }}
+      />
     </div>
   );
 }
@@ -686,7 +766,7 @@ function RenderPanel({ items, nowTime, stageWidth, stageHeight }) {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-3">
+      <div className="bg-white/[0.04] p-3">
         <div className="text-lg font-bold">Render</div>
         <div className="text-xs opacity-70 mt-1">
           Attempts <span className="font-bold">MP4 (H.264)</span> when supported, otherwise falls back to WebM.
@@ -753,12 +833,12 @@ function RenderPanel({ items, nowTime, stageWidth, stageHeight }) {
         </div>
       )}
 
-      <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-3">
+      <div className="bg-white/[0.04] p-3">
         <div className="text-sm font-bold">Export canvas (hidden)</div>
         <div className="text-xs opacity-70 mt-1">
           This canvas is used for recording at the chosen output resolution.
         </div>
-        <canvas ref={exportCanvasRef} width={outW} height={outH} className="mt-3 w-full rounded-xl ring-1 ring-white/10" />
+        <canvas ref={exportCanvasRef} width={outW} height={outH} className="mt-3 w-full" />
       </div>
     </div>
   );
@@ -774,12 +854,12 @@ function LayersPanel({ layers, setLayers, activeId, setActiveId, onDragStart, on
           <div className="text-xs opacity-70">Drag ≡ to reorder. Use Dup to copy.</div>
         </div>
         <div className="flex shrink-0 gap-1">
-          <button onClick={() => addText(setLayers)} className="border border-white bg-white px-2 py-2 text-xs font-bold text-black">
+          <button onClick={() => addText(setLayers)} className="bg-white px-2 py-2 text-xs font-bold text-black">
             + Text
           </button>
           <button
             onClick={() => addReplicator(setLayers, layers)}
-            className="border border-white/20 px-2 py-2 text-xs hover:border-white/60"
+            className="bg-white/10 px-2 py-2 text-xs hover:bg-white/20"
           >
             + Replicator
           </button>
@@ -796,14 +876,14 @@ function LayersPanel({ layers, setLayers, activeId, setActiveId, onDragStart, on
             onDragStart={onDragStart(L.id)}
             onDragOver={onDragOver(L.id)}
             onDrop={onDrop(L.id)}
-            className={`border p-2 ${activeId === L.id ? "border-white/50 bg-white/10" : "border-white/10 bg-white/5"}`}
+            className={`p-2 ${activeId === L.id ? "bg-white/10" : "bg-white/[0.05]"}`}
           >
             <div className="grid grid-cols-[28px_28px_minmax(0,1fr)_auto] items-center gap-2">
-              <button title="Drag to reorder" className="flex h-7 w-7 items-center justify-center border border-white/15 text-xs">
+              <button title="Drag to reorder" className="flex h-7 w-7 items-center justify-center bg-white/10 text-xs">
                 ≡
               </button>
               <button
-                className={`h-7 w-7 border ${L.visible ? "border-[#00d45a] bg-[#00d45a]" : "border-white/20 bg-neutral-700"}`}
+                className={`h-7 w-7 ${L.visible ? "bg-[#00d45a]" : "bg-neutral-700"}`}
                 onClick={() => toggleVisible(L.id, setLayers)}
                 aria-label="Toggle visibility"
               />
@@ -816,22 +896,22 @@ function LayersPanel({ layers, setLayers, activeId, setActiveId, onDragStart, on
                 />
               </div>
               <button
-                className="border border-white/20 px-2 py-2 text-xs font-bold hover:border-white/60"
+                className="bg-white/10 px-2 py-2 text-xs font-bold hover:bg-white/20"
                 onClick={() => setActiveId(L.id)}
               >
                 Edit
               </button>
-              <div className="col-span-4 flex justify-end gap-1 border-t border-white/10 pt-2">
+              <div className="col-span-4 flex justify-end gap-1 pt-2">
                 <button
-                  className="border border-white/15 px-2 py-1 text-[10px] uppercase hover:border-white/60"
+                  className="bg-white/[0.06] px-2 py-1 text-[10px] uppercase hover:bg-white/15"
                   onClick={() => duplicateLayer(L.id, setLayers)}
                   aria-label="Duplicate"
                 >
                   Duplicate
                 </button>
                 <button
-                  className={`border px-2 py-1 text-[10px] uppercase ${
-                    L.locked ? "border-yellow-400/70 text-yellow-200" : "border-white/15 text-white/70"
+                  className={`px-2 py-1 text-[10px] uppercase ${
+                    L.locked ? "bg-yellow-400/15 text-yellow-200" : "bg-white/[0.06] text-white/70"
                   }`}
                   onClick={() => toggleLocked(L.id, setLayers)}
                   aria-label="Toggle lock"
@@ -839,7 +919,7 @@ function LayersPanel({ layers, setLayers, activeId, setActiveId, onDragStart, on
                   {L.locked ? "Locked" : "Lock"}
                 </button>
                 <button
-                  className="border border-red-400/60 px-2 py-1 text-[10px] uppercase text-red-200 hover:bg-red-500/10"
+                  className="bg-red-500/10 px-2 py-1 text-[10px] uppercase text-red-200 hover:bg-red-500/20"
                   onClick={() => removeLayer(L.id, setLayers, setActiveId)}
                   aria-label="Delete"
                 >
@@ -866,7 +946,7 @@ function PropertiesPanel({ layers, setLayers, activeId }) {
 /* ---------------- Transport ---------------- */
 function Transport({ playing, setPlaying, prefersReduced, respect, setRespect }) {
   return (
-    <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-3">
+    <div className="bg-white/[0.04] p-3">
       <div className="flex items-center gap-3">
         <button className="px-4 py-2 rounded bg-white text-black font-bold" onClick={() => setPlaying((p) => !p)}>
           {playing ? "Pause" : "Play"}
@@ -928,7 +1008,7 @@ function TextProps({ layer, setLayers }) {
       <label className="block text-sm font-bold">
         Text
         <input
-          className="mt-1 w-full px-3 py-2 rounded bg-white/10 border border-white/20"
+          className="mt-1 w-full bg-white/[0.07] px-3 py-2 outline-none transition focus:bg-white/10"
           value={p.text}
           onChange={(e) => setP({ text: e.target.value })}
         />
@@ -990,7 +1070,7 @@ function TextProps({ layer, setLayers }) {
       <label className="block text-sm font-bold">
         Font family (CSS)
         <input
-          className="mt-1 w-full px-3 py-2 rounded bg-white/10 border border-white/20"
+          className="mt-1 w-full bg-white/[0.07] px-3 py-2 outline-none transition focus:bg-white/10"
           value={p.fontFamily}
           onChange={(e) => setP({ fontFamily: e.target.value })}
         />
@@ -1070,7 +1150,7 @@ function ReplicatorProps({ layer, setLayers, layers }) {
       <label className="block text-sm font-bold">
         Target
         <select
-          className="mt-1 w-full px-3 py-2 rounded bg-white/10 border border-white/20"
+          className="mt-1 w-full bg-white/[0.07] px-3 py-2 outline-none transition focus:bg-white/10"
           value={p.targetId}
           onChange={(e) => setP({ targetId: e.target.value })}
         >
@@ -1137,9 +1217,9 @@ function ReplicatorProps({ layer, setLayers, layers }) {
 /* ---------------- UI primitives ---------------- */
 function Slider({ label, value, min, max, step, onChange }) {
   return (
-    <label className="text-sm font-bold">
-      {label}
-      <div className="flex items-center gap-3 mt-1">
+    <label className="text-xs font-medium text-white/75">
+      <span>{label}</span>
+      <div className="mt-1 flex items-center gap-2">
         <input
           type="range"
           min={min}
@@ -1147,9 +1227,9 @@ function Slider({ label, value, min, max, step, onChange }) {
           step={step}
           value={value}
           onChange={(e) => onChange(parseFloat(e.target.value))}
-          className="w-44 h-3 rounded bg-white/20 accent-white"
+          className="kinetic-composer-slider min-w-0 flex-1"
         />
-        <output className="px-2 py-1 rounded bg-white/10 border border-white/20 min-w-14 text-right">
+        <output className="min-w-10 text-right font-mono text-[10px] tabular-nums text-white/55">
           {Number(value).toFixed(step < 1 ? 2 : 0)}
         </output>
       </div>
@@ -1166,20 +1246,20 @@ function Toggle({ label, value, onChange }) {
 }
 function Color({ label, value, onChange }) {
   return (
-    <label className="text-sm font-bold">
+    <label className="text-xs font-medium text-white/75">
       {label}
-      <div className="flex items-center gap-3 mt-1">
-        <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="w-10 h-10 rounded border border-white/20" />
-        <input value={value} onChange={(e) => onChange(e.target.value)} className="flex-1 px-3 py-2 rounded bg-white/10 border border-white/20" />
+      <div className="mt-1 flex items-center gap-2">
+        <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="h-8 w-8 bg-transparent p-0" />
+        <input value={value} onChange={(e) => onChange(e.target.value)} className="min-w-0 flex-1 bg-white/[0.07] px-2 py-1.5 font-mono text-xs outline-none transition focus:bg-white/10" />
       </div>
     </label>
   );
 }
 function Select({ label, value, options, onChange }) {
   return (
-    <label className="text-sm font-bold">
+    <label className="text-xs font-medium text-white/75">
       {label}
-      <select value={value} onChange={(e) => onChange(e.target.value)} className="mt-1 w-full px-3 py-2 rounded bg-white/10 border border-white/20">
+      <select value={value} onChange={(e) => onChange(e.target.value)} className="mt-1 w-full bg-white/[0.07] px-2 py-1.5 text-white outline-none transition focus:bg-white/10">
         {options.map((o) => (
           <option key={o.value} value={o.value}>
             {o.label}
