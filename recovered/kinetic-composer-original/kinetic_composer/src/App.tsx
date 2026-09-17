@@ -12,6 +12,11 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const CW = 1800;
 const CH = 550;
+const STAGE_SIZES = {
+  "1800x550": { width: 1800, height: 550, label: "1800 × 550" },
+  "1920x1080": { width: 1920, height: 1080, label: "1920 × 1080" },
+  "1080x1080": { width: 1080, height: 1080, label: "1080 × 1080" },
+};
 
 // Wave utilities
 const TAU = Math.PI * 2;
@@ -43,9 +48,8 @@ function hexToHsl(hex) {
   const b = parseInt(c.slice(4, 6), 16) / 255;
   const max = Math.max(r, g, b),
     min = Math.min(r, g, b);
-  let h,
-    s,
-    l = (max + min) / 2;
+  let h, s;
+  const l = (max + min) / 2;
   if (max === min) {
     h = s = 0;
   } else {
@@ -121,6 +125,8 @@ export default function KineticComposer() {
 
   // Tabs
   const [tab, setTab] = useState("layers");
+  const [panelOpen, setPanelOpen] = useState(true);
+  const [stageSize, setStageSize] = useState("1800x550");
 
   // Time
   const tRef = useRef(0);
@@ -136,7 +142,7 @@ export default function KineticComposer() {
         tRef.current += (ts - lastRef.current) * 0.001;
         lastRef.current = ts;
       }
-      setTick((v) => (v + 1) & 1023);
+      setTick(tRef.current);
       rafRef.current = requestAnimationFrame(step);
     };
     rafRef.current = requestAnimationFrame(step);
@@ -186,10 +192,7 @@ export default function KineticComposer() {
     };
     return [baseText, repl];
   });
-  const [activeId, setActiveId] = useState(null);
-  useEffect(() => {
-    if (!activeId && layers[0]) setActiveId(layers[0].id);
-  }, [activeId, layers]);
+  const [activeId, setActiveId] = useState(() => layers[0]?.id ?? null);
 
   // DnD reorder
   const dragIdRef = useRef(null);
@@ -197,7 +200,7 @@ export default function KineticComposer() {
     dragIdRef.current = id;
     e.dataTransfer.effectAllowed = "move";
   };
-  const onDragOver = (id) => (e) => {
+  const onDragOver = () => (e) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = "move";
   };
@@ -232,26 +235,82 @@ export default function KineticComposer() {
       }
     }
     return out;
-    // tick intentionally included to keep UI reactive if you add time-based computed values later
-  }, [layers, tick]);
+  }, [layers]);
 
-  const uiMaxH = `calc(100vh - ${CH}px - 84px)`; // keep canvas visible
+  const stage = STAGE_SIZES[stageSize];
+  const activeTextLayer =
+    layers.find((layer) => layer.id === activeId && layer.type === LAYER_TEXT) ||
+    layers.find((layer) => layer.type === LAYER_TEXT);
+
+  const updateActiveText = (text) => {
+    if (!activeTextLayer) return;
+    setLayers((previous) =>
+      previous.map((layer) =>
+        layer.id === activeTextLayer.id
+          ? { ...layer, params: { ...layer.params, text } }
+          : layer
+      )
+    );
+  };
+
+  const applyQuickPreset = (preset) => {
+    setLayers((previous) =>
+      previous.map((layer) => {
+        if (layer.type === LAYER_TEXT) {
+          if (preset === "wave") {
+            return { ...layer, params: { ...layer.params, ampX: 120, ampY: 70, phase: 0.8, freqX: 0.6, freqY: 0.35 } };
+          }
+          if (preset === "calm") {
+            return { ...layer, params: { ...layer.params, ampX: 35, ampY: 18, phase: 0.3, freqX: 0.25, freqY: 0.2 } };
+          }
+          return { ...layer, params: { ...layer.params, ampX: 210, ampY: 130, phase: 1.35, freqX: 0.9, freqY: 0.7 } };
+        }
+
+        if (layer.type === LAYER_REPL) {
+          if (preset === "grid") {
+            return { ...layer, params: { ...layer.params, mode: "grid", gridRows: 3, gridCols: 3, gridGap: 170 } };
+          }
+          return { ...layer, params: { ...layer.params, mode: "radial", count: preset === "calm" ? 4 : 6, radius: preset === "wave" ? 160 : 220 } };
+        }
+        return layer;
+      })
+    );
+  };
 
   return (
     <div
-      className="min-h-screen w-full flex flex-col items-center gap-4 p-6 bg-neutral-950 text-neutral-50"
+      className="relative h-full min-h-0 w-full overflow-hidden bg-[#0b0b0b] text-neutral-50"
       style={{ fontFamily: sysSans }}
     >
-      {/* Canvas (now real canvas, so we can record) */}
-      <StageCanvas items={renderItems} time={tRef.current} />
+      <div className="absolute inset-x-5 bottom-[82px] top-[82px] flex items-center justify-center overflow-hidden md:inset-x-8">
+        <StageCanvas items={renderItems} time={tick} width={stage.width} height={stage.height} />
+      </div>
 
-      {/* Tabs + Panels */}
-      <div className="w-full max-w-[1800px]">
-        <TabBar tab={tab} setTab={setTab} />
+      <section
+        className={`absolute left-5 top-[82px] z-20 flex w-[min(430px,calc(100%-40px))] flex-col border border-white/20 bg-black/70 backdrop-blur-xl transition-[max-height] md:left-8 ${
+          panelOpen ? "max-h-[calc(100dvh-180px)]" : "max-h-11"
+        }`}
+        aria-label="Composer controls"
+      >
+        <div className="flex min-h-11 items-center justify-between border-b border-white/15 px-3 font-mono text-[11px] uppercase">
+          <span>{tab}</span>
+          <button
+            type="button"
+            onClick={() => setPanelOpen((open) => !open)}
+            className="h-7 border border-white/20 px-2 hover:border-white/60"
+            aria-expanded={panelOpen}
+          >
+            {panelOpen ? "Minimise" : "Open"}
+          </button>
+        </div>
 
-        <div className="mt-3 rounded-2xl bg-white/5 ring-1 ring-white/10">
-          {tab === "layers" ? (
-            <div className="p-3 overflow-y-auto" style={{ maxHeight: uiMaxH }}>
+        {panelOpen && (
+          <>
+            <div className="border-b border-white/15 p-2">
+              <TabBar tab={tab} setTab={setTab} />
+            </div>
+            <div className="min-h-0 flex-1 overflow-y-auto p-3">
+              {tab === "layers" ? (
               <LayersPanel
                 layers={layers}
                 setLayers={setLayers}
@@ -261,25 +320,81 @@ export default function KineticComposer() {
                 onDragOver={onDragOver}
                 onDrop={onDrop}
               />
+              ) : tab === "controls" ? (
+                <>
+                  <Transport
+                    playing={playing}
+                    setPlaying={setPlaying}
+                    prefersReduced={prefersReduced}
+                    respect={respectReducedMotion}
+                    setRespect={setRespect}
+                  />
+                  <div className="h-3" />
+                  <PropertiesPanel layers={layers} setLayers={setLayers} activeId={activeId} />
+                </>
+              ) : (
+                <RenderPanel
+                  items={renderItems}
+                  nowTime={tick}
+                  stageWidth={stage.width}
+                  stageHeight={stage.height}
+                />
+              )}
             </div>
-          ) : tab === "controls" ? (
-            <div className="p-3 overflow-y-auto" style={{ maxHeight: uiMaxH }}>
-              <Transport
-                playing={playing}
-                setPlaying={setPlaying}
-                prefersReduced={prefersReduced}
-                respect={respectReducedMotion}
-                setRespect={setRespect}
-              />
-              <div className="h-3" />
-              <PropertiesPanel layers={layers} setLayers={setLayers} activeId={activeId} />
-            </div>
-          ) : (
-            <div className="p-3 overflow-y-auto" style={{ maxHeight: uiMaxH }}>
-              <RenderPanel items={renderItems} nowTime={tRef.current} />
-            </div>
-          )}
-        </div>
+          </>
+        )}
+      </section>
+
+      <div className="absolute bottom-4 left-1/2 z-30 grid w-[min(1040px,calc(100%-40px))] -translate-x-1/2 grid-cols-[auto_minmax(160px,1fr)_auto_auto] items-center border border-white/25 bg-black/70 p-1.5 font-mono text-[11px] uppercase backdrop-blur-xl max-md:grid-cols-[auto_1fr_auto]">
+        <button
+          type="button"
+          onClick={() => setPlaying((current) => !current)}
+          className="h-10 min-w-20 border border-white/20 px-3 hover:border-white/60"
+        >
+          {playing ? "Pause" : "Play"}
+        </button>
+
+        <label className="mx-1 flex h-10 min-w-0 items-center border border-white/20 px-3 normal-case">
+          <span className="mr-3 shrink-0 uppercase text-white/45">Text</span>
+          <input
+            value={activeTextLayer?.params.text || ""}
+            onChange={(event) => updateActiveText(event.target.value)}
+            className="min-w-0 flex-1 bg-transparent text-sm outline-none"
+            aria-label="Active text"
+          />
+        </label>
+
+        <label className="flex h-10 items-center border border-white/20 px-2 max-md:hidden">
+          <span className="sr-only">Quick preset</span>
+          <select
+            defaultValue=""
+            onChange={(event) => {
+              if (event.target.value) applyQuickPreset(event.target.value);
+              event.target.value = "";
+            }}
+            className="bg-transparent px-1 outline-none"
+            aria-label="Quick preset"
+          >
+            <option value="" disabled>Quick preset</option>
+            <option value="calm">Calm</option>
+            <option value="wave">Wave</option>
+            <option value="grid">Grid</option>
+          </select>
+        </label>
+
+        <label className="ml-1 flex h-10 items-center border border-white/20 px-2">
+          <span className="sr-only">Canvas size</span>
+          <select
+            value={stageSize}
+            onChange={(event) => setStageSize(event.target.value)}
+            className="bg-transparent px-1 outline-none"
+            aria-label="Canvas size"
+          >
+            {Object.entries(STAGE_SIZES).map(([value, option]) => (
+              <option key={value} value={value}>{option.label}</option>
+            ))}
+          </select>
+        </label>
       </div>
     </div>
   );
@@ -292,15 +407,15 @@ function TabBar({ tab, setTab }) {
       role="tab"
       aria-selected={tab === id}
       onClick={() => setTab(id)}
-      className={`px-4 py-2 rounded-xl border text-sm font-bold transition ${
-        tab === id ? "bg-white text-black border-white" : "bg-white/5 border-white/15 hover:bg-white/10"
+      className={`min-h-8 border px-3 font-mono text-[11px] uppercase transition ${
+        tab === id ? "border-white bg-white text-black" : "border-white/15 bg-transparent hover:border-white/60"
       }`}
     >
       {label}
     </button>
   );
   return (
-    <div role="tablist" aria-label="Panels" className="flex flex-wrap gap-2">
+    <div role="tablist" aria-label="Panels" className="grid grid-cols-3 gap-1">
       {btn("layers", "Layers")}
       {btn("controls", "Controls")}
       {btn("render", "Render")}
@@ -309,7 +424,7 @@ function TabBar({ tab, setTab }) {
 }
 
 /* ---------------- Stage (Canvas) ---------------- */
-function StageCanvas({ items, time }) {
+function StageCanvas({ items, time, width, height }) {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -319,17 +434,17 @@ function StageCanvas({ items, time }) {
     if (!ctx) return;
 
     // draw at 1:1 (CW/CH)
-    drawFrame(ctx, items, time, CW, CH);
-  }, [items, time]);
+    drawFrame(ctx, items, time, width, height);
+  }, [height, items, time, width]);
 
   return (
     <div
-      className="relative rounded-2xl shadow-2xl ring-1 ring-neutral-800 overflow-hidden"
-      style={{ width: CW, height: CH, background: "#0b0b0b" }}
+      className="relative max-h-full max-w-full overflow-hidden"
+      style={{ width: "100%", aspectRatio: `${width} / ${height}`, background: "#0b0b0b" }}
       aria-label="Stage"
       role="img"
     >
-      <canvas ref={canvasRef} width={CW} height={CH} className="block" />
+      <canvas ref={canvasRef} width={width} height={height} className="block h-full w-full" />
       <div className="absolute inset-0 pointer-events-none border border-white/10" aria-hidden />
     </div>
   );
@@ -410,7 +525,7 @@ function drawTextItem(ctx, layer, clone, time, w, h) {
 }
 
 /* ---------------- Render Panel ---------------- */
-function RenderPanel({ items, nowTime }) {
+function RenderPanel({ items, nowTime, stageWidth, stageHeight }) {
   const exportCanvasRef = useRef(null);
   const recRef = useRef({
     recorder: null,
@@ -425,12 +540,13 @@ function RenderPanel({ items, nowTime }) {
   const [preset, setPreset] = useState("stage"); // stage | 1920x1080 | 1800x550
   const [status, setStatus] = useState("Idle");
   const [mime, setMime] = useState("auto");
+  const [isRecording, setIsRecording] = useState(false);
 
   const { outW, outH } = useMemo(() => {
     if (preset === "1920x1080") return { outW: 1920, outH: 1080 };
     if (preset === "1800x550") return { outW: 1800, outH: 550 };
-    return { outW: CW, outH: CH };
-  }, [preset]);
+    return { outW: stageWidth, outH: stageHeight };
+  }, [preset, stageHeight, stageWidth]);
 
   const supported = useMemo(() => {
     const MR = typeof window !== "undefined" ? window.MediaRecorder : undefined;
@@ -459,6 +575,7 @@ function RenderPanel({ items, nowTime }) {
     const R = recRef.current;
     if (!R.running) return;
     R.running = false;
+    setIsRecording(false);
     try {
       R.stopFn?.();
     } catch {}
@@ -491,11 +608,11 @@ function RenderPanel({ items, nowTime }) {
     let recorder;
     try {
       recorder = new MediaRecorder(stream, { mimeType: chosenMime });
-    } catch (e) {
+    } catch {
       // If the exact codec string fails, try a softer fallback
       try {
         recorder = new MediaRecorder(stream, { mimeType: chosenMime.startsWith("video/mp4") ? "video/mp4" : "video/webm" });
-      } catch (e2) {
+      } catch {
         setStatus("Failed to start recorder with MP4/WebM settings.");
         return;
       }
@@ -506,6 +623,7 @@ function RenderPanel({ items, nowTime }) {
     R.chunks = [];
     R.stream = stream;
     R.running = true;
+    setIsRecording(true);
 
     recorder.ondataavailable = (ev) => {
       if (ev.data && ev.data.size > 0) R.chunks.push(ev.data);
@@ -529,6 +647,7 @@ function RenderPanel({ items, nowTime }) {
       R.stream = null;
       R.chunks = [];
       R.stopFn = null;
+      setIsRecording(false);
     };
 
     // Real-time draw loop for duration
@@ -579,7 +698,7 @@ function RenderPanel({ items, nowTime }) {
           label="Resolution"
           value={preset}
           options={[
-            { value: "stage", label: `Stage (${CW}×${CH})` },
+            { value: "stage", label: `Stage (${stageWidth}×${stageHeight})` },
             { value: "1800x550", label: "1800×550" },
             { value: "1920x1080", label: "1920×1080 (Full HD)" },
           ]}
@@ -613,7 +732,7 @@ function RenderPanel({ items, nowTime }) {
         <button
           onClick={startRecording}
           className="px-4 py-2 rounded bg-white text-black font-bold"
-          disabled={!supported.hasMR || recRef.current.running}
+          disabled={!supported.hasMR || isRecording}
           title={!supported.hasMR ? "MediaRecorder not available" : "Start recording"}
         >
           Start render
@@ -621,7 +740,7 @@ function RenderPanel({ items, nowTime }) {
         <button
           onClick={stopRecording}
           className="px-4 py-2 rounded bg-white/10 hover:bg-white/15 font-bold"
-          disabled={!recRef.current.running}
+          disabled={!isRecording}
         >
           Stop
         </button>
