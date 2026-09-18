@@ -20,6 +20,8 @@ type Waveform = "sine" | "square";
 type EdgeMode = "clamp" | "wrap" | "mirror";
 type Direction = "rows" | "cols";
 type PanelTab = "type" | "wave" | "style" | "export";
+type SourceMode = "text" | "image";
+type ASCIIArea = "subject" | "background";
 
 type FontPresetKey = "System Sans" | "System Serif" | "System Mono" | "UI Sans" | "UI Rounded";
 
@@ -91,6 +93,10 @@ function edgeIndex(index: number, max: number, mode: EdgeMode) {
 export default function ASCIITypoMachine() {
   // Text + font
   const [text, setText] = useState("ASCII Machine");
+  const [sourceMode, setSourceMode] = useState<SourceMode>("text");
+  const [asciiArea, setASCIIArea] = useState<ASCIIArea>("subject");
+  const [uploadedImage, setUploadedImage] = useState<HTMLImageElement | null>(null);
+  const [uploadedFileName, setUploadedFileName] = useState("");
   const [fontPreset, setFontPreset] = useState<FontPresetKey>("System Sans");
   const [bold, setBold] = useState(false);
   const [italic, setItalic] = useState(false);
@@ -156,14 +162,30 @@ export default function ASCIITypoMachine() {
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, W, H);
 
-    const fontSize = fitFontSize(ctx, text || " ", fontPreset, bold, italic, W, H);
-    const fontStr = `${italic ? "italic " : ""}${bold ? "bold " : ""}${fontSize}px ${FONT_PRESETS[fontPreset]}`;
-    ctx.font = fontStr;
-    ctx.textBaseline = "middle";
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#000000";
-    // Draw centered
-    ctx.fillText(text || " ", W / 2, H / 2);
+    if (sourceMode === "image" && uploadedImage) {
+      const imageRatio = uploadedImage.width / uploadedImage.height;
+      const canvasRatio = W / H;
+      let drawW = W;
+      let drawH = H;
+      let drawX = 0;
+      let drawY = 0;
+      if (imageRatio > canvasRatio) {
+        drawW = H * imageRatio;
+        drawX = (W - drawW) / 2;
+      } else {
+        drawH = W / imageRatio;
+        drawY = (H - drawH) / 2;
+      }
+      ctx.drawImage(uploadedImage, drawX, drawY, drawW, drawH);
+    } else {
+      const fontSize = fitFontSize(ctx, text || " ", fontPreset, bold, italic, W, H);
+      const fontStr = `${italic ? "italic " : ""}${bold ? "bold " : ""}${fontSize}px ${FONT_PRESETS[fontPreset]}`;
+      ctx.font = fontStr;
+      ctx.textBaseline = "middle";
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#000000";
+      ctx.fillText(text || " ", W / 2, H / 2);
+    }
 
     // Downsample to grid luminance
     const img = ctx.getImageData(0, 0, W, H).data;
@@ -182,7 +204,7 @@ export default function ASCIITypoMachine() {
       grid.push(rowArr);
     }
     return grid;
-  }, [cols, rows, text, fontPreset, bold, italic]);
+  }, [bold, cols, fontPreset, italic, rows, sourceMode, text, uploadedImage]);
 
   const lumGrid = useMemo(() => buildLumGrid(), [buildLumGrid]);
   const gridSize = useMemo(() => ({ rows, cols }), [cols, rows]);
@@ -207,15 +229,15 @@ export default function ASCIITypoMachine() {
           else sy = edgeIndex(Math.round(y + w * ampChars), rows, edgeMode);
         }
         const L = lumGrid[sy][sx];
-        // Character sets run from dense to empty: dark pixels use dense glyphs.
-        let k = Math.round(L * n);
+        // Character sets run from dense to empty. Choose the subject or its background.
+        let k = Math.round((asciiArea === "subject" ? L : 1 - L) * n);
         k = clamp(k, 0, n);
         line += chars[k];
       }
       out[y] = line;
     }
     return out.join("\n");
-  }, [lumGrid, gridSize, charsetName, direction, ampChars, waveform, period, edgeMode]);
+  }, [lumGrid, gridSize, charsetName, direction, ampChars, waveform, period, edgeMode, asciiArea]);
 
   // Animation loop
   useEffect(() => {
@@ -238,6 +260,23 @@ export default function ASCIITypoMachine() {
     const blob = new Blob([asciiText], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a"); a.href = url; a.download = "ascii-kinetic-typo.txt"; a.click(); URL.revokeObjectURL(url);
+  };
+
+  const handleImageUpload = (file: File | undefined) => {
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    const image = new Image();
+    image.onload = () => {
+      setUploadedImage(image);
+      setUploadedFileName(file.name);
+      setSourceMode("image");
+      URL.revokeObjectURL(url);
+    };
+    image.onerror = () => {
+      setTestResult("Could not read this image.");
+      URL.revokeObjectURL(url);
+    };
+    image.src = url;
   };
 
   // Self‑tests (do not modify unless clearly wrong)
@@ -444,12 +483,40 @@ export default function ASCIITypoMachine() {
             <div className="min-h-0 flex-1 overflow-y-auto p-3 pt-1">
               {activeTab === "type" && (
                 <div className="space-y-4">
+                  <div>
+                    <div className="mb-1 text-xs font-medium text-white/75">Source</div>
+                    <div className="grid grid-cols-2 gap-1">
+                      <button type="button" onClick={() => setSourceMode("text")} className={`px-3 py-2 text-xs ${sourceMode === "text" ? "bg-white text-black" : "bg-white/[0.07]"}`}>Text</button>
+                      <button type="button" disabled={!uploadedImage} onClick={() => setSourceMode("image")} className={`px-3 py-2 text-xs disabled:opacity-30 ${sourceMode === "image" ? "bg-white text-black" : "bg-white/[0.07]"}`}>Image</button>
+                    </div>
+                  </div>
+                  <label className="block cursor-pointer bg-white/[0.07] px-3 py-2 text-center text-xs uppercase hover:bg-white/15">
+                    {uploadedFileName ? `Replace ${uploadedFileName}` : "Upload image"}
+                    <input type="file" accept="image/*" className="sr-only" aria-label="Upload image" onChange={(event) => handleImageUpload(event.target.files?.[0])} />
+                  </label>
                   <SelectControl
-                    label="Font"
-                    value={fontPreset}
-                    options={(Object.keys(FONT_PRESETS) as FontPresetKey[]).map((value) => ({ value, label: value }))}
-                    onChange={(value) => setFontPreset(value as FontPresetKey)}
+                    label="ASCII area"
+                    value={asciiArea}
+                    options={[
+                      { value: "subject", label: sourceMode === "text" ? "Typography ASCII" : "Image ASCII" },
+                      { value: "background", label: "Background ASCII" },
+                    ]}
+                    onChange={(value) => setASCIIArea(value as ASCIIArea)}
                   />
+                  {sourceMode === "text" && (
+                    <>
+                      <SelectControl
+                        label="Source font"
+                        value={fontPreset}
+                        options={(Object.keys(FONT_PRESETS) as FontPresetKey[]).map((value) => ({ value, label: value }))}
+                        onChange={(value) => setFontPreset(value as FontPresetKey)}
+                      />
+                      <div className="grid grid-cols-2 gap-3">
+                        <ToggleControl label="Bold" value={bold} onChange={setBold} />
+                        <ToggleControl label="Italic" value={italic} onChange={setItalic} />
+                      </div>
+                    </>
+                  )}
                   <SelectControl
                     label="Character set"
                     value={charsetName}
@@ -457,10 +524,6 @@ export default function ASCIITypoMachine() {
                     onChange={(value) => setCharsetName(value)}
                   />
                   <SliderControl label="Columns" value={cols} min={60} max={260} step={1} onChange={setCols} />
-                  <div className="grid grid-cols-2 gap-3">
-                    <ToggleControl label="Bold" value={bold} onChange={setBold} />
-                    <ToggleControl label="Italic" value={italic} onChange={setItalic} />
-                  </div>
                 </div>
               )}
 
@@ -508,10 +571,17 @@ export default function ASCIITypoMachine() {
         <button type="button" onClick={() => setPlaying((value) => !value)} className="h-10 min-w-20 bg-white/10 px-3 hover:bg-white/20">
           {playing ? "Pause" : "Play"}
         </button>
-        <label className="mx-1 flex h-10 min-w-0 items-center bg-white/[0.06] px-3 normal-case">
-          <span className="mr-3 shrink-0 uppercase text-white/45">Text</span>
-          <input value={text} onChange={(event) => setText(event.target.value)} placeholder="Type your text" className="min-w-0 flex-1 bg-transparent text-sm outline-none" aria-label="ASCII text" />
-        </label>
+        {sourceMode === "text" ? (
+          <label className="mx-1 flex h-10 min-w-0 items-center bg-white/[0.06] px-3 normal-case">
+            <span className="mr-3 shrink-0 uppercase text-white/45">Text</span>
+            <input value={text} onChange={(event) => setText(event.target.value)} placeholder="Type your text" className="min-w-0 flex-1 bg-transparent text-sm outline-none" aria-label="ASCII text" />
+          </label>
+        ) : (
+          <div className="mx-1 flex h-10 min-w-0 items-center bg-white/[0.06] px-3 normal-case">
+            <span className="mr-3 shrink-0 uppercase text-white/45">Image</span>
+            <span className="truncate text-sm">{uploadedFileName || "No image selected"}</span>
+          </div>
+        )}
         <label className="flex h-10 items-center bg-white/[0.06] px-2 max-md:hidden">
           <span className="sr-only">Quick preset</span>
           <select
