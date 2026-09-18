@@ -207,8 +207,8 @@ export default function ASCIITypoMachine() {
           else sy = edgeIndex(Math.round(y + w * ampChars), rows, edgeMode);
         }
         const L = lumGrid[sy][sx];
-        // Map luminance to density char (darker → denser char)
-        let k = Math.round((1 - L) * n);
+        // Character sets run from dense to empty: dark pixels use dense glyphs.
+        let k = Math.round(L * n);
         k = clamp(k, 0, n);
         line += chars[k];
       }
@@ -265,7 +265,7 @@ export default function ASCIITypoMachine() {
         let line = "";
         for (let x = 0; x < cols; x++) {
           const L = lumGrid[y][x];
-          let k = Math.round((1 - L) * nAlt);
+          let k = Math.round(L * nAlt);
           k = clamp(k, 0, nAlt);
           line += altChars[k];
         }
