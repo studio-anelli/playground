@@ -399,7 +399,7 @@ export default function ReactiveLetterParticles() {
   const maskRef = useRef<Mask | null>(null);
 
   // IMPORTANT: keep explicit \n escape, never raw line breaks in string literals.
-  const [text, setText] = useState("ANELLI\nSTUDIO");
+  const [text, setText] = useState("oyeur");
   const [canvasW, setCanvasW] = useState(1280);
   const [canvasH, setCanvasH] = useState(520);
 
