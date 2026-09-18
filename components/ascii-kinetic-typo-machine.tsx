@@ -471,12 +471,10 @@ export default function ASCIITypoMachine() {
 
   return (
     <div className="relative h-full min-h-0 w-full overflow-hidden text-white" style={{ background: bg }}>
-      <div className="absolute inset-x-5 bottom-[82px] top-[82px] flex items-center justify-center overflow-hidden md:inset-x-8" aria-label="ASCII stage">
+      <div className="absolute inset-x-0 bottom-[82px] top-[82px] overflow-hidden" aria-label="ASCII stage">
         <div
-          className="relative max-h-full max-w-full overflow-hidden"
+          className="relative h-full w-full overflow-hidden"
           style={{
-            aspectRatio: `${stage.width} / ${stage.height}`,
-            width: `min(100%, calc((100dvh - 164px) * ${stage.width / stage.height}))`,
             background: bg,
             color: fg,
           }}
