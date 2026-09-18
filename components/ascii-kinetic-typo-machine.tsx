@@ -22,6 +22,7 @@ type Direction = "rows" | "cols";
 type PanelTab = "type" | "wave" | "style" | "export";
 type SourceMode = "text" | "image";
 type ASCIIArea = "subject" | "background";
+type SourceAlign = "left" | "center" | "right";
 
 type FontPresetKey = "System Sans" | "System Serif" | "System Mono" | "UI Sans" | "UI Rounded";
 
@@ -77,6 +78,19 @@ function waveValue(index: number, phase: number, period: number, waveform: Wavef
   return Math.sin(angle);
 }
 
+function noiseHash(value: number) {
+  const n = Math.sin(value * 127.1 + 311.7) * 43758.5453;
+  return (n - Math.floor(n)) * 2 - 1;
+}
+
+function noiseValue(index: number, phase: number, scale: number) {
+  const position = index / Math.max(1, scale) + phase * 0.35;
+  const cell = Math.floor(position);
+  const fraction = position - cell;
+  const smooth = fraction * fraction * (3 - 2 * fraction);
+  return noiseHash(cell) * (1 - smooth) + noiseHash(cell + 1) * smooth;
+}
+
 function edgeIndex(index: number, max: number, mode: EdgeMode) {
   if (mode === "clamp") return clamp(index, 0, max - 1);
   if (mode === "wrap") {
@@ -95,6 +109,7 @@ export default function ASCIITypoMachine() {
   const [text, setText] = useState("ASCII Machine");
   const [sourceMode, setSourceMode] = useState<SourceMode>("text");
   const [asciiArea, setASCIIArea] = useState<ASCIIArea>("subject");
+  const [sourceAlign, setSourceAlign] = useState<SourceAlign>("center");
   const [uploadedImage, setUploadedImage] = useState<HTMLImageElement | null>(null);
   const [uploadedFileName, setUploadedFileName] = useState("");
   const [fontPreset, setFontPreset] = useState<FontPresetKey>("System Sans");
@@ -110,6 +125,7 @@ export default function ASCIITypoMachine() {
   const [fg, setFg] = useState("#111111");
   const [bg, setBg] = useState("#ffffff");
   const [charsetName, setCharsetName] = useState<keyof typeof CHARSETS>("Dense ▓");
+  const [characters, setCharacters] = useState(CHARSETS["Dense ▓"]);
 
   // Wave controls
   const [waveform, setWaveform] = useState<Waveform>("sine");
@@ -117,6 +133,8 @@ export default function ASCIITypoMachine() {
   const [speedHz, setSpeedHz] = useState(0.8);
   const [period, setPeriod] = useState(24);
   const [ampChars, setAmpChars] = useState(4);
+  const [noiseAmount, setNoiseAmount] = useState(0);
+  const [noiseScale, setNoiseScale] = useState(12);
 
   // Edge behavior
   const [edgeMode, setEdgeMode] = useState<EdgeMode>("clamp");
@@ -171,7 +189,7 @@ export default function ASCIITypoMachine() {
       let drawY = 0;
       if (imageRatio > canvasRatio) {
         drawW = H * imageRatio;
-        drawX = (W - drawW) / 2;
+        drawX = sourceAlign === "left" ? 0 : sourceAlign === "right" ? W - drawW : (W - drawW) / 2;
       } else {
         drawH = W / imageRatio;
         drawY = (H - drawH) / 2;
@@ -182,9 +200,10 @@ export default function ASCIITypoMachine() {
       const fontStr = `${italic ? "italic " : ""}${bold ? "bold " : ""}${fontSize}px ${FONT_PRESETS[fontPreset]}`;
       ctx.font = fontStr;
       ctx.textBaseline = "middle";
-      ctx.textAlign = "center";
+      ctx.textAlign = sourceAlign;
       ctx.fillStyle = "#000000";
-      ctx.fillText(text || " ", W / 2, H / 2);
+      const textX = sourceAlign === "left" ? W * 0.05 : sourceAlign === "right" ? W * 0.95 : W / 2;
+      ctx.fillText(text || " ", textX, H / 2);
     }
 
     // Downsample to grid luminance
@@ -204,7 +223,7 @@ export default function ASCIITypoMachine() {
       grid.push(rowArr);
     }
     return grid;
-  }, [bold, cols, fontPreset, italic, rows, sourceMode, text, uploadedImage]);
+  }, [bold, cols, fontPreset, italic, rows, sourceAlign, sourceMode, text, uploadedImage]);
 
   const lumGrid = useMemo(() => buildLumGrid(), [buildLumGrid]);
   const gridSize = useMemo(() => ({ rows, cols }), [cols, rows]);
@@ -212,17 +231,23 @@ export default function ASCIITypoMachine() {
   // Render ASCII from luminance grid + phase
   const renderASCII = useCallback((phase: number) => {
     if (!lumGrid) return "";
-    const chars = CHARSETS[charsetName];
+    const chars = characters || " ";
     const n = chars.length - 1;
     const { rows, cols } = gridSize;
+    const waveLength = direction === "rows" ? rows : cols;
+    const displacement = Array.from({ length: waveLength }, (_, index) => (
+      clamp(
+        waveValue(index, phase, period, waveform) + noiseValue(index, phase, noiseScale) * noiseAmount,
+        -1,
+        1,
+      )
+    ));
 
     const out: string[] = new Array(rows);
     for (let y = 0; y < rows; y++) {
       let line = "";
-      const rowW = waveValue(y, phase, period, waveform);
       for (let x = 0; x < cols; x++) {
-        const colW = waveValue(x, phase, period, waveform);
-        const w = direction === "rows" ? rowW : colW; // [-1,1]
+        const w = displacement[direction === "rows" ? y : x];
         let sx = x, sy = y;
         if (ampChars !== 0) {
           if (direction === "rows") sx = edgeIndex(Math.round(x + w * ampChars), cols, edgeMode);
@@ -237,7 +262,7 @@ export default function ASCIITypoMachine() {
       out[y] = line;
     }
     return out.join("\n");
-  }, [lumGrid, gridSize, charsetName, direction, ampChars, waveform, period, edgeMode, asciiArea]);
+  }, [lumGrid, gridSize, characters, direction, ampChars, waveform, period, edgeMode, asciiArea, noiseAmount, noiseScale]);
 
   // Animation loop
   useEffect(() => {
@@ -252,6 +277,12 @@ export default function ASCIITypoMachine() {
     rafRef.current = requestAnimationFrame(tick);
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); rafRef.current = null; t0Ref.current = null; };
   }, [lumGrid, playing, speedHz, renderASCII]);
+
+  useEffect(() => {
+    if (playing) return;
+    const frame = requestAnimationFrame(() => setAsciiText(renderASCII(0)));
+    return () => cancelAnimationFrame(frame);
+  }, [playing, renderASCII]);
 
   // Actions
   const handleCopy = async () => { if (!asciiText) return; await navigator.clipboard.writeText(asciiText); alert("ASCII copied to clipboard."); };
@@ -362,20 +393,24 @@ export default function ASCIITypoMachine() {
       setSpeedHz(0.25);
       setPeriod(56);
       setAmpChars(2);
+      setNoiseAmount(0.08);
       setEdgeMode("clamp");
     } else if (preset === "wave") {
       setWaveform("sine");
       setSpeedHz(0.8);
       setPeriod(24);
       setAmpChars(6);
+      setNoiseAmount(0.25);
       setEdgeMode("mirror");
     } else if (preset === "glitch") {
       setWaveform("square");
       setSpeedHz(1.6);
       setPeriod(12);
       setAmpChars(14);
+      setNoiseAmount(0.8);
       setEdgeMode("wrap");
       setCharsetName("Blocky █");
+      setCharacters(CHARSETS["Blocky █"]);
     }
   };
 
@@ -509,6 +544,22 @@ export default function ASCIITypoMachine() {
                     ]}
                     onChange={(value) => setASCIIArea(value as ASCIIArea)}
                   />
+                  <div>
+                    <div className="mb-1 text-xs font-medium text-white/75">Source alignment</div>
+                    <div className="grid grid-cols-3 gap-1" role="group" aria-label="Source alignment">
+                      {(["left", "center", "right"] as SourceAlign[]).map((alignment) => (
+                        <button
+                          key={alignment}
+                          type="button"
+                          aria-pressed={sourceAlign === alignment}
+                          onClick={() => setSourceAlign(alignment)}
+                          className={`px-3 py-2 text-xs capitalize ${sourceAlign === alignment ? "bg-white text-black" : "bg-white/[0.07]"}`}
+                        >
+                          {alignment}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                   {sourceMode === "text" && (
                     <>
                       <SelectControl
@@ -524,10 +575,13 @@ export default function ASCIITypoMachine() {
                     </>
                   )}
                   <SelectControl
-                    label="Character set"
+                    label="Character preset"
                     value={charsetName}
                     options={Object.keys(CHARSETS).map((value) => ({ value, label: value }))}
-                    onChange={(value) => setCharsetName(value)}
+                    onChange={(value) => {
+                      setCharsetName(value);
+                      setCharacters(CHARSETS[value]);
+                    }}
                   />
                   <SliderControl label="Columns" value={cols} min={60} max={260} step={1} onChange={setCols} />
                 </div>
@@ -542,6 +596,8 @@ export default function ASCIITypoMachine() {
                   <SliderControl label="Speed (Hz)" value={speedHz} min={0} max={4} step={0.01} onChange={setSpeedHz} />
                   <SliderControl label="Period" value={period} min={6} max={120} step={1} onChange={setPeriod} />
                   <SliderControl label="Amplitude (chars)" value={ampChars} min={0} max={24} step={1} onChange={setAmpChars} />
+                  <SliderControl label="Noise interference" value={noiseAmount} min={0} max={1} step={0.01} onChange={setNoiseAmount} />
+                  <SliderControl label="Noise scale" value={noiseScale} min={2} max={48} step={1} onChange={setNoiseScale} />
                   <SelectControl label="Edges" value={edgeMode} options={[{ value: "clamp", label: "Clamp" }, { value: "wrap", label: "Wrap" }, { value: "mirror", label: "Mirror" }]} onChange={(value) => setEdgeMode(value as EdgeMode)} />
                 </div>
               )}
@@ -573,7 +629,7 @@ export default function ASCIITypoMachine() {
         )}
       </section>
 
-      <div className="absolute bottom-4 left-1/2 z-30 grid w-[min(1040px,calc(100%-40px))] -translate-x-1/2 grid-cols-[auto_minmax(160px,1fr)_auto_auto] items-center bg-black/75 p-1.5 font-mono text-[11px] uppercase text-white shadow-2xl backdrop-blur-xl max-md:grid-cols-[auto_1fr_auto]">
+      <div className="absolute bottom-4 left-1/2 z-30 grid w-[min(1180px,calc(100%-40px))] -translate-x-1/2 grid-cols-[auto_minmax(150px,1fr)_minmax(140px,0.72fr)_auto_auto] items-center bg-black/75 p-1.5 font-mono text-[11px] uppercase text-white shadow-2xl backdrop-blur-xl max-md:grid-cols-[auto_minmax(120px,1fr)_minmax(110px,0.8fr)_auto]">
         <button type="button" onClick={() => setPlaying((value) => !value)} className="h-10 min-w-20 bg-white/10 px-3 hover:bg-white/20">
           {playing ? "Pause" : "Play"}
         </button>
@@ -588,6 +644,17 @@ export default function ASCIITypoMachine() {
             <span className="truncate text-sm">{uploadedFileName || "No image selected"}</span>
           </div>
         )}
+        <label className="mr-1 flex h-10 min-w-0 items-center bg-white/[0.06] px-3 normal-case">
+          <span className="mr-3 shrink-0 uppercase text-white/45">Characters</span>
+          <input
+            value={characters}
+            onChange={(event) => setCharacters(event.target.value)}
+            placeholder="@%#*+=-:. "
+            className="min-w-0 flex-1 bg-transparent text-sm outline-none"
+            aria-label="ASCII characters"
+            spellCheck={false}
+          />
+        </label>
         <label className="flex h-10 items-center bg-white/[0.06] px-2 max-md:hidden">
           <span className="sr-only">Quick preset</span>
           <select
