@@ -15,7 +15,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
  * - Corrected hook/closure structure (no nested function defs inside useEffect)
  */
 
-type Waveform = "sine" | "square";
+type Waveform = "square" | "saw" | "triangle";
 
 type EdgeMode = "clamp" | "wrap" | "mirror";
 type Direction = "rows" | "cols";
@@ -79,8 +79,10 @@ function fitFontSize(
 
 function waveValue(index: number, phase: number, period: number, waveform: Waveform) {
   const angle = (2 * Math.PI * index) / period + phase;
-  if (waveform === "square") return Math.sign(Math.sin(angle)) || 1;
-  return Math.sin(angle);
+  const cycle = ((angle / (2 * Math.PI)) % 1 + 1) % 1;
+  if (waveform === "square") return cycle < 0.5 ? 1 : -1;
+  if (waveform === "saw") return cycle * 2 - 1;
+  return 1 - 4 * Math.abs(cycle - 0.5);
 }
 
 function noiseHash01(value: number) {
@@ -163,7 +165,7 @@ export default function ASCIITypoMachine() {
   const [characters, setCharacters] = useState(cleanCharacterRamp(CHARSETS["Dense ▓"]));
 
   // Wave controls
-  const [waveform, setWaveform] = useState<Waveform>("sine");
+  const [waveform, setWaveform] = useState<Waveform>("triangle");
   const [direction, setDirection] = useState<Direction>("rows");
   const [speedHz, setSpeedHz] = useState(0.8);
   const [period, setPeriod] = useState(24);
@@ -432,7 +434,7 @@ export default function ASCIITypoMachine() {
 
   const applyPreset = (preset: string) => {
     if (preset === "calm") {
-      setWaveform("sine");
+      setWaveform("triangle");
       setSpeedHz(0.25);
       setPeriod(56);
       setAmpChars(2);
@@ -440,7 +442,7 @@ export default function ASCIITypoMachine() {
       setNoiseColour("pink");
       setEdgeMode("clamp");
     } else if (preset === "wave") {
-      setWaveform("sine");
+      setWaveform("triangle");
       setSpeedHz(0.8);
       setPeriod(24);
       setAmpChars(6);
@@ -653,7 +655,16 @@ export default function ASCIITypoMachine() {
               {activeTab === "wave" && (
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-3">
-                    <SelectControl label="Waveform" value={waveform} options={[{ value: "sine", label: "Sine" }, { value: "square", label: "Square" }]} onChange={(value) => setWaveform(value as Waveform)} />
+                    <SelectControl
+                      label="Waveform"
+                      value={waveform}
+                      options={[
+                        { value: "triangle", label: "Triangle" },
+                        { value: "square", label: "Square" },
+                        { value: "saw", label: "Saw" },
+                      ]}
+                      onChange={(value) => setWaveform(value as Waveform)}
+                    />
                     <SelectControl label="Direction" value={direction} options={[{ value: "rows", label: "Across rows" }, { value: "cols", label: "Across columns" }]} onChange={(value) => setDirection(value as Direction)} />
                   </div>
                   <SliderControl label="Speed (Hz)" value={speedHz} min={0} max={4} step={0.01} onChange={setSpeedHz} />
