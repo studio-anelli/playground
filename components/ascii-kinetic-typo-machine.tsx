@@ -490,9 +490,15 @@ export default function ASCIITypoMachine() {
                       <button type="button" disabled={!uploadedImage} onClick={() => setSourceMode("image")} className={`px-3 py-2 text-xs disabled:opacity-30 ${sourceMode === "image" ? "bg-white text-black" : "bg-white/[0.07]"}`}>Image</button>
                     </div>
                   </div>
-                  <label className="block cursor-pointer bg-white/[0.07] px-3 py-2 text-center text-xs uppercase hover:bg-white/15">
-                    {uploadedFileName ? `Replace ${uploadedFileName}` : "Upload image"}
-                    <input type="file" accept="image/*" className="sr-only" aria-label="Upload image" onChange={(event) => handleImageUpload(event.target.files?.[0])} />
+                  <label className="block bg-white/[0.07] px-3 py-2 text-[10px] uppercase tracking-[0.14em] text-white/45">
+                    {uploadedFileName ? "Replace image" : "Upload image"}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      aria-label="Upload image"
+                      className="mt-2 block w-full cursor-pointer text-xs normal-case tracking-normal text-white/60 file:mr-3 file:border-0 file:bg-white file:px-3 file:py-2 file:text-[10px] file:font-medium file:uppercase file:tracking-[0.12em] file:text-black hover:file:bg-white/85"
+                      onChange={(event) => handleImageUpload(event.target.files?.[0])}
+                    />
                   </label>
                   <SelectControl
                     label="ASCII area"
