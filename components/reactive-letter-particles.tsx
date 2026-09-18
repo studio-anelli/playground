@@ -43,7 +43,7 @@ function splitLines(text: string) {
 }
 
 // Minimal dev checks (keep them small + syntax-safe)
-if (typeof process !== "undefined" && (process as any).env?.NODE_ENV !== "production") {
+if (typeof process !== "undefined" && process.env?.NODE_ENV !== "production") {
   console.assert(splitLines("a\\nb").length === 2, "splitLines should split on \\\n");
   console.assert(splitLines("a\\r\\nb").length === 2, "splitLines should normalize \\\r\\\n");
   console.assert(splitLines("a\\rb").length === 2, "splitLines should normalize \\\r");
@@ -86,6 +86,12 @@ type Particle = {
 
   cooldown: number;
   splitCount: number;
+};
+
+const CANVAS_SIZES = {
+  "1280x520": { width: 1280, height: 520, label: "1280 × 520" },
+  "1920x1080": { width: 1920, height: 1080, label: "1920 × 1080" },
+  "1080x1080": { width: 1080, height: 1080, label: "1080 × 1080" },
 };
 
 function drawShape(ctx: CanvasRenderingContext2D, p: Particle) {
@@ -303,8 +309,8 @@ function Slider(props: { label: string; value: number; min: number; max: number;
   return (
     <div className="flex flex-col gap-1">
       <div className="flex items-baseline justify-between">
-        <div className="text-sm font-bold opacity-95">{label}</div>
-        <div className="text-sm font-bold tabular-nums opacity-90">{value}</div>
+        <div className="text-xs font-medium text-white/75">{label}</div>
+        <div className="font-mono text-[10px] tabular-nums text-white/55">{value}</div>
       </div>
       <input
         type="range"
@@ -313,7 +319,7 @@ function Slider(props: { label: string; value: number; min: number; max: number;
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full"
+        className="immersive-slider w-full"
       />
     </div>
   );
@@ -329,25 +335,31 @@ function NumberCommit(props: {
 }) {
   const { label, value, min, max, step = 1, onCommit } = props;
   const [draft, setDraft] = useState(String(value));
-  useEffect(() => setDraft(String(value)), [value]);
+  const [editing, setEditing] = useState(false);
 
   return (
     <label className="flex items-center justify-between gap-3">
-      <span className="text-sm font-bold opacity-95">{label}</span>
+      <span className="text-xs font-medium text-white/75">{label}</span>
       <input
-        className="w-24 rounded-md border border-white/30 bg-black/80 px-2 py-1 text-sm font-bold tabular-nums outline-none focus:border-white/60"
-        value={draft}
+        className="w-24 bg-white/[0.07] px-2 py-1.5 text-right font-mono text-xs tabular-nums outline-none transition focus:bg-white/10"
+        value={editing ? draft : String(value)}
         inputMode="decimal"
+        onFocus={() => {
+          setDraft(String(value));
+          setEditing(true);
+        }}
         onChange={(e) => setDraft(e.target.value)}
         onBlur={() => {
           const n = Number(draft);
           if (!Number.isFinite(n)) {
             setDraft(String(value));
+            setEditing(false);
             return;
           }
           const clamped = clamp(n, min, max);
           onCommit(clamped);
           setDraft(String(clamped));
+          setEditing(false);
         }}
         step={step}
       />
@@ -364,27 +376,41 @@ function TextCommit(props: {
 }) {
   const { label, value, onCommit, placeholder, multiline = false } = props;
   const [draft, setDraft] = useState(value);
-  useEffect(() => setDraft(value), [value]);
+  const [editing, setEditing] = useState(false);
 
   return (
     <label className="flex items-start justify-between gap-3">
-      <span className="text-sm font-bold opacity-95 pt-1">{label}</span>
+      <span className="pt-1 text-xs font-medium text-white/75">{label}</span>
       {multiline ? (
         <textarea
           rows={3}
-          className="w-64 max-w-full resize-y rounded-md border border-white/30 bg-black/80 px-2 py-1 text-sm font-bold outline-none focus:border-white/60"
-          value={draft}
+          className="w-64 max-w-full resize-y bg-white/[0.07] px-2 py-1.5 text-sm outline-none transition focus:bg-white/10"
+          value={editing ? draft : value}
           placeholder={placeholder}
+          onFocus={() => {
+            setDraft(value);
+            setEditing(true);
+          }}
           onChange={(e) => setDraft(e.target.value)}
-          onBlur={() => onCommit(draft)}
+          onBlur={() => {
+            onCommit(draft);
+            setEditing(false);
+          }}
         />
       ) : (
         <input
-          className="w-64 max-w-full rounded-md border border-white/30 bg-black/80 px-2 py-1 text-sm font-bold outline-none focus:border-white/60"
-          value={draft}
+          className="w-64 max-w-full bg-white/[0.07] px-2 py-1.5 text-sm outline-none transition focus:bg-white/10"
+          value={editing ? draft : value}
           placeholder={placeholder}
+          onFocus={() => {
+            setDraft(value);
+            setEditing(true);
+          }}
           onChange={(e) => setDraft(e.target.value)}
-          onBlur={() => onCommit(draft)}
+          onBlur={() => {
+            onCommit(draft);
+            setEditing(false);
+          }}
         />
       )}
     </label>
@@ -455,6 +481,14 @@ export default function ReactiveLetterParticles() {
 
   const [seed, setSeed] = useState(12345);
   const [status, setStatus] = useState("Ready");
+  const [panelOpen, setPanelOpen] = useState(true);
+  const [panelOffset, setPanelOffset] = useState({ x: 0, y: 0 });
+  const panelDragRef = useRef<{
+    pointerId: number;
+    startX: number;
+    startY: number;
+    origin: { x: number; y: number };
+  } | null>(null);
 
   const rebuild = () => {
     const w = canvasW;
@@ -495,7 +529,6 @@ export default function ReactiveLetterParticles() {
       alpha,
     });
 
-    setStatus(`Rebuilt: ${count} elements, ${insideOutside}, ${shapeMode}`);
   };
 
   // Rebuild on structural params
@@ -547,8 +580,6 @@ export default function ReactiveLetterParticles() {
       if (canvas.width !== Math.floor(w * dpr) || canvas.height !== Math.floor(h * dpr)) {
         canvas.width = Math.floor(w * dpr);
         canvas.height = Math.floor(h * dpr);
-        canvas.style.width = `${w}px`;
-        canvas.style.height = `${h}px`;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
 
@@ -825,96 +856,56 @@ export default function ReactiveLetterParticles() {
     splitOnHit,
     maxSplitsPerParticle,
     maxParticles,
+    text,
   ]);
 
-  const params = useMemo(
-    () => ({
-      text,
-      canvasW,
-      canvasH,
-      insideOutside,
-      shapeMode,
-      count,
-      fontFamily,
-      fontWeight,
-      fontSize,
-      tracking,
-      baselineY,
-      interline,
-      size,
-      lineLen,
-      filled,
-      stroke,
-      alpha,
-      baseHue,
-      baseSat,
-      baseLit,
-      bgHue,
-      bgSat,
-      bgLit,
-      textHue,
-      textSat,
-      textLit,
-      textAlpha,
-      repelRadius,
-      repelStrength,
-      damping,
-      jitter,
-      collisionRadiusBoost,
-      hueKick,
-      morphOnHit,
-      morphChance,
-      splitOnHit,
-      maxSplitsPerParticle,
-      seed,
-    }),
-    [
-      text,
-      canvasW,
-      canvasH,
-      insideOutside,
-      shapeMode,
-      count,
-      fontFamily,
-      fontWeight,
-      fontSize,
-      tracking,
-      baselineY,
-      interline,
-      size,
-      lineLen,
-      filled,
-      stroke,
-      alpha,
-      baseHue,
-      baseSat,
-      baseLit,
-      bgHue,
-      bgSat,
-      bgLit,
-      textHue,
-      textSat,
-      textLit,
-      textAlpha,
-      repelRadius,
-      repelStrength,
-      damping,
-      jitter,
-      collisionRadiusBoost,
-      hueKick,
-      morphOnHit,
-      morphChance,
-      splitOnHit,
-      maxSplitsPerParticle,
-      seed,
-    ]
-  );
+  const sizeKey = Object.entries(CANVAS_SIZES).find(([, option]) => option.width === canvasW && option.height === canvasH)?.[0] || "custom";
+
+  const applyCanvasSize = (key: string) => {
+    const option = CANVAS_SIZES[key as keyof typeof CANVAS_SIZES];
+    if (!option) return;
+    setCanvasW(option.width);
+    setCanvasH(option.height);
+    setBaselineY(Math.round(option.height * 0.58));
+    setFontSize(clamp(Math.round(option.height * 0.46), 40, 520));
+    setStatus(`Canvas ${option.label}`);
+  };
+
+  const startPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    panelDragRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      origin: panelOffset,
+    };
+  };
+
+  const movePanel = (event: React.PointerEvent<HTMLDivElement>) => {
+    const drag = panelDragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    setPanelOffset({
+      x: drag.origin.x + event.clientX - drag.startX,
+      y: drag.origin.y + event.clientY - drag.startY,
+    });
+  };
+
+  const endPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (panelDragRef.current?.pointerId !== event.pointerId) return;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    panelDragRef.current = null;
+  };
 
   const tabBtn = (id: typeof activeTab, label: string) => (
     <button
       key={id}
-      className={`rounded-xl border px-4 py-2 text-sm font-bold ${
-        activeTab === id ? "border-white/60 bg-black/90" : "border-white/30 bg-black/80 hover:bg-black/80"
+      role="tab"
+      aria-selected={activeTab === id}
+      className={`min-h-8 px-2 font-mono text-[10px] uppercase transition ${
+        activeTab === id ? "bg-white text-black" : "bg-white/[0.06] hover:bg-white/15"
       }`}
       onClick={() => setActiveTab(id)}
     >
@@ -923,211 +914,209 @@ export default function ReactiveLetterParticles() {
   );
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto p-4 text-white">
-      <div className="rounded-2xl border border-white/30 bg-black/30 p-3">
-        <canvas ref={canvasRef} className="block rounded-xl" />
+    <div className="relative h-full min-h-0 w-full overflow-hidden text-white" style={{ background: hsl(bgHue, bgSat, bgLit, 1) }}>
+      <div className="absolute inset-x-5 bottom-[82px] top-[82px] flex items-center justify-center overflow-hidden md:inset-x-8" aria-label="Stage">
+        <canvas
+          ref={canvasRef}
+          width={canvasW}
+          height={canvasH}
+          className="block h-auto w-auto max-h-full max-w-full"
+          style={{ aspectRatio: `${canvasW} / ${canvasH}` }}
+        />
       </div>
 
-      <div className="mt-3 flex items-center justify-between gap-3">
-        <div className="text-sm font-bold opacity-90">{status}</div>
-        <div className="flex gap-2">
+      <section
+        className={`absolute left-5 top-[82px] z-20 flex w-[min(430px,calc(100%-40px))] flex-col bg-black/75 shadow-2xl backdrop-blur-xl transition-[max-height] md:left-8 ${
+          panelOpen ? "max-h-[calc(100dvh-180px)]" : "max-h-11"
+        }`}
+        style={{ transform: `translate(${panelOffset.x}px, ${panelOffset.y}px)` }}
+        aria-label="Particle controls"
+      >
+        <div
+          className="flex min-h-11 cursor-move touch-none items-center justify-between px-3 font-mono text-[11px] uppercase"
+          onPointerDown={startPanelDrag}
+          onPointerMove={movePanel}
+          onPointerUp={endPanelDrag}
+          onPointerCancel={endPanelDrag}
+        >
+          <span>{activeTab === "interaction" ? "Interactions" : activeTab}</span>
           <button
-            className="rounded-xl border border-white/30 bg-black/80 px-3 py-2 text-sm font-bold hover:bg-black/80"
-            onClick={() => {
-              setSeed((s) => (s + 1) % 999999);
-              setStatus("Seed changed");
-            }}
+            type="button"
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={() => setPanelOpen((open) => !open)}
+            className="h-7 bg-white/10 px-2 hover:bg-white/20"
+            aria-expanded={panelOpen}
           >
-            Reseed
-          </button>
-          <button
-            className="rounded-xl border border-white/30 bg-black/80 px-3 py-2 text-sm font-bold hover:bg-black/80"
-            onClick={() => rebuild()}
-          >
-            Rebuild
+            {panelOpen ? "Minimise" : "Open"}
           </button>
         </div>
+
+        {panelOpen && (
+          <>
+            <div role="tablist" aria-label="Particle controls" className="grid grid-cols-4 gap-1 p-2 pt-0">
+              {tabBtn("source", "Source")}
+              {tabBtn("glyph", "Glyph")}
+              {tabBtn("colors", "Colors")}
+              {tabBtn("interaction", "Motion")}
+            </div>
+            <div className="min-h-0 flex-1 overflow-y-auto p-3 pt-1">
+              {activeTab === "source" && (
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-xs font-medium text-white/75">Placement</span>
+                    <div className="grid grid-cols-2 gap-1">
+                      {(["inside", "outside"] as const).map((placement) => (
+                        <button
+                          key={placement}
+                          className={`px-3 py-1.5 text-xs capitalize ${insideOutside === placement ? "bg-white text-black" : "bg-white/[0.07] hover:bg-white/15"}`}
+                          onClick={() => setInsideOutside(placement)}
+                        >
+                          {placement}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <Slider label="Element count" value={count} min={20} max={520} step={1} onChange={setCount} />
+                  <div className="grid grid-cols-2 gap-3">
+                    <NumberCommit label="Canvas W" value={canvasW} min={320} max={2400} onCommit={(v) => setCanvasW(Math.round(v))} />
+                    <NumberCommit label="Canvas H" value={canvasH} min={240} max={1400} onCommit={(v) => setCanvasH(Math.round(v))} />
+                  </div>
+                  <button
+                    className="bg-white/[0.07] px-3 py-2 text-xs uppercase hover:bg-white/15"
+                    onClick={() => {
+                      rebuild();
+                      setStatus(`Rebuilt ${count} ${shapeMode}`);
+                    }}
+                  >
+                    Rebuild particles
+                  </button>
+                  <div className="font-mono text-[10px] uppercase text-white/40">{status}</div>
+                </div>
+              )}
+
+              {activeTab === "glyph" && (
+                <div className="flex flex-col gap-4">
+                  <div className="grid grid-cols-2 gap-3">
+                    <NumberCommit label="Font size" value={fontSize} min={40} max={520} onCommit={(v) => setFontSize(Math.round(v))} />
+                    <NumberCommit label="Weight" value={fontWeight} min={100} max={900} step={100} onCommit={(v) => setFontWeight(Math.round(v / 100) * 100)} />
+                  </div>
+                  <Slider label="Tracking" value={tracking} min={-20} max={60} step={1} onChange={setTracking} />
+                  <Slider label="Baseline Y" value={baselineY} min={40} max={canvasH - 20} step={1} onChange={setBaselineY} />
+                  <Slider label="Interline" value={interline} min={-40} max={160} step={1} onChange={setInterline} />
+                  <TextCommit label="Font family" value={fontFamily} placeholder="e.g. Inter, Arial" onCommit={(v) => setFontFamily(v || fontFamily)} />
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-xs font-medium text-white/75">Fill</span>
+                      <button className={`px-3 py-1.5 text-xs ${filled ? "bg-white text-black" : "bg-white/[0.07]"}`} onClick={() => setFilled((value) => !value)}>
+                        {filled ? "On" : "Off"}
+                      </button>
+                    </div>
+                    <NumberCommit label="Stroke" value={stroke} min={0.5} max={10} step={0.5} onCommit={setStroke} />
+                  </div>
+                  <Slider label="Alpha" value={alpha} min={0.1} max={1} step={0.01} onChange={setAlpha} />
+                  <Slider label="Shape size" value={size} min={1} max={28} step={1} onChange={setSize} />
+                  <Slider label="Line length" value={lineLen} min={4} max={120} step={1} onChange={setLineLen} />
+                </div>
+              )}
+
+              {activeTab === "colors" && (
+                <div className="space-y-5">
+                  <ControlGroup title="Shapes">
+                    <Slider label="Hue" value={baseHue} min={0} max={360} step={1} onChange={setBaseHue} />
+                    <Slider label="Saturation" value={baseSat} min={0} max={100} step={1} onChange={setBaseSat} />
+                    <Slider label="Lightness" value={baseLit} min={0} max={100} step={1} onChange={setBaseLit} />
+                  </ControlGroup>
+                  <ControlGroup title="Background">
+                    <Slider label="Hue" value={bgHue} min={0} max={360} step={1} onChange={setBgHue} />
+                    <Slider label="Saturation" value={bgSat} min={0} max={100} step={1} onChange={setBgSat} />
+                    <Slider label="Lightness" value={bgLit} min={0} max={100} step={1} onChange={setBgLit} />
+                  </ControlGroup>
+                  <ControlGroup title="Ghost text">
+                    <Slider label="Hue" value={textHue} min={0} max={360} step={1} onChange={setTextHue} />
+                    <Slider label="Saturation" value={textSat} min={0} max={100} step={1} onChange={setTextSat} />
+                    <Slider label="Lightness" value={textLit} min={0} max={100} step={1} onChange={setTextLit} />
+                    <Slider label="Alpha" value={textAlpha} min={0} max={0.5} step={0.005} onChange={setTextAlpha} />
+                  </ControlGroup>
+                </div>
+              )}
+
+              {activeTab === "interaction" && (
+                <div className="space-y-5">
+                  <ControlGroup title="Split">
+                    <ToggleControl label="Split on collision" value={splitOnHit} onChange={setSplitOnHit} />
+                    <Slider label="Reset after splits" value={maxSplitsPerParticle} min={1} max={25} step={1} onChange={setMaxSplitsPerParticle} />
+                  </ControlGroup>
+                  <ControlGroup title="Repulsion">
+                    <Slider label="Repel radius" value={repelRadius} min={6} max={140} step={1} onChange={setRepelRadius} />
+                    <Slider label="Repel strength" value={repelStrength} min={0} max={3} step={0.01} onChange={setRepelStrength} />
+                    <Slider label="Damping" value={damping} min={0.75} max={0.995} step={0.001} onChange={setDamping} />
+                    <Slider label="Jitter" value={jitter} min={0} max={0.6} step={0.001} onChange={setJitter} />
+                  </ControlGroup>
+                  <ControlGroup title="Collision">
+                    <Slider label="Collision radius" value={collisionRadiusBoost} min={0.3} max={2} step={0.01} onChange={setCollisionRadiusBoost} />
+                    <Slider label="Hue kick" value={hueKick} min={0} max={120} step={1} onChange={setHueKick} />
+                    <ToggleControl label="Morph on hit" value={morphOnHit} onChange={setMorphOnHit} />
+                    <Slider label="Morph chance" value={morphChance} min={0} max={1} step={0.01} onChange={setMorphChance} />
+                  </ControlGroup>
+                </div>
+              )}
+            </div>
+          </>
+        )}
+      </section>
+
+      <div className="absolute bottom-4 left-1/2 z-30 grid w-[min(1040px,calc(100%-40px))] -translate-x-1/2 grid-cols-[auto_minmax(160px,1fr)_auto_auto] items-center bg-black/75 p-1.5 font-mono text-[11px] uppercase shadow-2xl backdrop-blur-xl max-md:grid-cols-[auto_1fr_auto]">
+        <button
+          type="button"
+          onClick={() => {
+            setSeed((value) => (value + 1) % 999999);
+            setStatus("Seed changed");
+          }}
+          className="h-10 min-w-20 bg-white/10 px-3 hover:bg-white/20"
+        >
+          Reseed
+        </button>
+        <label className="mx-1 flex h-10 min-w-0 items-center bg-white/[0.06] px-3 normal-case">
+          <span className="mr-3 shrink-0 uppercase text-white/45">Text</span>
+          <input value={text} onChange={(event) => setText(event.target.value)} className="min-w-0 flex-1 bg-transparent text-sm outline-none" aria-label="Particle text" />
+        </label>
+        <label className="flex h-10 items-center bg-white/[0.06] px-2 max-md:hidden">
+          <span className="sr-only">Particle shape</span>
+          <select value={shapeMode} onChange={(event) => setShapeMode(event.target.value)} className="bg-transparent px-1 outline-none" aria-label="Particle shape">
+            <option value="circles">Circles</option>
+            <option value="squares">Squares</option>
+            <option value="lines">Lines</option>
+            <option value="mix">Mix</option>
+          </select>
+        </label>
+        <label className="ml-1 flex h-10 items-center bg-white/[0.06] px-2">
+          <span className="sr-only">Canvas size</span>
+          <select value={sizeKey} onChange={(event) => applyCanvasSize(event.target.value)} className="bg-transparent px-1 outline-none" aria-label="Canvas size">
+            {sizeKey === "custom" && <option value="custom">{canvasW} × {canvasH}</option>}
+            {Object.entries(CANVAS_SIZES).map(([key, option]) => <option key={key} value={key}>{option.label}</option>)}
+          </select>
+        </label>
       </div>
+    </div>
+  );
+}
 
-      {/* Tabs */}
-      <div className="mt-4 flex flex-wrap gap-2">
-        {tabBtn("source", "Source")}
-        {tabBtn("glyph", "Glyph + Shapes")}
-        {tabBtn("colors", "Colors")}
-        {tabBtn("interaction", "Interactions")}
-      </div>
+function ControlGroup({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="space-y-3 bg-white/[0.035] p-3">
+      <h3 className="font-mono text-[10px] uppercase text-white/45">{title}</h3>
+      {children}
+    </section>
+  );
+}
 
-      <div className="mt-3 rounded-2xl border border-white/30 bg-black/85 p-4 shadow-lg text-white">
-        {activeTab === "source" && (
-          <div className="flex flex-col gap-3">
-            <div className="text-sm font-bold">Source</div>
-
-            <TextCommit
-              label="Text"
-              value={text}
-              placeholder="Type and click away to apply, use new lines"
-              onCommit={(v) => {
-                setText(v);
-                setStatus("Text applied (on blur)");
-              }}
-              multiline
-            />
-
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-sm font-bold opacity-95">Placement</span>
-              <div className="flex gap-2">
-                <button
-                  className={`rounded-xl border px-3 py-1.5 text-sm font-bold ${
-                    insideOutside === "inside" ? "border-white/60 bg-black/90" : "border-white/30 bg-black/80 hover:bg-black/80"
-                  }`}
-                  onClick={() => setInsideOutside("inside")}
-                >
-                  Inside
-                </button>
-                <button
-                  className={`rounded-xl border px-3 py-1.5 text-sm font-bold ${
-                    insideOutside === "outside" ? "border-white/60 bg-black/90" : "border-white/30 bg-black/80 hover:bg-black/80"
-                  }`}
-                  onClick={() => setInsideOutside("outside")}
-                >
-                  Outside
-                </button>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-sm font-bold opacity-95">Shapes</span>
-              <select
-                className="w-44 rounded-md border border-white/30 bg-black/80 px-2 py-1 text-sm font-bold outline-none focus:border-white/60"
-                value={shapeMode}
-                onChange={(e) => setShapeMode(e.target.value)}
-              >
-                <option value="circles">Circles</option>
-                <option value="squares">Squares</option>
-                <option value="lines">Lines</option>
-                <option value="mix">Mix</option>
-              </select>
-            </div>
-
-            <Slider label="Element count" value={count} min={20} max={520} step={1} onChange={setCount} />
-
-            <div className="grid grid-cols-2 gap-3">
-              <NumberCommit label="Canvas W" value={canvasW} min={320} max={2400} onCommit={(v) => setCanvasW(Math.round(v))} />
-              <NumberCommit label="Canvas H" value={canvasH} min={240} max={1400} onCommit={(v) => setCanvasH(Math.round(v))} />
-            </div>
-          </div>
-        )}
-
-        {activeTab === "glyph" && (
-          <div className="flex flex-col gap-3">
-            <div className="text-sm font-bold">Glyph + Shapes</div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <NumberCommit label="Font size" value={fontSize} min={40} max={520} onCommit={(v) => setFontSize(Math.round(v))} />
-              <NumberCommit
-                label="Weight"
-                value={fontWeight}
-                min={100}
-                max={900}
-                step={100}
-                onCommit={(v) => setFontWeight(Math.round(v / 100) * 100)}
-              />
-            </div>
-
-            <Slider label="Tracking" value={tracking} min={-20} max={60} step={1} onChange={setTracking} />
-            <Slider label="Baseline Y" value={baselineY} min={40} max={canvasH - 20} step={1} onChange={setBaselineY} />
-            <Slider label="Interline" value={interline} min={-40} max={160} step={1} onChange={setInterline} />
-
-            <TextCommit label="Font family" value={fontFamily} placeholder="e.g. Inter, Arial" onCommit={(v) => setFontFamily(v || fontFamily)} />
-
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex items-center justify-between gap-3">
-                <span className="text-sm font-bold opacity-95">Fill</span>
-                <button
-                  className={`rounded-xl border px-3 py-1.5 text-sm font-bold ${
-                    filled ? "border-white/60 bg-black/90" : "border-white/30 bg-black/80 hover:bg-black/80"
-                  }`}
-                  onClick={() => setFilled((x) => !x)}
-                >
-                  {filled ? "On" : "Off"}
-                </button>
-              </div>
-              <NumberCommit label="Stroke" value={stroke} min={0.5} max={10} step={0.5} onCommit={setStroke} />
-            </div>
-
-            <Slider label="Alpha" value={alpha} min={0.1} max={1} step={0.01} onChange={setAlpha} />
-            <Slider label="Shape size" value={size} min={1} max={28} step={1} onChange={setSize} />
-            <Slider label="Line length" value={lineLen} min={4} max={120} step={1} onChange={setLineLen} />
-          </div>
-        )}
-
-        {activeTab === "colors" && (
-          <div className="flex flex-col gap-3">
-            <div className="text-sm font-bold">Colors (HSL)</div>
-
-            <div className="text-sm font-bold opacity-95">Shapes</div>
-            <Slider label="Hue" value={baseHue} min={0} max={360} step={1} onChange={setBaseHue} />
-            <Slider label="Sat" value={baseSat} min={0} max={100} step={1} onChange={setBaseSat} />
-            <Slider label="Lit" value={baseLit} min={0} max={100} step={1} onChange={setBaseLit} />
-
-            <div className="mt-2 text-sm font-bold opacity-95">Background</div>
-            <Slider label="BG Hue" value={bgHue} min={0} max={360} step={1} onChange={setBgHue} />
-            <Slider label="BG Sat" value={bgSat} min={0} max={100} step={1} onChange={setBgSat} />
-            <Slider label="BG Lit" value={bgLit} min={0} max={100} step={1} onChange={setBgLit} />
-
-            <div className="mt-2 text-sm font-bold opacity-95">Text</div>
-            <Slider label="Text Hue" value={textHue} min={0} max={360} step={1} onChange={setTextHue} />
-            <Slider label="Text Sat" value={textSat} min={0} max={100} step={1} onChange={setTextSat} />
-            <Slider label="Text Lit" value={textLit} min={0} max={100} step={1} onChange={setTextLit} />
-            <Slider label="Text Alpha" value={textAlpha} min={0} max={0.5} step={0.005} onChange={setTextAlpha} />
-          </div>
-        )}
-
-        {activeTab === "interaction" && (
-          <div className="flex flex-col gap-3">
-            <div className="text-sm font-bold">Interactions</div>
-
-            <div className="text-sm font-bold opacity-95">Split</div>
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-sm font-bold opacity-95">Split on collision</span>
-              <button
-                className={`rounded-xl border px-3 py-1.5 text-sm font-bold ${
-                  splitOnHit ? "border-white/60 bg-black/90" : "border-white/30 bg-black/80 hover:bg-black/80"
-                }`}
-                onClick={() => setSplitOnHit((x) => !x)}
-              >
-                {splitOnHit ? "On" : "Off"}
-              </button>
-            </div>
-            <Slider label="Reset after splits" value={maxSplitsPerParticle} min={1} max={25} step={1} onChange={setMaxSplitsPerParticle} />
-
-            <div className="mt-2 text-sm font-bold opacity-95">Repulsion</div>
-            <Slider label="Repel radius" value={repelRadius} min={6} max={140} step={1} onChange={setRepelRadius} />
-            <Slider label="Repel strength" value={repelStrength} min={0} max={3} step={0.01} onChange={setRepelStrength} />
-            <Slider label="Damping" value={damping} min={0.75} max={0.995} step={0.001} onChange={setDamping} />
-            <Slider label="Jitter" value={jitter} min={0} max={0.6} step={0.001} onChange={setJitter} />
-
-            <div className="mt-2 text-sm font-bold opacity-95">Collision</div>
-            <Slider label="Collision radius" value={collisionRadiusBoost} min={0.3} max={2.0} step={0.01} onChange={setCollisionRadiusBoost} />
-            <Slider label="Hue kick" value={hueKick} min={0} max={120} step={1} onChange={setHueKick} />
-
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-sm font-bold opacity-95">Morph on hit</span>
-              <button
-                className={`rounded-xl border px-3 py-1.5 text-sm font-bold ${
-                  morphOnHit ? "border-white/60 bg-black/90" : "border-white/30 bg-black/80 hover:bg-black/80"
-                }`}
-                onClick={() => setMorphOnHit((x) => !x)}
-              >
-                {morphOnHit ? "On" : "Off"}
-              </button>
-            </div>
-            <Slider label="Morph chance" value={morphChance} min={0} max={1} step={0.01} onChange={setMorphChance} />
-          </div>
-        )}
-      </div>
-
-      <div className="mt-3 text-[10px] opacity-40 select-text">params: {JSON.stringify(params)}</div>
+function ToggleControl({ label, value, onChange }: { label: string; value: boolean; onChange: (value: boolean) => void }) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <span className="text-xs font-medium text-white/75">{label}</span>
+      <button className={`px-3 py-1.5 text-xs ${value ? "bg-white text-black" : "bg-white/[0.07]"}`} onClick={() => onChange(!value)}>
+        {value ? "On" : "Off"}
+      </button>
     </div>
   );
 }
