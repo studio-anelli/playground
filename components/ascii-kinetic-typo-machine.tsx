@@ -23,6 +23,7 @@ type PanelTab = "type" | "wave" | "style" | "export";
 type SourceMode = "text" | "image";
 type ASCIIArea = "subject" | "background";
 type SourceAlign = "left" | "center" | "right";
+type NoiseColour = "white" | "pink";
 
 type FontPresetKey = "System Sans" | "System Serif" | "System Mono" | "UI Sans" | "UI Rounded";
 
@@ -82,17 +83,45 @@ function waveValue(index: number, phase: number, period: number, waveform: Wavef
   return Math.sin(angle);
 }
 
-function noiseHash(value: number) {
+function noiseHash01(value: number) {
   const n = Math.sin(value * 127.1 + 311.7) * 43758.5453;
-  return (n - Math.floor(n)) * 2 - 1;
+  return n - Math.floor(n);
 }
 
-function noiseValue(index: number, phase: number, scale: number) {
-  const position = index / Math.max(1, scale) + phase * 0.35;
-  const cell = Math.floor(position);
-  const fraction = position - cell;
-  const smooth = fraction * fraction * (3 - 2 * fraction);
-  return noiseHash(cell) * (1 - smooth) + noiseHash(cell + 1) * smooth;
+function gaussianHash(value: number) {
+  const u1 = Math.max(1e-7, noiseHash01(value * 0.754877666));
+  const u2 = noiseHash01(value * 0.569840296 + 19.19);
+  return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2) / 2.5;
+}
+
+function animatedGaussian(seed: number, phase: number) {
+  const frame = phase * 0.3;
+  const frameStart = Math.floor(frame);
+  const mix = frame - frameStart;
+  const smooth = mix * mix * (3 - 2 * mix);
+  const current = gaussianHash(seed + frameStart * 4099);
+  const next = gaussianHash(seed + (frameStart + 1) * 4099);
+  return current * (1 - smooth) + next * smooth;
+}
+
+function gaussianNoiseValue(index: number, phase: number, scale: number, colour: NoiseColour) {
+  if (colour === "white") return clamp(animatedGaussian(index * 37.21, phase), -1, 1);
+
+  let total = 0;
+  let totalWeight = 0;
+  for (let octave = 0; octave < 5; octave++) {
+    const octaveScale = Math.max(1, scale * 2 ** octave);
+    const position = index / octaveScale;
+    const cell = Math.floor(position);
+    const fraction = position - cell;
+    const smooth = fraction * fraction * (3 - 2 * fraction);
+    const weight = 2 ** (octave * 0.5);
+    const current = animatedGaussian(cell + octave * 1009, phase);
+    const next = animatedGaussian(cell + 1 + octave * 1009, phase);
+    total += (current * (1 - smooth) + next * smooth) * weight;
+    totalWeight += weight;
+  }
+  return clamp(total / totalWeight, -1, 1);
 }
 
 function edgeIndex(index: number, max: number, mode: EdgeMode) {
@@ -140,7 +169,8 @@ export default function ASCIITypoMachine() {
   const [period, setPeriod] = useState(24);
   const [ampChars, setAmpChars] = useState(4);
   const [noiseAmount, setNoiseAmount] = useState(0);
-  const [noiseScale, setNoiseScale] = useState(12);
+  const [noiseScale, setNoiseScale] = useState(6);
+  const [noiseColour, setNoiseColour] = useState<NoiseColour>("pink");
 
   // Edge behavior
   const [edgeMode, setEdgeMode] = useState<EdgeMode>("clamp");
@@ -250,7 +280,7 @@ export default function ASCIITypoMachine() {
     const waveLength = direction === "rows" ? rows : cols;
     const displacement = Array.from({ length: waveLength }, (_, index) => (
       clamp(
-        waveValue(index, phase, period, waveform) + noiseValue(index, phase, noiseScale) * noiseAmount,
+        waveValue(index, phase, period, waveform) + gaussianNoiseValue(index, phase, noiseScale, noiseColour) * noiseAmount,
         -1,
         1,
       )
@@ -275,7 +305,7 @@ export default function ASCIITypoMachine() {
       out[y] = line;
     }
     return out.join("\n");
-  }, [lumGrid, gridSize, characters, direction, ampChars, waveform, period, edgeMode, asciiArea, noiseAmount, noiseScale]);
+  }, [lumGrid, gridSize, characters, direction, ampChars, waveform, period, edgeMode, asciiArea, noiseAmount, noiseScale, noiseColour]);
 
   // Animation loop
   useEffect(() => {
@@ -407,6 +437,7 @@ export default function ASCIITypoMachine() {
       setPeriod(56);
       setAmpChars(2);
       setNoiseAmount(0.08);
+      setNoiseColour("pink");
       setEdgeMode("clamp");
     } else if (preset === "wave") {
       setWaveform("sine");
@@ -414,6 +445,7 @@ export default function ASCIITypoMachine() {
       setPeriod(24);
       setAmpChars(6);
       setNoiseAmount(0.25);
+      setNoiseColour("pink");
       setEdgeMode("mirror");
     } else if (preset === "glitch") {
       setWaveform("square");
@@ -421,6 +453,7 @@ export default function ASCIITypoMachine() {
       setPeriod(12);
       setAmpChars(14);
       setNoiseAmount(0.8);
+      setNoiseColour("white");
       setEdgeMode("wrap");
       setCharsetName("Blocky █");
       setCharacters(cleanCharacterRamp(CHARSETS["Blocky █"]));
@@ -480,7 +513,7 @@ export default function ASCIITypoMachine() {
           }}
         >
           <pre
-            className="absolute inset-0 select-text overflow-hidden whitespace-pre p-4 font-mono"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-text whitespace-pre p-4 font-mono"
             style={{
               fontSize: `${fontPx}px`,
               lineHeight: lineHt,
@@ -626,8 +659,17 @@ export default function ASCIITypoMachine() {
                   <SliderControl label="Speed (Hz)" value={speedHz} min={0} max={4} step={0.01} onChange={setSpeedHz} />
                   <SliderControl label="Period" value={period} min={6} max={120} step={1} onChange={setPeriod} />
                   <SliderControl label="Amplitude (chars)" value={ampChars} min={0} max={24} step={1} onChange={setAmpChars} />
+                  <SelectControl
+                    label="Gaussian noise"
+                    value={noiseColour}
+                    options={[
+                      { value: "white", label: "White" },
+                      { value: "pink", label: "Pink" },
+                    ]}
+                    onChange={(value) => setNoiseColour(value as NoiseColour)}
+                  />
                   <SliderControl label="Noise interference" value={noiseAmount} min={0} max={1} step={0.01} onChange={setNoiseAmount} />
-                  <SliderControl label="Noise scale" value={noiseScale} min={2} max={48} step={1} onChange={setNoiseScale} />
+                  <SliderControl label="Pink noise scale" value={noiseScale} min={1} max={32} step={1} onChange={setNoiseScale} />
                   <SelectControl label="Edges" value={edgeMode} options={[{ value: "clamp", label: "Clamp" }, { value: "wrap", label: "Wrap" }, { value: "mirror", label: "Mirror" }]} onChange={(value) => setEdgeMode(value as EdgeMode)} />
                 </div>
               )}
