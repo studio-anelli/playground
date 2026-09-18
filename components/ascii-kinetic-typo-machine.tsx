@@ -49,6 +49,10 @@ const STAGE_SIZES = {
 
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 
+function cleanCharacterRamp(value: string) {
+  return Array.from(value.replace(/\s/g, "")).filter((character, index, characters) => characters.indexOf(character) === index).slice(0, 32).join("");
+}
+
 function fitFontSize(
   ctx: CanvasRenderingContext2D,
   str: string,
@@ -110,6 +114,8 @@ export default function ASCIITypoMachine() {
   const [sourceMode, setSourceMode] = useState<SourceMode>("text");
   const [asciiArea, setASCIIArea] = useState<ASCIIArea>("subject");
   const [sourceAlign, setSourceAlign] = useState<SourceAlign>("center");
+  const [sourceX, setSourceX] = useState(0);
+  const [sourceY, setSourceY] = useState(0);
   const [uploadedImage, setUploadedImage] = useState<HTMLImageElement | null>(null);
   const [uploadedFileName, setUploadedFileName] = useState("");
   const [fontPreset, setFontPreset] = useState<FontPresetKey>("System Sans");
@@ -125,7 +131,7 @@ export default function ASCIITypoMachine() {
   const [fg, setFg] = useState("#111111");
   const [bg, setBg] = useState("#ffffff");
   const [charsetName, setCharsetName] = useState<keyof typeof CHARSETS>("Dense ▓");
-  const [characters, setCharacters] = useState(CHARSETS["Dense ▓"]);
+  const [characters, setCharacters] = useState(cleanCharacterRamp(CHARSETS["Dense ▓"]));
 
   // Wave controls
   const [waveform, setWaveform] = useState<Waveform>("sine");
@@ -189,10 +195,15 @@ export default function ASCIITypoMachine() {
       let drawY = 0;
       if (imageRatio > canvasRatio) {
         drawW = H * imageRatio;
-        drawX = sourceAlign === "left" ? 0 : sourceAlign === "right" ? W - drawW : (W - drawW) / 2;
+        const overflowX = drawW - W;
+        const alignedX = sourceAlign === "left" ? 0 : sourceAlign === "right" ? -overflowX : -overflowX / 2;
+        drawX = alignedX + (sourceX / 100) * W;
+        drawY = (sourceY / 100) * H;
       } else {
         drawH = W / imageRatio;
-        drawY = (H - drawH) / 2;
+        const overflowY = drawH - H;
+        drawX = (sourceX / 100) * W;
+        drawY = -overflowY / 2 + (sourceY / 100) * H;
       }
       ctx.drawImage(uploadedImage, drawX, drawY, drawW, drawH);
     } else {
@@ -202,8 +213,10 @@ export default function ASCIITypoMachine() {
       ctx.textBaseline = "middle";
       ctx.textAlign = sourceAlign;
       ctx.fillStyle = "#000000";
-      const textX = sourceAlign === "left" ? W * 0.05 : sourceAlign === "right" ? W * 0.95 : W / 2;
-      ctx.fillText(text || " ", textX, H / 2);
+      const alignedX = sourceAlign === "left" ? W * 0.05 : sourceAlign === "right" ? W * 0.95 : W / 2;
+      const textX = alignedX + (sourceX / 100) * W;
+      const textY = H / 2 + (sourceY / 100) * H;
+      ctx.fillText(text || " ", textX, textY);
     }
 
     // Downsample to grid luminance
@@ -223,7 +236,7 @@ export default function ASCIITypoMachine() {
       grid.push(rowArr);
     }
     return grid;
-  }, [bold, cols, fontPreset, italic, rows, sourceAlign, sourceMode, text, uploadedImage]);
+  }, [bold, cols, fontPreset, italic, rows, sourceAlign, sourceMode, sourceX, sourceY, text, uploadedImage]);
 
   const lumGrid = useMemo(() => buildLumGrid(), [buildLumGrid]);
   const gridSize = useMemo(() => ({ rows, cols }), [cols, rows]);
@@ -231,7 +244,7 @@ export default function ASCIITypoMachine() {
   // Render ASCII from luminance grid + phase
   const renderASCII = useCallback((phase: number) => {
     if (!lumGrid) return "";
-    const chars = characters || " ";
+    const chars = [...(characters || "@"), " "];
     const n = chars.length - 1;
     const { rows, cols } = gridSize;
     const waveLength = direction === "rows" ? rows : cols;
@@ -410,7 +423,7 @@ export default function ASCIITypoMachine() {
       setNoiseAmount(0.8);
       setEdgeMode("wrap");
       setCharsetName("Blocky █");
-      setCharacters(CHARSETS["Blocky █"]);
+      setCharacters(cleanCharacterRamp(CHARSETS["Blocky █"]));
     }
   };
 
@@ -552,7 +565,10 @@ export default function ASCIITypoMachine() {
                           key={alignment}
                           type="button"
                           aria-pressed={sourceAlign === alignment}
-                          onClick={() => setSourceAlign(alignment)}
+                          onClick={() => {
+                            setSourceAlign(alignment);
+                            setSourceX(0);
+                          }}
                           className={`px-3 py-2 text-xs capitalize ${sourceAlign === alignment ? "bg-white text-black" : "bg-white/[0.07]"}`}
                         >
                           {alignment}
@@ -560,6 +576,19 @@ export default function ASCIITypoMachine() {
                       ))}
                     </div>
                   </div>
+                  <SliderControl label="Horizontal position" value={sourceX} min={-50} max={50} step={1} onChange={setSourceX} />
+                  <SliderControl label="Vertical position" value={sourceY} min={-50} max={50} step={1} onChange={setSourceY} />
+                  <button
+                    type="button"
+                    className="w-full bg-white/[0.07] px-3 py-2 text-xs uppercase hover:bg-white/15"
+                    onClick={() => {
+                      setSourceAlign("center");
+                      setSourceX(0);
+                      setSourceY(0);
+                    }}
+                  >
+                    Recenter source
+                  </button>
                   {sourceMode === "text" && (
                     <>
                       <SelectControl
@@ -577,10 +606,13 @@ export default function ASCIITypoMachine() {
                   <SelectControl
                     label="Character preset"
                     value={charsetName}
-                    options={Object.keys(CHARSETS).map((value) => ({ value, label: value }))}
+                    options={[
+                      ...Object.keys(CHARSETS).map((value) => ({ value, label: value })),
+                      ...(charsetName === "Custom" ? [{ value: "Custom", label: "Custom" }] : []),
+                    ]}
                     onChange={(value) => {
                       setCharsetName(value);
-                      setCharacters(CHARSETS[value]);
+                      if (CHARSETS[value]) setCharacters(cleanCharacterRamp(CHARSETS[value]));
                     }}
                   />
                   <SliderControl label="Columns" value={cols} min={60} max={260} step={1} onChange={setCols} />
@@ -648,8 +680,11 @@ export default function ASCIITypoMachine() {
           <span className="mr-3 shrink-0 uppercase text-white/45">Characters</span>
           <input
             value={characters}
-            onChange={(event) => setCharacters(event.target.value)}
-            placeholder="@%#*+=-:. "
+            onChange={(event) => {
+              setCharacters(cleanCharacterRamp(event.target.value));
+              setCharsetName("Custom");
+            }}
+            placeholder="@%#*+=-:."
             className="min-w-0 flex-1 bg-transparent text-sm outline-none"
             aria-label="ASCII characters"
             spellCheck={false}
