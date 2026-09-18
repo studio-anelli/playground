@@ -1,0 +1,458 @@
+import React, { useEffect, useRef, useState } from "react";
+
+/**
+ * Two‑Color Pixel Art — Single‑file React app
+ *
+ * Fixes for reliability:
+ * - Use FileReader data URLs instead of object URLs to avoid Safari/blob revocation issues
+ * - Robust error handling with visible messages and retry guidance
+ * - Guard unsupported formats (e.g., HEIC/HEIF)
+ * - Image.decode() when available for cleaner load lifecycle
+ *
+ * Features
+ * - Reliable image upload (click or drag & drop)
+ * - Pixelate with adjustable pixel size
+ * - 2‑color quantization with live color pickers
+ * - Threshold & optional ordered dithering (Bayer 4x4)
+ * - Download PNG export of the pixelated result
+ * - Built‑in self‑tests (load a tiny test image + pipeline smoke test)
+ *
+ * Styling uses Tailwind classes (available in this environment).
+ */
+
+export default function PixelArtApp() {
+  const [srcDataUrl, setSrcDataUrl] = useState<string | null>(null);
+  const [imgDims, setImgDims] = useState<{ w: number; h: number } | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  // Controls
+  const [pixelSize, setPixelSize] = useState<number>(12); // size of pixel block in final image
+  const [colorA, setColorA] = useState<string>("#000000");
+  const [colorB, setColorB] = useState<string>("#ffffff");
+  const [threshold, setThreshold] = useState<number>(0.5); // 0..1
+  const [useDither, setUseDither] = useState<boolean>(false);
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const outCanvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  // Load image to measure dimensions (from data URL)
+  useEffect(() => {
+    let cancelled = false;
+    if (!srcDataUrl) {
+      setImgDims(null);
+      return;
+    }
+
+    (async () => {
+      try {
+        setErrorMsg(null);
+        const img = new Image();
+        // Important: don't set crossOrigin for data URLs; unnecessary and can confuse some engines
+        const load = () =>
+          new Promise<HTMLImageElement>((resolve, reject) => {
+            img.onload = () => resolve(img);
+            img.onerror = () => reject(new Error("Failed to load image"));
+            img.src = srcDataUrl;
+          });
+        if ("decode" in img && typeof (img as any).decode === "function") {
+          img.src = srcDataUrl;
+          await (img as any).decode();
+        } else {
+          await load();
+        }
+        if (cancelled) return;
+        setImgDims({ w: img.naturalWidth, h: img.naturalHeight });
+      } catch (err) {
+        console.error(err);
+        if (!cancelled) {
+          setImgDims(null);
+          setErrorMsg(
+            "Failed to load image. Try a standard format (PNG/JPEG/WebP). If this is HEIC/HEIF, please convert it first."
+          );
+        }
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [srcDataUrl]);
+
+  // Pixelate whenever something changes
+  useEffect(() => {
+    if (!srcDataUrl || !imgDims) return;
+    const canvas = outCanvasRef.current;
+    if (!canvas) return;
+
+    const { w, h } = imgDims;
+
+    // Compute how many blocks we will have
+    const blocksX = Math.max(1, Math.round(w / pixelSize));
+    const blocksY = Math.max(1, Math.round(h / pixelSize));
+
+    // We'll render in two steps:
+    // 1) Downsample original image to a tiny offscreen canvas of size blocksX x blocksY
+    // 2) Quantize to 2 colors (with optional dithering)
+    // 3) Upscale to final canvas using nearest‑neighbor
+
+    const tiny = document.createElement("canvas");
+    tiny.width = blocksX;
+    tiny.height = blocksY;
+    const tctx = tiny.getContext("2d", { willReadFrequently: true })!;
+
+    const img = new Image();
+    img.onload = () => {
+      // draw original into tiny canvas to sample colors per block
+      tctx.imageSmoothingEnabled = false;
+      tctx.clearRect(0, 0, blocksX, blocksY);
+      tctx.drawImage(img, 0, 0, blocksX, blocksY);
+
+      // Read tiny pixels
+      const id = tctx.getImageData(0, 0, blocksX, blocksY);
+      const data = id.data;
+
+      // Prepare output tiny buffer (quantized)
+      const out = tctx.createImageData(blocksX, blocksY);
+
+      // Precompute RGB for the two chosen colors
+      const rgbA = hexToRgb(colorA);
+      const rgbB = hexToRgb(colorB);
+
+      // For dithering, we use a 4x4 Bayer matrix normalized to 0..1
+      const bayer4 = [
+        [0, 8, 2, 10],
+        [12, 4, 14, 6],
+        [3, 11, 1, 9],
+        [15, 7, 13, 5],
+      ].map((row) => row.map((v) => (v + 0.5) / 16));
+
+      for (let y = 0; y < blocksY; y++) {
+        for (let x = 0; x < blocksX; x++) {
+          const idx = (y * blocksX + x) * 4;
+          const r = data[idx];
+          const g = data[idx + 1];
+          const b = data[idx + 2];
+
+          // Luminance (perceptual)
+          const lum = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+
+          // Adjust threshold using Bayer dither pattern if enabled
+          const t = useDither ? clamp(threshold + bayer4[y % 4][x % 4] - 0.5, 0, 1) : threshold;
+          const useA = lum < t; // darker -> A (e.g., black), else B (e.g., white)
+
+          const [rr, gg, bb] = useA ? rgbA : rgbB;
+          out.data[idx] = rr;
+          out.data[idx + 1] = gg;
+          out.data[idx + 2] = bb;
+          out.data[idx + 3] = 255;
+        }
+      }
+
+      // Put quantized tiny buffer back, then upscale to final size
+      tctx.putImageData(out, 0, 0);
+
+      // Final canvas size in "real" pixels
+      const finalW = blocksX * pixelSize;
+      const finalH = blocksY * pixelSize;
+      canvas.width = finalW;
+      canvas.height = finalH;
+      const ctx = canvas.getContext("2d")!;
+      ctx.imageSmoothingEnabled = false;
+      ctx.clearRect(0, 0, finalW, finalH);
+      ctx.drawImage(tiny, 0, 0, finalW, finalH);
+    };
+    img.onerror = () => {
+      setErrorMsg("The image could not be processed after loading. Try another file.");
+    };
+    img.src = srcDataUrl;
+  }, [srcDataUrl, imgDims, pixelSize, colorA, colorB, threshold, useDither]);
+
+  // ---------- Upload handlers ----------
+  function onFiles(files: FileList | null) {
+    if (!files || !files.length) return;
+    const f = files[0];
+    if (!f.type.startsWith("image/")) {
+      setErrorMsg("Please choose an image file (PNG, JPEG, WebP).");
+      return;
+    }
+    // Some browsers/users may drop HEIC/HEIF with generic type; try to catch those by extension
+    const name = f.name.toLowerCase();
+    if (name.endsWith(".heic") || name.endsWith(".heif")) {
+      setErrorMsg("HEIC/HEIF is not supported here. Please convert to PNG or JPEG and try again.");
+      return;
+    }
+
+    setErrorMsg(null);
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      setSrcDataUrl(result);
+    };
+    reader.onerror = () => {
+      console.error(reader.error);
+      // Fallback: try object URL if FileReader fails
+      try {
+        const url = URL.createObjectURL(f);
+        setSrcDataUrl(url);
+      } catch (e) {
+        setErrorMsg("Could not read the file. Please try another image.");
+      }
+    };
+    reader.readAsDataURL(f);
+  }
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    onFiles(e.target.files);
+    // Reset the input value so selecting the same file again still triggers change
+    e.target.value = "";
+  }
+
+  function handleDrop(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+    onFiles(e.dataTransfer.files);
+  }
+
+  function handleDragOver(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  function downloadPNG() {
+    const canvas = outCanvasRef.current;
+    if (!canvas) return;
+    const link = document.createElement("a");
+    link.download = "pixel-art.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  }
+
+  // ---------- Self‑tests ----------
+  const [testLog, setTestLog] = useState<string[]>([]);
+
+  function log(line: string) {
+    setTestLog((prev) => [...prev, line].slice(-8));
+  }
+
+  function loadTestImage() {
+    // Generate a tiny 8x8 checker as data URL
+    const c = document.createElement("canvas");
+    c.width = 8;
+    c.height = 8;
+    const ctx = c.getContext("2d")!;
+    for (let y = 0; y < 8; y++) {
+      for (let x = 0; x < 8; x++) {
+        const v = ((x ^ y) & 1) ? 255 : 0;
+        ctx.fillStyle = `rgb(${v},${v},${v})`;
+        ctx.fillRect(x, y, 1, 1);
+      }
+    }
+    const url = c.toDataURL("image/png");
+    setSrcDataUrl(url);
+    setErrorMsg(null);
+    log("Loaded 8×8 checker test image.");
+  }
+
+  function runPipelineSmokeTest() {
+    try {
+      const canvas = outCanvasRef.current;
+      if (!canvas) throw new Error("Canvas missing");
+      if (!srcDataUrl) throw new Error("No image loaded");
+      // A minimal signal that pipeline ran is that canvas has dimensions
+      if (canvas.width > 0 && canvas.height > 0) {
+        log(`PASS: pipeline rendered ${canvas.width}×${canvas.height}`);
+      } else {
+        log("FAIL: canvas has zero size after render");
+      }
+    } catch (e: any) {
+      log(`ERROR: ${e.message || e}`);
+    }
+  }
+
+  return (
+    <div className="min-h-screen w-full bg-neutral-950 text-neutral-100">
+      <div className="mx-auto max-w-6xl p-4">
+        <header className="mb-4 flex items-center justify-between gap-4">
+          <h1 className="text-xl sm:text-2xl font-semibold tracking-tight">Two‑Color Pixel Art</h1>
+          <div className="flex items-center gap-2 text-xs opacity-70">
+            <span>Upload → Pixelate → Download</span>
+          </div>
+        </header>
+
+        {/* Upload / Dropzone */}
+        <div
+          className="group relative mb-4 rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4 ring-0 transition hover:border-neutral-700"
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+        >
+          <div className="flex flex-col items-center justify-center gap-3 p-6 text-center">
+            <button
+              type="button"
+              onClick={() => inputRef.current?.click()}
+              className="rounded-xl bg-neutral-800 px-4 py-2 text-sm font-medium hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-neutral-600"
+            >
+              Choose image
+            </button>
+            <p className="text-sm text-neutral-300">or drag & drop an image here</p>
+            <input
+              ref={inputRef}
+              type="file"
+              accept="image/png,image/jpeg,image/webp,image/*"
+              className="sr-only"
+              onChange={handleInputChange}
+            />
+          </div>
+          {srcDataUrl && (
+            <div className="mt-3 rounded-xl bg-neutral-950/40 p-3 text-xs text-neutral-400">
+              Selected image ready. Adjust settings below.
+            </div>
+          )}
+          {errorMsg && (
+            <div className="mt-3 rounded-xl border border-red-800 bg-red-950/60 p-3 text-xs text-red-200">
+              {errorMsg}
+            </div>
+          )}
+        </div>
+
+        {/* Controls */}
+        <div className="mb-4 grid grid-cols-1 gap-3 md:grid-cols-3">
+          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4">
+            <label className="mb-2 block text-sm font-medium">
+              Pixel size: <span className="opacity-70">{pixelSize}px</span>
+            </label>
+            <input
+              type="range"
+              min={2}
+              max={64}
+              step={1}
+              value={pixelSize}
+              onChange={(e) => setPixelSize(parseInt(e.target.value))}
+              className="w-full"
+            />
+          </div>
+          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4">
+            <label className="mb-2 block text-sm font-medium">
+              Threshold: <span className="opacity-70">{Math.round(threshold * 100)}%</span>
+            </label>
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.01}
+              value={threshold}
+              onChange={(e) => setThreshold(parseFloat(e.target.value))}
+              className="w-full"
+            />
+            <label className="mt-3 inline-flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={useDither}
+                onChange={(e) => setUseDither(e.target.checked)}
+              />
+              Ordered dithering (Bayer 4×4)
+            </label>
+          </div>
+          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4">
+            <label className="mb-2 block text-sm font-medium">Colors</label>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <input
+                  type="color"
+                  value={colorA}
+                  onChange={(e) => setColorA(e.target.value)}
+                  className="h-8 w-8 cursor-pointer rounded"
+                />
+                <span className="text-xs opacity-80">A</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="color"
+                  value={colorB}
+                  onChange={(e) => setColorB(e.target.value)}
+                  className="h-8 w-8 cursor-pointer rounded"
+                />
+                <span className="text-xs opacity-80">B</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Canvas Output + Actions */}
+        <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4">
+          <div className="mb-3 flex items-center justify-between">
+            <div className="text-sm opacity-80">Output</div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={downloadPNG}
+                className="rounded-xl bg-neutral-200 px-3 py-1.5 text-sm font-semibold text-neutral-900 hover:bg-white disabled:bg-neutral-700 disabled:text-neutral-300"
+                disabled={!srcDataUrl}
+              >
+                Download PNG
+              </button>
+            </div>
+          </div>
+          <div className="flex items-center justify-center overflow-auto rounded-xl bg-neutral-950 p-3">
+            <canvas
+              ref={outCanvasRef}
+              className="max-h-[70vh]"
+              style={{ imageRendering: "pixelated" }}
+            />
+          </div>
+        </div>
+
+        {/* Self‑tests */}
+        <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
+          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4">
+            <div className="mb-2 text-sm font-medium">Self‑tests</div>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={loadTestImage}
+                className="rounded-lg bg-neutral-800 px-3 py-1.5 text-xs hover:bg-neutral-700"
+              >
+                Load 8×8 checker test image
+              </button>
+              <button
+                onClick={runPipelineSmokeTest}
+                className="rounded-lg bg-neutral-800 px-3 py-1.5 text-xs hover:bg-neutral-700"
+              >
+                Run pipeline smoke test
+              </button>
+            </div>
+            <div className="mt-3 text-xs text-neutral-300">
+              {testLog.map((l, i) => (
+                <div key={i}>• {l}</div>
+              ))}
+            </div>
+          </div>
+
+          {/* Tips */}
+          <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4 text-xs text-neutral-300">
+            <div className="mb-2 text-sm font-medium">Tips</div>
+            <ul className="list-disc space-y-1 pl-5">
+              <li>
+                If the image looks too blocky or too smooth, adjust <span className="font-medium">Pixel size</span>.
+              </li>
+              <li>
+                If dark areas should expand, lower the <span className="font-medium">Threshold</span>; raise it to favor the lighter color.
+              </li>
+              <li>
+                Enable <span className="font-medium">Ordered dithering</span> for a textured halftone look.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Helpers
+function clamp(v: number, a: number, b: number) {
+  return Math.min(b, Math.max(a, v));
+}
+function hexToRgb(hex: string): [number, number, number] {
+  const m = hex.replace("#", "");
+  const v = m.length === 3 ? m.split("").map((ch) => ch + ch).join("") : m;
+  const num = parseInt(v, 16);
+  return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
+}

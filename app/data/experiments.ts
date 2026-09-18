@@ -50,7 +50,7 @@ export const experiments: Experiment[] = [
     status: "test",
     year: "2026",
     tags: ["ascii", "kinetic type", "wave"],
-    summary: "A text-to-ASCII typographic machine with animated wave distortion and export.",
+    summary: "A type-or-image ASCII machine with animated wave distortion and export.",
   },
   {
     id: "REC-05",
