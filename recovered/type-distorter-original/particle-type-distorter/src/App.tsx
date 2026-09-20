@@ -148,7 +148,7 @@ function TabButton({
     <button
       onClick={onClick}
       className={
-        "px-3 py-2 rounded-xl text-sm font-semibold transition whitespace-nowrap " +
+        "px-2 py-1.5 rounded-lg text-[11px] font-semibold transition whitespace-nowrap " +
         (active
           ? "bg-white text-black"
           : "bg-white/10 text-white hover:bg-white/15")
@@ -376,7 +376,15 @@ function pickRecorderMimeType() {
 export default function App() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number>(0);
+  const panelDragRef = useRef<{
+    pointerId: number;
+    startX: number;
+    startY: number;
+    originX: number;
+    originY: number;
+  } | null>(null);
 
   const exportCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -393,8 +401,10 @@ export default function App() {
     mimeType: "",
   });
 
-  // UI tabs (lower)
+  // UI tabs
   const [tab, setTab] = useState<string>("distort");
+  const [panelOffset, setPanelOffset] = useState({ x: 0, y: 0 });
+  const [panelOpen, setPanelOpen] = useState(true);
 
   // Colors
   const [bgH, setBgH] = useState(240);
@@ -406,7 +416,7 @@ export default function App() {
   const [txL, setTxL] = useState(100);
 
   // Type
-  const [text, setText] = useState("ANELLI");
+  const [text, setText] = useState("DUST");
   const [fontFamily, setFontFamily] = useState(
     "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
   );
@@ -472,6 +482,7 @@ export default function App() {
   const [flowStrength, setFlowStrength] = useState(26);
   const [mouseRadius, setMouseRadius] = useState(240);
   const [mouseStrength, setMouseStrength] = useState(52);
+  const [mouseSoftness, setMouseSoftness] = useState(0.55);
   const [mouseMode, setMouseMode] = useState("repel"); // repel | attract
   const [returnToBase, setReturnToBase] = useState(0.08);
   const [velocityDamping, setVelocityDamping] = useState(0.9);
@@ -516,6 +527,7 @@ export default function App() {
         flowStrength,
         mouseRadius,
         mouseStrength,
+        mouseSoftness,
         mouseMode,
         returnToBase,
         velocityDamping,
@@ -572,6 +584,7 @@ export default function App() {
       flowStrength,
       mouseRadius,
       mouseStrength,
+      mouseSoftness,
       mouseMode,
       returnToBase,
       velocityDamping,
@@ -599,6 +612,7 @@ export default function App() {
   // Two “pipelines”: screen & export (to avoid scaling artifacts)
   type Pipe = {
     offNoise: HTMLCanvasElement | null;
+    offNoiseField: HTMLCanvasElement | null;
     offType: HTMLCanvasElement | null;
 
     noiseParticles: NoiseParticle[];
@@ -619,6 +633,7 @@ export default function App() {
 
   const screenPipeRef = useRef<Pipe>({
     offNoise: null,
+    offNoiseField: null,
     offType: null,
     noiseParticles: [],
     lastNoiseParams: null,
@@ -628,6 +643,7 @@ export default function App() {
 
   const exportPipeRef = useRef<Pipe>({
     offNoise: null,
+    offNoiseField: null,
     offType: null,
     noiseParticles: [],
     lastNoiseParams: null,
@@ -799,6 +815,14 @@ export default function App() {
   function ensurePipeBuffers(pipe: Pipe, w: number, h: number) {
     if (!pipe.offNoise || pipe.offNoise.width !== w || pipe.offNoise.height !== h) {
       pipe.offNoise = createOffscreenCanvas(w, h);
+    }
+    // Small luminance proxy used to sample the *rendered* noise texture cheaply.
+    // It keeps deformation visually tied to the animation without reading millions
+    // of pixels from the full-resolution canvas every frame.
+    const fieldW = 96;
+    const fieldH = Math.max(48, Math.round((h / Math.max(1, w)) * fieldW));
+    if (!pipe.offNoiseField || pipe.offNoiseField.width !== fieldW || pipe.offNoiseField.height !== fieldH) {
+      pipe.offNoiseField = createOffscreenCanvas(fieldW, fieldH);
     }
     if (!pipe.offType || pipe.offType.width !== w || pipe.offType.height !== h) {
       pipe.offType = createOffscreenCanvas(w, h);
@@ -1121,6 +1145,76 @@ export default function App() {
     setIsRecording(false);
   }
 
+  const startPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    event.preventDefault();
+
+    const bounds = containerRef.current?.getBoundingClientRect();
+    const panelRect = panelRef.current?.getBoundingClientRect();
+    if (!bounds || !panelRect) return;
+
+    const baseLeft = panelRect.left - panelOffset.x;
+    const baseTop = panelRect.top - panelOffset.y;
+
+    const drag = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      originX: panelOffset.x,
+      originY: panelOffset.y,
+    };
+    panelDragRef.current = drag;
+
+    const onMove = (moveEvent: PointerEvent) => {
+      if (moveEvent.pointerId !== drag.pointerId) return;
+
+      const rawX = drag.originX + moveEvent.clientX - drag.startX;
+      const rawY = drag.originY + moveEvent.clientY - drag.startY;
+      const padding = 8;
+
+      const minX = bounds.left + padding - baseLeft;
+      const maxX = bounds.right - padding - panelRect.width - baseLeft;
+      const minY = bounds.top + padding - baseTop;
+      const maxY = bounds.bottom - padding - panelRect.height - baseTop;
+
+      setPanelOffset({
+        x: clamp(rawX, Math.min(minX, maxX), Math.max(minX, maxX)),
+        y: clamp(rawY, Math.min(minY, maxY), Math.max(minY, maxY)),
+      });
+    };
+
+    const onEnd = (endEvent: PointerEvent) => {
+      if (endEvent.pointerId !== drag.pointerId) return;
+      panelDragRef.current = null;
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onEnd);
+      window.removeEventListener("pointercancel", onEnd);
+    };
+
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onEnd);
+    window.addEventListener("pointercancel", onEnd);
+  };
+
+  useEffect(() => {
+    const bounds = containerRef.current?.getBoundingClientRect();
+    const panel = panelRef.current?.getBoundingClientRect();
+    if (!bounds || !panel) return;
+
+    const padding = 8;
+    let dx = 0;
+    let dy = 0;
+
+    if (panel.left < bounds.left + padding) dx = bounds.left + padding - panel.left;
+    if (panel.right > bounds.right - padding) dx = bounds.right - padding - panel.right;
+    if (panel.top < bounds.top + padding) dy = bounds.top + padding - panel.top;
+    if (panel.bottom > bounds.bottom - padding) dy = bounds.bottom - padding - panel.bottom;
+
+    if (dx || dy) {
+      setPanelOffset((pos) => ({ x: pos.x + dx, y: pos.y + dy }));
+    }
+  }, [panelOpen]);
+
   // Main render loop: draw to screen + export every frame
   useEffect(() => {
     const c = canvasRef.current;
@@ -1141,6 +1235,26 @@ export default function App() {
 
       const offNoise = pipe.offNoise!;
       const pts = pipe.glyphParticles;
+
+      // Build a low-res field from the actual rendered noise texture.
+      const fieldCanvas = pipe.offNoiseField!;
+      const fieldCtx = fieldCanvas.getContext("2d");
+      let fieldData: ImageData | null = null;
+      if (fieldCtx) {
+        fieldCtx.setTransform(1, 0, 0, 1, 0, 0);
+        fieldCtx.clearRect(0, 0, fieldCanvas.width, fieldCanvas.height);
+        fieldCtx.drawImage(offNoise, 0, 0, fieldCanvas.width, fieldCanvas.height);
+        fieldData = fieldCtx.getImageData(0, 0, fieldCanvas.width, fieldCanvas.height);
+      }
+
+      const sampleNoiseLuma = (x: number, y: number) => {
+        if (!fieldData) return 0.5;
+        const fx = clamp(Math.round((x / Math.max(1, W)) * (fieldCanvas.width - 1)), 0, fieldCanvas.width - 1);
+        const fy = clamp(Math.round((y / Math.max(1, H)) * (fieldCanvas.height - 1)), 0, fieldCanvas.height - 1);
+        const idx = (fy * fieldCanvas.width + fx) * 4;
+        const d = fieldData.data;
+        return (d[idx] * 0.2126 + d[idx + 1] * 0.7152 + d[idx + 2] * 0.0722) / 255;
+      };
 
       // Background
       D.setTransform(1, 0, 0, 1, 0, 0);
@@ -1175,28 +1289,53 @@ export default function App() {
         const d = Math.hypot(dx, dy);
 
         const within = hasPointer && d <= field.mouseRadius;
-        const fall = within
-          ? Math.exp(-(d * d) / (field.mouseRadius * field.mouseRadius))
-          : 0;
-
-        let fx = 0,
-          fy = 0;
-        if (fall > 0) {
-          const nv = noiseVector(dx, dy, t, field.flowFreq, field.flowCurl);
-          fx =
-            nv.vx *
-            field.flowStrength *
-            fall *
-            field.noiseApply *
-            field.distortAmount;
-          fy =
-            nv.vy *
-            field.flowStrength *
-            fall *
-            field.noiseApply *
-            field.distortAmount;
+        let fall = 0;
+        if (within) {
+          // Brush-style edge control. 0 = hard edge, 1 = very soft feather.
+          const normalized = clamp(d / Math.max(1, field.mouseRadius), 0, 1);
+          const softness = clamp(field.mouseSoftness, 0, 1);
+          const hard = 1;
+          const feather = Math.pow(1 - normalized, 1.2 + softness * 3.8);
+          const edgeBlend = softness * softness;
+          fall = lerp(hard, feather, edgeBlend);
         }
 
+        // Sample the gradient of the actual rendered noise texture around this
+        // glyph particle. Moving light/dark regions therefore generate a moving
+        // force that visibly follows the noise animation on screen.
+        const gradStepX = W / Math.max(1, fieldCanvas.width);
+        const gradStepY = H / Math.max(1, fieldCanvas.height);
+        const l = sampleNoiseLuma(p.x - gradStepX, p.y);
+        const r = sampleNoiseLuma(p.x + gradStepX, p.y);
+        const u = sampleNoiseLuma(p.x, p.y - gradStepY);
+        const dNoise = sampleNoiseLuma(p.x, p.y + gradStepY);
+        const gx = r - l;
+        const gy = dNoise - u;
+
+        // Add a perpendicular component so broad gradients create turbulence
+        // instead of only sliding particles toward brighter/darker regions.
+        const curlMix = clamp(field.flowCurl / 4, 0, 1.5);
+        const dirX = gx - gy * curlMix;
+        const dirY = gy + gx * curlMix;
+        const gradientMag = Math.hypot(dirX, dirY);
+        const normX = gradientMag > 1e-5 ? dirX / gradientMag : 0;
+        const normY = gradientMag > 1e-5 ? dirY / gradientMag : 0;
+        const textureEnergy = clamp(gradientMag * 6, 0, 1.5);
+
+        const fx =
+          normX *
+          field.flowStrength *
+          field.noiseApply *
+          field.distortAmount *
+          textureEnergy;
+        const fy =
+          normY *
+          field.flowStrength *
+          field.noiseApply *
+          field.distortAmount *
+          textureEnergy;
+
+        // Mouse interaction stays local and is layered on top of the global noise.
         const ux = d < 1e-6 ? 0 : dx / d;
         const uy = d < 1e-6 ? 0 : dy / d;
         const mxF = ux * field.mouseStrength * fall * sign * field.distortAmount;
@@ -1206,9 +1345,11 @@ export default function App() {
         const denom = Math.max(1, field.mouseStrength + field.flowStrength);
         p.hm = clamp((mMag / denom) * settings.heatmap.heatIntensity, 0, 1);
 
-        const rt = hasPointer ? field.returnToBase : field.returnToBase * 2.2;
-        const rx = (p.x0 - p.x) * rt * 60;
-        const ry = (p.y0 - p.y) * rt * 60;
+        // Keep the restoring force consistent whether or not the pointer is present.
+        // Previously it was 2.2× stronger with no pointer, which largely cancelled
+        // the noise deformation as soon as the mouse left the canvas.
+        const rx = (p.x0 - p.x) * field.returnToBase * 60;
+        const ry = (p.y0 - p.y) * field.returnToBase * 60;
 
         p.vx = (p.vx + (fx + mxF + rx) / 60) * field.velocityDamping;
         p.vy = (p.vy + (fy + myF + ry) / 60) * field.velocityDamping;
@@ -1321,67 +1462,76 @@ export default function App() {
   }, [settings, isRecording, recFps]);
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="max-w-[1400px] mx-auto px-4 py-4">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-3">
-          <div className="flex items-center gap-3">
-            <div className="text-lg font-extrabold tracking-tight">
-              Particle Type Distorter
-            </div>
-            <div className="text-xs font-semibold text-white/60">
-              distort only, noise + mouse
-            </div>
-          </div>
+    <div className="h-[calc(100dvh-52px)] min-h-[560px] bg-black text-white overflow-hidden">
+      <div className="relative h-full w-full p-3">
+        {/* Recording controls */}
+        <div className="absolute right-4 top-3 z-30 flex items-center justify-end gap-2 text-[10px] uppercase tracking-[0.08em] text-white/60">
+          <span>{EXPORT_W} × {EXPORT_H}</span>
 
-          {/* Recording controls */}
-          <div className="flex items-center gap-2 flex-wrap">
-            <div className="text-xs font-semibold text-white/70 mr-1">
-              Export: {EXPORT_W}×{EXPORT_H}
-            </div>
+          <select
+            value={String(recFps)}
+            onChange={(e) => setRecFps(e.target.value === "30" ? 30 : 60)}
+            className="border border-white/20 bg-black/30 px-2 py-1 text-[10px] text-white outline-none"
+            aria-label="Recording frame rate"
+          >
+            <option value="30">30 FPS</option>
+            <option value="60">60 FPS</option>
+          </select>
 
-            <Select
-              label="FPS"
-              value={String(recFps)}
-              onChange={(v) => setRecFps(v === "30" ? 30 : 60)}
-              options={[
-                { value: "30", label: "30 fps" },
-                { value: "60", label: "60 fps" },
-              ]}
-            />
-
-            {!isRecording ? (
-              <button
-                type="button"
-                onClick={startRecording}
-                className="px-3 py-2 rounded-xl text-sm font-extrabold bg-white text-black hover:opacity-90"
-              >
-                Start recording
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={stopRecording}
-                className="px-3 py-2 rounded-xl text-sm font-extrabold bg-red-500 text-black hover:opacity-90"
-              >
-                Stop recording
-              </button>
-            )}
-          </div>
+          {!isRecording ? (
+            <button
+              type="button"
+              onClick={startRecording}
+              className="border border-white/25 bg-white px-2.5 py-1 text-[10px] font-semibold uppercase text-black hover:opacity-90"
+            >
+              Record
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={stopRecording}
+              className="border border-white/25 bg-white px-2.5 py-1 text-[10px] font-semibold uppercase text-black hover:opacity-90"
+            >
+              Stop
+            </button>
+          )}
         </div>
 
         {/* Canvas */}
-        <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
-          <div ref={containerRef} className="relative h-[54vh] min-h-[320px]">
+        <div className="relative h-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+          <div ref={containerRef} className="relative h-full min-h-0">
             <canvas ref={canvasRef} className="block w-full h-full" />
             <div className="absolute left-3 top-3 rounded-xl bg-black/60 border border-white/10 px-3 py-2 text-xs font-semibold text-white/80 backdrop-blur">
               Move your mouse over the canvas to distort.
             </div>
           </div>
 
-          {/* Tabs */}
-          <div className="border-t border-white/10 bg-black/60 backdrop-blur">
-            <div className="flex items-center gap-2 px-3 py-3 overflow-x-auto">
+          {/* Floating controls */}
+          <div
+            ref={panelRef}
+            className={`absolute right-4 top-12 z-20 max-w-[calc(100%-32px)] overflow-hidden border border-white/15 bg-black/70 shadow-2xl backdrop-blur-xl ${panelOpen ? "w-[340px] max-h-[calc(100%-64px)]" : "w-[170px] h-8"}`}
+            style={{ transform: `translate(${panelOffset.x}px, ${panelOffset.y}px)` }}
+          >
+            <div
+              className="flex h-8 cursor-move touch-none items-center justify-between border-b border-white/10 px-2 font-mono text-[10px] uppercase tracking-[0.08em] text-white/55"
+              onPointerDown={startPanelDrag}
+              aria-label="Drag controls panel"
+            >
+              <span>Controls</span>
+              <div className="flex items-center gap-2">
+                <span aria-hidden="true">···</span>
+                <button
+                  type="button"
+                  onPointerDown={(event) => event.stopPropagation()}
+                  onClick={() => setPanelOpen((open) => !open)}
+                  className="px-1 text-white/65 hover:text-white"
+                  aria-expanded={panelOpen}
+                >
+                  {panelOpen ? "−" : "+"}
+                </button>
+              </div>
+            </div>
+            <div className={`grid grid-cols-5 gap-1 p-2 border-b border-white/10 ${panelOpen ? "" : "hidden"}`}>
               <TabButton active={tab === "noise"} onClick={() => setTab("noise")}>
                 Noise
               </TabButton>
@@ -1408,10 +1558,10 @@ export default function App() {
               </TabButton>
             </div>
 
-            <div className="px-4 pb-4">
+            <div className={`max-h-[calc(100dvh-190px)] overflow-y-auto p-2.5 ${panelOpen ? "" : "hidden"}`}>
               {tab === "noise" && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div className="space-y-3">
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Noise type</div>
                     <Select
                       label="Generator"
@@ -1541,7 +1691,7 @@ export default function App() {
                     )}
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Noise → Distorter</div>
                     <Slider
                       label="Noise apply"
@@ -1633,7 +1783,7 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Notes</div>
                     <div className="text-xs text-white/75 leading-relaxed">
                       Export is rendered on a separate 1920×1080 canvas every frame, so captureStream is crisp.
@@ -1643,8 +1793,8 @@ export default function App() {
               )}
 
               {tab === "type" && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div className="space-y-3">
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Text</div>
                     <label className="space-y-1 block">
                       <div className="text-xs font-bold text-white/85">Word</div>
@@ -1707,7 +1857,7 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Font</div>
                     <Slider
                       label="Font size"
@@ -1735,7 +1885,7 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Quick presets</div>
                     <div className="grid grid-cols-2 gap-2">
                       <button
@@ -1794,8 +1944,8 @@ export default function App() {
               )}
 
               {tab === "distort" && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div className="space-y-3">
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Type → particles</div>
                     <Slider
                       label="Sample step (density)"
@@ -1846,7 +1996,7 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Field</div>
                     <Slider
                       label="Frequency"
@@ -1893,7 +2043,7 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Mouse</div>
                     <Select
                       label="Mode"
@@ -1920,13 +2070,22 @@ export default function App() {
                       step={1}
                       onChange={setMouseStrength}
                     />
+                    <Slider
+                      label="Softness"
+                      value={mouseSoftness}
+                      min={0}
+                      max={1}
+                      step={0.01}
+                      onChange={setMouseSoftness}
+                      rightLabel={mouseSoftness.toFixed(2)}
+                    />
                   </div>
                 </div>
               )}
 
               {tab === "heatmap" && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div className="space-y-3">
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Heatmap</div>
                     <Toggle
                       label="Enable heatmap"
@@ -1943,7 +2102,7 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Colors</div>
                     <label className="grid grid-cols-[1fr,140px] gap-2 items-center">
                       <span className="text-xs font-bold text-white/85">Color A</span>
@@ -1965,7 +2124,7 @@ export default function App() {
                     </label>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Tip</div>
                     <div className="text-xs text-white/75 leading-relaxed">
                       For a clean “distortion map” look, set particle shape to <b>Square</b> and lower jitter.
@@ -1975,22 +2134,22 @@ export default function App() {
               )}
 
               {tab === "colors" && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div className="space-y-3">
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Background (HSL)</div>
                     <Slider label="H" value={bgH} min={0} max={360} step={1} onChange={setBgH} />
                     <Slider label="S" value={bgS} min={0} max={100} step={1} onChange={setBgS} />
                     <Slider label="L" value={bgL} min={0} max={100} step={1} onChange={setBgL} />
                     <div className="text-xs text-white/70">{bg}</div>
                   </div>
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Text (HSL)</div>
                     <Slider label="H" value={txH} min={0} max={360} step={1} onChange={setTxH} />
                     <Slider label="S" value={txS} min={0} max={100} step={1} onChange={setTxS} />
                     <Slider label="L" value={txL} min={0} max={100} step={1} onChange={setTxL} />
                     <div className="text-xs text-white/70">{textColor}</div>
                   </div>
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="text-sm font-extrabold">Presets</div>
                     <div className="grid grid-cols-2 gap-2">
                       <button
@@ -2057,9 +2216,6 @@ export default function App() {
           </div>
         </div>
 
-        <div className="mt-3 text-xs text-white/55">
-          Tip: Lower Sample step for more points, then adjust Particle size. Recording uses an offscreen 1920×1080 canvas.
-        </div>
       </div>
     </div>
   );
