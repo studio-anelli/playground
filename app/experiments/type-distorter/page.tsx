@@ -5,14 +5,14 @@ import TypeDistorter from "@/recovered/type-distorter-original/particle-type-dis
 
 export default function TypeDistorterPage() {
   return (
-    <main className="import-page">
+    <main className="import-page w-full max-w-none mx-0">
       <header className="import-header import-header-native">
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a href="/" target="_top" className="back-link"><ArrowLeft aria-hidden="true" /> Index</a>
         <h1>Particle Type Distorter</h1>
         <span>REC-02 / Tool / Test</span>
       </header>
-      <section className="experiment-native" aria-label="Particle Type Distorter interactive application">
+      <section className="experiment-native w-full" aria-label="Particle Type Distorter interactive application">
         <TypeDistorter />
       </section>
     </main>
