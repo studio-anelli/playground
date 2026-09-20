@@ -1179,21 +1179,37 @@ export default function App() {
           ? Math.exp(-(d * d) / (field.mouseRadius * field.mouseRadius))
           : 0;
 
-        // The noise field is a continuous, canvas-wide deformation source.
-        // It is intentionally sampled from each particle's base position so the
-        // glyph keeps a coherent turbulent structure instead of only reacting
-        // inside the mouse radius.
-        const nv = noiseVector(p.x0, p.y0, t, field.flowFreq, field.flowCurl);
+        // The deformation field follows the selected visible noise generator.
+        // When noise animation is enabled, the same animation speed/scale/energy
+        // that moves the noise also moves the glyph field. With animation off the
+        // field becomes static rather than continuing as an unrelated animation.
+        const isGaussian = settings.noiseTex.noiseType === "gaussian";
+        const noiseTime = settings.noise.animateNoise
+          ? t * (isGaussian ? settings.noise.noiseSpeed : settings.noiseTex.turbSpeed)
+          : 0;
+        const noiseFreq = isGaussian
+          ? field.flowFreq * clamp(160 / Math.max(20, settings.noise.sigma), 0.35, 3)
+          : field.flowFreq * Math.max(0.15, settings.noiseTex.turbScale);
+        const noiseCurl = isGaussian
+          ? field.flowCurl
+          : field.flowCurl * Math.max(0.25, settings.noiseTex.turbWarp);
+        const noiseEnergy = isGaussian
+          ? Math.max(0, settings.noise.noiseGain)
+          : Math.max(0, settings.noiseTex.turbContrast);
+
+        const nv = noiseVector(p.x0, p.y0, noiseTime, noiseFreq, noiseCurl);
         const fx =
           nv.vx *
           field.flowStrength *
           field.noiseApply *
-          field.distortAmount;
+          field.distortAmount *
+          noiseEnergy;
         const fy =
           nv.vy *
           field.flowStrength *
           field.noiseApply *
-          field.distortAmount;
+          field.distortAmount *
+          noiseEnergy;
 
         // Mouse interaction stays local and is layered on top of the global noise.
         const ux = d < 1e-6 ? 0 : dx / d;
