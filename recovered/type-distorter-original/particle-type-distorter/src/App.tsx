@@ -1144,38 +1144,35 @@ export default function App() {
   const startPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     event.preventDefault();
-    panelDragRef.current = {
+
+    const drag = {
       pointerId: event.pointerId,
       startX: event.clientX,
       startY: event.clientY,
       origin: panelOffset,
     };
-  };
+    panelDragRef.current = drag;
 
-  useEffect(() => {
-    const handlePointerMove = (event: PointerEvent) => {
-      const drag = panelDragRef.current;
-      if (!drag || drag.pointerId !== event.pointerId) return;
+    const handlePointerMove = (moveEvent: PointerEvent) => {
+      if (moveEvent.pointerId !== drag.pointerId) return;
       setPanelOffset({
-        x: drag.origin.x + event.clientX - drag.startX,
-        y: drag.origin.y + event.clientY - drag.startY,
+        x: drag.origin.x + moveEvent.clientX - drag.startX,
+        y: drag.origin.y + moveEvent.clientY - drag.startY,
       });
     };
 
-    const handlePointerEnd = (event: PointerEvent) => {
-      if (panelDragRef.current?.pointerId !== event.pointerId) return;
+    const handlePointerEnd = (endEvent: PointerEvent) => {
+      if (endEvent.pointerId !== drag.pointerId) return;
       panelDragRef.current = null;
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerEnd);
+      window.removeEventListener("pointercancel", handlePointerEnd);
     };
 
     window.addEventListener("pointermove", handlePointerMove);
     window.addEventListener("pointerup", handlePointerEnd);
     window.addEventListener("pointercancel", handlePointerEnd);
-    return () => {
-      window.removeEventListener("pointermove", handlePointerMove);
-      window.removeEventListener("pointerup", handlePointerEnd);
-      window.removeEventListener("pointercancel", handlePointerEnd);
-    };
-  }, []);
+  };
 
   // Main render loop: draw to screen + export every frame
   useEffect(() => {
