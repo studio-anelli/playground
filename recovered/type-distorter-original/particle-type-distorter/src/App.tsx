@@ -377,12 +377,6 @@ export default function App() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number>(0);
-  const panelDragRef = useRef<{
-    pointerId: number;
-    startX: number;
-    startY: number;
-    origin: { x: number; y: number };
-  } | null>(null);
 
   const exportCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -1141,39 +1135,6 @@ export default function App() {
     setIsRecording(false);
   }
 
-  const startPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (event.pointerType === "mouse" && event.button !== 0) return;
-    event.preventDefault();
-
-    const drag = {
-      pointerId: event.pointerId,
-      startX: event.clientX,
-      startY: event.clientY,
-      origin: panelOffset,
-    };
-    panelDragRef.current = drag;
-
-    const handlePointerMove = (moveEvent: PointerEvent) => {
-      if (moveEvent.pointerId !== drag.pointerId) return;
-      setPanelOffset({
-        x: drag.origin.x + moveEvent.clientX - drag.startX,
-        y: drag.origin.y + moveEvent.clientY - drag.startY,
-      });
-    };
-
-    const handlePointerEnd = (endEvent: PointerEvent) => {
-      if (endEvent.pointerId !== drag.pointerId) return;
-      panelDragRef.current = null;
-      window.removeEventListener("pointermove", handlePointerMove);
-      window.removeEventListener("pointerup", handlePointerEnd);
-      window.removeEventListener("pointercancel", handlePointerEnd);
-    };
-
-    window.addEventListener("pointermove", handlePointerMove);
-    window.addEventListener("pointerup", handlePointerEnd);
-    window.addEventListener("pointercancel", handlePointerEnd);
-  };
-
   // Main render loop: draw to screen + export every frame
   useEffect(() => {
     const c = canvasRef.current;
@@ -1421,71 +1382,96 @@ export default function App() {
   }, [settings, isRecording, recFps]);
 
   return (
-    <div className="ui-v1-synth">
-      <div className="ui-v1-synth-inner">
-        <div className="ui-v1-layout">
-          <div ref={containerRef} className="ui-v1-canvas-frame">
-            <canvas ref={canvasRef} className="ui-v1-canvas" />
-            <div className="absolute left-0 bottom-0 px-2 py-1 text-[10px] uppercase tracking-[0.08em] text-white/55 bg-black/30 backdrop-blur-sm">
-              Mouse · {mouseMode} · radius {Math.round(mouseRadius)} · softness {mouseSoftness.toFixed(2)}
+    <div className="min-h-screen bg-black text-white">
+      <div className="max-w-[1400px] mx-auto px-4 py-4">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-3">
+          <div className="flex items-center gap-3">
+            <div className="text-lg font-extrabold tracking-tight">
+              Particle Type Distorter
+            </div>
+            <div className="text-xs font-semibold text-white/60">
+              distort only, noise + mouse
             </div>
           </div>
 
-          <div className="ui-v1-actions">
-            <div>Export</div>
-            <div>
-              <span className="px-2 self-center text-[10px] uppercase text-white/55">{EXPORT_W} × {EXPORT_H}</span>
-              <select
-                value={String(recFps)}
-                onChange={(e) => setRecFps(e.target.value === "30" ? 30 : 60)}
-                className="border border-white/25 bg-transparent px-2 py-1 text-[10px] uppercase"
-                aria-label="Recording frame rate"
-              >
-                <option value="30">30 FPS</option>
-                <option value="60">60 FPS</option>
-              </select>
-              {!isRecording ? (
-                <button type="button" onClick={startRecording}>Start recording</button>
-              ) : (
-                <button type="button" onClick={stopRecording}>Stop recording</button>
-              )}
+          {/* Recording controls */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className="text-xs font-semibold text-white/70 mr-1">
+              Export: {EXPORT_W}×{EXPORT_H}
             </div>
-          </div>
 
-          <section
-            className={`ui-v1-panel ${panelOpen ? "" : "is-closed"}`}
-            style={{ transform: `translate(${panelOffset.x}px, ${panelOffset.y}px)` }}
-            aria-label="Particle Type Distorter controls"
-          >
-            <div
-              className="ui-v1-panel-handle"
-              onPointerDown={startPanelDrag}
-            >
-              <span>{tab}</span>
-              <span className="ui-v1-drag-mark" aria-hidden="true">··</span>
+            <Select
+              label="FPS"
+              value={String(recFps)}
+              onChange={(v) => setRecFps(v === "30" ? 30 : 60)}
+              options={[
+                { value: "30", label: "30 fps" },
+                { value: "60", label: "60 fps" },
+              ]}
+            />
+
+            {!isRecording ? (
               <button
                 type="button"
-                onPointerDown={(event) => event.stopPropagation()}
-                onClick={() => setPanelOpen((open) => !open)}
-                aria-expanded={panelOpen}
+                onClick={startRecording}
+                className="px-3 py-2 rounded-xl text-sm font-extrabold bg-white text-black hover:opacity-90"
               >
-                {panelOpen ? "−" : "+"}
+                Start recording
               </button>
+            ) : (
+              <button
+                type="button"
+                onClick={stopRecording}
+                className="px-3 py-2 rounded-xl text-sm font-extrabold bg-red-500 text-black hover:opacity-90"
+              >
+                Stop recording
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Canvas */}
+        <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+          <div ref={containerRef} className="relative h-[54vh] min-h-[320px]">
+            <canvas ref={canvasRef} className="block w-full h-full" />
+            <div className="absolute left-3 top-3 rounded-xl bg-black/60 border border-white/10 px-3 py-2 text-xs font-semibold text-white/80 backdrop-blur">
+              Move your mouse over the canvas to distort.
+            </div>
+          </div>
+
+          {/* Tabs */}
+          <div className="border-t border-white/10 bg-black/60 backdrop-blur">
+            <div className="flex items-center gap-2 px-3 py-3 overflow-x-auto">
+              <TabButton active={tab === "noise"} onClick={() => setTab("noise")}>
+                Noise
+              </TabButton>
+              <TabButton active={tab === "type"} onClick={() => setTab("type")}>
+                Type
+              </TabButton>
+              <TabButton
+                active={tab === "distort"}
+                onClick={() => setTab("distort")}
+              >
+                Distort
+              </TabButton>
+              <TabButton
+                active={tab === "heatmap"}
+                onClick={() => setTab("heatmap")}
+              >
+                Heatmap
+              </TabButton>
+              <TabButton
+                active={tab === "colors"}
+                onClick={() => setTab("colors")}
+              >
+                Colors
+              </TabButton>
             </div>
 
-            {panelOpen && (
-              <div className="ui-v1-panel-content">
-                <div className="ui-v1-panel-tabs" style={{ gridTemplateColumns: "repeat(5, minmax(0, 1fr))" }} role="tablist" aria-label="REC 02 controls">
-                  <TabButton active={tab === "noise"} onClick={() => setTab("noise")}>Noise</TabButton>
-                  <TabButton active={tab === "type"} onClick={() => setTab("type")}>Type</TabButton>
-                  <TabButton active={tab === "distort"} onClick={() => setTab("distort")}>Distort</TabButton>
-                  <TabButton active={tab === "heatmap"} onClick={() => setTab("heatmap")}>Map</TabButton>
-                  <TabButton active={tab === "colors"} onClick={() => setTab("colors")}>Color</TabButton>
-                </div>
-
-                <div className="ui-v1-panel-body">
+            <div className="px-4 pb-4">
               {tab === "noise" && (
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div className="space-y-3">
                     <div className="text-sm font-extrabold">Noise type</div>
                     <Select
@@ -1718,7 +1704,7 @@ export default function App() {
               )}
 
               {tab === "type" && (
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div className="space-y-3">
                     <div className="text-sm font-extrabold">Text</div>
                     <label className="space-y-1 block">
@@ -1869,7 +1855,7 @@ export default function App() {
               )}
 
               {tab === "distort" && (
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div className="space-y-3">
                     <div className="text-sm font-extrabold">Type → particles</div>
                     <Slider
@@ -2009,7 +1995,7 @@ export default function App() {
               )}
 
               {tab === "heatmap" && (
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div className="space-y-3">
                     <div className="text-sm font-extrabold">Heatmap</div>
                     <Toggle
@@ -2059,7 +2045,7 @@ export default function App() {
               )}
 
               {tab === "colors" && (
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div className="space-y-3">
                     <div className="text-sm font-extrabold">Background (HSL)</div>
                     <Slider label="H" value={bgH} min={0} max={360} step={1} onChange={setBgH} />
@@ -2137,10 +2123,12 @@ export default function App() {
                   </div>
                 </div>
               )}
-                </div>
-              </div>
-            )}
-          </section>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-3 text-xs text-white/55">
+          Tip: Lower Sample step for more points, then adjust Particle size. Recording uses an offscreen 1920×1080 canvas.
         </div>
       </div>
     </div>
