@@ -599,6 +599,7 @@ export default function App() {
   // Two “pipelines”: screen & export (to avoid scaling artifacts)
   type Pipe = {
     offNoise: HTMLCanvasElement | null;
+    offNoiseField: HTMLCanvasElement | null;
     offType: HTMLCanvasElement | null;
 
     noiseParticles: NoiseParticle[];
@@ -619,6 +620,7 @@ export default function App() {
 
   const screenPipeRef = useRef<Pipe>({
     offNoise: null,
+    offNoiseField: null,
     offType: null,
     noiseParticles: [],
     lastNoiseParams: null,
@@ -628,6 +630,7 @@ export default function App() {
 
   const exportPipeRef = useRef<Pipe>({
     offNoise: null,
+    offNoiseField: null,
     offType: null,
     noiseParticles: [],
     lastNoiseParams: null,
@@ -799,6 +802,14 @@ export default function App() {
   function ensurePipeBuffers(pipe: Pipe, w: number, h: number) {
     if (!pipe.offNoise || pipe.offNoise.width !== w || pipe.offNoise.height !== h) {
       pipe.offNoise = createOffscreenCanvas(w, h);
+    }
+    // Small luminance proxy used to sample the *rendered* noise texture cheaply.
+    // It keeps deformation visually tied to the animation without reading millions
+    // of pixels from the full-resolution canvas every frame.
+    const fieldW = 96;
+    const fieldH = Math.max(48, Math.round((h / Math.max(1, w)) * fieldW));
+    if (!pipe.offNoiseField || pipe.offNoiseField.width !== fieldW || pipe.offNoiseField.height !== fieldH) {
+      pipe.offNoiseField = createOffscreenCanvas(fieldW, fieldH);
     }
     if (!pipe.offType || pipe.offType.width !== w || pipe.offType.height !== h) {
       pipe.offType = createOffscreenCanvas(w, h);
@@ -1142,6 +1153,26 @@ export default function App() {
       const offNoise = pipe.offNoise!;
       const pts = pipe.glyphParticles;
 
+      // Build a low-res field from the actual rendered noise texture.
+      const fieldCanvas = pipe.offNoiseField!;
+      const fieldCtx = fieldCanvas.getContext("2d");
+      let fieldData: ImageData | null = null;
+      if (fieldCtx) {
+        fieldCtx.setTransform(1, 0, 0, 1, 0, 0);
+        fieldCtx.clearRect(0, 0, fieldCanvas.width, fieldCanvas.height);
+        fieldCtx.drawImage(offNoise, 0, 0, fieldCanvas.width, fieldCanvas.height);
+        fieldData = fieldCtx.getImageData(0, 0, fieldCanvas.width, fieldCanvas.height);
+      }
+
+      const sampleNoiseLuma = (x: number, y: number) => {
+        if (!fieldData) return 0.5;
+        const fx = clamp(Math.round((x / Math.max(1, W)) * (fieldCanvas.width - 1)), 0, fieldCanvas.width - 1);
+        const fy = clamp(Math.round((y / Math.max(1, H)) * (fieldCanvas.height - 1)), 0, fieldCanvas.height - 1);
+        const idx = (fy * fieldCanvas.width + fx) * 4;
+        const d = fieldData.data;
+        return (d[idx] * 0.2126 + d[idx + 1] * 0.7152 + d[idx + 2] * 0.0722) / 255;
+      };
+
       // Background
       D.setTransform(1, 0, 0, 1, 0, 0);
       D.clearRect(0, 0, W, H);
@@ -1179,37 +1210,40 @@ export default function App() {
           ? Math.exp(-(d * d) / (field.mouseRadius * field.mouseRadius))
           : 0;
 
-        // The deformation field follows the selected visible noise generator.
-        // When noise animation is enabled, the same animation speed/scale/energy
-        // that moves the noise also moves the glyph field. With animation off the
-        // field becomes static rather than continuing as an unrelated animation.
-        const isGaussian = settings.noiseTex.noiseType === "gaussian";
-        const noiseTime = settings.noise.animateNoise
-          ? t * (isGaussian ? settings.noise.noiseSpeed : settings.noiseTex.turbSpeed)
-          : 0;
-        const noiseFreq = isGaussian
-          ? field.flowFreq * clamp(160 / Math.max(20, settings.noise.sigma), 0.35, 3)
-          : field.flowFreq * Math.max(0.15, settings.noiseTex.turbScale);
-        const noiseCurl = isGaussian
-          ? field.flowCurl
-          : field.flowCurl * Math.max(0.25, settings.noiseTex.turbWarp);
-        const noiseEnergy = isGaussian
-          ? Math.max(0, settings.noise.noiseGain)
-          : Math.max(0, settings.noiseTex.turbContrast);
+        // Sample the gradient of the actual rendered noise texture around this
+        // glyph particle. Moving light/dark regions therefore generate a moving
+        // force that visibly follows the noise animation on screen.
+        const gradStepX = W / Math.max(1, fieldCanvas.width);
+        const gradStepY = H / Math.max(1, fieldCanvas.height);
+        const l = sampleNoiseLuma(p.x - gradStepX, p.y);
+        const r = sampleNoiseLuma(p.x + gradStepX, p.y);
+        const u = sampleNoiseLuma(p.x, p.y - gradStepY);
+        const dNoise = sampleNoiseLuma(p.x, p.y + gradStepY);
+        const gx = r - l;
+        const gy = dNoise - u;
 
-        const nv = noiseVector(p.x0, p.y0, noiseTime, noiseFreq, noiseCurl);
+        // Add a perpendicular component so broad gradients create turbulence
+        // instead of only sliding particles toward brighter/darker regions.
+        const curlMix = clamp(field.flowCurl / 4, 0, 1.5);
+        const dirX = gx - gy * curlMix;
+        const dirY = gy + gx * curlMix;
+        const gradientMag = Math.hypot(dirX, dirY);
+        const normX = gradientMag > 1e-5 ? dirX / gradientMag : 0;
+        const normY = gradientMag > 1e-5 ? dirY / gradientMag : 0;
+        const textureEnergy = clamp(gradientMag * 6, 0, 1.5);
+
         const fx =
-          nv.vx *
+          normX *
           field.flowStrength *
           field.noiseApply *
           field.distortAmount *
-          noiseEnergy;
+          textureEnergy;
         const fy =
-          nv.vy *
+          normY *
           field.flowStrength *
           field.noiseApply *
           field.distortAmount *
-          noiseEnergy;
+          textureEnergy;
 
         // Mouse interaction stays local and is layered on top of the global noise.
         const ux = d < 1e-6 ? 0 : dx / d;
