@@ -1432,17 +1432,17 @@ export default function App() {
         </div>
 
         {/* Canvas */}
-        <div className="rounded-2xl overflow-hidden border border-white/10 bg-white/5 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
-          <div ref={containerRef} className="relative h-[54vh] min-h-[320px]">
+        <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-white/5 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+          <div ref={containerRef} className="relative h-[72vh] min-h-[520px]">
             <canvas ref={canvasRef} className="block w-full h-full" />
             <div className="absolute left-3 top-3 rounded-xl bg-black/60 border border-white/10 px-3 py-2 text-xs font-semibold text-white/80 backdrop-blur">
               Move your mouse over the canvas to distort.
             </div>
           </div>
 
-          {/* Tabs */}
-          <div className="border-t border-white/10 bg-black/60 backdrop-blur">
-            <div className="flex items-center gap-2 px-3 py-3 overflow-x-auto">
+          {/* Floating controls */}
+          <div className="absolute right-4 top-4 z-20 w-[360px] max-w-[calc(100%-32px)] max-h-[calc(100%-32px)] overflow-hidden border border-white/15 bg-black/70 shadow-2xl backdrop-blur-xl">
+            <div className="flex items-center gap-1 p-2 overflow-x-auto border-b border-white/10">
               <TabButton active={tab === "noise"} onClick={() => setTab("noise")}>
                 Noise
               </TabButton>
@@ -1469,9 +1469,9 @@ export default function App() {
               </TabButton>
             </div>
 
-            <div className="px-4 pb-4">
+            <div className="max-h-[calc(72vh-76px)] overflow-y-auto p-3">
               {tab === "noise" && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   <div className="space-y-3">
                     <div className="text-sm font-extrabold">Noise type</div>
                     <Select
@@ -1704,7 +1704,7 @@ export default function App() {
               )}
 
               {tab === "type" && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   <div className="space-y-3">
                     <div className="text-sm font-extrabold">Text</div>
                     <label className="space-y-1 block">
@@ -1855,7 +1855,7 @@ export default function App() {
               )}
 
               {tab === "distort" && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   <div className="space-y-3">
                     <div className="text-sm font-extrabold">Type → particles</div>
                     <Slider
@@ -1995,7 +1995,7 @@ export default function App() {
               )}
 
               {tab === "heatmap" && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   <div className="space-y-3">
                     <div className="text-sm font-extrabold">Heatmap</div>
                     <Toggle
@@ -2045,7 +2045,7 @@ export default function App() {
               )}
 
               {tab === "colors" && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                   <div className="space-y-3">
                     <div className="text-sm font-extrabold">Background (HSL)</div>
                     <Slider label="H" value={bgH} min={0} max={360} step={1} onChange={setBgH} />
@@ -2127,9 +2127,6 @@ export default function App() {
           </div>
         </div>
 
-        <div className="mt-3 text-xs text-white/55">
-          Tip: Lower Sample step for more points, then adjust Particle size. Recording uses an offscreen 1920×1080 canvas.
-        </div>
       </div>
     </div>
   );
