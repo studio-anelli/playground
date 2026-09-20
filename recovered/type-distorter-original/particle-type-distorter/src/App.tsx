@@ -1179,24 +1179,23 @@ export default function App() {
           ? Math.exp(-(d * d) / (field.mouseRadius * field.mouseRadius))
           : 0;
 
-        let fx = 0,
-          fy = 0;
-        if (fall > 0) {
-          const nv = noiseVector(dx, dy, t, field.flowFreq, field.flowCurl);
-          fx =
-            nv.vx *
-            field.flowStrength *
-            fall *
-            field.noiseApply *
-            field.distortAmount;
-          fy =
-            nv.vy *
-            field.flowStrength *
-            fall *
-            field.noiseApply *
-            field.distortAmount;
-        }
+        // The noise field is a continuous, canvas-wide deformation source.
+        // It is intentionally sampled from each particle's base position so the
+        // glyph keeps a coherent turbulent structure instead of only reacting
+        // inside the mouse radius.
+        const nv = noiseVector(p.x0, p.y0, t, field.flowFreq, field.flowCurl);
+        const fx =
+          nv.vx *
+          field.flowStrength *
+          field.noiseApply *
+          field.distortAmount;
+        const fy =
+          nv.vy *
+          field.flowStrength *
+          field.noiseApply *
+          field.distortAmount;
 
+        // Mouse interaction stays local and is layered on top of the global noise.
         const ux = d < 1e-6 ? 0 : dx / d;
         const uy = d < 1e-6 ? 0 : dy / d;
         const mxF = ux * field.mouseStrength * fall * sign * field.distortAmount;
@@ -1206,9 +1205,11 @@ export default function App() {
         const denom = Math.max(1, field.mouseStrength + field.flowStrength);
         p.hm = clamp((mMag / denom) * settings.heatmap.heatIntensity, 0, 1);
 
-        const rt = hasPointer ? field.returnToBase : field.returnToBase * 2.2;
-        const rx = (p.x0 - p.x) * rt * 60;
-        const ry = (p.y0 - p.y) * rt * 60;
+        // Keep the restoring force consistent whether or not the pointer is present.
+        // Previously it was 2.2× stronger with no pointer, which largely cancelled
+        // the noise deformation as soon as the mouse left the canvas.
+        const rx = (p.x0 - p.x) * field.returnToBase * 60;
+        const ry = (p.y0 - p.y) * field.returnToBase * 60;
 
         p.vx = (p.vx + (fx + mxF + rx) / 60) * field.velocityDamping;
         p.vy = (p.vy + (fy + myF + ry) / 60) * field.velocityDamping;
