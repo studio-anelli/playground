@@ -7,7 +7,8 @@ export default function KineticTypeSynthPage() {
   return (
     <main className="ui-v1-page">
       <header className="ui-v1-header">
-        <a href="/" className="ui-v1-back">
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+        <a href="/" target="_top" className="ui-v1-back">
           <ArrowLeft aria-hidden="true" />
           Back
         </a>
