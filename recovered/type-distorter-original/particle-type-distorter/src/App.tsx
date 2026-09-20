@@ -1441,22 +1441,8 @@ export default function App() {
           </div>
 
           {/* Floating controls */}
-          <div className={`absolute right-4 top-4 z-20 w-[320px] max-w-[calc(100%-32px)] overflow-hidden border border-white/15 bg-black/70 shadow-2xl backdrop-blur-xl ${panelOpen ? "max-h-[calc(100%-32px)]" : "max-h-11"}`}>
-            <div className="flex h-11 items-center justify-between border-b border-white/10 px-3 font-mono text-[10px] uppercase tracking-[0.08em]">
-              <span>{tab}</span>
-              <button
-                type="button"
-                onClick={() => setPanelOpen((open) => !open)}
-                className="px-2 py-1 text-white/70 hover:text-white"
-                aria-expanded={panelOpen}
-              >
-                {panelOpen ? "Minimise" : "Open"}
-              </button>
-            </div>
-
-            {panelOpen && (
-              <>
-                <div className="grid grid-cols-5 gap-1 p-2 border-b border-white/10">
+          <div className="absolute right-4 top-4 z-20 w-[360px] max-w-[calc(100%-32px)] max-h-[calc(100%-32px)] overflow-hidden border border-white/15 bg-black/70 shadow-2xl backdrop-blur-xl">
+            <div className="flex items-center gap-1 p-2 overflow-x-auto border-b border-white/10">
               <TabButton active={tab === "noise"} onClick={() => setTab("noise")}>
                 Noise
               </TabButton>
@@ -1486,7 +1472,7 @@ export default function App() {
             <div className="max-h-[calc(72vh-76px)] overflow-y-auto p-3">
               {tab === "noise" && (
                 <div className="grid grid-cols-1 gap-4">
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Noise type</div>
                     <Select
                       label="Generator"
@@ -1616,7 +1602,7 @@ export default function App() {
                     )}
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Noise → Distorter</div>
                     <Slider
                       label="Noise apply"
@@ -1708,7 +1694,7 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Notes</div>
                     <div className="text-xs text-white/75 leading-relaxed">
                       Export is rendered on a separate 1920×1080 canvas every frame, so captureStream is crisp.
@@ -1719,7 +1705,7 @@ export default function App() {
 
               {tab === "type" && (
                 <div className="grid grid-cols-1 gap-4">
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Text</div>
                     <label className="space-y-1 block">
                       <div className="text-xs font-bold text-white/85">Word</div>
@@ -1782,7 +1768,7 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Font</div>
                     <Slider
                       label="Font size"
@@ -1810,7 +1796,7 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Quick presets</div>
                     <div className="grid grid-cols-2 gap-2">
                       <button
@@ -1870,7 +1856,7 @@ export default function App() {
 
               {tab === "distort" && (
                 <div className="grid grid-cols-1 gap-4">
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Type → particles</div>
                     <Slider
                       label="Sample step (density)"
@@ -1921,7 +1907,7 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Field</div>
                     <Slider
                       label="Frequency"
@@ -1968,7 +1954,7 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Mouse</div>
                     <Select
                       label="Mode"
@@ -2010,7 +1996,7 @@ export default function App() {
 
               {tab === "heatmap" && (
                 <div className="grid grid-cols-1 gap-4">
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Heatmap</div>
                     <Toggle
                       label="Enable heatmap"
@@ -2027,7 +2013,7 @@ export default function App() {
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Colors</div>
                     <label className="grid grid-cols-[1fr,140px] gap-2 items-center">
                       <span className="text-xs font-bold text-white/85">Color A</span>
@@ -2049,7 +2035,7 @@ export default function App() {
                     </label>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Tip</div>
                     <div className="text-xs text-white/75 leading-relaxed">
                       For a clean “distortion map” look, set particle shape to <b>Square</b> and lower jitter.
@@ -2060,21 +2046,21 @@ export default function App() {
 
               {tab === "colors" && (
                 <div className="grid grid-cols-1 gap-4">
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Background (HSL)</div>
                     <Slider label="H" value={bgH} min={0} max={360} step={1} onChange={setBgH} />
                     <Slider label="S" value={bgS} min={0} max={100} step={1} onChange={setBgS} />
                     <Slider label="L" value={bgL} min={0} max={100} step={1} onChange={setBgL} />
                     <div className="text-xs text-white/70">{bg}</div>
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Text (HSL)</div>
                     <Slider label="H" value={txH} min={0} max={360} step={1} onChange={setTxH} />
                     <Slider label="S" value={txS} min={0} max={100} step={1} onChange={setTxS} />
                     <Slider label="L" value={txL} min={0} max={100} step={1} onChange={setTxL} />
                     <div className="text-xs text-white/70">{textColor}</div>
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm font-extrabold">Presets</div>
                     <div className="grid grid-cols-2 gap-2">
                       <button
@@ -2137,9 +2123,7 @@ export default function App() {
                   </div>
                 </div>
               )}
-                </div>
-              </>
-            )}
+            </div>
           </div>
         </div>
 
