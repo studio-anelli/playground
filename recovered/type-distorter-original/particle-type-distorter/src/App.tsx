@@ -1143,7 +1143,7 @@ export default function App() {
 
   const startPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
-    event.currentTarget.setPointerCapture(event.pointerId);
+    event.preventDefault();
     panelDragRef.current = {
       pointerId: event.pointerId,
       startX: event.clientX,
@@ -1152,22 +1152,30 @@ export default function App() {
     };
   };
 
-  const movePanel = (event: React.PointerEvent<HTMLDivElement>) => {
-    const drag = panelDragRef.current;
-    if (!drag || drag.pointerId !== event.pointerId) return;
-    setPanelOffset({
-      x: drag.origin.x + event.clientX - drag.startX,
-      y: drag.origin.y + event.clientY - drag.startY,
-    });
-  };
+  useEffect(() => {
+    const handlePointerMove = (event: PointerEvent) => {
+      const drag = panelDragRef.current;
+      if (!drag || drag.pointerId !== event.pointerId) return;
+      setPanelOffset({
+        x: drag.origin.x + event.clientX - drag.startX,
+        y: drag.origin.y + event.clientY - drag.startY,
+      });
+    };
 
-  const endPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (panelDragRef.current?.pointerId !== event.pointerId) return;
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
-    }
-    panelDragRef.current = null;
-  };
+    const handlePointerEnd = (event: PointerEvent) => {
+      if (panelDragRef.current?.pointerId !== event.pointerId) return;
+      panelDragRef.current = null;
+    };
+
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", handlePointerEnd);
+    window.addEventListener("pointercancel", handlePointerEnd);
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerEnd);
+      window.removeEventListener("pointercancel", handlePointerEnd);
+    };
+  }, []);
 
   // Main render loop: draw to screen + export every frame
   useEffect(() => {
@@ -1455,9 +1463,6 @@ export default function App() {
             <div
               className="ui-v1-panel-handle"
               onPointerDown={startPanelDrag}
-              onPointerMove={movePanel}
-              onPointerUp={endPanelDrag}
-              onPointerCancel={endPanelDrag}
             >
               <span>{tab}</span>
               <span className="ui-v1-drag-mark" aria-hidden="true">··</span>
