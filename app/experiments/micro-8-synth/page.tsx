@@ -7,7 +7,8 @@ export default function Micro8SynthPage() {
   return (
     <main className="import-page">
       <header className="import-header import-header-native">
-        <a href="/" className="back-link">
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+        <a href="/" target="_top" className="back-link">
           <ArrowLeft aria-hidden="true" />
           Index
         </a>

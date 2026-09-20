@@ -7,7 +7,8 @@ export default function TypeDistorterPage() {
   return (
     <main className="import-page">
       <header className="import-header import-header-native">
-        <a href="/" className="back-link"><ArrowLeft aria-hidden="true" /> Index</a>
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+        <a href="/" target="_top" className="back-link"><ArrowLeft aria-hidden="true" /> Index</a>
         <h1>Particle Type Distorter</h1>
         <span>REC-02 / Tool / Test</span>
       </header>

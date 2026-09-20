@@ -15,9 +15,49 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
  * - Corrected hook/closure structure (no nested function defs inside useEffect)
  */
 
-type Waveform = "sine" | "square";
+type Waveform = "square" | "saw" | "triangle";
 
 type EdgeMode = "clamp" | "wrap" | "mirror";
+type Direction = "rows" | "cols";
+type PanelTab = "type" | "wave" | "style" | "export";
+type SourceMode = "text" | "image" | "grid";
+type ASCIIArea = "subject" | "background";
+type SourceAlign = "left" | "center" | "right";
+type NoiseColour = "white" | "pink";
+
+type LuminanceGrid = number[][];
+type SerializedGrid = { rows: number; cols: number; data: string };
+type ASCIIPreset = {
+  kind: "ascii-kinetic-preset";
+  version: 1;
+  source: { mode: "text" | "grid"; text: string; grid?: SerializedGrid };
+  settings: {
+    asciiArea: ASCIIArea;
+    sourceAlign: SourceAlign;
+    sourceX: number;
+    sourceY: number;
+    fontPreset: FontPresetKey;
+    bold: boolean;
+    italic: boolean;
+    stageSize: keyof typeof STAGE_SIZES;
+    cols: number;
+    fg: string;
+    bg: string;
+    charsetName: string;
+    characters: string;
+    waveform: Waveform;
+    direction: Direction;
+    speedHz: number;
+    period: number;
+    ampChars: number;
+    noiseAmount: number;
+    noiseScale: number;
+    noiseColour: NoiseColour;
+    edgeMode: EdgeMode;
+    fontPx: number;
+    lineHt: number;
+  };
+};
 
 type FontPresetKey = "System Sans" | "System Serif" | "System Mono" | "UI Sans" | "UI Rounded";
 
@@ -36,29 +76,191 @@ const CHARSETS: Record<string, string> = {
   "Minimal": "#*:.  ",
 };
 
+const STAGE_SIZES = {
+  "1920x1080": { width: 1920, height: 1080, label: "1920 × 1080" },
+  "1080x1080": { width: 1080, height: 1080, label: "1080 × 1080" },
+  "1280x520": { width: 1280, height: 520, label: "1280 × 520" },
+};
+
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
+
+function cleanCharacterRamp(value: string) {
+  return Array.from(value.replace(/\s/g, "")).filter((character, index, characters) => characters.indexOf(character) === index).slice(0, 32).join("");
+}
+
+function serializeGrid(grid: LuminanceGrid): SerializedGrid {
+  const rows = grid.length;
+  const cols = grid[0]?.length ?? 0;
+  const bytes = new Uint8Array(rows * cols);
+  let offset = 0;
+  for (const row of grid) {
+    for (const value of row) bytes[offset++] = Math.round(clamp(value, 0, 1) * 255);
+  }
+  let binary = "";
+  for (let start = 0; start < bytes.length; start += 0x8000) {
+    binary += String.fromCharCode(...bytes.subarray(start, start + 0x8000));
+  }
+  return { rows, cols, data: btoa(binary) };
+}
+
+function deserializeGrid(value: SerializedGrid): LuminanceGrid | null {
+  if (!Number.isInteger(value.rows) || !Number.isInteger(value.cols) || value.rows < 1 || value.cols < 1 || value.rows * value.cols > 200000) return null;
+  try {
+    const binary = atob(value.data);
+    if (binary.length !== value.rows * value.cols) return null;
+    return Array.from({ length: value.rows }, (_, y) => (
+      Array.from({ length: value.cols }, (_, x) => binary.charCodeAt(y * value.cols + x) / 255)
+    ));
+  } catch {
+    return null;
+  }
+}
+
+function resampleGrid(grid: LuminanceGrid, targetRows: number, targetCols: number, offsetX = 0, offsetY = 0): LuminanceGrid {
+  const sourceRows = grid.length;
+  const sourceCols = grid[0]?.length ?? 0;
+  return Array.from({ length: targetRows }, (_, y) => (
+    Array.from({ length: targetCols }, (_, x) => {
+      const sourceX = Math.round(((x - offsetX) / Math.max(1, targetCols - 1)) * Math.max(0, sourceCols - 1));
+      const sourceY = Math.round(((y - offsetY) / Math.max(1, targetRows - 1)) * Math.max(0, sourceRows - 1));
+      return sourceX >= 0 && sourceX < sourceCols && sourceY >= 0 && sourceY < sourceRows ? grid[sourceY][sourceX] : 1;
+    })
+  ));
+}
+
+function downloadBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = filename;
+  anchor.click();
+  URL.revokeObjectURL(url);
+}
+
+function escapeXML(value: string) {
+  return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
+}
+
+function fitFontSize(
+  ctx: CanvasRenderingContext2D,
+  str: string,
+  preset: FontPresetKey,
+  bold: boolean,
+  italic: boolean,
+  width: number,
+  height: number,
+) {
+  let size = Math.min(width, height);
+  for (let step = size; step > 1; step *= 0.5) {
+    const trySize = Math.max(8, Math.floor(size));
+    ctx.font = `${italic ? "italic " : ""}${bold ? "bold " : ""}${trySize}px ${FONT_PRESETS[preset]}`;
+    const metrics = ctx.measureText(str);
+    const measuredHeight =
+      (metrics.actualBoundingBoxAscent || trySize * 0.8) +
+      (metrics.actualBoundingBoxDescent || trySize * 0.2);
+    if (metrics.width <= width * 0.9 && measuredHeight <= height * 0.8) size = trySize + step * 0.5;
+    else size = trySize - step * 0.5;
+  }
+  return Math.max(8, Math.floor(size));
+}
+
+function waveValue(index: number, phase: number, period: number, waveform: Waveform) {
+  const angle = (2 * Math.PI * index) / period + phase;
+  const cycle = ((angle / (2 * Math.PI)) % 1 + 1) % 1;
+  if (waveform === "square") return cycle < 0.5 ? 1 : -1;
+  if (waveform === "saw") return cycle * 2 - 1;
+  return 1 - 4 * Math.abs(cycle - 0.5);
+}
+
+function noiseHash01(value: number) {
+  const n = Math.sin(value * 127.1 + 311.7) * 43758.5453;
+  return n - Math.floor(n);
+}
+
+function gaussianHash(value: number) {
+  const u1 = Math.max(1e-7, noiseHash01(value * 0.754877666));
+  const u2 = noiseHash01(value * 0.569840296 + 19.19);
+  return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2) / 2.5;
+}
+
+function animatedGaussian(seed: number, phase: number) {
+  const frame = phase * 0.3;
+  const frameStart = Math.floor(frame);
+  const mix = frame - frameStart;
+  const smooth = mix * mix * (3 - 2 * mix);
+  const current = gaussianHash(seed + frameStart * 4099);
+  const next = gaussianHash(seed + (frameStart + 1) * 4099);
+  return current * (1 - smooth) + next * smooth;
+}
+
+function gaussianNoiseValue(index: number, phase: number, scale: number, colour: NoiseColour) {
+  if (colour === "white") return clamp(animatedGaussian(index * 37.21, phase), -1, 1);
+
+  let total = 0;
+  let totalWeight = 0;
+  for (let octave = 0; octave < 5; octave++) {
+    const octaveScale = Math.max(1, scale * 2 ** octave);
+    const position = index / octaveScale;
+    const cell = Math.floor(position);
+    const fraction = position - cell;
+    const smooth = fraction * fraction * (3 - 2 * fraction);
+    const weight = 2 ** (octave * 0.5);
+    const current = animatedGaussian(cell + octave * 1009, phase);
+    const next = animatedGaussian(cell + 1 + octave * 1009, phase);
+    total += (current * (1 - smooth) + next * smooth) * weight;
+    totalWeight += weight;
+  }
+  return clamp(total / totalWeight, -1, 1);
+}
+
+function edgeIndex(index: number, max: number, mode: EdgeMode) {
+  if (mode === "clamp") return clamp(index, 0, max - 1);
+  if (mode === "wrap") {
+    if (max <= 0) return 0;
+    return ((index % max) + max) % max;
+  }
+  if (max <= 1) return 0;
+  const edgePeriod = 2 * (max - 1);
+  let mirrored = index % edgePeriod;
+  if (mirrored < 0) mirrored += edgePeriod;
+  return mirrored < max ? mirrored : edgePeriod - mirrored;
+}
 
 export default function ASCIITypoMachine() {
   // Text + font
   const [text, setText] = useState("ASCII Machine");
+  const [sourceMode, setSourceMode] = useState<SourceMode>("text");
+  const [asciiArea, setASCIIArea] = useState<ASCIIArea>("subject");
+  const [sourceAlign, setSourceAlign] = useState<SourceAlign>("center");
+  const [sourceX, setSourceX] = useState(0);
+  const [sourceY, setSourceY] = useState(0);
+  const [uploadedImage, setUploadedImage] = useState<HTMLImageElement | null>(null);
+  const [uploadedFileName, setUploadedFileName] = useState("");
+  const [importedGrid, setImportedGrid] = useState<LuminanceGrid | null>(null);
   const [fontPreset, setFontPreset] = useState<FontPresetKey>("System Sans");
   const [bold, setBold] = useState(false);
   const [italic, setItalic] = useState(false);
+  const [stageSize, setStageSize] = useState<keyof typeof STAGE_SIZES>("1920x1080");
+  const stage = STAGE_SIZES[stageSize];
 
   // ASCII grid and colors
   const [cols, setCols] = useState(160);
   const charAspect = 2.0; // characters are visually taller than wide
-  const rows = useMemo(() => Math.max(10, Math.round((cols * 1080) / 1920 * charAspect)), [cols]);
+  const rows = useMemo(() => Math.max(10, Math.round((cols * stage.height) / stage.width * charAspect)), [cols, stage.height, stage.width]);
   const [fg, setFg] = useState("#111111");
   const [bg, setBg] = useState("#ffffff");
   const [charsetName, setCharsetName] = useState<keyof typeof CHARSETS>("Dense ▓");
+  const [characters, setCharacters] = useState(cleanCharacterRamp(CHARSETS["Dense ▓"]));
 
   // Wave controls
-  const [waveform, setWaveform] = useState<Waveform>("sine");
-  const [direction, setDirection] = useState<"rows" | "cols">("rows");
+  const [waveform, setWaveform] = useState<Waveform>("triangle");
+  const [direction, setDirection] = useState<Direction>("rows");
   const [speedHz, setSpeedHz] = useState(0.8);
   const [period, setPeriod] = useState(24);
   const [ampChars, setAmpChars] = useState(4);
+  const [noiseAmount, setNoiseAmount] = useState(0);
+  const [noiseScale, setNoiseScale] = useState(6);
+  const [noiseColour, setNoiseColour] = useState<NoiseColour>("pink");
 
   // Edge behavior
   const [edgeMode, setEdgeMode] = useState<EdgeMode>("clamp");
@@ -67,22 +269,38 @@ export default function ASCIITypoMachine() {
   const [fontPx, setFontPx] = useState(10);
   const [lineHt, setLineHt] = useState(0.7);
 
-  // Luminance grid cache derived from the text raster
-  const [lumGrid, setLumGrid] = useState<number[][] | null>(null);
-  const [gridSize, setGridSize] = useState<{ rows: number; cols: number }>({ rows: 0, cols: 0 });
-
   const [asciiText, setAsciiText] = useState("");
+  const [playing, setPlaying] = useState(true);
+  const [activeTab, setActiveTab] = useState<PanelTab>("type");
+  const [panelOpen, setPanelOpen] = useState(true);
+  const [panelOffset, setPanelOffset] = useState({ x: 0, y: 0 });
 
   // Test result message (used by both test suites)
   const [testResult, setTestResult] = useState<string | null>(null);
 
   const rafRef = useRef<number | null>(null);
   const t0Ref = useRef<number | null>(null);
+  const panelDragRef = useRef<{
+    pointerId: number;
+    startX: number;
+    startY: number;
+    origin: { x: number; y: number };
+  } | null>(null);
 
   // Build text → luminance grid by drawing to offscreen canvas and downsampling
   const buildLumGrid = useCallback(() => {
     const targetCols = cols;
     const targetRows = rows;
+
+    if (sourceMode === "grid" && importedGrid) {
+      return resampleGrid(
+        importedGrid,
+        targetRows,
+        targetCols,
+        Math.round((sourceX / 100) * targetCols),
+        Math.round((sourceY / 100) * targetRows),
+      );
+    }
 
     // Oversample for sharper edges, then downsample to grid
     const scale = 2; // 2× supersampling
@@ -98,14 +316,38 @@ export default function ASCIITypoMachine() {
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, W, H);
 
-    const fontSize = fitFontSize(ctx, text || " ", fontPreset, bold, italic, W, H);
-    const fontStr = `${italic ? "italic " : ""}${bold ? "bold " : ""}${fontSize}px ${FONT_PRESETS[fontPreset]}`;
-    ctx.font = fontStr;
-    ctx.textBaseline = "middle";
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#000000";
-    // Draw centered
-    ctx.fillText(text || " ", W / 2, H / 2);
+    if (sourceMode === "image" && uploadedImage) {
+      const imageRatio = uploadedImage.width / uploadedImage.height;
+      const canvasRatio = W / H;
+      let drawW = W;
+      let drawH = H;
+      let drawX = 0;
+      let drawY = 0;
+      if (imageRatio > canvasRatio) {
+        drawW = H * imageRatio;
+        const overflowX = drawW - W;
+        const alignedX = sourceAlign === "left" ? 0 : sourceAlign === "right" ? -overflowX : -overflowX / 2;
+        drawX = alignedX + (sourceX / 100) * W;
+        drawY = (sourceY / 100) * H;
+      } else {
+        drawH = W / imageRatio;
+        const overflowY = drawH - H;
+        drawX = (sourceX / 100) * W;
+        drawY = -overflowY / 2 + (sourceY / 100) * H;
+      }
+      ctx.drawImage(uploadedImage, drawX, drawY, drawW, drawH);
+    } else {
+      const fontSize = fitFontSize(ctx, text || " ", fontPreset, bold, italic, W, H);
+      const fontStr = `${italic ? "italic " : ""}${bold ? "bold " : ""}${fontSize}px ${FONT_PRESETS[fontPreset]}`;
+      ctx.font = fontStr;
+      ctx.textBaseline = "middle";
+      ctx.textAlign = sourceAlign;
+      ctx.fillStyle = "#000000";
+      const alignedX = sourceAlign === "left" ? W * 0.05 : sourceAlign === "right" ? W * 0.95 : W / 2;
+      const textX = alignedX + (sourceX / 100) * W;
+      const textY = H / 2 + (sourceY / 100) * H;
+      ctx.fillText(text || " ", textX, textY);
+    }
 
     // Downsample to grid luminance
     const img = ctx.getImageData(0, 0, W, H).data;
@@ -124,98 +366,50 @@ export default function ASCIITypoMachine() {
       grid.push(rowArr);
     }
     return grid;
-  }, [cols, rows, text, fontPreset, bold, italic]);
+  }, [bold, cols, fontPreset, importedGrid, italic, rows, sourceAlign, sourceMode, sourceX, sourceY, text, uploadedImage]);
 
-  // Fit a font size to the offscreen canvas dimensions
-  function fitFontSize(
-    ctx: CanvasRenderingContext2D,
-    str: string,
-    preset: FontPresetKey,
-    bold: boolean,
-    italic: boolean,
-    W: number,
-    H: number,
-  ) {
-    // Start from a big guess; binary search-ish reduce if too large
-    let size = Math.min(W, H);
-    for (let step = size; step > 1; step *= 0.5) {
-      const trySize = Math.max(8, Math.floor(size));
-      ctx.font = `${italic ? "italic " : ""}${bold ? "bold " : ""}${trySize}px ${FONT_PRESETS[preset]}`;
-      const m = ctx.measureText(str);
-      // Use actual bounding boxes when available; otherwise estimate
-      const w = m.width;
-      const h = (m.actualBoundingBoxAscent || trySize * 0.8) + (m.actualBoundingBoxDescent || trySize * 0.2);
-      const fits = w <= W * 0.9 && h <= H * 0.8;
-      if (fits) {
-        size = trySize + step * 0.5; // try a bit larger next
-      } else {
-        size = trySize - step * 0.5; // go smaller
-      }
-    }
-    return Math.max(8, Math.floor(size));
-  }
-
-  // Recompute luminance grid whenever text/font/cols change
-  useEffect(() => {
-    const g = buildLumGrid();
-    if (g) { setLumGrid(g); setGridSize({ rows, cols }); }
-  }, [buildLumGrid, cols, rows]);
-
-  // Wave value helper
-  function waveVal(i: number, phase: number) {
-    const a = (2 * Math.PI * i) / period + phase;
-    if (waveform === "square") return Math.sign(Math.sin(a)) || 1; // -1 or +1
-    return Math.sin(a); // [-1, +1]
-  }
-
-  // Edge handling helper
-  function edgeIndex(i: number, max: number, mode: EdgeMode) {
-    if (mode === "clamp") return clamp(i, 0, max - 1);
-    if (mode === "wrap") {
-      if (max <= 0) return 0;
-      const m = ((i % max) + max) % max; // safe modulo
-      return m;
-    }
-    // mirror/bounce: 0..max-1..0..max-1 with period 2*(max-1)
-    if (max <= 1) return 0;
-    const period2 = 2 * (max - 1);
-    let j = i % period2; if (j < 0) j += period2;
-    return j < max ? j : period2 - j;
-  }
+  const lumGrid = useMemo(() => buildLumGrid(), [buildLumGrid]);
+  const gridSize = useMemo(() => ({ rows, cols }), [cols, rows]);
 
   // Render ASCII from luminance grid + phase
   const renderASCII = useCallback((phase: number) => {
     if (!lumGrid) return "";
-    const chars = CHARSETS[charsetName];
+    const chars = [...(characters || "@"), " "];
     const n = chars.length - 1;
     const { rows, cols } = gridSize;
+    const waveLength = direction === "rows" ? rows : cols;
+    const displacement = Array.from({ length: waveLength }, (_, index) => (
+      clamp(
+        waveValue(index, phase, period, waveform) + gaussianNoiseValue(index, phase, noiseScale, noiseColour) * noiseAmount,
+        -1,
+        1,
+      )
+    ));
 
     const out: string[] = new Array(rows);
     for (let y = 0; y < rows; y++) {
       let line = "";
-      const rowW = waveVal(y, phase);
       for (let x = 0; x < cols; x++) {
-        const colW = waveVal(x, phase);
-        const w = direction === "rows" ? rowW : colW; // [-1,1]
+        const w = displacement[direction === "rows" ? y : x];
         let sx = x, sy = y;
         if (ampChars !== 0) {
           if (direction === "rows") sx = edgeIndex(Math.round(x + w * ampChars), cols, edgeMode);
           else sy = edgeIndex(Math.round(y + w * ampChars), rows, edgeMode);
         }
         const L = lumGrid[sy][sx];
-        // Map luminance to density char (darker → denser char)
-        let k = Math.round((1 - L) * n);
+        // Character sets run from dense to empty. Choose the subject or its background.
+        let k = Math.round((asciiArea === "subject" ? L : 1 - L) * n);
         k = clamp(k, 0, n);
         line += chars[k];
       }
       out[y] = line;
     }
     return out.join("\n");
-  }, [lumGrid, gridSize, charsetName, direction, ampChars, waveform, period, edgeMode]);
+  }, [lumGrid, gridSize, characters, direction, ampChars, waveform, period, edgeMode, asciiArea, noiseAmount, noiseScale, noiseColour]);
 
   // Animation loop
   useEffect(() => {
-    if (!lumGrid) return;
+    if (!lumGrid || !playing) return;
     const tick = (t: number) => {
       if (t0Ref.current == null) t0Ref.current = t;
       const dt = (t - t0Ref.current) / 1000;
@@ -225,15 +419,140 @@ export default function ASCIITypoMachine() {
     };
     rafRef.current = requestAnimationFrame(tick);
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); rafRef.current = null; t0Ref.current = null; };
-  }, [lumGrid, speedHz, renderASCII]);
+  }, [lumGrid, playing, speedHz, renderASCII]);
+
+  useEffect(() => {
+    if (playing) return;
+    const frame = requestAnimationFrame(() => setAsciiText(renderASCII(0)));
+    return () => cancelAnimationFrame(frame);
+  }, [playing, renderASCII]);
 
   // Actions
   const handleCopy = async () => { if (!asciiText) return; await navigator.clipboard.writeText(asciiText); alert("ASCII copied to clipboard."); };
   const handleDownload = () => {
     if (!asciiText) return;
-    const blob = new Blob([asciiText], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a"); a.href = url; a.download = "ascii-kinetic-typo.txt"; a.click(); URL.revokeObjectURL(url);
+    downloadBlob(new Blob([asciiText], { type: "text/plain;charset=utf-8" }), "ascii-kinetic-typo.txt");
+  };
+
+  const handleSVGDownload = () => {
+    if (!asciiText) return;
+    const lines = asciiText.split("\n");
+    const outputFontSize = Math.min(
+      stage.width / Math.max(1, cols * 0.62),
+      stage.height / Math.max(1, (lines.length - 1) * lineHt + 1),
+    );
+    const lineStep = outputFontSize * lineHt;
+    const totalHeight = (lines.length - 1) * lineStep + outputFontSize;
+    const firstBaseline = (stage.height - totalHeight) / 2 + outputFontSize * 0.8;
+    const rowsSVG = lines.map((line, index) => (
+      `<text x="${stage.width / 2}" y="${firstBaseline + index * lineStep}" text-anchor="middle">${escapeXML(line)}</text>`
+    )).join("");
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${stage.width}" height="${stage.height}" viewBox="0 0 ${stage.width} ${stage.height}"><rect width="100%" height="100%" fill="${escapeXML(bg)}"/><g fill="${escapeXML(fg)}" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="${outputFontSize}" xml:space="preserve">${rowsSVG}</g></svg>`;
+    downloadBlob(new Blob([svg], { type: "image/svg+xml;charset=utf-8" }), "ascii-kinetic-typo.svg");
+  };
+
+  const handlePresetExport = () => {
+    if (!lumGrid) return;
+    const usesGrid = sourceMode !== "text";
+    const preset: ASCIIPreset = {
+      kind: "ascii-kinetic-preset",
+      version: 1,
+      source: {
+        mode: usesGrid ? "grid" : "text",
+        text,
+        ...(usesGrid ? { grid: serializeGrid(lumGrid) } : {}),
+      },
+      settings: {
+        asciiArea,
+        sourceAlign: usesGrid ? "center" : sourceAlign,
+        sourceX: usesGrid ? 0 : sourceX,
+        sourceY: usesGrid ? 0 : sourceY,
+        fontPreset,
+        bold,
+        italic,
+        stageSize,
+        cols,
+        fg,
+        bg,
+        charsetName,
+        characters,
+        waveform,
+        direction,
+        speedHz,
+        period,
+        ampChars,
+        noiseAmount,
+        noiseScale,
+        noiseColour,
+        edgeMode,
+        fontPx,
+        lineHt,
+      },
+    };
+    downloadBlob(
+      new Blob([JSON.stringify(preset)], { type: "application/json;charset=utf-8" }),
+      "ascii-kinetic-preset.json",
+    );
+  };
+
+  const handlePresetImport = async (file: File | undefined) => {
+    if (!file) return;
+    try {
+      const preset = JSON.parse(await file.text()) as ASCIIPreset;
+      if (preset.kind !== "ascii-kinetic-preset" || preset.version !== 1 || !preset.source || !preset.settings) throw new Error("Unsupported preset file");
+      const settings = preset.settings;
+      const grid = preset.source.mode === "grid" && preset.source.grid ? deserializeGrid(preset.source.grid) : null;
+      if (preset.source.mode === "grid" && !grid) throw new Error("Invalid embedded ASCII source");
+
+      setText(typeof preset.source.text === "string" ? preset.source.text : "ASCII Machine");
+      setImportedGrid(grid);
+      setSourceMode(grid ? "grid" : "text");
+      setSourceAlign((["left", "center", "right"] as string[]).includes(settings.sourceAlign) ? settings.sourceAlign : "center");
+      setSourceX(clamp(Number(settings.sourceX) || 0, -50, 50));
+      setSourceY(clamp(Number(settings.sourceY) || 0, -50, 50));
+      setASCIIArea(settings.asciiArea === "background" ? "background" : "subject");
+      setFontPreset(Object.hasOwn(FONT_PRESETS, settings.fontPreset) ? settings.fontPreset : "System Sans");
+      setBold(Boolean(settings.bold));
+      setItalic(Boolean(settings.italic));
+      setStageSize(Object.hasOwn(STAGE_SIZES, settings.stageSize) ? settings.stageSize : "1920x1080");
+      setCols(clamp(Math.round(Number(settings.cols) || 160), 60, 260));
+      setFg(/^#[0-9a-f]{6}$/i.test(settings.fg) ? settings.fg : "#111111");
+      setBg(/^#[0-9a-f]{6}$/i.test(settings.bg) ? settings.bg : "#ffffff");
+      const importedCharacters = cleanCharacterRamp(settings.characters || CHARSETS["Dense ▓"]);
+      setCharacters(importedCharacters || cleanCharacterRamp(CHARSETS["Dense ▓"]));
+      setCharsetName(CHARSETS[settings.charsetName] ? settings.charsetName : "Custom");
+      setWaveform((["triangle", "square", "saw"] as string[]).includes(settings.waveform) ? settings.waveform : "triangle");
+      setDirection(settings.direction === "cols" ? "cols" : "rows");
+      setSpeedHz(clamp(Number(settings.speedHz) || 0, 0, 4));
+      setPeriod(clamp(Math.round(Number(settings.period) || 24), 6, 120));
+      setAmpChars(clamp(Math.round(Number(settings.ampChars) || 0), 0, 24));
+      setNoiseAmount(clamp(Number(settings.noiseAmount) || 0, 0, 1));
+      setNoiseScale(clamp(Math.round(Number(settings.noiseScale) || 6), 1, 32));
+      setNoiseColour(settings.noiseColour === "white" ? "white" : "pink");
+      setEdgeMode((["clamp", "wrap", "mirror"] as string[]).includes(settings.edgeMode) ? settings.edgeMode : "clamp");
+      setFontPx(clamp(Math.round(Number(settings.fontPx) || 10), 6, 32));
+      setLineHt(clamp(Number(settings.lineHt) || 0.7, 0.6, 1.4));
+      setTestResult(grid ? "Preset imported with embedded ASCII source." : "Preset imported.");
+    } catch (error) {
+      setTestResult(`Could not import preset: ${(error as Error).message}`);
+    }
+  };
+
+  const handleImageUpload = (file: File | undefined) => {
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    const image = new Image();
+    image.onload = () => {
+      setUploadedImage(image);
+      setUploadedFileName(file.name);
+      setSourceMode("image");
+      URL.revokeObjectURL(url);
+    };
+    image.onerror = () => {
+      setTestResult("Could not read this image.");
+      URL.revokeObjectURL(url);
+    };
+    image.src = url;
   };
 
   // Self‑tests (do not modify unless clearly wrong)
@@ -261,7 +580,7 @@ export default function ASCIITypoMachine() {
         let line = "";
         for (let x = 0; x < cols; x++) {
           const L = lumGrid[y][x];
-          let k = Math.round((1 - L) * nAlt);
+          let k = Math.round(L * nAlt);
           k = clamp(k, 0, nAlt);
           line += altChars[k];
         }
@@ -313,101 +632,408 @@ export default function ASCIITypoMachine() {
     } catch (e) { setTestResult("❌ Test error: " + (e as Error).message); }
   }, [lumGrid, period, charsetName, direction, ampChars]);
 
+  const applyPreset = (preset: string) => {
+    if (preset === "calm") {
+      setWaveform("triangle");
+      setSpeedHz(0.25);
+      setPeriod(56);
+      setAmpChars(2);
+      setNoiseAmount(0.08);
+      setNoiseColour("pink");
+      setEdgeMode("clamp");
+    } else if (preset === "wave") {
+      setWaveform("triangle");
+      setSpeedHz(0.8);
+      setPeriod(24);
+      setAmpChars(6);
+      setNoiseAmount(0.25);
+      setNoiseColour("pink");
+      setEdgeMode("mirror");
+    } else if (preset === "glitch") {
+      setWaveform("square");
+      setSpeedHz(1.6);
+      setPeriod(12);
+      setAmpChars(14);
+      setNoiseAmount(0.8);
+      setNoiseColour("white");
+      setEdgeMode("wrap");
+      setCharsetName("Blocky █");
+      setCharacters(cleanCharacterRamp(CHARSETS["Blocky █"]));
+    }
+  };
+
+  const startPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    panelDragRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      origin: panelOffset,
+    };
+  };
+
+  const movePanel = (event: React.PointerEvent<HTMLDivElement>) => {
+    const drag = panelDragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    setPanelOffset({
+      x: drag.origin.x + event.clientX - drag.startX,
+      y: drag.origin.y + event.clientY - drag.startY,
+    });
+  };
+
+  const endPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (panelDragRef.current?.pointerId !== event.pointerId) return;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    panelDragRef.current = null;
+  };
+
+  const tabButton = (id: PanelTab, label: string) => (
+    <button
+      key={id}
+      role="tab"
+      aria-selected={activeTab === id}
+      className={`min-h-8 px-2 font-mono text-[10px] uppercase transition ${
+        activeTab === id ? "bg-white text-black" : "bg-white/[0.06] hover:bg-white/15"
+      }`}
+      onClick={() => setActiveTab(id)}
+    >
+      {label}
+    </button>
+  );
+
   return (
-    <div className="w-full min-h-screen bg-neutral-50 text-neutral-900 flex flex-col">
-      {/* Preview 1920×1080 */}
-      <div className="flex-1 w-full flex items-center justify-center p-4">
-        <div className="relative" style={{ width: 1920, height: 1080 }}>
-          <div className="absolute inset-0 overflow-auto rounded-2xl border" style={{ background: bg, color: fg }}>
-            <pre
-              className="font-mono whitespace-pre select-text p-4"
-              style={{
-                fontSize: `${fontPx}px`,
-                lineHeight: lineHt,
-                fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-              }}
-            >{asciiText || "Type below to render in ASCII…"}</pre>
-          </div>
+    <div className="relative h-full min-h-0 w-full overflow-hidden text-white" style={{ background: bg }}>
+      <div className="absolute inset-x-0 bottom-[82px] top-[82px] overflow-hidden" aria-label="ASCII stage">
+        <div
+          className="relative h-full w-full overflow-hidden"
+          style={{
+            background: bg,
+            color: fg,
+          }}
+        >
+          <pre
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-text whitespace-pre p-4 font-mono"
+            style={{
+              fontSize: `${fontPx}px`,
+              lineHeight: lineHt,
+              fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+            }}
+          >
+            {asciiText || "Type below to render in ASCII…"}
+          </pre>
         </div>
       </div>
 
-      {/* Controls */}
-      <div className="w-full border-t bg-white">
-        <div className="max-w-[1920px] mx-auto px-4 py-3 flex flex-wrap gap-4 items-center">
-          <input
-            className="flex-1 border rounded-lg px-3 py-2"
-            placeholder="Type your text"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          />
-
-          <label className="text-sm">Font
-            <select className="ml-2 border rounded-lg px-2 py-1" value={fontPreset} onChange={(e) => setFontPreset(e.target.value as FontPresetKey)}>
-              {(Object.keys(FONT_PRESETS) as FontPresetKey[]).map(k => <option key={k} value={k}>{k}</option>)}
-            </select>
-          </label>
-          <label className="text-sm inline-flex items-center gap-2"><input type="checkbox" checked={bold} onChange={(e) => setBold(e.target.checked)} /> Bold</label>
-          <label className="text-sm inline-flex items-center gap-2"><input type="checkbox" checked={italic} onChange={(e) => setItalic(e.target.checked)} /> Italic</label>
-
-          <div className="h-6 w-px bg-neutral-200" />
-          <label className="text-sm">Cols
-            <input type="range" min={60} max={260} value={cols} onChange={(e) => setCols(parseInt(e.target.value))} className="ml-2 align-middle" />
-          </label>
-
-          <div className="h-6 w-px bg-neutral-200" />
-          <label className="text-sm">Waveform
-            <select className="ml-2 border rounded-lg px-2 py-1" value={waveform} onChange={(e) => setWaveform(e.target.value as Waveform)}>
-              <option value="sine">Sine</option>
-              <option value="square">Square</option>
-            </select>
-          </label>
-          <label className="text-sm">Speed {speedHz.toFixed(2)}Hz
-            <input type="range" min={0} max={4} step={0.01} value={speedHz} onChange={(e) => setSpeedHz(parseFloat(e.target.value))} className="ml-2 align-middle" />
-          </label>
-          <label className="text-sm">Period {period}
-            <input type="range" min={6} max={120} step={1} value={period} onChange={(e) => setPeriod(parseInt(e.target.value))} className="ml-2 align-middle" />
-          </label>
-          <label className="text-sm">±Chars {ampChars}
-            <input type="range" min={0} max={24} step={1} value={ampChars} onChange={(e) => setAmpChars(parseInt(e.target.value))} className="ml-2 align-middle" />
-          </label>
-          <label className="text-sm">Direction
-            <select className="ml-2 border rounded-lg px-2 py-1" value={direction} onChange={(e) => setDirection(e.target.value as any)}>
-              <option value="rows">Across rows</option>
-              <option value="cols">Across columns</option>
-            </select>
-          </label>
-          <label className="text-sm">Edges
-            <select className="ml-2 border rounded-lg px-2 py-1" value={edgeMode} onChange={(e) => setEdgeMode(e.target.value as EdgeMode)}>
-              <option value="clamp">Clamp</option>
-              <option value="wrap">Wrap</option>
-              <option value="mirror">Mirror</option>
-            </select>
-          </label>
-
-          <div className="h-6 w-px bg-neutral-200" />
-          <label className="text-sm">Font {fontPx}px
-            <input type="range" min={6} max={32} value={fontPx} onChange={(e) => setFontPx(parseInt(e.target.value))} className="ml-2 align-middle" />
-          </label>
-          <label className="text-sm">Line {lineHt.toFixed(2)}
-            <input type="range" min={0.6} max={1.4} step={0.01} value={lineHt} onChange={(e) => setLineHt(parseFloat(e.target.value))} className="ml-2 align-middle" />
-          </label>
-
-          <div className="h-6 w-px bg-neutral-200" />
-          <label className="text-sm">Text
-            <input type="color" value={fg} onChange={(e) => setFg(e.target.value)} className="ml-2 w-8 h-6 p-0 border rounded align-middle" />
-          </label>
-          <label className="text-sm">BG
-            <input type="color" value={bg} onChange={(e) => setBg(e.target.value)} className="ml-2 w-8 h-6 p-0 border rounded align-middle" />
-          </label>
-
-          <div className="h-6 w-px bg-neutral-200" />
-          <button className="px-3 py-2 rounded-xl border border-neutral-300 hover:bg-neutral-100" onClick={handleCopy} disabled={!asciiText}>Copy</button>
-          <button className="px-3 py-2 rounded-xl border border-neutral-300 hover:bg-neutral-100" onClick={handleDownload} disabled={!asciiText}>Download .txt</button>
-          <button className="px-3 py-2 rounded-xl border border-neutral-300 hover:bg-neutral-100" onClick={runSelfTests}>Run self‑tests</button>
-          <button className="px-3 py-2 rounded-xl border border-neutral-300 hover:bg-neutral-100" onClick={runEdgeTests}>Edge tests</button>
-          {testResult && <span className="text-sm text-neutral-600">{testResult}</span>}
+      <section
+        className={`absolute left-5 top-[82px] z-20 flex w-[min(430px,calc(100%-40px))] flex-col bg-black/75 shadow-2xl backdrop-blur-xl transition-[max-height] md:left-8 ${
+          panelOpen ? "max-h-[calc(100dvh-180px)]" : "max-h-11"
+        }`}
+        style={{ transform: `translate(${panelOffset.x}px, ${panelOffset.y}px)` }}
+        aria-label="ASCII controls"
+      >
+        <div
+          className="flex min-h-11 cursor-move touch-none items-center justify-between px-3 font-mono text-[11px] uppercase"
+          onPointerDown={startPanelDrag}
+          onPointerMove={movePanel}
+          onPointerUp={endPanelDrag}
+          onPointerCancel={endPanelDrag}
+        >
+          <span>{activeTab}</span>
+          <button
+            type="button"
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={() => setPanelOpen((open) => !open)}
+            className="h-7 bg-white/10 px-2 hover:bg-white/20"
+            aria-expanded={panelOpen}
+          >
+            {panelOpen ? "Minimise" : "Open"}
+          </button>
         </div>
+
+        {panelOpen && (
+          <>
+            <div role="tablist" aria-label="ASCII panels" className="grid grid-cols-4 gap-1 p-2 pt-0">
+              {tabButton("type", "Type")}
+              {tabButton("wave", "Wave")}
+              {tabButton("style", "Style")}
+              {tabButton("export", "Export")}
+            </div>
+            <div className="min-h-0 flex-1 overflow-y-auto p-3 pt-1">
+              {activeTab === "type" && (
+                <div className="space-y-4">
+                  <div>
+                    <div className="mb-1 text-xs font-medium text-white/75">Source</div>
+                    <div className="grid grid-cols-3 gap-1">
+                      <button type="button" onClick={() => setSourceMode("text")} className={`px-3 py-2 text-xs ${sourceMode === "text" ? "bg-white text-black" : "bg-white/[0.07]"}`}>Text</button>
+                      <button type="button" disabled={!uploadedImage} onClick={() => setSourceMode("image")} className={`px-3 py-2 text-xs disabled:opacity-30 ${sourceMode === "image" ? "bg-white text-black" : "bg-white/[0.07]"}`}>Image</button>
+                      <button type="button" disabled={!importedGrid} onClick={() => setSourceMode("grid")} className={`px-3 py-2 text-xs disabled:opacity-30 ${sourceMode === "grid" ? "bg-white text-black" : "bg-white/[0.07]"}`}>Preset</button>
+                    </div>
+                  </div>
+                  <label className="block bg-white/[0.07] px-3 py-2 text-[10px] uppercase tracking-[0.14em] text-white/45">
+                    {uploadedFileName ? "Replace image" : "Upload image"}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      aria-label="Upload image"
+                      className="mt-2 block w-full cursor-pointer text-xs normal-case tracking-normal text-white/60 file:mr-3 file:border-0 file:bg-white file:px-3 file:py-2 file:text-[10px] file:font-medium file:uppercase file:tracking-[0.12em] file:text-black hover:file:bg-white/85"
+                      onChange={(event) => handleImageUpload(event.target.files?.[0])}
+                    />
+                  </label>
+                  <SelectControl
+                    label="ASCII area"
+                    value={asciiArea}
+                    options={[
+                      { value: "subject", label: sourceMode === "text" ? "Typography ASCII" : sourceMode === "grid" ? "Preset ASCII" : "Image ASCII" },
+                      { value: "background", label: "Background ASCII" },
+                    ]}
+                    onChange={(value) => setASCIIArea(value as ASCIIArea)}
+                  />
+                  {sourceMode !== "grid" && (
+                    <div>
+                      <div className="mb-1 text-xs font-medium text-white/75">Source alignment</div>
+                      <div className="grid grid-cols-3 gap-1" role="group" aria-label="Source alignment">
+                        {(["left", "center", "right"] as SourceAlign[]).map((alignment) => (
+                          <button
+                            key={alignment}
+                            type="button"
+                            aria-pressed={sourceAlign === alignment}
+                            onClick={() => {
+                              setSourceAlign(alignment);
+                              setSourceX(0);
+                            }}
+                            className={`px-3 py-2 text-xs capitalize ${sourceAlign === alignment ? "bg-white text-black" : "bg-white/[0.07]"}`}
+                          >
+                            {alignment}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <SliderControl label="Horizontal position" value={sourceX} min={-50} max={50} step={1} onChange={setSourceX} />
+                  <SliderControl label="Vertical position" value={sourceY} min={-50} max={50} step={1} onChange={setSourceY} />
+                  <button
+                    type="button"
+                    className="w-full bg-white/[0.07] px-3 py-2 text-xs uppercase hover:bg-white/15"
+                    onClick={() => {
+                      setSourceAlign("center");
+                      setSourceX(0);
+                      setSourceY(0);
+                    }}
+                  >
+                    Recenter source
+                  </button>
+                  {sourceMode === "text" && (
+                    <>
+                      <SelectControl
+                        label="Source font"
+                        value={fontPreset}
+                        options={(Object.keys(FONT_PRESETS) as FontPresetKey[]).map((value) => ({ value, label: value }))}
+                        onChange={(value) => setFontPreset(value as FontPresetKey)}
+                      />
+                      <div className="grid grid-cols-2 gap-3">
+                        <ToggleControl label="Bold" value={bold} onChange={setBold} />
+                        <ToggleControl label="Italic" value={italic} onChange={setItalic} />
+                      </div>
+                    </>
+                  )}
+                  <SelectControl
+                    label="Character preset"
+                    value={charsetName}
+                    options={[
+                      ...Object.keys(CHARSETS).map((value) => ({ value, label: value })),
+                      ...(charsetName === "Custom" ? [{ value: "Custom", label: "Custom" }] : []),
+                    ]}
+                    onChange={(value) => {
+                      setCharsetName(value);
+                      if (CHARSETS[value]) setCharacters(cleanCharacterRamp(CHARSETS[value]));
+                    }}
+                  />
+                  <SliderControl label="Columns" value={cols} min={60} max={260} step={1} onChange={setCols} />
+                </div>
+              )}
+
+              {activeTab === "wave" && (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-3">
+                    <SelectControl
+                      label="Waveform"
+                      value={waveform}
+                      options={[
+                        { value: "triangle", label: "Triangle" },
+                        { value: "square", label: "Square" },
+                        { value: "saw", label: "Saw" },
+                      ]}
+                      onChange={(value) => setWaveform(value as Waveform)}
+                    />
+                    <SelectControl label="Direction" value={direction} options={[{ value: "rows", label: "Across rows" }, { value: "cols", label: "Across columns" }]} onChange={(value) => setDirection(value as Direction)} />
+                  </div>
+                  <SliderControl label="Speed (Hz)" value={speedHz} min={0} max={4} step={0.01} onChange={setSpeedHz} />
+                  <SliderControl label="Period" value={period} min={6} max={120} step={1} onChange={setPeriod} />
+                  <SliderControl label="Amplitude (chars)" value={ampChars} min={0} max={24} step={1} onChange={setAmpChars} />
+                  <SelectControl
+                    label="Gaussian noise"
+                    value={noiseColour}
+                    options={[
+                      { value: "white", label: "White" },
+                      { value: "pink", label: "Pink" },
+                    ]}
+                    onChange={(value) => setNoiseColour(value as NoiseColour)}
+                  />
+                  <SliderControl label="Noise interference" value={noiseAmount} min={0} max={1} step={0.01} onChange={setNoiseAmount} />
+                  <SliderControl label="Pink noise scale" value={noiseScale} min={1} max={32} step={1} onChange={setNoiseScale} />
+                  <SelectControl label="Edges" value={edgeMode} options={[{ value: "clamp", label: "Clamp" }, { value: "wrap", label: "Wrap" }, { value: "mirror", label: "Mirror" }]} onChange={(value) => setEdgeMode(value as EdgeMode)} />
+                </div>
+              )}
+
+              {activeTab === "style" && (
+                <div className="space-y-4">
+                  <SliderControl label="ASCII font size" value={fontPx} min={6} max={32} step={1} onChange={setFontPx} />
+                  <SliderControl label="Line height" value={lineHt} min={0.6} max={1.4} step={0.01} onChange={setLineHt} />
+                  <div className="grid grid-cols-2 gap-3">
+                    <ColorControl label="Text" value={fg} onChange={setFg} />
+                    <ColorControl label="Background" value={bg} onChange={setBg} />
+                  </div>
+                </div>
+              )}
+
+              {activeTab === "export" && (
+                <div className="space-y-3">
+                  <button className="w-full bg-white text-black px-3 py-2 text-xs uppercase disabled:opacity-30" onClick={handleCopy} disabled={!asciiText}>Copy ASCII</button>
+                  <button className="w-full bg-white/[0.07] px-3 py-2 text-xs uppercase hover:bg-white/15 disabled:opacity-30" onClick={handleDownload} disabled={!asciiText}>Download .txt</button>
+                  <button className="w-full bg-white/[0.07] px-3 py-2 text-xs uppercase hover:bg-white/15 disabled:opacity-30" onClick={handleSVGDownload} disabled={!asciiText}>Download .svg</button>
+                  <div className="grid grid-cols-2 gap-1 pt-2">
+                    <button className="bg-white px-2 py-2 text-[10px] uppercase text-black disabled:opacity-30" onClick={handlePresetExport} disabled={!lumGrid}>Export preset</button>
+                    <label className="cursor-pointer bg-white/[0.07] px-2 py-2 text-center text-[10px] uppercase hover:bg-white/15">
+                      Import preset
+                      <input
+                        type="file"
+                        accept="application/json,.json"
+                        className="sr-only"
+                        aria-label="Import preset"
+                        onChange={(event) => {
+                          void handlePresetImport(event.target.files?.[0]);
+                          event.target.value = "";
+                        }}
+                      />
+                    </label>
+                  </div>
+                  <div className="grid grid-cols-2 gap-1 pt-2">
+                    <button className="bg-white/[0.07] px-2 py-2 text-[10px] uppercase hover:bg-white/15" onClick={runSelfTests}>Self-tests</button>
+                    <button className="bg-white/[0.07] px-2 py-2 text-[10px] uppercase hover:bg-white/15" onClick={runEdgeTests}>Edge tests</button>
+                  </div>
+                  {testResult && <div className="font-mono text-[10px] text-white/50">{testResult}</div>}
+                </div>
+              )}
+            </div>
+          </>
+        )}
+      </section>
+
+      <div className="absolute bottom-4 left-1/2 z-30 grid w-[min(1180px,calc(100%-40px))] -translate-x-1/2 grid-cols-[auto_minmax(150px,1fr)_minmax(140px,0.72fr)_auto_auto] items-center bg-black/75 p-1.5 font-mono text-[11px] uppercase text-white shadow-2xl backdrop-blur-xl max-md:grid-cols-[auto_minmax(120px,1fr)_minmax(110px,0.8fr)_auto]">
+        <button type="button" onClick={() => setPlaying((value) => !value)} className="h-10 min-w-20 bg-white/10 px-3 hover:bg-white/20">
+          {playing ? "Pause" : "Play"}
+        </button>
+        {sourceMode === "text" ? (
+          <label className="mx-1 flex h-10 min-w-0 items-center bg-white/[0.06] px-3 normal-case">
+            <span className="mr-3 shrink-0 uppercase text-white/45">Text</span>
+            <input value={text} onChange={(event) => setText(event.target.value)} placeholder="Type your text" className="min-w-0 flex-1 bg-transparent text-sm outline-none" aria-label="ASCII text" />
+          </label>
+        ) : sourceMode === "grid" ? (
+          <div className="mx-1 flex h-10 min-w-0 items-center bg-white/[0.06] px-3 normal-case">
+            <span className="mr-3 shrink-0 uppercase text-white/45">Preset</span>
+            <span className="truncate text-sm">Embedded ASCII source</span>
+          </div>
+        ) : (
+          <div className="mx-1 flex h-10 min-w-0 items-center bg-white/[0.06] px-3 normal-case">
+            <span className="mr-3 shrink-0 uppercase text-white/45">Image</span>
+            <span className="truncate text-sm">{uploadedFileName || "No image selected"}</span>
+          </div>
+        )}
+        <label className="mr-1 flex h-10 min-w-0 items-center bg-white/[0.06] px-3 normal-case">
+          <span className="mr-3 shrink-0 uppercase text-white/45">Characters</span>
+          <input
+            value={characters}
+            onChange={(event) => {
+              setCharacters(cleanCharacterRamp(event.target.value));
+              setCharsetName("Custom");
+            }}
+            placeholder="@%#*+=-:."
+            className="min-w-0 flex-1 bg-transparent text-sm outline-none"
+            aria-label="ASCII characters"
+            spellCheck={false}
+          />
+        </label>
+        <label className="flex h-10 items-center bg-white/[0.06] px-2 max-md:hidden">
+          <span className="sr-only">Quick preset</span>
+          <select
+            defaultValue=""
+            onChange={(event) => {
+              if (event.target.value) applyPreset(event.target.value);
+              event.target.value = "";
+            }}
+            className="bg-transparent px-1 outline-none"
+            aria-label="Quick preset"
+          >
+            <option value="" disabled>Quick preset</option>
+            <option value="calm">Calm</option>
+            <option value="wave">Wave</option>
+            <option value="glitch">Glitch</option>
+          </select>
+        </label>
+        <label className="ml-1 flex h-10 items-center bg-white/[0.06] px-2">
+          <span className="sr-only">Canvas size</span>
+          <select value={stageSize} onChange={(event) => setStageSize(event.target.value as keyof typeof STAGE_SIZES)} className="bg-transparent px-1 outline-none" aria-label="Canvas size">
+            {Object.entries(STAGE_SIZES).map(([value, option]) => <option key={value} value={value}>{option.label}</option>)}
+          </select>
+        </label>
       </div>
     </div>
+  );
+}
+
+function SliderControl({ label, value, min, max, step, onChange }: { label: string; value: number; min: number; max: number; step: number; onChange: (value: number) => void }) {
+  return (
+    <label className="block">
+      <span className="flex items-baseline justify-between gap-3 text-xs font-medium text-white/75">
+        <span>{label}</span>
+        <output className="font-mono text-[10px] tabular-nums text-white/55">{step < 1 ? value.toFixed(2) : value}</output>
+      </span>
+      <input type="range" min={min} max={max} step={step} value={value} onChange={(event) => onChange(Number(event.target.value))} className="immersive-slider mt-1 w-full" />
+    </label>
+  );
+}
+
+function SelectControl({ label, value, options, onChange }: { label: string; value: string; options: Array<{ value: string; label: string }>; onChange: (value: string) => void }) {
+  return (
+    <label className="block text-xs font-medium text-white/75">
+      {label}
+      <select value={value} onChange={(event) => onChange(event.target.value)} className="mt-1 w-full bg-white/[0.07] px-2 py-1.5 text-white outline-none transition focus:bg-white/10">
+        {options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+      </select>
+    </label>
+  );
+}
+
+function ToggleControl({ label, value, onChange }: { label: string; value: boolean; onChange: (value: boolean) => void }) {
+  return (
+    <button type="button" onClick={() => onChange(!value)} className={`flex min-h-10 items-center justify-between px-3 text-xs ${value ? "bg-white text-black" : "bg-white/[0.07] text-white"}`}>
+      <span>{label}</span>
+      <span>{value ? "On" : "Off"}</span>
+    </button>
+  );
+}
+
+function ColorControl({ label, value, onChange }: { label: string; value: string; onChange: (value: string) => void }) {
+  return (
+    <label className="text-xs font-medium text-white/75">
+      {label}
+      <div className="mt-1 flex items-center gap-2 bg-white/[0.07] p-1.5">
+        <input type="color" value={value} onChange={(event) => onChange(event.target.value)} className="h-7 w-7 bg-transparent p-0" />
+        <span className="font-mono text-[10px] text-white/55">{value}</span>
+      </div>
+    </label>
   );
 }
