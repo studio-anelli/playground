@@ -20,10 +20,44 @@ type Waveform = "square" | "saw" | "triangle";
 type EdgeMode = "clamp" | "wrap" | "mirror";
 type Direction = "rows" | "cols";
 type PanelTab = "type" | "wave" | "style" | "export";
-type SourceMode = "text" | "image";
+type SourceMode = "text" | "image" | "grid";
 type ASCIIArea = "subject" | "background";
 type SourceAlign = "left" | "center" | "right";
 type NoiseColour = "white" | "pink";
+
+type LuminanceGrid = number[][];
+type SerializedGrid = { rows: number; cols: number; data: string };
+type ASCIIPreset = {
+  kind: "ascii-kinetic-preset";
+  version: 1;
+  source: { mode: "text" | "grid"; text: string; grid?: SerializedGrid };
+  settings: {
+    asciiArea: ASCIIArea;
+    sourceAlign: SourceAlign;
+    sourceX: number;
+    sourceY: number;
+    fontPreset: FontPresetKey;
+    bold: boolean;
+    italic: boolean;
+    stageSize: keyof typeof STAGE_SIZES;
+    cols: number;
+    fg: string;
+    bg: string;
+    charsetName: string;
+    characters: string;
+    waveform: Waveform;
+    direction: Direction;
+    speedHz: number;
+    period: number;
+    ampChars: number;
+    noiseAmount: number;
+    noiseScale: number;
+    noiseColour: NoiseColour;
+    edgeMode: EdgeMode;
+    fontPx: number;
+    lineHt: number;
+  };
+};
 
 type FontPresetKey = "System Sans" | "System Serif" | "System Mono" | "UI Sans" | "UI Rounded";
 
@@ -52,6 +86,59 @@ const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v
 
 function cleanCharacterRamp(value: string) {
   return Array.from(value.replace(/\s/g, "")).filter((character, index, characters) => characters.indexOf(character) === index).slice(0, 32).join("");
+}
+
+function serializeGrid(grid: LuminanceGrid): SerializedGrid {
+  const rows = grid.length;
+  const cols = grid[0]?.length ?? 0;
+  const bytes = new Uint8Array(rows * cols);
+  let offset = 0;
+  for (const row of grid) {
+    for (const value of row) bytes[offset++] = Math.round(clamp(value, 0, 1) * 255);
+  }
+  let binary = "";
+  for (let start = 0; start < bytes.length; start += 0x8000) {
+    binary += String.fromCharCode(...bytes.subarray(start, start + 0x8000));
+  }
+  return { rows, cols, data: btoa(binary) };
+}
+
+function deserializeGrid(value: SerializedGrid): LuminanceGrid | null {
+  if (!Number.isInteger(value.rows) || !Number.isInteger(value.cols) || value.rows < 1 || value.cols < 1 || value.rows * value.cols > 200000) return null;
+  try {
+    const binary = atob(value.data);
+    if (binary.length !== value.rows * value.cols) return null;
+    return Array.from({ length: value.rows }, (_, y) => (
+      Array.from({ length: value.cols }, (_, x) => binary.charCodeAt(y * value.cols + x) / 255)
+    ));
+  } catch {
+    return null;
+  }
+}
+
+function resampleGrid(grid: LuminanceGrid, targetRows: number, targetCols: number, offsetX = 0, offsetY = 0): LuminanceGrid {
+  const sourceRows = grid.length;
+  const sourceCols = grid[0]?.length ?? 0;
+  return Array.from({ length: targetRows }, (_, y) => (
+    Array.from({ length: targetCols }, (_, x) => {
+      const sourceX = Math.round(((x - offsetX) / Math.max(1, targetCols - 1)) * Math.max(0, sourceCols - 1));
+      const sourceY = Math.round(((y - offsetY) / Math.max(1, targetRows - 1)) * Math.max(0, sourceRows - 1));
+      return sourceX >= 0 && sourceX < sourceCols && sourceY >= 0 && sourceY < sourceRows ? grid[sourceY][sourceX] : 1;
+    })
+  ));
+}
+
+function downloadBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = filename;
+  anchor.click();
+  URL.revokeObjectURL(url);
+}
+
+function escapeXML(value: string) {
+  return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
 
 function fitFontSize(
@@ -149,6 +236,7 @@ export default function ASCIITypoMachine() {
   const [sourceY, setSourceY] = useState(0);
   const [uploadedImage, setUploadedImage] = useState<HTMLImageElement | null>(null);
   const [uploadedFileName, setUploadedFileName] = useState("");
+  const [importedGrid, setImportedGrid] = useState<LuminanceGrid | null>(null);
   const [fontPreset, setFontPreset] = useState<FontPresetKey>("System Sans");
   const [bold, setBold] = useState(false);
   const [italic, setItalic] = useState(false);
@@ -203,6 +291,16 @@ export default function ASCIITypoMachine() {
   const buildLumGrid = useCallback(() => {
     const targetCols = cols;
     const targetRows = rows;
+
+    if (sourceMode === "grid" && importedGrid) {
+      return resampleGrid(
+        importedGrid,
+        targetRows,
+        targetCols,
+        Math.round((sourceX / 100) * targetCols),
+        Math.round((sourceY / 100) * targetRows),
+      );
+    }
 
     // Oversample for sharper edges, then downsample to grid
     const scale = 2; // 2× supersampling
@@ -268,7 +366,7 @@ export default function ASCIITypoMachine() {
       grid.push(rowArr);
     }
     return grid;
-  }, [bold, cols, fontPreset, italic, rows, sourceAlign, sourceMode, sourceX, sourceY, text, uploadedImage]);
+  }, [bold, cols, fontPreset, importedGrid, italic, rows, sourceAlign, sourceMode, sourceX, sourceY, text, uploadedImage]);
 
   const lumGrid = useMemo(() => buildLumGrid(), [buildLumGrid]);
   const gridSize = useMemo(() => ({ rows, cols }), [cols, rows]);
@@ -333,9 +431,111 @@ export default function ASCIITypoMachine() {
   const handleCopy = async () => { if (!asciiText) return; await navigator.clipboard.writeText(asciiText); alert("ASCII copied to clipboard."); };
   const handleDownload = () => {
     if (!asciiText) return;
-    const blob = new Blob([asciiText], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a"); a.href = url; a.download = "ascii-kinetic-typo.txt"; a.click(); URL.revokeObjectURL(url);
+    downloadBlob(new Blob([asciiText], { type: "text/plain;charset=utf-8" }), "ascii-kinetic-typo.txt");
+  };
+
+  const handleSVGDownload = () => {
+    if (!asciiText) return;
+    const lines = asciiText.split("\n");
+    const outputFontSize = Math.min(
+      stage.width / Math.max(1, cols * 0.62),
+      stage.height / Math.max(1, (lines.length - 1) * lineHt + 1),
+    );
+    const lineStep = outputFontSize * lineHt;
+    const totalHeight = (lines.length - 1) * lineStep + outputFontSize;
+    const firstBaseline = (stage.height - totalHeight) / 2 + outputFontSize * 0.8;
+    const rowsSVG = lines.map((line, index) => (
+      `<text x="${stage.width / 2}" y="${firstBaseline + index * lineStep}" text-anchor="middle">${escapeXML(line)}</text>`
+    )).join("");
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${stage.width}" height="${stage.height}" viewBox="0 0 ${stage.width} ${stage.height}"><rect width="100%" height="100%" fill="${escapeXML(bg)}"/><g fill="${escapeXML(fg)}" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="${outputFontSize}" xml:space="preserve">${rowsSVG}</g></svg>`;
+    downloadBlob(new Blob([svg], { type: "image/svg+xml;charset=utf-8" }), "ascii-kinetic-typo.svg");
+  };
+
+  const handlePresetExport = () => {
+    if (!lumGrid) return;
+    const usesGrid = sourceMode !== "text";
+    const preset: ASCIIPreset = {
+      kind: "ascii-kinetic-preset",
+      version: 1,
+      source: {
+        mode: usesGrid ? "grid" : "text",
+        text,
+        ...(usesGrid ? { grid: serializeGrid(lumGrid) } : {}),
+      },
+      settings: {
+        asciiArea,
+        sourceAlign: usesGrid ? "center" : sourceAlign,
+        sourceX: usesGrid ? 0 : sourceX,
+        sourceY: usesGrid ? 0 : sourceY,
+        fontPreset,
+        bold,
+        italic,
+        stageSize,
+        cols,
+        fg,
+        bg,
+        charsetName,
+        characters,
+        waveform,
+        direction,
+        speedHz,
+        period,
+        ampChars,
+        noiseAmount,
+        noiseScale,
+        noiseColour,
+        edgeMode,
+        fontPx,
+        lineHt,
+      },
+    };
+    downloadBlob(
+      new Blob([JSON.stringify(preset)], { type: "application/json;charset=utf-8" }),
+      "ascii-kinetic-preset.json",
+    );
+  };
+
+  const handlePresetImport = async (file: File | undefined) => {
+    if (!file) return;
+    try {
+      const preset = JSON.parse(await file.text()) as ASCIIPreset;
+      if (preset.kind !== "ascii-kinetic-preset" || preset.version !== 1 || !preset.source || !preset.settings) throw new Error("Unsupported preset file");
+      const settings = preset.settings;
+      const grid = preset.source.mode === "grid" && preset.source.grid ? deserializeGrid(preset.source.grid) : null;
+      if (preset.source.mode === "grid" && !grid) throw new Error("Invalid embedded ASCII source");
+
+      setText(typeof preset.source.text === "string" ? preset.source.text : "ASCII Machine");
+      setImportedGrid(grid);
+      setSourceMode(grid ? "grid" : "text");
+      setSourceAlign((["left", "center", "right"] as string[]).includes(settings.sourceAlign) ? settings.sourceAlign : "center");
+      setSourceX(clamp(Number(settings.sourceX) || 0, -50, 50));
+      setSourceY(clamp(Number(settings.sourceY) || 0, -50, 50));
+      setASCIIArea(settings.asciiArea === "background" ? "background" : "subject");
+      setFontPreset(Object.hasOwn(FONT_PRESETS, settings.fontPreset) ? settings.fontPreset : "System Sans");
+      setBold(Boolean(settings.bold));
+      setItalic(Boolean(settings.italic));
+      setStageSize(Object.hasOwn(STAGE_SIZES, settings.stageSize) ? settings.stageSize : "1920x1080");
+      setCols(clamp(Math.round(Number(settings.cols) || 160), 60, 260));
+      setFg(/^#[0-9a-f]{6}$/i.test(settings.fg) ? settings.fg : "#111111");
+      setBg(/^#[0-9a-f]{6}$/i.test(settings.bg) ? settings.bg : "#ffffff");
+      const importedCharacters = cleanCharacterRamp(settings.characters || CHARSETS["Dense ▓"]);
+      setCharacters(importedCharacters || cleanCharacterRamp(CHARSETS["Dense ▓"]));
+      setCharsetName(CHARSETS[settings.charsetName] ? settings.charsetName : "Custom");
+      setWaveform((["triangle", "square", "saw"] as string[]).includes(settings.waveform) ? settings.waveform : "triangle");
+      setDirection(settings.direction === "cols" ? "cols" : "rows");
+      setSpeedHz(clamp(Number(settings.speedHz) || 0, 0, 4));
+      setPeriod(clamp(Math.round(Number(settings.period) || 24), 6, 120));
+      setAmpChars(clamp(Math.round(Number(settings.ampChars) || 0), 0, 24));
+      setNoiseAmount(clamp(Number(settings.noiseAmount) || 0, 0, 1));
+      setNoiseScale(clamp(Math.round(Number(settings.noiseScale) || 6), 1, 32));
+      setNoiseColour(settings.noiseColour === "white" ? "white" : "pink");
+      setEdgeMode((["clamp", "wrap", "mirror"] as string[]).includes(settings.edgeMode) ? settings.edgeMode : "clamp");
+      setFontPx(clamp(Math.round(Number(settings.fontPx) || 10), 6, 32));
+      setLineHt(clamp(Number(settings.lineHt) || 0.7, 0.6, 1.4));
+      setTestResult(grid ? "Preset imported with embedded ASCII source." : "Preset imported.");
+    } catch (error) {
+      setTestResult(`Could not import preset: ${(error as Error).message}`);
+    }
   };
 
   const handleImageUpload = (file: File | undefined) => {
@@ -566,9 +766,10 @@ export default function ASCIITypoMachine() {
                 <div className="space-y-4">
                   <div>
                     <div className="mb-1 text-xs font-medium text-white/75">Source</div>
-                    <div className="grid grid-cols-2 gap-1">
+                    <div className="grid grid-cols-3 gap-1">
                       <button type="button" onClick={() => setSourceMode("text")} className={`px-3 py-2 text-xs ${sourceMode === "text" ? "bg-white text-black" : "bg-white/[0.07]"}`}>Text</button>
                       <button type="button" disabled={!uploadedImage} onClick={() => setSourceMode("image")} className={`px-3 py-2 text-xs disabled:opacity-30 ${sourceMode === "image" ? "bg-white text-black" : "bg-white/[0.07]"}`}>Image</button>
+                      <button type="button" disabled={!importedGrid} onClick={() => setSourceMode("grid")} className={`px-3 py-2 text-xs disabled:opacity-30 ${sourceMode === "grid" ? "bg-white text-black" : "bg-white/[0.07]"}`}>Preset</button>
                     </div>
                   </div>
                   <label className="block bg-white/[0.07] px-3 py-2 text-[10px] uppercase tracking-[0.14em] text-white/45">
@@ -585,30 +786,32 @@ export default function ASCIITypoMachine() {
                     label="ASCII area"
                     value={asciiArea}
                     options={[
-                      { value: "subject", label: sourceMode === "text" ? "Typography ASCII" : "Image ASCII" },
+                      { value: "subject", label: sourceMode === "text" ? "Typography ASCII" : sourceMode === "grid" ? "Preset ASCII" : "Image ASCII" },
                       { value: "background", label: "Background ASCII" },
                     ]}
                     onChange={(value) => setASCIIArea(value as ASCIIArea)}
                   />
-                  <div>
-                    <div className="mb-1 text-xs font-medium text-white/75">Source alignment</div>
-                    <div className="grid grid-cols-3 gap-1" role="group" aria-label="Source alignment">
-                      {(["left", "center", "right"] as SourceAlign[]).map((alignment) => (
-                        <button
-                          key={alignment}
-                          type="button"
-                          aria-pressed={sourceAlign === alignment}
-                          onClick={() => {
-                            setSourceAlign(alignment);
-                            setSourceX(0);
-                          }}
-                          className={`px-3 py-2 text-xs capitalize ${sourceAlign === alignment ? "bg-white text-black" : "bg-white/[0.07]"}`}
-                        >
-                          {alignment}
-                        </button>
-                      ))}
+                  {sourceMode !== "grid" && (
+                    <div>
+                      <div className="mb-1 text-xs font-medium text-white/75">Source alignment</div>
+                      <div className="grid grid-cols-3 gap-1" role="group" aria-label="Source alignment">
+                        {(["left", "center", "right"] as SourceAlign[]).map((alignment) => (
+                          <button
+                            key={alignment}
+                            type="button"
+                            aria-pressed={sourceAlign === alignment}
+                            onClick={() => {
+                              setSourceAlign(alignment);
+                              setSourceX(0);
+                            }}
+                            className={`px-3 py-2 text-xs capitalize ${sourceAlign === alignment ? "bg-white text-black" : "bg-white/[0.07]"}`}
+                          >
+                            {alignment}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
                   <SliderControl label="Horizontal position" value={sourceX} min={-50} max={50} step={1} onChange={setSourceX} />
                   <SliderControl label="Vertical position" value={sourceY} min={-50} max={50} step={1} onChange={setSourceY} />
                   <button
@@ -700,6 +903,23 @@ export default function ASCIITypoMachine() {
                 <div className="space-y-3">
                   <button className="w-full bg-white text-black px-3 py-2 text-xs uppercase disabled:opacity-30" onClick={handleCopy} disabled={!asciiText}>Copy ASCII</button>
                   <button className="w-full bg-white/[0.07] px-3 py-2 text-xs uppercase hover:bg-white/15 disabled:opacity-30" onClick={handleDownload} disabled={!asciiText}>Download .txt</button>
+                  <button className="w-full bg-white/[0.07] px-3 py-2 text-xs uppercase hover:bg-white/15 disabled:opacity-30" onClick={handleSVGDownload} disabled={!asciiText}>Download .svg</button>
+                  <div className="grid grid-cols-2 gap-1 pt-2">
+                    <button className="bg-white px-2 py-2 text-[10px] uppercase text-black disabled:opacity-30" onClick={handlePresetExport} disabled={!lumGrid}>Export preset</button>
+                    <label className="cursor-pointer bg-white/[0.07] px-2 py-2 text-center text-[10px] uppercase hover:bg-white/15">
+                      Import preset
+                      <input
+                        type="file"
+                        accept="application/json,.json"
+                        className="sr-only"
+                        aria-label="Import preset"
+                        onChange={(event) => {
+                          void handlePresetImport(event.target.files?.[0]);
+                          event.target.value = "";
+                        }}
+                      />
+                    </label>
+                  </div>
                   <div className="grid grid-cols-2 gap-1 pt-2">
                     <button className="bg-white/[0.07] px-2 py-2 text-[10px] uppercase hover:bg-white/15" onClick={runSelfTests}>Self-tests</button>
                     <button className="bg-white/[0.07] px-2 py-2 text-[10px] uppercase hover:bg-white/15" onClick={runEdgeTests}>Edge tests</button>
@@ -721,6 +941,11 @@ export default function ASCIITypoMachine() {
             <span className="mr-3 shrink-0 uppercase text-white/45">Text</span>
             <input value={text} onChange={(event) => setText(event.target.value)} placeholder="Type your text" className="min-w-0 flex-1 bg-transparent text-sm outline-none" aria-label="ASCII text" />
           </label>
+        ) : sourceMode === "grid" ? (
+          <div className="mx-1 flex h-10 min-w-0 items-center bg-white/[0.06] px-3 normal-case">
+            <span className="mr-3 shrink-0 uppercase text-white/45">Preset</span>
+            <span className="truncate text-sm">Embedded ASCII source</span>
+          </div>
         ) : (
           <div className="mx-1 flex h-10 min-w-0 items-center bg-white/[0.06] px-3 normal-case">
             <span className="mr-3 shrink-0 uppercase text-white/45">Image</span>
