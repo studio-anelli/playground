@@ -377,6 +377,12 @@ export default function App() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number>(0);
+  const panelDragRef = useRef<{
+    pointerId: number;
+    startX: number;
+    startY: number;
+    origin: { x: number; y: number };
+  } | null>(null);
 
   const exportCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -1135,6 +1141,34 @@ export default function App() {
     setIsRecording(false);
   }
 
+  const startPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    panelDragRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      origin: panelOffset,
+    };
+  };
+
+  const movePanel = (event: React.PointerEvent<HTMLDivElement>) => {
+    const drag = panelDragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    setPanelOffset({
+      x: drag.origin.x + event.clientX - drag.startX,
+      y: drag.origin.y + event.clientY - drag.startY,
+    });
+  };
+
+  const endPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (panelDragRef.current?.pointerId !== event.pointerId) return;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    panelDragRef.current = null;
+  };
+
   // Main render loop: draw to screen + export every frame
   useEffect(() => {
     const c = canvasRef.current;
@@ -1413,22 +1447,41 @@ export default function App() {
             </div>
           </div>
 
-          <div className="ui-v1-panel">
-            <div className="ui-v1-panel-handle">
-              <span>Controls</span>
+          <section
+            className={`ui-v1-panel ${panelOpen ? "" : "is-closed"}`}
+            style={{ transform: `translate(${panelOffset.x}px, ${panelOffset.y}px)` }}
+            aria-label="Particle Type Distorter controls"
+          >
+            <div
+              className="ui-v1-panel-handle"
+              onPointerDown={startPanelDrag}
+              onPointerMove={movePanel}
+              onPointerUp={endPanelDrag}
+              onPointerCancel={endPanelDrag}
+            >
+              <span>{tab}</span>
               <span className="ui-v1-drag-mark" aria-hidden="true">··</span>
-              <span />
+              <button
+                type="button"
+                onPointerDown={(event) => event.stopPropagation()}
+                onClick={() => setPanelOpen((open) => !open)}
+                aria-expanded={panelOpen}
+              >
+                {panelOpen ? "−" : "+"}
+              </button>
             </div>
-            <div className="ui-v1-panel-content">
-              <div className="ui-v1-panel-tabs" style={{ gridTemplateColumns: "repeat(5, minmax(0, 1fr))" }}>
-                <TabButton active={tab === "noise"} onClick={() => setTab("noise")}>Noise</TabButton>
-                <TabButton active={tab === "type"} onClick={() => setTab("type")}>Type</TabButton>
-                <TabButton active={tab === "distort"} onClick={() => setTab("distort")}>Distort</TabButton>
-                <TabButton active={tab === "heatmap"} onClick={() => setTab("heatmap")}>Map</TabButton>
-                <TabButton active={tab === "colors"} onClick={() => setTab("colors")}>Color</TabButton>
-              </div>
 
-              <div className="ui-v1-panel-body">
+            {panelOpen && (
+              <div className="ui-v1-panel-content">
+                <div className="ui-v1-panel-tabs" style={{ gridTemplateColumns: "repeat(5, minmax(0, 1fr))" }} role="tablist" aria-label="REC 02 controls">
+                  <TabButton active={tab === "noise"} onClick={() => setTab("noise")}>Noise</TabButton>
+                  <TabButton active={tab === "type"} onClick={() => setTab("type")}>Type</TabButton>
+                  <TabButton active={tab === "distort"} onClick={() => setTab("distort")}>Distort</TabButton>
+                  <TabButton active={tab === "heatmap"} onClick={() => setTab("heatmap")}>Map</TabButton>
+                  <TabButton active={tab === "colors"} onClick={() => setTab("colors")}>Color</TabButton>
+                </div>
+
+                <div className="ui-v1-panel-body">
               {tab === "noise" && (
                 <div className="grid grid-cols-1 gap-4">
                   <div className="space-y-3">
@@ -2082,9 +2135,10 @@ export default function App() {
                   </div>
                 </div>
               )}
+                </div>
               </div>
-            </div>
-          </div>
+            )}
+          </section>
         </div>
       </div>
     </div>
