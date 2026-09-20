@@ -376,6 +376,7 @@ function pickRecorderMimeType() {
 export default function App() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number>(0);
   const panelDragRef = useRef<{
     pointerId: number;
@@ -1148,6 +1149,13 @@ export default function App() {
     if (event.pointerType === "mouse" && event.button !== 0) return;
     event.preventDefault();
 
+    const bounds = containerRef.current?.getBoundingClientRect();
+    const panelRect = panelRef.current?.getBoundingClientRect();
+    if (!bounds || !panelRect) return;
+
+    const baseLeft = panelRect.left - panelOffset.x;
+    const baseTop = panelRect.top - panelOffset.y;
+
     const drag = {
       pointerId: event.pointerId,
       startX: event.clientX,
@@ -1159,9 +1167,19 @@ export default function App() {
 
     const onMove = (moveEvent: PointerEvent) => {
       if (moveEvent.pointerId !== drag.pointerId) return;
+
+      const rawX = drag.originX + moveEvent.clientX - drag.startX;
+      const rawY = drag.originY + moveEvent.clientY - drag.startY;
+      const padding = 8;
+
+      const minX = bounds.left + padding - baseLeft;
+      const maxX = bounds.right - padding - panelRect.width - baseLeft;
+      const minY = bounds.top + padding - baseTop;
+      const maxY = bounds.bottom - padding - panelRect.height - baseTop;
+
       setPanelOffset({
-        x: drag.originX + moveEvent.clientX - drag.startX,
-        y: drag.originY + moveEvent.clientY - drag.startY,
+        x: clamp(rawX, Math.min(minX, maxX), Math.max(minX, maxX)),
+        y: clamp(rawY, Math.min(minY, maxY), Math.max(minY, maxY)),
       });
     };
 
@@ -1177,6 +1195,25 @@ export default function App() {
     window.addEventListener("pointerup", onEnd);
     window.addEventListener("pointercancel", onEnd);
   };
+
+  useEffect(() => {
+    const bounds = containerRef.current?.getBoundingClientRect();
+    const panel = panelRef.current?.getBoundingClientRect();
+    if (!bounds || !panel) return;
+
+    const padding = 8;
+    let dx = 0;
+    let dy = 0;
+
+    if (panel.left < bounds.left + padding) dx = bounds.left + padding - panel.left;
+    if (panel.right > bounds.right - padding) dx = bounds.right - padding - panel.right;
+    if (panel.top < bounds.top + padding) dy = bounds.top + padding - panel.top;
+    if (panel.bottom > bounds.bottom - padding) dy = bounds.bottom - padding - panel.bottom;
+
+    if (dx || dy) {
+      setPanelOffset((pos) => ({ x: pos.x + dx, y: pos.y + dy }));
+    }
+  }, [panelOpen]);
 
   // Main render loop: draw to screen + export every frame
   useEffect(() => {
@@ -1471,7 +1508,8 @@ export default function App() {
 
           {/* Floating controls */}
           <div
-            className={`absolute right-4 top-12 z-20 max-w-[calc(100%-32px)] overflow-hidden border border-white/15 bg-black/70 shadow-2xl backdrop-blur-xl ${panelOpen ? "w-[360px] max-h-[calc(100%-64px)]" : "w-[170px] h-8"}`}
+            ref={panelRef}
+            className={`absolute right-4 top-12 z-20 max-w-[calc(100%-32px)] overflow-hidden border border-white/15 bg-black/70 shadow-2xl backdrop-blur-xl ${panelOpen ? "w-[340px] max-h-[calc(100%-64px)]" : "w-[170px] h-8"}`}
             style={{ transform: `translate(${panelOffset.x}px, ${panelOffset.y}px)` }}
           >
             <div
