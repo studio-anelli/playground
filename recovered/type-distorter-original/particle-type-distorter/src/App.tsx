@@ -403,6 +403,7 @@ export default function App() {
   // UI tabs
   const [tab, setTab] = useState<string>("distort");
   const [panelOffset, setPanelOffset] = useState({ x: 0, y: 0 });
+  const [panelOpen, setPanelOpen] = useState(true);
 
   // Colors
   const [bgH, setBgH] = useState(240);
@@ -414,7 +415,7 @@ export default function App() {
   const [txL, setTxL] = useState(100);
 
   // Type
-  const [text, setText] = useState("ANELLI");
+  const [text, setText] = useState("DUST");
   const [fontFamily, setFontFamily] = useState(
     "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
   );
@@ -1424,10 +1425,10 @@ export default function App() {
   }, [settings, isRecording, recFps]);
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="max-w-[1400px] mx-auto px-4 py-4">
+    <div className="h-[calc(100dvh-52px)] min-h-[560px] bg-black text-white overflow-hidden">
+      <div className="relative h-full w-full p-3">
         {/* Recording controls */}
-        <div className="mb-2 flex items-center justify-end gap-2 text-[10px] uppercase tracking-[0.08em] text-white/60">
+        <div className="absolute right-4 top-3 z-30 flex items-center justify-end gap-2 text-[10px] uppercase tracking-[0.08em] text-white/60">
           <span>{EXPORT_W} × {EXPORT_H}</span>
 
           <select
@@ -1460,8 +1461,8 @@ export default function App() {
         </div>
 
         {/* Canvas */}
-        <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-white/5 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
-          <div ref={containerRef} className="relative h-[72vh] min-h-[520px]">
+        <div className="relative h-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+          <div ref={containerRef} className="relative h-full min-h-0">
             <canvas ref={canvasRef} className="block w-full h-full" />
             <div className="absolute left-3 top-3 rounded-xl bg-black/60 border border-white/10 px-3 py-2 text-xs font-semibold text-white/80 backdrop-blur">
               Move your mouse over the canvas to distort.
@@ -1470,7 +1471,7 @@ export default function App() {
 
           {/* Floating controls */}
           <div
-            className="absolute right-4 top-4 z-20 w-[360px] max-w-[calc(100%-32px)] max-h-[calc(100%-32px)] overflow-hidden border border-white/15 bg-black/70 shadow-2xl backdrop-blur-xl"
+            className={`absolute right-4 top-12 z-20 max-w-[calc(100%-32px)] overflow-hidden border border-white/15 bg-black/70 shadow-2xl backdrop-blur-xl ${panelOpen ? "w-[360px] max-h-[calc(100%-64px)]" : "w-[170px] h-8"}`}
             style={{ transform: `translate(${panelOffset.x}px, ${panelOffset.y}px)` }}
           >
             <div
@@ -1479,9 +1480,20 @@ export default function App() {
               aria-label="Drag controls panel"
             >
               <span>Controls</span>
-              <span aria-hidden="true">···</span>
+              <div className="flex items-center gap-2">
+                <span aria-hidden="true">···</span>
+                <button
+                  type="button"
+                  onPointerDown={(event) => event.stopPropagation()}
+                  onClick={() => setPanelOpen((open) => !open)}
+                  className="px-1 text-white/65 hover:text-white"
+                  aria-expanded={panelOpen}
+                >
+                  {panelOpen ? "−" : "+"}
+                </button>
+              </div>
             </div>
-            <div className="grid grid-cols-5 gap-1 p-2 border-b border-white/10">
+            <div className={`grid grid-cols-5 gap-1 p-2 border-b border-white/10 ${panelOpen ? "" : "hidden"}`}>
               <TabButton active={tab === "noise"} onClick={() => setTab("noise")}>
                 Noise
               </TabButton>
@@ -1508,7 +1520,7 @@ export default function App() {
               </TabButton>
             </div>
 
-            <div className="max-h-[calc(72vh-76px)] overflow-y-auto p-2.5">
+            <div className={`max-h-[calc(100dvh-190px)] overflow-y-auto p-2.5 ${panelOpen ? "" : "hidden"}`}>
               {tab === "noise" && (
                 <div className="grid grid-cols-1 gap-4">
                   <div className="space-y-2">
