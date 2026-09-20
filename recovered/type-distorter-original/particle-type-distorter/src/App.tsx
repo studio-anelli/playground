@@ -472,6 +472,7 @@ export default function App() {
   const [flowStrength, setFlowStrength] = useState(26);
   const [mouseRadius, setMouseRadius] = useState(240);
   const [mouseStrength, setMouseStrength] = useState(52);
+  const [mouseSoftness, setMouseSoftness] = useState(0.55);
   const [mouseMode, setMouseMode] = useState("repel"); // repel | attract
   const [returnToBase, setReturnToBase] = useState(0.08);
   const [velocityDamping, setVelocityDamping] = useState(0.9);
@@ -516,6 +517,7 @@ export default function App() {
         flowStrength,
         mouseRadius,
         mouseStrength,
+        mouseSoftness,
         mouseMode,
         returnToBase,
         velocityDamping,
@@ -572,6 +574,7 @@ export default function App() {
       flowStrength,
       mouseRadius,
       mouseStrength,
+      mouseSoftness,
       mouseMode,
       returnToBase,
       velocityDamping,
@@ -1206,9 +1209,16 @@ export default function App() {
         const d = Math.hypot(dx, dy);
 
         const within = hasPointer && d <= field.mouseRadius;
-        const fall = within
-          ? Math.exp(-(d * d) / (field.mouseRadius * field.mouseRadius))
-          : 0;
+        let fall = 0;
+        if (within) {
+          // Brush-style edge control. 0 = hard edge, 1 = very soft feather.
+          const normalized = clamp(d / Math.max(1, field.mouseRadius), 0, 1);
+          const softness = clamp(field.mouseSoftness, 0, 1);
+          const hard = 1;
+          const feather = Math.pow(1 - normalized, 1.2 + softness * 3.8);
+          const edgeBlend = softness * softness;
+          fall = lerp(hard, feather, edgeBlend);
+        }
 
         // Sample the gradient of the actual rendered noise texture around this
         // glyph particle. Moving light/dark regions therefore generate a moving
@@ -1970,6 +1980,15 @@ export default function App() {
                       max={160}
                       step={1}
                       onChange={setMouseStrength}
+                    />
+                    <Slider
+                      label="Softness"
+                      value={mouseSoftness}
+                      min={0}
+                      max={1}
+                      step={0.01}
+                      onChange={setMouseSoftness}
+                      rightLabel={mouseSoftness.toFixed(2)}
                     />
                   </div>
                 </div>
