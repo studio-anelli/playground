@@ -377,6 +377,13 @@ export default function App() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number>(0);
+  const panelDragRef = useRef<{
+    pointerId: number;
+    startX: number;
+    startY: number;
+    originX: number;
+    originY: number;
+  } | null>(null);
 
   const exportCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -393,8 +400,9 @@ export default function App() {
     mimeType: "",
   });
 
-  // UI tabs (lower)
+  // UI tabs
   const [tab, setTab] = useState<string>("distort");
+  const [panelOffset, setPanelOffset] = useState({ x: 0, y: 0 });
 
   // Colors
   const [bgH, setBgH] = useState(240);
@@ -1135,6 +1143,40 @@ export default function App() {
     setIsRecording(false);
   }
 
+  const startPanelDrag = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    event.preventDefault();
+
+    const drag = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      originX: panelOffset.x,
+      originY: panelOffset.y,
+    };
+    panelDragRef.current = drag;
+
+    const onMove = (moveEvent: PointerEvent) => {
+      if (moveEvent.pointerId !== drag.pointerId) return;
+      setPanelOffset({
+        x: drag.originX + moveEvent.clientX - drag.startX,
+        y: drag.originY + moveEvent.clientY - drag.startY,
+      });
+    };
+
+    const onEnd = (endEvent: PointerEvent) => {
+      if (endEvent.pointerId !== drag.pointerId) return;
+      panelDragRef.current = null;
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onEnd);
+      window.removeEventListener("pointercancel", onEnd);
+    };
+
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onEnd);
+    window.addEventListener("pointercancel", onEnd);
+  };
+
   // Main render loop: draw to screen + export every frame
   useEffect(() => {
     const c = canvasRef.current;
@@ -1427,7 +1469,18 @@ export default function App() {
           </div>
 
           {/* Floating controls */}
-          <div className="absolute right-4 top-4 z-20 w-[360px] max-w-[calc(100%-32px)] max-h-[calc(100%-32px)] overflow-hidden border border-white/15 bg-black/70 shadow-2xl backdrop-blur-xl">
+          <div
+            className="absolute right-4 top-4 z-20 w-[360px] max-w-[calc(100%-32px)] max-h-[calc(100%-32px)] overflow-hidden border border-white/15 bg-black/70 shadow-2xl backdrop-blur-xl"
+            style={{ transform: `translate(${panelOffset.x}px, ${panelOffset.y}px)` }}
+          >
+            <div
+              className="flex h-8 cursor-move touch-none items-center justify-between border-b border-white/10 px-2 font-mono text-[10px] uppercase tracking-[0.08em] text-white/55"
+              onPointerDown={startPanelDrag}
+              aria-label="Drag controls panel"
+            >
+              <span>Controls</span>
+              <span aria-hidden="true">···</span>
+            </div>
             <div className="grid grid-cols-5 gap-1 p-2 border-b border-white/10">
               <TabButton active={tab === "noise"} onClick={() => setTab("noise")}>
                 Noise
