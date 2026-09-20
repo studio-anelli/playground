@@ -8,7 +8,7 @@ export default function ASCIITypoMachinePage() {
       <header className="ui-v1-header mix-blend-difference">
         {/* A full-page link is more reliable than client navigation in the Vinext worker build. */}
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-        <a href="/" className="ui-v1-back"><ArrowLeft aria-hidden="true" /> Back</a>
+        <a href="/" target="_top" className="ui-v1-back"><ArrowLeft aria-hidden="true" /> Back</a>
         <h1>ASCII Kinetic Typo Machine</h1>
         <div className="ui-v1-meta">
           <span>REC - 006</span>
