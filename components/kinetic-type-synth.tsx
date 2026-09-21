@@ -116,6 +116,7 @@ function drawTextWithTracking(
     // Positions below are calculated from the line's left edge. Drawing each
     // glyph with the line alignment still active makes wide glyphs overlap
     // narrow ones (most visibly swallowing the I in KINETIC).
+    // Preserve the caller's alignment for the next line or render pass.
     const previousAlign = ctx.textAlign;
     ctx.textAlign = "left";
 
