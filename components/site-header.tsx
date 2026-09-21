@@ -7,8 +7,9 @@ export function SiteHeader() {
       </a>
       <nav className="site-nav" aria-label="Main navigation">
         <a href="/">Index</a>
+        <a href="/diary">Diary</a>
         <a href="/manual">Manual</a>
-        <span className="status-readout"><i /> Foundation 0.1</span>
+        <span className="status-readout"><i /> Beta 0.1</span>
       </nav>
     </header>
   );

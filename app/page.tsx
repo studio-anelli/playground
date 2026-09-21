@@ -9,13 +9,13 @@ export default function Home() {
 
       <section className="index-intro">
         <p>Typography, graphic systems, sound and code.</p>
-        <div className="index-count">{String(experiments.length).padStart(2, "0")} working entry</div>
+        <div className="index-count">{String(experiments.length).padStart(2, "0")} working entries</div>
       </section>
 
       <section className="experiment-index" aria-labelledby="index-title">
         <div className="section-label" id="index-title">
           <span>Working index</span>
-          <span>Updated 12.09.26</span>
+          <span>Updated 21.09.26</span>
         </div>
         {experiments.map((experiment) => (
           <a className="experiment-row" href={`/experiments/${experiment.slug}`} key={experiment.id}>
