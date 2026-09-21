@@ -14,7 +14,7 @@ export default function DustPage() {
         <h1>DUST</h1>
         <div className="ui-v1-meta">
           <span>REC - X / Prototype</span>
-          <span>Distort - React - Hybrid</span>
+          <span>Two engines - no casualties</span>
         </div>
       </header>
       <section className="ui-v1-experiment" aria-label="DUST particle type prototype">
