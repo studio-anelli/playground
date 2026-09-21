@@ -113,11 +113,20 @@ function drawTextWithTracking(
     if (align === "center") startX = x - totalWidth / 2;
     if (align === "right") startX = x - totalWidth;
 
+    // Positions below are calculated from the line's left edge. Drawing each
+    // glyph with the line alignment still active makes wide glyphs overlap
+    // narrow ones (most visibly swallowing the I in KINETIC).
+    // Preserve the caller's alignment for the next line or render pass.
+    const previousAlign = ctx.textAlign;
+    ctx.textAlign = "left";
+
     let cursor = 0;
     for (let i = 0; i < chars.length; i++) {
       ctx.fillText(chars[i], startX + cursor, yy);
       cursor += widths[i] + tracking;
     }
+
+    ctx.textAlign = previousAlign;
   }
 }
 
