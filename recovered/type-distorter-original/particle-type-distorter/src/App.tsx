@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import type { DustSceneBridgeProps } from "@/lib/dust-scene";
 
 /**
  * Particle Type Distorter (single-file preview) + Recording
@@ -373,7 +374,7 @@ function pickRecorderMimeType() {
   return { mimeType: "", ext: "webm" };
 }
 
-export default function App() {
+export default function App({ initialScene, onSceneChange }: DustSceneBridgeProps = {}) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -407,23 +408,40 @@ export default function App() {
   const [panelOpen, setPanelOpen] = useState(true);
 
   // Colors
-  const [bgH, setBgH] = useState(240);
-  const [bgS, setBgS] = useState(12);
-  const [bgL, setBgL] = useState(6);
+  const [bgH, setBgH] = useState(initialScene?.background.h ?? 240);
+  const [bgS, setBgS] = useState(initialScene?.background.s ?? 12);
+  const [bgL, setBgL] = useState(initialScene?.background.l ?? 6);
 
-  const [txH, setTxH] = useState(0);
-  const [txS, setTxS] = useState(0);
-  const [txL, setTxL] = useState(100);
+  const [txH, setTxH] = useState(initialScene?.particles.h ?? 0);
+  const [txS, setTxS] = useState(initialScene?.particles.s ?? 0);
+  const [txL, setTxL] = useState(initialScene?.particles.l ?? 100);
 
   // Type
-  const [text, setText] = useState("DUST");
+  const [text, setText] = useState(initialScene?.text ?? "DUST");
   const [fontFamily, setFontFamily] = useState(
-    "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+    initialScene?.fontFamily ?? "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
   );
-  const [fontWeight, setFontWeight] = useState(850);
+  const [fontWeight, setFontWeight] = useState(initialScene?.fontWeight ?? 850);
   const [fontStyle, setFontStyle] = useState("normal");
-  const [fontSize, setFontSize] = useState(180);
-  const [tracking, setTracking] = useState(-2);
+  const [fontSize, setFontSize] = useState(initialScene?.fontSize ?? 180);
+  const [tracking, setTracking] = useState(initialScene?.tracking ?? -2);
+  const sceneCanvasRef = useRef({
+    canvasW: initialScene?.canvasW ?? 1280,
+    canvasH: initialScene?.canvasH ?? 520,
+  });
+
+  useEffect(() => {
+    onSceneChange?.({
+      text,
+      fontFamily,
+      fontWeight,
+      fontSize,
+      tracking,
+      ...sceneCanvasRef.current,
+      background: { h: bgH, s: bgS, l: bgL },
+      particles: { h: txH, s: txS, l: txL },
+    });
+  }, [bgH, bgL, bgS, fontFamily, fontSize, fontWeight, onSceneChange, text, tracking, txH, txL, txS]);
 
   // Upload font
   const [uploadedFontName, setUploadedFontName] = useState("MyUploadedFont");
