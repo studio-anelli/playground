@@ -8,10 +8,16 @@ export type DustScene = {
   text: string;
   fontFamily: string;
   fontWeight: number;
+  /** Raw values are kept for engine controls and backwards-compatible snapshots. */
   fontSize: number;
   tracking: number;
   canvasW: number;
   canvasH: number;
+  /** Portable composition values used when moving between differently sized canvases. */
+  fontScale: number;
+  trackingEm: number;
+  centerX: number;
+  baselineRatio: number;
   background: DustHsl;
   particles: DustHsl;
 };
@@ -29,6 +35,10 @@ export const defaultDustScene: DustScene = {
   tracking: -2,
   canvasW: 1280,
   canvasH: 520,
+  fontScale: 180 / 520,
+  trackingEm: -2 / 180,
+  centerX: 0.5,
+  baselineRatio: 0.56,
   background: { h: 240, s: 12, l: 6 },
   particles: { h: 0, s: 0, l: 100 },
 };
