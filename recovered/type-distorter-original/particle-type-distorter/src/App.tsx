@@ -425,12 +425,17 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
   const [fontStyle, setFontStyle] = useState("normal");
   const [fontSize, setFontSize] = useState(initialScene?.fontSize ?? 180);
   const [tracking, setTracking] = useState(initialScene?.tracking ?? -2);
+  const [centerXRatio] = useState(initialScene?.centerX ?? 0.5);
+  const [baselineRatio] = useState(initialScene?.baselineRatio ?? 0.56);
+  const [bridgeReady, setBridgeReady] = useState(!initialScene);
+  const initialCompositionAppliedRef = useRef(false);
   const sceneCanvasRef = useRef({
     canvasW: initialScene?.canvasW ?? 1280,
     canvasH: initialScene?.canvasH ?? 520,
   });
 
   useEffect(() => {
+    if (!bridgeReady) return;
     onSceneChange?.({
       text,
       fontFamily,
@@ -438,10 +443,14 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       fontSize,
       tracking,
       ...sceneCanvasRef.current,
+      fontScale: fontSize / sceneCanvasRef.current.canvasH,
+      trackingEm: fontSize ? tracking / fontSize : 0,
+      centerX: centerXRatio,
+      baselineRatio,
       background: { h: bgH, s: bgS, l: bgL },
       particles: { h: txH, s: txS, l: txL },
     });
-  }, [bgH, bgL, bgS, fontFamily, fontSize, fontWeight, onSceneChange, text, tracking, txH, txL, txS]);
+  }, [baselineRatio, bgH, bgL, bgS, bridgeReady, centerXRatio, fontFamily, fontSize, fontWeight, onSceneChange, text, tracking, txH, txL, txS]);
 
   // Upload font
   const [uploadedFontName, setUploadedFontName] = useState("MyUploadedFont");
@@ -751,8 +760,8 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       settings.type.tracking
     );
 
-    const x0 = (w - metrics.width) * 0.5;
-    const y0 = h * 0.52 + metrics.ascent * 0.25;
+    const x0 = w * centerXRatio - metrics.width * 0.5;
+    const y0 = h * baselineRatio;
 
     drawTrackedText(tctx, settings.type.text, x0, y0, settings.type.tracking);
   }
@@ -1075,6 +1084,17 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       const w = Math.max(480, Math.floor(rect.width));
       const h = Math.max(260, Math.floor(rect.height));
       const dpr = Math.min(2, window.devicePixelRatio || 1);
+
+      sceneCanvasRef.current = { canvasW: w, canvasH: h };
+      if (initialScene && !initialCompositionAppliedRef.current) {
+        const scale = initialScene.fontScale ?? initialScene.fontSize / initialScene.canvasH;
+        const nextFontSize = Math.max(24, Math.min(520, Math.round(scale * h)));
+        const trackingScale = initialScene.trackingEm ?? initialScene.tracking / initialScene.fontSize;
+        initialCompositionAppliedRef.current = true;
+        setFontSize(nextFontSize);
+        setTracking(Math.round(trackingScale * nextFontSize * 100) / 100);
+        setBridgeReady(true);
+      }
 
       c.width = Math.floor(w * dpr);
       c.height = Math.floor(h * dpr);
