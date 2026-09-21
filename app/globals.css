@@ -456,9 +456,10 @@ button, input, select, textarea { font: inherit; }
   background: #050505;
   color: #f2f2f2;
 }
+.ui-v1-header.dust-page-header { z-index: 60; color: #f2f2f2; }
 .dust-mode-switch {
   position: absolute;
-  z-index: 45;
+  z-index: 70;
   top: 72px;
   left: 50%;
   display: grid;
