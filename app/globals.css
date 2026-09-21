@@ -2,6 +2,22 @@
 @import "tw-animate-css";
 @import "../vendor/shadcn-tailwind-4.13.0.css";
 
+@font-face {
+  font-family: "GT Era Text";
+  src: url("https://anelli.studio/wp-content/uploads/2026/09/GT-Era-Text-Light.woff") format("woff");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GT Alpina Typewriter";
+  src: url("https://anelli.studio/wp-content/uploads/2022/08/GT-Alpina-Typewriter-Regular.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   --paper: #f4f1eb;
   --ink: #121212;
@@ -27,6 +43,8 @@
   --input: var(--line);
   --ring: var(--signal);
   --radius: 0;
+  --ui-sans: "GT Era Text", Arial, Helvetica, sans-serif;
+  --ui-mono: "GT Alpina Typewriter", "Courier New", Courier, monospace;
 }
 
 @theme inline {
@@ -48,8 +66,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-mono: "Courier New", Courier, monospace;
+  --font-sans: var(--ui-sans);
+  --font-mono: var(--ui-mono);
 }
 
 * { box-sizing: border-box; }
@@ -60,18 +78,20 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--ui-sans);
+  font-weight: 300;
   font-size: 16px;
 }
 
 a { color: inherit; text-decoration: none; }
 
-button, input { font: inherit; }
+button, input, select, textarea { font: inherit; }
 
 ::selection { background: var(--signal); color: var(--ink); }
 
 .site-shell { min-height: 100vh; padding: 0 28px 64px; }
 
+/* Era carries editorial UI; Alpina is reserved for technical data. */
 .site-header {
   position: relative;
   z-index: 10;
@@ -80,8 +100,9 @@ button, input { font: inherit; }
   justify-content: space-between;
   min-height: 70px;
   border-bottom: 1px solid var(--ink);
-  font-family: "Courier New", Courier, monospace;
+  font-family: var(--ui-sans);
   font-size: 0.82rem;
+  font-weight: 300;
   text-transform: uppercase;
 }
 
@@ -93,12 +114,13 @@ button, input { font: inherit; }
   width: 30px;
   height: 30px;
   background: var(--signal);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--ui-sans);
   font-weight: 800;
 }
 .site-nav a { border-bottom: 1px solid transparent; }
 .site-nav a:hover, .site-nav a:focus-visible { border-color: currentColor; outline: none; }
 .status-readout { display: flex; align-items: center; gap: 8px; }
+.status-readout { font-family: var(--ui-mono); font-weight: 400; }
 .status-readout i { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); }
 
 .index-intro {
@@ -108,7 +130,9 @@ button, input { font: inherit; }
   padding: 24px 0 18px;
   border-bottom: 1px solid var(--ink);
 }
-.index-intro p, .index-count { margin: 0; font-family: "Courier New", Courier, monospace; font-size: 0.78rem; text-transform: uppercase; }
+.index-intro p, .index-count { margin: 0; font-size: 0.78rem; text-transform: uppercase; }
+.index-intro p { font-family: var(--ui-sans); font-weight: 300; }
+.index-count { font-family: var(--ui-mono); font-weight: 400; }
 .index-count { align-self: end; justify-self: end; }
 
 .section-label {
@@ -116,8 +140,9 @@ button, input { font: inherit; }
   grid-template-columns: 1fr auto;
   padding: 12px 0;
   border-bottom: 1px solid var(--line);
-  font-family: "Courier New", Courier, monospace;
+  font-family: var(--ui-mono);
   font-size: 0.75rem;
+  font-weight: 400;
   text-transform: uppercase;
 }
 
@@ -131,17 +156,19 @@ button, input { font: inherit; }
   transition: background-color 150ms ease, padding 150ms ease;
 }
 .experiment-row:hover, .experiment-row:focus-visible { padding: 0 12px; background: var(--signal); outline: none; }
-.experiment-id, .experiment-tags, .state { font-family: "Courier New", Courier, monospace; font-size: 0.77rem; text-transform: uppercase; }
+.experiment-id, .experiment-tags, .state { font-family: var(--ui-mono); font-size: 0.77rem; font-weight: 400; text-transform: uppercase; }
 .experiment-title { font-size: clamp(1.8rem, 3.7vw, 3.8rem); letter-spacing: -0.055em; }
 .experiment-row svg { width: 19px; }
 .state { justify-self: start; padding: 5px 7px; border: 1px solid currentColor; }
 
-.eyebrow { font-family: "Courier New", Courier, monospace; font-size: 0.75rem; text-transform: uppercase; }
+.eyebrow { font-family: var(--ui-mono); font-size: 0.75rem; font-weight: 400; text-transform: uppercase; }
 
 .import-page { width: min(100%, 1280px); min-height: 100vh; display: grid; grid-template-rows: auto 1fr; margin: 0 auto; background: var(--ink); color: var(--paper); }
 .import-header { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; gap: 28px; align-items: center; min-height: 52px; padding: 0 18px; border-bottom: 1px solid rgba(244, 241, 235, 0.4); }
 .import-header-native { grid-template-columns: auto minmax(0, 1fr) auto; }
-.import-header span, .import-header h1, .fullscreen-link { font-family: "Courier New", Courier, monospace; font-size: 0.75rem; font-weight: 400; line-height: 1; text-transform: uppercase; }
+.import-header span, .import-header h1, .fullscreen-link { font-size: 0.75rem; line-height: 1; text-transform: uppercase; }
+.import-header > span { font-family: var(--ui-mono); font-weight: 400; }
+.import-header h1, .fullscreen-link { font-family: var(--ui-sans); font-weight: 300; }
 .import-header h1 { margin: 0; }
 .import-header > span { color: rgba(244, 241, 235, 0.64); }
 .fullscreen-link { display: flex; align-items: center; justify-self: end; gap: 8px; padding-bottom: 3px; border-bottom: 1px solid currentColor; }
@@ -150,7 +177,7 @@ button, input { font: inherit; }
 .experiment-embed-tall { min-height: 1100px; background: #f5f5f5; }
 .experiment-native { min-width: 0; overflow: auto; background: #0a0a0a; }
 .experiment-native-light { background: #f5f5f5; color: #121212; }
-.back-link { font-family: "Courier New", Courier, monospace; font-size: 0.75rem; text-transform: uppercase; }
+.back-link { font-family: var(--ui-sans); font-size: 0.75rem; font-weight: 300; text-transform: uppercase; }
 .back-link { display: flex; align-items: center; gap: 8px; }
 .back-link svg { width: 16px; }
 
@@ -159,7 +186,7 @@ button, input { font: inherit; }
 .manual-header p { margin: 0; font-size: 1rem; }
 .command-list { border-top: 1px solid var(--ink); }
 .command-row { display: grid; grid-template-columns: 170px 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--line); }
-.command-row code, .manual-rule code { font-family: "Courier New", Courier, monospace; color: var(--signal); }
+.command-row code, .manual-rule code { font-family: var(--ui-mono); color: var(--signal); }
 .command-row p { margin: 0; }
 .manual-rule { margin-top: 60px; padding: 20px 0 60px; border-top: 1px solid var(--ink); }
 .manual-rule p { max-width: 760px; margin: 18px 0 0; font-size: 1rem; line-height: 1.45; }
@@ -219,9 +246,9 @@ button, input { font: inherit; }
 .ui-v1-back,
 .ui-v1-meta {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--ui-sans);
   font-size: 0.86rem;
-  font-weight: 400;
+  font-weight: 300;
   line-height: 1.15;
   text-transform: uppercase;
 }
@@ -248,8 +275,9 @@ button, input { font: inherit; }
   display: grid;
   justify-items: end;
   gap: 4px;
-  font-family: "Courier New", Courier, monospace;
+  font-family: var(--ui-mono);
   font-size: 0.68rem;
+  font-weight: 400;
   text-align: right;
 }
 
@@ -324,8 +352,9 @@ button, input { font: inherit; }
   border-color: rgba(242, 242, 242, 0.28) !important;
   background: transparent !important;
   color: inherit;
-  font-family: "Courier New", Courier, monospace;
+  font-family: var(--ui-sans);
   font-size: 0.68rem;
+  font-weight: 300;
   text-transform: uppercase;
 }
 
@@ -479,8 +508,9 @@ button, input { font: inherit; }
   align-items: center;
   gap: 8px;
   color: rgba(242, 242, 242, 0.58);
-  font-family: "Courier New", Courier, monospace;
+  font-family: var(--ui-mono);
   font-size: 0.62rem;
+  font-weight: 400;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -494,7 +524,7 @@ button, input { font: inherit; }
   outline: 0;
   background: rgba(242, 242, 242, 0.07) !important;
   color: #f2f2f2 !important;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--ui-sans);
   font-size: 0.72rem !important;
 }
 
