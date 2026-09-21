@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import Dust from "@/components/dust";
 
 export default function DustPage() {
+  // DUST remains isolated until the combined particle behaviour is approved.
   return (
     <main className="ui-v1-page" style={{ "--ui-v1-bg": "#0b73f6", "--ui-v1-fg": "#f5f1e9" } as CSSProperties}>
       <header className="ui-v1-header dust-page-header">
