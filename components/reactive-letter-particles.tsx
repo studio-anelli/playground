@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import type { DustSceneBridgeProps } from "@/lib/dust-scene";
 
 // Reactive Letter Particles
 // - Multi-line text (use Enter) with interline control
@@ -417,7 +418,7 @@ function TextCommit(props: {
   );
 }
 
-export default function ReactiveLetterParticles() {
+export default function ReactiveLetterParticles({ initialScene, onSceneChange }: DustSceneBridgeProps = {}) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number>(0);
 
@@ -425,9 +426,9 @@ export default function ReactiveLetterParticles() {
   const maskRef = useRef<Mask | null>(null);
 
   // IMPORTANT: keep explicit \n escape, never raw line breaks in string literals.
-  const [text, setText] = useState("oyeur");
-  const [canvasW, setCanvasW] = useState(1280);
-  const [canvasH, setCanvasH] = useState(520);
+  const [text, setText] = useState(initialScene?.text ?? "oyeur");
+  const [canvasW, setCanvasW] = useState(initialScene?.canvasW ?? 1280);
+  const [canvasH, setCanvasH] = useState(initialScene?.canvasH ?? 520);
 
   const [activeTab, setActiveTab] = useState<"source" | "glyph" | "colors" | "interaction">("source");
 
@@ -435,10 +436,10 @@ export default function ReactiveLetterParticles() {
   const [shapeMode, setShapeMode] = useState("circles");
   const [count, setCount] = useState(160);
 
-  const [fontFamily, setFontFamily] = useState("system-ui, -apple-system, Segoe UI, Inter, Arial");
-  const [fontWeight, setFontWeight] = useState(900);
-  const [fontSize, setFontSize] = useState(240);
-  const [tracking, setTracking] = useState(10);
+  const [fontFamily, setFontFamily] = useState(initialScene?.fontFamily ?? "system-ui, -apple-system, Segoe UI, Inter, Arial");
+  const [fontWeight, setFontWeight] = useState(initialScene?.fontWeight ?? 900);
+  const [fontSize, setFontSize] = useState(initialScene?.fontSize ?? 240);
+  const [tracking, setTracking] = useState(initialScene?.tracking ?? 10);
   const [baselineY, setBaselineY] = useState(300);
   const [interline, setInterline] = useState(22);
 
@@ -459,20 +460,34 @@ export default function ReactiveLetterParticles() {
   const [morphChance, setMorphChance] = useState(0.22);
 
   // Shapes global color (HSL)
-  const [baseHue, setBaseHue] = useState(200);
-  const [baseSat, setBaseSat] = useState(85);
-  const [baseLit, setBaseLit] = useState(55);
+  const [baseHue, setBaseHue] = useState(initialScene?.particles.h ?? 200);
+  const [baseSat, setBaseSat] = useState(initialScene?.particles.s ?? 85);
+  const [baseLit, setBaseLit] = useState(initialScene?.particles.l ?? 55);
 
   // Background color (HSL)
-  const [bgHue, setBgHue] = useState(220);
-  const [bgSat, setBgSat] = useState(30);
-  const [bgLit, setBgLit] = useState(6);
+  const [bgHue, setBgHue] = useState(initialScene?.background.h ?? 220);
+  const [bgSat, setBgSat] = useState(initialScene?.background.s ?? 30);
+  const [bgLit, setBgLit] = useState(initialScene?.background.l ?? 6);
 
   // Text color (HSL) for ghost text
   const [textHue, setTextHue] = useState(0);
   const [textSat, setTextSat] = useState(0);
   const [textLit, setTextLit] = useState(100);
   const [textAlpha, setTextAlpha] = useState(0.08);
+
+  useEffect(() => {
+    onSceneChange?.({
+      text,
+      fontFamily,
+      fontWeight,
+      fontSize,
+      tracking,
+      canvasW,
+      canvasH,
+      background: { h: bgHue, s: bgSat, l: bgLit },
+      particles: { h: baseHue, s: baseSat, l: baseLit },
+    });
+  }, [baseHue, baseLit, baseSat, bgHue, bgLit, bgSat, canvasH, canvasW, fontFamily, fontSize, fontWeight, onSceneChange, text, tracking]);
 
   // Split-on-collision
   const [splitOnHit, setSplitOnHit] = useState(false);
