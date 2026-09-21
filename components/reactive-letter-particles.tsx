@@ -135,10 +135,11 @@ function buildTextMask(args: {
   fontWeight: number;
   fontSize: number;
   tracking: number;
+  centerX: number;
   baselineY: number;
   interline: number;
 }): Mask {
-  const { w, h, text, fontFamily, fontWeight, fontSize, tracking, baselineY, interline } = args;
+  const { w, h, text, fontFamily, fontWeight, fontSize, tracking, centerX, baselineY, interline } = args;
 
   const off = document.createElement("canvas");
   off.width = w;
@@ -162,7 +163,7 @@ function buildTextMask(args: {
     const widths = metrics.map((m) => m.width);
     const total = widths.reduce((a, b) => a + b, 0) + tracking * Math.max(0, chars.length - 1);
 
-    let x = w / 2 - total / 2;
+    let x = centerX - total / 2;
     const y = baselineY + li * lineStep;
 
     for (let i = 0; i < chars.length; i++) {
@@ -438,9 +439,15 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
 
   const [fontFamily, setFontFamily] = useState(initialScene?.fontFamily ?? "system-ui, -apple-system, Segoe UI, Inter, Arial");
   const [fontWeight, setFontWeight] = useState(initialScene?.fontWeight ?? 900);
-  const [fontSize, setFontSize] = useState(initialScene?.fontSize ?? 240);
-  const [tracking, setTracking] = useState(initialScene?.tracking ?? 10);
-  const [baselineY, setBaselineY] = useState(300);
+  const initialFontSize = initialScene
+    ? (initialScene.fontScale ?? initialScene.fontSize / initialScene.canvasH) * (initialScene.canvasH ?? 520)
+    : 240;
+  const [fontSize, setFontSize] = useState(initialFontSize);
+  const [tracking, setTracking] = useState(
+    initialScene ? (initialScene.trackingEm ?? initialScene.tracking / initialScene.fontSize) * initialFontSize : 10
+  );
+  const [centerX, setCenterX] = useState((initialScene?.centerX ?? 0.5) * (initialScene?.canvasW ?? 1280));
+  const [baselineY, setBaselineY] = useState((initialScene?.baselineRatio ?? 300 / 520) * (initialScene?.canvasH ?? 520));
   const [interline, setInterline] = useState(22);
 
   const [size, setSize] = useState(6);
@@ -484,10 +491,14 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
       tracking,
       canvasW,
       canvasH,
+      fontScale: fontSize / canvasH,
+      trackingEm: fontSize ? tracking / fontSize : 0,
+      centerX: centerX / canvasW,
+      baselineRatio: baselineY / canvasH,
       background: { h: bgHue, s: bgSat, l: bgLit },
       particles: { h: baseHue, s: baseSat, l: baseLit },
     });
-  }, [baseHue, baseLit, baseSat, bgHue, bgLit, bgSat, canvasH, canvasW, fontFamily, fontSize, fontWeight, onSceneChange, text, tracking]);
+  }, [baseHue, baseLit, baseSat, baselineY, bgHue, bgLit, bgSat, canvasH, canvasW, centerX, fontFamily, fontSize, fontWeight, onSceneChange, text, tracking]);
 
   // Split-on-collision
   const [splitOnHit, setSplitOnHit] = useState(false);
@@ -518,6 +529,7 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
       fontWeight,
       fontSize,
       tracking,
+      centerX,
       baselineY,
       interline,
     });
@@ -550,7 +562,7 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
   useEffect(() => {
     rebuild();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text, canvasW, canvasH, insideOutside, shapeMode, count, fontFamily, fontWeight, fontSize, tracking, baselineY, interline, seed]);
+  }, [text, canvasW, canvasH, insideOutside, shapeMode, count, fontFamily, fontWeight, fontSize, tracking, centerX, baselineY, interline, seed]);
 
   // Live update style params
   useEffect(() => {
@@ -618,7 +630,7 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
         const widths = metrics.map((m) => m.width);
         const total = widths.reduce((a, b) => a + b, 0) + tracking * Math.max(0, chars.length - 1);
 
-        let x = w / 2 - total / 2;
+        let x = centerX - total / 2;
         const y = baselineY + li * lineStep;
         for (let i = 0; i < chars.length; i++) {
           const c = chars[i];
@@ -848,6 +860,7 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
     fontWeight,
     fontSize,
     tracking,
+    centerX,
     baselineY,
     interline,
     baseHue,
