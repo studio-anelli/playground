@@ -425,6 +425,15 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
   const [fontStyle, setFontStyle] = useState("normal");
   const [fontSize, setFontSize] = useState(initialScene?.fontSize ?? 180);
   const [tracking, setTracking] = useState(initialScene?.tracking ?? -2);
+
+  // Type-to-particles. These must exist before the scene bridge effect reads them.
+  const [sampleStep, setSampleStep] = useState(5);
+  const [alphaThreshold, setAlphaThreshold] = useState(12);
+  const [jitter, setJitter] = useState(0.65);
+  const [particleSize, setParticleSize] = useState(1.6);
+  const [particleShape, setParticleShape] = useState("circle"); // circle | square | line
+  const [outlineOnly, setOutlineOnly] = useState(false);
+
   const [centerXRatio] = useState(initialScene?.centerX ?? 0.5);
   const [baselineRatio] = useState(initialScene?.baselineRatio ?? 0.56);
   const [bridgeReady, setBridgeReady] = useState(!initialScene);
@@ -497,14 +506,6 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
   const [heatA, setHeatA] = useState("#00d5ff");
   const [heatB, setHeatB] = useState("#ff3d9a");
   const [heatIntensity, setHeatIntensity] = useState(1.0);
-
-  // Type-to-particles
-  const [sampleStep, setSampleStep] = useState(5);
-  const [alphaThreshold, setAlphaThreshold] = useState(12);
-  const [jitter, setJitter] = useState(0.65);
-  const [particleSize, setParticleSize] = useState(1.6);
-  const [particleShape, setParticleShape] = useState("circle"); // circle | square | line
-  const [outlineOnly, setOutlineOnly] = useState(false);
 
   // Field
   const [flowFreq, setFlowFreq] = useState(0.006);
