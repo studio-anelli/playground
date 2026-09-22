@@ -21,11 +21,8 @@ export default function Dust() {
   const switchMode = (nextMode: DustMode) => {
     if (!carryScene) setScene(defaultDustScene);
     // Give the active engine time to publish its last control change before it
-    // is unmounted. This matters when a user changes a select/slider and then
-    // switches engines immediately.
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setMode(nextMode));
-    });
+    // is unmounted. A timer also works when the tab is not actively painting.
+    window.setTimeout(() => setMode(nextMode), 50);
   };
 
   return (
