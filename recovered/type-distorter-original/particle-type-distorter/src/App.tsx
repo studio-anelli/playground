@@ -447,10 +447,13 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       trackingEm: fontSize ? tracking / fontSize : 0,
       centerX: centerXRatio,
       baselineRatio,
+      particleSpacingEm: sampleStep / fontSize,
+      particleSizeEm: particleSize / fontSize,
+      ghostAlpha: 0,
       background: { h: bgH, s: bgS, l: bgL },
       particles: { h: txH, s: txS, l: txL },
     });
-  }, [baselineRatio, bgH, bgL, bgS, bridgeReady, centerXRatio, fontFamily, fontSize, fontWeight, onSceneChange, text, tracking, txH, txL, txS]);
+  }, [baselineRatio, bgH, bgL, bgS, bridgeReady, centerXRatio, fontFamily, fontSize, fontWeight, onSceneChange, particleSize, sampleStep, text, tracking, txH, txL, txS]);
 
   // Upload font
   const [uploadedFontName, setUploadedFontName] = useState("MyUploadedFont");
@@ -1093,6 +1096,8 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
         initialCompositionAppliedRef.current = true;
         setFontSize(nextFontSize);
         setTracking(Math.round(trackingScale * nextFontSize * 100) / 100);
+        setSampleStep(clamp(Math.round((initialScene.particleSpacingEm ?? 5 / 180) * nextFontSize), 2, 32));
+        setParticleSize(clamp((initialScene.particleSizeEm ?? 1.6 / 180) * nextFontSize, 0.6, 20));
         setBridgeReady(true);
       }
 
@@ -1989,7 +1994,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
                       label="Sample step (density)"
                       value={sampleStep}
                       min={2}
-                      max={12}
+                      max={32}
                       step={1}
                       onChange={setSampleStep}
                     />
@@ -2013,7 +2018,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
                       label="Particle size"
                       value={particleSize}
                       min={0.6}
-                      max={4}
+                      max={20}
                       step={0.05}
                       onChange={setParticleSize}
                     />
