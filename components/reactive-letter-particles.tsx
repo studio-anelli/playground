@@ -435,7 +435,9 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
 
   const [activeTab, setActiveTab] = useState<"source" | "glyph" | "colors" | "interaction">("source");
 
-  const [insideOutside, setInsideOutside] = useState<"inside" | "outside">("inside");
+  const [insideOutside, setInsideOutside] = useState<"inside" | "outside">(
+    initialScene?.particlePlacement ?? "inside"
+  );
   const [shapeMode, setShapeMode] = useState(() => {
     switch (initialScene?.particleShape) {
       case "square": return "squares";
@@ -517,12 +519,13 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
         shapeMode === "squares" ? "square" :
         shapeMode === "lines" ? "line" :
         shapeMode === "mix" ? "mix" : "circle",
+      particlePlacement: insideOutside,
       motionDamping: damping,
       ghostAlpha: textAlpha,
       background: { h: bgHue, s: bgSat, l: bgLit },
       particles: { h: baseHue, s: baseSat, l: baseLit },
     });
-  }, [baseHue, baseLit, baseSat, baselineY, bgHue, bgLit, bgSat, canvasH, canvasW, centerX, count, damping, fontFamily, fontSize, fontWeight, initialScene?.particleSpacingEm, onSceneChange, shapeMode, size, text, textAlpha, tracking]);
+  }, [baseHue, baseLit, baseSat, baselineY, bgHue, bgLit, bgSat, canvasH, canvasW, centerX, count, damping, fontFamily, fontSize, fontWeight, initialScene?.particleSpacingEm, insideOutside, onSceneChange, shapeMode, size, text, textAlpha, tracking]);
 
   // Split-on-collision
   const [splitOnHit, setSplitOnHit] = useState(false);
@@ -567,12 +570,21 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
         if (pixels[i] > 12) opaquePixels += 1;
       }
     }
-    maskAreaRef.current = opaquePixels;
+    const padding = Math.max(24, Math.round(fontSize * 0.25));
+    const envelopeX0 = clamp(mask.bbox.x - padding, 0, w);
+    const envelopeY0 = clamp(mask.bbox.y - padding, 0, h);
+    const envelopeX1 = clamp(mask.bbox.x + mask.bbox.w + padding, 0, w);
+    const envelopeY1 = clamp(mask.bbox.y + mask.bbox.h + padding, 0, h);
+    const envelopePixels = Math.max(1, (envelopeX1 - envelopeX0) * (envelopeY1 - envelopeY0));
+    const eligiblePixels = insideOutside === "inside"
+      ? opaquePixels
+      : Math.max(1, envelopePixels - opaquePixels);
+    maskAreaRef.current = eligiblePixels;
 
     let effectiveCount = count;
     if (initialScene && !bridgeDensityAppliedRef.current) {
       const spacing = Math.max(1, (initialScene.particleSpacingEm ?? 5 / 180) * fontSize);
-      effectiveCount = clamp(Math.round(opaquePixels / (spacing * spacing)), 20, 5000);
+      effectiveCount = clamp(Math.round(eligiblePixels / (spacing * spacing)), 20, 5000);
       bridgeDensityAppliedRef.current = true;
       if (effectiveCount !== count) setCount(effectiveCount);
     }
