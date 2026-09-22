@@ -425,6 +425,8 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
 
   const particlesRef = useRef<Particle[]>([]);
   const maskRef = useRef<Mask | null>(null);
+  const maskAreaRef = useRef(0);
+  const bridgeDensityAppliedRef = useRef(false);
 
   // IMPORTANT: keep explicit \n escape, never raw line breaks in string literals.
   const [text, setText] = useState(initialScene?.text ?? "oyeur");
@@ -450,7 +452,9 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
   const [baselineY, setBaselineY] = useState((initialScene?.baselineRatio ?? 300 / 520) * (initialScene?.canvasH ?? 520));
   const [interline, setInterline] = useState(22);
 
-  const [size, setSize] = useState(6);
+  const [size, setSize] = useState(
+    initialScene ? clamp((initialScene.particleSizeEm ?? 1.6 / 180) * initialFontSize, 0.5, 28) : 6
+  );
   const [lineLen, setLineLen] = useState(26);
   const [filled, setFilled] = useState(true);
   const [stroke, setStroke] = useState(2);
@@ -480,9 +484,12 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
   const [textHue, setTextHue] = useState(0);
   const [textSat, setTextSat] = useState(0);
   const [textLit, setTextLit] = useState(100);
-  const [textAlpha, setTextAlpha] = useState(0.08);
+  const [textAlpha, setTextAlpha] = useState(initialScene?.ghostAlpha ?? 0.08);
 
   useEffect(() => {
+    const spacing = maskAreaRef.current > 0 && count > 0
+      ? Math.sqrt(maskAreaRef.current / count)
+      : (initialScene?.particleSpacingEm ?? 5 / 180) * fontSize;
     onSceneChange?.({
       text,
       fontFamily,
@@ -495,15 +502,18 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
       trackingEm: fontSize ? tracking / fontSize : 0,
       centerX: centerX / canvasW,
       baselineRatio: baselineY / canvasH,
+      particleSpacingEm: spacing / fontSize,
+      particleSizeEm: size / fontSize,
+      ghostAlpha: textAlpha,
       background: { h: bgHue, s: bgSat, l: bgLit },
       particles: { h: baseHue, s: baseSat, l: baseLit },
     });
-  }, [baseHue, baseLit, baseSat, baselineY, bgHue, bgLit, bgSat, canvasH, canvasW, centerX, fontFamily, fontSize, fontWeight, onSceneChange, text, tracking]);
+  }, [baseHue, baseLit, baseSat, baselineY, bgHue, bgLit, bgSat, canvasH, canvasW, centerX, count, fontFamily, fontSize, fontWeight, initialScene?.particleSpacingEm, onSceneChange, size, text, textAlpha, tracking]);
 
   // Split-on-collision
   const [splitOnHit, setSplitOnHit] = useState(false);
   const [maxSplitsPerParticle, setMaxSplitsPerParticle] = useState(10);
-  const maxParticles = useMemo(() => Math.min(2400, Math.max(200, count * 6)), [count]);
+  const maxParticles = useMemo(() => Math.min(12000, Math.max(200, count * 6)), [count]);
 
   const [seed, setSeed] = useState(12345);
   const [status, setStatus] = useState("Ready");
@@ -536,8 +546,25 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
 
     maskRef.current = mask;
 
+    let opaquePixels = 0;
+    if (mask.data) {
+      const pixels = mask.data.data;
+      for (let i = 3; i < pixels.length; i += 4) {
+        if (pixels[i] > 12) opaquePixels += 1;
+      }
+    }
+    maskAreaRef.current = opaquePixels;
+
+    let effectiveCount = count;
+    if (initialScene && !bridgeDensityAppliedRef.current) {
+      const spacing = Math.max(1, (initialScene.particleSpacingEm ?? 5 / 180) * fontSize);
+      effectiveCount = clamp(Math.round(opaquePixels / (spacing * spacing)), 20, 5000);
+      bridgeDensityAppliedRef.current = true;
+      if (effectiveCount !== count) setCount(effectiveCount);
+    }
+
     particlesRef.current = createParticles({
-      count,
+      count: effectiveCount,
       rnd,
       maskData: mask.data,
       mode: insideOutside,
@@ -1004,7 +1031,7 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
                       ))}
                     </div>
                   </div>
-                  <Slider label="Element count" value={count} min={20} max={520} step={1} onChange={setCount} />
+                  <Slider label="Element count" value={count} min={20} max={5000} step={1} onChange={setCount} />
                   <div className="grid grid-cols-2 gap-3">
                     <NumberCommit label="Canvas W" value={canvasW} min={320} max={2400} onCommit={(v) => setCanvasW(Math.round(v))} />
                     <NumberCommit label="Canvas H" value={canvasH} min={240} max={1400} onCommit={(v) => setCanvasH(Math.round(v))} />
