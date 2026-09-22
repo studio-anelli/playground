@@ -9,6 +9,7 @@ type DustMode = "distort" | "react";
 
 // The shared scene keeps portable controls intact while engines remount.
 // Preview checkpoint: noise destination routing.
+// Preview checkpoint: unstable scene properties.
 
 export default function Dust() {
   const [mode, setMode] = useState<DustMode>("distort");
