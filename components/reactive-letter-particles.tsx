@@ -436,7 +436,14 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
   const [activeTab, setActiveTab] = useState<"source" | "glyph" | "colors" | "interaction">("source");
 
   const [insideOutside, setInsideOutside] = useState<"inside" | "outside">("inside");
-  const [shapeMode, setShapeMode] = useState("circles");
+  const [shapeMode, setShapeMode] = useState(() => {
+    switch (initialScene?.particleShape) {
+      case "square": return "squares";
+      case "line": return "lines";
+      case "mix": return "mix";
+      default: return "circles";
+    }
+  });
   const [count, setCount] = useState(160);
 
   const [fontFamily, setFontFamily] = useState(initialScene?.fontFamily ?? "system-ui, -apple-system, Segoe UI, Inter, Arial");
@@ -462,7 +469,9 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
 
   const [repelRadius, setRepelRadius] = useState(28);
   const [repelStrength, setRepelStrength] = useState(0.9);
-  const [damping, setDamping] = useState(0.92);
+  const [damping, setDamping] = useState(
+    clamp(initialScene?.motionDamping ?? 0.92, 0.75, 0.995)
+  );
   const [jitter, setJitter] = useState(0.08);
 
   const [collisionRadiusBoost, setCollisionRadiusBoost] = useState(0.8);
@@ -504,11 +513,16 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
       baselineRatio: baselineY / canvasH,
       particleSpacingEm: spacing / fontSize,
       particleSizeEm: size / fontSize,
+      particleShape:
+        shapeMode === "squares" ? "square" :
+        shapeMode === "lines" ? "line" :
+        shapeMode === "mix" ? "mix" : "circle",
+      motionDamping: damping,
       ghostAlpha: textAlpha,
       background: { h: bgHue, s: bgSat, l: bgLit },
       particles: { h: baseHue, s: baseSat, l: baseLit },
     });
-  }, [baseHue, baseLit, baseSat, baselineY, bgHue, bgLit, bgSat, canvasH, canvasW, centerX, count, fontFamily, fontSize, fontWeight, initialScene?.particleSpacingEm, onSceneChange, size, text, textAlpha, tracking]);
+  }, [baseHue, baseLit, baseSat, baselineY, bgHue, bgLit, bgSat, canvasH, canvasW, centerX, count, damping, fontFamily, fontSize, fontWeight, initialScene?.particleSpacingEm, onSceneChange, shapeMode, size, text, textAlpha, tracking]);
 
   // Split-on-collision
   const [splitOnHit, setSplitOnHit] = useState(false);
