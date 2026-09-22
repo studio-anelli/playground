@@ -431,8 +431,13 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
   const [alphaThreshold, setAlphaThreshold] = useState(12);
   const [jitter, setJitter] = useState(0.65);
   const [particleSize, setParticleSize] = useState(1.6);
-  const [particleShape, setParticleShape] = useState("circle"); // circle | square | line
+  const [particleShape, setParticleShape] = useState(
+    initialScene?.particleShape === "mix" ? "circle" : initialScene?.particleShape ?? "circle"
+  ); // circle | square | line
   const [outlineOnly, setOutlineOnly] = useState(false);
+  const [velocityDamping, setVelocityDamping] = useState(
+    clamp(initialScene?.motionDamping ?? 0.9, 0.6, 0.99)
+  );
 
   const [centerXRatio] = useState(initialScene?.centerX ?? 0.5);
   const [baselineRatio] = useState(initialScene?.baselineRatio ?? 0.56);
@@ -458,11 +463,13 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       baselineRatio,
       particleSpacingEm: sampleStep / fontSize,
       particleSizeEm: particleSize / fontSize,
+      particleShape: particleShape as "circle" | "square" | "line",
+      motionDamping: velocityDamping,
       ghostAlpha: 0,
       background: { h: bgH, s: bgS, l: bgL },
       particles: { h: txH, s: txS, l: txL },
     });
-  }, [baselineRatio, bgH, bgL, bgS, bridgeReady, centerXRatio, fontFamily, fontSize, fontWeight, onSceneChange, particleSize, sampleStep, text, tracking, txH, txL, txS]);
+  }, [baselineRatio, bgH, bgL, bgS, bridgeReady, centerXRatio, fontFamily, fontSize, fontWeight, onSceneChange, particleShape, particleSize, sampleStep, text, tracking, txH, txL, txS, velocityDamping]);
 
   // Upload font
   const [uploadedFontName, setUploadedFontName] = useState("MyUploadedFont");
@@ -516,8 +523,6 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
   const [mouseSoftness, setMouseSoftness] = useState(0.55);
   const [mouseMode, setMouseMode] = useState("repel"); // repel | attract
   const [returnToBase, setReturnToBase] = useState(0.08);
-  const [velocityDamping, setVelocityDamping] = useState(0.9);
-
   const bg = useMemo(() => hslToCss(bgH, bgS, bgL), [bgH, bgS, bgL]);
   const textColor = useMemo(() => hslToCss(txH, txS, txL), [txH, txS, txL]);
 
