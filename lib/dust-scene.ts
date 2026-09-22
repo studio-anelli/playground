@@ -26,6 +26,7 @@ export type DustScene = {
   particleSizeEm: number;
   particleShape: DustParticleShape;
   particlePlacement: DustParticlePlacement;
+  particleAlpha: number;
   /** Per-frame velocity retention. Both engines use the same damping model. */
   motionDamping: number;
   ghostAlpha: number;
@@ -54,6 +55,7 @@ export const defaultDustScene: DustScene = {
   particleSizeEm: 1.6 / 180,
   particleShape: "circle",
   particlePlacement: "inside",
+  particleAlpha: 1,
   motionDamping: 0.9,
   ghostAlpha: 0,
   background: { h: 240, s: 12, l: 6 },
