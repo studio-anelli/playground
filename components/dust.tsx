@@ -7,6 +7,8 @@ import { defaultDustScene, type DustScene } from "@/lib/dust-scene";
 
 type DustMode = "distort" | "react";
 
+// The shared scene keeps portable controls intact while engines remount.
+
 export default function Dust() {
   const [mode, setMode] = useState<DustMode>("distort");
   const [scene, setScene] = useState<DustScene>(defaultDustScene);
