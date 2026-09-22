@@ -34,8 +34,11 @@ type GlyphParticle = {
   vx: number;
   vy: number;
   ang: number;
+  sampleSeed: number;
   hm?: number;
 };
+
+type NoiseDestination = "distortion" | "sampling" | "both";
 
 function clamp(v: number, a: number, b: number) {
   return Math.max(a, Math.min(b, v));
@@ -502,6 +505,10 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
   const [turbOctaves, setTurbOctaves] = useState(3);
 
   // Distort gating / mix
+  const [noiseDestination, setNoiseDestination] = useState<NoiseDestination>("distortion");
+  const [noiseSamplingAmount, setNoiseSamplingAmount] = useState(1);
+  const [noiseSamplingThreshold, setNoiseSamplingThreshold] = useState(0.5);
+  const [noiseSamplingInvert, setNoiseSamplingInvert] = useState(false);
   const [noiseApply, setNoiseApply] = useState(0.85);
   const [distortAmount, setDistortAmount] = useState(1.0);
 
@@ -575,6 +582,12 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
         noiseApply,
         distortAmount,
       },
+      noiseRouting: {
+        destination: noiseDestination,
+        samplingAmount: noiseSamplingAmount,
+        samplingThreshold: noiseSamplingThreshold,
+        samplingInvert: noiseSamplingInvert,
+      },
       noiseTex: {
         noiseType,
         turbScale,
@@ -632,6 +645,10 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       velocityDamping,
       noiseApply,
       distortAmount,
+      noiseDestination,
+      noiseSamplingAmount,
+      noiseSamplingThreshold,
+      noiseSamplingInvert,
       noiseType,
       turbScale,
       turbWarp,
@@ -856,6 +873,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
           vx: 0,
           vy: 0,
           ang: rand() * Math.PI * 2,
+          sampleSeed: rand(),
           hm: 0,
         });
       }
@@ -1335,6 +1353,23 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
         return (d[idx] * 0.2126 + d[idx + 1] * 0.7152 + d[idx + 2] * 0.0722) / 255;
       };
 
+      // Sampling uses the texture's local range, rather than absolute screen
+      // brightness, so it behaves consistently on light and dark backgrounds.
+      let fieldMin = 1;
+      let fieldMax = 0;
+      if (fieldData) {
+        const d = fieldData.data;
+        for (let i = 0; i < d.length; i += 4) {
+          const value = (d[i] * 0.2126 + d[i + 1] * 0.7152 + d[i + 2] * 0.0722) / 255;
+          fieldMin = Math.min(fieldMin, value);
+          fieldMax = Math.max(fieldMax, value);
+        }
+      }
+      const sampleNoiseUnit = (x: number, y: number) => {
+        const value = sampleNoiseLuma(x, y);
+        return clamp((value - fieldMin) / Math.max(0.001, fieldMax - fieldMin), 0, 1);
+      };
+
       // Background
       D.setTransform(1, 0, 0, 1, 0, 0);
       D.clearRect(0, 0, W, H);
@@ -1357,6 +1392,9 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       const my = hasPointer ? ptr.ny * H : H * 0.5;
 
       const field = settings.field;
+      const routing = settings.noiseRouting;
+      const noiseToDistortion = routing.destination !== "sampling";
+      const noiseToSampling = routing.destination !== "distortion";
       const sign = field.mouseMode === "repel" ? 1 : -1;
 
       // Simulate particles (in-place) for this pipe
@@ -1406,12 +1444,14 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
           field.flowStrength *
           field.noiseApply *
           field.distortAmount *
+          (noiseToDistortion ? 1 : 0) *
           textureEnergy;
         const fy =
           normY *
           field.flowStrength *
           field.noiseApply *
           field.distortAmount *
+          (noiseToDistortion ? 1 : 0) *
           textureEnergy;
 
         // Mouse interaction stays local and is layered on top of the global noise.
@@ -1443,6 +1483,18 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       const useHeat = settings.heatmap.heatmapOn;
       const ps = settings.glyphParticles.particleSize;
       const shape = settings.glyphParticles.particleShape;
+      const isParticleVisible = (p: GlyphParticle) => {
+        if (!noiseToSampling) return true;
+        const noiseValue = sampleNoiseUnit(p.x0, p.y0);
+        const passes = routing.samplingInvert
+          ? noiseValue <= routing.samplingThreshold
+          : noiseValue >= routing.samplingThreshold;
+        const visibility = passes ? 1 : 1 - routing.samplingAmount;
+        return p.sampleSeed <= visibility;
+      };
+      const activeParticleCount = noiseToSampling
+        ? pts.reduce((count, particle) => count + (isParticleVisible(particle) ? 1 : 0), 0)
+        : pts.length;
 
       D.globalAlpha = 1;
       D.fillStyle = settings.textColor;
@@ -1451,6 +1503,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       if (shape === "circle") {
         for (let i = 0; i < pts.length; i++) {
           const p = pts[i];
+          if (!isParticleVisible(p)) continue;
           if (useHeat) {
             D.fillStyle = lerpColor(settings.heatmap.heatA, settings.heatmap.heatB, p.hm || 0);
           }
@@ -1461,6 +1514,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       } else if (shape === "square") {
         for (let i = 0; i < pts.length; i++) {
           const p = pts[i];
+          if (!isParticleVisible(p)) continue;
           if (useHeat) {
             D.fillStyle = lerpColor(settings.heatmap.heatA, settings.heatmap.heatB, p.hm || 0);
           }
@@ -1470,6 +1524,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
         D.lineWidth = Math.max(1, ps);
         for (let i = 0; i < pts.length; i++) {
           const p = pts[i];
+          if (!isParticleVisible(p)) continue;
           if (useHeat) {
             D.strokeStyle = lerpColor(settings.heatmap.heatA, settings.heatmap.heatB, p.hm || 0);
           }
@@ -1495,7 +1550,11 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
         D.fillStyle = "rgba(255,255,255,0.65)";
         D.font = "700 12px ui-sans-serif, system-ui";
         D.textAlign = "left";
-        D.fillText(`particles: ${pts.length}`, 14, 22);
+        D.fillText(
+          noiseToSampling ? `particles: ${activeParticleCount} / ${pts.length}` : `particles: ${pts.length}`,
+          14,
+          22
+        );
         if (isRecording) {
           D.fillStyle = "rgba(255,70,70,0.9)";
           D.fillText(`REC ${EXPORT_W}×${EXPORT_H} @ ${recFps}fps`, 14, 38);
@@ -1771,23 +1830,64 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
                   </div>
 
                   <div className="space-y-2">
-                    <div className="text-sm font-extrabold">Noise → Distorter</div>
-                    <Slider
-                      label="Noise apply"
-                      value={noiseApply}
-                      min={0}
-                      max={2}
-                      step={0.01}
-                      onChange={setNoiseApply}
+                    <div className="text-sm font-extrabold">Noise destination</div>
+                    <Select
+                      label="Route to"
+                      value={noiseDestination}
+                      onChange={(value) => setNoiseDestination(value as NoiseDestination)}
+                      options={[
+                        { value: "distortion", label: "Distortion" },
+                        { value: "sampling", label: "Sampling" },
+                        { value: "both", label: "Both" },
+                      ]}
                     />
-                    <Slider
-                      label="Distortion amount"
-                      value={distortAmount}
-                      min={0}
-                      max={3}
-                      step={0.01}
-                      onChange={setDistortAmount}
-                    />
+
+                    {noiseDestination !== "sampling" && (
+                      <>
+                        <Slider
+                          label="Noise apply"
+                          value={noiseApply}
+                          min={0}
+                          max={2}
+                          step={0.01}
+                          onChange={setNoiseApply}
+                        />
+                        <Slider
+                          label="Distortion amount"
+                          value={distortAmount}
+                          min={0}
+                          max={3}
+                          step={0.01}
+                          onChange={setDistortAmount}
+                        />
+                      </>
+                    )}
+
+                    {noiseDestination !== "distortion" && (
+                      <>
+                        <Slider
+                          label="Sampling amount"
+                          value={noiseSamplingAmount}
+                          min={0}
+                          max={1}
+                          step={0.01}
+                          onChange={setNoiseSamplingAmount}
+                        />
+                        <Slider
+                          label="Sampling threshold"
+                          value={noiseSamplingThreshold}
+                          min={0}
+                          max={1}
+                          step={0.01}
+                          onChange={setNoiseSamplingThreshold}
+                        />
+                        <Toggle
+                          label="Invert sampling"
+                          checked={noiseSamplingInvert}
+                          onChange={setNoiseSamplingInvert}
+                        />
+                      </>
+                    )}
 
                     <div className="mt-3 space-y-3">
                       <div className="text-sm font-extrabold">Noise overlay</div>
