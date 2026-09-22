@@ -888,6 +888,8 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       text: settings.type.text,
       font: settings.type.font,
       tracking: settings.type.tracking,
+      centerXRatio,
+      baselineRatio,
       sampleStep: settings.glyphParticles.sampleStep,
       alphaThreshold: settings.glyphParticles.alphaThreshold,
       jitter: settings.glyphParticles.jitter,
@@ -1075,6 +1077,8 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       lastG.text !== settings.type.text ||
       lastG.font !== settings.type.font ||
       lastG.tracking !== settings.type.tracking ||
+      lastG.centerXRatio !== centerXRatio ||
+      lastG.baselineRatio !== baselineRatio ||
       lastG.sampleStep !== settings.glyphParticles.sampleStep ||
       lastG.alphaThreshold !== settings.glyphParticles.alphaThreshold ||
       lastG.jitter !== settings.glyphParticles.jitter ||
@@ -1603,7 +1607,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
 
     rafRef.current = requestAnimationFrame(frame);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [settings, isRecording, recFps]);
+  }, [settings, isRecording, recFps, centerXRatio, baselineRatio]);
 
   return (
     <div className="h-[calc(100dvh-52px)] min-h-[560px] bg-black text-white overflow-hidden">
