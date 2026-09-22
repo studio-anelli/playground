@@ -1,3 +1,4 @@
+// Shared visual vocabulary for translating between the two DUST engines.
 export type DustHsl = {
   h: number;
   s: number;
