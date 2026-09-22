@@ -451,7 +451,7 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
   const [fontFamily, setFontFamily] = useState(initialScene?.fontFamily ?? "system-ui, -apple-system, Segoe UI, Inter, Arial");
   const [fontWeight, setFontWeight] = useState(initialScene?.fontWeight ?? 900);
   const initialFontSize = initialScene
-    ? (initialScene.fontScale ?? initialScene.fontSize / initialScene.canvasH) * (initialScene.canvasH ?? 520)
+    ? clamp((initialScene.fontScale ?? initialScene.fontSize / initialScene.canvasH) * (initialScene.canvasH ?? 520), 40, 800)
     : 240;
   const [fontSize, setFontSize] = useState(initialFontSize);
   const [tracking, setTracking] = useState(
@@ -467,7 +467,7 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
   const [lineLen, setLineLen] = useState(26);
   const [filled, setFilled] = useState(true);
   const [stroke, setStroke] = useState(2);
-  const [alpha, setAlpha] = useState(0.9);
+  const [alpha, setAlpha] = useState(initialScene?.particleAlpha ?? 0.9);
 
   const [repelRadius, setRepelRadius] = useState(28);
   const [repelStrength, setRepelStrength] = useState(0.9);
@@ -520,12 +520,13 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
         shapeMode === "lines" ? "line" :
         shapeMode === "mix" ? "mix" : "circle",
       particlePlacement: insideOutside,
+      particleAlpha: alpha,
       motionDamping: damping,
       ghostAlpha: textAlpha,
       background: { h: bgHue, s: bgSat, l: bgLit },
       particles: { h: baseHue, s: baseSat, l: baseLit },
     });
-  }, [baseHue, baseLit, baseSat, baselineY, bgHue, bgLit, bgSat, canvasH, canvasW, centerX, count, damping, fontFamily, fontSize, fontWeight, initialScene?.particleSpacingEm, insideOutside, onSceneChange, shapeMode, size, text, textAlpha, tracking]);
+  }, [alpha, baseHue, baseLit, baseSat, baselineY, bgHue, bgLit, bgSat, canvasH, canvasW, centerX, count, damping, fontFamily, fontSize, fontWeight, initialScene?.particleSpacingEm, insideOutside, onSceneChange, shapeMode, size, text, textAlpha, tracking]);
 
   // Split-on-collision
   const [splitOnHit, setSplitOnHit] = useState(false);
@@ -948,7 +949,7 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
     setCanvasW(option.width);
     setCanvasH(option.height);
     setBaselineY(Math.round(option.height * 0.58));
-    setFontSize(clamp(Math.round(option.height * 0.46), 40, 520));
+    setFontSize(clamp(Math.round(option.height * 0.46), 40, 800));
     setStatus(`Canvas ${option.label}`);
   };
 
@@ -1078,10 +1079,11 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
               {activeTab === "glyph" && (
                 <div className="flex flex-col gap-4">
                   <div className="grid grid-cols-2 gap-3">
-                    <NumberCommit label="Font size" value={fontSize} min={40} max={520} onCommit={(v) => setFontSize(Math.round(v))} />
+                    <NumberCommit label="Font size" value={fontSize} min={40} max={800} onCommit={(v) => setFontSize(Math.round(v))} />
                     <NumberCommit label="Weight" value={fontWeight} min={100} max={900} step={100} onCommit={(v) => setFontWeight(Math.round(v / 100) * 100)} />
                   </div>
                   <Slider label="Tracking" value={tracking} min={-20} max={60} step={1} onChange={setTracking} />
+                  <Slider label="Center X" value={centerX} min={0} max={canvasW} step={1} onChange={setCenterX} />
                   <Slider label="Baseline Y" value={baselineY} min={40} max={canvasH - 20} step={1} onChange={setBaselineY} />
                   <Slider label="Interline" value={interline} min={-40} max={160} step={1} onChange={setInterline} />
                   <TextCommit label="Font family" value={fontFamily} placeholder="e.g. Inter, Arial" onCommit={(v) => setFontFamily(v || fontFamily)} />
@@ -1095,7 +1097,7 @@ export default function ReactiveLetterParticles({ initialScene, onSceneChange }:
                     <NumberCommit label="Stroke" value={stroke} min={0.5} max={10} step={0.5} onCommit={setStroke} />
                   </div>
                   <Slider label="Alpha" value={alpha} min={0.1} max={1} step={0.01} onChange={setAlpha} />
-                  <Slider label="Shape size" value={size} min={1} max={28} step={1} onChange={setSize} />
+                  <Slider label="Shape size" value={size} min={0.5} max={28} step={0.1} onChange={setSize} />
                   <Slider label="Line length" value={lineLen} min={4} max={120} step={1} onChange={setLineLen} />
                 </div>
               )}
