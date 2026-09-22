@@ -434,6 +434,9 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
   const [particleShape, setParticleShape] = useState(
     initialScene?.particleShape === "mix" ? "circle" : initialScene?.particleShape ?? "circle"
   ); // circle | square | line
+  const [particlePlacement, setParticlePlacement] = useState<"inside" | "outside">(
+    initialScene?.particlePlacement ?? "inside"
+  );
   const [outlineOnly, setOutlineOnly] = useState(false);
   const [velocityDamping, setVelocityDamping] = useState(
     clamp(initialScene?.motionDamping ?? 0.9, 0.6, 0.99)
@@ -464,12 +467,13 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       particleSpacingEm: sampleStep / fontSize,
       particleSizeEm: particleSize / fontSize,
       particleShape: particleShape as "circle" | "square" | "line",
+      particlePlacement,
       motionDamping: velocityDamping,
       ghostAlpha: 0,
       background: { h: bgH, s: bgS, l: bgL },
       particles: { h: txH, s: txS, l: txL },
     });
-  }, [baselineRatio, bgH, bgL, bgS, bridgeReady, centerXRatio, fontFamily, fontSize, fontWeight, onSceneChange, particleShape, particleSize, sampleStep, text, tracking, txH, txL, txS, velocityDamping]);
+  }, [baselineRatio, bgH, bgL, bgS, bridgeReady, centerXRatio, fontFamily, fontSize, fontWeight, onSceneChange, particlePlacement, particleShape, particleSize, sampleStep, text, tracking, txH, txL, txS, velocityDamping]);
 
   // Upload font
   const [uploadedFontName, setUploadedFontName] = useState("MyUploadedFont");
@@ -555,6 +559,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
         jitter,
         particleSize,
         particleShape,
+        particlePlacement,
         outlineOnly,
       },
       field: {
@@ -614,6 +619,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       jitter,
       particleSize,
       particleShape,
+      particlePlacement,
       outlineOnly,
       flowFreq,
       flowCurl,
@@ -776,7 +782,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
   }
 
   function rebuildGlyphParticlesInto(pipe: Pipe, w: number, h: number) {
-    const { sampleStep, alphaThreshold, jitter, outlineOnly } =
+    const { sampleStep, alphaThreshold, jitter, outlineOnly, particlePlacement } =
       settings.glyphParticles;
 
     renderTypeToOffscreen(pipe, w, h);
@@ -801,20 +807,42 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       return data[ix] > alphaThreshold;
     };
 
-    for (let y = 1; y < h - 1; y += sampleStep) {
-      for (let x = 1; x < w - 1; x += sampleStep) {
+    let minX = w;
+    let minY = h;
+    let maxX = 0;
+    let maxY = 0;
+    let hasGlyph = false;
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        if (!isOn(x, y)) continue;
+        hasGlyph = true;
+        minX = Math.min(minX, x);
+        minY = Math.min(minY, y);
+        maxX = Math.max(maxX, x);
+        maxY = Math.max(maxY, y);
+      }
+    }
+
+    const padding = Math.max(24, Math.round(fontSize * 0.25));
+    const startX = particlePlacement === "outside" && hasGlyph ? Math.max(1, minX - padding) : 1;
+    const endX = particlePlacement === "outside" && hasGlyph ? Math.min(w - 1, maxX + padding) : w - 1;
+    const startY = particlePlacement === "outside" && hasGlyph ? Math.max(1, minY - padding) : 1;
+    const endY = particlePlacement === "outside" && hasGlyph ? Math.min(h - 1, maxY + padding) : h - 1;
+
+    for (let y = startY; y < endY; y += sampleStep) {
+      for (let x = startX; x < endX; x += sampleStep) {
         const a = data[(y * w + x) * 4 + 3];
-        if (a <= alphaThreshold) continue;
+        const inside = a > alphaThreshold;
+        if (particlePlacement === "inside" ? !inside : inside) continue;
 
         if (outlineOnly) {
-          if (
-            isOn(x - 1, y) &&
-            isOn(x + 1, y) &&
-            isOn(x, y - 1) &&
-            isOn(x, y + 1)
-          ) {
-            continue;
-          }
+          const neighbors = [
+            isOn(x - 1, y),
+            isOn(x + 1, y),
+            isOn(x, y - 1),
+            isOn(x, y + 1),
+          ];
+          if (particlePlacement === "inside" ? neighbors.every(Boolean) : !neighbors.some(Boolean)) continue;
         }
 
         const jx = (rand() - 0.5) * sampleStep * jitter;
@@ -841,6 +869,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       sampleStep: settings.glyphParticles.sampleStep,
       alphaThreshold: settings.glyphParticles.alphaThreshold,
       jitter: settings.glyphParticles.jitter,
+      particlePlacement: settings.glyphParticles.particlePlacement,
       outlineOnly: settings.glyphParticles.outlineOnly,
       seed: settings.noise.seed,
       w,
@@ -1027,6 +1056,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       lastG.sampleStep !== settings.glyphParticles.sampleStep ||
       lastG.alphaThreshold !== settings.glyphParticles.alphaThreshold ||
       lastG.jitter !== settings.glyphParticles.jitter ||
+      lastG.particlePlacement !== settings.glyphParticles.particlePlacement ||
       lastG.outlineOnly !== settings.glyphParticles.outlineOnly ||
       lastG.seed !== settings.noise.seed ||
       lastG.w !== w ||
@@ -1996,6 +2026,21 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
                 <div className="grid grid-cols-1 gap-4">
                   <div className="space-y-2">
                     <div className="text-sm font-extrabold">Type → particles</div>
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-xs font-bold text-white/85">Placement</span>
+                      <div className="grid grid-cols-2 gap-1">
+                        {(["inside", "outside"] as const).map((placement) => (
+                          <button
+                            key={placement}
+                            type="button"
+                            className={`px-3 py-1.5 text-xs capitalize ${particlePlacement === placement ? "bg-white text-black" : "bg-white/10 hover:bg-white/15"}`}
+                            onClick={() => setParticlePlacement(placement)}
+                          >
+                            {placement}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                     <Slider
                       label="Sample step (density)"
                       value={sampleStep}
