@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import type { DustSceneBridgeProps } from "@/lib/dust-scene";
 
 /**
  * Particle Type Distorter (single-file preview) + Recording
@@ -33,8 +34,11 @@ type GlyphParticle = {
   vx: number;
   vy: number;
   ang: number;
+  sampleSeed: number;
   hm?: number;
 };
+
+type NoiseDestination = "distortion" | "sampling" | "both";
 
 function clamp(v: number, a: number, b: number) {
   return Math.max(a, Math.min(b, v));
@@ -373,7 +377,7 @@ function pickRecorderMimeType() {
   return { mimeType: "", ext: "webm" };
 }
 
-export default function App() {
+export default function App({ initialScene, onSceneChange }: DustSceneBridgeProps = {}) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -407,23 +411,74 @@ export default function App() {
   const [panelOpen, setPanelOpen] = useState(true);
 
   // Colors
-  const [bgH, setBgH] = useState(240);
-  const [bgS, setBgS] = useState(12);
-  const [bgL, setBgL] = useState(6);
+  const [bgH, setBgH] = useState(initialScene?.background.h ?? 240);
+  const [bgS, setBgS] = useState(initialScene?.background.s ?? 12);
+  const [bgL, setBgL] = useState(initialScene?.background.l ?? 6);
 
-  const [txH, setTxH] = useState(0);
-  const [txS, setTxS] = useState(0);
-  const [txL, setTxL] = useState(100);
+  const [txH, setTxH] = useState(initialScene?.particles.h ?? 0);
+  const [txS, setTxS] = useState(initialScene?.particles.s ?? 0);
+  const [txL, setTxL] = useState(initialScene?.particles.l ?? 100);
 
   // Type
-  const [text, setText] = useState("DUST");
+  const [text, setText] = useState(initialScene?.text ?? "DUST");
   const [fontFamily, setFontFamily] = useState(
-    "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+    initialScene?.fontFamily ?? "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
   );
-  const [fontWeight, setFontWeight] = useState(850);
+  const [fontWeight, setFontWeight] = useState(initialScene?.fontWeight ?? 850);
   const [fontStyle, setFontStyle] = useState("normal");
-  const [fontSize, setFontSize] = useState(180);
-  const [tracking, setTracking] = useState(-2);
+  const [fontSize, setFontSize] = useState(initialScene?.fontSize ?? 180);
+  const [tracking, setTracking] = useState(initialScene?.tracking ?? -2);
+
+  // Type-to-particles. These must exist before the scene bridge effect reads them.
+  const [sampleStep, setSampleStep] = useState(5);
+  const [alphaThreshold, setAlphaThreshold] = useState(12);
+  const [jitter, setJitter] = useState(0.65);
+  const [particleSize, setParticleSize] = useState(1.6);
+  const [particleAlpha, setParticleAlpha] = useState(initialScene?.particleAlpha ?? 1);
+  const [particleShape, setParticleShape] = useState(
+    initialScene?.particleShape === "mix" ? "circle" : initialScene?.particleShape ?? "circle"
+  ); // circle | square | line
+  const [particlePlacement, setParticlePlacement] = useState<"inside" | "outside">(
+    initialScene?.particlePlacement ?? "inside"
+  );
+  const [outlineOnly, setOutlineOnly] = useState(false);
+  const [velocityDamping, setVelocityDamping] = useState(
+    clamp(initialScene?.motionDamping ?? 0.9, 0.6, 0.99)
+  );
+
+  const [centerXRatio, setCenterXRatio] = useState(initialScene?.centerX ?? 0.5);
+  const [baselineRatio, setBaselineRatio] = useState(initialScene?.baselineRatio ?? 0.56);
+  const [bridgeReady, setBridgeReady] = useState(!initialScene);
+  const initialCompositionAppliedRef = useRef(false);
+  const sceneCanvasRef = useRef({
+    canvasW: initialScene?.canvasW ?? 1280,
+    canvasH: initialScene?.canvasH ?? 520,
+  });
+
+  useEffect(() => {
+    if (!bridgeReady) return;
+    onSceneChange?.({
+      text,
+      fontFamily,
+      fontWeight,
+      fontSize,
+      tracking,
+      ...sceneCanvasRef.current,
+      fontScale: fontSize / sceneCanvasRef.current.canvasH,
+      trackingEm: fontSize ? tracking / fontSize : 0,
+      centerX: centerXRatio,
+      baselineRatio,
+      particleSpacingEm: sampleStep / fontSize,
+      particleSizeEm: particleSize / fontSize,
+      particleShape: particleShape as "circle" | "square" | "line",
+      particlePlacement,
+      particleAlpha,
+      motionDamping: velocityDamping,
+      ghostAlpha: 0,
+      background: { h: bgH, s: bgS, l: bgL },
+      particles: { h: txH, s: txS, l: txL },
+    });
+  }, [baselineRatio, bgH, bgL, bgS, bridgeReady, centerXRatio, fontFamily, fontSize, fontWeight, onSceneChange, particleAlpha, particlePlacement, particleShape, particleSize, sampleStep, text, tracking, txH, txL, txS, velocityDamping]);
 
   // Upload font
   const [uploadedFontName, setUploadedFontName] = useState("MyUploadedFont");
@@ -452,6 +507,10 @@ export default function App() {
   const [turbOctaves, setTurbOctaves] = useState(3);
 
   // Distort gating / mix
+  const [noiseDestination, setNoiseDestination] = useState<NoiseDestination>("distortion");
+  const [noiseSamplingAmount, setNoiseSamplingAmount] = useState(1);
+  const [noiseSamplingThreshold, setNoiseSamplingThreshold] = useState(0.5);
+  const [noiseSamplingInvert, setNoiseSamplingInvert] = useState(false);
   const [noiseApply, setNoiseApply] = useState(0.85);
   const [distortAmount, setDistortAmount] = useState(1.0);
 
@@ -468,14 +527,6 @@ export default function App() {
   const [heatB, setHeatB] = useState("#ff3d9a");
   const [heatIntensity, setHeatIntensity] = useState(1.0);
 
-  // Type-to-particles
-  const [sampleStep, setSampleStep] = useState(5);
-  const [alphaThreshold, setAlphaThreshold] = useState(12);
-  const [jitter, setJitter] = useState(0.65);
-  const [particleSize, setParticleSize] = useState(1.6);
-  const [particleShape, setParticleShape] = useState("circle"); // circle | square | line
-  const [outlineOnly, setOutlineOnly] = useState(false);
-
   // Field
   const [flowFreq, setFlowFreq] = useState(0.006);
   const [flowCurl, setFlowCurl] = useState(2.2);
@@ -485,8 +536,6 @@ export default function App() {
   const [mouseSoftness, setMouseSoftness] = useState(0.55);
   const [mouseMode, setMouseMode] = useState("repel"); // repel | attract
   const [returnToBase, setReturnToBase] = useState(0.08);
-  const [velocityDamping, setVelocityDamping] = useState(0.9);
-
   const bg = useMemo(() => hslToCss(bgH, bgS, bgL), [bgH, bgS, bgL]);
   const textColor = useMemo(() => hslToCss(txH, txS, txL), [txH, txS, txL]);
 
@@ -519,6 +568,8 @@ export default function App() {
         jitter,
         particleSize,
         particleShape,
+        particlePlacement,
+        particleAlpha,
         outlineOnly,
       },
       field: {
@@ -533,6 +584,12 @@ export default function App() {
         velocityDamping,
         noiseApply,
         distortAmount,
+      },
+      noiseRouting: {
+        destination: noiseDestination,
+        samplingAmount: noiseSamplingAmount,
+        samplingThreshold: noiseSamplingThreshold,
+        samplingInvert: noiseSamplingInvert,
       },
       noiseTex: {
         noiseType,
@@ -578,6 +635,8 @@ export default function App() {
       jitter,
       particleSize,
       particleShape,
+      particlePlacement,
+      particleAlpha,
       outlineOnly,
       flowFreq,
       flowCurl,
@@ -590,6 +649,10 @@ export default function App() {
       velocityDamping,
       noiseApply,
       distortAmount,
+      noiseDestination,
+      noiseSamplingAmount,
+      noiseSamplingThreshold,
+      noiseSamplingInvert,
       noiseType,
       turbScale,
       turbWarp,
@@ -733,14 +796,14 @@ export default function App() {
       settings.type.tracking
     );
 
-    const x0 = (w - metrics.width) * 0.5;
-    const y0 = h * 0.52 + metrics.ascent * 0.25;
+    const x0 = w * centerXRatio - metrics.width * 0.5;
+    const y0 = h * baselineRatio;
 
     drawTrackedText(tctx, settings.type.text, x0, y0, settings.type.tracking);
   }
 
   function rebuildGlyphParticlesInto(pipe: Pipe, w: number, h: number) {
-    const { sampleStep, alphaThreshold, jitter, outlineOnly } =
+    const { sampleStep, alphaThreshold, jitter, outlineOnly, particlePlacement } =
       settings.glyphParticles;
 
     renderTypeToOffscreen(pipe, w, h);
@@ -765,20 +828,42 @@ export default function App() {
       return data[ix] > alphaThreshold;
     };
 
-    for (let y = 1; y < h - 1; y += sampleStep) {
-      for (let x = 1; x < w - 1; x += sampleStep) {
+    let minX = w;
+    let minY = h;
+    let maxX = 0;
+    let maxY = 0;
+    let hasGlyph = false;
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        if (!isOn(x, y)) continue;
+        hasGlyph = true;
+        minX = Math.min(minX, x);
+        minY = Math.min(minY, y);
+        maxX = Math.max(maxX, x);
+        maxY = Math.max(maxY, y);
+      }
+    }
+
+    const padding = Math.max(24, Math.round(fontSize * 0.25));
+    const startX = particlePlacement === "outside" && hasGlyph ? Math.max(1, minX - padding) : 1;
+    const endX = particlePlacement === "outside" && hasGlyph ? Math.min(w - 1, maxX + padding) : w - 1;
+    const startY = particlePlacement === "outside" && hasGlyph ? Math.max(1, minY - padding) : 1;
+    const endY = particlePlacement === "outside" && hasGlyph ? Math.min(h - 1, maxY + padding) : h - 1;
+
+    for (let y = startY; y < endY; y += sampleStep) {
+      for (let x = startX; x < endX; x += sampleStep) {
         const a = data[(y * w + x) * 4 + 3];
-        if (a <= alphaThreshold) continue;
+        const inside = a > alphaThreshold;
+        if (particlePlacement === "inside" ? !inside : inside) continue;
 
         if (outlineOnly) {
-          if (
-            isOn(x - 1, y) &&
-            isOn(x + 1, y) &&
-            isOn(x, y - 1) &&
-            isOn(x, y + 1)
-          ) {
-            continue;
-          }
+          const neighbors = [
+            isOn(x - 1, y),
+            isOn(x + 1, y),
+            isOn(x, y - 1),
+            isOn(x, y + 1),
+          ];
+          if (particlePlacement === "inside" ? neighbors.every(Boolean) : !neighbors.some(Boolean)) continue;
         }
 
         const jx = (rand() - 0.5) * sampleStep * jitter;
@@ -792,6 +877,7 @@ export default function App() {
           vx: 0,
           vy: 0,
           ang: rand() * Math.PI * 2,
+          sampleSeed: rand(),
           hm: 0,
         });
       }
@@ -802,9 +888,12 @@ export default function App() {
       text: settings.type.text,
       font: settings.type.font,
       tracking: settings.type.tracking,
+      centerXRatio,
+      baselineRatio,
       sampleStep: settings.glyphParticles.sampleStep,
       alphaThreshold: settings.glyphParticles.alphaThreshold,
       jitter: settings.glyphParticles.jitter,
+      particlePlacement: settings.glyphParticles.particlePlacement,
       outlineOnly: settings.glyphParticles.outlineOnly,
       seed: settings.noise.seed,
       w,
@@ -988,9 +1077,12 @@ export default function App() {
       lastG.text !== settings.type.text ||
       lastG.font !== settings.type.font ||
       lastG.tracking !== settings.type.tracking ||
+      lastG.centerXRatio !== centerXRatio ||
+      lastG.baselineRatio !== baselineRatio ||
       lastG.sampleStep !== settings.glyphParticles.sampleStep ||
       lastG.alphaThreshold !== settings.glyphParticles.alphaThreshold ||
       lastG.jitter !== settings.glyphParticles.jitter ||
+      lastG.particlePlacement !== settings.glyphParticles.particlePlacement ||
       lastG.outlineOnly !== settings.glyphParticles.outlineOnly ||
       lastG.seed !== settings.noise.seed ||
       lastG.w !== w ||
@@ -1057,6 +1149,19 @@ export default function App() {
       const w = Math.max(480, Math.floor(rect.width));
       const h = Math.max(260, Math.floor(rect.height));
       const dpr = Math.min(2, window.devicePixelRatio || 1);
+
+      sceneCanvasRef.current = { canvasW: w, canvasH: h };
+      if (initialScene && !initialCompositionAppliedRef.current) {
+        const scale = initialScene.fontScale ?? initialScene.fontSize / initialScene.canvasH;
+        const nextFontSize = Math.max(24, Math.min(800, Math.round(scale * h)));
+        const trackingScale = initialScene.trackingEm ?? initialScene.tracking / initialScene.fontSize;
+        initialCompositionAppliedRef.current = true;
+        setFontSize(nextFontSize);
+        setTracking(Math.round(trackingScale * nextFontSize * 100) / 100);
+        setSampleStep(clamp(Math.round((initialScene.particleSpacingEm ?? 5 / 180) * nextFontSize), 2, 32));
+        setParticleSize(clamp((initialScene.particleSizeEm ?? 1.6 / 180) * nextFontSize, 0.5, 28));
+        setBridgeReady(true);
+      }
 
       c.width = Math.floor(w * dpr);
       c.height = Math.floor(h * dpr);
@@ -1256,8 +1361,26 @@ export default function App() {
         return (d[idx] * 0.2126 + d[idx + 1] * 0.7152 + d[idx + 2] * 0.0722) / 255;
       };
 
+      // Sampling uses the texture's local range, rather than absolute screen
+      // brightness, so it behaves consistently on light and dark backgrounds.
+      let fieldMin = 1;
+      let fieldMax = 0;
+      if (fieldData) {
+        const d = fieldData.data;
+        for (let i = 0; i < d.length; i += 4) {
+          const value = (d[i] * 0.2126 + d[i + 1] * 0.7152 + d[i + 2] * 0.0722) / 255;
+          fieldMin = Math.min(fieldMin, value);
+          fieldMax = Math.max(fieldMax, value);
+        }
+      }
+      const sampleNoiseUnit = (x: number, y: number) => {
+        const value = sampleNoiseLuma(x, y);
+        return clamp((value - fieldMin) / Math.max(0.001, fieldMax - fieldMin), 0, 1);
+      };
+
       // Background
       D.setTransform(1, 0, 0, 1, 0, 0);
+      D.globalAlpha = 1;
       D.clearRect(0, 0, W, H);
       D.fillStyle = settings.bg;
       D.fillRect(0, 0, W, H);
@@ -1278,6 +1401,9 @@ export default function App() {
       const my = hasPointer ? ptr.ny * H : H * 0.5;
 
       const field = settings.field;
+      const routing = settings.noiseRouting;
+      const noiseToDistortion = routing.destination !== "sampling";
+      const noiseToSampling = routing.destination !== "distortion";
       const sign = field.mouseMode === "repel" ? 1 : -1;
 
       // Simulate particles (in-place) for this pipe
@@ -1327,12 +1453,14 @@ export default function App() {
           field.flowStrength *
           field.noiseApply *
           field.distortAmount *
+          (noiseToDistortion ? 1 : 0) *
           textureEnergy;
         const fy =
           normY *
           field.flowStrength *
           field.noiseApply *
           field.distortAmount *
+          (noiseToDistortion ? 1 : 0) *
           textureEnergy;
 
         // Mouse interaction stays local and is layered on top of the global noise.
@@ -1364,14 +1492,27 @@ export default function App() {
       const useHeat = settings.heatmap.heatmapOn;
       const ps = settings.glyphParticles.particleSize;
       const shape = settings.glyphParticles.particleShape;
+      const isParticleVisible = (p: GlyphParticle) => {
+        if (!noiseToSampling) return true;
+        const noiseValue = sampleNoiseUnit(p.x0, p.y0);
+        const passes = routing.samplingInvert
+          ? noiseValue <= routing.samplingThreshold
+          : noiseValue >= routing.samplingThreshold;
+        const visibility = passes ? 1 : 1 - routing.samplingAmount;
+        return p.sampleSeed <= visibility;
+      };
+      const activeParticleCount = noiseToSampling
+        ? pts.reduce((count, particle) => count + (isParticleVisible(particle) ? 1 : 0), 0)
+        : pts.length;
 
-      D.globalAlpha = 1;
+      D.globalAlpha = settings.glyphParticles.particleAlpha;
       D.fillStyle = settings.textColor;
       D.strokeStyle = settings.textColor;
 
       if (shape === "circle") {
         for (let i = 0; i < pts.length; i++) {
           const p = pts[i];
+          if (!isParticleVisible(p)) continue;
           if (useHeat) {
             D.fillStyle = lerpColor(settings.heatmap.heatA, settings.heatmap.heatB, p.hm || 0);
           }
@@ -1382,6 +1523,7 @@ export default function App() {
       } else if (shape === "square") {
         for (let i = 0; i < pts.length; i++) {
           const p = pts[i];
+          if (!isParticleVisible(p)) continue;
           if (useHeat) {
             D.fillStyle = lerpColor(settings.heatmap.heatA, settings.heatmap.heatB, p.hm || 0);
           }
@@ -1391,6 +1533,7 @@ export default function App() {
         D.lineWidth = Math.max(1, ps);
         for (let i = 0; i < pts.length; i++) {
           const p = pts[i];
+          if (!isParticleVisible(p)) continue;
           if (useHeat) {
             D.strokeStyle = lerpColor(settings.heatmap.heatA, settings.heatmap.heatB, p.hm || 0);
           }
@@ -1413,10 +1556,15 @@ export default function App() {
       // Small HUD only on screen (optional)
       if (D === screenCtx) {
         D.save();
+        D.globalAlpha = 1;
         D.fillStyle = "rgba(255,255,255,0.65)";
         D.font = "700 12px ui-sans-serif, system-ui";
         D.textAlign = "left";
-        D.fillText(`particles: ${pts.length}`, 14, 22);
+        D.fillText(
+          noiseToSampling ? `particles: ${activeParticleCount} / ${pts.length}` : `particles: ${pts.length}`,
+          14,
+          22
+        );
         if (isRecording) {
           D.fillStyle = "rgba(255,70,70,0.9)";
           D.fillText(`REC ${EXPORT_W}×${EXPORT_H} @ ${recFps}fps`, 14, 38);
@@ -1459,7 +1607,7 @@ export default function App() {
 
     rafRef.current = requestAnimationFrame(frame);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [settings, isRecording, recFps]);
+  }, [settings, isRecording, recFps, centerXRatio, baselineRatio]);
 
   return (
     <div className="h-[calc(100dvh-52px)] min-h-[560px] bg-black text-white overflow-hidden">
@@ -1692,23 +1840,64 @@ export default function App() {
                   </div>
 
                   <div className="space-y-2">
-                    <div className="text-sm font-extrabold">Noise → Distorter</div>
-                    <Slider
-                      label="Noise apply"
-                      value={noiseApply}
-                      min={0}
-                      max={2}
-                      step={0.01}
-                      onChange={setNoiseApply}
+                    <div className="text-sm font-extrabold">Noise destination</div>
+                    <Select
+                      label="Route to"
+                      value={noiseDestination}
+                      onChange={(value) => setNoiseDestination(value as NoiseDestination)}
+                      options={[
+                        { value: "distortion", label: "Distortion" },
+                        { value: "sampling", label: "Sampling" },
+                        { value: "both", label: "Both" },
+                      ]}
                     />
-                    <Slider
-                      label="Distortion amount"
-                      value={distortAmount}
-                      min={0}
-                      max={3}
-                      step={0.01}
-                      onChange={setDistortAmount}
-                    />
+
+                    {noiseDestination !== "sampling" && (
+                      <>
+                        <Slider
+                          label="Noise apply"
+                          value={noiseApply}
+                          min={0}
+                          max={2}
+                          step={0.01}
+                          onChange={setNoiseApply}
+                        />
+                        <Slider
+                          label="Distortion amount"
+                          value={distortAmount}
+                          min={0}
+                          max={3}
+                          step={0.01}
+                          onChange={setDistortAmount}
+                        />
+                      </>
+                    )}
+
+                    {noiseDestination !== "distortion" && (
+                      <>
+                        <Slider
+                          label="Sampling amount"
+                          value={noiseSamplingAmount}
+                          min={0}
+                          max={1}
+                          step={0.01}
+                          onChange={setNoiseSamplingAmount}
+                        />
+                        <Slider
+                          label="Sampling threshold"
+                          value={noiseSamplingThreshold}
+                          min={0}
+                          max={1}
+                          step={0.01}
+                          onChange={setNoiseSamplingThreshold}
+                        />
+                        <Toggle
+                          label="Invert sampling"
+                          checked={noiseSamplingInvert}
+                          onChange={setNoiseSamplingInvert}
+                        />
+                      </>
+                    )}
 
                     <div className="mt-3 space-y-3">
                       <div className="text-sm font-extrabold">Noise overlay</div>
@@ -1883,6 +2072,24 @@ export default function App() {
                       step={1}
                       onChange={setTracking}
                     />
+                    <Slider
+                      label="Position X"
+                      value={centerXRatio}
+                      min={0.05}
+                      max={0.95}
+                      step={0.01}
+                      onChange={setCenterXRatio}
+                      rightLabel={`${Math.round(centerXRatio * 100)}%`}
+                    />
+                    <Slider
+                      label="Position Y"
+                      value={baselineRatio}
+                      min={0.1}
+                      max={0.9}
+                      step={0.01}
+                      onChange={setBaselineRatio}
+                      rightLabel={`${Math.round(baselineRatio * 100)}%`}
+                    />
                   </div>
 
                   <div className="space-y-2">
@@ -1947,11 +2154,26 @@ export default function App() {
                 <div className="grid grid-cols-1 gap-4">
                   <div className="space-y-2">
                     <div className="text-sm font-extrabold">Type → particles</div>
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-xs font-bold text-white/85">Placement</span>
+                      <div className="grid grid-cols-2 gap-1">
+                        {(["inside", "outside"] as const).map((placement) => (
+                          <button
+                            key={placement}
+                            type="button"
+                            className={`px-3 py-1.5 text-xs capitalize ${particlePlacement === placement ? "bg-white text-black" : "bg-white/10 hover:bg-white/15"}`}
+                            onClick={() => setParticlePlacement(placement)}
+                          >
+                            {placement}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                     <Slider
                       label="Sample step (density)"
                       value={sampleStep}
                       min={2}
-                      max={12}
+                      max={32}
                       step={1}
                       onChange={setSampleStep}
                     />
@@ -1974,8 +2196,8 @@ export default function App() {
                     <Slider
                       label="Particle size"
                       value={particleSize}
-                      min={0.6}
-                      max={4}
+                      min={0.5}
+                      max={28}
                       step={0.05}
                       onChange={setParticleSize}
                     />
@@ -2147,6 +2369,7 @@ export default function App() {
                     <Slider label="H" value={txH} min={0} max={360} step={1} onChange={setTxH} />
                     <Slider label="S" value={txS} min={0} max={100} step={1} onChange={setTxS} />
                     <Slider label="L" value={txL} min={0} max={100} step={1} onChange={setTxL} />
+                    <Slider label="Opacity" value={particleAlpha} min={0.05} max={1} step={0.01} onChange={setParticleAlpha} />
                     <div className="text-xs text-white/70">{textColor}</div>
                   </div>
                   <div className="space-y-2">
