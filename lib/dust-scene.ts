@@ -18,6 +18,9 @@ export type DustScene = {
   trackingEm: number;
   centerX: number;
   baselineRatio: number;
+  particleSpacingEm: number;
+  particleSizeEm: number;
+  ghostAlpha: number;
   background: DustHsl;
   particles: DustHsl;
 };
@@ -39,6 +42,9 @@ export const defaultDustScene: DustScene = {
   trackingEm: -2 / 180,
   centerX: 0.5,
   baselineRatio: 0.56,
+  particleSpacingEm: 5 / 180,
+  particleSizeEm: 1.6 / 180,
+  ghostAlpha: 0,
   background: { h: 240, s: 12, l: 6 },
   particles: { h: 0, s: 0, l: 100 },
 };
