@@ -6,6 +6,7 @@ export type DustHsl = {
 };
 
 export type DustParticleShape = "circle" | "square" | "line" | "mix";
+export type DustParticlePlacement = "inside" | "outside";
 
 export type DustScene = {
   text: string;
@@ -24,6 +25,7 @@ export type DustScene = {
   particleSpacingEm: number;
   particleSizeEm: number;
   particleShape: DustParticleShape;
+  particlePlacement: DustParticlePlacement;
   /** Per-frame velocity retention. Both engines use the same damping model. */
   motionDamping: number;
   ghostAlpha: number;
@@ -51,6 +53,7 @@ export const defaultDustScene: DustScene = {
   particleSpacingEm: 5 / 180,
   particleSizeEm: 1.6 / 180,
   particleShape: "circle",
+  particlePlacement: "inside",
   motionDamping: 0.9,
   ghostAlpha: 0,
   background: { h: 240, s: 12, l: 6 },
