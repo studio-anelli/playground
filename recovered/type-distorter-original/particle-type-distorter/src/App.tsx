@@ -434,6 +434,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
   const [alphaThreshold, setAlphaThreshold] = useState(12);
   const [jitter, setJitter] = useState(0.65);
   const [particleSize, setParticleSize] = useState(1.6);
+  const [particleAlpha, setParticleAlpha] = useState(initialScene?.particleAlpha ?? 1);
   const [particleShape, setParticleShape] = useState(
     initialScene?.particleShape === "mix" ? "circle" : initialScene?.particleShape ?? "circle"
   ); // circle | square | line
@@ -445,8 +446,8 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
     clamp(initialScene?.motionDamping ?? 0.9, 0.6, 0.99)
   );
 
-  const [centerXRatio] = useState(initialScene?.centerX ?? 0.5);
-  const [baselineRatio] = useState(initialScene?.baselineRatio ?? 0.56);
+  const [centerXRatio, setCenterXRatio] = useState(initialScene?.centerX ?? 0.5);
+  const [baselineRatio, setBaselineRatio] = useState(initialScene?.baselineRatio ?? 0.56);
   const [bridgeReady, setBridgeReady] = useState(!initialScene);
   const initialCompositionAppliedRef = useRef(false);
   const sceneCanvasRef = useRef({
@@ -471,12 +472,13 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       particleSizeEm: particleSize / fontSize,
       particleShape: particleShape as "circle" | "square" | "line",
       particlePlacement,
+      particleAlpha,
       motionDamping: velocityDamping,
       ghostAlpha: 0,
       background: { h: bgH, s: bgS, l: bgL },
       particles: { h: txH, s: txS, l: txL },
     });
-  }, [baselineRatio, bgH, bgL, bgS, bridgeReady, centerXRatio, fontFamily, fontSize, fontWeight, onSceneChange, particlePlacement, particleShape, particleSize, sampleStep, text, tracking, txH, txL, txS, velocityDamping]);
+  }, [baselineRatio, bgH, bgL, bgS, bridgeReady, centerXRatio, fontFamily, fontSize, fontWeight, onSceneChange, particleAlpha, particlePlacement, particleShape, particleSize, sampleStep, text, tracking, txH, txL, txS, velocityDamping]);
 
   // Upload font
   const [uploadedFontName, setUploadedFontName] = useState("MyUploadedFont");
@@ -567,6 +569,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
         particleSize,
         particleShape,
         particlePlacement,
+        particleAlpha,
         outlineOnly,
       },
       field: {
@@ -633,6 +636,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       particleSize,
       particleShape,
       particlePlacement,
+      particleAlpha,
       outlineOnly,
       flowFreq,
       flowCurl,
@@ -1145,13 +1149,13 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       sceneCanvasRef.current = { canvasW: w, canvasH: h };
       if (initialScene && !initialCompositionAppliedRef.current) {
         const scale = initialScene.fontScale ?? initialScene.fontSize / initialScene.canvasH;
-        const nextFontSize = Math.max(24, Math.min(520, Math.round(scale * h)));
+        const nextFontSize = Math.max(24, Math.min(800, Math.round(scale * h)));
         const trackingScale = initialScene.trackingEm ?? initialScene.tracking / initialScene.fontSize;
         initialCompositionAppliedRef.current = true;
         setFontSize(nextFontSize);
         setTracking(Math.round(trackingScale * nextFontSize * 100) / 100);
         setSampleStep(clamp(Math.round((initialScene.particleSpacingEm ?? 5 / 180) * nextFontSize), 2, 32));
-        setParticleSize(clamp((initialScene.particleSizeEm ?? 1.6 / 180) * nextFontSize, 0.6, 20));
+        setParticleSize(clamp((initialScene.particleSizeEm ?? 1.6 / 180) * nextFontSize, 0.5, 28));
         setBridgeReady(true);
       }
 
@@ -1372,6 +1376,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
 
       // Background
       D.setTransform(1, 0, 0, 1, 0, 0);
+      D.globalAlpha = 1;
       D.clearRect(0, 0, W, H);
       D.fillStyle = settings.bg;
       D.fillRect(0, 0, W, H);
@@ -1496,7 +1501,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
         ? pts.reduce((count, particle) => count + (isParticleVisible(particle) ? 1 : 0), 0)
         : pts.length;
 
-      D.globalAlpha = 1;
+      D.globalAlpha = settings.glyphParticles.particleAlpha;
       D.fillStyle = settings.textColor;
       D.strokeStyle = settings.textColor;
 
@@ -1547,6 +1552,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
       // Small HUD only on screen (optional)
       if (D === screenCtx) {
         D.save();
+        D.globalAlpha = 1;
         D.fillStyle = "rgba(255,255,255,0.65)";
         D.font = "700 12px ui-sans-serif, system-ui";
         D.textAlign = "left";
@@ -2062,6 +2068,24 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
                       step={1}
                       onChange={setTracking}
                     />
+                    <Slider
+                      label="Position X"
+                      value={centerXRatio}
+                      min={0.05}
+                      max={0.95}
+                      step={0.01}
+                      onChange={setCenterXRatio}
+                      rightLabel={`${Math.round(centerXRatio * 100)}%`}
+                    />
+                    <Slider
+                      label="Position Y"
+                      value={baselineRatio}
+                      min={0.1}
+                      max={0.9}
+                      step={0.01}
+                      onChange={setBaselineRatio}
+                      rightLabel={`${Math.round(baselineRatio * 100)}%`}
+                    />
                   </div>
 
                   <div className="space-y-2">
@@ -2168,8 +2192,8 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
                     <Slider
                       label="Particle size"
                       value={particleSize}
-                      min={0.6}
-                      max={20}
+                      min={0.5}
+                      max={28}
                       step={0.05}
                       onChange={setParticleSize}
                     />
@@ -2341,6 +2365,7 @@ export default function App({ initialScene, onSceneChange }: DustSceneBridgeProp
                     <Slider label="H" value={txH} min={0} max={360} step={1} onChange={setTxH} />
                     <Slider label="S" value={txS} min={0} max={100} step={1} onChange={setTxS} />
                     <Slider label="L" value={txL} min={0} max={100} step={1} onChange={setTxL} />
+                    <Slider label="Opacity" value={particleAlpha} min={0.05} max={1} step={0.01} onChange={setParticleAlpha} />
                     <div className="text-xs text-white/70">{textColor}</div>
                   </div>
                   <div className="space-y-2">
