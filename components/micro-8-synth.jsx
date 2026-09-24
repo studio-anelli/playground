@@ -490,7 +490,6 @@ export default function SimpleSubtractiveSynth() {
                       className={`rounded-full border px-3 py-1 text-xs font-semibold ${selectedOutput === index ? "bg-[#ffb000] text-black border-[#ffb000]" : "border-[#ffb000] text-[#ffb000]"}`}>
                       ◉ ENV {index + 1} OUT
                     </button>
-                    <span className="text-xs opacity-70">Drag to an input, or select output then input.</span>
                   </div>
                   <Knob label="ATTACK" value={env.a} min={0} max={2} step={0.005} onChange={(v)=>changeEnvelope(index,"a",v)} />
                   <Knob label="DECAY" value={env.d} min={0} max={2} step={0.005} onChange={(v)=>changeEnvelope(index,"d",v)} />
@@ -503,7 +502,7 @@ export default function SimpleSubtractiveSynth() {
 
           <div className="micro8-patch p-4 pt-0">
             <RetroCard title="PATCH BAY">
-              <p className="col-span-full text-xs opacity-70">Each output can feed several inputs. Amount is bipolar: negative values invert the movement. Keep at least one VCA route to hear notes.</p>
+              <p className="col-span-full text-xs opacity-70">Drag an output to an input, or click both. Amount can be positive or negative. A VCA patch is needed for sound.</p>
               <div className="col-span-full flex flex-wrap gap-3">
                 {Object.entries(destinations).map(([destination, label]) => (
                   <button key={destination} type="button"
@@ -572,8 +571,8 @@ export default function SimpleSubtractiveSynth() {
                   <div className="text-right text-xs tabular-nums mb-2">{st.semi}</div>
 
                   <div className="flex items-center gap-2 text-[10px]">
-                    <ToggleTiny active={!!st.accent} onClick={()=>updateStep(i,{accent:!st.accent})} label="ACC" activeColor="#ffb000" />
-                    <ToggleTiny active={!!st.slide} onClick={()=>updateStep(i,{slide:!st.slide})} label="SLIDE" activeColor="#00e38a" />
+                    <ToggleTiny active={!!st.accent} onClick={()=>updateStep(i,{accent:!st.accent})} label="ACC" activeColor="#d53b31" />
+                    <ToggleTiny active={!!st.slide} onClick={()=>updateStep(i,{slide:!st.slide})} label="SLIDE" activeColor="#d53b31" />
                   </div>
                 </div>
               ))}
