@@ -31,6 +31,7 @@
 .micro8-panel .micro8-oscillators > div, .micro8-panel .micro8-modules > div, .micro8-panel .micro8-drive > div,
 .micro8-panel .micro8-envelopes > div, .micro8-panel .micro8-patch > div { min-width: 0; min-height: 174px; padding: 10px 11px; border: 0; border-radius: 0; background: #242525; }
 .micro8-panel .micro8-envelopes > div, .micro8-panel .micro8-patch > div { min-height: 195px; }
+.micro8-panel .micro8-envelopes > div { height: 100%; }
 .micro8-panel .micro8-patch > div { background: #292a2a; }
 .micro8-panel .micro8-oscillators > div > div:first-child, .micro8-panel .micro8-modules > div > div:first-child,
 .micro8-panel .micro8-drive > div > div:first-child, .micro8-panel .micro8-envelopes > div > div:first-child,
@@ -66,6 +67,7 @@
 .micro8-panel .micro8-transport > div:first-child { white-space: nowrap; }
 .micro8-panel .micro8-transport .w-24, .micro8-panel .micro8-sequencer .w-24 { width: auto; min-width: 62px; }
 .micro8-panel .micro8-transport .w-16, .micro8-panel .micro8-sequencer .w-16 { width: 58px; }
+.micro8-panel .micro8-transport .w-16, .micro8-panel .micro8-sequencer .w-16 { white-space: nowrap; }
 .micro8-panel .micro8-transport .ml-3 { margin-left: 3px; font-family: monospace; font-size: 11px; }
 .micro8-panel .w-24.flex-col { width: 57px; }
 .micro8-panel .w-16.h-16 { width: 42px; height: 42px; border: 2px solid #84847f; background: #111; box-shadow: 0 2px 2px #000; }
