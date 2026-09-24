@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import "./micro-8-synth.css";
 
 // MICRO-8 — Dual VCO Subtractive Synth (Retro panel)
 // New in this revision:
@@ -419,10 +420,10 @@ export default function SimpleSubtractiveSynth() {
     current.map((env, i) => i === index ? { ...env, [field]: value } : env));
 
   return (
-    <div className="min-h-screen w-full bg-[#0e0f0f] text-[#ece6d6] p-6">
-      <div className="max-w-5xl mx-auto grid gap-4">
+    <div className="micro8 w-full bg-[#0e0f0f] text-[#ece6d6]">
+      <div className="micro8-inner mx-auto grid">
         <header className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold tracking-tight">MICRO-8 — Dual VCO Synth</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">MICRO—8 <span>DUAL VCO / PATCH SYNTH</span></h1>
           {!ctxStarted ? (
             <button onClick={initAudio} className="px-4 py-2 rounded bg-[#ffb000] text-black font-semibold shadow">
               POWER
@@ -440,9 +441,9 @@ export default function SimpleSubtractiveSynth() {
         )}
 
         {/* Panel */}
-        <div className="rounded-2xl border-4 border-[#1b1c1c] bg-[#121313] shadow-[inset_0_8px_0_#1b1c1c]">
+        <div className="micro8-panel border-4 border-[#1b1c1c] bg-[#121313]">
           {/* Transport strip */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-center p-4 border-b border-[#1b1c1c] bg-[#161717]">
+          <div className="micro8-transport grid grid-cols-1 md:grid-cols-3 gap-3 items-center p-4 border-b border-[#1b1c1c] bg-[#161717]">
             <div className="flex items-center gap-2">
               <SwitchButton onClick={startSeq} disabled={!ctxStarted || isPlaying} label="PLAY" activeColor="#00e38a" />
               <SwitchButton onClick={stopSeq} disabled={!ctxStarted || !isPlaying} label="STOP" activeColor="#ff4d57" />
@@ -453,7 +454,7 @@ export default function SimpleSubtractiveSynth() {
           </div>
 
           {/* VCOs */}
-          <div className="grid md:grid-cols-2 gap-4 p-4">
+          <div className="micro8-oscillators grid md:grid-cols-2 gap-4 p-4">
             <RetroCard title="VCO 1">
               <WaveSwitch value={vco1.type} onChange={(t)=>setVco1(v=>({...v,type:t}))} options={["sawtooth","square","triangle","sine"]} />
               <div className="flex flex-wrap items-center gap-6">
@@ -474,12 +475,12 @@ export default function SimpleSubtractiveSynth() {
           </div>
 
           {/* Filter and patchable envelopes */}
-          <div className="grid md:grid-cols-2 gap-4 p-4">
+          <div className="micro8-modules grid md:grid-cols-2 gap-4 p-4">
             <RetroCard title="LOW PASS FILTER">
               <Knob label="CUTOFF" value={filter.cutoff} min={60} max={10000} step={1} onChange={(val)=>setFilter(f=>({...f,cutoff:val}))} />
               <Knob label="RESONANCE" value={filter.resonance} min={0} max={1} step={0.01} onChange={(val)=>setFilter(f=>({...f,resonance:val}))} />
             </RetroCard>
-            <div className="grid gap-4">
+            <div className="micro8-envelopes grid gap-4">
               {envelopes.map((env, index) => (
                 <RetroCard key={index} title={`ENV ${index + 1} / ADSR`}>
                   <div className="col-span-full flex flex-wrap items-center gap-3">
@@ -500,7 +501,7 @@ export default function SimpleSubtractiveSynth() {
             </div>
           </div>
 
-          <div className="p-4 pt-0">
+          <div className="micro8-patch p-4 pt-0">
             <RetroCard title="PATCH BAY">
               <p className="col-span-full text-xs opacity-70">Each output can feed several inputs. Amount is bipolar: negative values invert the movement. Keep at least one VCA route to hear notes.</p>
               <div className="col-span-full flex flex-wrap gap-3">
@@ -532,7 +533,7 @@ export default function SimpleSubtractiveSynth() {
           </div>
 
           {/* Overdrive */}
-          <div className="p-4">
+          <div className="micro8-drive p-4">
             <RetroCard title="OVERDRIVE">
               <Knob label="DRIVE" value={overdrive.drive} min={0} max={1} step={0.01} onChange={(v)=>setOverdrive(o=>({...o,drive:v}))} />
               <Knob label="MIX" value={overdrive.mix} min={0} max={1} step={0.01} onChange={(v)=>setOverdrive(o=>({...o,mix:v}))} />
@@ -540,7 +541,7 @@ export default function SimpleSubtractiveSynth() {
           </div>
 
           {/* Sequencer */}
-          <div className="p-4 border-t border-[#1b1c1c]">
+          <div className="micro8-sequencer p-4 border-t border-[#1b1c1c]">
             <div className="flex flex-wrap items-center gap-6 mb-4">
               <RetroSelect label="BASE" value={baseNote} onChange={(v)=>setBaseNote(v)} options={noteOptions} />
               <RetroSlider label="TRANSPOSE" value={transpose} min={-24} max={24} step={1} onChange={(v)=>setTranspose(v)} suffix="st" />
@@ -580,7 +581,6 @@ export default function SimpleSubtractiveSynth() {
           </div>
         </div>
 
-        <p className="text-xs opacity-70 text-center pt-2">Tip: Load ACID-8, set BPM 132, Cutoff ~900, Res 0.6, Drive 0.45, Mix 0.5. ✳</p>
       </div>
     </div>
   );
