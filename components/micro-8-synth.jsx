@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import "./micro-8-synth.css";
 
 // MICRO-8 — Dual VCO Subtractive Synth (Retro panel)
 // New in this revision:
@@ -10,6 +11,12 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
 const midiToFreq = (m) => 440 * Math.pow(2, (m - 69) / 12);
+const destinations = { vca: "VCA LEVEL", cutoff: "VCF CUTOFF", pitch: "VCO PITCH" };
+const modulationScale = { vca: 1, cutoff: 6000, pitch: 1200 };
+const initialEnvelopes = [
+  { a: 0.01, d: 0.15, s: 0.6, r: 0.25 },
+  { a: 0.01, d: 0.2, s: 0.05, r: 0.2 },
+];
 
 export default function SimpleSubtractiveSynth() {
   // AUDIO GRAPH
@@ -27,12 +34,16 @@ export default function SimpleSubtractiveSynth() {
   const shaperRef = useRef(null);
   const vcaRef = useRef(null);
   const outGainRef = useRef(null);
+  const envSourcesRef = useRef([]);
+  const routesRef = useRef(new Map());
 
   // PARAM STATE
   const [vco1, setVco1] = useState({ type: "sawtooth", level: 0.7, detune: 0, footage: "8'" });
   const [vco2, setVco2] = useState({ type: "square", level: 0.5, detune: 0, footage: "8'" });
   const [filter, setFilter] = useState({ cutoff: 1200, resonance: 0.2 });
-  const [adsr, setAdsr] = useState({ a: 0.01, d: 0.15, s: 0.6, r: 0.25 });
+  const [envelopes, setEnvelopes] = useState(initialEnvelopes);
+  const [patches, setPatches] = useState([{ env: 0, destination: "vca", amount: 90 }]);
+  const [selectedOutput, setSelectedOutput] = useState(null);
   const [overdrive, setOverdrive] = useState({ drive: 0.3, mix: 0.4 });
   const [master, setMaster] = useState(0.8);
 
@@ -53,7 +64,7 @@ export default function SimpleSubtractiveSynth() {
   const transposeRef = useRef(transpose);
   const baseNoteRef = useRef(baseNote);
   const glideRef = useRef(glide);
-  const adsrRef = useRef(adsr);
+  const envelopesRef = useRef(envelopes);
   const vco1FootRef = useRef("8'");
   const vco2FootRef = useRef("8'");
   const overdriveRef = useRef(overdrive);
@@ -63,7 +74,7 @@ export default function SimpleSubtractiveSynth() {
   useEffect(()=>{ transposeRef.current = transpose; }, [transpose]);
   useEffect(()=>{ baseNoteRef.current = baseNote; }, [baseNote]);
   useEffect(()=>{ glideRef.current = glide; }, [glide]);
-  useEffect(()=>{ adsrRef.current = adsr; }, [adsr]);
+  useEffect(()=>{ envelopesRef.current = envelopes; }, [envelopes]);
   useEffect(()=>{ vco1FootRef.current = vco1.footage; }, [vco1]);
   useEffect(()=>{ vco2FootRef.current = vco2.footage; }, [vco2]);
   useEffect(()=>{ overdriveRef.current = overdrive; }, [overdrive]);
@@ -113,7 +124,7 @@ export default function SimpleSubtractiveSynth() {
       shaper.curve = makeDriveCurve(od.drive);
       shaper.oversample = '2x';
 
-      vca.gain.value = 0.00001;
+      vca.gain.value = 0;
       outGain.gain.value = 0.8;
 
       // Patch
@@ -135,6 +146,13 @@ export default function SimpleSubtractiveSynth() {
 
       vco1.start();
       vco2.start();
+
+      envSourcesRef.current = initialEnvelopes.map(() => {
+        const source = ctx.createConstantSource();
+        source.offset.value = 0;
+        source.start();
+        return source;
+      });
 
       // store
       vco1Ref.current = vco1;
@@ -192,37 +210,62 @@ export default function SimpleSubtractiveSynth() {
     outGainRef.current.gain.setTargetAtTime(master, audioRef.current.currentTime, 0.01);
   }, [master, ctxStarted]);
 
-  // Envelope
+  // A route is a gain node between one envelope output and an AudioParam.
+  // Updating its amount never interrupts a running note.
+  useEffect(() => {
+    if (!ctxStarted) return;
+    const ctx = audioRef.current;
+    const targets = {
+      vca: [vcaRef.current.gain],
+      cutoff: [filterRef.current.frequency],
+      pitch: [vco1Ref.current.detune, vco2Ref.current.detune],
+    };
+    const desired = new Set(patches.map(({ env, destination }) => `${env}:${destination}`));
+    for (const [key, nodes] of routesRef.current) {
+      if (!desired.has(key)) {
+        nodes.forEach((node) => node.disconnect());
+        routesRef.current.delete(key);
+      }
+    }
+    patches.forEach(({ env, destination, amount }) => {
+      const key = `${env}:${destination}`;
+      let nodes = routesRef.current.get(key);
+      if (!nodes) {
+        nodes = targets[destination].map((target) => {
+          const gain = ctx.createGain();
+          gain.gain.value = 0;
+          envSourcesRef.current[env].connect(gain);
+          gain.connect(target);
+          return gain;
+        });
+        routesRef.current.set(key, nodes);
+      }
+      nodes.forEach((node) => node.gain.setTargetAtTime(amount / 100 * modulationScale[destination], ctx.currentTime, 0.01));
+    });
+  }, [patches, ctxStarted]);
+
+  // Both envelopes trigger and release together, but their shapes and routes are independent.
   const triggerEnv = (accent=false) => {
     const ctx = audioRef.current;
     const now = ctx.currentTime;
-    const { a, d, s } = adsrRef.current;
-    const g = vcaRef.current.gain;
-
-    g.cancelScheduledValues(now);
-    g.setValueAtTime(g.value, now);
-    const peak = accent ? 1.0 : 0.9;
-    g.linearRampToValueAtTime(peak, now + Math.max(0.001, a));
-    g.linearRampToValueAtTime(clamp(s, 0, 1), now + Math.max(0.001, a) + Math.max(0.001, d));
-
-    if (accent) {
-      const baseCut = filterRef.current.frequency.value;
-      const kick = Math.min(12000, baseCut * 1.6 + 200);
-      filterRef.current.frequency.cancelScheduledValues(now);
-      filterRef.current.frequency.setValueAtTime(baseCut, now);
-      filterRef.current.frequency.linearRampToValueAtTime(kick, now + 0.03);
-      filterRef.current.frequency.linearRampToValueAtTime(baseCut, now + 0.18);
-    }
+    envelopesRef.current.forEach(({ a, d, s }, index) => {
+      const offset = envSourcesRef.current[index].offset;
+      offset.cancelScheduledValues(now);
+      offset.setValueAtTime(offset.value, now);
+      offset.linearRampToValueAtTime(accent ? 1 : 0.9, now + Math.max(0.001, a));
+      offset.linearRampToValueAtTime(clamp(s, 0, 1), now + Math.max(0.001, a) + Math.max(0.001, d));
+    });
   };
 
   const releaseEnv = () => {
     const ctx = audioRef.current;
     const now = ctx.currentTime;
-    const { r } = adsrRef.current;
-    const g = vcaRef.current.gain;
-    g.cancelScheduledValues(now);
-    g.setValueAtTime(g.value, now);
-    g.linearRampToValueAtTime(0.00001, now + Math.max(0.001, r));
+    envelopesRef.current.forEach(({ r }, index) => {
+      const offset = envSourcesRef.current[index].offset;
+      offset.cancelScheduledValues(now);
+      offset.setValueAtTime(offset.value, now);
+      offset.linearRampToValueAtTime(0, now + Math.max(0.001, r));
+    });
   };
 
   // footage factor
@@ -366,11 +409,21 @@ export default function SimpleSubtractiveSynth() {
     setOverdrive(o=>({...o, drive: 0.45, mix: 0.5 }));
   };
 
+  const connectPatch = (env, destination) => {
+    if (env !== 0 && env !== 1) return;
+    setPatches((current) => current.some((patch) => patch.env === env && patch.destination === destination)
+      ? current : [...current, { env, destination, amount: destination === "vca" ? 90 : 40 }]);
+    setSelectedOutput(null);
+  };
+
+  const changeEnvelope = (index, field, value) => setEnvelopes((current) =>
+    current.map((env, i) => i === index ? { ...env, [field]: value } : env));
+
   return (
-    <div className="min-h-screen w-full bg-[#0e0f0f] text-[#ece6d6] p-6">
-      <div className="max-w-5xl mx-auto grid gap-4">
+    <div className="micro8 w-full bg-[#0e0f0f] text-[#ece6d6]">
+      <div className="micro8-inner mx-auto grid">
         <header className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold tracking-tight">MICRO-8 — Dual VCO Synth</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">MICRO—8 <span>DUAL VCO / PATCH SYNTH</span></h1>
           {!ctxStarted ? (
             <button onClick={initAudio} className="px-4 py-2 rounded bg-[#ffb000] text-black font-semibold shadow">
               POWER
@@ -388,9 +441,9 @@ export default function SimpleSubtractiveSynth() {
         )}
 
         {/* Panel */}
-        <div className="rounded-2xl border-4 border-[#1b1c1c] bg-[#121313] shadow-[inset_0_8px_0_#1b1c1c]">
+        <div className="micro8-panel border-4 border-[#1b1c1c] bg-[#121313]">
           {/* Transport strip */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-center p-4 border-b border-[#1b1c1c] bg-[#161717]">
+          <div className="micro8-transport grid grid-cols-1 md:grid-cols-3 gap-3 items-center p-4 border-b border-[#1b1c1c] bg-[#161717]">
             <div className="flex items-center gap-2">
               <SwitchButton onClick={startSeq} disabled={!ctxStarted || isPlaying} label="PLAY" activeColor="#00e38a" />
               <SwitchButton onClick={stopSeq} disabled={!ctxStarted || !isPlaying} label="STOP" activeColor="#ff4d57" />
@@ -401,7 +454,7 @@ export default function SimpleSubtractiveSynth() {
           </div>
 
           {/* VCOs */}
-          <div className="grid md:grid-cols-2 gap-4 p-4">
+          <div className="micro8-oscillators grid md:grid-cols-2 gap-4 p-4">
             <RetroCard title="VCO 1">
               <WaveSwitch value={vco1.type} onChange={(t)=>setVco1(v=>({...v,type:t}))} options={["sawtooth","square","triangle","sine"]} />
               <div className="flex flex-wrap items-center gap-6">
@@ -421,22 +474,65 @@ export default function SimpleSubtractiveSynth() {
             </RetroCard>
           </div>
 
-          {/* Filter + ADSR */}
-          <div className="grid md:grid-cols-2 gap-4 p-4">
+          {/* Filter and patchable envelopes */}
+          <div className="micro8-modules grid md:grid-cols-2 gap-4 p-4">
             <RetroCard title="LOW PASS FILTER">
               <Knob label="CUTOFF" value={filter.cutoff} min={60} max={10000} step={1} onChange={(val)=>setFilter(f=>({...f,cutoff:val}))} />
               <Knob label="RESONANCE" value={filter.resonance} min={0} max={1} step={0.01} onChange={(val)=>setFilter(f=>({...f,resonance:val}))} />
             </RetroCard>
-            <RetroCard title="ENVELOPE (ADSR)">
-              <Knob label="ATTACK" value={adsr.a} min={0} max={2} step={0.005} onChange={(val)=>setAdsr(a=>({...a,a:val}))} />
-              <Knob label="DECAY" value={adsr.d} min={0} max={2} step={0.005} onChange={(val)=>setAdsr(a=>({...a,d:val}))} />
-              <Knob label="SUSTAIN" value={adsr.s} min={0} max={1} step={0.01} onChange={(val)=>setAdsr(a=>({...a,s:val}))} />
-              <Knob label="RELEASE" value={adsr.r} min={0} max={3} step={0.005} onChange={(val)=>setAdsr(a=>({...a,r:val}))} />
+            <div className="micro8-envelopes grid gap-4">
+              {envelopes.map((env, index) => (
+                <RetroCard key={index} title={`ENV ${index + 1} / ADSR`}>
+                  <div className="col-span-full flex flex-wrap items-center gap-3">
+                    <button type="button" draggable onDragStart={(event) => event.dataTransfer.setData("text/plain", String(index))}
+                      onClick={() => setSelectedOutput(selectedOutput === index ? null : index)}
+                      aria-pressed={selectedOutput === index}
+                      className={`rounded-full border px-3 py-1 text-xs font-semibold ${selectedOutput === index ? "bg-[#ffb000] text-black border-[#ffb000]" : "border-[#ffb000] text-[#ffb000]"}`}>
+                      ◉ ENV {index + 1} OUT
+                    </button>
+                  </div>
+                  <Knob label="ATTACK" value={env.a} min={0} max={2} step={0.005} onChange={(v)=>changeEnvelope(index,"a",v)} />
+                  <Knob label="DECAY" value={env.d} min={0} max={2} step={0.005} onChange={(v)=>changeEnvelope(index,"d",v)} />
+                  <Knob label="SUSTAIN" value={env.s} min={0} max={1} step={0.01} onChange={(v)=>changeEnvelope(index,"s",v)} />
+                  <Knob label="RELEASE" value={env.r} min={0} max={3} step={0.005} onChange={(v)=>changeEnvelope(index,"r",v)} />
+                </RetroCard>
+              ))}
+            </div>
+          </div>
+
+          <div className="micro8-patch p-4 pt-0">
+            <RetroCard title="PATCH BAY">
+              <p className="col-span-full text-xs opacity-70">Drag an output to an input, or click both. Amount can be positive or negative. A VCA patch is needed for sound.</p>
+              <div className="col-span-full flex flex-wrap gap-3">
+                {Object.entries(destinations).map(([destination, label]) => (
+                  <button key={destination} type="button"
+                    onClick={() => selectedOutput !== null && connectPatch(selectedOutput, destination)}
+                    onDragOver={(event) => event.preventDefault()}
+                    onDrop={(event) => { event.preventDefault(); const output = event.dataTransfer.getData("text/plain"); if (output === "0" || output === "1") connectPatch(Number(output), destination); }}
+                    className="rounded-full border border-[#00e38a] px-3 py-2 text-xs text-[#00e38a] hover:bg-[#18362c]">
+                    ◎ {label} IN
+                  </button>
+                ))}
+              </div>
+              <div className="col-span-full grid gap-2">
+                {patches.map(({ env, destination, amount }) => (
+                  <div key={`${env}:${destination}`} className="flex flex-wrap items-center gap-3 rounded-lg border border-[#2a2b2b] p-2 text-xs">
+                    <span className="min-w-36 text-[#ffb000]">ENV {env + 1} → {destinations[destination]}</span>
+                    <input aria-label={`ENV ${env + 1} to ${destinations[destination]} amount`} type="range" min={-100} max={100} value={amount}
+                      onChange={(event) => setPatches((current) => current.map((patch) => patch.env === env && patch.destination === destination ? { ...patch, amount: Number(event.target.value) } : patch))}
+                      className="flex-1 min-w-28 accent-[#ffb000]" />
+                    <span className="w-10 text-right tabular-nums">{amount > 0 ? "+" : ""}{amount}</span>
+                    <button type="button" aria-label={`Remove ENV ${env + 1} to ${destinations[destination]} patch`}
+                      onClick={() => setPatches((current) => current.filter((patch) => patch.env !== env || patch.destination !== destination))}
+                      className="rounded px-2 py-1 text-[#ff4d57] hover:bg-[#3a2020]">×</button>
+                  </div>
+                ))}
+              </div>
             </RetroCard>
           </div>
 
           {/* Overdrive */}
-          <div className="p-4">
+          <div className="micro8-drive p-4">
             <RetroCard title="OVERDRIVE">
               <Knob label="DRIVE" value={overdrive.drive} min={0} max={1} step={0.01} onChange={(v)=>setOverdrive(o=>({...o,drive:v}))} />
               <Knob label="MIX" value={overdrive.mix} min={0} max={1} step={0.01} onChange={(v)=>setOverdrive(o=>({...o,mix:v}))} />
@@ -444,7 +540,7 @@ export default function SimpleSubtractiveSynth() {
           </div>
 
           {/* Sequencer */}
-          <div className="p-4 border-t border-[#1b1c1c]">
+          <div className="micro8-sequencer p-4 border-t border-[#1b1c1c]">
             <div className="flex flex-wrap items-center gap-6 mb-4">
               <RetroSelect label="BASE" value={baseNote} onChange={(v)=>setBaseNote(v)} options={noteOptions} />
               <RetroSlider label="TRANSPOSE" value={transpose} min={-24} max={24} step={1} onChange={(v)=>setTranspose(v)} suffix="st" />
@@ -475,8 +571,8 @@ export default function SimpleSubtractiveSynth() {
                   <div className="text-right text-xs tabular-nums mb-2">{st.semi}</div>
 
                   <div className="flex items-center gap-2 text-[10px]">
-                    <ToggleTiny active={!!st.accent} onClick={()=>updateStep(i,{accent:!st.accent})} label="ACC" activeColor="#ffb000" />
-                    <ToggleTiny active={!!st.slide} onClick={()=>updateStep(i,{slide:!st.slide})} label="SLIDE" activeColor="#00e38a" />
+                    <ToggleTiny active={!!st.accent} onClick={()=>updateStep(i,{accent:!st.accent})} label="ACC" activeColor="#d53b31" />
+                    <ToggleTiny active={!!st.slide} onClick={()=>updateStep(i,{slide:!st.slide})} label="SLIDE" activeColor="#d53b31" />
                   </div>
                 </div>
               ))}
@@ -484,7 +580,6 @@ export default function SimpleSubtractiveSynth() {
           </div>
         </div>
 
-        <p className="text-xs opacity-70 text-center pt-2">Tip: Load ACID-8, set BPM 132, Cutoff ~900, Res 0.6, Drive 0.45, Mix 0.5. ✳</p>
       </div>
     </div>
   );
