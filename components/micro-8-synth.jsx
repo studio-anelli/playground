@@ -608,21 +608,21 @@ export default function SimpleSubtractiveSynth() {
             <RetroCard title="VCO 1">
               <WaveSwitch value={vco1.type} onChange={(t)=>setVco1(v=>({...v,type:t}))} options={["sawtooth","square","triangle","sine"]} />
               <div className="flex flex-wrap items-center gap-6">
-                <Knob label="LEVEL" value={vco1.level} min={0} max={1} step={0.01} onChange={(val)=>setVco1(v=>({...v,level:val}))} />
-                <Knob label="DETUNE¢" value={vco1.detune} min={-1200} max={1200} step={1} onChange={(val)=>setVco1(v=>({...v,detune:val}))} />
+                <Knob size="large" label="LEVEL" value={vco1.level} min={0} max={1} step={0.01} onChange={(val)=>setVco1(v=>({...v,level:val}))} />
+                <Knob size="small" label="DETUNE¢" value={vco1.detune} min={-1200} max={1200} step={1} onChange={(val)=>setVco1(v=>({...v,detune:val}))} />
                 <FootSwitch label="FOOT" value={vco1.footage} options={["32'","16'","8'"]} onChange={(fo)=>setVco1(v=>({...v,footage:fo}))} />
               </div>
               <div className="m8-tone-controls">
-                <label>SUB <input aria-label="Sub oscillator level" type="range" min={0} max={.5} step={.01} value={tone.sub} onChange={(event)=>setTone(t=>({...t,sub:Number(event.target.value)}))}/></label>
-                <label>DRIFT <input aria-label="Oscillator drift in cents" type="range" min={0} max={12} step={.1} value={tone.drift} onChange={(event)=>setTone(t=>({...t,drift:Number(event.target.value)}))}/></label>
+                <Knob size="small" label="SUB" ariaLabel="Sub oscillator level" min={0} max={.5} step={.01} value={tone.sub} onChange={(sub)=>setTone(t=>({...t,sub}))} />
+                <Knob size="small" label="DRIFT" ariaLabel="Oscillator drift in cents" min={0} max={12} step={.1} value={tone.drift} onChange={(drift)=>setTone(t=>({...t,drift}))} />
               </div>
             </RetroCard>
 
             <RetroCard title="VCO 2">
               <WaveSwitch value={vco2.type} onChange={(t)=>setVco2(v=>({...v,type:t}))} options={["square","sawtooth","triangle","sine"]} />
               <div className="flex flex-wrap items-center gap-6">
-                <Knob label="LEVEL" value={vco2.level} min={0} max={1} step={0.01} onChange={(val)=>setVco2(v=>({...v,level:val}))} />
-                <Knob label="DETUNE¢" value={vco2.detune} min={-1200} max={1200} step={1} onChange={(val)=>setVco2(v=>({...v,detune:val}))} />
+                <Knob size="large" label="LEVEL" value={vco2.level} min={0} max={1} step={0.01} onChange={(val)=>setVco2(v=>({...v,level:val}))} />
+                <Knob size="small" label="DETUNE¢" value={vco2.detune} min={-1200} max={1200} step={1} onChange={(val)=>setVco2(v=>({...v,detune:val}))} />
                 <FootSwitch label="FOOT" value={vco2.footage} options={["32'","16'","8'"]} onChange={(fo)=>setVco2(v=>({...v,footage:fo}))} />
               </div>
             </RetroCard>
@@ -636,16 +636,14 @@ export default function SimpleSubtractiveSynth() {
                   onClick={() => (index ? setFilter2 : setFilter)((current) => ({ ...current, enabled: !current.enabled }))}>
                   {settings.enabled ? "ON" : "BYPASS"}
                 </button>
-                <select aria-label={`Filter ${index + 1} mode`} value={settings.mode}
-                  onChange={(event) => (index ? setFilter2 : setFilter)((current) => ({ ...current, mode: event.target.value }))}>
-                  <option value="lowpass">LOW PASS</option><option value="highpass">HIGH PASS</option>
-                  <option value="bandpass">BAND PASS</option><option value="noise">NOISE</option>
-                </select>
+                <AnalogSwitch label={`Filter ${index + 1} mode`} value={settings.mode} symbols
+                  options={["lowpass", "highpass", "bandpass", "noise"]}
+                  onChange={(mode) => (index ? setFilter2 : setFilter)((current) => ({ ...current, mode }))} />
               </div>
-              <Knob label="CUTOFF" value={settings.cutoff} min={60} max={10000} step={1} onChange={(val)=>(index ? setFilter2 : setFilter)(f=>({...f,cutoff:val}))} />
+              <Knob size="large" label="CUTOFF" value={settings.cutoff} min={60} max={10000} step={1} onChange={(val)=>(index ? setFilter2 : setFilter)(f=>({...f,cutoff:val}))} />
               <Knob label="RESONANCE" value={settings.resonance} min={0} max={1} step={0.01} onChange={(val)=>(index ? setFilter2 : setFilter)(f=>({...f,resonance:val}))} />
-              <Knob label="NOISE RATE" value={settings.noiseRate} min={.2} max={60} step={.1} onChange={(val)=>(index ? setFilter2 : setFilter)(f=>({...f,noiseRate:val}))} />
-              <Knob label="NOISE DEPTH" value={settings.noiseDepth} min={0} max={1} step={.01} onChange={(val)=>(index ? setFilter2 : setFilter)(f=>({...f,noiseDepth:val}))} />
+              <Knob size="small" label="NOISE RATE" value={settings.noiseRate} min={.2} max={60} step={.1} onChange={(val)=>(index ? setFilter2 : setFilter)(f=>({...f,noiseRate:val}))} />
+              <Knob size="small" label="NOISE DEPTH" value={settings.noiseDepth} min={0} max={1} step={.01} onChange={(val)=>(index ? setFilter2 : setFilter)(f=>({...f,noiseDepth:val}))} />
             </RetroCard>)}
             <div className="micro8-envelopes grid gap-4">
               {envelopes.map((env, index) => (
@@ -669,21 +667,21 @@ export default function SimpleSubtractiveSynth() {
           <div className="micro8-effects">
             <RetroCard title="OVERDRIVE">
               <Knob label="DRIVE" value={overdrive.drive} min={0} max={1} step={0.01} onChange={(v)=>setOverdrive(o=>({...o,drive:v}))} />
-              <Knob label="MIX" value={overdrive.mix} min={0} max={1} step={0.01} onChange={(v)=>setOverdrive(o=>({...o,mix:v}))} />
+              <Knob size="small" label="MIX" value={overdrive.mix} min={0} max={1} step={0.01} onChange={(v)=>setOverdrive(o=>({...o,mix:v}))} />
             </RetroCard>
             <RetroCard title="REVERB">
               <Knob label="DECAY" value={effects.reverb.decay} min={.2} max={4} step={.05} onChange={(v)=>setEffects(e=>({...e,reverb:{...e.reverb,decay:v}}))} />
-              <Knob label="MIX" value={effects.reverb.mix} min={0} max={1} step={.01} onChange={(v)=>setEffects(e=>({...e,reverb:{...e.reverb,mix:v}}))} />
+              <Knob size="small" label="MIX" value={effects.reverb.mix} min={0} max={1} step={.01} onChange={(v)=>setEffects(e=>({...e,reverb:{...e.reverb,mix:v}}))} />
             </RetroCard>
             <RetroCard title="DELAY">
               <Knob label="TIME" value={effects.delay.time} min={.02} max={1.2} step={.01} onChange={(v)=>setEffects(e=>({...e,delay:{...e.delay,time:v}}))} />
               <Knob label="FEEDBACK" value={effects.delay.feedback} min={0} max={.85} step={.01} onChange={(v)=>setEffects(e=>({...e,delay:{...e.delay,feedback:v}}))} />
-              <Knob label="MIX" value={effects.delay.mix} min={0} max={1} step={.01} onChange={(v)=>setEffects(e=>({...e,delay:{...e.delay,mix:v}}))} />
+              <Knob size="small" label="MIX" value={effects.delay.mix} min={0} max={1} step={.01} onChange={(v)=>setEffects(e=>({...e,delay:{...e.delay,mix:v}}))} />
             </RetroCard>
             <RetroCard title="MICROPHASER">
               <Knob label="RATE" value={effects.phaser.rate} min={.05} max={8} step={.05} onChange={(v)=>setEffects(e=>({...e,phaser:{...e.phaser,rate:v}}))} />
               <Knob label="DEPTH" value={effects.phaser.depth} min={0} max={1} step={.01} onChange={(v)=>setEffects(e=>({...e,phaser:{...e.phaser,depth:v}}))} />
-              <Knob label="MIX" value={effects.phaser.mix} min={0} max={1} step={.01} onChange={(v)=>setEffects(e=>({...e,phaser:{...e.phaser,mix:v}}))} />
+              <Knob size="small" label="MIX" value={effects.phaser.mix} min={0} max={1} step={.01} onChange={(v)=>setEffects(e=>({...e,phaser:{...e.phaser,mix:v}}))} />
             </RetroCard>
             <RetroCard title="TRACKPAD / GLIDE">
               <GlidePad pad={pad} setPad={setPad} />
@@ -1103,62 +1101,56 @@ function RetroSelect({ label, value, onChange, options }) {
   );
 }
 
-function WaveSwitch({ value, onChange, options }) {
-  return (
-    <div className="flex items-center gap-2">
-      {options.map((opt) => (
-        <button key={opt}
-          onClick={()=>onChange(opt)}
-          className={`px-3 py-1 rounded border text-xs ${value===opt?"bg-[#ffb000] text-black border-[#ffb000]":"border-[#2a2b2b] text-[#cfc9b5]"}`}>
-          {opt.toUpperCase()}
-        </button>
-      ))}
-    </div>
-  );
-}
+const controlSymbols = {
+  sawtooth: "M2 18 L12 3 L12 18 L22 3",
+  square: "M2 18 V4 H12 V18 H22 V4",
+  triangle: "M2 17 L7 4 L17 17 L22 4",
+  sine: "M2 11 C5 -1 9 -1 12 11 S19 23 22 11",
+  lowpass: "M2 5 H11 L22 18", highpass: "M2 18 L13 5 H22",
+  bandpass: "M2 18 L9 5 H15 L22 18", noise: "M2 12 L5 5 L8 18 L11 8 L14 15 L17 3 L20 18 L22 9",
+};
 
-function FootSwitch({ label, value, options, onChange }) {
-  return (
-    <div className="flex items-center gap-2">
-      <div className="w-12 text-[11px] opacity-80 tracking-[0.08em]">{label}</div>
-      {options.map((opt)=> (
-        <button key={opt}
-          onClick={()=>onChange(opt)}
-          className={`px-3 py-1 rounded border text-xs ${value===opt?"bg-[#2a2b2b] text-[#ffb000] border-[#ffb000]":"border-[#2a2b2b] text-[#cfc9b5]"}`}>
-          {opt}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-// Perfectly round knob with label UNDER it
-function Knob({ label, value, min=0, max=1, step=0.01, onChange }) {
-  const percent = (value - min) / (max - min);
-  const angle = -135 + percent * 270; // 270° sweep
-  return (
-    <div className="flex flex-col items-center justify-start w-24">
-      <div className="relative w-16 h-16 rounded-full border border-[#2a2b2b] bg-[#1b1c1c] overflow-hidden select-none">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-10 h-10 rounded-full bg-[#d9d0b8] shadow-inner"/>
-        </div>
-        <div className="absolute inset-0 flex items-center justify-center" style={{ transform: `rotate(${angle}deg)` }}>
-          <div className="w-[2px] h-7 bg-black translate-y-[-4px]" />
-        </div>
-        <input
-          type="range"
-          min={min}
-          max={max}
-          step={step}
-          value={value}
-          onChange={(e)=>onChange(parseFloat(e.target.value))}
-          className="absolute inset-0 opacity-0 cursor-ew-resize"
-        />
+function AnalogSwitch({ label, value, options, onChange, symbols = false }) {
+  const selected = options.indexOf(value);
+  return <div className="m8-analog-switch">
+    <span className="m8-switch-label">{label}</span>
+    <div className="m8-switch-assembly" style={{"--positions": options.length, "--selected": selected}}>
+      <div className="m8-switch-slot" aria-hidden="true"><span /></div>
+      <div className="m8-switch-positions" role="radiogroup" aria-label={label}>
+        {options.map((option, index) => <button type="button" key={option} role="radio" aria-checked={value === option}
+          aria-label={option} title={option} onClick={() => onChange(option)}
+          onKeyDown={(event) => {
+            if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+              event.preventDefault();
+              const next = event.key === "Home" ? 0 : event.key === "End" ? options.length - 1 :
+                (index + (event.key === "ArrowRight" ? 1 : -1) + options.length) % options.length;
+              onChange(options[next]); event.currentTarget.parentElement.children[next].focus();
+            }
+          }}>
+          {symbols ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d={controlSymbols[option]} /></svg> : option}
+        </button>)}
       </div>
-      <div className="mt-2 text-[11px] tracking-[0.06em] opacity-80 text-center">{label}</div>
-      <div className="text-xs tabular-nums mt-1">{typeof value==='number'? (step<1?value.toFixed(2):Math.round(value)) : value}</div>
     </div>
-  );
+  </div>;
+}
+function WaveSwitch(props) { return <AnalogSwitch label="WAVE" symbols {...props} />; }
+function FootSwitch(props) { return <AnalogSwitch {...props} />; }
+
+function Knob({ label, value, min=0, max=1, step=0.01, onChange, size="medium", ariaLabel }) {
+  const percent = (value - min) / (max - min);
+  const angle = -135 + percent * 270;
+  return <div className={`m8-knob m8-knob--${size}`}>
+    <div className="m8-knob-dial">
+      <svg className="m8-knob-scale" viewBox="0 0 64 64" aria-hidden="true">
+        {Array.from({length: 11}, (_, i) => <path key={i} d="M32 2 V8" transform={`rotate(${-135+i*27} 32 32)`} />)}
+      </svg>
+      <div className="m8-knob-cap" style={{transform:`rotate(${angle}deg)`}}><span /></div>
+      <input aria-label={ariaLabel || label} type="range" min={min} max={max} step={step} value={value}
+        onChange={(e)=>onChange(parseFloat(e.target.value))} />
+    </div>
+    <div className="m8-knob-label">{label}</div>
+    <div className="m8-knob-value">{step<1?value.toFixed(2):Math.round(value)}</div>
+  </div>;
 }
 
 // Tiny toggle used for per-step ACC / SLIDE
