@@ -18,6 +18,50 @@ const initialEnvelopes = [
   { a: 0.01, d: 0.15, s: 0.6, r: 0.25 },
   { a: 0.01, d: 0.2, s: 0.05, r: 0.2 },
 ];
+const soundPresets = {
+  "ACID": {
+    vco1: { type: "sawtooth", level: .7, detune: 0, footage: "16'" },
+    vco2: { type: "square", level: .08, detune: 0, footage: "16'" },
+    tone: {sub:.08,drift:1}, cutoff:380,resonance:.65,glide:.07,
+    env1:{a:.005,d:.18,s:.35,r:.08},env2:{a:.005,d:.17,s:0,r:.08},
+    patches:[{env:0,destination:"vca",amount:80},{env:1,destination:"cutoff",amount:65}],
+    drive:.45,driveMix:.55,reverbMix:.04,delayMix:.12,delayTime:.18,feedback:.25,phaserMix:0,
+  },
+  "80s LEAD": {
+    vco1:{type:"sawtooth",level:.55,detune:-4,footage:"8'"},
+    vco2:{type:"sawtooth",level:.45,detune:5,footage:"8'"},
+    tone:{sub:.07,drift:2.5},cutoff:2400,resonance:.18,glide:.09,
+    env1:{a:.025,d:.18,s:.75,r:.28},env2:{a:.06,d:.3,s:.35,r:.25},
+    patches:[{env:0,destination:"vca",amount:75},{env:1,destination:"cutoff",amount:25}],
+    drive:.12,driveMix:.22,reverbMix:.16,delayMix:.22,delayTime:.28,feedback:.35,phaserMix:.12,
+  },
+  "80s BASS": {
+    vco1:{type:"square",level:.55,detune:0,footage:"16'"},
+    vco2:{type:"sawtooth",level:.28,detune:3,footage:"16'"},
+    tone:{sub:.22,drift:1},cutoff:550,resonance:.27,glide:.025,
+    env1:{a:.005,d:.2,s:.45,r:.1},env2:{a:.005,d:.2,s:.05,r:.08},
+    patches:[{env:0,destination:"vca",amount:80},{env:1,destination:"cutoff",amount:35}],
+    drive:.18,driveMix:.3,reverbMix:0,delayMix:0,delayTime:.25,feedback:.25,phaserMix:0,
+  },
+  "PAD": {
+    vco1:{type:"triangle",level:.55,detune:-7,footage:"8'"},
+    vco2:{type:"sawtooth",level:.3,detune:7,footage:"8'"},
+    tone:{sub:.12,drift:4},cutoff:1500,resonance:.12,glide:.25,
+    env1:{a:1.3,d:.8,s:.8,r:2.5},env2:{a:1.8,d:1.2,s:.65,r:2.8},
+    patches:[{env:0,destination:"vca",amount:65},{env:1,destination:"cutoff",amount:28}],
+    drive:.04,driveMix:.12,reverbMix:.45,delayMix:.2,delayTime:.55,feedback:.48,phaserMix:.4,
+  },
+  "NOISE AMBIENT": {
+    vco1:{type:"sawtooth",level:.33,detune:-12,footage:"16'"},
+    vco2:{type:"triangle",level:.3,detune:12,footage:"8'"},
+    tone:{sub:.1,drift:8},cutoff:1700,resonance:.45,glide:.3,
+    env1:{a:1.8,d:1,s:.8,r:3},env2:{a:2,d:1.5,s:.5,r:3},
+    patches:[{env:0,destination:"vca",amount:60},{env:1,destination:"cutoff2",amount:18},
+      {env:2,destination:"cutoff",amount:30},{env:3,destination:"pitch",amount:12}],
+    drive:.12,driveMix:.25,reverbMix:.55,delayMix:.3,delayTime:.7,feedback:.6,phaserMix:.35,
+    noise:true,
+  },
+};
 
 export default function SimpleSubtractiveSynth() {
   // AUDIO GRAPH
@@ -57,6 +101,7 @@ export default function SimpleSubtractiveSynth() {
   const [patches, setPatches] = useState([{ env: 0, destination: "vca", amount: 90 }]);
   const [overdrive, setOverdrive] = useState({ drive: 0.3, mix: 0.4 });
   const [master, setMaster] = useState(0.8);
+  const [loadedSound, setLoadedSound] = useState("");
 
   // SEQUENCER STATE
   const [isPlaying, setIsPlaying] = useState(false);
@@ -493,8 +538,26 @@ export default function SimpleSubtractiveSynth() {
     // comfy defaults that suit 303-ish lines
     setGlide(0.08);
     setTranspose(0);
-    setFilter(f=>({...f, cutoff: 900, resonance: 0.55 }));
-    setOverdrive(o=>({...o, drive: 0.45, mix: 0.5 }));
+  };
+
+  const loadSound = (name) => {
+    const preset = soundPresets[name];
+    if (!preset) return;
+    setLoadedSound(name);
+    setVco1({...preset.vco1}); setVco2({...preset.vco2}); setTone({...preset.tone});
+    setFilter({cutoff:preset.cutoff,resonance:preset.resonance,enabled:true,
+      mode:preset.noise ? "noise" : "lowpass",noiseRate:preset.noise ? .8 : 6,noiseDepth:preset.noise ? .8 : .35});
+    setFilter2({cutoff:preset.noise ? 3200 : 6000,resonance:preset.noise ? .35 : .1,
+      enabled:!!preset.noise,mode:preset.noise ? "noise" : "lowpass",noiseRate:2.5,noiseDepth:preset.noise ? .65 : .35});
+    setEnvelopes([{...preset.env1},{...preset.env2}]);
+    setPatches(preset.patches.map((patch)=>({...patch})));
+    setOverdrive({drive:preset.drive,mix:preset.driveMix});
+    setEffects({reverb:{mix:preset.reverbMix,decay:preset.noise ? 4 : name==="PAD" ? 3.5 : 2},
+      delay:{mix:preset.delayMix,time:preset.delayTime,feedback:preset.feedback},
+      phaser:{mix:preset.phaserMix,rate:preset.noise ? .12 : name==="PAD" ? .18 : .4,depth:.5}});
+    setPad({x:0,y:0,glide:.12}); setGlide(preset.glide);
+    // Reset running envelopes so the new patch starts cleanly on the next note.
+    if (ctxStarted) releaseEnv();
   };
 
   const changeEnvelope = (index, field, value) => setEnvelopes((current) =>
@@ -513,6 +576,12 @@ export default function SimpleSubtractiveSynth() {
             <div className="text-[#ffb000] text-sm">AUDIO ON</div>
           )}
         </header>
+        <div className="m8-sound-presets" aria-label="Sound presets">
+          <span>SOUNDS</span>
+          {Object.keys(soundPresets).map((name)=><button key={name} type="button"
+            aria-pressed={loadedSound===name} onClick={()=>loadSound(name)}>{name}</button>)}
+          <small>{loadedSound ? `LOADED: ${loadedSound}` : "SELECT A SOUND"}</small>
+        </div>
 
         {errorMsg && (
           <div className="bg-rose-900/40 border border-rose-700 text-rose-200 rounded p-3">
