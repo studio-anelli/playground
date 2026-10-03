@@ -539,9 +539,111 @@ export default function SimpleSubtractiveSynth() {
           </div>
         </div>
 
+        <PianoKeyboard enabled={ctxStarted}
+          onNoteOn={(midi) => { if (!ctxStarted) return; if (isPlaying) stopSeq(); setFrequency(midiToFreq(midi)); triggerEnv(); }}
+          onNoteOff={() => { if (ctxStarted) releaseEnv(); }} />
       </div>
     </div>
   );
+}
+
+const pianoNotes = [
+  { note: "C", key: "a", semi: 0 }, { note: "C♯", key: "w", semi: 1, black: true, position: 1 },
+  { note: "D", key: "s", semi: 2 }, { note: "D♯", key: "e", semi: 3, black: true, position: 2 },
+  { note: "E", key: "d", semi: 4 }, { note: "F", key: "f", semi: 5 },
+  { note: "F♯", key: "t", semi: 6, black: true, position: 4 },
+  { note: "G", key: "g", semi: 7 }, { note: "G♯", key: "y", semi: 8, black: true, position: 5 },
+  { note: "A", key: "h", semi: 9 }, { note: "A♯", key: "u", semi: 10, black: true, position: 6 },
+  { note: "B", key: "j", semi: 11 },
+];
+
+function PianoKeyboard({ enabled, onNoteOn, onNoteOff }) {
+  const [octave, setOctave] = useState(4);
+  const octaveRef = useRef(4);
+  const heldRef = useRef(new Map());
+  const callbacksRef = useRef({ enabled, onNoteOn, onNoteOff });
+  const [held, setHeld] = useState([]);
+  useEffect(() => { callbacksRef.current = { enabled, onNoteOn, onNoteOff }; }, [enabled, onNoteOn, onNoteOff]);
+  const press = (id, semi) => {
+    if (!callbacksRef.current.enabled || heldRef.current.has(id)) return;
+    heldRef.current.set(id, semi);
+    setHeld([...heldRef.current.values()]);
+    callbacksRef.current.onNoteOn((octaveRef.current + 1) * 12 + semi);
+  };
+  const release = (id) => {
+    if (!heldRef.current.has(id)) return;
+    const wasLast = [...heldRef.current.keys()].at(-1) === id;
+    heldRef.current.delete(id);
+    setHeld([...heldRef.current.values()]);
+    if (!wasLast) return;
+    const last = [...heldRef.current.values()].at(-1);
+    if (last === undefined) callbacksRef.current.onNoteOff();
+    else callbacksRef.current.onNoteOn((octaveRef.current + 1) * 12 + last);
+  };
+  useEffect(() => {
+    const heldMap = heldRef.current;
+    const typing = (target) => target instanceof Element && target.closest("textarea, select, input:not([type=range]), [contenteditable=true]");
+    const down = (event) => {
+      if (event.repeat || event.metaKey || event.ctrlKey || event.altKey || typing(event.target)) return;
+      const note = pianoNotes.find((note) => note.key === event.key.toLowerCase());
+      if (!note || !callbacksRef.current.enabled) return;
+      event.preventDefault();
+      press("key:" + note.key, note.semi);
+    };
+    const up = (event) => release("key:" + event.key.toLowerCase());
+    const panic = () => {
+      if (heldRef.current.size) callbacksRef.current.onNoteOff();
+      heldRef.current.clear();
+      setHeld([]);
+    };
+    const visibility = () => { if (document.hidden) panic(); };
+    window.addEventListener("keydown", down);
+    window.addEventListener("keyup", up);
+    window.addEventListener("blur", panic);
+    document.addEventListener("visibilitychange", visibility);
+    return () => {
+      window.removeEventListener("keydown", down);
+      window.removeEventListener("keyup", up);
+      window.removeEventListener("blur", panic);
+      document.removeEventListener("visibilitychange", visibility);
+      if (heldMap.size) callbacksRef.current.onNoteOff();
+    };
+  }, []);
+  const key = (note) => <button key={note.semi} type="button" disabled={!enabled}
+    className={`m8-piano-key ${note.black ? "is-black" : "is-white"} ${held.includes(note.semi) ? "is-held" : ""}`}
+    style={note.black ? { left: `calc(${note.position} * 100% / 7 - 3.8%)` } : undefined}
+    aria-label={`${note.note}${octave} — laptop key ${note.key.toUpperCase()}`} aria-pressed={held.includes(note.semi)}
+    onPointerDown={(event) => { if (event.button !== 0) return; event.preventDefault(); event.currentTarget.setPointerCapture(event.pointerId); press("pointer:" + event.pointerId, note.semi); }}
+    onPointerUp={(event) => release("pointer:" + event.pointerId)}
+    onPointerCancel={(event) => release("pointer:" + event.pointerId)}
+    onLostPointerCapture={(event) => release("pointer:" + event.pointerId)}
+    onKeyDown={(event) => { if ((event.key === " " || event.key === "Enter") && !event.repeat) { event.preventDefault(); press("button:" + note.semi, note.semi); } }}
+    onKeyUp={(event) => { if (event.key === " " || event.key === "Enter") { event.preventDefault(); release("button:" + note.semi); } }}
+    onBlur={() => release("button:" + note.semi)}>
+    <span>{note.note}</span><kbd>{note.key.toUpperCase()}</kbd>
+  </button>;
+  const changeOctave = (direction) => {
+    const next = clamp(octaveRef.current + direction, 1, 7);
+    if (next === octaveRef.current) return;
+    if (heldRef.current.size) callbacksRef.current.onNoteOff();
+    heldRef.current.clear();
+    setHeld([]);
+    octaveRef.current = next;
+    setOctave(next);
+  };
+  return <section className="m8-piano" aria-label="One octave piano keyboard">
+    <div className="m8-piano-legend"><strong>KEYBOARD / C{octave}—B{octave}</strong>
+      <div className="m8-octave-switch">
+        <button type="button" aria-label="Octave down" disabled={octave === 1} onClick={() => changeOctave(-1)}>−</button>
+        <output aria-label="Current octave">OCT {octave}</output>
+        <button type="button" aria-label="Octave up" disabled={octave === 7} onClick={() => changeOctave(1)}>+</button>
+      </div>
+      <span>{enabled ? "A S D F G H J / W E T Y U · LAST NOTE PRIORITY" : "PRESS POWER TO PLAY"}</span></div>
+    <div className="m8-piano-bed">
+      <div className="m8-white-keys">{pianoNotes.filter((note) => !note.black).map(key)}</div>
+      {pianoNotes.filter((note) => note.black).map(key)}
+    </div>
+  </section>;
 }
 
 function CablePatchBay({ patches, setPatches }) {
