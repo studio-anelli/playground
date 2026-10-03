@@ -63,3 +63,21 @@ html:has(.gp888), body:has(.gp888), body:has(.gp888) .import-page, body:has(.gp8
 .gp888 .gp-step.is-current[aria-pressed=true] { background:#b7c4ff; box-shadow:inset 0 -3px #eee9dc,0 0 12px #8194ef90; animation:gp-hit 120ms ease-out; }
 @keyframes gp-hit { from { background:#fff; } to { background:#b7c4ff; } }
 @media(prefers-reduced-motion:reduce) { .gp888 .gp-step { transition:none; } .gp888 .gp-step.is-current[aria-pressed=true] { animation:none; } }
+
+/* Primary ink colors across the rhythm voices. */
+.gp888 { --gp-blue:#365ee8; }
+.gp888 .gp-step[aria-pressed=true] { background:var(--track-color); border-color:var(--track-color); }
+.gp-track-name { color:var(--track-color); }
+.gp-channel h2 { border-bottom-color:var(--track-color); }
+.gp-channel .gp-knob-cap span { background:var(--track-color); }
+.gp-channel .gp-led.is-lit, .gp-track-name .gp-led.is-lit { background:var(--track-color); border-color:var(--track-color); box-shadow:0 0 6px var(--track-color); }
+.gp888 .gp-step.is-current { background:#30323b; border-color:#f1cd30; box-shadow:inset 0 -3px #f1cd30; }
+.gp888 .gp-step.is-current[aria-pressed=true] { background:var(--track-color); border-color:#eee9dc; box-shadow:inset 0 -3px #eee9dc,0 0 10px var(--track-color); animation:gp-primary-hit 120ms ease-out; }
+.gp-step-number.is-current { background:#f1cd30; color:#181818; box-shadow:none; }
+.gp-progress span { background:#f1cd30; box-shadow:0 0 8px #f1cd30; }
+.gp888 .gp-transport .gp-start { background:#365ee8; border-color:#365ee8; }
+.gp888 .gp-transport > button[aria-label=Stop] { border-color:#e43d32; color:#e43d32; }
+.gp888 .gp-channel-switches button[aria-pressed=true] { background:var(--track-color); border-color:var(--track-color); color:#fff; }
+.gp-tempo-screen strong { color:#f1cd30; }
+@keyframes gp-primary-hit { from { filter:brightness(1.8); } to { filter:brightness(1); } }
+@media(prefers-reduced-motion:reduce) { .gp888 .gp-step.is-current[aria-pressed=true] { animation:none; } }
