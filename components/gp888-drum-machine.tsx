@@ -32,6 +32,11 @@ const TRACKS = [
 
 type TrackId = (typeof TRACKS)[number]["id"];
 
+const TRACK_COLORS: Record<TrackId, string> = {
+  kick: "#e43d32", snare: "#365ee8", hihat: "#f1cd30", ohat: "#f1cd30",
+  rim: "#e43d32", ride: "#365ee8", midtom: "#365ee8", clap: "#e43d32",
+};
+
 const defaultSteps = (n: number) => Array.from({ length: n }, () => false);
 
 // -----------------------
@@ -516,14 +521,14 @@ export default function GP888DrumMachine() {
               <span className="gp-row-heading">PATTERN</span>
               {Array.from({length:steps},(_,i)=><span key={i} aria-current={isPlaying && i===activeStep ? "step" : undefined} className={`gp-step-number ${i%4===0?"is-quarter":""} ${isPlaying&&i===activeStep?"is-current":""}`}>{i+1}</span>)}
               {TRACKS.map(t=><React.Fragment key={t.id}>
-                <div className="gp-track-name"><span className={`gp-led ${blink[t.id]?"is-lit":""}`} />{t.name}</div>
+                <div className="gp-track-name" style={{"--track-color":TRACK_COLORS[t.id]} as React.CSSProperties}><span className={`gp-led ${blink[t.id]?"is-lit":""}`} />{t.name}</div>
                 {Array.from({length:steps},(_,i)=><button key={i} aria-label={`${t.name} step ${i+1}`} aria-pressed={!!pattern[t.id]?.[i]}
-                  onClick={()=>toggleStep(t.id,i)} className={`gp-step ${i%4===0?"is-quarter":""} ${i===activeStep&&isPlaying?"is-current":""}`} />)}
+                  style={{"--track-color":TRACK_COLORS[t.id]} as React.CSSProperties} onClick={()=>toggleStep(t.id,i)} className={`gp-step ${i%4===0?"is-quarter":""} ${i===activeStep&&isPlaying?"is-current":""}`} />)}
               </React.Fragment>)}
             </div>
           </div>
           <section className="gp-mixer" aria-label="Track mixer">
-            {TRACKS.map(t=><div className="gp-channel" key={t.id}>
+            {TRACKS.map(t=><div className="gp-channel" key={t.id} style={{"--track-color":TRACK_COLORS[t.id]} as React.CSSProperties}>
               <h2><span className={`gp-led ${blink[t.id]?"is-lit":""}`} />{t.name}</h2>
               <DrumKnob label="LEVEL" ariaLabel={`${t.name} level`} size="large" min={0} max={100} value={Math.round(trackLevels[t.id]*100)} onChange={v=>setTrackLevels(m=>({...m,[t.id]:v/100}))} />
               <div className="gp-trims">
