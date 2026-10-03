@@ -43,7 +43,6 @@ export default function SimpleSubtractiveSynth() {
   const [filter, setFilter] = useState({ cutoff: 1200, resonance: 0.2 });
   const [envelopes, setEnvelopes] = useState(initialEnvelopes);
   const [patches, setPatches] = useState([{ env: 0, destination: "vca", amount: 90 }]);
-  const [selectedOutput, setSelectedOutput] = useState(null);
   const [overdrive, setOverdrive] = useState({ drive: 0.3, mix: 0.4 });
   const [master, setMaster] = useState(0.8);
 
@@ -409,13 +408,6 @@ export default function SimpleSubtractiveSynth() {
     setOverdrive(o=>({...o, drive: 0.45, mix: 0.5 }));
   };
 
-  const connectPatch = (env, destination) => {
-    if (env !== 0 && env !== 1) return;
-    setPatches((current) => current.some((patch) => patch.env === env && patch.destination === destination)
-      ? current : [...current, { env, destination, amount: destination === "vca" ? 90 : 40 }]);
-    setSelectedOutput(null);
-  };
-
   const changeEnvelope = (index, field, value) => setEnvelopes((current) =>
     current.map((env, i) => i === index ? { ...env, [field]: value } : env));
 
@@ -483,14 +475,6 @@ export default function SimpleSubtractiveSynth() {
             <div className="micro8-envelopes grid gap-4">
               {envelopes.map((env, index) => (
                 <RetroCard key={index} title={`ENV ${index + 1} / ADSR`}>
-                  <div className="col-span-full flex flex-wrap items-center gap-3">
-                    <button type="button" draggable onDragStart={(event) => event.dataTransfer.setData("text/plain", String(index))}
-                      onClick={() => setSelectedOutput(selectedOutput === index ? null : index)}
-                      aria-pressed={selectedOutput === index}
-                      className={`rounded-full border px-3 py-1 text-xs font-semibold ${selectedOutput === index ? "bg-[#ffb000] text-black border-[#ffb000]" : "border-[#ffb000] text-[#ffb000]"}`}>
-                      ◉ ENV {index + 1} OUT
-                    </button>
-                  </div>
                   <Knob label="ATTACK" value={env.a} min={0} max={2} step={0.005} onChange={(v)=>changeEnvelope(index,"a",v)} />
                   <Knob label="DECAY" value={env.d} min={0} max={2} step={0.005} onChange={(v)=>changeEnvelope(index,"d",v)} />
                   <Knob label="SUSTAIN" value={env.s} min={0} max={1} step={0.01} onChange={(v)=>changeEnvelope(index,"s",v)} />
@@ -500,34 +484,9 @@ export default function SimpleSubtractiveSynth() {
             </div>
           </div>
 
-          <div className="micro8-patch p-4 pt-0">
-            <RetroCard title="PATCH BAY">
-              <p className="col-span-full text-xs opacity-70">Drag an output to an input, or click both. Amount can be positive or negative. A VCA patch is needed for sound.</p>
-              <div className="col-span-full flex flex-wrap gap-3">
-                {Object.entries(destinations).map(([destination, label]) => (
-                  <button key={destination} type="button"
-                    onClick={() => selectedOutput !== null && connectPatch(selectedOutput, destination)}
-                    onDragOver={(event) => event.preventDefault()}
-                    onDrop={(event) => { event.preventDefault(); const output = event.dataTransfer.getData("text/plain"); if (output === "0" || output === "1") connectPatch(Number(output), destination); }}
-                    className="rounded-full border border-[#00e38a] px-3 py-2 text-xs text-[#00e38a] hover:bg-[#18362c]">
-                    ◎ {label} IN
-                  </button>
-                ))}
-              </div>
-              <div className="col-span-full grid gap-2">
-                {patches.map(({ env, destination, amount }) => (
-                  <div key={`${env}:${destination}`} className="flex flex-wrap items-center gap-3 rounded-lg border border-[#2a2b2b] p-2 text-xs">
-                    <span className="min-w-36 text-[#ffb000]">ENV {env + 1} → {destinations[destination]}</span>
-                    <input aria-label={`ENV ${env + 1} to ${destinations[destination]} amount`} type="range" min={-100} max={100} value={amount}
-                      onChange={(event) => setPatches((current) => current.map((patch) => patch.env === env && patch.destination === destination ? { ...patch, amount: Number(event.target.value) } : patch))}
-                      className="flex-1 min-w-28 accent-[#ffb000]" />
-                    <span className="w-10 text-right tabular-nums">{amount > 0 ? "+" : ""}{amount}</span>
-                    <button type="button" aria-label={`Remove ENV ${env + 1} to ${destinations[destination]} patch`}
-                      onClick={() => setPatches((current) => current.filter((patch) => patch.env !== env || patch.destination !== destination))}
-                      className="rounded px-2 py-1 text-[#ff4d57] hover:bg-[#3a2020]">×</button>
-                  </div>
-                ))}
-              </div>
+          <div className="micro8-patch">
+            <RetroCard title="PATCH BAY / ENVELOPE CONTROL">
+              <CablePatchBay patches={patches} setPatches={setPatches} />
             </RetroCard>
           </div>
 
@@ -581,6 +540,137 @@ export default function SimpleSubtractiveSynth() {
         </div>
 
       </div>
+    </div>
+  );
+}
+
+function CablePatchBay({ patches, setPatches }) {
+  const boardRef = useRef(null);
+  const socketsRef = useRef({});
+  const [points, setPoints] = useState({});
+  const [drag, setDrag] = useState(null);
+  const [armed, setArmed] = useState(null);
+  const [selected, setSelected] = useState("0:vca");
+  const colors = ["#e25143", "#d6d1b9"];
+  const keyOf = (patch) => patch.env + ":" + patch.destination;
+
+  useEffect(() => {
+    const measure = () => {
+      const bounds = boardRef.current.getBoundingClientRect();
+      const next = {};
+      Object.entries(socketsRef.current).forEach(([key, node]) => {
+        if (!node) return;
+        const rect = node.getBoundingClientRect();
+        next[key] = { x: rect.x - bounds.x + rect.width / 2, y: rect.y - bounds.y + rect.height / 2 };
+      });
+      setPoints(next);
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(boardRef.current);
+    measure();
+    return () => observer.disconnect();
+  }, []);
+
+  const connect = (env, destination, oldDestination) => {
+    const key = env + ":" + destination;
+    setPatches((current) => {
+      const old = current.find((patch) => patch.env === env && patch.destination === oldDestination);
+      const retained = current.filter((patch) => !(oldDestination && patch.env === env && patch.destination === oldDestination));
+      return retained.some((patch) => keyOf(patch) === key) ? retained :
+        [...retained, { env, destination, amount: old?.amount ?? (destination === "vca" ? 90 : 40) }];
+    });
+    setSelected(key);
+    setArmed(null);
+  };
+  const startDrag = (event, env, oldDestination) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    const rect = boardRef.current.getBoundingClientRect();
+    setDrag({ env, oldDestination, pointerId: event.pointerId, x: event.clientX - rect.x, y: event.clientY - rect.y });
+    setArmed(env);
+  };
+  const moveDrag = (event) => {
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    const rect = boardRef.current.getBoundingClientRect();
+    setDrag({ ...drag, x: event.clientX - rect.x, y: event.clientY - rect.y });
+  };
+  const endDrag = (event) => {
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    const input = document.elementsFromPoint(event.clientX, event.clientY)
+      .map((node) => node.closest?.("[data-patch-input]")).find(Boolean);
+    if (input) connect(drag.env, input.dataset.patchInput, drag.oldDestination);
+    setDrag(null);
+  };
+  const curve = (start, end) => {
+    const sag = Math.min(65, Math.abs(end.x - start.x) * .16 + 20);
+    return `M ${start.x} ${start.y} C ${start.x + 70} ${start.y + sag}, ${end.x - 70} ${end.y + sag}, ${end.x} ${end.y}`;
+  };
+  const active = patches.find((patch) => keyOf(patch) === selected) ?? patches[0];
+  return (
+    <div className="m8-cable-bay">
+      <div className="m8-cable-board" ref={boardRef} onPointerMove={moveDrag} onPointerUp={endDrag}
+        onPointerCancel={() => setDrag(null)}>
+        <svg className="m8-cables" aria-hidden="true">
+          {patches.map((patch) => {
+            const start = points["env" + patch.env];
+            const end = points[patch.destination];
+            if (!start || !end || (drag?.env === patch.env && drag.oldDestination === patch.destination)) return null;
+            const path = curve(start, end);
+            return <g key={keyOf(patch)}>
+              <path d={path} className="m8-cable-shadow" />
+              <path d={path} stroke={colors[patch.env]} className="m8-cable" />
+              <path d={path} className="m8-cable-shine" />
+            </g>;
+          })}
+          {drag && points["env" + drag.env] && <path d={curve(points["env" + drag.env], drag)}
+            stroke={colors[drag.env]} className="m8-cable m8-cable-drag" />}
+        </svg>
+        <div className="m8-output-bank">
+          {[0, 1].map((env) => <div className="m8-jack-row" key={env}>
+            <span>ENV {env + 1}<small>OUT</small></span>
+            <button type="button" ref={(node) => { socketsRef.current["env" + env] = node; }}
+              className="m8-jack" aria-label={`ENV ${env + 1} output: drag to an input`}
+              aria-pressed={armed === env} onPointerDown={(event) => startDrag(event, env)}
+              onClick={() => setArmed(env)} style={{ "--cable-color": colors[env] }} />
+          </div>)}
+        </div>
+        <div className="m8-input-bank">
+          {Object.entries(destinations).map(([destination, label]) => <div className="m8-jack-row" key={destination}>
+            <button type="button" data-patch-input={destination}
+              ref={(node) => { socketsRef.current[destination] = node; }}
+              className="m8-jack" aria-label={label + " input"}
+              onClick={() => armed !== null && connect(armed, destination)} />
+            <span>{label}<small>IN</small></span>
+            <div className="m8-plugs">
+              {patches.filter((patch) => patch.destination === destination).map((patch) =>
+                <button type="button" key={patch.env} className="m8-plug"
+                  style={{ "--cable-color": colors[patch.env] }}
+                  aria-label={`ENV ${patch.env + 1} to ${label} cable: drag to repatch`}
+                  onPointerDown={(event) => startDrag(event, patch.env, destination)}
+                  onClick={() => setSelected(keyOf(patch))}>{patch.env + 1}</button>)}
+            </div>
+          </div>)}
+        </div>
+      </div>
+      <div className="m8-cable-controls">
+        <select aria-label="Cable to adjust" value={active ? keyOf(active) : ""}
+          onChange={(event) => setSelected(event.target.value)} disabled={!active}>
+          {!active && <option value="">No cables</option>}
+          {patches.map((patch) => <option key={keyOf(patch)} value={keyOf(patch)}>
+            ENV {patch.env + 1} → {destinations[patch.destination]}
+          </option>)}
+        </select>
+        {active && <>
+          <input type="range" min={-100} max={100} value={active.amount} aria-label="Cable modulation amount"
+            onChange={(event) => setPatches((current) => current.map((patch) =>
+              keyOf(patch) === keyOf(active) ? { ...patch, amount: Number(event.target.value) } : patch))} />
+          <output>{active.amount > 0 ? "+" : ""}{active.amount}</output>
+          <button type="button" aria-label="Unplug selected cable" onClick={() =>
+            setPatches((current) => current.filter((patch) => keyOf(patch) !== keyOf(active)))}>UNPLUG</button>
+        </>}
+      </div>
+      <p className="m8-patch-hint">Drag a socket to connect. Drag a numbered plug to move a cable. Or click output, then input.</p>
     </div>
   );
 }
