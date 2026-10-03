@@ -479,7 +479,7 @@ export default function SimpleSubtractiveSynth() {
   const updateStep = (idx, patch) => {
     setSteps((arr) => {
       const next = arr.map((s, i) => (i === idx ? { ...s, ...patch } : s));
-      if (idx === currentStepRef.current) {
+      if (audioRef.current && isPlaying && idx === currentStepRef.current) {
         const st = next[idx];
         if (st.on) {
           const midi = baseNoteRef.current + (st.semi || 0) + transposeRef.current;
