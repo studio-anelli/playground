@@ -509,9 +509,10 @@ export default function GP888DrumMachine() {
               <button onClick={save}>SAVE</button><button onClick={load}>LOAD</button></div>
           </div>
           <div className="gp-sequence-scroll">
-            <div className="gp-sequence" style={{gridTemplateColumns:`100px repeat(${steps}, minmax(24px,1fr))`}}>
+            <div className="gp-sequence" style={{gridTemplateColumns:`100px repeat(${steps}, minmax(24px,1fr))`, "--gp-step-count":steps, "--gp-playhead":Math.max(0,activeStep)} as React.CSSProperties}>
+              <div className={`gp-progress ${isPlaying ? "is-running" : ""}`} aria-hidden="true"><span /></div>
               <span className="gp-row-heading">PATTERN</span>
-              {Array.from({length:steps},(_,i)=><span key={i} className={`gp-step-number ${i%4===0?"is-quarter":""}`}>{i+1}</span>)}
+              {Array.from({length:steps},(_,i)=><span key={i} aria-current={isPlaying && i===activeStep ? "step" : undefined} className={`gp-step-number ${i%4===0?"is-quarter":""} ${isPlaying&&i===activeStep?"is-current":""}`}>{i+1}</span>)}
               {TRACKS.map(t=><React.Fragment key={t.id}>
                 <div className="gp-track-name"><span className={`gp-led ${blink[t.id]?"is-lit":""}`} />{t.name}</div>
                 {Array.from({length:steps},(_,i)=><button key={i} aria-label={`${t.name} step ${i+1}`} aria-pressed={!!pattern[t.id]?.[i]}
