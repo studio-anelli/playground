@@ -234,7 +234,8 @@ function useAudioEngine() {
     get currentTime() { return audioCtxRef.current ? audioCtxRef.current.currentTime : 0; },
   } as const;
 
-  return api;
+  const stableApi = useRef(api);
+  return stableApi.current;
 }
 
 // -----------------------
@@ -306,16 +307,17 @@ function Scheduler({
 
   useEffect(() => {
     if (!isPlaying) return;
+    let frame = 0;
     const raf = () => {
       const ctxT = (engine as any).currentTime as number;
       while (notesInQueue.current.length && notesInQueue.current[0].time < ctxT) {
         const n = notesInQueue.current.shift()!;
         onStep(n.step);
       }
-      requestAnimationFrame(raf);
+      frame = requestAnimationFrame(raf);
     };
-    const id = requestAnimationFrame(raf);
-    return () => cancelAnimationFrame(id);
+    frame = requestAnimationFrame(raf);
+    return () => cancelAnimationFrame(frame);
   }, [isPlaying, onStep, engine]);
 
   return null;
@@ -544,7 +546,7 @@ export default function GP888DrumMachine() {
         steps={steps}
         pattern={pattern as any}
         trackLevels={effLevels as any}
-        onStep={(ix) => setActiveStep(ix)}
+        onStep={setActiveStep}
         engine={engine}
       />
     </div>
