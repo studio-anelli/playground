@@ -1,0 +1,236 @@
+/* REC 08: a compact black metal panel with printed legends and red controls. */
+.micro8 .m8-sound-presets { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; font-size: 9px; padding: 3px 0; }
+.micro8 .m8-sound-presets > span { margin-right: 7px; letter-spacing: .12em; color: #aaa9a3; }
+.micro8 .m8-sound-presets button { border: 1px solid #777; padding: 4px 9px; background: #242525; color: #e8e5dd; font-size: 9px; letter-spacing: .07em; }
+.micro8 .m8-sound-presets button[aria-pressed=true] { background: #536fe0; border-color: #6984ef; }
+.micro8 .m8-sound-presets small { margin-left: auto; color: #aaa9a3; font: 8px monospace; }
+.micro8 .m8-tone-controls { grid-column: 1 / -1; display: flex; gap: 8px; margin-top: 4px; }
+.micro8 .m8-tone-controls label { display: flex; align-items: center; gap: 3px; font-size: 8px; width: 50%; }
+.micro8 .m8-tone-controls input { min-width: 0; width: 100%; height: 12px; }
+.micro8 .m8-filter-switches { grid-column: 1 / -1; display: flex; gap: 5px; margin-bottom: 4px; }
+.micro8 .m8-filter-switches button, .micro8 .m8-filter-switches select { background: #161717; color: #e8e5dd; border: 1px solid #777; padding: 3px; font-size: 9px; }
+.micro8 .m8-filter-switches button[aria-pressed=true] { background: #536fe0; }
+.micro8 .micro8-effects { grid-column: 1 / -1; grid-row: 4; display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 1px; }
+.micro8 .micro8-effects > div { padding: 8px; border: 0; border-radius: 0; background: #242525; }
+.micro8 .micro8-effects > div > div:first-child { font-size: 9px; letter-spacing: .15em; color: #e8e5dd; margin-bottom: 8px; }
+.micro8 .micro8-effects > div > div:nth-child(2) { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 4px; }
+.micro8 .micro8-effects > div > div:nth-child(2) > .m8-glide-control { grid-column: 1 / -1; }
+.micro8 .m8-glide-pad { height: 60px; position: relative; touch-action: none; background: linear-gradient(90deg, transparent 49.5%, #5c5e5b 50%, transparent 50.5%), linear-gradient(transparent 49.5%, #5c5e5b 50%, transparent 50.5%), #151616; border: 1px solid #777; overflow: hidden; cursor: crosshair; }
+.micro8 .m8-glide-pad small { position: absolute; left: 4px; bottom: 3px; font-size: 8px; pointer-events: none; color: #aaa; }
+.micro8 .m8-pad-dot { width: 9px; height: 9px; border-radius: 50%; background: #6984ef; position: absolute; transform: translate(-50%,-50%); pointer-events: none; }
+.micro8 .m8-glide-control label { display: flex; align-items: center; gap: 4px; font-size: 8px; margin-top: 3px; }
+.micro8 .m8-glide-control input { width: 100%; min-width: 0; }
+.micro8 .m8-glide-control button { font-size: 8px; padding: 1px 3px; color: #ddd; border: 1px solid #555; }
+.micro8 .m8-piano { padding: 8px 12px 10px; background: #242525; border: 1px solid #777773; border-radius: 3px; }
+.micro8 .m8-piano-legend { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; font-size: 9px; letter-spacing: .12em; }
+.micro8 .m8-piano-legend > span { margin-left: auto; color: #aaa9a3; font-size: 8px; }
+.micro8 .m8-octave-switch { display: flex; gap: 6px; align-items: center; font: 10px monospace; }
+.micro8 .m8-octave-switch button { border: 1px solid #777773; padding: 1px 7px; color: #e8e5dd; background: #151616; }
+.micro8 .m8-octave-switch button:disabled { opacity: .35; }
+.micro8 .m8-piano-bed { position: relative; width: min(100%, 700px); margin: auto; border-top: 4px solid #536fe0; background: #111; padding-bottom: 3px; box-shadow: 0 3px 5px #0008; }
+.micro8 .m8-white-keys { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; }
+.micro8 .m8-piano-key { touch-action: none; user-select: none; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 3px; font-size: 9px; border-radius: 0 0 3px 3px; }
+.micro8 .m8-piano-key kbd { font: bold 10px monospace; }
+.micro8 .m8-piano-key.is-white { height: 63px; padding-bottom: 4px; background: linear-gradient(#d3d1c7, #f1efe6 35%, #dedbd0); color: #292929; border: 1px solid #c3c0b8; box-shadow: inset 0 -4px #bcb9b0; }
+.micro8 .m8-piano-key.is-black { position: absolute; top: 0; width: 7.6%; height: 38px; padding-bottom: 3px; background: linear-gradient(90deg, #080909, #343535 45%, #101111); color: #d8d6ce; border: 1px solid #000; box-shadow: inset 0 -4px #050505, 0 3px 3px #0008; z-index: 1; }
+.micro8 .m8-piano-key.is-held { background: #536fe0; color: #fff; box-shadow: inset 0 -1px #273568; }
+.micro8 .m8-piano-key:disabled { opacity: .55; }
+.micro8 .m8-cable-bay { grid-column: 1 / -1; min-width: 0; }
+.micro8-panel .micro8-envelopes > div > div:nth-child(2) > .w-24.flex-col:first-child { grid-column: auto; }
+.micro8 .m8-cable-board { position: relative; display: flex; justify-content: space-between; height: 128px; padding: 4px 8px; isolation: isolate; }
+.micro8 .m8-cables { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 2; }
+.micro8 .m8-cable { fill: none; stroke-width: 5; stroke-linecap: round; }
+.micro8 .m8-cable-shadow { fill: none; stroke: #000b; stroke-width: 9; transform: translateY(3px); }
+.micro8 .m8-cable-shine { fill: none; stroke: #ffffff32; stroke-width: 1; transform: translateY(-1px); }
+.micro8 .m8-cable-drag { opacity: .8; }
+.micro8 .m8-output-bank, .micro8 .m8-input-bank { display: flex; flex-direction: column; justify-content: space-around; z-index: 3; }
+.micro8 .m8-jack-row { display: flex; align-items: center; gap: 8px; height: 36px; position: relative; }
+.micro8 .m8-jack-row > span { font-size: 9px; font-weight: 700; letter-spacing: .08em; min-width: 65px; pointer-events: none; }
+.micro8 .m8-jack-row small { display: block; color: #999; font-size: 8px; letter-spacing: .15em; margin-top: 2px; }
+.micro8 .m8-jack { width: 28px; height: 28px; padding: 0; flex-shrink: 0; border-radius: 50%; border: 3px solid #b5b4ae; background: radial-gradient(circle, #050505 0 30%, #484946 32% 44%, #0d0e0e 46% 58%, #858780 60%); box-shadow: 0 2px 3px #000, inset 0 0 0 1px #ecebe2; cursor: crosshair; touch-action: none; }
+.micro8 .m8-jack[aria-pressed="true"] { border-color: var(--cable-color); box-shadow: 0 0 0 2px #6984ef50; }
+.micro8 .m8-jack:hover { border-color: #f3ede0; }
+.micro8 .m8-plugs { display: flex; gap: 3px; min-width: 35px; }
+.micro8 .m8-plug { width: 18px; height: 23px; padding: 0; font-size: 9px; font-weight: bold; border: 1px solid #000; border-radius: 3px; background: var(--cable-color); color: #111; box-shadow: inset 0 2px #fff4, 0 2px 2px #000; cursor: grab; touch-action: none; }
+.micro8 .m8-cable-controls { display: flex; align-items: center; gap: 6px; padding-top: 5px; border-top: 1px solid #60605d; }
+.micro8 .m8-cable-controls select { background: #171818; color: #e8e5dd; border: 1px solid #60605d; font: 10px monospace; max-width: 175px; min-width: 0; padding: 3px; }
+.micro8 .m8-cable-controls input { flex: 1; min-width: 35px; width: 60px; }
+.micro8 .m8-cable-controls output { font: 10px monospace; min-width: 26px; }
+.micro8 .m8-cable-controls button { font-size: 8px; letter-spacing: .08em; border: 1px solid #60605d; padding: 4px; }
+.micro8 .m8-patch-hint { font-size: 9px !important; color: #aaa9a3; margin-top: 5px !important; }
+.micro8 {
+  --m8-red: #536fe0;
+  --m8-ivory: #e8e5dd;
+  --m8-muted: #aaa9a3;
+  --m8-line: #60605d;
+  min-height: 100%;
+  padding: 10px 14px 16px;
+  background: #171818;
+  color: var(--m8-ivory);
+  font-family: Arial, Helvetica, sans-serif;
+}
+.micro8-inner { max-width: 1440px; gap: 8px; }
+.micro8-inner > header { min-height: 34px; gap: 12px; }
+.micro8-inner > header h1 { color: var(--m8-ivory); font-size: 20px; font-weight: 800; letter-spacing: -.06em; }
+.micro8-inner > header h1 span { padding-left: 12px; color: var(--m8-muted); font-size: 10px; font-weight: 600; letter-spacing: .16em; vertical-align: middle; }
+.micro8-inner > header button { border: 1px solid #8194ef; border-radius: 2px; background: var(--m8-red); box-shadow: inset 0 1px 1px #c2ccff, 0 2px 0 #273568; padding: 5px 16px; font-size: 11px; letter-spacing: .12em; }
+.micro8-inner > header > div { color: #a3b2f5; font-family: monospace; font-size: 11px; letter-spacing: .1em; }
+.micro8-panel { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 2px solid #777773; border-radius: 5px; background: #777773; box-shadow: 0 8px 24px #0008, inset 0 1px #bbb; }
+.micro8-transport, .micro8-sequencer { grid-column: 1 / -1; }
+.micro8-transport { grid-row: 1; min-height: 48px; padding: 6px 12px; border: 0; background: #292a2a; gap: 14px; }
+.micro8-oscillators, .micro8-modules, .micro8-envelopes, .micro8-patch, .micro8-drive { display: contents; }
+.micro8-oscillators > :nth-child(1) { grid-area: 2 / 1; }
+.micro8-oscillators > :nth-child(2) { grid-area: 2 / 2; }
+.micro8-modules > :first-child { grid-area: 2 / 3; }
+.micro8-drive > :first-child { grid-area: 2 / 4; }
+.micro8-envelopes > :first-child { grid-area: 3 / 1; }
+.micro8-envelopes > :nth-child(2) { grid-area: 3 / 2; }
+.micro8-patch > :first-child { grid-area: 3 / 3 / 4 / 5; }
+.micro8-sequencer { grid-row: 4; padding: 9px 12px 11px; border: 0; background: #242525; }
+.micro8-panel .micro8-oscillators > div, .micro8-panel .micro8-modules > div, .micro8-panel .micro8-drive > div,
+.micro8-panel .micro8-envelopes > div, .micro8-panel .micro8-patch > div { min-width: 0; min-height: 174px; padding: 10px 11px; border: 0; border-radius: 0; background: #242525; }
+.micro8-panel .micro8-envelopes > div, .micro8-panel .micro8-patch > div { min-height: 195px; }
+.micro8-panel .micro8-envelopes > div { height: 100%; }
+.micro8-panel .micro8-patch > div { background: #292a2a; }
+.micro8-panel .micro8-oscillators > div > div:first-child, .micro8-panel .micro8-modules > div > div:first-child,
+.micro8-panel .micro8-drive > div > div:first-child, .micro8-panel .micro8-envelopes > div > div:first-child,
+.micro8-panel .micro8-patch > div > div:first-child { margin-bottom: 10px; padding-bottom: 5px; border-bottom: 1px solid var(--m8-line); color: var(--m8-ivory); font-size: 10px; font-weight: 700; letter-spacing: .18em; }
+.micro8-panel .micro8-oscillators > div > div:nth-child(2), .micro8-panel .micro8-modules > div > div:nth-child(2),
+.micro8-panel .micro8-drive > div > div:nth-child(2), .micro8-panel .micro8-envelopes > div > div:nth-child(2),
+.micro8-panel .micro8-patch > div > div:nth-child(2) { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; }
+.micro8-panel .micro8-oscillators > div > div:nth-child(2) > div:first-child { grid-column: 1 / -1; justify-content: flex-start; gap: 3px; }
+.micro8-panel .micro8-oscillators > div > div:nth-child(2) > div:nth-child(2) { grid-column: 1 / -1; gap: 8px; }
+.micro8-panel .micro8-envelopes > div > div:nth-child(2) > div:first-child,
+.micro8-panel .micro8-patch > div > div:nth-child(2) > p,
+.micro8-panel .micro8-patch > div > div:nth-child(2) > div { grid-column: 1 / -1; }
+.micro8-panel .micro8-envelopes > div > div:nth-child(2) > div:first-child { gap: 5px; }
+.micro8-panel .micro8-envelopes > div > div:nth-child(2) > div:first-child span { font-size: 9px; }
+.micro8-panel .micro8-patch p { margin: 0; font-size: 10px; }
+.micro8-panel .micro8-patch button { white-space: nowrap; }
+.micro8-panel .micro8-patch > div > div:nth-child(2) > div:nth-child(2) { gap: 6px; }
+.micro8-panel .micro8-patch > div > div:nth-child(2) > div:nth-child(3) { max-height: 104px; overflow-y: auto; gap: 3px; }
+.micro8-panel .micro8-patch > div > div:nth-child(2) > div:nth-child(3) > div { min-height: 27px; padding: 2px 6px; border-color: var(--m8-line); border-radius: 2px; gap: 6px; }
+.micro8-panel .micro8-patch > div > div:nth-child(2) > div:nth-child(3) span:first-child { min-width: 145px; }
+.micro8 button { border-radius: 2px; }
+.micro8 button:focus-visible, .micro8 input:focus-visible, .micro8 select:focus-visible { outline: 2px solid #a3b2f5; outline-offset: 2px; }
+.micro8 input[type="range"] { accent-color: var(--m8-red); }
+.micro8-panel button[class*="ffb000"], .micro8-panel button[class*="00e38a"], .micro8-panel button[class*="ff4d57"] { border-color: var(--m8-red); color: var(--m8-ivory); }
+.micro8-panel button[class*="bg-\[\#ffb000\]"], .micro8-panel button[class*="bg-\[\#00e38a\]"] { background: var(--m8-red); color: white; }
+.micro8-panel button[class*="bg-\[\#2a2b2b\]"] { background: #3b3d3c; color: var(--m8-ivory); }
+.micro8-panel .micro8-patch button[class*="border-\[\#00e38a\]"] { border: 1px solid var(--m8-line); padding: 4px 8px; font-size: 10px; }
+.micro8-panel .micro8-envelopes button[class*="rounded-full"] { border-color: var(--m8-red); padding: 4px 7px; color: var(--m8-ivory); font-size: 10px; }
+.micro8-panel .micro8-envelopes button[aria-pressed="true"] { background: var(--m8-red); }
+.micro8-panel .micro8-patch span[class*="ffb000"] { color: #a3b2f5; }
+.micro8-panel .micro8-transport button { padding: 5px 12px; border-width: 1px; font-size: 11px; }
+.micro8-panel .micro8-transport button[style] { border-color: #c9c7bf !important; color: var(--m8-ivory) !important; }
+.micro8-panel .micro8-transport > div:first-child { white-space: nowrap; }
+.micro8-panel .micro8-transport .w-24, .micro8-panel .micro8-sequencer .w-24 { width: auto; min-width: 62px; }
+.micro8-panel .micro8-transport .w-16, .micro8-panel .micro8-sequencer .w-16 { width: 58px; }
+.micro8-panel .micro8-transport .w-16, .micro8-panel .micro8-sequencer .w-16 { white-space: nowrap; }
+.micro8-panel .micro8-transport .ml-3 { margin-left: 3px; font-family: monospace; font-size: 11px; }
+.micro8-panel .w-24.flex-col { width: 57px; }
+.micro8-panel .w-16.h-16 { width: 42px; height: 42px; border: 2px solid #84847f; background: #111; box-shadow: 0 2px 2px #000; }
+.micro8-panel .w-10.h-10 { width: 28px; height: 28px; background: #d9d8d1; box-shadow: inset 0 1px #fff, 0 1px 3px #000; }
+.micro8-panel .w-\[2px\].h-7 { height: 20px; background: var(--m8-red); }
+.micro8-panel .w-24.flex-col > div:nth-child(2) { margin-top: 5px; font-size: 9px; }
+.micro8-panel .w-24.flex-col > div:nth-child(3) { margin-top: 1px; font-family: monospace; font-size: 10px; }
+.micro8-panel .micro8-oscillators button, .micro8-panel .micro8-sequencer button { padding: 3px 6px; font-size: 9px; }
+.micro8-panel .micro8-oscillators .w-12 { width: auto; }
+.micro8-panel .micro8-sequencer > div:first-child { gap: 9px; margin-bottom: 8px; }
+.micro8-panel .micro8-sequencer > div:nth-child(2) { gap: 4px; }
+.micro8-panel .micro8-sequencer > div:nth-child(2) > div { padding: 5px; border-radius: 2px; border-color: #64645f; background: #303131; }
+.micro8-panel .micro8-sequencer > div:nth-child(2) > div[class*="border-\[\#00e38a\]"] { border-color: var(--m8-red); }
+.micro8-panel .micro8-sequencer > div:nth-child(2) > div .mb-2 { margin-bottom: 3px; }
+.micro8-panel .micro8-sequencer > div:nth-child(2) > div .w-2.h-2 { background: var(--m8-red); }
+.micro8-panel .micro8-sequencer select { border-color: var(--m8-line); border-radius: 2px; background: #111; }
+@media (max-width: 1100px) {
+  .micro8-panel { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .micro8-oscillators > :nth-child(1), .micro8-oscillators > :nth-child(2), .micro8-modules > :first-child,
+  .micro8-drive > :first-child, .micro8-envelopes > :first-child, .micro8-envelopes > :nth-child(2), .micro8-patch > :first-child { grid-area: auto; }
+  .micro8-patch > :first-child { grid-column: 1 / -1; }
+  .micro8-sequencer { grid-row: auto; }
+}
+@media (max-width: 680px) {
+  .micro8 { padding: 8px; }
+  .micro8-panel { grid-template-columns: minmax(0, 1fr); }
+  .micro8-patch > :first-child { grid-column: 1; }
+  .micro8-transport, .micro8-sequencer { grid-column: 1; }
+  .micro8-transport { grid-template-columns: 1fr; }
+  .micro8-panel .micro8-sequencer > div:nth-child(2) { overflow-x: auto; grid-template-columns: repeat(8, minmax(88px, 1fr)); }
+  .micro8-inner > header h1 span { display: none; }
+}
+/* Expanded routing panel layout. */
+.micro8-panel .micro8-modules > div:nth-child(2):not(.micro8-envelopes) { grid-area: 2 / 4; }
+.micro8-panel .micro8-modules > div:nth-child(2):not(.micro8-envelopes) > div:nth-child(2) { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 5px; }
+.micro8-panel .micro8-modules > div:nth-child(2):not(.micro8-envelopes) > div:first-child { color: #e8e5dd; font-size: 10px; letter-spacing: .18em; padding-bottom: 5px; margin-bottom: 10px; border-bottom: 1px solid #60605d; }
+.micro8-panel .micro8-sequencer { grid-row: 5; }
+.micro8 .m8-cable-board { height: 135px; }
+.micro8 .m8-jack-row { height: 30px; }
+.micro8 .m8-jack { width: 25px; height: 25px; }
+.micro8-panel .micro8-oscillators > div, .micro8-panel .micro8-modules > div:not(.micro8-envelopes) { min-height: 138px; }
+.micro8-panel .micro8-envelopes > div { min-height: 195px; }
+.micro8-panel .micro8-sequencer input[type=range] { height: 14px; }
+@media(max-width:1100px) {
+  .micro8-panel .micro8-modules > div:nth-child(2):not(.micro8-envelopes) { grid-area: auto; }
+  .micro8 .micro8-effects { grid-row: auto; grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .micro8-panel .micro8-sequencer { grid-row: auto; }
+}
+@media(max-width:680px) { .micro8 .micro8-effects { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+/* Printed, deliberately simple instrument face. */
+.micro8 { background: #191919; --m8-ivory: #eee9dc; --m8-red: #536fe0; }
+.micro8-panel { border: 3px double #eee9dc; border-radius: 1px; box-shadow: 4px 5px 0 #080808; background: #d7d2c5; }
+.micro8-panel .micro8-oscillators > div, .micro8-panel .micro8-modules > div:not(.micro8-envelopes), .micro8-panel .micro8-envelopes > div, .micro8-panel .micro8-patch > div, .micro8 .micro8-effects > div { background: #202020; }
+.micro8-panel .micro8-oscillators > div > div:first-child, .micro8-panel .micro8-modules > div > div:first-child, .micro8-panel .micro8-envelopes > div > div:first-child { border-bottom: 2px solid #ddd7ca; transform: rotate(-.35deg); }
+.micro8-inner > header h1 { letter-spacing: -.08em; font-weight: 900; }
+.micro8 button { border-radius: 0; box-shadow: none; }
+.micro8 .m8-knob { --dial: 46px; display: flex; flex-direction: column; align-items: center; min-width: 0; align-self: end; }
+.micro8 .m8-knob--large { --dial: 60px; }
+.micro8 .m8-knob--small { --dial: 32px; }
+.micro8 .m8-knob-dial { width: var(--dial); height: var(--dial); position: relative; flex-shrink: 0; }
+.micro8 .m8-knob-scale { width: 100%; height: 100%; stroke: #eee9dc; stroke-width: 3.5; fill: none; transform: rotate(.7deg); }
+.micro8 .m8-knob-cap { position: absolute; inset: 20%; border-radius: 50%; background: #eee9dc; border: 1px solid #111; }
+.micro8 .m8-knob-cap span { position: absolute; left: 46%; top: 2%; height: 44%; width: 9%; background: #242424; }
+.micro8 .m8-knob-dial input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; }
+.micro8 .m8-knob-dial:focus-within { outline: 2px solid #536fe0; outline-offset: 3px; border-radius: 50%; }
+.micro8 .m8-knob-label { font-size: 8px; font-weight: 800; letter-spacing: .045em; margin-top: 4px; text-align: center; }
+.micro8 .m8-knob-value { font: 9px monospace; color: #c2beb3; margin-top: 1px; }
+.micro8 .m8-tone-controls { gap: 12px; margin-top: 0; }
+.micro8 .m8-analog-switch { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.micro8 .m8-switch-label { font-size: 8px; font-weight: 800; letter-spacing: .08em; }
+.micro8 .m8-switch-assembly { width: calc(var(--positions) * 32px); padding-top: 2px; }
+.micro8 .m8-switch-slot { height: 12px; border: 1px solid #777367; background: #070707; position: relative; margin: 0 10px 5px; }
+.micro8 .m8-switch-slot span { position: absolute; width: 14px; height: 16px; top: -3px; left: calc(var(--selected) * (100% - 14px) / (var(--positions) - 1)); background: repeating-linear-gradient(0deg,#eee9dc 0 3px,#9e9a8f 3px 4px); border: 1px solid #f2eee2; transition: left 90ms; }
+.micro8 .m8-switch-positions { display: grid; grid-template-columns: repeat(var(--positions),1fr); }
+.micro8 .m8-switch-positions button { padding: 2px !important; border: 0; background: transparent; color: #9e9a8f; font: bold 9px monospace; min-height: 24px; }
+.micro8 .m8-switch-positions button[aria-checked=true] { color: #eee9dc; background: transparent; }
+.micro8 .m8-switch-positions svg { width: 22px; height: 22px; margin: auto; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: bevel; }
+.micro8 .m8-filter-switches { align-items: center; justify-content: space-between; }
+.micro8 .m8-filter-switches > button { min-width: 38px; height: 26px; border: 2px solid #ddd7ca; font-weight: 800; }
+.micro8-panel .micro8-oscillators > div > div:nth-child(2) > div:nth-child(2) { gap: 10px; align-items: end; }
+.micro8 .m8-piano { border-radius: 0; border: 2px solid #ddd7ca; background: #202020; }
+.micro8 .m8-piano-key.is-white { background: #eee9dc; box-shadow: inset 0 -3px #aaa69a; border-radius: 0; }
+.micro8 .m8-piano-key.is-black { background: #111; border: 1px solid #eee9dc; border-radius: 0; }
+.micro8 .m8-piano-key.is-held { background: #536fe0; }
+.micro8-panel .micro8-envelopes > div > div:nth-child(2) > .m8-knob:first-child { grid-column: auto; }
+.micro8 .m8-tone-controls > .m8-knob { flex: 0 0 44px; }
+
+/* Blue face and direct modulation trims. */
+html:has(.micro8), body:has(.micro8), body:has(.micro8) .import-page,
+body:has(.micro8) .experiment-native, body:has(.micro8) .import-header { background: #202020; color: #eee9dc; }
+.micro8 { background: #202020; }
+.micro8 .m8-input-bank .m8-jack-row { height: 48px; gap: 7px; }
+.micro8 .m8-input-bank .m8-knob { width: 40px; }
+.micro8 .m8-input-bank .m8-knob-label { font-size: 7px; margin-top: 0; }
+.micro8 .m8-input-bank .m8-knob-value { font-size: 8px; }
+.micro8 .m8-knob.is-disabled { opacity: .35; }
+.micro8 .m8-cable-board { height: 244px; }
+.micro8 .m8-cable-controls { justify-content: space-between; }
+.micro8 .m8-glide-control { display: grid; grid-template-columns: minmax(0,1fr) 42px; gap: 5px; align-items: center; }
+.micro8 .m8-glide-control > button { grid-column: 1 / -1; justify-self: start; }
+.micro8-panel .micro8-sequencer > div:nth-child(2) > div > .m8-knob { margin: 4px auto 8px; }
+.micro8-panel .micro8-sequencer > div:nth-child(2) > div .m8-knob-dial input { height: 100%; }
+.micro8 .m8-input-bank .m8-jack-row { height: 36px; }
+.micro8 .m8-input-bank .m8-knob { width: 64px; display: grid; grid-template-columns: 32px 28px; column-gap: 4px; align-items: center; }
+.micro8 .m8-input-bank .m8-knob-dial { grid-row: 1 / 3; }
+.micro8 .m8-input-bank .m8-knob-label, .micro8 .m8-input-bank .m8-knob-value { margin: 0; text-align: left; }
+.micro8 .m8-cable-board { height: 180px; }
