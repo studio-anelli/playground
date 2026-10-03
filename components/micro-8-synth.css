@@ -176,3 +176,38 @@
   .micro8-panel .micro8-sequencer { grid-row: auto; }
 }
 @media(max-width:680px) { .micro8 .micro8-effects { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+/* Printed, deliberately simple instrument face. */
+.micro8 { background: #191919; --m8-ivory: #eee9dc; --m8-red: #be352d; }
+.micro8-panel { border: 3px double #eee9dc; border-radius: 1px; box-shadow: 4px 5px 0 #080808; background: #d7d2c5; }
+.micro8-panel .micro8-oscillators > div, .micro8-panel .micro8-modules > div:not(.micro8-envelopes), .micro8-panel .micro8-envelopes > div, .micro8-panel .micro8-patch > div, .micro8 .micro8-effects > div { background: #202020; }
+.micro8-panel .micro8-oscillators > div > div:first-child, .micro8-panel .micro8-modules > div > div:first-child, .micro8-panel .micro8-envelopes > div > div:first-child { border-bottom: 2px solid #ddd7ca; transform: rotate(-.35deg); }
+.micro8-inner > header h1 { letter-spacing: -.08em; font-weight: 900; }
+.micro8 button { border-radius: 0; box-shadow: none; }
+.micro8 .m8-knob { --dial: 46px; display: flex; flex-direction: column; align-items: center; min-width: 0; align-self: end; }
+.micro8 .m8-knob--large { --dial: 60px; }
+.micro8 .m8-knob--small { --dial: 32px; }
+.micro8 .m8-knob-dial { width: var(--dial); height: var(--dial); position: relative; flex-shrink: 0; }
+.micro8 .m8-knob-scale { width: 100%; height: 100%; stroke: #eee9dc; stroke-width: 3.5; fill: none; transform: rotate(.7deg); }
+.micro8 .m8-knob-cap { position: absolute; inset: 20%; border-radius: 50%; background: #eee9dc; border: 1px solid #111; }
+.micro8 .m8-knob-cap span { position: absolute; left: 46%; top: 2%; height: 44%; width: 9%; background: #242424; }
+.micro8 .m8-knob-dial input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; }
+.micro8 .m8-knob-dial:focus-within { outline: 2px solid #be352d; outline-offset: 3px; border-radius: 50%; }
+.micro8 .m8-knob-label { font-size: 8px; font-weight: 800; letter-spacing: .045em; margin-top: 4px; text-align: center; }
+.micro8 .m8-knob-value { font: 9px monospace; color: #c2beb3; margin-top: 1px; }
+.micro8 .m8-tone-controls { gap: 12px; margin-top: 0; }
+.micro8 .m8-analog-switch { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.micro8 .m8-switch-label { font-size: 8px; font-weight: 800; letter-spacing: .08em; }
+.micro8 .m8-switch-assembly { width: calc(var(--positions) * 32px); padding-top: 2px; }
+.micro8 .m8-switch-slot { height: 12px; border: 1px solid #777367; background: #070707; position: relative; margin: 0 10px 5px; }
+.micro8 .m8-switch-slot span { position: absolute; width: 14px; height: 16px; top: -3px; left: calc(var(--selected) * (100% - 14px) / (var(--positions) - 1)); background: repeating-linear-gradient(0deg,#eee9dc 0 3px,#9e9a8f 3px 4px); border: 1px solid #f2eee2; transition: left 90ms; }
+.micro8 .m8-switch-positions { display: grid; grid-template-columns: repeat(var(--positions),1fr); }
+.micro8 .m8-switch-positions button { padding: 2px !important; border: 0; background: transparent; color: #9e9a8f; font: bold 9px monospace; min-height: 24px; }
+.micro8 .m8-switch-positions button[aria-checked=true] { color: #eee9dc; background: transparent; }
+.micro8 .m8-switch-positions svg { width: 22px; height: 22px; margin: auto; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: bevel; }
+.micro8 .m8-filter-switches { align-items: center; justify-content: space-between; }
+.micro8 .m8-filter-switches > button { min-width: 38px; height: 26px; border: 2px solid #ddd7ca; font-weight: 800; }
+.micro8-panel .micro8-oscillators > div > div:nth-child(2) > div:nth-child(2) { gap: 10px; align-items: end; }
+.micro8 .m8-piano { border-radius: 0; border: 2px solid #ddd7ca; background: #202020; }
+.micro8 .m8-piano-key.is-white { background: #eee9dc; box-shadow: inset 0 -3px #aaa69a; border-radius: 0; }
+.micro8 .m8-piano-key.is-black { background: #111; border: 1px solid #eee9dc; border-radius: 0; }
+.micro8 .m8-piano-key.is-held { background: #be352d; }
