@@ -211,3 +211,5 @@
 .micro8 .m8-piano-key.is-white { background: #eee9dc; box-shadow: inset 0 -3px #aaa69a; border-radius: 0; }
 .micro8 .m8-piano-key.is-black { background: #111; border: 1px solid #eee9dc; border-radius: 0; }
 .micro8 .m8-piano-key.is-held { background: #be352d; }
+.micro8-panel .micro8-envelopes > div > div:nth-child(2) > .m8-knob:first-child { grid-column: auto; }
+.micro8 .m8-tone-controls > .m8-knob { flex: 0 0 44px; }
