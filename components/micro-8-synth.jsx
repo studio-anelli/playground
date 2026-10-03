@@ -11,8 +11,9 @@ import "./micro-8-synth.css";
 
 const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
 const midiToFreq = (m) => 440 * Math.pow(2, (m - 69) / 12);
-const destinations = { vca: "VCA LEVEL", cutoff: "VCF CUTOFF", pitch: "VCO PITCH" };
-const modulationScale = { vca: 1, cutoff: 6000, pitch: 1200 };
+const destinations = { vca: "VCA LEVEL", cutoff: "FILTER 1", cutoff2: "FILTER 2", pitch: "VCO PITCH", drive: "OVERDRIVE" };
+const modulationScale = { vca: 1, cutoff: 6000, cutoff2: 6000, pitch: 1200, drive: 1 };
+const sourceName = (source) => source < 2 ? `ENV ${source + 1}` : source === 2 ? "PAD X" : "PAD Y";
 const initialEnvelopes = [
   { a: 0.01, d: 0.15, s: 0.6, r: 0.25 },
   { a: 0.01, d: 0.2, s: 0.05, r: 0.2 },
@@ -29,6 +30,10 @@ export default function SimpleSubtractiveSynth() {
   const vco1GainRef = useRef(null);
   const vco2GainRef = useRef(null);
   const filterRef = useRef(null);
+  const filterStagesRef = useRef([]);
+  const fxRef = useRef(null);
+  const driveGainRef = useRef(null);
+  const driveControlRef = useRef(null);
   const dryGainRef = useRef(null);
   const wetGainRef = useRef(null);
   const shaperRef = useRef(null);
@@ -40,7 +45,10 @@ export default function SimpleSubtractiveSynth() {
   // PARAM STATE
   const [vco1, setVco1] = useState({ type: "sawtooth", level: 0.7, detune: 0, footage: "8'" });
   const [vco2, setVco2] = useState({ type: "square", level: 0.5, detune: 0, footage: "8'" });
-  const [filter, setFilter] = useState({ cutoff: 1200, resonance: 0.2 });
+  const [filter, setFilter] = useState({ cutoff: 1200, resonance: 0.2, enabled: true, mode: "lowpass" });
+  const [filter2, setFilter2] = useState({ cutoff: 6000, resonance: 0.1, enabled: false, mode: "lowpass" });
+  const [effects, setEffects] = useState({ reverb: { mix: 0, decay: 2 }, delay: { mix: 0, time: .25, feedback: .3 }, phaser: { mix: 0, rate: .4, depth: .5 } });
+  const [pad, setPad] = useState({ x: 0, y: 0, glide: .08 });
   const [envelopes, setEnvelopes] = useState(initialEnvelopes);
   const [patches, setPatches] = useState([{ env: 0, destination: "vca", amount: 90 }]);
   const [overdrive, setOverdrive] = useState({ drive: 0.3, mix: 0.4 });
@@ -100,6 +108,13 @@ export default function SimpleSubtractiveSynth() {
       const vco1Gain = ctx.createGain();
       const vco2Gain = ctx.createGain();
       const filter = ctx.createBiquadFilter();
+      const filter2Node = ctx.createBiquadFilter();
+      const driveGain = ctx.createGain();
+      const driveControl = ctx.createConstantSource();
+      const driveClamp = ctx.createWaveShaper();
+      driveClamp.curve = Float32Array.from({length: 2048}, (_, i) => i / 2047 * 10);
+      driveControl.connect(driveClamp); driveClamp.connect(driveGain.gain);
+      driveControl.start();
       const dryGain = ctx.createGain();
       const wetGain = ctx.createGain();
       const shaper = ctx.createWaveShaper();
@@ -120,7 +135,9 @@ export default function SimpleSubtractiveSynth() {
       const od = overdriveRef.current || {drive:0.3, mix:0.4};
       dryGain.gain.value = 1 - od.mix;
       wetGain.gain.value = od.mix;
-      shaper.curve = makeDriveCurve(od.drive);
+      shaper.curve = makeDriveCurve(.5);
+      driveGain.gain.value = 0;
+      driveControl.offset.value = (1 + od.drive * 5) / 5 - 1;
       shaper.oversample = '2x';
 
       vca.gain.value = 0;
@@ -129,24 +146,30 @@ export default function SimpleSubtractiveSynth() {
       // Patch
       vco1.connect(vco1Gain);
       vco2.connect(vco2Gain);
-      vco1Gain.connect(filter);
-      vco2Gain.connect(filter);
-
-      filter.connect(dryGain);
-      filter.connect(shaper);
+      const oscillatorBus = ctx.createGain();
+      vco1Gain.connect(oscillatorBus);
+      vco2Gain.connect(oscillatorBus);
+      const stages = [filter, filter2Node].map((node) => makeFilterStage(ctx, node));
+      oscillatorBus.connect(stages[0].input);
+      stages[0].output.connect(stages[1].input);
+      stages[1].output.connect(dryGain);
+      stages[1].output.connect(driveGain);
+      driveGain.connect(shaper);
       shaper.connect(wetGain);
 
       const mixBus = ctx.createGain();
       dryGain.connect(mixBus);
       wetGain.connect(mixBus);
       mixBus.connect(vca);
-      vca.connect(outGain);
+      const effectsGraph = makeEffects(ctx);
+      vca.connect(effectsGraph.input);
+      effectsGraph.output.connect(outGain);
       outGain.connect(ctx.destination);
 
       vco1.start();
       vco2.start();
 
-      envSourcesRef.current = initialEnvelopes.map(() => {
+      envSourcesRef.current = [0, 1, 2, 3].map(() => {
         const source = ctx.createConstantSource();
         source.offset.value = 0;
         source.start();
@@ -159,6 +182,10 @@ export default function SimpleSubtractiveSynth() {
       vco1GainRef.current = vco1Gain;
       vco2GainRef.current = vco2Gain;
       filterRef.current = filter;
+      filterStagesRef.current = stages;
+      fxRef.current = effectsGraph;
+      driveGainRef.current = driveGain;
+      driveControlRef.current = driveControl;
       dryGainRef.current = dryGain;
       wetGainRef.current = wetGain;
       shaperRef.current = shaper;
@@ -191,18 +218,50 @@ export default function SimpleSubtractiveSynth() {
 
   useEffect(() => {
     if (!ctxStarted) return;
-    const { cutoff, resonance } = filter;
-    filterRef.current.frequency.setTargetAtTime(cutoff, audioRef.current.currentTime, 0.02);
-    filterRef.current.Q.setTargetAtTime(resonance * 20, audioRef.current.currentTime, 0.02);
-  }, [filter, ctxStarted]);
+    [filter, filter2].forEach((settings, index) => {
+      const stage = filterStagesRef.current[index];
+      const now = audioRef.current.currentTime;
+      stage.node.type = settings.mode === "noise" ? "lowpass" : settings.mode;
+      stage.node.frequency.setTargetAtTime(settings.cutoff, now, .02);
+      stage.node.Q.setTargetAtTime(settings.resonance * 20, now, .02);
+      stage.dry.gain.setTargetAtTime(settings.enabled ? 0 : 1, now, .01);
+      stage.wet.gain.setTargetAtTime(settings.enabled ? 1 : 0, now, .01);
+      stage.noiseAmount.gain.setTargetAtTime(settings.enabled && settings.mode === "noise" ? settings.cutoff * .85 : 0, now, .02);
+    });
+  }, [filter, filter2, ctxStarted]);
 
   useEffect(() => {
     if (!ctxStarted) return;
     const { drive, mix } = overdrive;
     dryGainRef.current.gain.setTargetAtTime(1 - mix, audioRef.current.currentTime, 0.02);
     wetGainRef.current.gain.setTargetAtTime(mix, audioRef.current.currentTime, 0.02);
-    shaperRef.current.curve = makeDriveCurve(drive);
+    driveControlRef.current.offset.setTargetAtTime((1 + drive * 5) / 5 - 1, audioRef.current.currentTime, .02);
   }, [overdrive, ctxStarted]);
+
+  useEffect(() => {
+    if (!ctxStarted) return;
+    const graph = fxRef.current;
+    const now = audioRef.current.currentTime;
+    ["reverb", "delay", "phaser"].forEach((name) => {
+      graph[name].dry.gain.setTargetAtTime(1 - effects[name].mix, now, .02);
+      graph[name].wet.gain.setTargetAtTime(effects[name].mix, now, .02);
+    });
+    graph.delay.node.delayTime.setTargetAtTime(effects.delay.time, now, .02);
+    graph.delay.feedback.gain.setTargetAtTime(effects.delay.feedback, now, .02);
+    graph.phaser.lfo.frequency.setTargetAtTime(effects.phaser.rate, now, .02);
+    graph.phaser.depth.gain.setTargetAtTime(effects.phaser.depth * 1300, now, .02);
+    if (graph.reverb.decay !== effects.reverb.decay) {
+      graph.reverb.node.buffer = makeImpulse(audioRef.current, effects.reverb.decay);
+      graph.reverb.decay = effects.reverb.decay;
+    }
+  }, [effects, ctxStarted]);
+
+  useEffect(() => {
+    if (!ctxStarted) return;
+    const now = audioRef.current.currentTime;
+    envSourcesRef.current[2].offset.setTargetAtTime(pad.x, now, pad.glide);
+    envSourcesRef.current[3].offset.setTargetAtTime(pad.y, now, pad.glide);
+  }, [pad, ctxStarted]);
 
   useEffect(() => {
     if (!ctxStarted) return;
@@ -217,12 +276,14 @@ export default function SimpleSubtractiveSynth() {
     const targets = {
       vca: [vcaRef.current.gain],
       cutoff: [filterRef.current.frequency],
+      cutoff2: [filterStagesRef.current[1].node.frequency],
       pitch: [vco1Ref.current.detune, vco2Ref.current.detune],
+      drive: [driveControlRef.current.offset],
     };
     const desired = new Set(patches.map(({ env, destination }) => `${env}:${destination}`));
     for (const [key, nodes] of routesRef.current) {
       if (!desired.has(key)) {
-        nodes.forEach((node) => node.disconnect());
+        nodes.forEach((node) => { envSourcesRef.current[Number(key.split(":")[0])].disconnect(node); node.disconnect(); });
         routesRef.current.delete(key);
       }
     }
@@ -468,10 +529,21 @@ export default function SimpleSubtractiveSynth() {
 
           {/* Filter and patchable envelopes */}
           <div className="micro8-modules grid md:grid-cols-2 gap-4 p-4">
-            <RetroCard title="LOW PASS FILTER">
-              <Knob label="CUTOFF" value={filter.cutoff} min={60} max={10000} step={1} onChange={(val)=>setFilter(f=>({...f,cutoff:val}))} />
-              <Knob label="RESONANCE" value={filter.resonance} min={0} max={1} step={0.01} onChange={(val)=>setFilter(f=>({...f,resonance:val}))} />
-            </RetroCard>
+            {[filter, filter2].map((settings, index) => <RetroCard key={index} title={`FILTER ${index + 1}`}>
+              <div className="m8-filter-switches">
+                <button type="button" aria-pressed={settings.enabled}
+                  onClick={() => (index ? setFilter2 : setFilter)((current) => ({ ...current, enabled: !current.enabled }))}>
+                  {settings.enabled ? "ON" : "BYPASS"}
+                </button>
+                <select aria-label={`Filter ${index + 1} mode`} value={settings.mode}
+                  onChange={(event) => (index ? setFilter2 : setFilter)((current) => ({ ...current, mode: event.target.value }))}>
+                  <option value="lowpass">LOW PASS</option><option value="highpass">HIGH PASS</option>
+                  <option value="bandpass">BAND PASS</option><option value="noise">NOISE</option>
+                </select>
+              </div>
+              <Knob label="CUTOFF" value={settings.cutoff} min={60} max={10000} step={1} onChange={(val)=>(index ? setFilter2 : setFilter)(f=>({...f,cutoff:val}))} />
+              <Knob label="RESONANCE" value={settings.resonance} min={0} max={1} step={0.01} onChange={(val)=>(index ? setFilter2 : setFilter)(f=>({...f,resonance:val}))} />
+            </RetroCard>)}
             <div className="micro8-envelopes grid gap-4">
               {envelopes.map((env, index) => (
                 <RetroCard key={index} title={`ENV ${index + 1} / ADSR`}>
@@ -491,10 +563,27 @@ export default function SimpleSubtractiveSynth() {
           </div>
 
           {/* Overdrive */}
-          <div className="micro8-drive p-4">
+          <div className="micro8-effects">
             <RetroCard title="OVERDRIVE">
               <Knob label="DRIVE" value={overdrive.drive} min={0} max={1} step={0.01} onChange={(v)=>setOverdrive(o=>({...o,drive:v}))} />
               <Knob label="MIX" value={overdrive.mix} min={0} max={1} step={0.01} onChange={(v)=>setOverdrive(o=>({...o,mix:v}))} />
+            </RetroCard>
+            <RetroCard title="REVERB">
+              <Knob label="DECAY" value={effects.reverb.decay} min={.2} max={4} step={.05} onChange={(v)=>setEffects(e=>({...e,reverb:{...e.reverb,decay:v}}))} />
+              <Knob label="MIX" value={effects.reverb.mix} min={0} max={1} step={.01} onChange={(v)=>setEffects(e=>({...e,reverb:{...e.reverb,mix:v}}))} />
+            </RetroCard>
+            <RetroCard title="DELAY">
+              <Knob label="TIME" value={effects.delay.time} min={.02} max={1.2} step={.01} onChange={(v)=>setEffects(e=>({...e,delay:{...e.delay,time:v}}))} />
+              <Knob label="FEEDBACK" value={effects.delay.feedback} min={0} max={.85} step={.01} onChange={(v)=>setEffects(e=>({...e,delay:{...e.delay,feedback:v}}))} />
+              <Knob label="MIX" value={effects.delay.mix} min={0} max={1} step={.01} onChange={(v)=>setEffects(e=>({...e,delay:{...e.delay,mix:v}}))} />
+            </RetroCard>
+            <RetroCard title="MICROPHASER">
+              <Knob label="RATE" value={effects.phaser.rate} min={.05} max={8} step={.05} onChange={(v)=>setEffects(e=>({...e,phaser:{...e.phaser,rate:v}}))} />
+              <Knob label="DEPTH" value={effects.phaser.depth} min={0} max={1} step={.01} onChange={(v)=>setEffects(e=>({...e,phaser:{...e.phaser,depth:v}}))} />
+              <Knob label="MIX" value={effects.phaser.mix} min={0} max={1} step={.01} onChange={(v)=>setEffects(e=>({...e,phaser:{...e.phaser,mix:v}}))} />
+            </RetroCard>
+            <RetroCard title="TRACKPAD / GLIDE">
+              <GlidePad pad={pad} setPad={setPad} />
             </RetroCard>
           </div>
 
@@ -545,6 +634,85 @@ export default function SimpleSubtractiveSynth() {
       </div>
     </div>
   );
+}
+
+function GlidePad({ pad, setPad }) {
+  const move = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setPad((current) => ({ ...current, x: clamp((event.clientX - rect.left) / rect.width * 2 - 1, -1, 1),
+      y: clamp(1 - (event.clientY - rect.top) / rect.height * 2, -1, 1) }));
+  };
+  return <div className="m8-glide-control">
+    <div className="m8-glide-pad" role="slider" tabIndex={0} aria-label="Trackpad glide control"
+      aria-valuemin={-100} aria-valuemax={100} aria-valuenow={Math.round(pad.x * 100)}
+      aria-valuetext={`X ${Math.round(pad.x * 100)}, Y ${Math.round(pad.y * 100)}`}
+      onPointerDown={(event) => { if (event.button !== 0) return; event.preventDefault(); event.currentTarget.setPointerCapture(event.pointerId); move(event); }}
+      onPointerMove={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) move(event); }}
+      onPointerUp={(event) => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId); }}
+      onKeyDown={(event) => {
+        const shifts = { ArrowLeft: [-.05, 0], ArrowRight: [.05, 0], ArrowUp: [0, .05], ArrowDown: [0, -.05] };
+        if (shifts[event.key]) { event.preventDefault(); const [x,y] = shifts[event.key]; setPad(p=>({...p,x:clamp(p.x+x,-1,1),y:clamp(p.y+y,-1,1)})); }
+        if (event.key === "Home") { event.preventDefault(); setPad(p=>({...p,x:0,y:0})); }
+      }}>
+      <span className="m8-pad-dot" style={{left: `${(pad.x+1)*50}%`,top:`${(1-pad.y)*50}%`}} />
+      <small>X / Y</small>
+    </div>
+    <label>GLIDE <input aria-label="Trackpad smoothing time" type="range" min={.01} max={.6} step={.01}
+      value={pad.glide} onChange={(event)=>setPad(p=>({...p,glide:Number(event.target.value)}))}/></label>
+    <button type="button" onClick={()=>setPad(p=>({...p,x:0,y:0}))}>CENTER</button>
+  </div>;
+}
+
+function makeFilterStage(ctx, node) {
+  const input = ctx.createGain(), output = ctx.createGain(), dry = ctx.createGain(), wet = ctx.createGain();
+  input.connect(dry); input.connect(node); node.connect(wet); dry.connect(output); wet.connect(output);
+  dry.gain.value = 1; wet.gain.value = 0;
+  const noise = ctx.createBufferSource();
+  const buffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  let value = 0, seed = 193;
+  for (let i=0;i<data.length;i++) {
+    if (i % Math.max(1, Math.floor(ctx.sampleRate / 60)) === 0) { seed=(seed*16807)%2147483647; value=seed/2147483647*2-1; }
+    data[i]=value;
+  }
+  noise.buffer=buffer; noise.loop=true;
+  const smooth=ctx.createBiquadFilter(); smooth.type="lowpass"; smooth.frequency.value=16;
+  const noiseAmount=ctx.createGain(); noiseAmount.gain.value=0;
+  noise.connect(smooth); smooth.connect(noiseAmount); noiseAmount.connect(node.frequency); noise.start();
+  return {input,output,node,dry,wet,noiseAmount};
+}
+
+function makeImpulse(ctx, decay) {
+  const length = Math.ceil(ctx.sampleRate * decay);
+  const buffer = ctx.createBuffer(2, length, ctx.sampleRate);
+  for(let channel=0;channel<2;channel++) {
+    const data=buffer.getChannelData(channel); let seed=771+channel*373;
+    for(let i=0;i<length;i++) { seed=(seed*16807)%2147483647; data[i]=(seed/2147483647*2-1)*Math.pow(1-i/length,2.5); }
+  }
+  return buffer;
+}
+
+function makeEffects(ctx) {
+  const stage = () => {
+    const input=ctx.createGain(), output=ctx.createGain(), dry=ctx.createGain(), wet=ctx.createGain();
+    dry.gain.value=1; wet.gain.value=0; input.connect(dry); dry.connect(output); wet.connect(output);
+    return {input,output,dry,wet};
+  };
+  const phaser=stage();
+  const phases=[300,600,1200,2400].map((frequency)=>{const node=ctx.createBiquadFilter();node.type="allpass";node.frequency.value=frequency;return node;});
+  phaser.input.connect(phases[0]); phases.forEach((node,i)=>node.connect(phases[i+1]??phaser.wet));
+  phaser.lfo=ctx.createOscillator(); phaser.lfo.type="sine"; phaser.lfo.frequency.value=.4;
+  phaser.depth=ctx.createGain(); phaser.depth.gain.value=650; phaser.lfo.connect(phaser.depth);
+  phases.forEach((node)=>phaser.depth.connect(node.frequency)); phaser.lfo.start();
+  const delay=stage(); delay.node=ctx.createDelay(1.5); delay.node.delayTime.value=.25;
+  delay.feedback=ctx.createGain();delay.feedback.gain.value=.3;
+  const damping=ctx.createBiquadFilter();damping.type="lowpass";damping.frequency.value=6000;
+  delay.input.connect(delay.node);delay.node.connect(delay.wet);delay.node.connect(damping);
+  damping.connect(delay.feedback);delay.feedback.connect(delay.node);
+  const reverb=stage();reverb.node=ctx.createConvolver();reverb.node.buffer=makeImpulse(ctx,2);reverb.decay=2;
+  reverb.input.connect(reverb.node);reverb.node.connect(reverb.wet);
+  phaser.output.connect(delay.input);delay.output.connect(reverb.input);
+  return {input:phaser.input,output:reverb.output,phaser,delay,reverb};
 }
 
 const pianoNotes = [
@@ -653,7 +821,7 @@ function CablePatchBay({ patches, setPatches }) {
   const [drag, setDrag] = useState(null);
   const [armed, setArmed] = useState(null);
   const [selected, setSelected] = useState("0:vca");
-  const colors = ["#e25143", "#d6d1b9"];
+  const colors = ["#e25143", "#d6d1b9", "#aab5b4", "#e3a49d"];
   const keyOf = (patch) => patch.env + ":" + patch.destination;
 
   useEffect(() => {
@@ -674,6 +842,7 @@ function CablePatchBay({ patches, setPatches }) {
   }, []);
 
   const connect = (env, destination, oldDestination) => {
+    if (env >= 2 && destination === "vca") return;
     const key = env + ":" + destination;
     setPatches((current) => {
       const old = current.find((patch) => patch.env === env && patch.destination === oldDestination);
@@ -729,10 +898,10 @@ function CablePatchBay({ patches, setPatches }) {
             stroke={colors[drag.env]} className="m8-cable m8-cable-drag" />}
         </svg>
         <div className="m8-output-bank">
-          {[0, 1].map((env) => <div className="m8-jack-row" key={env}>
-            <span>ENV {env + 1}<small>OUT</small></span>
+          {[0, 1, 2, 3].map((env) => <div className="m8-jack-row" key={env}>
+            <span>{sourceName(env)}<small>OUT</small></span>
             <button type="button" ref={(node) => { socketsRef.current["env" + env] = node; }}
-              className="m8-jack" aria-label={`ENV ${env + 1} output: drag to an input`}
+              className="m8-jack" aria-label={`${sourceName(env)} output: drag to an input`}
               aria-pressed={armed === env} onPointerDown={(event) => startDrag(event, env)}
               onClick={() => setArmed(env)} style={{ "--cable-color": colors[env] }} />
           </div>)}
@@ -748,9 +917,9 @@ function CablePatchBay({ patches, setPatches }) {
               {patches.filter((patch) => patch.destination === destination).map((patch) =>
                 <button type="button" key={patch.env} className="m8-plug"
                   style={{ "--cable-color": colors[patch.env] }}
-                  aria-label={`ENV ${patch.env + 1} to ${label} cable: drag to repatch`}
+                  aria-label={`${sourceName(patch.env)} to ${label} cable: drag to repatch`}
                   onPointerDown={(event) => startDrag(event, patch.env, destination)}
-                  onClick={() => setSelected(keyOf(patch))}>{patch.env + 1}</button>)}
+                  onClick={() => setSelected(keyOf(patch))}>{patch.env < 2 ? patch.env + 1 : patch.env === 2 ? "X" : "Y"}</button>)}
             </div>
           </div>)}
         </div>
@@ -760,7 +929,7 @@ function CablePatchBay({ patches, setPatches }) {
           onChange={(event) => setSelected(event.target.value)} disabled={!active}>
           {!active && <option value="">No cables</option>}
           {patches.map((patch) => <option key={keyOf(patch)} value={keyOf(patch)}>
-            ENV {patch.env + 1} → {destinations[patch.destination]}
+            {sourceName(patch.env)} → {destinations[patch.destination]}
           </option>)}
         </select>
         {active && <>
