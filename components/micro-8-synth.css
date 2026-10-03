@@ -229,3 +229,8 @@ body:has(.micro8) .experiment-native, body:has(.micro8) .import-header { backgro
 .micro8 .m8-glide-control > button { grid-column: 1 / -1; justify-self: start; }
 .micro8-panel .micro8-sequencer > div:nth-child(2) > div > .m8-knob { margin: 4px auto 8px; }
 .micro8-panel .micro8-sequencer > div:nth-child(2) > div .m8-knob-dial input { height: 100%; }
+.micro8 .m8-input-bank .m8-jack-row { height: 36px; }
+.micro8 .m8-input-bank .m8-knob { width: 64px; display: grid; grid-template-columns: 32px 28px; column-gap: 4px; align-items: center; }
+.micro8 .m8-input-bank .m8-knob-dial { grid-row: 1 / 3; }
+.micro8 .m8-input-bank .m8-knob-label, .micro8 .m8-input-bank .m8-knob-value { margin: 0; text-align: left; }
+.micro8 .m8-cable-board { height: 180px; }
