@@ -1,5 +1,7 @@
 "use client";
 
+import "./gp888-drum-machine.css";
+
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
 /**
@@ -29,18 +31,6 @@ const TRACKS = [
 ] as const;
 
 type TrackId = (typeof TRACKS)[number]["id"];
-
-// Desaturated primary-ish palette (no pure green)
-const TRACK_COLORS: Record<TrackId, string> = {
-  kick: "#d66",       // red
-  snare: "#6aa0ff",   // blue
-  hihat: "#e5c15f",   // yellow
-  ohat: "#ead27a",    // lighter yellow
-  rim: "#d48ae0",     // magenta
-  ride: "#7bc4d3",    // cyan
-  midtom: "#9aa0ff",  // indigo/blue
-  clap: "#e3a47a",    // orange
-};
 
 const defaultSteps = (n: number) => Array.from({ length: n }, () => false);
 
@@ -338,12 +328,9 @@ function Scheduler({
 function TempoScreen({ bpm, step, isPlaying }: { bpm: number; step: number; isPlaying: boolean }) {
   const quarterPulse = step >= 0 && step % 4 === 0 && isPlaying;
   return (
-    <div className="flex items-center gap-4 p-3 rounded-sm min-w-[220px] bg-[#00ff66] shadow-[inset_0_0_0_1px_#000,0_0_0_1px_#fff]">
-      <div className={`w-3 h-3 rounded-full ${quarterPulse ? 'bg-black shadow-[0_0_10px_2px_rgba(0,0,0,0.6)]' : 'bg-[#1a1a1a] shadow-[inset_0_0_0_1px_#000,0_0_0_1px_#111]'}`} />
-      <div className="flex flex-col leading-none">
-        <span className="text-[10px] text-black/70 tracking-widest font-mono">BPM</span>
-        <span className="text-3xl tracking-[0.1em] text-black font-mono">{bpm}</span>
-      </div>
+    <div className="gp-tempo-screen" role="status" aria-label={`Tempo ${bpm} BPM`}>
+      <span className={`gp-led ${quarterPulse ? "is-lit" : ""}`} />
+      <span><small>BPM</small><strong>{bpm}</strong></span>
     </div>
   );
 }
@@ -502,133 +489,50 @@ export default function GP888DrumMachine() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-start bg-[#111] text-[#f5f5f5] font-mono overflow-y-auto">
-      {/* Header: stripes + right-aligned logo */}
-      <div className="w-full flex flex-col items-end border-b border-[#333] relative">
-        <div className="w-full h-2 bg-[#ff0022]" />
-        <div className="w-full h-2 bg-[#0055ff]" />
-        <div className="absolute right-8 top-3 select-none"><h1 className="text-4xl tracking-[0.2em] font-bold text-[#f5f5f5]">GP888</h1></div>
-      </div>
-
-      {/* Frame */}
-      <div className="w-full max-w-[1600px] mt-10 px-8 pb-16">
-        <div className="rounded-2xl bg-[#1a1a1a] p-6 shadow-[0_0_0_1px_#ffffff,0_0_0_2px_#000000,0_0_20px_rgba(0,0,0,0.6)]">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-6">
-            <div>
-              <h2 className="text-xl font-bold mb-2 tracking-widest text-[#ccc]">GP888 8-Bit Drum Machine</h2>
-              <p className="text-sm text-[#999] max-w-xl">AI rebuilt in 8 bits, from the future that never was, now with per-channel crushing and swing.</p>
-            </div>
-            <div className="flex items-center gap-6 mt-4 md:mt-0">
-              {/* START small round, pulses while playing */}
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => { setIsPlaying(true); engine.ensureCtx().resume(); }}
-                  aria-label="Start"
-                  className={`w-6 h-6 rounded-full border transition ${isPlaying ? (startPulse ? 'bg-[#f0f0f0] border-[#bdbdbd] shadow-[0_0_12px_3px_rgba(255,255,255,0.85)]' : 'bg-[#e5e5e5] border-[#bdbdbd] shadow-[0_0_8px_2px_rgba(255,255,255,0.55)]') : 'bg-[#ccc] border-[#999] hover:bg-[#ddd]'}`}
-                />
-                <span className="text-sm text-[#ccc]">START</span>
-              </div>
-              {/* STOP small round with red LED glow when stopped */}
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setIsPlaying(false)}
-                  aria-label="Stop"
-                  className={`w-6 h-6 rounded-full border transition ${!isPlaying ? 'bg-[#ff0022] border-[#cc001b] shadow-[0_0_12px_2px_rgba(255,0,34,0.6)]' : 'bg-[#ff0022] border-[#cc001b] hover:shadow-[0_0_8px_1px_rgba(255,0,34,0.35)]'}`}
-                />
-                <span className="text-sm text-[#ccc]">STOP</span>
-              </div>
-              {/* Tempo Screen — ONLY INSTANCE */}
-              <TempoScreen bpm={bpm} step={activeStep} isPlaying={isPlaying} />
+    <div className="gp888">
+      <div className="gp-inner">
+        <header className="gp-title"><h1>GP888 <span>8-BIT / RHYTHM MACHINE</span></h1>
+          <p>FROM THE FUTURE THAT NEVER WAS</p></header>
+        <div className="gp-panel">
+          <div className="gp-transport">
+            <button aria-label="Start" aria-pressed={isPlaying} className={`gp-start ${startPulse ? "is-pulsing" : ""}`}
+              onClick={() => { setIsPlaying(true); engine.ensureCtx().resume(); }}>START</button>
+            <button aria-label="Stop" onClick={() => setIsPlaying(false)}>STOP</button>
+            <TempoScreen bpm={bpm} step={activeStep} isPlaying={isPlaying} />
+            <DrumKnob label="TEMPO" size="large" min={40} max={240} value={bpm} onChange={setBpm} />
+            <DrumKnob label="SWING" size="small" min={0} max={100} value={Math.round(swing * 100)} onChange={v=>setSwing(v/100)} />
+            <DrumKnob label="MASTER" size="large" min={0} max={100} value={Math.round(master * 100)} onChange={v=>setMaster(v/100)} />
+            <div className="gp-step-switch"><span>STEPS</span><div role="radiogroup" aria-label="Pattern length">
+              {[16,32].map(n=><button key={n} role="radio" aria-checked={steps===n} onClick={()=>setSteps(n)}>{n}</button>)}
+            </div></div>
+            <div className="gp-actions"><button onClick={randomize}>RANDOM</button><button onClick={clearAll}>CLEAR</button>
+              <button onClick={save}>SAVE</button><button onClick={load}>LOAD</button></div>
+          </div>
+          <div className="gp-sequence-scroll">
+            <div className="gp-sequence" style={{gridTemplateColumns:`100px repeat(${steps}, minmax(24px,1fr))`}}>
+              <span className="gp-row-heading">PATTERN</span>
+              {Array.from({length:steps},(_,i)=><span key={i} className={`gp-step-number ${i%4===0?"is-quarter":""}`}>{i+1}</span>)}
+              {TRACKS.map(t=><React.Fragment key={t.id}>
+                <div className="gp-track-name"><span className={`gp-led ${blink[t.id]?"is-lit":""}`} />{t.name}</div>
+                {Array.from({length:steps},(_,i)=><button key={i} aria-label={`${t.name} step ${i+1}`} aria-pressed={!!pattern[t.id]?.[i]}
+                  onClick={()=>toggleStep(t.id,i)} className={`gp-step ${i%4===0?"is-quarter":""} ${i===activeStep&&isPlaying?"is-current":""}`} />)}
+              </React.Fragment>)}
             </div>
           </div>
-
-          {/* Sequencer header (bar markers) */}
-          <div className="grid grid-cols-17 gap-[2px] mt-4 border-t border-b border-[#333] py-4">
-            <div className="text-xs text-[#888] px-2">TRACK</div>
-            {Array.from({ length: 16 }).map((_, i) => (
-              <div key={i} className={`text-center text-[10px] ${i % 4 === 0 ? 'text-[#ff0022]' : 'text-[#666]'}`}>{i + 1}</div>
-            ))}
-
-            {/* Sequencer grid */}
-            {TRACKS.map((t) => (
-              <React.Fragment key={t.id}>
-                <div className="text-xs text-[#aaa] px-2 py-1 flex items-center gap-2">
-                  <span className={`w-2.5 h-2.5 rounded-full ${blink[t.id] ? 'bg-[#fff] shadow-[0_0_8px_2px_rgba(255,255,255,0.7)]' : 'bg-[#111] shadow-[inset_0_0_0_1px_#000,0_0_0_1px_#fff]'}`} />
-                  <span>{t.name}</span>
-                </div>
-                {Array.from({ length: steps }).map((_, i) => (
-                  <div key={i} className={`p-1 text-center ${i % 4 === 0 ? 'bg-[#222]' : ''}`}>
-                    <button
-                      onClick={() => toggleStep(t.id as TrackId, i)}
-                      className={`w-6 h-6 rounded-sm border ${pattern[t.id]?.[i] ? 'border-transparent' : 'border-[#333] bg-[#191919]'} ${i === activeStep ? 'outline outline-2 outline-[#fff]' : ''}`}
-                      style={pattern[t.id]?.[i] ? { backgroundColor: TRACK_COLORS[t.id], opacity: 0.9, boxShadow: 'inset 0 0 0 1px #000, 0 0 0 1px #fff' } : { boxShadow: 'inset 0 0 0 1px #000, 0 0 0 1px #fff' }}
-                    />
-                  </div>
-                ))}
-              </React.Fragment>
-            ))}
-          </div>
-
-          {/* Controls */}
-          <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-4 text-xs text-[#999]">
-            <div className="rounded-xl p-4 bg-[#151515] shadow-[inset_0_0_0_1px_#000,0_0_0_1px_#fff]">
-              <h3 className="font-semibold mb-3 text-[#ddd]">Transport</h3>
-              <div className="flex items-center gap-4">
-                <label className="text-sm">Tempo</label>
-                <input type="range" min={40} max={240} value={bpm} onChange={(e) => setBpm(Number((e.target as HTMLInputElement).value))} className="w-44 accent-[#0055ff]" />
-                <span className="tabular-nums w-12 text-right">{bpm}</span>
+          <section className="gp-mixer" aria-label="Track mixer">
+            {TRACKS.map(t=><div className="gp-channel" key={t.id}>
+              <h2><span className={`gp-led ${blink[t.id]?"is-lit":""}`} />{t.name}</h2>
+              <DrumKnob label="LEVEL" ariaLabel={`${t.name} level`} size="large" min={0} max={100} value={Math.round(trackLevels[t.id]*100)} onChange={v=>setTrackLevels(m=>({...m,[t.id]:v/100}))} />
+              <div className="gp-trims">
+                <DrumKnob label="BITS" ariaLabel={`${t.name} bits`} size="small" min={2} max={16} value={trackFX[t.id].bits} onChange={v=>setTrackFX(fx=>({...fx,[t.id]:{...fx[t.id],bits:v}}))} />
+                <DrumKnob label="DOWN" ariaLabel={`${t.name} downsampling`} size="medium" min={1} max={16} value={trackFX[t.id].down} onChange={v=>setTrackFX(fx=>({...fx,[t.id]:{...fx[t.id],down:v}}))} />
               </div>
-              <div className="flex items-center gap-4 mt-3">
-                <label className="text-sm">Swing</label>
-                <input type="range" min={0} max={100} value={Math.round(swing * 100)} onChange={(e) => setSwing(Number((e.target as HTMLInputElement).value) / 100)} className="w-44 accent-[#ff0022]" />
-                <span className="tabular-nums w-12 text-right">{Math.round(swing * 100)}%</span>
-              </div>
-              <div className="flex items-center gap-4 mt-3">
-                <label className="text-sm">Steps</label>
-                <select value={steps} onChange={(e) => setSteps(parseInt((e.target as HTMLSelectElement).value))} className="bg-[#101010] shadow-[inset_0_0_0_1px_#000,0_0_0_1px_#fff] rounded px-2 py-1">
-                  <option value={16}>16</option>
-                  <option value={32}>32</option>
-                </select>
-              </div>
-              <div className="flex items-center gap-4 mt-3">
-                <label className="text-sm">Master</label>
-                <input type="range" min={0} max={100} value={Math.round(master * 100)} onChange={(e) => setMaster(Number((e.target as HTMLInputElement).value) / 100)} className="w-44" />
-                <span className="tabular-nums w-12 text-right">{Math.round(master * 100)}</span>
-              </div>
-              <div className="flex items-center gap-2 mt-4">
-                <button onClick={randomize} className="px-3 py-2 rounded-md bg-[#202020] shadow-[inset_0_0_0_1px_#000,0_0_0_1px_#fff]">Randomize</button>
-                <button onClick={clearAll} className="px-3 py-2 rounded-md bg-[#202020] shadow-[inset_0_0_0_1px_#000,0_0_0_1px_#fff]">Clear</button>
-                <button onClick={save} className="px-3 py-2 rounded-md bg-[#202020] shadow-[inset_0_0_0_1px_#000,0_0_0_1px_#fff]">Save</button>
-                <button onClick={load} className="px-3 py-2 rounded-md bg-[#202020] shadow-[inset_0_0_0_1px_#000,0_0_0_1px_#fff]">Load</button>
-              </div>
-            </div>
-
-            <div className="rounded-xl p-4 bg-[#151515] shadow-[inset_0_0_0_1px_#000,0_0_0_1px_#fff] lg:col-span-2">
-              <h3 className="font-semibold mb-3 text-[#ddd]">Tracks</h3>
-              {TRACKS.map((t) => (
-                <div key={t.id} className="flex items-center gap-3 py-2 border-b border-[#222] last:border-0">
-                  <div className="w-20 text-[#bbb] text-xs">{t.name}</div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px]">Lvl</span>
-                    <input type="range" min={0} max={100} value={Math.round(trackLevels[t.id] * 100)} onChange={(e) => setTrackLevels((m) => ({ ...m, [t.id]: Number((e.target as HTMLInputElement).value) / 100 }))} className="w-28" />
-                  </div>
-                  <button onClick={() => setMutes((m) => ({ ...m, [t.id]: !m[t.id] }))} className={`px-2 py-1 rounded-md text-xs bg-[#202020] shadow-[inset_0_0_0_1px_#000,0_0_0_1px_#fff] ${mutes[t.id] ? 'opacity-70' : ''}`}>Mute</button>
-                  <button onClick={() => setSolo((s) => (s === t.id ? null : (t.id as TrackId)))} className={`px-2 py-1 rounded-md text-xs bg-[#202020] shadow-[inset_0_0_0_1px_#000,0_0_0_1px_#fff] ${solo === t.id ? 'ring-1 ring-white' : ''}`}>Solo</button>
-                  <div className="flex items-center gap-2 ml-4">
-                    <span className="text-[10px]">Bits</span>
-                    <input type="range" min={2} max={16} value={trackFX[t.id].bits} onChange={(e) => setTrackFX((fx) => ({ ...fx, [t.id]: { ...fx[t.id], bits: Number((e.target as HTMLInputElement).value) } }))} className="w-24" />
-                    <span className="w-6 text-right text-[10px] tabular-nums">{trackFX[t.id].bits}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px]">Down</span>
-                    <input type="range" min={1} max={16} value={trackFX[t.id].down} onChange={(e) => setTrackFX((fx) => ({ ...fx, [t.id]: { ...fx[t.id], down: Number((e.target as HTMLInputElement).value) } }))} className="w-24" />
-                    <span className="w-6 text-right text-[10px] tabular-nums">{trackFX[t.id].down}x</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+              <div className="gp-channel-switches"><button aria-label={`Mute ${t.name}`} aria-pressed={mutes[t.id]} onClick={()=>setMutes(m=>({...m,[t.id]:!m[t.id]}))}>MUTE</button>
+                <button aria-label={`Solo ${t.name}`} aria-pressed={solo===t.id} onClick={()=>setSolo(s=>s===t.id?null:t.id)}>SOLO</button></div>
+            </div>)}
+          </section>
         </div>
+        <footer className="gp-footer">GP888 / EIGHT VOICES · STEP SEQUENCER · PER-CHANNEL CRUSH</footer>
       </div>
 
       {/* Invisible scheduler */}
@@ -651,4 +555,17 @@ export default function GP888DrumMachine() {
 // -----------------------
 if (typeof window !== 'undefined') {
   console.assert(TRACKS.length === 8, 'Expected 8 tracks');
+}
+
+function DrumKnob({label, ariaLabel, value, min, max, onChange, size="medium"}: {
+  label:string; ariaLabel?:string; value:number; min:number; max:number; onChange:(value:number)=>void; size?:"small"|"medium"|"large";
+}) {
+  const angle=-135+(value-min)/(max-min)*270;
+  return <div className={`gp-knob gp-knob--${size}`}>
+    <div className="gp-knob-dial">
+      <svg viewBox="0 0 64 64" aria-hidden="true">{Array.from({length:11},(_,i)=><path key={i} d="M32 2 V8" transform={`rotate(${-135+i*27} 32 32)`} />)}</svg>
+      <div className="gp-knob-cap" style={{transform:`rotate(${angle}deg)`}}><span /></div>
+      <input type="range" aria-label={ariaLabel||label} min={min} max={max} step={1} value={value} onChange={e=>onChange(Number(e.target.value))} />
+    </div><span className="gp-knob-label">{label}</span><output>{value}</output>
+  </div>;
 }
