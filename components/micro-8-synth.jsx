@@ -27,6 +27,9 @@ export default function SimpleSubtractiveSynth() {
   // Nodes
   const vco1Ref = useRef(null);
   const vco2Ref = useRef(null);
+  const subRef = useRef(null);
+  const subGainRef = useRef(null);
+  const driftGainsRef = useRef([]);
   const vco1GainRef = useRef(null);
   const vco2GainRef = useRef(null);
   const filterRef = useRef(null);
@@ -44,9 +47,10 @@ export default function SimpleSubtractiveSynth() {
 
   // PARAM STATE
   const [vco1, setVco1] = useState({ type: "sawtooth", level: 0.7, detune: 0, footage: "8'" });
-  const [vco2, setVco2] = useState({ type: "square", level: 0.5, detune: 0, footage: "8'" });
-  const [filter, setFilter] = useState({ cutoff: 1200, resonance: 0.2, enabled: true, mode: "lowpass" });
-  const [filter2, setFilter2] = useState({ cutoff: 6000, resonance: 0.1, enabled: false, mode: "lowpass" });
+  const [vco2, setVco2] = useState({ type: "square", level: 0.5, detune: 5, footage: "8'" });
+  const [tone, setTone] = useState({ sub: .12, drift: 3 });
+  const [filter, setFilter] = useState({ cutoff: 1200, resonance: 0.2, enabled: true, mode: "lowpass", noiseRate: 6, noiseDepth: .35 });
+  const [filter2, setFilter2] = useState({ cutoff: 6000, resonance: 0.1, enabled: false, mode: "lowpass", noiseRate: 6, noiseDepth: .35 });
   const [effects, setEffects] = useState({ reverb: { mix: 0, decay: 2 }, delay: { mix: 0, time: .25, feedback: .3 }, phaser: { mix: 0, rate: .4, depth: .5 } });
   const [pad, setPad] = useState({ x: 0, y: 0, glide: .08 });
   const [envelopes, setEnvelopes] = useState(initialEnvelopes);
@@ -105,6 +109,10 @@ export default function SimpleSubtractiveSynth() {
       // Create nodes
       const vco1 = ctx.createOscillator();
       const vco2 = ctx.createOscillator();
+      const sub = ctx.createOscillator();
+      sub.type = "triangle";
+      const subGain = ctx.createGain();
+      subGain.gain.value = .12;
       const vco1Gain = ctx.createGain();
       const vco2Gain = ctx.createGain();
       const filter = ctx.createBiquadFilter();
@@ -149,6 +157,14 @@ export default function SimpleSubtractiveSynth() {
       const oscillatorBus = ctx.createGain();
       vco1Gain.connect(oscillatorBus);
       vco2Gain.connect(oscillatorBus);
+      sub.connect(subGain); subGain.connect(oscillatorBus);
+      driftGainsRef.current = [vco1, vco2, sub].map((oscillator, index) => {
+        const drift = ctx.createOscillator();
+        drift.type = "sine"; drift.frequency.value = [.13, .19, .07][index];
+        const amount = ctx.createGain(); amount.gain.value = 3;
+        drift.connect(amount); amount.connect(oscillator.detune); drift.start();
+        return amount;
+      });
       const stages = [filter, filter2Node].map((node) => makeFilterStage(ctx, node));
       oscillatorBus.connect(stages[0].input);
       stages[0].output.connect(stages[1].input);
@@ -168,6 +184,7 @@ export default function SimpleSubtractiveSynth() {
 
       vco1.start();
       vco2.start();
+      sub.start();
 
       envSourcesRef.current = [0, 1, 2, 3].map(() => {
         const source = ctx.createConstantSource();
@@ -179,6 +196,8 @@ export default function SimpleSubtractiveSynth() {
       // store
       vco1Ref.current = vco1;
       vco2Ref.current = vco2;
+      subRef.current = sub;
+      subGainRef.current = subGain;
       vco1GainRef.current = vco1Gain;
       vco2GainRef.current = vco2Gain;
       filterRef.current = filter;
@@ -226,9 +245,18 @@ export default function SimpleSubtractiveSynth() {
       stage.node.Q.setTargetAtTime(settings.resonance * 20, now, .02);
       stage.dry.gain.setTargetAtTime(settings.enabled ? 0 : 1, now, .01);
       stage.wet.gain.setTargetAtTime(settings.enabled ? 1 : 0, now, .01);
-      stage.noiseAmount.gain.setTargetAtTime(settings.enabled && settings.mode === "noise" ? settings.cutoff * .85 : 0, now, .02);
+      stage.noiseAmount.gain.setTargetAtTime(settings.enabled && settings.mode === "noise" ? settings.cutoff * settings.noiseDepth : 0, now, .02);
+      stage.noise.playbackRate.setTargetAtTime(settings.noiseRate / 60, now, .04);
+      stage.smooth.frequency.setTargetAtTime(Math.max(.1, settings.noiseRate * .3), now, .04);
     });
   }, [filter, filter2, ctxStarted]);
+
+  useEffect(() => {
+    if (!ctxStarted) return;
+    const now = audioRef.current.currentTime;
+    subGainRef.current.gain.setTargetAtTime(tone.sub, now, .02);
+    driftGainsRef.current.forEach((gain) => gain.gain.setTargetAtTime(tone.drift, now, .1));
+  }, [tone, ctxStarted]);
 
   useEffect(() => {
     if (!ctxStarted) return;
@@ -277,7 +305,7 @@ export default function SimpleSubtractiveSynth() {
       vca: [vcaRef.current.gain],
       cutoff: [filterRef.current.frequency],
       cutoff2: [filterStagesRef.current[1].node.frequency],
-      pitch: [vco1Ref.current.detune, vco2Ref.current.detune],
+      pitch: [vco1Ref.current.detune, vco2Ref.current.detune, subRef.current.detune],
       drive: [driveControlRef.current.offset],
     };
     const desired = new Set(patches.map(({ env, destination }) => `${env}:${destination}`));
@@ -346,7 +374,7 @@ export default function SimpleSubtractiveSynth() {
     const f1 = freq * footMult(vco1FootRef.current);
     const f2 = freq * footMult(vco2FootRef.current);
 
-    [ [vco1Ref.current.frequency, f1], [vco2Ref.current.frequency, f2] ].forEach(([p, f]) => {
+    [ [vco1Ref.current.frequency, f1], [vco2Ref.current.frequency, f2], [subRef.current.frequency, f1 / 2] ].forEach(([p, f]) => {
       p.cancelScheduledValues(now);
       p.setValueAtTime(p.value, now);
       p.linearRampToValueAtTime(f, now + t);
@@ -515,6 +543,10 @@ export default function SimpleSubtractiveSynth() {
                 <Knob label="DETUNE¢" value={vco1.detune} min={-1200} max={1200} step={1} onChange={(val)=>setVco1(v=>({...v,detune:val}))} />
                 <FootSwitch label="FOOT" value={vco1.footage} options={["32'","16'","8'"]} onChange={(fo)=>setVco1(v=>({...v,footage:fo}))} />
               </div>
+              <div className="m8-tone-controls">
+                <label>SUB <input aria-label="Sub oscillator level" type="range" min={0} max={.5} step={.01} value={tone.sub} onChange={(event)=>setTone(t=>({...t,sub:Number(event.target.value)}))}/></label>
+                <label>DRIFT <input aria-label="Oscillator drift in cents" type="range" min={0} max={12} step={.1} value={tone.drift} onChange={(event)=>setTone(t=>({...t,drift:Number(event.target.value)}))}/></label>
+              </div>
             </RetroCard>
 
             <RetroCard title="VCO 2">
@@ -543,6 +575,8 @@ export default function SimpleSubtractiveSynth() {
               </div>
               <Knob label="CUTOFF" value={settings.cutoff} min={60} max={10000} step={1} onChange={(val)=>(index ? setFilter2 : setFilter)(f=>({...f,cutoff:val}))} />
               <Knob label="RESONANCE" value={settings.resonance} min={0} max={1} step={0.01} onChange={(val)=>(index ? setFilter2 : setFilter)(f=>({...f,resonance:val}))} />
+              <Knob label="NOISE RATE" value={settings.noiseRate} min={.2} max={60} step={.1} onChange={(val)=>(index ? setFilter2 : setFilter)(f=>({...f,noiseRate:val}))} />
+              <Knob label="NOISE DEPTH" value={settings.noiseDepth} min={0} max={1} step={.01} onChange={(val)=>(index ? setFilter2 : setFilter)(f=>({...f,noiseDepth:val}))} />
             </RetroCard>)}
             <div className="micro8-envelopes grid gap-4">
               {envelopes.map((env, index) => (
@@ -679,7 +713,7 @@ function makeFilterStage(ctx, node) {
   const smooth=ctx.createBiquadFilter(); smooth.type="lowpass"; smooth.frequency.value=16;
   const noiseAmount=ctx.createGain(); noiseAmount.gain.value=0;
   noise.connect(smooth); smooth.connect(noiseAmount); noiseAmount.connect(node.frequency); noise.start();
-  return {input,output,node,dry,wet,noiseAmount};
+  return {input,output,node,dry,wet,noiseAmount,noise,smooth};
 }
 
 function makeImpulse(ctx, decay) {
@@ -1076,12 +1110,11 @@ function ToggleTiny({ active, onClick, label, activeColor = "#ffb000" }) {
 
 // Simple drive curve (tanh-like)
 function makeDriveCurve(amount=0.3, n=2048) {
-  const k = amount * 100 + 1;
+  const k = 1 + amount * 2;
   const curve = new Float32Array(n);
-  const deg = Math.PI / 180;
   for (let i = 0; i < n; i++) {
-    const x = (i * 2) / n - 1;
-    curve[i] = (3 + k) * x * 20 * deg / (Math.PI + k * Math.abs(x));
+    const x = (i * 2) / (n - 1) - 1;
+    curve[i] = Math.tanh(k * x) / Math.tanh(k);
   }
   return curve;
 }
