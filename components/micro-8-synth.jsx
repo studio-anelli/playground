@@ -596,7 +596,7 @@ export default function SimpleSubtractiveSynth() {
           <div className="micro8-transport grid grid-cols-1 md:grid-cols-3 gap-3 items-center p-4 border-b border-[#1b1c1c] bg-[#161717]">
             <div className="flex items-center gap-2">
               <SwitchButton onClick={startSeq} disabled={!ctxStarted || isPlaying} label="PLAY" activeColor="#00e38a" />
-              <SwitchButton onClick={stopSeq} disabled={!ctxStarted || !isPlaying} label="STOP" activeColor="#ff4d57" />
+              <SwitchButton onClick={stopSeq} disabled={!ctxStarted || !isPlaying} label="STOP" activeColor="#536fe0" />
               <div className="ml-3 text-sm opacity-80">STEP <span className="tabular-nums">{currentStep + 1}</span></div>
             </div>
             <RetroSlider label="TEMPO" value={bpm} min={40} max={220} step={1} onChange={(v)=>setBpm(v)} suffix="BPM" />
@@ -692,8 +692,8 @@ export default function SimpleSubtractiveSynth() {
           <div className="micro8-sequencer p-4 border-t border-[#1b1c1c]">
             <div className="flex flex-wrap items-center gap-6 mb-4">
               <RetroSelect label="BASE" value={baseNote} onChange={(v)=>setBaseNote(v)} options={noteOptions} />
-              <RetroSlider label="TRANSPOSE" value={transpose} min={-24} max={24} step={1} onChange={(v)=>setTranspose(v)} suffix="st" />
-              <RetroSlider label="GLIDE" value={glide} min={0} max={0.6} step={0.005} onChange={(v)=>setGlide(v)} suffix="s" />
+              <Knob size="small" label="TRANSPOSE" value={transpose} min={-24} max={24} step={1} onChange={(v)=>setTranspose(v)} suffix="st" />
+              <Knob size="small" label="GLIDE" value={glide} min={0} max={0.6} step={0.005} onChange={(v)=>setGlide(v)} suffix="s" />
               <div className="flex items-center gap-2">
                 <PresetButton onClick={()=>loadPreset("ACID-8")} label="ACID-8" />
                 <PresetButton onClick={()=>loadPreset("MINOR-STAIR")} label="MINOR-STAIR" />
@@ -713,15 +713,12 @@ export default function SimpleSubtractiveSynth() {
                     <div className={`w-2 h-2 rounded-full ${currentStep===i?"bg-[#ffb000] animate-pulse":"bg-[#444]"}`} />
                   </div>
 
-                  <div className="text-[10px] opacity-70 mb-1">SEMI</div>
-                  <input type="range" min={-12} max={12} step={1} value={st.semi}
-                    onChange={(e)=>updateStep(i,{semi:parseInt(e.target.value)})}
-                    className="w-full accent-[#ffb000]"/>
-                  <div className="text-right text-xs tabular-nums mb-2">{st.semi}</div>
+                  <Knob size="medium" label="SEMI" ariaLabel={`Step ${i + 1} semitones`} min={-12} max={12} step={1} value={st.semi}
+                    onChange={(semi)=>updateStep(i,{semi})} />
 
                   <div className="flex items-center gap-2 text-[10px]">
-                    <ToggleTiny active={!!st.accent} onClick={()=>updateStep(i,{accent:!st.accent})} label="ACC" activeColor="#d53b31" />
-                    <ToggleTiny active={!!st.slide} onClick={()=>updateStep(i,{slide:!st.slide})} label="SLIDE" activeColor="#d53b31" />
+                    <ToggleTiny active={!!st.accent} onClick={()=>updateStep(i,{accent:!st.accent})} label="ACC" activeColor="#536fe0" />
+                    <ToggleTiny active={!!st.slide} onClick={()=>updateStep(i,{slide:!st.slide})} label="SLIDE" activeColor="#536fe0" />
                   </div>
                 </div>
               ))}
@@ -758,8 +755,8 @@ function GlidePad({ pad, setPad }) {
       <span className="m8-pad-dot" style={{left: `${(pad.x+1)*50}%`,top:`${(1-pad.y)*50}%`}} />
       <small>X / Y</small>
     </div>
-    <label>GLIDE <input aria-label="Trackpad smoothing time" type="range" min={.01} max={.6} step={.01}
-      value={pad.glide} onChange={(event)=>setPad(p=>({...p,glide:Number(event.target.value)}))}/></label>
+    <Knob size="small" label="GLIDE" ariaLabel="Trackpad smoothing time" min={.01} max={.6} step={.01}
+      value={pad.glide} onChange={(glide)=>setPad(p=>({...p,glide}))} />
     <button type="button" onClick={()=>setPad(p=>({...p,x:0,y:0}))}>CENTER</button>
   </div>;
 }
@@ -922,7 +919,7 @@ function CablePatchBay({ patches, setPatches }) {
   const [drag, setDrag] = useState(null);
   const [armed, setArmed] = useState(null);
   const [selected, setSelected] = useState("0:vca");
-  const colors = ["#e25143", "#d6d1b9", "#aab5b4", "#e3a49d"];
+  const colors = ["#6984ef", "#d6d1b9", "#aab5b4", "#b2beed"];
   const keyOf = (patch) => patch.env + ":" + patch.destination;
 
   useEffect(() => {
@@ -1008,11 +1005,16 @@ function CablePatchBay({ patches, setPatches }) {
           </div>)}
         </div>
         <div className="m8-input-bank">
-          {Object.entries(destinations).map(([destination, label]) => <div className="m8-jack-row" key={destination}>
+          {Object.entries(destinations).map(([destination, label]) => {
+            const route = patches.find((patch) => patch.destination === destination && keyOf(patch) === selected) ?? patches.find((patch) => patch.destination === destination);
+            return <div className="m8-jack-row" key={destination}>
+            <Knob size="small" label={route ? sourceName(route.env) : "AMOUNT"} ariaLabel={`${label} modulation amount`}
+              disabled={!route} min={-100} max={100} step={1} value={route?.amount ?? 0}
+              onChange={(amount) => setPatches(current => current.map(patch => keyOf(patch) === keyOf(route) ? {...patch, amount} : patch))} />
             <button type="button" data-patch-input={destination}
               ref={(node) => { socketsRef.current[destination] = node; }}
               className="m8-jack" aria-label={label + " input"}
-              onClick={() => armed !== null && connect(armed, destination)} />
+              onClick={() => { if (armed !== null) connect(armed, destination); else if (route) setSelected(keyOf(route)); }} />
             <span>{label}<small>IN</small></span>
             <div className="m8-plugs">
               {patches.filter((patch) => patch.destination === destination).map((patch) =>
@@ -1022,7 +1024,7 @@ function CablePatchBay({ patches, setPatches }) {
                   onPointerDown={(event) => startDrag(event, patch.env, destination)}
                   onClick={() => setSelected(keyOf(patch))}>{patch.env < 2 ? patch.env + 1 : patch.env === 2 ? "X" : "Y"}</button>)}
             </div>
-          </div>)}
+          </div>; })}
         </div>
       </div>
       <div className="m8-cable-controls">
@@ -1034,10 +1036,6 @@ function CablePatchBay({ patches, setPatches }) {
           </option>)}
         </select>
         {active && <>
-          <input type="range" min={-100} max={100} value={active.amount} aria-label="Cable modulation amount"
-            onChange={(event) => setPatches((current) => current.map((patch) =>
-              keyOf(patch) === keyOf(active) ? { ...patch, amount: Number(event.target.value) } : patch))} />
-          <output>{active.amount > 0 ? "+" : ""}{active.amount}</output>
           <button type="button" aria-label="Unplug selected cable" onClick={() =>
             setPatches((current) => current.filter((patch) => keyOf(patch) !== keyOf(active)))}>UNPLUG</button>
         </>}
@@ -1136,16 +1134,16 @@ function AnalogSwitch({ label, value, options, onChange, symbols = false }) {
 function WaveSwitch(props) { return <AnalogSwitch label="WAVE" symbols {...props} />; }
 function FootSwitch(props) { return <AnalogSwitch {...props} />; }
 
-function Knob({ label, value, min=0, max=1, step=0.01, onChange, size="medium", ariaLabel }) {
+function Knob({ label, value, min=0, max=1, step=0.01, onChange, size="medium", ariaLabel, disabled=false }) {
   const percent = (value - min) / (max - min);
   const angle = -135 + percent * 270;
-  return <div className={`m8-knob m8-knob--${size}`}>
+  return <div className={`m8-knob m8-knob--${size} ${disabled ? "is-disabled" : ""}`}>
     <div className="m8-knob-dial">
       <svg className="m8-knob-scale" viewBox="0 0 64 64" aria-hidden="true">
         {Array.from({length: 11}, (_, i) => <path key={i} d="M32 2 V8" transform={`rotate(${-135+i*27} 32 32)`} />)}
       </svg>
       <div className="m8-knob-cap" style={{transform:`rotate(${angle}deg)`}}><span /></div>
-      <input aria-label={ariaLabel || label} type="range" min={min} max={max} step={step} value={value}
+      <input disabled={disabled} aria-label={ariaLabel || label} type="range" min={min} max={max} step={step} value={value}
         onChange={(e)=>onChange(parseFloat(e.target.value))} />
     </div>
     <div className="m8-knob-label">{label}</div>
