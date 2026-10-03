@@ -51,3 +51,15 @@ html:has(.gp888), body:has(.gp888), body:has(.gp888) .import-page, body:has(.gp8
 .gp-footer { margin-top:14px; }
 @media(max-width:850px) { .gp-mixer { grid-template-columns:repeat(4,minmax(0,1fr)); } .gp-channel:nth-child(-n+4) { border-bottom:1px solid #777367; } .gp-title p { display:none; } }
 @media(max-width:500px) { .gp888 { padding:8px; } .gp-title h1 span { font-size:8px; } .gp-transport { gap:10px; } .gp-mixer { grid-template-columns:repeat(2,minmax(0,1fr)); } .gp-channel { border-bottom:1px solid #777367; } }
+
+/* Clock-driven light chase, with a rail above the numbered steps. */
+.gp-sequence { position:relative; padding-top:13px; }
+.gp-progress { position:absolute; left:105px; right:0; top:0; height:5px; background:#111; border-bottom:1px solid #555; pointer-events:none; overflow:hidden; }
+.gp-progress span { display:block; width:calc(100% / var(--gp-step-count)); height:100%; background:#8194ef; box-shadow:0 0 10px #536fe0; transform:translateX(calc(var(--gp-playhead) * 100%)); opacity:0; }
+.gp-progress.is-running span { opacity:1; }
+.gp-step-number.is-current { background:#8194ef; color:#101521; box-shadow:0 0 9px #536fe080; }
+.gp888 .gp-step { position:relative; transition:background-color 70ms,box-shadow 70ms; }
+.gp888 .gp-step.is-current { outline:none; background:#37446d; border-color:#a3b2f5; box-shadow:inset 0 -3px #8194ef,0 0 8px #536fe050; }
+.gp888 .gp-step.is-current[aria-pressed=true] { background:#b7c4ff; box-shadow:inset 0 -3px #eee9dc,0 0 12px #8194ef90; animation:gp-hit 120ms ease-out; }
+@keyframes gp-hit { from { background:#fff; } to { background:#b7c4ff; } }
+@media(prefers-reduced-motion:reduce) { .gp888 .gp-step { transition:none; } .gp888 .gp-step.is-current[aria-pressed=true] { animation:none; } }
