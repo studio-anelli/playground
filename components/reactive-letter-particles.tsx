@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import type { DustSceneBridgeProps } from "@/lib/dust-scene";
 
 // Reactive Letter Particles
 // - Multi-line text (use Enter) with interline control
@@ -134,10 +135,11 @@ function buildTextMask(args: {
   fontWeight: number;
   fontSize: number;
   tracking: number;
+  centerX: number;
   baselineY: number;
   interline: number;
 }): Mask {
-  const { w, h, text, fontFamily, fontWeight, fontSize, tracking, baselineY, interline } = args;
+  const { w, h, text, fontFamily, fontWeight, fontSize, tracking, centerX, baselineY, interline } = args;
 
   const off = document.createElement("canvas");
   off.width = w;
@@ -161,7 +163,7 @@ function buildTextMask(args: {
     const widths = metrics.map((m) => m.width);
     const total = widths.reduce((a, b) => a + b, 0) + tracking * Math.max(0, chars.length - 1);
 
-    let x = w / 2 - total / 2;
+    let x = centerX - total / 2;
     const y = baselineY + li * lineStep;
 
     for (let i = 0; i < chars.length; i++) {
@@ -417,40 +419,61 @@ function TextCommit(props: {
   );
 }
 
-export default function ReactiveLetterParticles() {
+export default function ReactiveLetterParticles({ initialScene, onSceneChange }: DustSceneBridgeProps = {}) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number>(0);
 
   const particlesRef = useRef<Particle[]>([]);
   const maskRef = useRef<Mask | null>(null);
+  const maskAreaRef = useRef(0);
+  const bridgeDensityAppliedRef = useRef(false);
 
   // IMPORTANT: keep explicit \n escape, never raw line breaks in string literals.
-  const [text, setText] = useState("oyeur");
-  const [canvasW, setCanvasW] = useState(1280);
-  const [canvasH, setCanvasH] = useState(520);
+  const [text, setText] = useState(initialScene?.text ?? "oyeur");
+  const [canvasW, setCanvasW] = useState(initialScene?.canvasW ?? 1280);
+  const [canvasH, setCanvasH] = useState(initialScene?.canvasH ?? 520);
 
   const [activeTab, setActiveTab] = useState<"source" | "glyph" | "colors" | "interaction">("source");
 
-  const [insideOutside, setInsideOutside] = useState<"inside" | "outside">("inside");
-  const [shapeMode, setShapeMode] = useState("circles");
+  const [insideOutside, setInsideOutside] = useState<"inside" | "outside">(
+    initialScene?.particlePlacement ?? "inside"
+  );
+  const [shapeMode, setShapeMode] = useState(() => {
+    switch (initialScene?.particleShape) {
+      case "square": return "squares";
+      case "line": return "lines";
+      case "mix": return "mix";
+      default: return "circles";
+    }
+  });
   const [count, setCount] = useState(160);
 
-  const [fontFamily, setFontFamily] = useState("system-ui, -apple-system, Segoe UI, Inter, Arial");
-  const [fontWeight, setFontWeight] = useState(900);
-  const [fontSize, setFontSize] = useState(240);
-  const [tracking, setTracking] = useState(10);
-  const [baselineY, setBaselineY] = useState(300);
+  const [fontFamily, setFontFamily] = useState(initialScene?.fontFamily ?? "system-ui, -apple-system, Segoe UI, Inter, Arial");
+  const [fontWeight, setFontWeight] = useState(initialScene?.fontWeight ?? 900);
+  const initialFontSize = initialScene
+    ? clamp((initialScene.fontScale ?? initialScene.fontSize / initialScene.canvasH) * (initialScene.canvasH ?? 520), 40, 800)
+    : 240;
+  const [fontSize, setFontSize] = useState(initialFontSize);
+  const [tracking, setTracking] = useState(
+    initialScene ? (initialScene.trackingEm ?? initialScene.tracking / initialScene.fontSize) * initialFontSize : 10
+  );
+  const [centerX, setCenterX] = useState((initialScene?.centerX ?? 0.5) * (initialScene?.canvasW ?? 1280));
+  const [baselineY, setBaselineY] = useState((initialScene?.baselineRatio ?? 300 / 520) * (initialScene?.canvasH ?? 520));
   const [interline, setInterline] = useState(22);
 
-  const [size, setSize] = useState(6);
+  const [size, setSize] = useState(
+    initialScene ? clamp((initialScene.particleSizeEm ?? 1.6 / 180) * initialFontSize, 0.5, 28) : 6
+  );
   const [lineLen, setLineLen] = useState(26);
   const [filled, setFilled] = useState(true);
   const [stroke, setStroke] = useState(2);
-  const [alpha, setAlpha] = useState(0.9);
+  const [alpha, setAlpha] = useState(initialScene?.particleAlpha ?? 0.9);
 
   const [repelRadius, setRepelRadius] = useState(28);
   const [repelStrength, setRepelStrength] = useState(0.9);
-  const [damping, setDamping] = useState(0.92);
+  const [damping, setDamping] = useState(
+    clamp(initialScene?.motionDamping ?? 0.92, 0.75, 0.995)
+  );
   const [jitter, setJitter] = useState(0.08);
 
   const [collisionRadiusBoost, setCollisionRadiusBoost] = useState(0.8);
@@ -459,25 +482,56 @@ export default function ReactiveLetterParticles() {
   const [morphChance, setMorphChance] = useState(0.22);
 
   // Shapes global color (HSL)
-  const [baseHue, setBaseHue] = useState(200);
-  const [baseSat, setBaseSat] = useState(85);
-  const [baseLit, setBaseLit] = useState(55);
+  const [baseHue, setBaseHue] = useState(initialScene?.particles.h ?? 200);
+  const [baseSat, setBaseSat] = useState(initialScene?.particles.s ?? 85);
+  const [baseLit, setBaseLit] = useState(initialScene?.particles.l ?? 55);
 
   // Background color (HSL)
-  const [bgHue, setBgHue] = useState(220);
-  const [bgSat, setBgSat] = useState(30);
-  const [bgLit, setBgLit] = useState(6);
+  const [bgHue, setBgHue] = useState(initialScene?.background.h ?? 220);
+  const [bgSat, setBgSat] = useState(initialScene?.background.s ?? 30);
+  const [bgLit, setBgLit] = useState(initialScene?.background.l ?? 6);
 
   // Text color (HSL) for ghost text
   const [textHue, setTextHue] = useState(0);
   const [textSat, setTextSat] = useState(0);
   const [textLit, setTextLit] = useState(100);
-  const [textAlpha, setTextAlpha] = useState(0.08);
+  const [textAlpha, setTextAlpha] = useState(initialScene?.ghostAlpha ?? 0.08);
+
+  useEffect(() => {
+    const spacing = maskAreaRef.current > 0 && count > 0
+      ? Math.sqrt(maskAreaRef.current / count)
+      : (initialScene?.particleSpacingEm ?? 5 / 180) * fontSize;
+    onSceneChange?.({
+      text,
+      fontFamily,
+      fontWeight,
+      fontSize,
+      tracking,
+      canvasW,
+      canvasH,
+      fontScale: fontSize / canvasH,
+      trackingEm: fontSize ? tracking / fontSize : 0,
+      centerX: centerX / canvasW,
+      baselineRatio: baselineY / canvasH,
+      particleSpacingEm: spacing / fontSize,
+      particleSizeEm: size / fontSize,
+      particleShape:
+        shapeMode === "squares" ? "square" :
+        shapeMode === "lines" ? "line" :
+        shapeMode === "mix" ? "mix" : "circle",
+      particlePlacement: insideOutside,
+      particleAlpha: alpha,
+      motionDamping: damping,
+      ghostAlpha: textAlpha,
+      background: { h: bgHue, s: bgSat, l: bgLit },
+      particles: { h: baseHue, s: baseSat, l: baseLit },
+    });
+  }, [alpha, baseHue, baseLit, baseSat, baselineY, bgHue, bgLit, bgSat, canvasH, canvasW, centerX, count, damping, fontFamily, fontSize, fontWeight, initialScene?.particleSpacingEm, insideOutside, onSceneChange, shapeMode, size, text, textAlpha, tracking]);
 
   // Split-on-collision
   const [splitOnHit, setSplitOnHit] = useState(false);
   const [maxSplitsPerParticle, setMaxSplitsPerParticle] = useState(10);
-  const maxParticles = useMemo(() => Math.min(2400, Math.max(200, count * 6)), [count]);
+  const maxParticles = useMemo(() => Math.min(12000, Math.max(200, count * 6)), [count]);
 
   const [seed, setSeed] = useState(12345);
   const [status, setStatus] = useState("Ready");
@@ -503,14 +557,41 @@ export default function ReactiveLetterParticles() {
       fontWeight,
       fontSize,
       tracking,
+      centerX,
       baselineY,
       interline,
     });
 
     maskRef.current = mask;
 
+    let opaquePixels = 0;
+    if (mask.data) {
+      const pixels = mask.data.data;
+      for (let i = 3; i < pixels.length; i += 4) {
+        if (pixels[i] > 12) opaquePixels += 1;
+      }
+    }
+    const padding = Math.max(24, Math.round(fontSize * 0.25));
+    const envelopeX0 = clamp(mask.bbox.x - padding, 0, w);
+    const envelopeY0 = clamp(mask.bbox.y - padding, 0, h);
+    const envelopeX1 = clamp(mask.bbox.x + mask.bbox.w + padding, 0, w);
+    const envelopeY1 = clamp(mask.bbox.y + mask.bbox.h + padding, 0, h);
+    const envelopePixels = Math.max(1, (envelopeX1 - envelopeX0) * (envelopeY1 - envelopeY0));
+    const eligiblePixels = insideOutside === "inside"
+      ? opaquePixels
+      : Math.max(1, envelopePixels - opaquePixels);
+    maskAreaRef.current = eligiblePixels;
+
+    let effectiveCount = count;
+    if (initialScene && !bridgeDensityAppliedRef.current) {
+      const spacing = Math.max(1, (initialScene.particleSpacingEm ?? 5 / 180) * fontSize);
+      effectiveCount = clamp(Math.round(eligiblePixels / (spacing * spacing)), 20, 5000);
+      bridgeDensityAppliedRef.current = true;
+      if (effectiveCount !== count) setCount(effectiveCount);
+    }
+
     particlesRef.current = createParticles({
-      count,
+      count: effectiveCount,
       rnd,
       maskData: mask.data,
       mode: insideOutside,
@@ -535,7 +616,7 @@ export default function ReactiveLetterParticles() {
   useEffect(() => {
     rebuild();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text, canvasW, canvasH, insideOutside, shapeMode, count, fontFamily, fontWeight, fontSize, tracking, baselineY, interline, seed]);
+  }, [text, canvasW, canvasH, insideOutside, shapeMode, count, fontFamily, fontWeight, fontSize, tracking, centerX, baselineY, interline, seed]);
 
   // Live update style params
   useEffect(() => {
@@ -603,7 +684,7 @@ export default function ReactiveLetterParticles() {
         const widths = metrics.map((m) => m.width);
         const total = widths.reduce((a, b) => a + b, 0) + tracking * Math.max(0, chars.length - 1);
 
-        let x = w / 2 - total / 2;
+        let x = centerX - total / 2;
         const y = baselineY + li * lineStep;
         for (let i = 0; i < chars.length; i++) {
           const c = chars[i];
@@ -833,6 +914,7 @@ export default function ReactiveLetterParticles() {
     fontWeight,
     fontSize,
     tracking,
+    centerX,
     baselineY,
     interline,
     baseHue,
@@ -867,7 +949,7 @@ export default function ReactiveLetterParticles() {
     setCanvasW(option.width);
     setCanvasH(option.height);
     setBaselineY(Math.round(option.height * 0.58));
-    setFontSize(clamp(Math.round(option.height * 0.46), 40, 520));
+    setFontSize(clamp(Math.round(option.height * 0.46), 40, 800));
     setStatus(`Canvas ${option.label}`);
   };
 
@@ -976,7 +1058,7 @@ export default function ReactiveLetterParticles() {
                       ))}
                     </div>
                   </div>
-                  <Slider label="Element count" value={count} min={20} max={520} step={1} onChange={setCount} />
+                  <Slider label="Element count" value={count} min={20} max={5000} step={1} onChange={setCount} />
                   <div className="grid grid-cols-2 gap-3">
                     <NumberCommit label="Canvas W" value={canvasW} min={320} max={2400} onCommit={(v) => setCanvasW(Math.round(v))} />
                     <NumberCommit label="Canvas H" value={canvasH} min={240} max={1400} onCommit={(v) => setCanvasH(Math.round(v))} />
@@ -997,10 +1079,11 @@ export default function ReactiveLetterParticles() {
               {activeTab === "glyph" && (
                 <div className="flex flex-col gap-4">
                   <div className="grid grid-cols-2 gap-3">
-                    <NumberCommit label="Font size" value={fontSize} min={40} max={520} onCommit={(v) => setFontSize(Math.round(v))} />
+                    <NumberCommit label="Font size" value={fontSize} min={40} max={800} onCommit={(v) => setFontSize(Math.round(v))} />
                     <NumberCommit label="Weight" value={fontWeight} min={100} max={900} step={100} onCommit={(v) => setFontWeight(Math.round(v / 100) * 100)} />
                   </div>
                   <Slider label="Tracking" value={tracking} min={-20} max={60} step={1} onChange={setTracking} />
+                  <Slider label="Center X" value={centerX} min={0} max={canvasW} step={1} onChange={setCenterX} />
                   <Slider label="Baseline Y" value={baselineY} min={40} max={canvasH - 20} step={1} onChange={setBaselineY} />
                   <Slider label="Interline" value={interline} min={-40} max={160} step={1} onChange={setInterline} />
                   <TextCommit label="Font family" value={fontFamily} placeholder="e.g. Inter, Arial" onCommit={(v) => setFontFamily(v || fontFamily)} />
@@ -1014,7 +1097,7 @@ export default function ReactiveLetterParticles() {
                     <NumberCommit label="Stroke" value={stroke} min={0.5} max={10} step={0.5} onCommit={setStroke} />
                   </div>
                   <Slider label="Alpha" value={alpha} min={0.1} max={1} step={0.01} onChange={setAlpha} />
-                  <Slider label="Shape size" value={size} min={1} max={28} step={1} onChange={setSize} />
+                  <Slider label="Shape size" value={size} min={0.5} max={28} step={0.1} onChange={setSize} />
                   <Slider label="Line length" value={lineLen} min={4} max={120} step={1} onChange={setLineLen} />
                 </div>
               )}
