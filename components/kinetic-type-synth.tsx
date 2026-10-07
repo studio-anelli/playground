@@ -1117,6 +1117,191 @@ export default function KineticTypeSynth() {
   };
 
   const applyQuickPreset = (preset: string) => {
+    if (preset === "blue-pulse") {
+      // Screenshot reconstruction; preserve the current text.
+      // Speed inferred from slider position; the displayed value is rounded.
+      setAlign("center");
+      setBaseline("middle");
+      setPad(0);
+      setLineHeightFactor(1.12);
+      setSampleOn(true);
+      setSampleJitter(3);
+      setGridStrength(80);
+      setShapeSize(10);
+      setWaveAmp(2);
+      setWaveFreq(6);
+      setWavePhase(0);
+      setWaveToSampling(true);
+      setWaveToGrid(false);
+      setFeedbackOn(false);
+      setFeedbackAlpha(0.98);
+      setFeedbackBlend("source-over");
+      setShowGhostText(false);
+      setStrokeW(1);
+      setBg("#5b5cff");
+      setFontSize(365);
+      setFontWeight(200);
+      setTracking(6);
+      setSampleStep(14);
+      setSampleThreshold(0.42);
+      setSampleOpacity(0.99);
+      setGridOn(false);
+      setGridSize(166);
+      setDistMix(0.18);
+      setGridCut(0);
+      setGridWarp(1.5);
+      setGridWarpAxis(0.71);
+      setLegibility(0.2);
+      setShapeOn(true);
+      setShapeType("line");
+      setLineLen(40);
+      setShapeMix(0);
+      setWaveShape("square");
+      setWaveSpeed(0.003);
+      setWaveDir(0.85);
+      setWaveToShapes(true);
+      setInk("#fffc41");
+      setClearFeedbackTick((tick) => tick + 1);
+    }
+    if (preset === "sea-foam") {
+      // Screenshot reconstruction; preserve the current text.
+      // Wave shape is cropped out; sine is inferred from the smooth size variation.
+      // Speed inferred from slider position; the displayed value is rounded.
+      setAlign("center");
+      setBaseline("middle");
+      setPad(0);
+      setLineHeightFactor(1.12);
+      setSampleOn(true);
+      setSampleJitter(3);
+      setGridStrength(80);
+      setShapeSize(3.1);
+      setWaveAmp(2);
+      setWaveFreq(6);
+      setWavePhase(0.99);
+      setWaveToSampling(true);
+      setWaveToGrid(false);
+      setFeedbackOn(true);
+      setFeedbackAlpha(0.76);
+      setFeedbackBlend("xor");
+      setShowGhostText(false);
+      setStrokeW(1);
+      setBg("#5b5cff");
+      setFontSize(420);
+      setFontWeight(800);
+      setTracking(30);
+      setSampleStep(5);
+      setSampleThreshold(0.73);
+      setSampleOpacity(0.52);
+      setGridOn(true);
+      setGridSize(46);
+      setDistMix(0);
+      setGridCut(10);
+      setGridWarp(1.06);
+      setGridWarpAxis(0.74);
+      setLegibility(0.71);
+      setShapeOn(false);
+      setShapeType("dot");
+      setLineLen(8);
+      setShapeMix(0.22);
+      setWaveShape("sine");
+      setWaveSpeed(0.0027);
+      setWaveDir(0.65);
+      setWaveToShapes(false);
+      setInk("#fff76c");
+      setClearFeedbackTick((tick) => tick + 1);
+    }
+    if (preset === "scanline") {
+      // Visual reconstruction from output only; animation is approximate.
+      setFontSize(420);
+      setFontWeight(800);
+      setTracking(6);
+      setLineHeightFactor(1.12);
+      setAlign("center");
+      setBaseline("middle");
+      setPad(0);
+      setSampleOn(true);
+      setSampleStep(4);
+      setSampleThreshold(0.42);
+      setSampleJitter(0);
+      setSampleOpacity(1);
+      setGridOn(false);
+      setGridSize(10);
+      setGridStrength(0);
+      setDistMix(0.75);
+      setGridCut(0);
+      setGridWarp(0.6);
+      setGridWarpAxis(0.35);
+      setLegibility(0.6);
+      setShapeOn(true);
+      setShapeType("line");
+      setShapeSize(0.5);
+      setLineLen(40);
+      setShapeMix(1);
+      setWaveShape("square");
+      setWaveAmp(1);
+      setWaveFreq(3.2);
+      // Slow square-wave changes keep the line bands approximately horizontal.
+      setWaveSpeed(0.0003);
+      setWaveDir(0.2);
+      setWavePhase(0);
+      setWaveToSampling(false);
+      setWaveToGrid(false);
+      setWaveToShapes(true);
+      setFeedbackOn(false);
+      setFeedbackAlpha(0.86);
+      setFeedbackBlend("source-over");
+      setShowGhostText(false);
+      setStrokeW(1);
+      setClearFeedbackTick((tick) => tick + 1);
+      setInk("#004d65");
+      setBg("#ff4f2e");
+    }
+    if (preset === "pink-weave") {
+      // Reconstructed from the visible modes, waves and text controls.
+      setFontSize(420);
+      setFontWeight(700);
+      setTracking(30);
+      setLineHeightFactor(1.12);
+      setAlign("center");
+      setBaseline("middle");
+      setPad(0);
+      setSampleOn(true);
+      setSampleStep(2);
+      setSampleThreshold(0.54);
+      setSampleJitter(0);
+      setSampleOpacity(0.45);
+      setGridOn(false);
+      setGridSize(10);
+      setGridStrength(0);
+      setDistMix(0.75);
+      setGridCut(0);
+      setGridWarp(0.6);
+      setGridWarpAxis(0.35);
+      setLegibility(0.6);
+      setShapeOn(true);
+      setShapeType("line");
+      setShapeSize(0.5);
+      setLineLen(26);
+      setShapeMix(0.55);
+      setWaveShape("square");
+      setWaveAmp(1.48);
+      setWaveFreq(5.53);
+      // The screenshot rounds speed to 0.00; infer from the slider position.
+      setWaveSpeed(0.0003);
+      setWaveDir(0.35);
+      setWavePhase(0);
+      setWaveToSampling(false);
+      setWaveToGrid(false);
+      setWaveToShapes(true);
+      setFeedbackOn(false);
+      setFeedbackAlpha(0.86);
+      setFeedbackBlend("source-over");
+      setShowGhostText(false);
+      setStrokeW(1);
+      setClearFeedbackTick((tick) => tick + 1);
+      setInk("#2c1376");
+      setBg("#ed3087");
+    }
     if (preset === "mezzotinta") {
       // Reconstructed from the FFS screenshots; preserve the user's text.
       setFontSize(400);
@@ -1213,6 +1398,10 @@ export default function KineticTypeSynth() {
             >
               <option value="" disabled>Select</option>
               <option value="mezzotinta">Mezzotinta</option>
+              <option value="pink-weave">Pink Weave</option>
+              <option value="blue-pulse">Blue Pulse</option>
+              <option value="sea-foam">Sea Foam</option>
+              <option value="scanline">Scanline</option>
               <option value="broadcast">Broadcast stack</option>
               <option value="kinetic">Hard kinetic</option>
               <option value="shimmer">Readable shimmer</option>
