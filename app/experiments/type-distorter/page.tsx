@@ -9,10 +9,10 @@ export default function TypeDistorterPage() {
       <header className="import-header import-header-native">
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a href="/" target="_top" className="back-link"><ArrowLeft aria-hidden="true" /> Index</a>
-        <h1>Particle Type Distorter</h1>
+        <h1>DUST</h1>
         <span>REC-02 / Tool / Test</span>
       </header>
-      <section className="experiment-native w-full" aria-label="Particle Type Distorter interactive application">
+      <section className="experiment-native w-full" aria-label="DUST interactive application">
         <TypeDistorter />
       </section>
     </main>

@@ -11,13 +11,13 @@ export default function FontDrawingPage() {
         {/* A full-page link is more reliable than client navigation in the Vinext worker build. */}
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a href="/" target="_top" className="ui-v1-back"><ArrowLeft aria-hidden="true" /> Back</a>
-        <h1>Artboard</h1>
+        <h1>LOW/FI WORLD</h1>
         <div className="ui-v1-meta">
           <span>REC - 003</span>
           <span>Tool - Grid warp</span>
         </div>
       </header>
-      <section className="ui-v1-experiment overflow-auto" aria-label="Font Drawing block-letter editor">
+      <section className="ui-v1-experiment overflow-auto" aria-label="LOW/FI WORLD block-letter editor">
         <FontDrawing />
       </section>
     </main>

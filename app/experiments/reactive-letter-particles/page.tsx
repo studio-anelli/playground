@@ -14,7 +14,7 @@ export default function ReactiveLetterParticlesPage() {
           <ArrowLeft aria-hidden="true" />
           Back
         </a>
-        <h1>Reactive Letter Particles</h1>
+        <h1>TY‑P0</h1>
         <div className="ui-v1-meta">
           <span>REC - 007</span>
           <span>Experiment - particles</span>
@@ -23,7 +23,7 @@ export default function ReactiveLetterParticlesPage() {
 
       <section
         className="ui-v1-experiment"
-        aria-label="Reactive Letter Particles interactive experiment"
+        aria-label="TY‑P0 interactive experiment"
       >
         <ReactiveLetterParticles />
       </section>

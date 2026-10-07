@@ -1117,6 +1117,45 @@ export default function KineticTypeSynth() {
   };
 
   const applyQuickPreset = (preset: string) => {
+    if (preset === "mezzotinta") {
+      // Reconstructed from the FFS screenshots; preserve the user's text.
+      setFontSize(400);
+      setFontWeight(800);
+      setTracking(0);
+      setAlign("center");
+      setBaseline("middle");
+      setPad(40);
+      setLineHeightFactor(1.12);
+      setSampleOn(true);
+      setSampleStep(11);
+      setSampleThreshold(0.25);
+      setSampleJitter(0);
+      setSampleOpacity(1);
+      setGridOn(false);
+      setDistMix(0);
+      setGridCut(0);
+      setGridWarp(0);
+      setShapeOn(false);
+      setShapeType("dot");
+      setShapeSize(8);
+      setShapeMix(0);
+      setWaveShape("sine");
+      setWaveAmp(2);
+      setWaveFreq(3.2);
+      setWaveSpeed(0.0003);
+      setWaveDir(0.12);
+      setWavePhase(0);
+      setWaveToSampling(true);
+      setWaveToGrid(false);
+      setWaveToShapes(false);
+      setLegibility(1);
+      setShowGhostText(false);
+      setFeedbackOn(false);
+      setClearFeedbackTick((tick) => tick + 1);
+      // Screenshot colours converted from the embedded profile to sRGB.
+      setBg("#ff4f2e");
+      setInk("#1a0a53");
+    }
     if (preset === "broadcast") {
       setText("RADIO\nSIGNAL");
       setFontSize(220);
@@ -1173,6 +1212,7 @@ export default function KineticTypeSynth() {
               }}
             >
               <option value="" disabled>Select</option>
+              <option value="mezzotinta">Mezzotinta</option>
               <option value="broadcast">Broadcast stack</option>
               <option value="kinetic">Hard kinetic</option>
               <option value="shimmer">Readable shimmer</option>

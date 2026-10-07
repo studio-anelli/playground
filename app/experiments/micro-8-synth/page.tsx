@@ -12,13 +12,13 @@ export default function Micro8SynthPage() {
           <ArrowLeft aria-hidden="true" />
           Index
         </a>
-        <h1>Micro-8 Synth</h1>
+        <h1>µMS20</h1>
         <span>REC-08 / Tool / Test</span>
       </header>
 
       <section
         className="experiment-native"
-        aria-label="Micro-8 Synth interactive experiment"
+        aria-label="µMS20 interactive experiment"
       >
         <SimpleSubtractiveSynth />
       </section>

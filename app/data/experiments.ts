@@ -15,7 +15,7 @@ export const experiments: Experiment[] = [
   {
     id: "REC-09",
     slug: "kinetic-type-synth",
-    title: "Kinetic Type Synth",
+    title: "K‑NET‑C",
     kind: "tool",
     status: "test",
     year: "2026",
@@ -25,7 +25,7 @@ export const experiments: Experiment[] = [
   {
     id: "REC-08",
     slug: "micro-8-synth",
-    title: "Micro-8 Synth",
+    title: "µMS20",
     kind: "tool",
     status: "test",
     year: "2026",
@@ -35,7 +35,7 @@ export const experiments: Experiment[] = [
   {
     id: "REC-07",
     slug: "reactive-letter-particles",
-    title: "Reactive Letter Particles",
+    title: "TY‑P0",
     kind: "experiment",
     status: "test",
     year: "2026",
@@ -45,7 +45,7 @@ export const experiments: Experiment[] = [
   {
     id: "REC-06",
     slug: "ascii-kinetic-typo-machine",
-    title: "ASCII Kinetic Typo Machine",
+    title: "A_SCII",
     kind: "tool",
     status: "test",
     year: "2026",
@@ -55,7 +55,7 @@ export const experiments: Experiment[] = [
   {
     id: "REC-05",
     slug: "gp888-drum-machine",
-    title: "GP888 Drum Machine",
+    title: "GP888",
     kind: "tool",
     status: "test",
     year: "2026",
@@ -65,7 +65,7 @@ export const experiments: Experiment[] = [
   {
     id: "REC-03",
     slug: "font-drawing",
-    title: "Font Drawing",
+    title: "LOW/FI WORLD",
     kind: "tool",
     status: "test",
     year: "2026",
@@ -75,7 +75,7 @@ export const experiments: Experiment[] = [
   {
     id: "REC-02",
     slug: "type-distorter",
-    title: "Particle Type Distorter",
+    title: "DUST",
     kind: "tool",
     status: "test",
     year: "2026",
@@ -85,7 +85,7 @@ export const experiments: Experiment[] = [
   {
     id: "REC-01",
     slug: "kinetic-composer",
-    title: "Kinetic Composer",
+    title: "GR_D",
     kind: "tool",
     status: "test",
     year: "2026",

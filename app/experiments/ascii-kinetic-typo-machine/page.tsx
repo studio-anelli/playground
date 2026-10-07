@@ -9,13 +9,13 @@ export default function ASCIITypoMachinePage() {
         {/* A full-page link is more reliable than client navigation in the Vinext worker build. */}
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a href="/" target="_top" className="ui-v1-back"><ArrowLeft aria-hidden="true" /> Back</a>
-        <h1>ASCII Kinetic Typo Machine</h1>
+        <h1>A_SCII</h1>
         <div className="ui-v1-meta">
           <span>REC - 006</span>
           <span>Tool - ASCII motion</span>
         </div>
       </header>
-      <section className="ui-v1-experiment" aria-label="ASCII Kinetic Typo Machine interactive application">
+      <section className="ui-v1-experiment" aria-label="A_SCII interactive application">
         <ASCIITypoMachine />
       </section>
     </main>
