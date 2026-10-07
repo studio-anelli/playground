@@ -224,44 +224,37 @@ lucide-react/dist/esm/lucide-react.mjs:
 <style>
 #light-playground{position:relative}
 #light-playground.lp-expanding{min-height:760px}
-#light-playground .lp-transition{position:absolute;z-index:50;overflow:hidden;background:#eeeee9;transition:left 450ms cubic-bezier(.22,1,.36,1),top 450ms cubic-bezier(.22,1,.36,1),width 450ms cubic-bezier(.22,1,.36,1),height 450ms cubic-bezier(.22,1,.36,1)}
-#light-playground .lp-transition-snapshot{width:100%;height:100%;position:absolute;inset:0;object-fit:fill}
-#light-playground .lp-experiment-header{position:absolute;inset:0 0 auto;z-index:55;height:56px;background:#eeeee9;color:#1d4bb2;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;opacity:0;transition:opacity 160ms}
-#light-playground .lp-experiment-header button{background:none;border:0;color:inherit;font:14px Arial;padding:8px 0}
-#light-playground .lp-full-experiment{position:absolute;inset:56px 0 0;overflow:hidden;opacity:0;transition:opacity 160ms;background:#eeeee9}
-#light-playground .lp-transition.lp-open .lp-experiment-header,#light-playground .lp-transition.lp-open .lp-full-experiment{opacity:1}
-#light-playground .lp-full-experiment>div{min-height:100%;width:100%}
-@media(prefers-reduced-motion:reduce){#light-playground .lp-transition{transition:none}}
+#light-playground .lp-window{position:absolute;inset:0;z-index:50;overflow:hidden;background:#eeeee9;transition:clip-path 500ms cubic-bezier(.22,1,.36,1)}
+#light-playground .lp-window-stage{position:absolute;inset:56px 0 0;overflow:hidden;background:#eeeee9}
+#light-playground .lp-window-stage>div{min-height:100%;width:100%}
+#light-playground .lp-window-header{position:absolute;inset:0 0 auto;z-index:55;height:56px;background:#eeeee9;color:#1d4bb2;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;opacity:0;transition:opacity 180ms}
+#light-playground .lp-window-header button{background:none;border:0;color:inherit;font:14px Arial;padding:8px 0}
+#light-playground .lp-window-ready .lp-window-header{opacity:1}
+#light-playground .lp-window:not(.lp-window-ready) .lp-window-stage button,
+#light-playground .lp-window:not(.lp-window-ready) .lp-window-stage input,
+#light-playground .lp-window:not(.lp-window-ready) .lp-window-stage select{visibility:hidden}
+@media(prefers-reduced-motion:reduce){#light-playground .lp-window{transition:none}}
 </style>
 <script>
 (()=>{
-const root=document.getElementById('light-playground');let current=null;
+const root=document.getElementById('light-playground');let opened=false;
 root.querySelectorAll('.lp-tile').forEach((tile,index)=>tile.addEventListener('click',e=>{
-e.preventDefault();if(current)return;
-const box=tile.getBoundingClientRect(),parent=root.getBoundingClientRect();
-const original={left:box.left-parent.left,top:box.top-parent.top,width:box.width,height:box.height};
-const overlay=document.createElement('div');overlay.className='lp-transition';
-const position=p=>Object.assign(overlay.style,Object.fromEntries(Object.entries(p).map(([k,v])=>[k,v+'px'])));
-position(original);
-const snapshot=document.createElement('canvas');snapshot.className='lp-transition-snapshot';snapshot.width=Math.round(box.width*2);snapshot.height=Math.round(box.height*2);
-const source=tile.querySelector('.lp-output');snapshot.getContext('2d').drawImage(source,0,0,snapshot.width,snapshot.height);overlay.append(snapshot);
-const header=document.createElement('div');header.className='lp-experiment-header';
+e.preventDefault();if(opened)return;opened=true;
+root.classList.add('lp-expanding');
+const box=tile.getBoundingClientRect(),base=root.getBoundingClientRect();
+const closed=`inset(${box.top-base.top}px ${base.right-box.right}px ${base.bottom-box.bottom}px ${box.left-base.left}px)`;
+const overlay=document.createElement('div');overlay.className='lp-window';overlay.style.clipPath=closed;
+const stage=document.createElement('div');stage.className='lp-window-stage';overlay.append(stage);
+const header=document.createElement('div');header.className='lp-window-header';
 const back=document.createElement('button');back.type='button';back.className='cursor-interaction';back.textContent='← Back to index';
-const title=document.createElement('span');title.textContent=tile.querySelector('.lp-title').textContent;header.append(back,title);overlay.append(header);
-const stage=document.createElement('div');stage.className='lp-full-experiment';overlay.append(stage);
-root.classList.add('lp-expanding');root.append(overlay);current={overlay};let unmount=null;
-requestAnimationFrame(()=>requestAnimationFrame(()=>position({left:0,top:0,width:root.clientWidth,height:root.clientHeight})));
-const timer=setTimeout(()=>{unmount=window.playgroundMountExperiment(index,stage);overlay.classList.add('lp-open');back.focus();},470);
-function close(){clearTimeout(timer);overlay.classList.remove('lp-open');
-const actual=stage.querySelector('canvas');if(actual&&actual.width&&actual.height)(()=>{const ctx=snapshot.getContext('2d');ctx.clearRect(0,0,snapshot.width,snapshot.height);const scale=Math.max(snapshot.width/actual.width,snapshot.height/actual.height);const w=actual.width*scale,h=actual.height*scale;ctx.drawImage(actual,(snapshot.width-w)/2,(snapshot.height-h)/2,w,h);})();
-if(unmount)unmount();position(original);setTimeout(()=>{overlay.remove();root.classList.remove('lp-expanding');current=null;tile.focus();},460);}
-back.addEventListener('click',close);
-overlay.addEventListener('keydown',event=>{if(event.key==='Escape')close()});
+const title=document.createElement('span');title.textContent=tile.querySelector('.lp-title').textContent;header.append(back,title);overlay.append(header);root.append(overlay);
+const unmount=window.playgroundMountExperiment(index,stage);
+const reveal=setTimeout(()=>{overlay.style.clipPath='inset(0px 0px 0px 0px)';},100);
+const ready=setTimeout(()=>{overlay.classList.add('lp-window-ready');back.focus();},610);
+let closing=false;
+function close(){if(closing)return;closing=true;clearTimeout(reveal);clearTimeout(ready);overlay.classList.remove('lp-window-ready');overlay.style.clipPath=closed;setTimeout(()=>{unmount();overlay.remove();root.classList.remove('lp-expanding');opened=false;tile.focus();},520);}
+back.addEventListener('click',close);overlay.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 }));
 })();
 </script>
-
-<style>
-#light-playground .lp-transition-snapshot{object-fit:cover}
-</style>
 </body></html>
