@@ -425,58 +425,58 @@ export default function ReactiveLetterParticles() {
   const maskRef = useRef<Mask | null>(null);
 
   // IMPORTANT: keep explicit \n escape, never raw line breaks in string literals.
-  const [text, setText] = useState("oyeur");
+  const [text, setText] = useState("LAB");
   const [canvasW, setCanvasW] = useState(1280);
-  const [canvasH, setCanvasH] = useState(520);
+  const [canvasH, setCanvasH] = useState(840);
 
   const [activeTab, setActiveTab] = useState<"source" | "glyph" | "colors" | "interaction">("source");
 
   const [insideOutside, setInsideOutside] = useState<"inside" | "outside">("inside");
   const [shapeMode, setShapeMode] = useState("circles");
-  const [count, setCount] = useState(160);
+  const [count, setCount] = useState(327);
 
-  const [fontFamily, setFontFamily] = useState("system-ui, -apple-system, Segoe UI, Inter, Arial");
-  const [fontWeight, setFontWeight] = useState(900);
-  const [fontSize, setFontSize] = useState(240);
-  const [tracking, setTracking] = useState(10);
-  const [baselineY, setBaselineY] = useState(300);
+  const [fontFamily, setFontFamily] = useState("Arial, Helvetica, sans-serif");
+  const [fontWeight, setFontWeight] = useState(700);
+  const [fontSize, setFontSize] = useState(520);
+  const [tracking, setTracking] = useState(60);
+  const [baselineY, setBaselineY] = useState(610);
   const [interline, setInterline] = useState(22);
 
-  const [size, setSize] = useState(6);
+  const [size, setSize] = useState(4);
   const [lineLen, setLineLen] = useState(26);
   const [filled, setFilled] = useState(true);
   const [stroke, setStroke] = useState(2);
-  const [alpha, setAlpha] = useState(0.9);
+  const [alpha, setAlpha] = useState(1);
 
-  const [repelRadius, setRepelRadius] = useState(28);
+  const [repelRadius, setRepelRadius] = useState(25);
   const [repelStrength, setRepelStrength] = useState(0.9);
   const [damping, setDamping] = useState(0.92);
   const [jitter, setJitter] = useState(0.08);
 
   const [collisionRadiusBoost, setCollisionRadiusBoost] = useState(0.8);
-  const [hueKick, setHueKick] = useState(28);
+  const [hueKick, setHueKick] = useState(0);
   const [morphOnHit, setMorphOnHit] = useState(true);
-  const [morphChance, setMorphChance] = useState(0.22);
+  const [morphChance, setMorphChance] = useState(0.13);
 
   // Shapes global color (HSL)
-  const [baseHue, setBaseHue] = useState(200);
-  const [baseSat, setBaseSat] = useState(85);
-  const [baseLit, setBaseLit] = useState(55);
+  const [baseHue, setBaseHue] = useState(0);
+  const [baseSat, setBaseSat] = useState(0);
+  const [baseLit, setBaseLit] = useState(33);
 
   // Background color (HSL)
-  const [bgHue, setBgHue] = useState(220);
-  const [bgSat, setBgSat] = useState(30);
-  const [bgLit, setBgLit] = useState(6);
+  const [bgHue, setBgHue] = useState(170);
+  const [bgSat, setBgSat] = useState(66);
+  const [bgLit, setBgLit] = useState(25);
 
   // Text color (HSL) for ghost text
-  const [textHue, setTextHue] = useState(0);
-  const [textSat, setTextSat] = useState(0);
-  const [textLit, setTextLit] = useState(100);
-  const [textAlpha, setTextAlpha] = useState(0.08);
+  const [textHue, setTextHue] = useState(325);
+  const [textSat, setTextSat] = useState(25);
+  const [textLit, setTextLit] = useState(40);
+  const [textAlpha, setTextAlpha] = useState(1);
 
   // Split-on-collision
-  const [splitOnHit, setSplitOnHit] = useState(false);
-  const [maxSplitsPerParticle, setMaxSplitsPerParticle] = useState(10);
+  const [splitOnHit, setSplitOnHit] = useState(true);
+  const [maxSplitsPerParticle, setMaxSplitsPerParticle] = useState(2);
   const maxParticles = useMemo(() => Math.min(2400, Math.max(200, count * 6)), [count]);
 
   const [seed, setSeed] = useState(12345);
@@ -1004,7 +1004,7 @@ export default function ReactiveLetterParticles() {
                     className="h-10 bg-white/10 px-3 text-xs font-bold uppercase hover:bg-white/20"
                     onClick={() => {
                       setText("LAB"); setCanvasW(1280); setCanvasH(840);
-                      setInsideOutside("inside"); setShapeMode("circles"); setCount(520);
+                      setInsideOutside("inside"); setShapeMode("circles"); setCount(327);
                       setFontFamily("Arial, Helvetica, sans-serif");
                       setFontWeight(700); setFontSize(520); setTracking(60);
                       setBaselineY(610); setInterline(22);
@@ -1012,13 +1012,33 @@ export default function ReactiveLetterParticles() {
                       setBaseHue(0); setBaseSat(0); setBaseLit(33);
                       setBgHue(170); setBgSat(66); setBgLit(25);
                       setTextHue(325); setTextSat(25); setTextLit(40); setTextAlpha(1);
-                      setRepelRadius(28); setRepelStrength(0.9); setDamping(0.92); setJitter(0.08);
+                      setRepelRadius(25); setRepelStrength(0.9); setDamping(0.92); setJitter(0.08);
                       setCollisionRadiusBoost(0.8); setHueKick(0);
-                      setMorphOnHit(false); setMorphChance(0); setSplitOnHit(false);
-                      setMaxSplitsPerParticle(10); setSeed((value) => (value + 1) % 999999);
+                      setMorphOnHit(true); setMorphChance(0.13); setSplitOnHit(true);
+                      setMaxSplitsPerParticle(2); setSeed((value) => (value + 1) % 999999);
                       setStatus("Bubble Lab preset loaded");
                     }}>
                     Preset · Bubble Lab
+                  </button>
+                  <button type="button"
+                    className="h-10 bg-white/10 px-3 text-xs font-bold uppercase hover:bg-white/20"
+                    onClick={() => {
+                      setText("R"); setCanvasW(1280); setCanvasH(800);
+                      setInsideOutside("inside"); setShapeMode("circles"); setCount(342);
+                      setFontFamily("system-ui, -apple-system, Segoe UI, Inter, Arial");
+                      setFontWeight(900); setFontSize(520); setTracking(10);
+                      setBaselineY(599); setInterline(22);
+                      setSize(2); setLineLen(26); setFilled(true); setStroke(2); setAlpha(0.9);
+                      setBaseHue(200); setBaseSat(85); setBaseLit(55);
+                      setBgHue(220); setBgSat(30); setBgLit(6);
+                      setTextHue(0); setTextSat(0); setTextLit(100); setTextAlpha(0.08);
+                      setRepelRadius(9); setRepelStrength(1.37); setDamping(0.78); setJitter(0.049);
+                      setCollisionRadiusBoost(1.18); setHueKick(3);
+                      setMorphOnHit(true); setMorphChance(0.32); setSplitOnHit(false);
+                      setMaxSplitsPerParticle(10); setSeed((value) => (value + 1) % 999999);
+                      setStatus("Morph R preset loaded");
+                    }}>
+                    Preset · Morph R
                   </button>
                   <div className="flex items-center justify-between gap-3">
                     <span className="text-xs font-medium text-white/75">Placement</span>
