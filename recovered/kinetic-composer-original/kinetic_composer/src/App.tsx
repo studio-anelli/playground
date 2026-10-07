@@ -167,33 +167,37 @@ export default function KineticComposer() {
       name: "Text Layer",
       visible: true,
       locked: false,
-      params: defaultTextParams("Hello kinetic world"),
+      params: { ...defaultTextParams("SOUND"), baseSize: 120, sizeAmp: 0,
+        letterGapEm: 1.7, opacity: 1, ampX: 0, ampY: 150,
+        freqX: 1.48, freqY: 2.39, phase: -0.17, invertPhaseOrder: false,
+        wavePos: "sine", waveSize: "sine", xOffset: 0, yOffset: 0,
+        fgColor: "#ed4800", strokeEnabled: true, strokeColor: "#000000", strokeWidth: 2 },
     };
     const repl = {
       id: nid(),
       type: LAYER_REPL,
-      name: "Replicator",
+      name: "Sound Ribbon",
       visible: true,
       locked: false,
       params: {
         targetId: baseText.id,
-        mode: "radial",
-        count: 6,
+        mode: "grid",
+        count: 1,
         radius: 160,
         angleStart: 0,
         angleStep: 360 / 6,
-        phaseDelta: 0.4,
-        timeDelay: 0.05,
-        hueDelta: 20,
-        scaleDelta: 0,
+        phaseDelta: -0.97,
+        timeDelay: 0.66,
+        hueDelta: 180,
+        scaleDelta: 0.0064,
         opacity: 1,
         offsetX: 0,
         offsetY: 0,
         linearAngle: 0,
         linearStep: 180,
-        gridRows: 2,
-        gridCols: 3,
-        gridGap: 140,
+        gridRows: 8,
+        gridCols: 7,
+        gridGap: 0,
       },
     };
     return [baseText, repl];
@@ -260,6 +264,37 @@ export default function KineticComposer() {
   };
 
   const applyQuickPreset = (preset) => {
+    const soundPresets = {
+      "sound-stack": { name: "Sound Stack", baseSize: 85, letterGapEm: 0.65, ampY: 199,
+        phase: -0.17, rows: 8, cols: 7, phaseDelta: -0.97, timeDelay: 0.66, scaleDelta: 0 },
+      "sound-twin": { name: "Sound Twin", baseSize: 120, letterGapEm: 1.7, ampY: 150,
+        phase: -0.17, rows: 8, cols: 7, phaseDelta: 0.3, timeDelay: 0.05, scaleDelta: 0.0064 },
+      "sound-loop": { name: "Sound Loop", baseSize: 120, letterGapEm: 1.7, ampY: 160,
+        phase: 0.85, rows: 8, cols: 8, phaseDelta: 2.15, timeDelay: 0.7, scaleDelta: 0.0064 },
+      "sound-ribbon": { name: "Sound Ribbon", baseSize: 120, letterGapEm: 1.7, ampY: 150,
+        phase: -0.17, rows: 8, cols: 7, phaseDelta: -0.97, timeDelay: 0.66, scaleDelta: 0.0064 },
+    };
+    const sound = soundPresets[preset];
+    if (sound) {
+      const textId = nid();
+      setLayers([
+        { id: textId, type: LAYER_TEXT, name: "Sound", visible: true, locked: false,
+          params: { ...defaultTextParams("SOUND"), baseSize: sound.baseSize, sizeAmp: 0,
+            letterGapEm: sound.letterGapEm, opacity: 1, ampX: 0, ampY: sound.ampY,
+            freqX: 1.48, freqY: 2.39, phase: sound.phase, invertPhaseOrder: false,
+            wavePos: "sine", waveSize: "sine", xOffset: 0, yOffset: 0,
+            fgColor: "#ed4800", strokeEnabled: true, strokeColor: "#000000", strokeWidth: 2 } },
+        { id: nid(), type: LAYER_REPL, name: sound.name, visible: true, locked: false,
+          params: { targetId: textId, mode: "grid", count: 1,
+            gridRows: sound.rows, gridCols: sound.cols, gridGap: 0,
+            phaseDelta: sound.phaseDelta, timeDelay: sound.timeDelay,
+            hueDelta: 180, scaleDelta: sound.scaleDelta, opacity: 1,
+            offsetX: 0, offsetY: 0, radius: 160, angleStart: 0, angleStep: 60,
+            linearAngle: 0, linearStep: 19 } },
+      ]);
+      setActiveId(textId); setStageSize("1800x550"); setPlaying(true);
+      return;
+    }
     if (preset === "funk-echo") {
       const textId = nid();
       setLayers([
@@ -478,6 +513,12 @@ export default function KineticComposer() {
             <option value="wave">Wave</option>
             <option value="grid">Grid</option>
             <option value="funk-echo">Funk Echo</option>
+            <optgroup label="Sound trails">
+              <option value="sound-stack">Sound Stack</option>
+              <option value="sound-twin">Sound Twin</option>
+              <option value="sound-loop">Sound Loop</option>
+              <option value="sound-ribbon">Sound Ribbon</option>
+            </optgroup>
           </select>
         </label>
 
