@@ -962,6 +962,64 @@ export default function ReactiveLetterParticles() {
             <div className="min-h-0 flex-1 overflow-y-auto p-3 pt-1">
               {activeTab === "source" && (
                 <div className="flex flex-col gap-4">
+                  <button type="button"
+                    className="h-10 bg-white/10 px-3 text-xs font-bold uppercase hover:bg-white/20"
+                    onClick={() => {
+                      setText("HEY"); setCanvasW(1280); setCanvasH(520);
+                      setInsideOutside("inside"); setShapeMode("circles"); setCount(160);
+                      setFontFamily("system-ui, -apple-system, Segoe UI, Inter, Arial");
+                      setFontWeight(100); setFontSize(240); setTracking(10);
+                      setBaselineY(300); setInterline(22);
+                      setSize(8); setLineLen(26); setFilled(true); setStroke(2); setAlpha(0.9);
+                      setBaseHue(330); setBaseSat(60); setBaseLit(70);
+                      setBgHue(240); setBgSat(12); setBgLit(5); setTextAlpha(0);
+                      setRepelRadius(28); setRepelStrength(0.9); setDamping(0.92); setJitter(0.08);
+                      setCollisionRadiusBoost(0.8); setHueKick(28);
+                      setMorphOnHit(false); setMorphChance(0); setSplitOnHit(false);
+                      setMaxSplitsPerParticle(10); setSeed((value) => (value + 1) % 999999);
+                      setStatus("Confetti preset loaded");
+                    }}>
+                    Preset · Confetti
+                  </button>
+                  <button type="button"
+                    className="h-10 bg-white/10 px-3 text-xs font-bold uppercase hover:bg-white/20"
+                    onClick={() => {
+                      setText("DUST"); setCanvasW(1280); setCanvasH(520);
+                      setInsideOutside("outside"); setShapeMode("circles"); setCount(520);
+                      setFontFamily("system-ui, -apple-system, Segoe UI, Inter, Arial");
+                      setFontWeight(900); setFontSize(180); setTracking(-2);
+                      setBaselineY(300); setInterline(22);
+                      setSize(1); setLineLen(26); setFilled(true); setStroke(2); setAlpha(0.7);
+                      setBaseHue(0); setBaseSat(0); setBaseLit(70);
+                      setBgHue(0); setBgSat(0); setBgLit(4); setTextAlpha(0);
+                      setRepelRadius(6); setRepelStrength(0.15); setDamping(0.92); setJitter(0.03);
+                      setCollisionRadiusBoost(0.8); setHueKick(0);
+                      setMorphOnHit(false); setMorphChance(0); setSplitOnHit(false);
+                      setMaxSplitsPerParticle(10); setSeed((value) => (value + 1) % 999999);
+                      setStatus("Outside Cloud preset loaded");
+                    }}>
+                    Preset · Outside Cloud
+                  </button>
+                  <button type="button"
+                    className="h-10 bg-white/10 px-3 text-xs font-bold uppercase hover:bg-white/20"
+                    onClick={() => {
+                      setText("LAB"); setCanvasW(1280); setCanvasH(840);
+                      setInsideOutside("inside"); setShapeMode("circles"); setCount(520);
+                      setFontFamily("Arial, Helvetica, sans-serif");
+                      setFontWeight(700); setFontSize(520); setTracking(60);
+                      setBaselineY(610); setInterline(22);
+                      setSize(4); setLineLen(26); setFilled(true); setStroke(2); setAlpha(1);
+                      setBaseHue(0); setBaseSat(0); setBaseLit(33);
+                      setBgHue(170); setBgSat(66); setBgLit(25);
+                      setTextHue(325); setTextSat(25); setTextLit(40); setTextAlpha(1);
+                      setRepelRadius(28); setRepelStrength(0.9); setDamping(0.92); setJitter(0.08);
+                      setCollisionRadiusBoost(0.8); setHueKick(0);
+                      setMorphOnHit(false); setMorphChance(0); setSplitOnHit(false);
+                      setMaxSplitsPerParticle(10); setSeed((value) => (value + 1) % 999999);
+                      setStatus("Bubble Lab preset loaded");
+                    }}>
+                    Preset · Bubble Lab
+                  </button>
                   <div className="flex items-center justify-between gap-3">
                     <span className="text-xs font-medium text-white/75">Placement</span>
                     <div className="grid grid-cols-2 gap-1">
@@ -1035,7 +1093,7 @@ export default function ReactiveLetterParticles() {
                     <Slider label="Hue" value={textHue} min={0} max={360} step={1} onChange={setTextHue} />
                     <Slider label="Saturation" value={textSat} min={0} max={100} step={1} onChange={setTextSat} />
                     <Slider label="Lightness" value={textLit} min={0} max={100} step={1} onChange={setTextLit} />
-                    <Slider label="Alpha" value={textAlpha} min={0} max={0.5} step={0.005} onChange={setTextAlpha} />
+                    <Slider label="Alpha" value={textAlpha} min={0} max={1} step={0.005} onChange={setTextAlpha} />
                   </ControlGroup>
                 </div>
               )}

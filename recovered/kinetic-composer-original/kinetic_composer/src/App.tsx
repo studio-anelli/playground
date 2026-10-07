@@ -260,6 +260,28 @@ export default function KineticComposer() {
   };
 
   const applyQuickPreset = (preset) => {
+    if (preset === "funk-echo") {
+      const textId = nid();
+      setLayers([
+        { id: textId, type: LAYER_TEXT, name: "Funk", visible: true, locked: false,
+          params: { ...defaultTextParams("funk"), baseSize: 160, sizeAmp: 80,
+            letterGapEm: 1, opacity: 0.05, ampX: 0, ampY: 0,
+            freqX: 0.42, freqY: 2.55, phase: 0.85, invertPhaseOrder: true,
+            wavePos: "sine", waveSize: "sine", hAlign: "center", vAlign: "middle",
+            xOffset: -170, yOffset: -35, fgColor: "#000000",
+            strokeEnabled: true, strokeColor: "#ff8647", strokeWidth: 2 } },
+        { id: nid(), type: LAYER_REPL, name: "Funk Echo", visible: true, locked: false,
+          params: { targetId: textId, mode: "linear", count: 19,
+            linearAngle: 11, linearStep: 19, phaseDelta: 0.3,
+            timeDelay: 0.05, hueDelta: 25, scaleDelta: 0, opacity: 1,
+            offsetX: 0, offsetY: 0, radius: 160, angleStart: 0, angleStep: 60,
+            gridRows: 2, gridCols: 3, gridGap: 140 } },
+      ]);
+      setActiveId(textId);
+      setStageSize("1800x550");
+      setPlaying(true);
+      return;
+    }
     setLayers((previous) =>
       previous.map((layer) => {
         if (layer.type === LAYER_TEXT) {
@@ -455,6 +477,7 @@ export default function KineticComposer() {
             <option value="calm">Calm</option>
             <option value="wave">Wave</option>
             <option value="grid">Grid</option>
+            <option value="funk-echo">Funk Echo</option>
           </select>
         </label>
 
