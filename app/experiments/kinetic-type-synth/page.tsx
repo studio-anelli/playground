@@ -13,7 +13,7 @@ export default function KineticTypeSynthPage() {
           Back
         </a>
 
-        <h1>Kinetic Type Synth</h1>
+        <h1>K‑NET‑C</h1>
 
         <div className="ui-v1-meta">
           <span>REC - 009</span>
@@ -21,7 +21,7 @@ export default function KineticTypeSynthPage() {
         </div>
       </header>
 
-      <section className="ui-v1-experiment" aria-label="Kinetic Type Synth interactive experiment">
+      <section className="ui-v1-experiment" aria-label="K‑NET‑C interactive experiment">
         <KineticTypeSynth />
       </section>
     </main>

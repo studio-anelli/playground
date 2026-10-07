@@ -10,13 +10,13 @@ export default function KineticComposerPage() {
       <header className="ui-v1-header">
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a href="/" target="_top" className="ui-v1-back"><ArrowLeft aria-hidden="true" /> Back</a>
-        <h1>Kinetic Composer</h1>
+        <h1>GR_D</h1>
         <div className="ui-v1-meta">
           <span>REC - 001</span>
           <span>Tool - Type motion</span>
         </div>
       </header>
-      <section className="ui-v1-experiment" aria-label="Kinetic Composer interactive application">
+      <section className="ui-v1-experiment" aria-label="GR_D interactive application">
         <KineticComposer />
       </section>
     </main>
