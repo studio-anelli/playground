@@ -18,23 +18,6 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-const VIBRANT_BACKGROUNDS = [
-  "#ff4f2e",
-  "#5b5cff",
-  "#00a878",
-  "#ed2f87",
-  "#ffc400",
-  "#0077ff",
-  "#8e44ff",
-  "#00b8d9",
-];
-
-const readableInk = (hex: string) => {
-  const rgb = hex.replace("#", "").match(/.{2}/g)?.map((value) => parseInt(value, 16) / 255) ?? [0, 0, 0];
-  const linear = rgb.map((value) => value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4);
-  const luminance = 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
-  return luminance > 0.42 ? "#0f0f10" : "#f2f2f2";
-};
 const smoothstep = (a: number, b: number, t: number) => {
   const x = clamp((t - a) / (b - a), 0, 1);
   return x * x * (3 - 2 * x);
@@ -462,69 +445,69 @@ export default function KineticTypeSynth() {
   const [dpr, setDpr] = useState(1);
 
   const [text, setText] = useState("KINETIC TYPE");
-  const [fontSize, setFontSize] = useState(220);
+  const [fontSize, setFontSize] = useState(365);
   const [tracking, setTracking] = useState(6);
-  const [fontWeight, setFontWeight] = useState(800);
+  const [fontWeight, setFontWeight] = useState(200);
   const [align, setAlign] = useState<CanvasTextAlign>("center");
   const [baseline, setBaseline] = useState<"top" | "middle" | "bottom">("middle");
-  const [pad, setPad] = useState(40);
+  const [pad, setPad] = useState(0);
   const [lineHeightFactor, setLineHeightFactor] = useState(1.12);
 
   // Sampling
   const [sampleOn, setSampleOn] = useState(true);
-  const [sampleStep, setSampleStep] = useState(6);
-  const [sampleThreshold, setSampleThreshold] = useState(0.25);
-  const [sampleJitter, setSampleJitter] = useState(0.7);
-  const [sampleOpacity, setSampleOpacity] = useState(1);
+  const [sampleStep, setSampleStep] = useState(14);
+  const [sampleThreshold, setSampleThreshold] = useState(0.42);
+  const [sampleJitter, setSampleJitter] = useState(3);
+  const [sampleOpacity, setSampleOpacity] = useState(0.99);
 
   // Grid distortion
-  const [gridOn, setGridOn] = useState(true);
-  const [gridSize, setGridSize] = useState(56);
-  const [gridStrength, setGridStrength] = useState(22);
-  const [distMix, setDistMix] = useState(0.75);
+  const [gridOn, setGridOn] = useState(false);
+  const [gridSize, setGridSize] = useState(166);
+  const [gridStrength, setGridStrength] = useState(80);
+  const [distMix, setDistMix] = useState(0.18);
 
   // Hide near-zero displacement fragments (prevents reading original letter parts).
-  const [gridCut, setGridCut] = useState(0.0);
+  const [gridCut, setGridCut] = useState(0);
 
   // Stretch/compress warp (anisotropic per cell)
-  const [gridWarp, setGridWarp] = useState(0.6);
-  const [gridWarpAxis, setGridWarpAxis] = useState(0.35);
+  const [gridWarp, setGridWarp] = useState(1.5);
+  const [gridWarpAxis, setGridWarpAxis] = useState(0.71);
 
   // Shapes
   const [shapeOn, setShapeOn] = useState(true);
-  const [shapeType, setShapeType] = useState<"dot" | "square" | "line">("dot");
-  const [shapeSize, setShapeSize] = useState(3);
-  const [lineLen, setLineLen] = useState(10);
-  const [shapeMix, setShapeMix] = useState(1);
+  const [shapeType, setShapeType] = useState<"dot" | "square" | "line">("line");
+  const [shapeSize, setShapeSize] = useState(10);
+  const [lineLen, setLineLen] = useState(40);
+  const [shapeMix, setShapeMix] = useState(0);
 
   // Waves
-  const [waveShape, setWaveShape] = useState<"sine" | "triangle" | "square" | "saw">("sine");
-  const [waveAmp, setWaveAmp] = useState(0.6);
-  const [waveFreq, setWaveFreq] = useState(1.4);
-  const [waveSpeed, setWaveSpeed] = useState(0.00075);
-  const [waveDir, setWaveDir] = useState(0.4);
-  const [wavePhase, setWavePhase] = useState(0.0);
+  const [waveShape, setWaveShape] = useState<"sine" | "triangle" | "square" | "saw">("square");
+  const [waveAmp, setWaveAmp] = useState(2);
+  const [waveFreq, setWaveFreq] = useState(6);
+  const [waveSpeed, setWaveSpeed] = useState(0.003);
+  const [waveDir, setWaveDir] = useState(0.85);
+  const [wavePhase, setWavePhase] = useState(0);
 
   // Wave destinations
   const [waveToSampling, setWaveToSampling] = useState(true);
-  const [waveToGrid, setWaveToGrid] = useState(true);
+  const [waveToGrid, setWaveToGrid] = useState(false);
   const [waveToShapes, setWaveToShapes] = useState(true);
 
   // Legibility
-  const [legibility, setLegibility] = useState(0.6);
+  const [legibility, setLegibility] = useState(0.2);
   const [showGhostText, setShowGhostText] = useState(false);
 
   // Feedback
   const [feedbackOn, setFeedbackOn] = useState(false);
-  const [feedbackAlpha, setFeedbackAlpha] = useState(0.86);
+  const [feedbackAlpha, setFeedbackAlpha] = useState(0.98);
   const [feedbackBlend, setFeedbackBlend] = useState<GlobalCompositeOperation>("source-over");
   const fbRef = useRef<Offscreen | null>(null);
   const textLayerRef = useRef<{ key: string; buf: Offscreen } | null>(null);
   const [clearFeedbackTick, setClearFeedbackTick] = useState(0);
 
   // Visuals
-  const [bg, setBg] = useState("#0f0f10");
-  const [ink, setInk] = useState("#f2f2f2");
+  const [bg, setBg] = useState("#5b5cff");
+  const [ink, setInk] = useState("#fffc41");
   const [strokeW, setStrokeW] = useState(1);
 
   const [tab, setTab] = useState<"modes" | "wave" | "text">("modes");
@@ -575,12 +558,6 @@ export default function KineticTypeSynth() {
   useEffect(() => {
     setDpr(Math.max(1, Math.min(2, window.devicePixelRatio || 1)));
 
-    const previous = window.sessionStorage.getItem("playground-vibrant-background");
-    const choices = VIBRANT_BACKGROUNDS.filter((color) => color !== previous);
-    const next = choices[Math.floor(Math.random() * choices.length)] ?? VIBRANT_BACKGROUNDS[0];
-    window.sessionStorage.setItem("playground-vibrant-background", next);
-    setBg(next);
-    setInk(readableInk(next));
   }, []);
 
   useEffect(() => {
