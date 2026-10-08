@@ -434,7 +434,8 @@ export default function GP888DrumMachine() {
       const out: Record<TrackId, boolean[]> = {} as any;
       TRACKS.forEach((t) => {
         const row = p[t.id] || [];
-        out[t.id] = Array.from({ length: steps }, (_, i) => row[i] || false);
+        const repeat = steps === 32 && row.length === 16;
+        out[t.id] = Array.from({ length: steps }, (_, i) => row[repeat ? i % 16 : i] || false);
       });
       return out;
     });
