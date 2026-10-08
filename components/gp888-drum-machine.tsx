@@ -39,12 +39,24 @@ const TRACK_COLORS: Record<TrackId, string> = {
 
 const defaultSteps = (n: number) => Array.from({ length: n }, () => false);
 
+type VoiceParams = { decay: number; punch?: number; snappiness?: number };
+const DEFAULT_VOICES: Record<TrackId, VoiceParams> = {
+  kick: { decay: 0.25, punch: 0.5 }, snare: { decay: 0.2, snappiness: 0.6 },
+  hihat: { decay: 0.05 }, ohat: { decay: 0.5 }, ride: { decay: 0.7 },
+  clap: { decay: 0.13 }, rim: { decay: 0.03 }, midtom: { decay: 0.25 },
+};
+const DECAY_LIMITS: Partial<Record<TrackId, [number, number]>> = {
+  kick: [40, 1200], snare: [40, 800], hihat: [10, 400], ohat: [50, 1600],
+  ride: [100, 2500], clap: [30, 1000],
+};
+
 // -----------------------
 // Audio Engine with per-track crushers
 // -----------------------
 
 function useAudioEngine() {
   const audioCtxRef = useRef<AudioContext | null>(null);
+  const voiceParamsRef = useRef(DEFAULT_VOICES);
   const masterGainRef = useRef<GainNode | null>(null);
 
   const trackGainsRef = useRef<Record<string, GainNode>>({});
@@ -119,62 +131,67 @@ function useAudioEngine() {
     trackCrusherParamsRef.current[id] = { bits, downsample };
   };
 
+  const setVoiceParams = (params: Record<TrackId, VoiceParams>) => { voiceParamsRef.current = params; };
+
   // --- Simple Synth Voices ---
   const triggerKick = (time: number, vol = 1, id: TrackId) => {
     const ctx = ensureCtx();
     const o = ctx.createOscillator();
     const g = ctx.createGain();
     o.type = "sine";
-    o.frequency.setValueAtTime(120, time);
-    o.frequency.exponentialRampToValueAtTime(45, time + 0.12);
+    const { decay, punch = 0.5 } = voiceParamsRef.current[id];
+    o.frequency.setValueAtTime(60 + punch * 120, time);
+    o.frequency.exponentialRampToValueAtTime(45, time + Math.min(decay * 0.65, 0.04 + punch * 0.16));
     g.gain.setValueAtTime(0.9 * vol, time);
-    g.gain.exponentialRampToValueAtTime(0.0001, time + 0.25);
+    g.gain.exponentialRampToValueAtTime(0.0001, time + decay);
     o.connect(g);
     g.connect(routeGain(id));
     o.start(time);
-    o.stop(time + 0.26);
+    o.stop(time + decay + 0.01);
   };
 
   const triggerSnare = (time: number, vol = 1, id: TrackId) => {
     const ctx = ensureCtx();
+    const { decay, snappiness = 0.6 } = voiceParamsRef.current[id];
     const o = ctx.createOscillator();
     const g1 = ctx.createGain();
     o.type = "triangle";
     o.frequency.setValueAtTime(180, time);
-    g1.gain.setValueAtTime(0.4 * vol, time);
-    g1.gain.exponentialRampToValueAtTime(0.0001, time + 0.15);
+    g1.gain.setValueAtTime(Math.max(0.0001, (1 - snappiness) * vol), time);
+    g1.gain.exponentialRampToValueAtTime(0.0001, time + decay * 0.75);
     o.connect(g1);
     g1.connect(routeGain(id));
     o.start(time);
-    o.stop(time + 0.15);
+    o.stop(time + decay * 0.75);
 
-    const bufferSize = 0.2 * ctx.sampleRate;
+    const bufferSize = Math.ceil((decay + 0.01) * ctx.sampleRate);
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = buffer.getChannelData(0);
     for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
     const noise = ctx.createBufferSource();
     noise.buffer = buffer;
     const g2 = ctx.createGain();
-    g2.gain.setValueAtTime(0.6 * vol, time);
-    g2.gain.exponentialRampToValueAtTime(0.0001, time + 0.2);
+    g2.gain.setValueAtTime(Math.max(0.0001, snappiness * vol), time);
+    g2.gain.exponentialRampToValueAtTime(0.0001, time + decay);
     noise.connect(g2);
     g2.connect(routeGain(id));
     noise.start(time);
-    noise.stop(time + 0.21);
+    noise.stop(time + decay + 0.01);
   };
 
-  const triggerHiHat = (time: number, vol = 1, id: TrackId, open = false) => {
+  const triggerHiHat = (time: number, vol = 1, id: TrackId) => {
     const ctx = ensureCtx();
-    const bufferSize = (open ? 0.6 : 0.05) * ctx.sampleRate;
+    const decay = voiceParamsRef.current[id].decay;
+    const bufferSize = Math.ceil((decay + 0.01) * ctx.sampleRate);
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = buffer.getChannelData(0);
     for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
     const noise = ctx.createBufferSource(); noise.buffer = buffer;
     const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 7000;
     const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 10000;
-    const g = ctx.createGain(); g.gain.setValueAtTime(0.5 * vol, time); g.gain.exponentialRampToValueAtTime(0.0001, time + (open ? 0.5 : 0.05));
+    const g = ctx.createGain(); g.gain.setValueAtTime(0.5 * vol, time); g.gain.exponentialRampToValueAtTime(0.0001, time + decay);
     noise.connect(hp); hp.connect(bp); bp.connect(g); g.connect(routeGain(id));
-    noise.start(time); noise.stop(time + (open ? 0.6 : 0.06));
+    noise.start(time); noise.stop(time + decay + 0.01);
   };
 
   const triggerRim = (time: number, vol = 1, id: TrackId) => {
@@ -186,16 +203,17 @@ function useAudioEngine() {
 
   const triggerRide = (time: number, vol = 1, id: TrackId) => {
     const ctx = ensureCtx();
-    const bufferSize = 0.8 * ctx.sampleRate;
+    const decay = voiceParamsRef.current[id].decay;
+    const bufferSize = Math.ceil((decay + 0.01) * ctx.sampleRate);
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = buffer.getChannelData(0);
     for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
     const noise = ctx.createBufferSource(); noise.buffer = buffer;
     const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 5000;
     const bp = ctx.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 8000;
-    const g = ctx.createGain(); g.gain.setValueAtTime(0.45 * vol, time); g.gain.exponentialRampToValueAtTime(0.0001, time + 0.7);
+    const g = ctx.createGain(); g.gain.setValueAtTime(0.45 * vol, time); g.gain.exponentialRampToValueAtTime(0.0001, time + decay);
     noise.connect(hp); hp.connect(bp); bp.connect(g); g.connect(routeGain(id));
-    noise.start(time); noise.stop(time + 0.8);
+    noise.start(time); noise.stop(time + decay + 0.01);
   };
 
   const triggerTom = (time: number, vol = 1, id: TrackId) => {
@@ -208,17 +226,19 @@ function useAudioEngine() {
 
   const triggerClap = (time: number, vol = 1, id: TrackId) => {
     const ctx = ensureCtx();
+    const decay = voiceParamsRef.current[id].decay;
     const bursts = [0, 0.012, 0.025, 0.045];
-    bursts.forEach((offset) => {
+    bursts.forEach((offset, index) => {
+      const tail = index === bursts.length - 1 ? decay : Math.min(0.025, decay);
       const t = time + offset;
-      const bufferSize = 0.08 * ctx.sampleRate;
+      const bufferSize = Math.ceil((tail + 0.01) * ctx.sampleRate);
       const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
       const data = buffer.getChannelData(0);
       for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
       const noise = ctx.createBufferSource(); noise.buffer = buffer;
-      const g = ctx.createGain(); g.gain.setValueAtTime(0.7 * vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.13);
+      const g = ctx.createGain(); g.gain.setValueAtTime(0.7 * vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + tail);
       noise.connect(g); g.connect(routeGain(id));
-      noise.start(t); noise.stop(t + 0.14);
+      noise.start(t); noise.stop(t + tail + 0.01);
     });
   };
 
@@ -226,11 +246,13 @@ function useAudioEngine() {
     ensureCtx,
     setMasterVolume,
     setTrackCrusher,
+    setVoiceParams,
     trigger(which: TrackId, time: number, vol = 1) {
+      if (vol <= 0) return;
       if (which === "kick") return triggerKick(time, vol, "kick");
       if (which === "snare") return triggerSnare(time, vol, "snare");
-      if (which === "hihat") return triggerHiHat(time, vol, "hihat", false);
-      if (which === "ohat") return triggerHiHat(time, vol, "ohat", true);
+      if (which === "hihat") return triggerHiHat(time, vol, "hihat");
+      if (which === "ohat") return triggerHiHat(time, vol, "ohat");
       if (which === "rim") return triggerRim(time, vol, "rim");
       if (which === "ride") return triggerRide(time, vol, "ride");
       if (which === "midtom") return triggerTom(time, vol, "midtom");
@@ -388,6 +410,12 @@ export default function GP888DrumMachine() {
   const [pattern, setPattern] = useState<Record<TrackId, boolean[]>>(makePattern(16));
 
   const engine = useAudioEngine();
+  const [voiceParams, setVoiceParams] = useState(DEFAULT_VOICES);
+  const updateVoice = (id: TrackId, patch: Partial<VoiceParams>) => {
+    const next = { ...voiceParams, [id]: { ...voiceParams[id], ...patch } };
+    engine.setVoiceParams(next);
+    setVoiceParams(next);
+  };
 
   // Master volume
   useEffect(() => engine.setMasterVolume(master), [engine, master]);
@@ -531,6 +559,11 @@ export default function GP888DrumMachine() {
             {TRACKS.map(t=><div className="gp-channel" key={t.id} style={{"--track-color":TRACK_COLORS[t.id]} as React.CSSProperties}>
               <h2><span className={`gp-led ${blink[t.id]?"is-lit":""}`} />{t.name}</h2>
               <DrumKnob label="LEVEL" ariaLabel={`${t.name} level`} size="large" min={0} max={100} value={Math.round(trackLevels[t.id]*100)} onChange={v=>setTrackLevels(m=>({...m,[t.id]:v/100}))} />
+              {DECAY_LIMITS[t.id] && <div className="gp-trims">
+                <DrumKnob label="DECAY ms" ariaLabel={`${t.name} decay milliseconds`} size="medium" min={DECAY_LIMITS[t.id]![0]} max={DECAY_LIMITS[t.id]![1]} value={Math.round(voiceParams[t.id].decay * 1000)} onChange={v=>updateVoice(t.id, {decay:v/1000})} />
+                {t.id === "kick" && <DrumKnob label="PUNCH" ariaLabel="Kick punch" size="small" min={0} max={100} value={Math.round(voiceParams.kick.punch! * 100)} onChange={v=>updateVoice("kick", {punch:v/100})} />}
+                {t.id === "snare" && <DrumKnob label="SNAPPY" ariaLabel="Snare snappiness" size="small" min={0} max={100} value={Math.round(voiceParams.snare.snappiness! * 100)} onChange={v=>updateVoice("snare", {snappiness:v/100})} />}
+              </div>}
               <div className="gp-trims">
                 <DrumKnob label="BITS" ariaLabel={`${t.name} bits`} size="small" min={2} max={16} value={trackFX[t.id].bits} onChange={v=>setTrackFX(fx=>({...fx,[t.id]:{...fx[t.id],bits:v}}))} />
                 <DrumKnob label="DOWN" ariaLabel={`${t.name} downsampling`} size="medium" min={1} max={16} value={trackFX[t.id].down} onChange={v=>setTrackFX(fx=>({...fx,[t.id]:{...fx[t.id],down:v}}))} />
