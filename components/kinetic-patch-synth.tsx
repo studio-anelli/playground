@@ -18,7 +18,7 @@ type SamplePoint = XY & { glyph: Glyph };
 const manualSpecs = [
   ["threshold", "Threshold", .01, 1, .01, "sampling"], ["opacity", "Opacity", 0, 1, .01, "sampling"],
   ["hideOriginal", "Hide original", 0, 10, .1, "grid"], ["stretch", "Stretch / compress", 0, 1.5, .01, "grid"], ["axis", "Axis · X ↔ Y", 0, 1, .01, "grid"],
-  ["lineLength", "Line length", 1, 80, 1, "vertex"], ["tracking", "Tracking", -20, 60, 1, "typography"],
+  ["lineLength", "Line length", 1, 80, 1, "vertex"], ["tracking", "Tracking · % em", -10, 30, .1, "typography"],
 ] as const;
 const initialManual = { threshold: .42, opacity: 1, hideOriginal: 0, stretch: 0, axis: .5, lineLength: 6, tracking: 0 };
 const initial: Record<Target, number> = { step: 3.5, jitter: 0, gridSize: 24, strength: 13, gridMix: .7, legibility: .3, vertexSize: .36, vertexMix: .7, fontSize: 29, weight: 800 };
@@ -101,8 +101,8 @@ export default function KineticPatchSynth() {
           source.width = W; source.height = H; sctx.fillStyle = s.ink; sctx.textAlign = "center"; sctx.textBaseline = "middle";
           const lines = s.text.split("\n"); let fitted = Math.min(size, H * .75 / Math.max(1, lines.length));
           sctx.font = `${weight} ${fitted}px ${s.font}`;
-          const widthOf = (line: string) => Array.from(line).reduce((width, char) => width + sctx.measureText(char).width, 0) + Math.max(0, Array.from(line).length - 1) * s.manual.tracking;
-          // Tracking stays in pixel units while the type fits the available canvas.
+          const widthOf = (line: string) => Array.from(line).reduce((width, char) => width + sctx.measureText(char).width, 0) + Math.max(0, Array.from(line).length - 1) * s.manual.tracking / 100 * fitted;
+          // Tracking follows the fitted font size, including during auto-fit.
           for (let n = 0; n < 5; n++) { const widest = Math.max(1, ...lines.map(widthOf)); if (widest <= W - 48) break; fitted *= (W - 48) / widest; sctx.font = `${weight} ${fitted}px ${s.font}`; }
           sctx.font = `${weight} ${fitted}px ${s.font}`;
           sctx.textAlign = "left"; sctx.textBaseline = "alphabetic";
@@ -125,7 +125,7 @@ export default function KineticPatchSynth() {
                 glyphs.push({ canvas: c, pixels: gc.getImageData(0, 0, width, height).data, x: gx, y: gy, width, height, em: fitted });
                 sctx.drawImage(c, gx, gy);
               }
-              x += m.width + s.manual.tracking;
+              x += m.width + s.manual.tracking / 100 * fitted;
             }
           });
           cacheKey = key; lastRebuild = now;
