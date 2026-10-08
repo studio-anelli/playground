@@ -407,16 +407,16 @@ export default function App() {
   const [panelOpen, setPanelOpen] = useState(true);
 
   // Colors
-  const [bgH, setBgH] = useState(240);
-  const [bgS, setBgS] = useState(12);
-  const [bgL, setBgL] = useState(6);
+  const [bgH, setBgH] = useState(9);
+  const [bgS, setBgS] = useState(19);
+  const [bgL, setBgL] = useState(50);
 
-  const [txH, setTxH] = useState(0);
-  const [txS, setTxS] = useState(0);
-  const [txL, setTxL] = useState(100);
+  const [txH, setTxH] = useState(326);
+  const [txS, setTxS] = useState(63);
+  const [txL, setTxL] = useState(56);
 
   // Type
-  const [text, setText] = useState("DUST");
+  const [text, setText] = useState("MINDTRIP");
   const [fontFamily, setFontFamily] = useState(
     "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
   );
@@ -456,7 +456,7 @@ export default function App() {
   const [distortAmount, setDistortAmount] = useState(1.0);
 
   // Noise overlay
-  const [noiseOpacity, setNoiseOpacity] = useState(0.22);
+  const [noiseOpacity, setNoiseOpacity] = useState(0);
   const [noiseColorMode, setNoiseColorMode] = useState("none"); // none | mono | gradient
   const [noiseColorA, setNoiseColorA] = useState("#ffffff");
   const [noiseColorB, setNoiseColorB] = useState("#7cffea");
@@ -469,23 +469,40 @@ export default function App() {
   const [heatIntensity, setHeatIntensity] = useState(1.0);
 
   // Type-to-particles
-  const [sampleStep, setSampleStep] = useState(5);
-  const [alphaThreshold, setAlphaThreshold] = useState(12);
-  const [jitter, setJitter] = useState(0.65);
-  const [particleSize, setParticleSize] = useState(1.6);
+  const [sampleStep, setSampleStep] = useState(4);
+  const [alphaThreshold, setAlphaThreshold] = useState(37);
+  const [jitter, setJitter] = useState(0.32);
+  const [particleSize, setParticleSize] = useState(1.55);
   const [particleShape, setParticleShape] = useState("circle"); // circle | square | line
   const [outlineOnly, setOutlineOnly] = useState(false);
 
   // Field
-  const [flowFreq, setFlowFreq] = useState(0.006);
-  const [flowCurl, setFlowCurl] = useState(2.2);
-  const [flowStrength, setFlowStrength] = useState(26);
-  const [mouseRadius, setMouseRadius] = useState(240);
-  const [mouseStrength, setMouseStrength] = useState(52);
+  const [flowFreq, setFlowFreq] = useState(0.02);
+  const [flowCurl, setFlowCurl] = useState(5.25);
+  const [flowStrength, setFlowStrength] = useState(79);
+  const [mouseRadius, setMouseRadius] = useState(506);
+  const [mouseStrength, setMouseStrength] = useState(116);
   const [mouseSoftness, setMouseSoftness] = useState(0.55);
   const [mouseMode, setMouseMode] = useState("repel"); // repel | attract
-  const [returnToBase, setReturnToBase] = useState(0.08);
-  const [velocityDamping, setVelocityDamping] = useState(0.9);
+  const [returnToBase, setReturnToBase] = useState(0.165);
+  const [velocityDamping, setVelocityDamping] = useState(0.66);
+
+  function applyMindtripPreset() {
+    setText("MINDTRIP");
+    setFontFamily("ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial");
+    setFontWeight(850); setFontStyle("normal"); setFontSize(180); setTracking(-2);
+    setBgH(9); setBgS(19); setBgL(50);
+    setTxH(326); setTxS(63); setTxL(56);
+    setSampleStep(4); setAlphaThreshold(37); setJitter(0.32); setParticleSize(1.55);
+    setParticleShape("circle"); setOutlineOnly(false); setHeatmapOn(false);
+    setFlowFreq(0.02); setFlowCurl(5.25); setFlowStrength(79);
+    setMouseMode("repel"); setMouseRadius(506); setMouseStrength(116); setMouseSoftness(0.55);
+    setReturnToBase(0.165); setVelocityDamping(0.66);
+    setNoiseType("liquid"); setSeed(4); setAnimateNoise(true);
+    setTurbScale(0.9); setTurbWarp(1.25); setTurbContrast(1.25);
+    setTurbSpeed(0.8); setTurbBlur(10); setTurbOctaves(3);
+    setNoiseApply(0.85); setDistortAmount(1); setNoiseOpacity(0); setNoiseColorMode("none");
+  }
 
   const bg = useMemo(() => hslToCss(bgH, bgS, bgL), [bgH, bgS, bgL]);
   const textColor = useMemo(() => hslToCss(txH, txS, txL), [txH, txS, txL]);
@@ -1887,6 +1904,10 @@ export default function App() {
 
                   <div className="space-y-2">
                     <div className="text-sm font-extrabold">Quick presets</div>
+                    <button type="button" onClick={applyMindtripPreset}
+                      className="w-full rounded-xl bg-white/10 border border-white/15 py-2 text-sm font-extrabold hover:bg-white/15">
+                      Mindtrip
+                    </button>
                     <div className="grid grid-cols-2 gap-2">
                       <button
                         className="rounded-xl bg-white/10 border border-white/15 py-2 text-sm font-extrabold hover:bg-white/15"
