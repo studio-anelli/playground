@@ -135,7 +135,7 @@ export default function KineticPatchSynth() {
           sampleKey = nextSampleKey;
         }
         ctx.fillStyle = s.bg; ctx.fillRect(0, 0, W, H); ctx.fillStyle = s.ink; ctx.strokeStyle = s.ink;
-        const gridField = (phase: number, seed = 0) => waveValue(s.gridShape, phase, seed);
+        const gridField = (phase: number, seed = 0) => waveValue(s.gridShape, phase / (Math.PI * 2), seed);
         const cellFor = (g: Glyph, x: number, y: number) => Math.max(2, at("gridSize", x, y, g) / 100 * g.em);
         const stretchFor = (g: Glyph, x: number, y: number, cell: number) => gridField((y - g.y) / cell + (x - g.x) / cell * .7) * s.manual.stretch * at("gridMix", x, y, g) * (1 - at("legibility", x, y, g));
         const warp = (x: number, y: number, g: Glyph): [number, number] => {
@@ -146,7 +146,7 @@ export default function KineticPatchSynth() {
           const cx = g.x + Math.floor(lx / cell) * cell + cell / 2, cy = g.y + Math.floor(ly / cell) * cell + cell / 2;
           const stretch = stretchFor(g, cx, cy, cell);
           return [x + gridField(ly / cell) * strength * keep + (x - cx) * stretch * (1 - s.manual.axis),
-            y + gridField(lx / cell + .25, 7) * strength * .6 * keep - (y - cy) * stretch * s.manual.axis];
+            y + gridField(lx / cell + Math.PI / 2, 7) * strength * .6 * keep - (y - cy) * stretch * s.manual.axis];
         };
         ctx.globalAlpha = s.modes.sampling ? s.manual.opacity : 1;
         if (!s.modes.sampling && !s.modes.vertex) {
