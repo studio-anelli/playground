@@ -36,6 +36,7 @@ export default function KineticPatchSynth() {
   const [positions, setPositions] = useState<Record<string, XY>>({});
   const [paused, setPaused] = useState(false), [bg, setBg] = useState("#d7d8d2"), [ink, setInk] = useState("#202422");
   const canvas = useRef<HTMLCanvasElement>(null), panel = useRef<HTMLDivElement>(null), scope = useRef<HTMLCanvasElement>(null);
+  const dragMoved = useRef(false);
   const sockets = useRef<Record<string, HTMLButtonElement | null>>({});
   const live = useRef({ waves, values, modes, patches, text, font, vertex, paused, bg, ink });
   useEffect(() => { live.current = { waves, values, modes, patches, text, font, vertex, paused, bg, ink }; }, [waves, values, modes, patches, text, font, vertex, paused, bg, ink]);
@@ -51,12 +52,12 @@ export default function KineticPatchSynth() {
     return () => { observer.disconnect(); window.removeEventListener("resize", measure); };
   }, []);
   useEffect(() => {
-    let raf = 0, previous = 0, time = 0, cacheKey = "", sampleKey = "", lastRebuild = -100;
+    let raf = 0, previous = 0, cacheKey = "", sampleKey = "", lastRebuild = -100;
     const phases = [0, .25, .5], source = document.createElement("canvas"), sctx = source.getContext("2d", { willReadFrequently: true })!;
     let points: XY[] = [], pixels: Uint8ClampedArray | null = null;
     const frame = (now: number) => {
       const s = live.current, dt = previous ? Math.min(.05, (now - previous) / 1000) : 0; previous = now;
-      if (!s.paused) { time += dt; s.waves.forEach((w, i) => { if (w.on) phases[i] += dt * w.rate; }); }
+      if (!s.paused) { s.waves.forEach((w, i) => { if (w.on) phases[i] += dt * w.rate; }); }
       const el = canvas.current, ctx = el?.getContext("2d");
       if (el && ctx) {
         const rect = el.getBoundingClientRect(), W = Math.max(64, Math.round(rect.width)), H = Math.max(64, Math.round(rect.height)), dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -87,7 +88,7 @@ export default function KineticPatchSynth() {
         const warp = (x: number, y: number): [number, number] => {
           if (!s.modes.grid) return [x, y];
           const strength = mod.strength * mod.gridMix * (1 - mod.legibility);
-          return [x + Math.sin(y / mod.gridSize + time) * strength, y + Math.cos(x / mod.gridSize + time * .8) * strength * .6];
+          return [x + Math.sin(y / mod.gridSize) * strength, y + Math.cos(x / mod.gridSize) * strength * .6];
         };
         if (!s.modes.sampling && !s.modes.vertex) {
           if (!s.modes.grid) ctx.drawImage(source, 0, 0);
@@ -116,10 +117,10 @@ export default function KineticPatchSynth() {
   return <main className="kp" style={{ "--kp-bg": bg } as CSSProperties}>
     <header className="kp-header"><a href="/experiments/kinetic-type-synth">← ORIGINAL</a><h1>K‑NET‑C <span>/ PATCH</span></h1><button onClick={() => setPaused(v => !v)}>{paused ? "▶ RUN" : "Ⅱ HOLD"}</button></header>
     <section className="kp-stage"><canvas ref={canvas} aria-label="Animated kinetic typography" /><span className="kp-caption">VISUAL SYNTHESIZER · THREE WAVE ENGINE</span></section>
-    <div ref={panel} className="kp-rack" onPointerMove={e => { if (drag && panel.current) { const r = panel.current.getBoundingClientRect(); setDrag({ ...drag, x: e.clientX - r.left, y: e.clientY - r.top }); } }} onPointerUp={finishDrag} onPointerCancel={() => setDrag(null)}>
+    <div ref={panel} className="kp-rack" onPointerMove={e => { if (drag && panel.current) { const r = panel.current.getBoundingClientRect(); if (Math.hypot(e.clientX - r.left - drag.x, e.clientY - r.top - drag.y) > 3) dragMoved.current = true; setDrag({ ...drag, x: e.clientX - r.left, y: e.clientY - r.top }); } }} onPointerUp={finishDrag} onPointerCancel={() => setDrag(null)}>
       <svg className="kp-cables" aria-hidden="true">{patches.map(p => { const a = positions[`wave${p.wave}`], b = positions[p.target]; return a && b ? <path key={p.id} d={cable(a, b)} stroke={colors[p.wave]} /> : null; })}{drag && positions[`wave${drag.wave}`] && <path d={cable(positions[`wave${drag.wave}`], drag)} stroke={colors[drag.wave]} strokeDasharray="4 4" />}</svg>
       <section className="kp-waves"><div className="kp-title">01 / WAVE MODULATORS</div><canvas ref={scope} width={280} height={42} className="kp-scope" aria-label="Three wave monitor" />
-        {waves.map((w, i) => <div key={i} className="kp-wave" style={{ "--wave": colors[i] } as CSSProperties}><div className="kp-wavehead"><b>WAVE {i + 1}</b><button aria-pressed={w.on} onClick={() => changeWave(i, { on: !w.on })}>{w.on ? "ON" : "OFF"}</button><button className={`kp-socket ${selected === i ? "selected" : ""}`} aria-label={`Patch output wave ${i + 1}`} ref={el => { sockets.current[`wave${i}`] = el; }} onClick={() => setSelected(selected === i ? null : i)} onPointerDown={e => { e.currentTarget.setPointerCapture(e.pointerId); const r = panel.current!.getBoundingClientRect(); setDrag({ wave: i, x: e.clientX - r.left, y: e.clientY - r.top }); }} /></div>
+        {waves.map((w, i) => <div key={i} className="kp-wave" style={{ "--wave": colors[i] } as CSSProperties}><div className="kp-wavehead"><b>WAVE {i + 1}</b><button aria-pressed={w.on} onClick={() => changeWave(i, { on: !w.on })}>{w.on ? "ON" : "OFF"}</button><button className={`kp-socket ${selected === i ? "selected" : ""}`} aria-label={`Patch output wave ${i + 1}`} ref={el => { sockets.current[`wave${i}`] = el; }} onClick={() => { if (!dragMoved.current) setSelected(selected === i ? null : i); }} onPointerDown={e => { dragMoved.current = false; e.currentTarget.setPointerCapture(e.pointerId); const r = panel.current!.getBoundingClientRect(); setDrag({ wave: i, x: e.clientX - r.left, y: e.clientY - r.top }); }} /></div>
           <div className="kp-shapes">{(["sine", "triangle", "square", "noise"] as Shape[]).map((s, n) => <button key={s} aria-label={`Wave ${i + 1} ${s}`} aria-pressed={w.shape === s} onClick={() => changeWave(i, { shape: s })}>{["∿", "△", "⊓", "⁙"][n]}</button>)}</div>
           <label>RATE <output>{w.rate.toFixed(2)} Hz</output><input aria-label={`Wave ${i + 1} rate`} type="range" min=".02" max="3" step=".01" value={w.rate} onChange={e => changeWave(i, { rate: +e.target.value })} /></label><label>AMP <output>{Math.round(w.amp * 100)}%</output><input aria-label={`Wave ${i + 1} amplitude`} type="range" min="0" max="1" step=".01" value={w.amp} onChange={e => changeWave(i, { amp: +e.target.value })} /></label>
         </div>)}
