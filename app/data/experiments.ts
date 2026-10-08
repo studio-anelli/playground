@@ -11,7 +11,7 @@ export type Experiment = {
   summary: string;
 };
 
-export const experiments: Experiment[] = [
+const experimentCatalog: Experiment[] = [
   {
     id: "REC-09",
     slug: "kinetic-type-synth",
@@ -93,5 +93,7 @@ export const experiments: Experiment[] = [
     summary: "A layered kinetic-typography composer with replicators and video rendering.",
   },
 ];
+
+export const experiments = experimentCatalog.filter((experiment) => experiment.slug !== "type-distorter");
 
 export const statusOrder: ExperimentStatus[] = ["draft", "test", "public", "archived"];
