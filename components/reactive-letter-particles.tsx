@@ -24,7 +24,7 @@ function mulberry32(seed: number) {
 }
 
 function pickShape(mode: string, rnd: () => number) {
-  if (mode === "circles" || mode === "squares" || mode === "lines") return mode;
+  if (mode === "circles" || mode === "squares" || mode === "lines" || mode === "cells" || mode === "letters") return mode;
   const r = rnd();
   if (r < 0.34) return "circles";
   if (r < 0.67) return "squares";
@@ -94,7 +94,7 @@ const CANVAS_SIZES = {
   "1080x1080": { width: 1080, height: 1080, label: "1080 × 1080" },
 };
 
-function drawShape(ctx: CanvasRenderingContext2D, p: Particle) {
+function drawShape(ctx: CanvasRenderingContext2D, p: Particle, time: number, glyph: string, fontFamily: string, color: string) {
   const scale = typeof p.scale === "number" ? p.scale : 1;
   const size = (p.size0 ?? 6) * scale;
   const len = (p.len0 ?? 26) * scale;
@@ -103,11 +103,30 @@ function drawShape(ctx: CanvasRenderingContext2D, p: Particle) {
   ctx.translate(p.x, p.y);
   ctx.rotate(p.rot);
 
-  ctx.fillStyle = hsl(p.hue, p.sat, p.lit, p.alpha);
-  ctx.strokeStyle = hsl(p.hue, p.sat, p.lit, p.alpha);
+  ctx.fillStyle = color;
+  ctx.strokeStyle = color;
   ctx.lineWidth = p.stroke;
 
-  if (p.kind === "circles") {
+  if (p.kind === "cells") {
+    // Smooth, continuously breathing membranes with a distinct phase per cell.
+    const phase = time * 0.0013 + p.id * 2.399;
+    const pressure = Math.min(0.22, Math.hypot(p.vx, p.vy) * 0.04);
+    ctx.beginPath();
+    for (let i = 0; i <= 64; i++) {
+      const angle = i / 64 * Math.PI * 2;
+      const radius = size * (1 + 0.09 * Math.sin(phase) + (0.12 + pressure) * Math.sin(angle * 3 + phase) + 0.06 * Math.sin(angle * 5 - phase * 0.7));
+      const x = Math.cos(angle) * radius;
+      const y = Math.sin(angle) * radius;
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    if (p.filled) ctx.fill(); else ctx.stroke();
+  } else if (p.kind === "letters") {
+    ctx.font = `700 ${Math.max(2, size * 2)}px ${fontFamily}`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    if (p.filled) ctx.fillText(glyph, 0, 0); else ctx.strokeText(glyph, 0, 0);
+  } else if (p.kind === "circles") {
     ctx.beginPath();
     ctx.arc(0, 0, size, 0, Math.PI * 2);
     if (p.filled) ctx.fill();
@@ -459,6 +478,10 @@ export default function ReactiveLetterParticles() {
   const [morphChance, setMorphChance] = useState(0.7);
 
   // Shapes global color (HSL)
+  const [colorMode, setColorMode] = useState("mono");
+  const [secondHue, setSecondHue] = useState(25);
+  const [thirdHue, setThirdHue] = useState(120);
+  const [particleLetters, setParticleLetters] = useState("ABC");
   const [baseHue, setBaseHue] = useState(0);
   const [baseSat, setBaseSat] = useState(0);
   const [baseLit, setBaseLit] = useState(0);
@@ -826,7 +849,13 @@ export default function ReactiveLetterParticles() {
       }
 
       // draw
-      for (let i = 0; i < parts.length; i++) drawShape(ctx, parts[i]);
+      const glyphs = Array.from(particleLetters.replace(/\s/g, "") || "ABC");
+      const palette = colorMode === "bi" ? [baseHue, secondHue] : colorMode === "tri" ? [baseHue, secondHue, thirdHue] : [baseHue];
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        const hue = colorMode === "rainbow" ? p.hue : palette[p.id % palette.length];
+        drawShape(ctx, p, now, glyphs[p.id % glyphs.length], fontFamily, hsl(hue, p.sat, p.lit, p.alpha));
+      }
 
       rafRef.current = requestAnimationFrame(step);
     };
@@ -845,6 +874,10 @@ export default function ReactiveLetterParticles() {
     tracking,
     baselineY,
     interline,
+    colorMode,
+    secondHue,
+    thirdHue,
+    particleLetters,
     baseHue,
     baseSat,
     baseLit,
@@ -1110,6 +1143,13 @@ export default function ReactiveLetterParticles() {
               {activeTab === "colors" && (
                 <div className="space-y-5">
                   <ControlGroup title="Shapes">
+                    <label className="flex items-center justify-between text-xs">Colour mode
+                      <select aria-label="Colour mode" className="bg-neutral-900 p-2" value={colorMode} onChange={(event) => setColorMode(event.target.value)}>
+                        <option value="mono">Mono</option><option value="bi">Two colours</option><option value="tri">Three colours</option><option value="rainbow">Rainbow</option>
+                      </select>
+                    </label>
+                    {colorMode !== "mono" && colorMode !== "rainbow" && <Slider label="Second hue" value={secondHue} min={0} max={360} step={1} onChange={setSecondHue} />}
+                    {colorMode === "tri" && <Slider label="Third hue" value={thirdHue} min={0} max={360} step={1} onChange={setThirdHue} />}
                     <Slider label="Hue" value={baseHue} min={0} max={360} step={1} onChange={setBaseHue} />
                     <Slider label="Saturation" value={baseSat} min={0} max={100} step={1} onChange={setBaseSat} />
                     <Slider label="Lightness" value={baseLit} min={0} max={100} step={1} onChange={setBaseLit} />
@@ -1168,13 +1208,16 @@ export default function ReactiveLetterParticles() {
           <span className="mr-3 shrink-0 uppercase text-white/45">Text</span>
           <input value={text} onChange={(event) => setText(event.target.value)} className="min-w-0 flex-1 bg-transparent text-sm outline-none" aria-label="Particle text" />
         </label>
-        <label className="flex h-10 items-center bg-white/[0.06] px-2 max-md:hidden">
+        {shapeMode === "letters" && <input aria-label="Particle letters" title="Letters used as particles" value={particleLetters} onChange={(event) => setParticleLetters(event.target.value)} className="h-10 w-20 bg-white/[0.06] px-2 text-xs" />}
+        <label className="flex h-10 items-center bg-white/[0.06] px-2">
           <span className="sr-only">Particle shape</span>
           <select value={shapeMode} onChange={(event) => setShapeMode(event.target.value)} className="bg-transparent px-1 outline-none" aria-label="Particle shape">
             <option value="circles">Circles</option>
             <option value="squares">Squares</option>
             <option value="lines">Lines</option>
             <option value="mix">Mix</option>
+            <option value="cells">Organic cells</option>
+            <option value="letters">Letters</option>
           </select>
         </label>
         <label className="ml-1 flex h-10 items-center bg-white/[0.06] px-2">
