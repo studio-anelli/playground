@@ -433,7 +433,7 @@ export default function ReactiveLetterParticles() {
 
   const [insideOutside, setInsideOutside] = useState<"inside" | "outside">("inside");
   const [shapeMode, setShapeMode] = useState("circles");
-  const [count, setCount] = useState(327);
+  const [count, setCount] = useState(241);
 
   const [fontFamily, setFontFamily] = useState("Arial, Helvetica, sans-serif");
   const [fontWeight, setFontWeight] = useState(700);
@@ -448,20 +448,20 @@ export default function ReactiveLetterParticles() {
   const [stroke, setStroke] = useState(2);
   const [alpha, setAlpha] = useState(1);
 
-  const [repelRadius, setRepelRadius] = useState(25);
-  const [repelStrength, setRepelStrength] = useState(0.9);
-  const [damping, setDamping] = useState(0.92);
-  const [jitter, setJitter] = useState(0.08);
+  const [repelRadius, setRepelRadius] = useState(6);
+  const [repelStrength, setRepelStrength] = useState(0);
+  const [damping, setDamping] = useState(0.968);
+  const [jitter, setJitter] = useState(0.073);
 
-  const [collisionRadiusBoost, setCollisionRadiusBoost] = useState(0.8);
+  const [collisionRadiusBoost, setCollisionRadiusBoost] = useState(0.37);
   const [hueKick, setHueKick] = useState(0);
   const [morphOnHit, setMorphOnHit] = useState(true);
-  const [morphChance, setMorphChance] = useState(0.13);
+  const [morphChance, setMorphChance] = useState(0.7);
 
   // Shapes global color (HSL)
   const [baseHue, setBaseHue] = useState(0);
   const [baseSat, setBaseSat] = useState(0);
-  const [baseLit, setBaseLit] = useState(33);
+  const [baseLit, setBaseLit] = useState(0);
 
   // Background color (HSL)
   const [bgHue, setBgHue] = useState(170);
@@ -475,7 +475,7 @@ export default function ReactiveLetterParticles() {
   const [textAlpha, setTextAlpha] = useState(1);
 
   // Split-on-collision
-  const [splitOnHit, setSplitOnHit] = useState(true);
+  const [splitOnHit, setSplitOnHit] = useState(false);
   const [maxSplitsPerParticle, setMaxSplitsPerParticle] = useState(2);
   const maxParticles = useMemo(() => Math.min(2400, Math.max(200, count * 6)), [count]);
 
@@ -993,7 +993,7 @@ export default function ReactiveLetterParticles() {
                       setBaseHue(0); setBaseSat(0); setBaseLit(70);
                       setBgHue(0); setBgSat(0); setBgLit(4); setTextAlpha(0);
                       setRepelRadius(6); setRepelStrength(0.15); setDamping(0.92); setJitter(0.03);
-                      setCollisionRadiusBoost(0.8); setHueKick(0);
+                      setCollisionRadiusBoost(0.37); setHueKick(0);
                       setMorphOnHit(false); setMorphChance(0); setSplitOnHit(false);
                       setMaxSplitsPerParticle(10); setSeed((value) => (value + 1) % 999999);
                       setStatus("Outside Cloud preset loaded");
@@ -1004,17 +1004,17 @@ export default function ReactiveLetterParticles() {
                     className="h-10 bg-white/10 px-3 text-xs font-bold uppercase hover:bg-white/20"
                     onClick={() => {
                       setText("LAB"); setCanvasW(1280); setCanvasH(840);
-                      setInsideOutside("inside"); setShapeMode("circles"); setCount(327);
+                      setInsideOutside("inside"); setShapeMode("circles"); setCount(241);
                       setFontFamily("Arial, Helvetica, sans-serif");
                       setFontWeight(700); setFontSize(520); setTracking(60);
                       setBaselineY(610); setInterline(22);
                       setSize(4); setLineLen(26); setFilled(true); setStroke(2); setAlpha(1);
-                      setBaseHue(0); setBaseSat(0); setBaseLit(33);
+                      setBaseHue(0); setBaseSat(0); setBaseLit(0);
                       setBgHue(170); setBgSat(66); setBgLit(25);
                       setTextHue(325); setTextSat(25); setTextLit(40); setTextAlpha(1);
-                      setRepelRadius(25); setRepelStrength(0.9); setDamping(0.92); setJitter(0.08);
-                      setCollisionRadiusBoost(0.8); setHueKick(0);
-                      setMorphOnHit(true); setMorphChance(0.13); setSplitOnHit(true);
+                      setRepelRadius(6); setRepelStrength(0); setDamping(0.968); setJitter(0.073);
+                      setCollisionRadiusBoost(0.37); setHueKick(0);
+                      setMorphOnHit(true); setMorphChance(0.7); setSplitOnHit(false);
                       setMaxSplitsPerParticle(2); setSeed((value) => (value + 1) % 999999);
                       setStatus("Bubble Lab preset loaded");
                     }}>
