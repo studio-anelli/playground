@@ -20,8 +20,8 @@ const manualSpecs = [
   ["hideOriginal", "Hide original", 0, 10, .1, "grid"], ["stretch", "Stretch / compress", 0, 1.5, .01, "grid"], ["axis", "Axis · X ↔ Y", 0, 1, .01, "grid"],
   ["lineLength", "Line length", 1, 80, 1, "vertex"], ["tracking", "Tracking · % em", -10, 30, .1, "typography"],
 ] as const;
-const initialManual = { threshold: .42, opacity: 1, hideOriginal: 0, stretch: 0, axis: .5, lineLength: 6, tracking: 0 };
-const initial: Record<Target, number> = { step: 3.5, jitter: 0, gridSize: 24, strength: 13, gridMix: .7, legibility: .3, vertexSize: .36, vertexMix: .7, fontSize: 29, weight: 800 };
+const initialManual = { threshold: .42, opacity: 1, hideOriginal: 0, stretch: 0, axis: .5, lineLength: 6, tracking: 16.7 };
+const initial: Record<Target, number> = { step: 3.2, jitter: 0, gridSize: 24, strength: 13, gridMix: .7, legibility: .3, vertexSize: 1.4, vertexMix: .5, fontSize: 20, weight: 800 };
 const colors = ["#3478f6", "#f2c438", "#ed514b"];
 const groups = { sampling: "SAMPLING", grid: "GRID DISTORTION", vertex: "SHAPE / VERTEX", typography: "TYPOGRAPHY" };
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
@@ -34,18 +34,20 @@ export function waveValue(shape: Shape, phase: number, seed = 0) {
   const f = p * p * (3 - 2 * p);
   return hash(Math.floor(phase)) * (1 - f) + hash(Math.floor(phase) + 1) * f;
 }
+const dreamWaves: Wave[] = [{ on: true, shape: "sine", rate: .57, amp: .59, speed: .07, direction: 0, phase: .49 }, { on: true, shape: "triangle", rate: 2.79, amp: .5, speed: .12, direction: .5, phase: .25 }, { on: true, shape: "triangle", rate: .35, amp: 1, speed: .65, direction: 1, phase: 0 }];
+const dreamPatches: Patch[] = [{ id: "dream-vertex", wave: 2, target: "vertexSize", amount: 100 }, { id: "dream-type", wave: 1, target: "fontSize", amount: 50 }, { id: "dream-step", wave: 0, target: "step", amount: 15 }];
 export default function KineticPatchSynth() {
-  const [waves, setWaves] = useState<Wave[]>([{ on: true, shape: "sine", rate: 1, amp: .7, speed: .25, direction: 0, phase: 0 }, { on: true, shape: "triangle", rate: 1, amp: .5, speed: .12, direction: .5, phase: .25 }, { on: true, shape: "noise", rate: 1, amp: .4, speed: .7, direction: 1, phase: .5 }]);
+  const [waves, setWaves] = useState<Wave[]>(dreamWaves);
   const [gridShape, setGridShape] = useState<Shape>("sine");
   const [values, setValues] = useState(initial);
   const [manual, setManual] = useState(initialManual);
-  const [modes, setModes] = useState({ sampling: true, grid: true, vertex: true });
-  const [patches, setPatches] = useState<Patch[]>([{ id: "initial", wave: 0, target: "strength", amount: 45 }]);
-  const [text, setText] = useState("KINETIC"), [font, setFont] = useState("system-ui, sans-serif"), [vertex, setVertex] = useState("line");
+  const [modes, setModes] = useState({ sampling: false, grid: false, vertex: true });
+  const [patches, setPatches] = useState<Patch[]>(dreamPatches);
+  const [text, setText] = useState("dream"), [font, setFont] = useState("system-ui, sans-serif"), [vertex, setVertex] = useState("dot");
   const [selected, setSelected] = useState<number | null>(null), [drag, setDrag] = useState<(XY & { wave: number }) | null>(null);
   const [positions, setPositions] = useState<Record<string, XY>>({});
-  const [paused, setPaused] = useState(false), [bg, setBg] = useState("#d7d8d2"), [ink, setInk] = useState("#202422");
-  const [bicolour, setBicolour] = useState(false), [ink2, setInk2] = useState("#ed514b");
+  const [paused, setPaused] = useState(false), [bg, setBg] = useState("#000000"), [ink, setInk] = useState("#000000");
+  const [bicolour, setBicolour] = useState(true), [ink2, setInk2] = useState("#ffffff");
   const canvas = useRef<HTMLCanvasElement>(null), panel = useRef<HTMLDivElement>(null);
   const [bayCollapsed, setBayCollapsed] = useState(false);
   const [bayPosition, setBayPosition] = useState<XY | null>(null);
@@ -205,6 +207,7 @@ export default function KineticPatchSynth() {
     };
     raf = requestAnimationFrame(frame); return () => cancelAnimationFrame(raf);
   }, []);
+  const loadDream = () => { setWaves(dreamWaves); setValues(initial); setManual(initialManual); setModes({ sampling: false, grid: false, vertex: true }); setPatches(dreamPatches); setText("dream"); setFont("system-ui, sans-serif"); setVertex("dot"); setGridShape("sine"); setBg("#000000"); setInk("#000000"); setInk2("#ffffff"); setBicolour(true); setPaused(false); setSelected(null); };
   const changeWave = (i: number, change: Partial<Wave>) => setWaves(all => all.map((w, n) => n === i ? { ...w, ...change } : w));
   const connect = (wave: number, target: Target) => { setPatches(all => all.some(p => p.wave === wave && p.target === target) ? all : [...all, { id: `${wave}-${target}`, wave, target, amount: 50 }]); setSelected(null); setDrag(null); };
   const finishDrag = (e: PointerEvent) => {
@@ -222,7 +225,7 @@ export default function KineticPatchSynth() {
   };
   const cable = (a: XY, b: XY) => `M ${a.x} ${a.y} C ${a.x + 70} ${a.y}, ${b.x - 70} ${b.y}, ${b.x} ${b.y}`;
   return <main className="kp" style={{ "--kp-bg": bg } as CSSProperties}>
-    <header className="kp-header"><a href="/experiments/kinetic-type-synth">← ORIGINAL</a><h1>K‑NET‑C <span>/ PATCH</span></h1><button onClick={() => setPaused(v => !v)}>{paused ? "▶ RUN" : "Ⅱ HOLD"}</button></header>
+    <header className="kp-header"><a href="/experiments/kinetic-type-synth">← ORIGINAL</a><h1>K‑NET‑C <span>/ PATCH</span></h1><button aria-label="Load Dream preset" onClick={loadDream}>DREAM</button><button onClick={() => setPaused(v => !v)}>{paused ? "▶ RUN" : "Ⅱ HOLD"}</button></header>
     <section className="kp-stage"><canvas ref={canvas} aria-label="Animated kinetic typography" /><span className="kp-caption">VISUAL SYNTHESIZER · THREE WAVE ENGINE</span></section>
     <div className="kp-controls"><div ref={panel} className="kp-rack" onPointerMove={e => { if (drag && panel.current) { const r = panel.current.getBoundingClientRect(); if (Math.hypot(e.clientX - r.left - drag.x, e.clientY - r.top - drag.y) > 3) dragMoved.current = true; setDrag({ ...drag, x: e.clientX - r.left, y: e.clientY - r.top }); } }} onPointerUp={finishDrag} onPointerCancel={() => { dragRef.current = null; setDrag(null); }}>
       <svg className="kp-cables" aria-hidden="true">{patches.map(p => { const a = positions[`wave${p.wave}`], b = positions[p.target]; return a && b ? <path key={p.id} d={cable(a, b)} stroke={colors[p.wave]} /> : null; })}{drag && positions[`wave${drag.wave}`] && <path d={cable(positions[`wave${drag.wave}`], drag)} stroke={colors[drag.wave]} strokeDasharray="4 4" />}</svg>
