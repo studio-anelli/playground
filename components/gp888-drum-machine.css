@@ -89,3 +89,7 @@ html:has(.gp888), body:has(.gp888), body:has(.gp888) .import-page, body:has(.gp8
 .gp-pixel-screen span { display:block; font:8px monospace; color:#aaa69a; margin-top:6px; letter-spacing:.12em; }
 .gp888 .gp-spring-send { display:block; margin:10px auto 0; font-size:8px; }
 @media(max-width:500px) { .gp-experimental { gap:12px; } .gp-pixel-screen canvas { width:192px; height:96px; } }
+
+.gp-pixel-modes { display:flex; gap:4px; margin-bottom:6px; }
+.gp-pixel-modes button { flex:1; background:transparent; color:#ddd7ca; border:1px solid #777367; padding:5px 3px; font:9px monospace; cursor:pointer; }
+.gp-pixel-modes button[aria-pressed="true"] { background:#345bea; border-color:#345bea; color:white; }
