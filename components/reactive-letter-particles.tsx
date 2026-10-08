@@ -24,7 +24,7 @@ function mulberry32(seed: number) {
 }
 
 function pickShape(mode: string, rnd: () => number) {
-  if (mode === "circles" || mode === "squares" || mode === "lines") return mode;
+  if (mode === "circles" || mode === "squares" || mode === "lines" || mode === "cells" || mode === "letters") return mode;
   const r = rnd();
   if (r < 0.34) return "circles";
   if (r < 0.67) return "squares";
@@ -86,6 +86,10 @@ type Particle = {
 
   cooldown: number;
   splitCount: number;
+  pullX?: number;
+  pullY?: number;
+  cellFaces?: { angle: number; distance: number }[];
+  membrane?: number[];
 };
 
 const CANVAS_SIZES = {
@@ -94,7 +98,7 @@ const CANVAS_SIZES = {
   "1080x1080": { width: 1080, height: 1080, label: "1080 × 1080" },
 };
 
-function drawShape(ctx: CanvasRenderingContext2D, p: Particle) {
+function drawShape(ctx: CanvasRenderingContext2D, p: Particle, time: number, glyph: string, fontFamily: string, color: string, softness: number, dt: number) {
   const scale = typeof p.scale === "number" ? p.scale : 1;
   const size = (p.size0 ?? 6) * scale;
   const len = (p.len0 ?? 26) * scale;
@@ -103,11 +107,49 @@ function drawShape(ctx: CanvasRenderingContext2D, p: Particle) {
   ctx.translate(p.x, p.y);
   ctx.rotate(p.rot);
 
-  ctx.fillStyle = hsl(p.hue, p.sat, p.lit, p.alpha);
-  ctx.strokeStyle = hsl(p.hue, p.sat, p.lit, p.alpha);
+  ctx.fillStyle = color;
+  ctx.strokeStyle = color;
   ctx.lineWidth = p.stroke;
 
-  if (p.kind === "circles") {
+  if (p.kind === "cells") {
+    // Membranes retain their shape and ease into changing contact pressure.
+    const phase = time * 0.00035 + p.id * 2.399;
+    const segments = 48;
+    const points: { x: number; y: number }[] = [];
+    if (!p.membrane) p.membrane = Array(segments).fill(1);
+    for (let i = 0; i < segments; i++) {
+      const angle = i / segments * Math.PI * 2;
+      const pullAngle = Math.atan2(p.pullY || 0, p.pullX || 0) - p.rot;
+      const stretch = Math.min(0.13, Math.hypot(p.pullX || 0, p.pullY || 0));
+      let radius = size * (1 + stretch * Math.cos(angle - pullAngle) + 0.025 * softness * Math.sin(phase) + 0.055 * softness * Math.sin(angle * 3 + phase));
+      for (const face of p.cellFaces || []) {
+        const alignment = Math.cos(angle + p.rot - face.angle);
+        if (alignment > 0.05) radius = Math.min(radius, face.distance / alignment);
+      }
+      const target = Math.max(0.45, radius / size);
+      p.membrane[i] += (target - p.membrane[i]) * (1 - Math.exp(-(0.16 - softness * 0.13) * dt));
+      points.push({ x: Math.cos(angle) * size * p.membrane[i], y: Math.sin(angle) * size * p.membrane[i] });
+    }
+    ctx.beginPath();
+    const end = points[segments - 1], start = points[0];
+    ctx.moveTo((end.x + start.x) / 2, (end.y + start.y) / 2);
+    for (let i = 0; i < segments; i++) {
+      const current = points[i], next = points[(i + 1) % segments];
+      ctx.quadraticCurveTo(current.x, current.y, (current.x + next.x) / 2, (current.y + next.y) / 2);
+    }
+    ctx.closePath();
+    if (p.filled) {
+      ctx.fill();
+      ctx.strokeStyle = `rgba(0, 0, 0, ${p.alpha * 0.5})`;
+      ctx.lineWidth = Math.max(0.7, Math.min(3, size * 0.09));
+      ctx.stroke();
+    } else ctx.stroke();
+  } else if (p.kind === "letters") {
+    ctx.font = `700 ${Math.max(2, size * 2)}px ${fontFamily}`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    if (p.filled) ctx.fillText(glyph, 0, 0); else ctx.strokeText(glyph, 0, 0);
+  } else if (p.kind === "circles") {
     ctx.beginPath();
     ctx.arc(0, 0, size, 0, Math.PI * 2);
     if (p.filled) ctx.fill();
@@ -459,6 +501,19 @@ export default function ReactiveLetterParticles() {
   const [morphChance, setMorphChance] = useState(0.7);
 
   // Shapes global color (HSL)
+  const [colorMode, setColorMode] = useState("mono");
+  const [secondHue, setSecondHue] = useState(25);
+  const [thirdHue, setThirdHue] = useState(120);
+  const [particleLetters, setParticleLetters] = useState("ABC");
+  const [cellAttraction, setCellAttraction] = useState(0.65);
+  const [cellRange, setCellRange] = useState(80);
+  const [cellPressure, setCellPressure] = useState(1);
+  const [cellSoftness, setCellSoftness] = useState(0.65);
+  const [cellDamping, setCellDamping] = useState(0.82);
+  const [cellAgitation, setCellAgitation] = useState(0.003);
+  const [cellGrowthRate, setCellGrowthRate] = useState(0.002);
+  const [cellExpansion, setCellExpansion] = useState(0.65);
+  const cellBondsRef = useRef(new Set<string>());
   const [baseHue, setBaseHue] = useState(0);
   const [baseSat, setBaseSat] = useState(0);
   const [baseLit, setBaseLit] = useState(0);
@@ -492,6 +547,7 @@ export default function ReactiveLetterParticles() {
   } | null>(null);
 
   const rebuild = () => {
+    cellBondsRef.current.clear();
     const w = canvasW;
     const h = canvasH;
     const rnd = mulberry32(seed);
@@ -530,7 +586,7 @@ export default function ReactiveLetterParticles() {
       alpha,
     });
 
-    if (bubbleStart) {
+    if (bubbleStart && shapeMode !== "cells") {
       // Start with the mature collision state shown in the reference.
       for (const p of particlesRef.current) {
         const r = rnd();
@@ -629,10 +685,25 @@ export default function ReactiveLetterParticles() {
       // jitter
       for (let i = 0; i < parts.length; i++) {
         const p = parts[i];
-        p.vx += (rnd() - 0.5) * jitter;
-        p.vy += (rnd() - 0.5) * jitter;
+        const agitation = p.kind === "cells" ? cellAgitation : jitter;
+        p.vx += (rnd() - 0.5) * agitation;
+        p.vy += (rnd() - 0.5) * agitation;
         if (p.cooldown > 0) p.cooldown -= 1 * dt;
       }
+
+      const bondCounts = new Map<number, number>();
+      const byId = new Map(parts.map(p => [p.id, p]));
+      for (const key of cellBondsRef.current) {
+        const [aId, bId] = key.split(":").map(Number);
+        const a = byId.get(aId), b = byId.get(bId);
+        if (!a || !b || a.kind !== "cells" || b.kind !== "cells" || cellAttraction === 0 || (a && b && Math.hypot(a.x - b.x, a.y - b.y) > Math.max(cellRange * 1.8, (a.size0 * a.scale + b.size0 * b.scale) * 2.5))) {
+          cellBondsRef.current.delete(key);
+        } else {
+          bondCounts.set(aId, (bondCounts.get(aId) || 0) + 1);
+          bondCounts.set(bId, (bondCounts.get(bId) || 0) + 1);
+        }
+      }
+      for (const p of parts) { p.pullX = (p.pullX || 0) * 0.85; p.pullY = (p.pullY || 0) * 0.85; p.cellFaces = []; }
 
       // repel + collision
       const rr = repelRadius;
@@ -646,6 +717,40 @@ export default function ReactiveLetterParticles() {
           const dy = a.y - b.y;
           const d2 = dx * dx + dy * dy;
           if (d2 < 0.0001) continue;
+
+          if (a.kind === "cells" && b.kind === "cells") {
+            const d = Math.sqrt(d2), ux = dx / d, uy = dy / d;
+            const ar = a.size0 * a.scale, br = b.size0 * b.scale;
+            const key = `${a.id}:${b.id}`;
+            if (d < (ar + br) * 1.3) {
+              const contact = Math.atan2(-dy, -dx);
+              a.cellFaces?.push({ angle: contact, distance: Math.max(ar * 0.35, d * ar / (ar + br) - 0.4) });
+              b.cellFaces?.push({ angle: contact + Math.PI, distance: Math.max(br * 0.35, d * br / (ar + br) - 0.4) });
+            }
+            const capture = Math.min(cellRange, (ar + br) * 1.35 + 4);
+            if (cellAttraction > 0 && d < capture && (bondCounts.get(a.id) || 0) < 6 && (bondCounts.get(b.id) || 0) < 6 && !cellBondsRef.current.has(key)) {
+              cellBondsRef.current.add(key);
+              bondCounts.set(a.id, (bondCounts.get(a.id) || 0) + 1);
+              bondCounts.set(b.id, (bondCounts.get(b.id) || 0) + 1);
+            }
+            const bonded = cellBondsRef.current.has(key);
+            const rest = (ar + br) * (1.02 - cellPressure * 0.14);
+            const force = bonded
+              ? Math.max(-0.18, Math.min(0.18, (d - rest) * 0.012)) * cellAttraction
+              : d < cellRange && d > ar + br ? (1 - d / cellRange) * 0.012 * cellAttraction / 6 : 0;
+            const coreRepulsion = d < (ar + br) * 0.7 ? ((ar + br) * 0.7 - d) * (0.025 + cellPressure * 0.01) : 0;
+            const relativeSpeed = (a.vx - b.vx) * ux + (a.vy - b.vy) * uy;
+            const drag = bonded ? relativeSpeed * 0.07 : 0;
+            const net = force - coreRepulsion + drag;
+            a.vx -= ux * net * dt; a.vy -= uy * net * dt;
+            b.vx += ux * net * dt; b.vy += uy * net * dt;
+            if (bonded) {
+              a.pullX = (a.pullX || 0) - ux * 0.06; a.pullY = (a.pullY || 0) - uy * 0.06;
+              b.pullX = (b.pullX || 0) + ux * 0.06; b.pullY = (b.pullY || 0) + uy * 0.06;
+
+            }
+            continue;
+          }
 
           // repel
           if (d2 < rr2) {
@@ -784,12 +889,29 @@ export default function ReactiveLetterParticles() {
 
       for (let i = 0; i < parts.length; i++) {
         const p = parts[i];
-        p.vx *= damping;
-        p.vy *= damping;
+        const previousX = p.x, previousY = p.y;
+        const drag = p.kind === "cells" ? Math.pow(cellDamping, dt) : damping;
+        p.vx *= drag;
+        p.vy *= drag;
+        if (p.kind === "cells") {
+          const speed = Math.hypot(p.vx, p.vy);
+          if (speed > 0.65) { p.vx *= 0.65 / speed; p.vy *= 0.65 / speed; }
+          const targetScale = 1 + cellExpansion * Math.min(1, (bondCounts.get(p.id) || 0) / 6);
+          p.scale += (targetScale - p.scale) * (1 - Math.exp(-cellGrowthRate * dt));
+        }
         p.x += p.vx * dt;
         p.y += p.vy * dt;
 
-        if (insideOutside === "inside") keepInside(p);
+        if (p.kind === "cells" && maskData) {
+          const valid = insideOutside === "inside" ? isInsideMask(maskData, p.x, p.y) : !isInsideMask(maskData, p.x, p.y);
+          if (!valid) {
+            // Slide along the glyph boundary; cells never teleport to a new sample.
+            const validAt = (x: number, y: number) => insideOutside === "inside" ? isInsideMask(maskData, x, y) : !isInsideMask(maskData, x, y);
+            if (validAt(previousX, p.y)) { p.x = previousX; p.vx = 0; }
+            else if (validAt(p.x, previousY)) { p.y = previousY; p.vy = 0; }
+            else { p.x = previousX; p.y = previousY; p.vx = 0; p.vy = 0; }
+          }
+        } else if (insideOutside === "inside") keepInside(p);
         else if (maskData && isInsideMask(maskData, p.x, p.y)) pushOutside(p);
 
         // walls
@@ -815,7 +937,7 @@ export default function ReactiveLetterParticles() {
       for (let i = 0; i < parts.length; i++) {
         const p = parts[i];
         const idle = p.lastCollisionAt > 0 ? now - p.lastCollisionAt : 0;
-        const shouldShrink = p.shrinkMode || (idle > 30000 && p.scale > 1);
+        const shouldShrink = p.kind !== "cells" && (p.shrinkMode || (idle > 30000 && p.scale > 1));
         if (shouldShrink) {
           p.scale = lerp(p.scale, 1, 0.03 * dt);
           if (p.scale <= 1.01) {
@@ -826,7 +948,13 @@ export default function ReactiveLetterParticles() {
       }
 
       // draw
-      for (let i = 0; i < parts.length; i++) drawShape(ctx, parts[i]);
+      const glyphs = Array.from(particleLetters.replace(/\s/g, "") || "ABC");
+      const palette = colorMode === "bi" ? [baseHue, secondHue] : colorMode === "tri" ? [baseHue, secondHue, thirdHue] : [baseHue];
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        const hue = colorMode === "rainbow" ? p.hue : palette[p.id % palette.length];
+        drawShape(ctx, p, now, glyphs[p.id % glyphs.length], fontFamily, hsl(hue, p.sat, p.lit, p.alpha), cellSoftness, dt);
+      }
 
       rafRef.current = requestAnimationFrame(step);
     };
@@ -845,6 +973,18 @@ export default function ReactiveLetterParticles() {
     tracking,
     baselineY,
     interline,
+    colorMode,
+    secondHue,
+    thirdHue,
+    particleLetters,
+    cellAttraction,
+    cellRange,
+    cellPressure,
+    cellSoftness,
+    cellDamping,
+    cellAgitation,
+    cellGrowthRate,
+    cellExpansion,
     baseHue,
     baseSat,
     baseLit,
@@ -1110,6 +1250,13 @@ export default function ReactiveLetterParticles() {
               {activeTab === "colors" && (
                 <div className="space-y-5">
                   <ControlGroup title="Shapes">
+                    <label className="flex items-center justify-between text-xs">Colour mode
+                      <select aria-label="Colour mode" className="bg-neutral-900 p-2" value={colorMode} onChange={(event) => setColorMode(event.target.value)}>
+                        <option value="mono">Mono</option><option value="bi">Two colours</option><option value="tri">Three colours</option><option value="rainbow">Rainbow</option>
+                      </select>
+                    </label>
+                    {colorMode !== "mono" && colorMode !== "rainbow" && <Slider label="Second hue" value={secondHue} min={0} max={360} step={1} onChange={setSecondHue} />}
+                    {colorMode === "tri" && <Slider label="Third hue" value={thirdHue} min={0} max={360} step={1} onChange={setThirdHue} />}
                     <Slider label="Hue" value={baseHue} min={0} max={360} step={1} onChange={setBaseHue} />
                     <Slider label="Saturation" value={baseSat} min={0} max={100} step={1} onChange={setBaseSat} />
                     <Slider label="Lightness" value={baseLit} min={0} max={100} step={1} onChange={setBaseLit} />
@@ -1130,6 +1277,24 @@ export default function ReactiveLetterParticles() {
 
               {activeTab === "interaction" && (
                 <div className="space-y-5">
+                  {shapeMode === "cells" ? <>
+                    <ControlGroup title="Cell structures">
+                      <Slider label="Attraction / cohesion" value={cellAttraction} min={0} max={2} step={0.01} onChange={setCellAttraction} />
+                      <Slider label="Attraction range" value={cellRange} min={20} max={180} step={1} onChange={setCellRange} />
+                    </ControlGroup>
+                    <ControlGroup title="Membranes">
+                      <Slider label="Contact pressure" value={cellPressure} min={0} max={2} step={0.01} onChange={setCellPressure} />
+                      <Slider label="Membrane softness" value={cellSoftness} min={0} max={1} step={0.01} onChange={setCellSoftness} />
+                    </ControlGroup>
+                    <ControlGroup title="Cell motion">
+                      <Slider label="Motion retention" value={cellDamping} min={0.5} max={0.97} step={0.001} onChange={setCellDamping} />
+                      <Slider label="Agitation" value={cellAgitation} min={0} max={0.08} step={0.001} onChange={setCellAgitation} />
+                    </ControlGroup>
+                    <ControlGroup title="Growth">
+                      <Slider label="Growth / recovery speed" value={cellGrowthRate} min={0} max={0.02} step={0.001} onChange={setCellGrowthRate} />
+                      <Slider label="Maximum expansion" value={cellExpansion} min={0} max={1.5} step={0.01} onChange={setCellExpansion} />
+                    </ControlGroup>
+                  </> : <>
                   <ControlGroup title="Split">
                     <ToggleControl label="Split on collision" value={splitOnHit} onChange={setSplitOnHit} />
                     <Slider label="Reset after splits" value={maxSplitsPerParticle} min={1} max={25} step={1} onChange={setMaxSplitsPerParticle} />
@@ -1146,6 +1311,7 @@ export default function ReactiveLetterParticles() {
                     <ToggleControl label="Morph on hit" value={morphOnHit} onChange={setMorphOnHit} />
                     <Slider label="Morph chance" value={morphChance} min={0} max={1} step={0.01} onChange={setMorphChance} />
                   </ControlGroup>
+                  </>}
                 </div>
               )}
             </div>
@@ -1168,13 +1334,16 @@ export default function ReactiveLetterParticles() {
           <span className="mr-3 shrink-0 uppercase text-white/45">Text</span>
           <input value={text} onChange={(event) => setText(event.target.value)} className="min-w-0 flex-1 bg-transparent text-sm outline-none" aria-label="Particle text" />
         </label>
-        <label className="flex h-10 items-center bg-white/[0.06] px-2 max-md:hidden">
+        {shapeMode === "letters" && <input aria-label="Particle letters" title="Letters used as particles" value={particleLetters} onChange={(event) => setParticleLetters(event.target.value)} className="h-10 w-20 bg-white/[0.06] px-2 text-xs" />}
+        <label className="flex h-10 items-center bg-white/[0.06] px-2">
           <span className="sr-only">Particle shape</span>
-          <select value={shapeMode} onChange={(event) => setShapeMode(event.target.value)} className="bg-transparent px-1 outline-none" aria-label="Particle shape">
+          <select value={shapeMode} onChange={(event) => { setShapeMode(event.target.value); if (event.target.value === "cells") setSize(Math.max(10, size)); }} className="bg-transparent px-1 outline-none" aria-label="Particle shape">
             <option value="circles">Circles</option>
             <option value="squares">Squares</option>
             <option value="lines">Lines</option>
             <option value="mix">Mix</option>
+            <option value="cells">Organic cells</option>
+            <option value="letters">Letters</option>
           </select>
         </label>
         <label className="ml-1 flex h-10 items-center bg-white/[0.06] px-2">
