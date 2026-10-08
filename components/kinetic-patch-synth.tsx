@@ -225,7 +225,7 @@ export default function KineticPatchSynth() {
   };
   const cable = (a: XY, b: XY) => `M ${a.x} ${a.y} C ${a.x + 70} ${a.y}, ${b.x - 70} ${b.y}, ${b.x} ${b.y}`;
   return <main className="kp" style={{ "--kp-bg": bg } as CSSProperties}>
-    <header className="kp-header"><a href="/experiments/kinetic-type-synth">← ORIGINAL</a><h1>K‑NET‑C <span>/ PATCH</span></h1><button aria-label="Load Dream preset" onClick={loadDream}>DREAM</button><button onClick={() => setPaused(v => !v)}>{paused ? "▶ RUN" : "Ⅱ HOLD"}</button></header>
+    <header className="kp-header"><a href="/">← INDEX</a><h1>K-TIC-SYNTH</h1><button aria-label="Load Dream preset" onClick={loadDream}>DREAM</button><button onClick={() => setPaused(v => !v)}>{paused ? "▶ RUN" : "Ⅱ HOLD"}</button></header>
     <section className="kp-stage"><canvas ref={canvas} aria-label="Animated kinetic typography" /><span className="kp-caption">VISUAL SYNTHESIZER · THREE WAVE ENGINE</span></section>
     <div className="kp-controls"><div ref={panel} className="kp-rack" onPointerMove={e => { if (drag && panel.current) { const r = panel.current.getBoundingClientRect(); if (Math.hypot(e.clientX - r.left - drag.x, e.clientY - r.top - drag.y) > 3) dragMoved.current = true; setDrag({ ...drag, x: e.clientX - r.left, y: e.clientY - r.top }); } }} onPointerUp={finishDrag} onPointerCancel={() => { dragRef.current = null; setDrag(null); }}>
       <svg className="kp-cables" aria-hidden="true">{patches.map(p => { const a = positions[`wave${p.wave}`], b = positions[p.target]; return a && b ? <path key={p.id} d={cable(a, b)} stroke={colors[p.wave]} /> : null; })}{drag && positions[`wave${drag.wave}`] && <path d={cable(positions[`wave${drag.wave}`], drag)} stroke={colors[drag.wave]} strokeDasharray="4 4" />}</svg>

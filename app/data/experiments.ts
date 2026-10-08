@@ -13,6 +13,16 @@ export type Experiment = {
 
 const experimentCatalog: Experiment[] = [
   {
+    id: "REC-10",
+    slug: "k-tic-synth",
+    title: "K-TIC-SYNTH",
+    kind: "experiment",
+    status: "public",
+    year: "2026",
+    tags: ["kinetic type", "patch bay", "wave modulation"],
+    summary: "A patchable typography synth with three waves, sampling, grid distortion, vertex shapes and bi-colour mapping.",
+  },
+  {
     id: "REC-09",
     slug: "kinetic-type-synth",
     title: "K‑NET‑C",
