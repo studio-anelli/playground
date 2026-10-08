@@ -98,7 +98,7 @@ const CANVAS_SIZES = {
   "1080x1080": { width: 1080, height: 1080, label: "1080 × 1080" },
 };
 
-function drawShape(ctx: CanvasRenderingContext2D, p: Particle, time: number, glyph: string, fontFamily: string, color: string) {
+function drawShape(ctx: CanvasRenderingContext2D, p: Particle, time: number, glyph: string, fontFamily: string, color: string, softness: number, dt: number) {
   const scale = typeof p.scale === "number" ? p.scale : 1;
   const size = (p.size0 ?? 6) * scale;
   const len = (p.len0 ?? 26) * scale;
@@ -121,13 +121,13 @@ function drawShape(ctx: CanvasRenderingContext2D, p: Particle, time: number, gly
       const angle = i / segments * Math.PI * 2;
       const pullAngle = Math.atan2(p.pullY || 0, p.pullX || 0) - p.rot;
       const stretch = Math.min(0.13, Math.hypot(p.pullX || 0, p.pullY || 0));
-      let radius = size * (1 + stretch * Math.cos(angle - pullAngle) + 0.025 * Math.sin(phase) + 0.035 * Math.sin(angle * 3 + phase));
+      let radius = size * (1 + stretch * Math.cos(angle - pullAngle) + 0.025 * softness * Math.sin(phase) + 0.055 * softness * Math.sin(angle * 3 + phase));
       for (const face of p.cellFaces || []) {
         const alignment = Math.cos(angle + p.rot - face.angle);
         if (alignment > 0.05) radius = Math.min(radius, face.distance / alignment);
       }
       const target = Math.max(0.45, radius / size);
-      p.membrane[i] += (target - p.membrane[i]) * 0.075;
+      p.membrane[i] += (target - p.membrane[i]) * (1 - Math.exp(-(0.16 - softness * 0.13) * dt));
       points.push({ x: Math.cos(angle) * size * p.membrane[i], y: Math.sin(angle) * size * p.membrane[i] });
     }
     ctx.beginPath();
@@ -507,6 +507,12 @@ export default function ReactiveLetterParticles() {
   const [particleLetters, setParticleLetters] = useState("ABC");
   const [cellAttraction, setCellAttraction] = useState(0.65);
   const [cellRange, setCellRange] = useState(80);
+  const [cellPressure, setCellPressure] = useState(1);
+  const [cellSoftness, setCellSoftness] = useState(0.65);
+  const [cellDamping, setCellDamping] = useState(0.82);
+  const [cellAgitation, setCellAgitation] = useState(0.003);
+  const [cellGrowthRate, setCellGrowthRate] = useState(0.002);
+  const [cellExpansion, setCellExpansion] = useState(0.65);
   const cellBondsRef = useRef(new Set<string>());
   const [baseHue, setBaseHue] = useState(0);
   const [baseSat, setBaseSat] = useState(0);
@@ -679,7 +685,7 @@ export default function ReactiveLetterParticles() {
       // jitter
       for (let i = 0; i < parts.length; i++) {
         const p = parts[i];
-        const agitation = p.kind === "cells" ? jitter * 0.04 : jitter;
+        const agitation = p.kind === "cells" ? cellAgitation : jitter;
         p.vx += (rnd() - 0.5) * agitation;
         p.vy += (rnd() - 0.5) * agitation;
         if (p.cooldown > 0) p.cooldown -= 1 * dt;
@@ -728,11 +734,11 @@ export default function ReactiveLetterParticles() {
               bondCounts.set(b.id, (bondCounts.get(b.id) || 0) + 1);
             }
             const bonded = cellBondsRef.current.has(key);
-            const rest = (ar + br) * 0.88;
+            const rest = (ar + br) * (1.02 - cellPressure * 0.14);
             const force = bonded
               ? Math.max(-0.18, Math.min(0.18, (d - rest) * 0.012)) * cellAttraction
               : d < cellRange && d > ar + br ? (1 - d / cellRange) * 0.012 * cellAttraction / 6 : 0;
-            const coreRepulsion = d < (ar + br) * 0.7 ? ((ar + br) * 0.7 - d) * 0.035 : 0;
+            const coreRepulsion = d < (ar + br) * 0.7 ? ((ar + br) * 0.7 - d) * (0.025 + cellPressure * 0.01) : 0;
             const relativeSpeed = (a.vx - b.vx) * ux + (a.vy - b.vy) * uy;
             const drag = bonded ? relativeSpeed * 0.07 : 0;
             const net = force - coreRepulsion + drag;
@@ -884,14 +890,14 @@ export default function ReactiveLetterParticles() {
       for (let i = 0; i < parts.length; i++) {
         const p = parts[i];
         const previousX = p.x, previousY = p.y;
-        const drag = p.kind === "cells" ? Math.pow(0.82, dt) : damping;
+        const drag = p.kind === "cells" ? Math.pow(cellDamping, dt) : damping;
         p.vx *= drag;
         p.vy *= drag;
         if (p.kind === "cells") {
           const speed = Math.hypot(p.vx, p.vy);
           if (speed > 0.65) { p.vx *= 0.65 / speed; p.vy *= 0.65 / speed; }
-          const targetScale = 1 + Math.min(0.65, (bondCounts.get(p.id) || 0) * 0.11);
-          p.scale += (targetScale - p.scale) * 0.002 * dt;
+          const targetScale = 1 + cellExpansion * Math.min(1, (bondCounts.get(p.id) || 0) / 6);
+          p.scale += (targetScale - p.scale) * (1 - Math.exp(-cellGrowthRate * dt));
         }
         p.x += p.vx * dt;
         p.y += p.vy * dt;
@@ -947,7 +953,7 @@ export default function ReactiveLetterParticles() {
       for (let i = 0; i < parts.length; i++) {
         const p = parts[i];
         const hue = colorMode === "rainbow" ? p.hue : palette[p.id % palette.length];
-        drawShape(ctx, p, now, glyphs[p.id % glyphs.length], fontFamily, hsl(hue, p.sat, p.lit, p.alpha));
+        drawShape(ctx, p, now, glyphs[p.id % glyphs.length], fontFamily, hsl(hue, p.sat, p.lit, p.alpha), cellSoftness, dt);
       }
 
       rafRef.current = requestAnimationFrame(step);
@@ -973,6 +979,12 @@ export default function ReactiveLetterParticles() {
     particleLetters,
     cellAttraction,
     cellRange,
+    cellPressure,
+    cellSoftness,
+    cellDamping,
+    cellAgitation,
+    cellGrowthRate,
+    cellExpansion,
     baseHue,
     baseSat,
     baseLit,
@@ -1265,11 +1277,24 @@ export default function ReactiveLetterParticles() {
 
               {activeTab === "interaction" && (
                 <div className="space-y-5">
-                  {shapeMode === "cells" && <ControlGroup title="Cell structures">
-                    <Slider label="Attraction / cohesion" value={cellAttraction} min={0} max={2} step={0.01} onChange={setCellAttraction} />
-                    <Slider label="Attraction range" value={cellRange} min={20} max={180} step={1} onChange={setCellRange} />
-                    <p className="text-xs text-white/45">Cells attract, form soft connections and flatten against neighbours to build living tissue.</p>
-                  </ControlGroup>}
+                  {shapeMode === "cells" ? <>
+                    <ControlGroup title="Cell structures">
+                      <Slider label="Attraction / cohesion" value={cellAttraction} min={0} max={2} step={0.01} onChange={setCellAttraction} />
+                      <Slider label="Attraction range" value={cellRange} min={20} max={180} step={1} onChange={setCellRange} />
+                    </ControlGroup>
+                    <ControlGroup title="Membranes">
+                      <Slider label="Contact pressure" value={cellPressure} min={0} max={2} step={0.01} onChange={setCellPressure} />
+                      <Slider label="Membrane softness" value={cellSoftness} min={0} max={1} step={0.01} onChange={setCellSoftness} />
+                    </ControlGroup>
+                    <ControlGroup title="Cell motion">
+                      <Slider label="Motion retention" value={cellDamping} min={0.5} max={0.97} step={0.001} onChange={setCellDamping} />
+                      <Slider label="Agitation" value={cellAgitation} min={0} max={0.08} step={0.001} onChange={setCellAgitation} />
+                    </ControlGroup>
+                    <ControlGroup title="Growth">
+                      <Slider label="Growth / recovery speed" value={cellGrowthRate} min={0} max={0.02} step={0.001} onChange={setCellGrowthRate} />
+                      <Slider label="Maximum expansion" value={cellExpansion} min={0} max={1.5} step={0.01} onChange={setCellExpansion} />
+                    </ControlGroup>
+                  </> : <>
                   <ControlGroup title="Split">
                     <ToggleControl label="Split on collision" value={splitOnHit} onChange={setSplitOnHit} />
                     <Slider label="Reset after splits" value={maxSplitsPerParticle} min={1} max={25} step={1} onChange={setMaxSplitsPerParticle} />
@@ -1286,6 +1311,7 @@ export default function ReactiveLetterParticles() {
                     <ToggleControl label="Morph on hit" value={morphOnHit} onChange={setMorphOnHit} />
                     <Slider label="Morph chance" value={morphChance} min={0} max={1} step={0.01} onChange={setMorphChance} />
                   </ControlGroup>
+                  </>}
                 </div>
               )}
             </div>
