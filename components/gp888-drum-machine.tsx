@@ -57,6 +57,10 @@ const DECAY_LIMITS: Partial<Record<TrackId, [number, number]>> = {
 function useAudioEngine() {
   const audioCtxRef = useRef<AudioContext | null>(null);
   const voiceParamsRef = useRef(DEFAULT_VOICES);
+  const springInputRef = useRef<GainNode | null>(null);
+  const springWetRef = useRef<GainNode | null>(null);
+  const springSendsRef = useRef<Record<string, GainNode>>({});
+  const springSettingsRef = useRef({ amount: 0.35, sends: {} as Partial<Record<TrackId, boolean>> });
   const masterGainRef = useRef<GainNode | null>(null);
 
   const trackGainsRef = useRef<Record<string, GainNode>>({});
@@ -72,6 +76,29 @@ function useAudioEngine() {
       master.gain.value = 0.8;
       master.connect(ctx.destination);
       masterGainRef.current = master;
+
+      // A short, dispersive spring-like return: filtered, softly saturated and mono.
+      const springInput = ctx.createGain();
+      const highpass = ctx.createBiquadFilter(); highpass.type = "highpass"; highpass.frequency.value = 180;
+      const saturator = ctx.createWaveShaper();
+      const curve = new Float32Array(1024);
+      for (let i = 0; i < curve.length; i++) { const x = i / (curve.length - 1) * 2 - 1; curve[i] = Math.tanh(x * 1.6) / Math.tanh(1.6); }
+      saturator.curve = curve; saturator.oversample = "2x";
+      const reverb = ctx.createConvolver();
+      const impulse = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * 0.24), ctx.sampleRate);
+      const ir = impulse.getChannelData(0);
+      for (let i = 0; i < ir.length; i++) {
+        const t = i / ctx.sampleRate;
+        const grain = Math.sin(i * 12.9898) * Math.cos(i * 78.233);
+        ir[i] = (grain * 0.55 + Math.sin(2 * Math.PI * (820 * t + 1700 * t * t)) * 0.2) * Math.exp(-t * 29) * Math.min(1, t / 0.004);
+      }
+      for (const tap of [0.017, 0.031, 0.047, 0.071, 0.103]) ir[Math.floor(tap * ctx.sampleRate)] += 0.4 * Math.exp(-tap * 19);
+      reverb.buffer = impulse;
+      const warmth = ctx.createBiquadFilter(); warmth.type = "lowpass"; warmth.frequency.value = 3800;
+      const wet = ctx.createGain(); wet.gain.value = springSettingsRef.current.amount * 0.45;
+      springInput.connect(highpass); highpass.connect(saturator); saturator.connect(reverb);
+      reverb.connect(warmth); warmth.connect(wet); wet.connect(master);
+      springInputRef.current = springInput; springWetRef.current = wet;
 
       TRACKS.forEach((t) => {
         createTrackChain(t.id);
@@ -112,6 +139,9 @@ function useAudioEngine() {
 
     input.connect(proc);
     proc.connect(masterGainRef.current!);
+    const send = ctx.createGain(); send.gain.value = springSettingsRef.current.sends[id as TrackId] ? 0.65 : 0;
+    proc.connect(send); send.connect(springInputRef.current!);
+    springSendsRef.current[id] = send;
 
     trackGainsRef.current[id] = input;
   };
@@ -129,6 +159,14 @@ function useAudioEngine() {
   const setTrackCrusher = (id: TrackId, bits: number, downsample: number) => {
     ensureCtx();
     trackCrusherParamsRef.current[id] = { bits, downsample };
+  };
+
+  const setSpring = (amount: number, sends: Partial<Record<TrackId, boolean>>) => {
+    springSettingsRef.current = { amount, sends };
+    const ctx = audioCtxRef.current;
+    if (!ctx) return;
+    springWetRef.current?.gain.setTargetAtTime(amount * 0.45, ctx.currentTime, 0.02);
+    TRACKS.forEach(t => springSendsRef.current[t.id]?.gain.setTargetAtTime(sends[t.id] ? 0.65 : 0, ctx.currentTime, 0.01));
   };
 
   const setVoiceParams = (params: Record<TrackId, VoiceParams>) => { voiceParamsRef.current = params; };
@@ -258,6 +296,7 @@ function useAudioEngine() {
     setMasterVolume,
     setTrackCrusher,
     setVoiceParams,
+    setSpring,
     trigger(which: TrackId, time: number, vol = 1) {
       if (vol <= 0) return;
       if (which === "kick") return triggerKick(time, vol, "kick");
@@ -422,6 +461,12 @@ export default function GP888DrumMachine() {
 
   const engine = useAudioEngine();
   const [voiceParams, setVoiceParams] = useState(DEFAULT_VOICES);
+  const [spring, setSpring] = useState(35);
+  const [springSends, setSpringSends] = useState<Partial<Record<TrackId, boolean>>>({});
+  const [pixelColor, setPixelColor] = useState(0);
+  const [pixelDensity, setPixelDensity] = useState(45);
+  const [pixelMotion, setPixelMotion] = useState(35);
+  useEffect(() => engine.setSpring(spring / 100, springSends), [engine, spring, springSends]);
   const updateVoice = (id: TrackId, patch: Partial<VoiceParams>) => {
     const next = { ...voiceParams, [id]: { ...voiceParams[id], ...patch } };
     engine.setVoiceParams(next);
@@ -514,7 +559,7 @@ export default function GP888DrumMachine() {
   };
 
   const save = () => {
-    const data = { steps, bpm, swing, master, trackLevels, mutes, solo, pattern, trackFX, voiceParams };
+    const data = { steps, bpm, swing, master, trackLevels, mutes, solo, pattern, trackFX, voiceParams, spring, springSends, pixelColor, pixelDensity, pixelMotion };
     localStorage.setItem("gp888_v1", JSON.stringify(data));
   };
 
@@ -535,6 +580,9 @@ export default function GP888DrumMachine() {
         }];
       })) as Record<TrackId, VoiceParams>;
       engine.setVoiceParams(loadedVoices); setVoiceParams(loadedVoices);
+      setSpring(Number.isFinite(d.spring) ? Math.max(0, Math.min(100, d.spring)) : 35);
+      setSpringSends(d.springSends || {});
+      setPixelColor(d.pixelColor ?? 0); setPixelDensity(d.pixelDensity ?? 45); setPixelMotion(d.pixelMotion ?? 35);
       setSteps(d.steps || 16);
       setBpm(d.bpm || 120);
       setSwing(d.swing || 0);
@@ -567,6 +615,13 @@ export default function GP888DrumMachine() {
             <div className="gp-actions"><button onClick={randomize}>RANDOM</button><button onClick={clearAll}>CLEAR</button>
               <button onClick={save}>SAVE</button><button onClick={load}>LOAD</button></div>
           </div>
+          <section className="gp-experimental" aria-label="Spring and pixel display">
+            <DrumKnob label="SPRING" ariaLabel="Spring amount" size="large" min={0} max={100} value={spring} onChange={setSpring} />
+            <PixelScreen pattern={pattern} levels={effLevels} step={activeStep} playing={isPlaying} color={pixelColor} density={pixelDensity} motion={pixelMotion} />
+            <DrumKnob label="COLOR" ariaLabel="Pixel colour" size="small" min={0} max={100} value={pixelColor} onChange={setPixelColor} />
+            <DrumKnob label="DENSITY" ariaLabel="Pixel density" size="small" min={0} max={100} value={pixelDensity} onChange={setPixelDensity} />
+            <DrumKnob label="MOTION" ariaLabel="Pixel motion" size="small" min={0} max={100} value={pixelMotion} onChange={setPixelMotion} />
+          </section>
           <div className="gp-sequence-scroll">
             <div className="gp-sequence" style={{gridTemplateColumns:`100px repeat(${steps}, minmax(24px,1fr))`, "--gp-step-count":steps, "--gp-playhead":Math.max(0,activeStep)} as React.CSSProperties}>
               <div className={`gp-progress ${isPlaying ? "is-running" : ""}`} aria-hidden="true"><span /></div>
@@ -593,6 +648,7 @@ export default function GP888DrumMachine() {
                 <DrumKnob label="BITS" ariaLabel={`${t.name} bits`} size="small" min={2} max={16} value={trackFX[t.id].bits} onChange={v=>setTrackFX(fx=>({...fx,[t.id]:{...fx[t.id],bits:v}}))} />
                 <DrumKnob label="DOWN" ariaLabel={`${t.name} downsampling`} size="medium" min={1} max={16} value={trackFX[t.id].down} onChange={v=>setTrackFX(fx=>({...fx,[t.id]:{...fx[t.id],down:v}}))} />
               </div>
+              <button className="gp-spring-send" aria-label={`${t.name} spring send`} aria-pressed={!!springSends[t.id]} onClick={()=>setSpringSends(v=>({...v,[t.id]:!v[t.id]}))}>SPRING {springSends[t.id] ? "ON" : "OFF"}</button>
               <div className="gp-channel-switches"><button aria-label={`Mute ${t.name}`} aria-pressed={mutes[t.id]} onClick={()=>setMutes(m=>({...m,[t.id]:!m[t.id]}))}>MUTE</button>
                 <button aria-label={`Solo ${t.name}`} aria-pressed={solo===t.id} onClick={()=>setSolo(s=>s===t.id?null:t.id)}>SOLO</button></div>
             </div>)}
@@ -634,4 +690,55 @@ function DrumKnob({label, ariaLabel, value, min, max, onChange, size="medium"}: 
       <input type="range" aria-label={ariaLabel||label} min={min} max={max} step={1} value={value} onChange={e=>onChange(Number(e.target.value))} />
     </div><span className="gp-knob-label">{label}</span><output>{value}</output>
   </div>;
+}
+
+function PixelScreen(props: {pattern: Record<TrackId, boolean[]>; levels: Record<TrackId, number>; step: number; playing: boolean; color: number; density: number; motion: number}) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const live = useRef(props);
+  useEffect(() => { live.current = props; }, [props]);
+  useEffect(() => {
+    const canvas = canvasRef.current; const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+    const dots: {x:number;y:number;life:number;track:number}[] = [];
+    const palette = ["#ff4030", "#3060ff", "#ffdc30", "#f0f0d0", "#30c060", "#e050c0", "#30c0d0", "#f08030"];
+    let frame = 0, lastStep = -1, last = 0, raf = 0;
+    const draw = (now: number) => {
+      const p = live.current;
+      if (now - last >= 50) {
+        const dt = Math.min(4, (now - (last || now - 50)) / 50); last = now; frame++;
+        ctx.fillStyle = "#060909"; ctx.fillRect(0, 0, 64, 32);
+        const shift = Math.floor(p.color / 100 * 7);
+        // Dim pattern pixels remain legible when stopped.
+        TRACKS.forEach((t, index) => {
+          ctx.fillStyle = palette[(index + shift) % 8]; ctx.globalAlpha = 0.15;
+          p.pattern[t.id].forEach((on, step) => { if (on) ctx.fillRect(Math.floor(step * 64 / p.pattern[t.id].length), index * 4 + 1, 1, 2); });
+        });
+        ctx.globalAlpha = 1;
+        if (!p.playing) lastStep = -1;
+        if (p.playing && p.step >= 0 && p.step !== lastStep) {
+          lastStep = p.step;
+          TRACKS.forEach((t, index) => {
+            if (!p.pattern[t.id][p.step] || p.levels[t.id] <= 0) return;
+            const count = Math.round((2 + p.density * 0.25) * p.levels[t.id]);
+            for (let i = 0; i < count; i++) dots.push({x:(p.step / p.pattern[t.id].length * 64 + i * 7 + index * 3) % 64, y:index * 4 + (i % 4),life:1,track:index});
+          });
+        }
+        for (let i = dots.length - 1; i >= 0; i--) {
+          const dot = dots[i]; dot.life -= (0.035 + p.motion * 0.0003) * dt;
+          if (dot.life <= 0) { dots.splice(i, 1); continue; }
+          dot.x = (dot.x + p.motion * 0.008 * dt) % 64;
+          ctx.globalAlpha = Math.ceil(dot.life * 3) / 3;
+          ctx.fillStyle = palette[(dot.track + shift + (p.color > 60 ? Math.floor(frame / 12) : 0)) % 8];
+          const block = p.density > 65 ? 2 : 1;
+          ctx.fillRect(Math.floor(dot.x), Math.floor(dot.y + Math.sin(frame * 0.08 + dot.track) * p.motion * 0.025), block, block);
+        }
+        ctx.globalAlpha = 1;
+        if (p.playing && p.step >= 0) { ctx.fillStyle = "#eeeecc"; ctx.fillRect(Math.floor(p.step * 64 / p.pattern.kick.length), 31, 2, 1); }
+      }
+      raf = requestAnimationFrame(draw);
+    };
+    raf = requestAnimationFrame(draw);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  return <div className="gp-pixel-screen"><canvas ref={canvasRef} width={64} height={32} role="img" aria-label="8-bit pixel display reacting to drum hits and pattern" /><span>PIXEL / 64 × 32</span></div>;
 }
