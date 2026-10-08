@@ -463,6 +463,7 @@ export default function GP888DrumMachine() {
   const [voiceParams, setVoiceParams] = useState(DEFAULT_VOICES);
   const [spring, setSpring] = useState(35);
   const [springSends, setSpringSends] = useState<Partial<Record<TrackId, boolean>>>({});
+  const [pixelMode, setPixelMode] = useState<"letters" | "circles" | "objects">("letters");
   const [pixelColor, setPixelColor] = useState(0);
   const [pixelDensity, setPixelDensity] = useState(45);
   const [pixelMotion, setPixelMotion] = useState(35);
@@ -559,7 +560,7 @@ export default function GP888DrumMachine() {
   };
 
   const save = () => {
-    const data = { steps, bpm, swing, master, trackLevels, mutes, solo, pattern, trackFX, voiceParams, spring, springSends, pixelColor, pixelDensity, pixelMotion };
+    const data = { steps, bpm, swing, master, trackLevels, mutes, solo, pattern, trackFX, voiceParams, spring, springSends, pixelMode, pixelColor, pixelDensity, pixelMotion };
     localStorage.setItem("gp888_v1", JSON.stringify(data));
   };
 
@@ -582,6 +583,7 @@ export default function GP888DrumMachine() {
       engine.setVoiceParams(loadedVoices); setVoiceParams(loadedVoices);
       setSpring(Number.isFinite(d.spring) ? Math.max(0, Math.min(100, d.spring)) : 35);
       setSpringSends(d.springSends || {});
+      setPixelMode(["letters", "circles", "objects"].includes(d.pixelMode) ? d.pixelMode : "letters");
       setPixelColor(d.pixelColor ?? 0); setPixelDensity(d.pixelDensity ?? 45); setPixelMotion(d.pixelMotion ?? 35);
       setSteps(d.steps || 16);
       setBpm(d.bpm || 120);
@@ -617,7 +619,8 @@ export default function GP888DrumMachine() {
           </div>
           <section className="gp-experimental" aria-label="Spring and pixel display">
             <DrumKnob label="SPRING" ariaLabel="Spring amount" size="large" min={0} max={100} value={spring} onChange={setSpring} />
-            <PixelScreen pattern={pattern} levels={effLevels} step={activeStep} playing={isPlaying} color={pixelColor} density={pixelDensity} motion={pixelMotion} />
+            <div className="gp-pixel-module"><div className="gp-pixel-modes" role="group" aria-label="Pixel display mode">{(["letters", "circles", "objects"] as const).map(mode => <button key={mode} aria-pressed={pixelMode === mode} onClick={() => setPixelMode(mode)}>{mode.toUpperCase()}</button>)}</div>
+            <PixelScreen mode={pixelMode} pattern={pattern} levels={effLevels} step={activeStep} playing={isPlaying} color={pixelColor} density={pixelDensity} motion={pixelMotion} /></div>
             <DrumKnob label="COLOR" ariaLabel="Pixel colour" size="small" min={0} max={100} value={pixelColor} onChange={setPixelColor} />
             <DrumKnob label="DENSITY" ariaLabel="Pixel density" size="small" min={0} max={100} value={pixelDensity} onChange={setPixelDensity} />
             <DrumKnob label="MOTION" ariaLabel="Pixel motion" size="small" min={0} max={100} value={pixelMotion} onChange={setPixelMotion} />
@@ -692,14 +695,34 @@ function DrumKnob({label, ariaLabel, value, min, max, onChange, size="medium"}: 
   </div>;
 }
 
-function PixelScreen(props: {pattern: Record<TrackId, boolean[]>; levels: Record<TrackId, number>; step: number; playing: boolean; color: number; density: number; motion: number}) {
+const PIXEL_LETTERS = [
+  ["101", "110", "100", "110", "101"], // K
+  ["111", "100", "111", "001", "111"], // S
+  ["101", "101", "111", "101", "101"], // H
+  ["111", "101", "101", "101", "111"], // O
+  ["110", "101", "110", "101", "101"], // R
+  ["110", "101", "101", "101", "110"], // D
+  ["111", "010", "010", "010", "010"], // T
+  ["111", "100", "100", "100", "111"], // C
+];
+const PIXEL_OBJECTS = [
+  ["00100", "01110", "11111", "01110", "00100"], // diamond
+  ["00100", "01100", "11111", "00110", "00100"], // bolt
+  ["10101", "01110", "11111", "01110", "10101"], // star
+  ["01010", "11111", "11111", "01110", "00100"], // heart
+  ["01110", "11011", "11111", "01010", "11011"], // alien
+  ["00000", "10001", "11111", "10101", "01110"], // crown
+  ["00100", "01110", "11111", "00100", "00100"], // tree
+  ["01110", "10001", "10101", "10001", "01110"], // eye
+];
+function PixelScreen(props: {mode: "letters" | "circles" | "objects"; pattern: Record<TrackId, boolean[]>; levels: Record<TrackId, number>; step: number; playing: boolean; color: number; density: number; motion: number}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const live = useRef(props);
   useEffect(() => { live.current = props; }, [props]);
   useEffect(() => {
     const canvas = canvasRef.current; const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx) return;
-    const dots: {x:number;y:number;life:number;track:number}[] = [];
+    const pulses = Array(8).fill(0);
     const palette = ["#ff4030", "#3060ff", "#ffdc30", "#f0f0d0", "#30c060", "#e050c0", "#30c0d0", "#f08030"];
     let frame = 0, lastStep = -1, last = 0, raf = 0;
     const draw = (now: number) => {
@@ -708,30 +731,40 @@ function PixelScreen(props: {pattern: Record<TrackId, boolean[]>; levels: Record
         const dt = Math.min(4, (now - (last || now - 50)) / 50); last = now; frame++;
         ctx.fillStyle = "#060909"; ctx.fillRect(0, 0, 64, 32);
         const shift = Math.floor(p.color / 100 * 7);
-        // Dim pattern pixels remain legible when stopped.
-        TRACKS.forEach((t, index) => {
-          ctx.fillStyle = palette[(index + shift) % 8]; ctx.globalAlpha = 0.15;
-          p.pattern[t.id].forEach((on, step) => { if (on) ctx.fillRect(Math.floor(step * 64 / p.pattern[t.id].length), index * 4 + 1, 1, 2); });
-        });
-        ctx.globalAlpha = 1;
         if (!p.playing) lastStep = -1;
         if (p.playing && p.step >= 0 && p.step !== lastStep) {
           lastStep = p.step;
           TRACKS.forEach((t, index) => {
-            if (!p.pattern[t.id][p.step] || p.levels[t.id] <= 0) return;
-            const count = Math.round((2 + p.density * 0.25) * p.levels[t.id]);
-            for (let i = 0; i < count; i++) dots.push({x:(p.step / p.pattern[t.id].length * 64 + i * 7 + index * 3) % 64, y:index * 4 + (i % 4),life:1,track:index});
+            if (p.pattern[t.id][p.step] && p.levels[t.id] > 0) pulses[index] = p.levels[t.id];
           });
         }
-        for (let i = dots.length - 1; i >= 0; i--) {
-          const dot = dots[i]; dot.life -= (0.035 + p.motion * 0.0003) * dt;
-          if (dot.life <= 0) { dots.splice(i, 1); continue; }
-          dot.x = (dot.x + p.motion * 0.008 * dt) % 64;
-          ctx.globalAlpha = Math.ceil(dot.life * 3) / 3;
-          ctx.fillStyle = palette[(dot.track + shift + (p.color > 60 ? Math.floor(frame / 12) : 0)) % 8];
-          const block = p.density > 65 ? 2 : 1;
-          ctx.fillRect(Math.floor(dot.x), Math.floor(dot.y + Math.sin(frame * 0.08 + dot.track) * p.motion * 0.025), block, block);
-        }
+        TRACKS.forEach((t, index) => {
+          const pulse = pulses[index];
+          const active = p.pattern[t.id].some(Boolean) && p.levels[t.id] > 0;
+          ctx.globalAlpha = active ? 0.25 + pulse * 0.75 : 0.08;
+          ctx.fillStyle = palette[(index + shift + (p.color > 60 ? Math.floor(frame / 12) : 0)) % 8];
+          const scale = pulse > 0.45 ? 2 : 1;
+          const x = (index % 4) * 16 + 8;
+          const y = Math.floor(index / 4) * 15 + 8 + Math.round(Math.sin(frame * 0.08 + index) * p.motion * 0.025);
+          const stamp = (cx: number, cy: number, size: number) => {
+            if (p.mode === "circles") {
+              const radius = size * 2 + 1;
+              for (let yy = -radius; yy <= radius; yy++) for (let xx = -radius; xx <= radius; xx++) {
+                const d = xx * xx + yy * yy;
+                if (d <= radius * radius && (p.density > 65 || d >= (radius - 1.4) ** 2)) ctx.fillRect(cx + xx, cy + yy, 1, 1);
+              }
+            } else {
+              const sprite = p.mode === "letters" ? PIXEL_LETTERS[index] : PIXEL_OBJECTS[index];
+              sprite.forEach((row, yy) => [...row].forEach((bit, xx) => {
+                if (bit === "1") ctx.fillRect(Math.floor(cx - row.length * size / 2 + xx * size), Math.floor(cy - sprite.length * size / 2 + yy * size), size, size);
+              }));
+            }
+          };
+          stamp(x, y, scale);
+          if (p.density > 35) { ctx.globalAlpha *= 0.4; stamp(x - 5, y, 1); }
+          if (p.density > 75) stamp(x + 5, y, 1);
+          pulses[index] = Math.max(0, pulse - (0.035 + p.motion * 0.0003) * dt);
+        });
         ctx.globalAlpha = 1;
         if (p.playing && p.step >= 0) { ctx.fillStyle = "#eeeecc"; ctx.fillRect(Math.floor(p.step * 64 / p.pattern.kick.length), 31, 2, 1); }
       }
@@ -740,5 +773,5 @@ function PixelScreen(props: {pattern: Record<TrackId, boolean[]>; levels: Record
     raf = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(raf);
   }, []);
-  return <div className="gp-pixel-screen"><canvas ref={canvasRef} width={64} height={32} role="img" aria-label="8-bit pixel display reacting to drum hits and pattern" /><span>PIXEL / 64 × 32</span></div>;
+  return <div className="gp-pixel-screen"><canvas ref={canvasRef} width={64} height={32} role="img" aria-label={`8-bit ${props.mode} display reacting to drum hits and pattern`} /><span>{props.mode.toUpperCase()} / 64 × 32</span></div>;
 }
