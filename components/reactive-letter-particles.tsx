@@ -480,6 +480,7 @@ export default function ReactiveLetterParticles() {
   const maxParticles = useMemo(() => Math.min(2400, Math.max(200, count * 6)), [count]);
 
   const [seed, setSeed] = useState(12345);
+  const [bubbleStart, setBubbleStart] = useState(false);
   const [status, setStatus] = useState("Ready");
   const [panelOpen, setPanelOpen] = useState(true);
   const [panelOffset, setPanelOffset] = useState({ x: 0, y: 0 });
@@ -529,13 +530,22 @@ export default function ReactiveLetterParticles() {
       alpha,
     });
 
+    if (bubbleStart) {
+      // Start with the mature collision state shown in the reference.
+      for (const p of particlesRef.current) {
+        const r = rnd();
+        p.scale = r < 0.65 ? 0.65 + rnd() * 1.1 : r < 0.94 ? 2 + rnd() * 4 : 7 + rnd() * 4;
+        p.hueOff = rnd() * 360;
+        p.hue = (baseHue + p.hueOff) % 360;
+      }
+    }
   };
 
   // Rebuild on structural params
   useEffect(() => {
     rebuild();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text, canvasW, canvasH, insideOutside, shapeMode, count, fontFamily, fontWeight, fontSize, tracking, baselineY, interline, seed]);
+  }, [text, canvasW, canvasH, insideOutside, shapeMode, count, fontFamily, fontWeight, fontSize, tracking, baselineY, interline, seed, bubbleStart]);
 
   // Live update style params
   useEffect(() => {
@@ -965,7 +975,7 @@ export default function ReactiveLetterParticles() {
                   <button type="button"
                     className="h-10 bg-white/10 px-3 text-xs font-bold uppercase hover:bg-white/20"
                     onClick={() => {
-                      setText("HEY"); setCanvasW(1280); setCanvasH(520);
+                      setBubbleStart(false); setText("HEY"); setCanvasW(1280); setCanvasH(520);
                       setInsideOutside("inside"); setShapeMode("circles"); setCount(160);
                       setFontFamily("system-ui, -apple-system, Segoe UI, Inter, Arial");
                       setFontWeight(100); setFontSize(240); setTracking(10);
@@ -984,7 +994,7 @@ export default function ReactiveLetterParticles() {
                   <button type="button"
                     className="h-10 bg-white/10 px-3 text-xs font-bold uppercase hover:bg-white/20"
                     onClick={() => {
-                      setText("DUST"); setCanvasW(1280); setCanvasH(520);
+                      setBubbleStart(false); setText("DUST"); setCanvasW(1280); setCanvasH(520);
                       setInsideOutside("outside"); setShapeMode("circles"); setCount(520);
                       setFontFamily("system-ui, -apple-system, Segoe UI, Inter, Arial");
                       setFontWeight(900); setFontSize(180); setTracking(-2);
@@ -1003,7 +1013,7 @@ export default function ReactiveLetterParticles() {
                   <button type="button"
                     className="h-10 bg-white/10 px-3 text-xs font-bold uppercase hover:bg-white/20"
                     onClick={() => {
-                      setText("LAB"); setCanvasW(1280); setCanvasH(840);
+                      setBubbleStart(false); setText("LAB"); setCanvasW(1280); setCanvasH(840);
                       setInsideOutside("inside"); setShapeMode("circles"); setCount(241);
                       setFontFamily("Arial, Helvetica, sans-serif");
                       setFontWeight(700); setFontSize(520); setTracking(60);
@@ -1023,7 +1033,7 @@ export default function ReactiveLetterParticles() {
                   <button type="button"
                     className="h-10 bg-white/10 px-3 text-xs font-bold uppercase hover:bg-white/20"
                     onClick={() => {
-                      setText("R"); setCanvasW(1280); setCanvasH(800);
+                      setBubbleStart(true); setText("R"); setCanvasW(1280); setCanvasH(800);
                       setInsideOutside("inside"); setShapeMode("circles"); setCount(342);
                       setFontFamily("system-ui, -apple-system, Segoe UI, Inter, Arial");
                       setFontWeight(900); setFontSize(520); setTracking(10);
@@ -1031,7 +1041,7 @@ export default function ReactiveLetterParticles() {
                       setSize(2); setLineLen(26); setFilled(true); setStroke(2); setAlpha(0.9);
                       setBaseHue(200); setBaseSat(85); setBaseLit(55);
                       setBgHue(220); setBgSat(30); setBgLit(6);
-                      setTextHue(0); setTextSat(0); setTextLit(100); setTextAlpha(0.08);
+                      setTextHue(0); setTextSat(0); setTextLit(100); setTextAlpha(0);
                       setRepelRadius(9); setRepelStrength(1.37); setDamping(0.78); setJitter(0.049);
                       setCollisionRadiusBoost(1.18); setHueKick(3);
                       setMorphOnHit(true); setMorphChance(0.32); setSplitOnHit(false);
