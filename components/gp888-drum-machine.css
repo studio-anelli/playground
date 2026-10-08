@@ -81,3 +81,11 @@ html:has(.gp888), body:has(.gp888), body:has(.gp888) .import-page, body:has(.gp8
 .gp-tempo-screen strong { color:#f1cd30; }
 @keyframes gp-primary-hit { from { filter:brightness(1.8); } to { filter:brightness(1); } }
 @media(prefers-reduced-motion:reduce) { .gp888 .gp-step.is-current[aria-pressed=true] { animation:none; } }
+
+.gp-experimental { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:22px; padding:12px; border-bottom:2px solid #ddd7ca; }
+.gp-experimental > .gp-knob--large .gp-knob-dial { width:76px; height:76px; }
+.gp-pixel-screen { background:#080b0b; border:3px solid #777367; padding:8px; box-shadow:inset 0 0 12px #000; }
+.gp-pixel-screen canvas { display:block; width:256px; height:128px; image-rendering:pixelated; }
+.gp-pixel-screen span { display:block; font:8px monospace; color:#aaa69a; margin-top:6px; letter-spacing:.12em; }
+.gp888 .gp-spring-send { display:block; margin:10px auto 0; font-size:8px; }
+@media(max-width:500px) { .gp-experimental { gap:12px; } .gp-pixel-screen canvas { width:192px; height:96px; } }
