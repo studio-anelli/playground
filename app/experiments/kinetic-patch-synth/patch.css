@@ -43,7 +43,7 @@
 
 .kp-bay-handle{flex-wrap:wrap;gap:6px}.kp-bay-handle>span{display:flex;flex-wrap:wrap;gap:3px}
 
-/* Darker panel, with controls masking cables underneath. */
+/* Darker panel. */
 .kp{background:#151515}
 .kp-controls,.kp-rack,.kp-floating,.kp-footer{background:#151515}
 .kp button,.kp select{background:#101010}
@@ -51,9 +51,9 @@
 .kp-patch,.kp-video-patch{background:#20211f}
 .kp-glyph-input input{background:#101010}
 .kp-controls{scrollbar-color:#605e57 #101010}
-.kp-cables{z-index:1}
-.kp-knob-control,.kp-modulehead,.kp-wavehead,.kp-wavecontrols,.kp-video-ports,.kp-feedback-output,.kp-manual,.kp-title,.kp-module>select,.kp-wave>select,.kp-glyph-input,.kp-module>button{position:relative;z-index:2;background:#151515}
-.kp-module>select,.kp-wave>select,.kp-module>button{background:#101010}
 .kp .kp-socket{z-index:3}
-.kp-cables .kp-video-cable{opacity:.5;stroke-width:2}
-.kp-cables .kp-removable-cable:hover{opacity:1;stroke-width:5}
+
+/* Fine cables using the original overlay layout. */
+.kp-cables{z-index:2}
+.kp-cables path{stroke-width:1;opacity:.65}
+.kp-cables .kp-removable-cable:hover{stroke-width:2;opacity:1}
