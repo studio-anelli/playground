@@ -4,6 +4,8 @@ import Link from "next/link";
 import { fitCanvas, outputDimensions, type CanvasFormat } from "./kinetic-output";
 import { renderVideo } from "./kinetic-video-render";
 import { recordCanvas } from "./kinetic-recording";
+import { waveDivisions, waveHz, sampleWave, type Wave, type Shape, type WaveDivision } from "./kinetic-waves";
+export { waveValue } from "./kinetic-waves";
 import { RasterCache } from "./kinetic-raster-cache";
 import { indexModulation } from "./kinetic-modulation";
 import { kineticPresets } from "./kinetic-presets";
@@ -11,8 +13,7 @@ import { createKineticGPU, type GPUStamp, type GPUFrame } from "./kinetic-gpu";
 import type { CSSProperties, PointerEvent } from "react";
 type RepeatMode = "single" | "line" | "grid";
 type SamplingMode = "xy" | "x" | "y";
-type Shape = "sine" | "triangle" | "square" | "noise";
-type Wave = { on: boolean; shape: Shape; rate: number; amp: number; speed: number; direction: number; phase: number };
+
 const specs = [
   ["step", "Step · % em", 1, 20, .1, "sampling"], ["jitter", "Jitter", 0, 35, .1, "sampling"],
   ["positionX", "Position X · %", -100, 100, .1, "grid"], ["positionY", "Position Y · %", -100, 100, .1, "grid"],
@@ -56,18 +57,9 @@ function Knob({ name, min, max, step, value, onChange }: { name: string; min: nu
     <input className="kp-knob-number" aria-label={`${name} exact value`} type="number" min={min} max={max} step={step} value={value} onChange={e => { if (e.target.value !== "") update(Number(e.target.value)); }} />
   </div>;
 }
-export function waveValue(shape: Shape, phase: number, seed = 0) {
-  const p = phase - Math.floor(phase);
-  if (shape === "sine") return Math.sin(phase * Math.PI * 2);
-  if (shape === "triangle") return 1 - 4 * Math.abs(p - .5);
-  if (shape === "square") return p < .5 ? 1 : -1;
-  const hash = (n: number) => { const v = Math.sin(n * 127.1 + seed * 311.7) * 43758.5453; return (v - Math.floor(v)) * 2 - 1; };
-  const f = p * p * (3 - 2 * p);
-  return hash(Math.floor(phase)) * (1 - f) + hash(Math.floor(phase) + 1) * f;
-}
 const dreamWaves: Wave[] = [{ on: true, shape: "sine", rate: .57, amp: .59, speed: .07, direction: 0, phase: .49 }, { on: true, shape: "triangle", rate: 2.79, amp: .5, speed: .12, direction: .5, phase: .25 }, { on: true, shape: "triangle", rate: .35, amp: 1, speed: .65, direction: 1, phase: 0 }];
 const dreamPatches: Patch[] = [{ id: "dream-vertex", wave: 2, target: "vertexSize", amount: 100 }, { id: "dream-type", wave: 1, target: "fontSize", amount: 50 }, { id: "dream-step", wave: 0, target: "step", amount: 15 }];
-type SynthState = { waves: Wave[]; values: typeof initial; manual: typeof initialManual; modes: { sampling: boolean; grid: boolean; vertex: boolean; feedback: boolean }; patches: Patch[]; text: string; font: string; vertex: string; repeatMode: RepeatMode; samplingMode: SamplingMode; glyphPattern: string; paused: boolean; bg: string; ink: string; bicolour: boolean; ink2: string; feedbackBlend: GlobalCompositeOperation; videoPatches: VideoPatch[] };
+type SynthState = { bpm: number; waves: Wave[]; values: typeof initial; manual: typeof initialManual; modes: { sampling: boolean; grid: boolean; vertex: boolean; feedback: boolean }; patches: Patch[]; text: string; font: string; vertex: string; repeatMode: RepeatMode; samplingMode: SamplingMode; glyphPattern: string; paused: boolean; bg: string; ink: string; bicolour: boolean; ink2: string; feedbackBlend: GlobalCompositeOperation; videoPatches: VideoPatch[] };
 export function parsePreset(value: unknown): SynthState {
   const object = (v: unknown): Record<string, unknown> => { if (!v || typeof v !== "object" || Array.isArray(v)) throw new Error("Invalid preset structure."); return v as Record<string, unknown>; };
   const num = (v: unknown, min: number, max: number): number => { if (typeof v !== "number" || !Number.isFinite(v) || v < min || v > max) throw new Error("A preset value is outside its allowed range."); return v; };
@@ -87,8 +79,8 @@ export function parsePreset(value: unknown): SynthState {
   const values = { ...initial }, manual = { ...initialManual };
   for (const [key, , min, max] of specs) values[key] = num(v[key], min, max);
   for (const [key, , min, max] of manualSpecs) manual[key] = num(m[key], min, max);
-  const shapes = ["sine", "triangle", "square", "noise"] as const;
-  const waves = array(s.waves, 3).map(item => { const w = object(item); return { on: bool(w.on), shape: choice(w.shape, shapes), rate: num(w.rate, .1, 6), amp: num(w.amp, 0, 1), speed: num(w.speed, 0, 3), direction: num(w.direction, 0, 1), phase: num(w.phase, 0, 1) }; });
+  const shapes = ["sine", "triangle", "square", "noise", "ramp"] as const;
+  const waves = array(s.waves, 3).map(item => { const w = object(item); return { on: bool(w.on), shape: choice(w.shape, shapes), rate: num(w.rate, .1, 6), amp: num(w.amp, 0, 1), speed: num(w.speed, 0, 3), direction: num(w.direction, 0, 1), phase: num(w.phase, 0, 1), timing: w.timing === undefined ? "free" as const : choice(w.timing, ["free", "sync"] as const), division: w.division === undefined ? "1/4" as const : choice(w.division === "4/4" ? "1" : w.division, waveDivisions) }; });
   if (waves.length !== 3) throw new Error("The preset must contain three waves.");
   const patches = array(s.patches, 100).map((item, i) => { const p = object(item); const wave = num(p.wave, 0, 6); if (!Number.isInteger(wave)) throw new Error("Invalid modulation source."); return { id: `import-${i}`, wave, target: choice(p.target, specs.map(spec => spec[0])), amount: num(p.amount, -100, 100) }; });
   if (new Set(patches.map(p => `${p.wave}-${p.target}`)).size !== patches.length) throw new Error("Duplicate modulation cable.");
@@ -96,7 +88,7 @@ export function parsePreset(value: unknown): SynthState {
   if (new Set(videoPatches.map(p => p.target)).size !== videoPatches.length) throw new Error("Each video input accepts one cable.");
   const colour = (v: unknown) => { if (typeof v !== "string" || !/^#[0-9a-f]{6}$/i.test(v)) throw new Error("Invalid preset colour."); return v; };
   if (typeof s.text !== "string" || s.text.length > 10000) throw new Error("Preset text is too long.");
-  return { waves, values, manual, modes: { sampling: bool(modes.sampling), grid: bool(modes.grid), vertex: bool(modes.vertex), feedback: bool(modes.feedback) }, patches, videoPatches, text: s.text,
+  return { bpm: s.bpm === undefined ? 120 : num(s.bpm, 20, 300), waves, values, manual, modes: { sampling: bool(modes.sampling), grid: bool(modes.grid), vertex: bool(modes.vertex), feedback: bool(modes.feedback) }, patches, videoPatches, text: s.text,
     font: choice(s.font, ["system-ui, sans-serif", "ui-serif, Georgia, serif", "ui-monospace, monospace"]), vertex: choice(s.vertex, ["dot", "line", "square", "glyph"]), repeatMode: choice(s.repeatMode, ["single", "line", "grid"]), samplingMode: choice(s.samplingMode, ["xy", "x", "y"]), glyphPattern: typeof s.glyphPattern === "string" && s.glyphPattern.length > 0 && s.glyphPattern.length <= 64 ? s.glyphPattern : "*+o", paused: bool(s.paused), bg: colour(s.bg), ink: colour(s.ink), ink2: colour(s.ink2), bicolour: bool(s.bicolour), feedbackBlend: choice(s.feedbackBlend, blendModes) };
 }
 export default function KineticPatchSynth() {
@@ -128,6 +120,9 @@ export default function KineticPatchSynth() {
   const nativeSize = outputDimensions(previewSize.width, previewSize.height, canvasFormat, outputResolution, customWidth, customHeight);
   const [presetMessage, setPresetMessage] = useState("");
   const [waves, setWaves] = useState<Wave[]>(dreamWaves);
+  const [bpm, setBpm] = useState(120);
+  const [bpmDraft, setBpmDraft] = useState("120");
+  useEffect(() => setBpmDraft(String(bpm)), [bpm]);
   const [feedbackBlend, setFeedbackBlend] = useState<GlobalCompositeOperation>("source-over");
   const [repeatMode, setRepeatMode] = useState<RepeatMode>("single");
   const [samplingMode, setSamplingMode] = useState<SamplingMode>("xy");
@@ -153,11 +148,11 @@ export default function KineticPatchSynth() {
   const dragMoved = useRef(false);
   const dragRef = useRef<(XY & { wave: number }) | null>(null);
   const sockets = useRef<Record<string, HTMLButtonElement | null>>({});
-  const live = useRef({ waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches });
+  const live = useRef({ bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches });
   const renderSnapshot = useRef<{ state: typeof live.current; width: number; height: number; displayWidth: number } | null>(null);
-  useEffect(() => { live.current = { waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches }; }, [waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches]);
+  useEffect(() => { live.current = { bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches }; }, [bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches]);
   const undoStack = useRef<(typeof live.current)[]>([]);
-  const lastEdit = useRef({ snapshot: { waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches }, time: 0, key: "" });
+  const lastEdit = useRef({ snapshot: { bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches }, time: 0, key: "" });
   const restoring = useRef(false);
   const [canUndo, setCanUndo] = useState(false);
   useEffect(() => {
@@ -171,11 +166,11 @@ export default function KineticPatchSynth() {
     const merge = key === lastEdit.current.key && now - lastEdit.current.time < 400 && topology(next) === topology(prior);
     if (!merge) { undoStack.current.push(prior); if (undoStack.current.length > 100) undoStack.current.shift(); }
     lastEdit.current = { snapshot: next, time: now, key }; setCanUndo(undoStack.current.length > 0);
-  }, [waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches]);
+  }, [bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches]);
   const undo = useCallback(() => {
     const state = undoStack.current.pop(); if (!state) return;
     restoring.current = true;
-    setWaves(state.waves); setValues(state.values); setManual(state.manual); setModes(state.modes); setPatches(state.patches); setVideoPatches(state.videoPatches);
+    setBpm(state.bpm); setWaves(state.waves); setValues(state.values); setManual(state.manual); setModes(state.modes); setPatches(state.patches); setVideoPatches(state.videoPatches);
     setText(state.text); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend);
     setSelected(null); setSelectedVideo(null); setDrag(null); setVideoDrag(null); dragRef.current = null; videoDragRef.current = null;
     setCanUndo(undoStack.current.length > 0);
@@ -224,7 +219,7 @@ export default function KineticPatchSynth() {
       lastFrame = now;
       if (gpu && !gpu.available()) { gpu.dispose(); gpu = null; }
       const s = renderSnapshot.current?.state || live.current, dt = previous ? Math.min(.05, (now - previous) / 1000) : 0; previous = now;
-      if (!s.paused) { s.waves.forEach((w, i) => { if (w.on) phases[i] += dt * w.speed; }); }
+      if (!s.paused) { s.waves.forEach((w, i) => { if (w.on) phases[i] += dt * waveHz(w, s.bpm); }); }
       const el = canvas.current, ctx = el?.getContext("2d");
       if (el && ctx) {
         el.dataset.renderer = gpu ? "webgl2" : "canvas2d";
@@ -242,7 +237,7 @@ export default function KineticPatchSynth() {
           gpu?.begin(W, H, "disconnected", false);
           if (!manualFrame) raf = requestAnimationFrame(frame); return;
         }
-        const field = (i: number, x: number, y: number) => { if (i === 3) return s.modes.feedback ? feedbackSignal : 0; if (i >= 4) return s.modes[(["sampling", "grid", "vertex"] as const)[i - 4]] ? moduleSignals[i - 4] : 0; const w = s.waves[i]; return w.on ? waveValue(w.shape, phases[i] + w.phase + (x * (1 - w.direction) + y * w.direction) * w.rate, i + 1) * w.amp : 0; };
+        const field = (i: number, x: number, y: number) => { if (i === 3) return s.modes.feedback ? feedbackSignal : 0; if (i >= 4) return s.modes[(["sampling", "grid", "vertex"] as const)[i - 4]] ? moduleSignals[i - 4] : 0; return sampleWave(s.waves, phases, i, x, y); };
         const signals = [...s.waves.map((_, i) => field(i, .5, .5)), s.modes.feedback ? feedbackSignal : 0, ...moduleSignals], mod = { ...s.values };
         const patchIndex = indexModulation(modulationTargets, s.patches);
         const at = (target: Target, x: number, y: number, glyph?: Glyph) => {
@@ -365,7 +360,7 @@ export default function KineticPatchSynth() {
               const columns = Math.round(s.manual.repeatColumns), rows = Math.round(s.manual.repeatRows);
               for (let y = 0; y < rows; y++) for (let x = 0; x < columns; x++) { const dx = (x - (columns - 1) / 2) * mod.repeatSpacingX / 100 * W, dy = (y - (rows - 1) / 2) * mod.repeatSpacingY / 100 * H; drawCopy(dx * Math.cos(angle) - dy * Math.sin(angle), dx * Math.sin(angle) + dy * Math.cos(angle)); }
             }
-            out = renderer.repeat(input, placements, node);
+            out = renderer.repeat(input, placements, node, s.repeatMode === "single" ? angle : 0);
           } else {
             const glyphGPU = node === "vertex" && s.vertex === "glyph";
             const points: GPUStamp[] = [];
@@ -418,7 +413,7 @@ export default function KineticPatchSynth() {
             const scale = mod.repeatScale / 100, angle = mod.repeatAngle * Math.PI / 180;
             const cx = W / 2 + mod.positionX / 100 * W, cy = H / 2 + mod.positionY / 100 * H;
             
-            const drawCopy = (dx: number, dy: number) => { oc.save(); oc.translate(cx + dx, cy + dy); oc.scale(scale, scale); oc.drawImage(input, -W / 2, -H / 2); oc.restore(); };
+            const drawCopy = (dx: number, dy: number) => { oc.save(); oc.translate(cx + dx, cy + dy); if (s.repeatMode === "single") oc.rotate(angle); oc.scale(scale, scale); oc.drawImage(input, -W / 2, -H / 2); oc.restore(); };
             if (s.repeatMode === "single") drawCopy(0, 0);
             else if (s.repeatMode === "line") {
               const count = Math.round(s.manual.repeatCount), spacing = mod.repeatSpacingX / 100 * W;
@@ -535,7 +530,7 @@ export default function KineticPatchSynth() {
     const a = document.createElement("a"); a.href = url; a.download = `k-tic-synth-${text.trim().slice(0, 32).replace(/[^a-z0-9_-]/gi, "-") || "preset"}.json`; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); setPresetMessage("Preset exported.");
   };
   const applyPreset = (state: SynthState) => {
-      setWaves(state.waves); setValues(state.values); setManual(state.manual); setModes(state.modes); setPatches(state.patches); setVideoPatches(state.videoPatches);
+      setBpm(state.bpm); setWaves(state.waves); setValues(state.values); setManual(state.manual); setModes(state.modes); setPatches(state.patches); setVideoPatches(state.videoPatches);
       setText(state.text); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend);
       setSelected(null); setSelectedVideo(null); setDrag(null); setVideoDrag(null); dragRef.current = null; videoDragRef.current = null;
   };
@@ -547,7 +542,7 @@ export default function KineticPatchSynth() {
       setPresetMessage("Preset imported. Undo restores your previous settings.");
     } catch (error) { setPresetMessage(error instanceof Error ? error.message : "Could not import this preset."); }
   };
-  const loadDream = () => { setWaves(dreamWaves); setValues(initial); setManual(initialManual); setModes({ sampling: false, grid: false, vertex: true, feedback: false }); setPatches(dreamPatches); setVideoPatches(videoDefaults); setSelectedVideo(null); setText("dream"); setFont("system-ui, sans-serif"); setVertex("dot"); setRepeatMode("single"); setSamplingMode("xy"); setGlyphPattern("*+o"); setBg("#000000"); setInk("#000000"); setInk2("#ffffff"); setBicolour(true); setFeedbackBlend("source-over"); setPaused(false); setSelected(null); };
+  const loadDream = () => { setBpm(120); setWaves(dreamWaves); setValues(initial); setManual(initialManual); setModes({ sampling: false, grid: false, vertex: true, feedback: false }); setPatches(dreamPatches); setVideoPatches(videoDefaults); setSelectedVideo(null); setText("dream"); setFont("system-ui, sans-serif"); setVertex("dot"); setRepeatMode("single"); setSamplingMode("xy"); setGlyphPattern("*+o"); setBg("#000000"); setInk("#000000"); setInk2("#ffffff"); setBicolour(true); setFeedbackBlend("source-over"); setPaused(false); setSelected(null); };
   const changeWave = (i: number, change: Partial<Wave>) => setWaves(all => all.map((w, n) => n === i ? { ...w, ...change } : w));
   const connect = (wave: number, target: Target) => { setPatches(all => all.some(p => p.wave === wave && p.target === target) ? all : [...all, { id: `${wave}-${target}`, wave, target, amount: 50 }]); setSelected(null); setDrag(null); };
   const connectVideo = (source: VideoSource, target: VideoTarget) => { setVideoPatches(all => [...all.filter(p => p.target !== target), { source, target }]); setSelectedVideo(null); setVideoDrag(null); };
@@ -582,11 +577,13 @@ export default function KineticPatchSynth() {
     <div className="kp-controls"><div ref={panel} className="kp-rack" onPointerMove={e => { if (videoDrag && panel.current) { const r = panel.current.getBoundingClientRect(); if (Math.hypot(e.clientX - r.left - videoDrag.x, e.clientY - r.top - videoDrag.y) > 3) dragMoved.current = true; setVideoDrag({ ...videoDrag, x: e.clientX - r.left, y: e.clientY - r.top }); } if (drag && panel.current) { const r = panel.current.getBoundingClientRect(); if (Math.hypot(e.clientX - r.left - drag.x, e.clientY - r.top - drag.y) > 3) dragMoved.current = true; setDrag({ ...drag, x: e.clientX - r.left, y: e.clientY - r.top }); } }} onPointerUp={finishDrag} onPointerCancel={() => { dragRef.current = null; videoDragRef.current = null; setVideoDrag(null); setDrag(null); }}>
       <svg className="kp-cables" aria-hidden="true">{videoPatches.map(p => { const a = positions[`video-out-${p.source}`], b = positions[`video-in-${p.target}`]; return a && b ? <path key={`video-${p.target}`} className="kp-video-cable kp-removable-cable" onClick={e => { e.stopPropagation(); setVideoPatches(all => all.filter(item => item.target !== p.target)); }} d={cable(a, b)} stroke="#83d8b4" /> : null; })}{videoDrag && positions[`video-out-${videoDrag.source}`] && <path d={cable(positions[`video-out-${videoDrag.source}`], videoDrag)} stroke="#83d8b4" strokeDasharray="4 4" />}{patches.map(p => { const a = positions[`wave${p.wave}`], b = positions[p.target]; return a && b ? <path key={p.id} className="kp-removable-cable" onClick={e => { e.stopPropagation(); setPatches(all => all.filter(item => item.id !== p.id)); }} d={cable(a, b)} stroke={colors[p.wave]} /> : null; })}{drag && positions[`wave${drag.wave}`] && <path d={cable(positions[`wave${drag.wave}`], drag)} stroke={colors[drag.wave]} strokeDasharray="4 4" />}</svg>
       <section className="kp-waves"><div className="kp-title">01 / WAVE MODULATORS</div>
+        <div className="kp-wave-clock"><label>BPM <input aria-label="Wave tempo BPM" type="number" min={20} max={300} value={bpmDraft} onChange={e => setBpmDraft(e.target.value)} onBlur={() => { const next = Number(bpmDraft); if (bpmDraft.trim() && Number.isFinite(next)) { const tempo = clamp(next, 20, 300); setBpm(tempo); setBpmDraft(String(tempo)); } else setBpmDraft(String(bpm)); }} onKeyDown={e => { if (e.key === "Enter") e.currentTarget.blur(); }} /></label></div>
         {waves.map((w, i) => <div key={i} className="kp-wave" style={{ "--wave": colors[i] } as CSSProperties}><div className="kp-wavehead"><b>WAVE {i + 1}</b><button aria-pressed={w.on} onClick={() => changeWave(i, { on: !w.on })}>{w.on ? "ON" : "OFF"}</button><button className={`kp-socket ${selected === i ? "selected" : ""}`} data-mod-source={i} title="Drag to connect · right-click to unplug" aria-label={`Patch output wave ${i + 1}`} ref={el => { sockets.current[`wave${i}`] = el; }} onClick={() => { if (!dragMoved.current) { setSelectedVideo(null); setSelected(selected === i ? null : i); } }} onPointerDown={e => { if (e.button !== 0) return; dragMoved.current = false; e.currentTarget.setPointerCapture(e.pointerId); const r = panel.current!.getBoundingClientRect(); dragRef.current = { wave: i, x: e.clientX - r.left, y: e.clientY - r.top }; setDrag(dragRef.current); }} /></div>
-          <select className="kp-wave-shape" aria-label={`Wave ${i + 1} shape`} value={w.shape} onChange={e => changeWave(i, { shape: e.target.value as Shape })}>{(["sine", "triangle", "square", "noise"] as Shape[]).map(shape => <option key={shape} value={shape}>{shape.toUpperCase()}</option>)}</select>
+          <select className="kp-wave-shape" aria-label={`Wave ${i + 1} shape`} value={w.shape} onChange={e => changeWave(i, { shape: e.target.value as Shape })}>{(["sine", "triangle", "square", "noise", "ramp"] as Shape[]).map(shape => <option key={shape} value={shape}>{shape.toUpperCase()}</option>)}</select>{w.shape === "ramp" && <small className="kp-ramp-help">Full turn: AMP 1 · Angle cable 100% · Angle 0°</small>}
+          <div className="kp-wave-timing"><button aria-label={`Wave ${i + 1} timing mode`} onClick={() => changeWave(i, { timing: w.timing === "sync" ? "free" : "sync" })}>{w.timing === "sync" ? "SYNC" : "FREE"}</button>{w.timing === "sync" && <select aria-label={`Wave ${i + 1} division`} value={w.division || "1/4"} onChange={e => changeWave(i, { division: e.target.value as WaveDivision })}>{waveDivisions.map(division => <option key={division}>{division}</option>)}</select>}</div>
           <div className="kp-wavecontrols">{([
             ["rate", "FREQ", .1, 6, .01], ["amp", "AMP", 0, 1, .01], ["speed", "SPEED · Hz", 0, 3, .01], ["direction", "DIR · X/Y", 0, 1, .01], ["phase", "PHASE", 0, 1, .01],
-          ] as const).map(([key, label, min, max, step]) => <div className="kp-knob-control" key={key}><span>{label}</span><Knob name={`Wave ${i + 1} ${key}`} min={min} max={max} step={step} value={w[key]} onChange={next => changeWave(i, { [key]: next })} /></div>)}</div>
+          ] as const).filter(([key]) => !(key === "speed" && w.timing === "sync")).map(([key, label, min, max, step]) => <div className="kp-knob-control" key={key}><span>{label}</span><Knob name={`Wave ${i + 1} ${key}`} min={min} max={max} step={step} value={w[key]} onChange={next => changeWave(i, { [key]: next })} /></div>)}</div>
         </div>)}
         <section className="kp-module kp-feedback-module">{videoPorts("feedback")}<div className="kp-modulehead"><h2>FEEDBACK</h2><button aria-label="Enable feedback" aria-pressed={modes.feedback} onClick={() => setModes(m => ({ ...m, feedback: !m.feedback }))}>{modes.feedback ? "ON" : "OFF"}</button></div>
           <div className="kp-feedback-output"><span>MOD OUT</span>{outputSocket(3)}</div>
@@ -600,7 +597,7 @@ export default function KineticPatchSynth() {
         {group === "sampling" && <select aria-label="Sampling axes" value={samplingMode} onChange={e => setSamplingMode(e.target.value as SamplingMode)}><option value="xy">X + Y</option><option value="x">X ONLY</option><option value="y">Y ONLY</option></select>}
         {group === "vertex" && <select aria-label="Vertex shape" value={vertex} onChange={e => setVertex(e.target.value)}><option value="line">LINE</option><option value="dot">DOT</option><option value="square">SQUARE</option><option value="glyph">GLYPH</option></select>}{group === "typography" && <select aria-label="System font" value={font} onChange={e => setFont(e.target.value)}><option value="system-ui, sans-serif">SYSTEM SANS</option><option value="ui-serif, Georgia, serif">SYSTEM SERIF</option><option value="ui-monospace, monospace">SYSTEM MONO</option></select>}
         {group === "vertex" && vertex === "glyph" && <label className="kp-glyph-input">GLYPHS<input aria-label="Vertex glyph characters" value={glyphPattern} maxLength={64} onChange={e => setGlyphPattern(e.target.value)} onBlur={() => { if (!glyphPattern.trim()) setGlyphPattern("*"); }} /></label>}
-        {specs.filter(c => c[5] === group && (group !== "grid" || (repeatMode !== "single" || !["repeatSpacingX", "repeatSpacingY", "repeatAngle"].includes(c[0]))) && (repeatMode !== "line" || c[0] !== "repeatSpacingY")).map(([key, label, min, max, step]) => <div className="kp-control" data-target={key} key={key}><button ref={el => { sockets.current[key] = el; }} data-target={key} className={`kp-socket ${patches.some(p => p.target === key) ? "patched" : ""}`} aria-label={`Patch input ${group} ${label}`} onClick={() => { if (selected !== null) connect(selected, key); else setPatches(all => all.filter(p => p.target !== key)); }} /><div className="kp-knob-control"><span>{label}</span><Knob name={`${group} ${label}`} min={min} max={max} step={step} value={values[key]} onChange={next => setValues(v => ({ ...v, [key]: next }))} /></div></div>)}
+        {specs.filter(c => c[5] === group && (group !== "grid" || (repeatMode !== "single" || !["repeatSpacingX", "repeatSpacingY"].includes(c[0]))) && (repeatMode !== "line" || c[0] !== "repeatSpacingY")).map(([key, label, min, max, step]) => <div className="kp-control" data-target={key} key={key}><button ref={el => { sockets.current[key] = el; }} data-target={key} className={`kp-socket ${patches.some(p => p.target === key) ? "patched" : ""}`} aria-label={`Patch input ${group} ${label}`} onClick={() => { if (selected !== null) connect(selected, key); else setPatches(all => all.filter(p => p.target !== key)); }} /><div className="kp-knob-control"><span>{label}</span><Knob name={`${group} ${label}`} min={min} max={max} step={step} value={values[key]} onChange={next => setValues(v => ({ ...v, [key]: next }))} /></div></div>)}
         <div className="kp-manual">{manualSpecs.filter(c => c[5] === group && (group !== "grid" || (repeatMode === "line" ? c[0] === "repeatCount" : repeatMode === "grid" ? c[0] !== "repeatCount" : false)) && (group !== "vertex" || vertex === "line")).map(([key, label, min, max, step]) => <div className="kp-knob-control" key={key}><span>{label}</span><Knob name={`${group} ${label}`} min={min} max={max} step={step} value={manual[key]} onChange={next => setManual(v => ({ ...v, [key]: next }))} /></div>)}</div>
       </section>)}<section className="kp-module"><div className="kp-modulehead"><h2>CANVAS</h2></div>{videoPorts("canvas")}<button onClick={() => setVideoPatches(videoDefaults)}>DEFAULT ROUTE</button></section></div></section>
 
