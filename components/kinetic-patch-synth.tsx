@@ -317,8 +317,8 @@ export default function KineticPatchSynth() {
             }
             if (gpu) { const image = gpu.repeat(input, placements); if (image) oc.drawImage(image, 0, 0); }
           } else {
-            const useGPU = gpu && !(node === "vertex" && s.vertex === "glyph");
-            const pixels = useGPU ? null : input.getContext("2d", { willReadFrequently: true })!.getImageData(0, 0, input.width, input.height).data;
+            const useGPU = !!gpu, glyphGPU = useGPU && node === "vertex" && s.vertex === "glyph";
+            const pixels = useGPU && !glyphGPU ? null : input.getContext("2d", { willReadFrequently: true })!.getImageData(0, 0, input.width, input.height).data;
             const points: GPUStamp[] = [];
             // Glyph-relative sampling also applies to pixels received from other modules.
             const em = glyphs[0]?.em || size, step = Math.max(1, Math.round(mod.step / 100 * em));
@@ -339,9 +339,9 @@ export default function KineticPatchSynth() {
               if (pixels && alpha < s.manual.threshold) continue;
               const g = glyphs.find(g => x >= g.x && x < g.x + g.width && y >= g.y && y < g.y + g.height);
               const j = node === "sampling" ? at("jitter", x, y, g) : 0, px = x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j), py = y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j);
-              if (pixels) oc.fillStyle = oc.strokeStyle = `rgba(${pixels[offset]},${pixels[offset + 1]},${pixels[offset + 2]},${alpha})`;
+              if (pixels && !useGPU) oc.fillStyle = oc.strokeStyle = `rgba(${pixels[offset]},${pixels[offset + 1]},${pixels[offset + 2]},${alpha})`;
               const r = node === "vertex" ? at("vertexSize", x, y, g) * canvasUnit : 2.6;
-              if (useGPU) { points.push({ x, y, px, py, size: Math.max(1, r) }); continue; }
+              if (useGPU) { points.push({ x, y, px, py, size: Math.max(1, r), glyph: glyphGPU ? glyphIndex++ % characters.length : 0 }); continue; }
               oc.beginPath();
               if (xOnly || yOnly) oc.fillRect(px, py, 1, 1);
               else if (node === "vertex" && s.vertex === "glyph") { oc.font = `${Math.round(mod.weight)} ${Math.max(1, r)}px ${s.font}`; oc.textAlign = "center"; oc.textBaseline = "middle"; oc.fillText(characters[glyphIndex++ % characters.length], px, py); }
@@ -350,7 +350,7 @@ export default function KineticPatchSynth() {
               else { oc.arc(px, py, Math.max(.5, r / 2), 0, Math.PI * 2); oc.fill(); }
             }
             if (useGPU) {
-              const image = gpu?.render(input, points, xOnly || yOnly ? 3 : node === "vertex" && s.vertex === "square" ? 1 : node === "vertex" && s.vertex === "line" ? 2 : 0, s.manual.threshold, 1, s.manual.lineLength);
+              const image = gpu?.render(input, points, glyphGPU ? 4 : xOnly || yOnly ? 3 : node === "vertex" && s.vertex === "square" ? 1 : node === "vertex" && s.vertex === "line" ? 2 : 0, s.manual.threshold, 1, s.manual.lineLength, glyphGPU ? { pattern: s.glyphPattern, font: s.font, weight: Math.round(mod.weight) } : undefined);
               if (image) oc.drawImage(image, 0, 0);
             }
             oc.globalAlpha = 1;
