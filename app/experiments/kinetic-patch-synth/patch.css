@@ -30,3 +30,5 @@
 .kp-feedback-output{display:flex;align-items:center;justify-content:space-between;width:100%;font-size:8px;letter-spacing:.04em;padding:4px 0}.kp-feedback-output .kp-socket{border-color:#a4b2ff}
 
 .kp-feedback-module{border-top:1px solid #666;padding-top:10px;margin-top:12px;gap:8px}.kp-feedback-module .kp-modulehead{flex-wrap:wrap;gap:4px}.kp-feedback-module>.kp-control{flex-basis:100%;min-width:0}.kp-feedback-module h2{font-size:9px}.kp-feedback-module select{width:100%;min-width:0;font-size:8px}
+
+.kp-video-ports{display:flex;flex-wrap:wrap;gap:6px;width:100%;padding:4px 0}.kp-video-ports label{display:flex;align-items:center;gap:4px;font-size:7px;color:#83d8b4}.kp .kp-video-socket{border-color:#83d8b4;border-radius:3px}.kp-video-patch{display:flex;align-items:center;justify-content:space-between;gap:8px;border-left:2px solid #83d8b4;padding:6px;background:#292c29;margin-top:4px}.kp-video-patch b{font-size:8px;font-weight:400}.kp-video-patch button{font-size:12px}.kp-video-cable{stroke-dasharray:6 3}
