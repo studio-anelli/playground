@@ -10,6 +10,7 @@ const specs = [
   ["gridMix", "Mix", 0, 1, .01, "grid"], ["legibility", "Legibility", 0, 1, .01, "grid"],
   ["vertexSize", "Size · % canvas", .1, 3, .01, "vertex"], ["vertexMix", "Mix", 0, 1, .01, "vertex"],
   ["fontSize", "Size · % canvas", 5, 75, .5, "typography"], ["weight", "Weight", 100, 900, 10, "typography"],
+  ["feedbackAmount", "Input / amount", 0, .98, .01, "feedback"], ["feedbackRefresh", "Refresh · ms", 16, 2000, 1, "feedback"],
 ] as const;
 type Target = typeof specs[number][0];
 type Patch = { id: string; wave: number; target: Target; amount: number };
@@ -22,9 +23,9 @@ const manualSpecs = [
   ["lineLength", "Line length", 1, 80, 1, "vertex"], ["tracking", "Tracking · % em", -10, 30, .1, "typography"],
 ] as const;
 const initialManual = { threshold: .42, opacity: 1, hideOriginal: 0, stretch: 0, axis: .5, lineLength: 6, tracking: 16.7 };
-const initial: Record<Target, number> = { step: 3.2, jitter: 0, gridSize: 24, strength: 13, gridMix: .7, legibility: .3, vertexSize: 1.4, vertexMix: .5, fontSize: 20, weight: 800 };
-const colors = ["#3478f6", "#f2c438", "#ed514b"];
-const groups = { sampling: "SAMPLING", grid: "GRID DISTORTION", vertex: "SHAPE / VERTEX", typography: "TYPOGRAPHY" };
+const initial: Record<Target, number> = { step: 3.2, jitter: 0, gridSize: 24, strength: 13, gridMix: .7, legibility: .3, vertexSize: 1.4, vertexMix: .5, fontSize: 20, weight: 800, feedbackAmount: .65, feedbackRefresh: 120 };
+const colors = ["#3478f6", "#f2c438", "#ed514b", "#a4b2ff"];
+const groups = { sampling: "SAMPLING", grid: "GRID DISTORTION", vertex: "SHAPE / VERTEX", typography: "TYPOGRAPHY", feedback: "FEEDBACK" };
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
 function Knob({ name, min, max, step, value, onChange }: { name: string; min: number; max: number; step: number; value: number; onChange: (value: number) => void }) {
   const gesture = useRef<{ y: number; value: number } | null>(null);
@@ -54,7 +55,7 @@ export default function KineticPatchSynth() {
   const [gridShape, setGridShape] = useState<Shape>("sine");
   const [values, setValues] = useState(initial);
   const [manual, setManual] = useState(initialManual);
-  const [modes, setModes] = useState({ sampling: false, grid: false, vertex: true });
+  const [modes, setModes] = useState({ sampling: false, grid: false, vertex: true, feedback: false });
   const [patches, setPatches] = useState<Patch[]>(dreamPatches);
   const [text, setText] = useState("dream"), [font, setFont] = useState("system-ui, sans-serif"), [vertex, setVertex] = useState("dot");
   const [selected, setSelected] = useState<number | null>(null), [drag, setDrag] = useState<(XY & { wave: number }) | null>(null);
@@ -79,11 +80,14 @@ export default function KineticPatchSynth() {
       setPositions(next);
     };
     const observer = new ResizeObserver(measure); if (panel.current) observer.observe(panel.current);
+    const rack = panel.current; rack?.addEventListener("scroll", measure, true);
     measure(); window.addEventListener("resize", measure);
-    return () => { observer.disconnect(); window.removeEventListener("resize", measure); };
+    return () => { observer.disconnect(); rack?.removeEventListener("scroll", measure, true); window.removeEventListener("resize", measure); };
   }, []);
   useEffect(() => {
     let raf = 0, previous = 0, cacheKey = "", sampleKey = "", lastRebuild = -100;
+    let feedbackSignal = 0, feedbackTick = -Infinity;
+    const history = document.createElement("canvas"), historyCtx = history.getContext("2d")!;
     const phases = [0, .25, .5], source = document.createElement("canvas"), sctx = source.getContext("2d", { willReadFrequently: true })!;
     const heat = document.createElement("canvas"); heat.width = 64; heat.height = 64;
     const hctx = heat.getContext("2d")!;
@@ -97,8 +101,8 @@ export default function KineticPatchSynth() {
         const rect = el.getBoundingClientRect(), W = Math.max(64, Math.round(rect.width)), H = Math.max(64, Math.round(rect.height)), dpr = Math.min(2, window.devicePixelRatio || 1);
         if (el.width !== Math.round(W * dpr) || el.height !== Math.round(H * dpr)) { el.width = Math.round(W * dpr); el.height = Math.round(H * dpr); }
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        const field = (i: number, x: number, y: number) => { const w = s.waves[i]; return w.on ? waveValue(w.shape, phases[i] + w.phase + (x * (1 - w.direction) + y * w.direction) * w.rate, i + 1) * w.amp : 0; };
-        const signals = s.waves.map((_, i) => field(i, .5, .5)), mod = { ...s.values };
+        const field = (i: number, x: number, y: number) => { if (i === 3) return s.modes.feedback ? feedbackSignal : 0; const w = s.waves[i]; return w.on ? waveValue(w.shape, phases[i] + w.phase + (x * (1 - w.direction) + y * w.direction) * w.rate, i + 1) * w.amp : 0; };
+        const signals = [...s.waves.map((_, i) => field(i, .5, .5)), s.modes.feedback ? feedbackSignal : 0], mod = { ...s.values };
         const at = (target: Target, x: number, y: number, glyph?: Glyph) => {
           const spec = specs.find(c => c[0] === target)!;
           const sum = s.patches.filter(p => p.target === target).reduce((v, p) => v + field(p.wave, glyph ? (x - glyph.x) / glyph.em : x / W, glyph ? (y - glyph.y) / glyph.em : y / H) * p.amount / 100, 0);
@@ -107,6 +111,16 @@ export default function KineticPatchSynth() {
         for (const [key, , min, max] of specs) {
           const sum = s.patches.filter(p => p.target === key).reduce((v, p) => v + signals[p.wave] * p.amount / 100, 0);
           mod[key] = clamp(s.values[key] + sum * (max - min) / 2, min, max);
+        }
+        if (history.width !== el.width || history.height !== el.height) { history.width = el.width; history.height = el.height; feedbackSignal = 0; feedbackTick = -Infinity; }
+        if (!s.modes.feedback) { historyCtx.clearRect(0, 0, history.width, history.height); feedbackSignal = 0; feedbackTick = -Infinity; }
+        const feedbackDue = s.modes.feedback && !s.paused && now - feedbackTick >= mod.feedbackRefresh;
+        // The output holds the previous input sample; it cannot create an instantaneous self-loop.
+        if (feedbackDue) {
+          const inputs = s.patches.filter(p => p.target === "feedbackAmount");
+          const input = inputs.length ? inputs.reduce((sum, p) => sum + signals[p.wave] * p.amount / 100, 0) : signals.slice(0, 3).reduce((sum, v) => sum + v, 0) / 3;
+          feedbackSignal = clamp(input + feedbackSignal * mod.feedbackAmount, -1, 1);
+          feedbackTick = now;
         }
         const canvasUnit = Math.min(W, H) / 100;
         const size = Math.round(mod.fontSize * canvasUnit), weight = Math.round(mod.weight / 10) * 10;
@@ -212,6 +226,14 @@ export default function KineticPatchSynth() {
           ctx.globalCompositeOperation = "source-in";
           ctx.drawImage(heat, 0, 0, W, H);
         }
+        // History contains transparent artwork, so canvas colour never accumulates in the loop.
+        if (s.modes.feedback && mod.feedbackAmount > 0) {
+          ctx.globalCompositeOperation = "destination-over";
+          ctx.globalAlpha = mod.feedbackAmount;
+          ctx.drawImage(history, 0, 0, W, H);
+          ctx.globalAlpha = 1;
+        }
+        if (feedbackDue) { historyCtx.clearRect(0, 0, history.width, history.height); historyCtx.drawImage(el, 0, 0); }
         ctx.globalCompositeOperation = "destination-over";
         ctx.fillStyle = s.bg; ctx.fillRect(0, 0, W, H);
         ctx.globalCompositeOperation = "source-over";
@@ -220,7 +242,7 @@ export default function KineticPatchSynth() {
     };
     raf = requestAnimationFrame(frame); return () => cancelAnimationFrame(raf);
   }, []);
-  const loadDream = () => { setWaves(dreamWaves); setValues(initial); setManual(initialManual); setModes({ sampling: false, grid: false, vertex: true }); setPatches(dreamPatches); setText("dream"); setFont("system-ui, sans-serif"); setVertex("dot"); setGridShape("sine"); setBg("#000000"); setInk("#000000"); setInk2("#ffffff"); setBicolour(true); setPaused(false); setSelected(null); };
+  const loadDream = () => { setWaves(dreamWaves); setValues(initial); setManual(initialManual); setModes({ sampling: false, grid: false, vertex: true, feedback: false }); setPatches(dreamPatches); setText("dream"); setFont("system-ui, sans-serif"); setVertex("dot"); setGridShape("sine"); setBg("#000000"); setInk("#000000"); setInk2("#ffffff"); setBicolour(true); setPaused(false); setSelected(null); };
   const changeWave = (i: number, change: Partial<Wave>) => setWaves(all => all.map((w, n) => n === i ? { ...w, ...change } : w));
   const connect = (wave: number, target: Target) => { setPatches(all => all.some(p => p.wave === wave && p.target === target) ? all : [...all, { id: `${wave}-${target}`, wave, target, amount: 50 }]); setSelected(null); setDrag(null); };
   const finishDrag = (e: PointerEvent) => {
@@ -251,6 +273,7 @@ export default function KineticPatchSynth() {
         </div>)}
       </section>
       <section className="kp-modules"><div className="kp-title">02 / VISUAL OSCILLATORS</div><div className="kp-modulegrid">{(Object.keys(groups) as (keyof typeof groups)[]).map(group => <section className="kp-module" key={group}><div className="kp-modulehead"><h2>{groups[group]}</h2>{group !== "typography" && <button aria-pressed={modes[group]} onClick={() => setModes(m => ({ ...m, [group]: !m[group] }))}>{modes[group] ? "ON" : "OFF"}</button>}</div>
+        {group === "feedback" && <div className="kp-feedback-output"><span>OUTPUT</span><button className={`kp-socket ${selected === 3 ? "selected" : ""}`} aria-label="Patch output feedback" ref={el => { sockets.current.wave3 = el; }} onClick={() => { if (!dragMoved.current) setSelected(selected === 3 ? null : 3); }} onPointerDown={e => { dragMoved.current = false; e.currentTarget.setPointerCapture(e.pointerId); const r = panel.current!.getBoundingClientRect(); dragRef.current = { wave: 3, x: e.clientX - r.left, y: e.clientY - r.top }; setDrag(dragRef.current); }} /></div>}
         {group === "grid" && <select aria-label="Grid shape" value={gridShape} onChange={e => setGridShape(e.target.value as Shape)}>{(["sine", "triangle", "square", "noise"] as Shape[]).map(shape => <option key={shape} value={shape}>{shape.toUpperCase()}</option>)}</select>}
         {group === "vertex" && <select aria-label="Vertex shape" value={vertex} onChange={e => setVertex(e.target.value)}><option value="line">LINE</option><option value="dot">DOT</option><option value="square">SQUARE</option></select>}{group === "typography" && <select aria-label="System font" value={font} onChange={e => setFont(e.target.value)}><option value="system-ui, sans-serif">SYSTEM SANS</option><option value="ui-serif, Georgia, serif">SYSTEM SERIF</option><option value="ui-monospace, monospace">SYSTEM MONO</option></select>}
         {specs.filter(c => c[5] === group).map(([key, label, min, max, step]) => <div className="kp-control" data-target={key} key={key}><button ref={el => { sockets.current[key] = el; }} data-target={key} className={`kp-socket ${patches.some(p => p.target === key) ? "patched" : ""}`} aria-label={`Patch input ${group} ${label}`} onClick={() => { if (selected !== null) connect(selected, key); }} /><div className="kp-knob-control"><span>{label}</span><Knob name={`${group} ${label}`} min={min} max={max} step={step} value={values[key]} onChange={next => setValues(v => ({ ...v, [key]: next }))} /></div></div>)}
@@ -258,7 +281,7 @@ export default function KineticPatchSynth() {
       </section>)}</div></section>
 
     </div></div>
-      <section ref={bay} className={`kp-patches kp-floating ${bayCollapsed ? "is-collapsed" : ""}`} aria-label="Patch bay" style={bayPosition ? { left: bayPosition.x, top: bayPosition.y, bottom: "auto" } : undefined}><div className="kp-title kp-bay-handle" onPointerDown={e => { if ((e.target as HTMLElement).closest("button")) return; const r = bay.current!.getBoundingClientRect(); bayDrag.current = { x: e.clientX - r.left, y: e.clientY - r.top }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerMove={e => { if (!bayDrag.current || !bay.current) return; const r = bay.current.getBoundingClientRect(); setBayPosition({ x: clamp(e.clientX - bayDrag.current.x, 8, Math.max(8, window.innerWidth - r.width - 8)), y: clamp(e.clientY - bayDrag.current.y, 8, Math.max(8, window.innerHeight - r.height - 8)) }); }} onPointerUp={() => { bayDrag.current = null; }} onPointerCancel={() => { bayDrag.current = null; }}>03 / PATCH BAY <span><button aria-label={bayCollapsed ? "Expand patch bay" : "Collapse patch bay"} aria-expanded={!bayCollapsed} onClick={() => setBayCollapsed(v => !v)}>{bayCollapsed ? "+" : "−"}</button> <button onClick={() => { setPatches([]); setSelected(null); }}>CLEAR</button></span></div><div className="kp-bay-content" hidden={bayCollapsed}><p>{selected === null ? "Drag an output to an input. Or click both sockets." : `WAVE ${selected + 1} selected · choose an input`}</p>{patches.length === 0 && <p>No cables connected.</p>}{patches.map(p => { const c = specs.find(c => c[0] === p.target)!; return <div className="kp-patch" key={p.id} style={{ "--wave": colors[p.wave] } as CSSProperties}><b>W{p.wave + 1} → {c[5]} / {c[1]}</b><button aria-label={`Remove wave ${p.wave + 1} to ${c[5]} ${c[1]}`} onClick={() => setPatches(all => all.filter(item => item.id !== p.id))}>×</button><div className="kp-knob-control kp-amount"><span>AMOUNT · %</span><Knob name={`Amount wave ${p.wave + 1} to ${c[5]} ${c[1]}`} min={-100} max={100} step={1} value={p.amount} onChange={next => setPatches(all => all.map(item => item.id === p.id ? { ...item, amount: next } : item))} /></div></div>; })}</div></section>
+      <section ref={bay} className={`kp-patches kp-floating ${bayCollapsed ? "is-collapsed" : ""}`} aria-label="Patch bay" style={bayPosition ? { left: bayPosition.x, top: bayPosition.y, bottom: "auto" } : undefined}><div className="kp-title kp-bay-handle" onPointerDown={e => { if ((e.target as HTMLElement).closest("button")) return; const r = bay.current!.getBoundingClientRect(); bayDrag.current = { x: e.clientX - r.left, y: e.clientY - r.top }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerMove={e => { if (!bayDrag.current || !bay.current) return; const r = bay.current.getBoundingClientRect(); setBayPosition({ x: clamp(e.clientX - bayDrag.current.x, 8, Math.max(8, window.innerWidth - r.width - 8)), y: clamp(e.clientY - bayDrag.current.y, 8, Math.max(8, window.innerHeight - r.height - 8)) }); }} onPointerUp={() => { bayDrag.current = null; }} onPointerCancel={() => { bayDrag.current = null; }}>03 / PATCH BAY <span><button aria-label={bayCollapsed ? "Expand patch bay" : "Collapse patch bay"} aria-expanded={!bayCollapsed} onClick={() => setBayCollapsed(v => !v)}>{bayCollapsed ? "+" : "−"}</button> <button onClick={() => { setPatches([]); setSelected(null); }}>CLEAR</button></span></div><div className="kp-bay-content" hidden={bayCollapsed}><p>{selected === null ? "Drag an output to an input. Or click both sockets." : `${selected === 3 ? "FEEDBACK" : `WAVE ${selected + 1}`} selected · choose an input`}</p>{patches.length === 0 && <p>No cables connected.</p>}{patches.map(p => { const c = specs.find(c => c[0] === p.target)!; return <div className="kp-patch" key={p.id} style={{ "--wave": colors[p.wave] } as CSSProperties}><b>{p.wave === 3 ? "FB" : `W${p.wave + 1}`} → {c[5]} / {c[1]}</b><button aria-label={`Remove wave ${p.wave + 1} to ${c[5]} ${c[1]}`} onClick={() => setPatches(all => all.filter(item => item.id !== p.id))}>×</button><div className="kp-knob-control kp-amount"><span>AMOUNT · %</span><Knob name={`Amount wave ${p.wave + 1} to ${c[5]} ${c[1]}`} min={-100} max={100} step={1} value={p.amount} onChange={next => setPatches(all => all.map(item => item.id === p.id ? { ...item, amount: next } : item))} /></div></div>; })}</div></section>
     <footer className="kp-footer"><label>TEXT <textarea aria-label="Text" value={text} onChange={e => setText(e.target.value)} rows={1} /></label><label>BACKGROUND <input aria-label="Background color" type="color" value={bg} onChange={e => setBg(e.target.value)} /></label><button className="kp-bicolour" aria-pressed={bicolour} onClick={() => setBicolour(v => !v)}>BI-COLOUR</button>{bicolour && <label>INK 2 <input aria-label="Second ink color" type="color" value={ink2} onChange={e => setInk2(e.target.value)} /></label>}<label>INK <input aria-label="Ink color" type="color" value={ink} onChange={e => setInk(e.target.value)} /></label></footer>
   </main>;
 }
