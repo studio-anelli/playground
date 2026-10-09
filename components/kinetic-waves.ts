@@ -24,14 +24,3 @@ export function sampleWave(waves: readonly Wave[], phases: readonly number[], in
   const phase = phases[index] + wave.phase + (x * (1 - wave.direction) + y * wave.direction) * wave.rate;
   return waveValue(wave.shape, phase, index + 1) * wave.amp;
 }
-/** Angular destinations need the unwrapped phase; a partial ramp must not reset. */
-export function sampleAngleWave(waves: readonly Wave[], phases: readonly number[], index: number, x: number, y: number) {
-  const wave = waves[index];
-  if (!wave.on) return 0;
-  if (wave.shape !== "ramp") return sampleWave(waves, phases, index, x, y);
-  const phase = phases[index] + wave.phase + (x * (1 - wave.direction) + y * wave.direction) * wave.rate;
-  return (2 * phase - 1) * wave.amp;
-}
-export function wrapAngle(degrees: number) {
-  return ((degrees + 180) % 360 + 360) % 360 - 180;
-}
