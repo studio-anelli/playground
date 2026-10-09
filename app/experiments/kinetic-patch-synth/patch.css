@@ -59,3 +59,7 @@
 .kp-cables .kp-removable-cable:hover{stroke-width:2;opacity:1}
 
 .kp-preset-tools{flex-wrap:wrap}.kp-preset-tools select{font-size:8px;padding:3px 5px;max-width:110px}.kp-preset-tools [role=status]{flex:1 1 90px}
+
+.kp{grid-template-rows:minmax(0,1fr) 155px}.kp-stage{background:#151515}.kp-output-tools{display:flex;flex-wrap:wrap;align-items:center;gap:5px;flex:1 0 100%;min-width:0}.kp-output-tools select,.kp-output-tools button{font-size:8px;padding:3px 5px;min-width:0}.kp-output-tools input{width:52px;background:#101010;color:inherit;border:1px solid #777367;font:inherit;font-size:9px;padding:3px}.kp-output-tools button:disabled{opacity:.5}@media(max-width:800px){.kp{grid-template-rows:minmax(0,1fr) 180px}}
+
+.kp-stage.kp-native-view{overflow:auto}.kp-native-view .kp-caption{display:none}.kp-output-dimensions{font-size:8px;opacity:.65;white-space:nowrap}

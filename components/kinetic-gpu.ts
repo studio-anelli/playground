@@ -26,22 +26,25 @@ layout(location=3) in float size;
 layout(location=4) in float glyph;
 uniform vec2 atlasGrid;
 uniform vec2 atlasCell;
+uniform float atlasEm;
 uniform highp usampler2D accepted;
 uniform int acceptedWidth;
 uniform int glyphCount;
 uniform vec2 resolution;
 uniform int shape;
 uniform float lineLength;
+uniform float primitiveScale;
 flat out vec2 uv;
 out vec2 local;
 out vec2 atlasUV;
 void main(){
  local=corner; uv=vec2((samplePixel.x+0.5)/resolution.x,1.0-(samplePixel.y+0.5)/resolution.y);
  vec2 offset=corner*size;
- if(shape==2){float t=lineLength/1.41421356237; float w=max(1.0,size/3.0);offset=vec2(corner.x*t-corner.y*w/1.41421356237,corner.x*t+corner.y*w/1.41421356237);}
- if(shape==3)offset=(corner+0.5);
+ if(shape==0||shape==1){local=corner*(1.0+2.0/max(size,1.0));offset=local*size;}
+ if(shape==2){float t=lineLength/1.41421356237; float w=max(1.0,size/3.0);local=corner*vec2(1.0+2.0/max(lineLength,1.0),1.0+2.0/w);offset=vec2(local.x*t-local.y*w/1.41421356237,local.x*t+local.y*w/1.41421356237);}
+ if(shape==3)offset=(corner+0.5)*primitiveScale;
  atlasUV=vec2(0);
- if(shape==4){offset=corner*size*atlasCell/128.0;uint rank=texelFetch(accepted,ivec2(gl_InstanceID%acceptedWidth,gl_InstanceID/acceptedWidth),0).r;float index=float((max(rank,1u)-1u)%uint(glyphCount));atlasUV=(vec2(mod(index,atlasGrid.x),floor(index/atlasGrid.x))+corner+0.5)/atlasGrid;}
+ if(shape==4){offset=corner*size*atlasCell/atlasEm;uint rank=texelFetch(accepted,ivec2(gl_InstanceID%acceptedWidth,gl_InstanceID/acceptedWidth),0).r;float index=float((max(rank,1u)-1u)%uint(glyphCount));atlasUV=(vec2(mod(index,atlasGrid.x),floor(index/atlasGrid.x))+corner+0.5)/atlasGrid;}
  vec2 pixel=position+offset;
  gl_Position=vec4(pixel/resolution*vec2(2.0,-2.0)+vec2(-1.0,1.0),0.0,1.0);
 }`;
@@ -59,7 +62,8 @@ in vec2 atlasUV;
 out vec4 color;
 void main(){vec4 c=texture(image,uv);if(c.a<threshold)discard;
  float coverage=1.0;
- if(shape==0){float d=length(local);coverage=1.0-smoothstep(0.5-fwidth(d),0.5,d);}
+ if(shape==0){float d=length(local);coverage=1.0-smoothstep(0.5-fwidth(d)*0.5,0.5+fwidth(d)*0.5,d);}
+ if(shape==1||shape==2){vec2 edge=(vec2(0.5)-abs(local))/max(fwidth(local),vec2(0.00001));coverage=clamp(min(edge.x,edge.y)+0.5,0.0,1.0);}
  if(shape==4)coverage=texture(atlas,atlasUV).a;
  float a=c.a*opacity*coverage;color=vec4(c.rgb*opacity*coverage,a);
 }`;
@@ -149,12 +153,17 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
   const copy=(input:GPUFrame,key:string)=>{const out=target(key);if(out===input)return out;clear(out);imagePass(input,full(),out);return out;};
   const atlasTexture=makeTexture(),positionsTexture=makeTexture();
   const atlasCanvas=document.createElement('canvas');atlasCanvas.width=1;atlasCanvas.height=1;upload(atlasCanvas,atlasTexture,1);
-  let atlasKey='',atlasColumns=1,atlasRows=1,cellWidth=192;const cellHeight=256;
-  const prepareAtlas=(pattern:string,font:string,weight:number)=>{
-    const key=JSON.stringify([pattern,font,weight]);if(key===atlasKey)return;
-    const characters=Array.from(pattern || '*'),context=atlasCanvas.getContext('2d')!;context.font=`${weight} 128px ${font}`;
-    cellWidth=Math.max(192,...characters.map(char=>Math.ceil(context.measureText(char).width)+16));atlasColumns=Math.ceil(Math.sqrt(characters.length));atlasRows=Math.ceil(characters.length/atlasColumns);
-    atlasCanvas.width=cellWidth*atlasColumns;atlasCanvas.height=cellHeight*atlasRows;context.font=`${weight} 128px ${font}`;context.fillStyle='#fff';context.textAlign='center';context.textBaseline='middle';
+  let atlasKey='',atlasColumns=1,atlasRows=1,cellWidth=192,cellHeight=256,atlasEm=128;
+  const prepareAtlas=(pattern:string,font:string,weight:number,requestedSize:number)=>{
+    const characters=Array.from(pattern || '*');
+    const maxTexture=gl.getParameter(gl.MAX_TEXTURE_SIZE) as number;
+    const columns=Math.ceil(Math.sqrt(characters.length)),rows=Math.ceil(characters.length/columns);
+    const wanted=2 ** Math.ceil(Math.log2(Math.max(128,requestedSize)));
+    const em=Math.max(32,Math.min(1024,wanted,2 ** Math.floor(Math.log2(maxTexture / Math.max(columns*2,rows*2)))));
+    const key=JSON.stringify([pattern,font,weight,em]);if(key===atlasKey)return;
+    atlasEm=em;const context=atlasCanvas.getContext('2d')!;context.font=`${weight} ${em}px ${font}`;
+    cellWidth=Math.min(Math.floor(maxTexture/columns),Math.max(Math.ceil(em*1.5),...characters.map(char=>Math.ceil(context.measureText(char).width)+Math.ceil(em/8))));cellHeight=Math.ceil(em*2);atlasColumns=Math.ceil(Math.sqrt(characters.length));atlasRows=Math.ceil(characters.length/atlasColumns);
+    atlasCanvas.width=cellWidth*atlasColumns;atlasCanvas.height=cellHeight*atlasRows;context.font=`${weight} ${em}px ${font}`;context.fillStyle='#fff';context.textAlign='center';context.textBaseline='middle';
     characters.forEach((char,i)=>context.fillText(char,(i%atlasColumns+.5)*cellWidth,(Math.floor(i/atlasColumns)+.5)*cellHeight));upload(atlasCanvas,atlasTexture,1);atlasKey=key;
   };
   const accepted=(input:GPUFrame,points:GPUStamp[],threshold:number)=>{
@@ -178,12 +187,12 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
     previous(node:string){return target('previous-'+node);},
     snapshot(node:string,input:GPUFrame){copy(input,'previous-'+node);},
     present(input:GPUFrame){bind(null);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);imagePass(input,full(),null);return canvas;},
-    render(input:GPUFrame,points:GPUStamp[],shape:number,threshold:number,opacity:number,lineLength:number,key:string,mix:number,glyphs?:{pattern:string;font:string;weight:number}){
-      let ranks:GPUFrame|undefined;if(glyphs){prepareAtlas(glyphs.pattern,glyphs.font,glyphs.weight);ranks=accepted(input,points,threshold);}
+    render(input:GPUFrame,points:GPUStamp[],shape:number,threshold:number,opacity:number,lineLength:number,key:string,mix:number,glyphs?:{pattern:string;font:string;weight:number},primitiveScale=1){
+      let ranks:GPUFrame|undefined;if(glyphs){prepareAtlas(glyphs.pattern,glyphs.font,glyphs.weight,points.reduce((max,p)=>Math.max(max,p.size),128));ranks=accepted(input,points,threshold);}
       const out=target(key);clear(out);
       if(mix<1)imagePass(input,full(),out,copies,undefined,0,0,1-mix);
       gl.useProgram(stamps);bind(out);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);texture(input.texture,0);texture(atlasTexture,1,true);
-      gl.uniform1i(uniform(stamps,'image'),0);gl.uniform1i(uniform(stamps,'atlas'),1);gl.uniform2f(uniform(stamps,'resolution'),width,height);gl.uniform1i(uniform(stamps,'shape'),shape);gl.uniform1f(uniform(stamps,'threshold'),threshold);gl.uniform1f(uniform(stamps,'opacity'),opacity*mix);gl.uniform1f(uniform(stamps,'lineLength'),lineLength);gl.uniform2f(uniform(stamps,'atlasGrid'),atlasColumns,atlasRows);gl.uniform2f(uniform(stamps,'atlasCell'),cellWidth,cellHeight);
+      gl.uniform1i(uniform(stamps,'image'),0);gl.uniform1i(uniform(stamps,'atlas'),1);gl.uniform2f(uniform(stamps,'resolution'),width,height);gl.uniform1i(uniform(stamps,'shape'),shape);gl.uniform1f(uniform(stamps,'threshold'),threshold);gl.uniform1f(uniform(stamps,'opacity'),opacity*mix);gl.uniform1f(uniform(stamps,'lineLength'),lineLength);gl.uniform1f(uniform(stamps,'primitiveScale'),primitiveScale);gl.uniform2f(uniform(stamps,'atlasGrid'),atlasColumns,atlasRows);gl.uniform2f(uniform(stamps,'atlasCell'),cellWidth,cellHeight);gl.uniform1f(uniform(stamps,'atlasEm'),atlasEm);
       const scanFrame=ranks || target('scan-empty',1,1,true);texture(scanFrame.texture,2);gl.uniform1i(uniform(stamps,'accepted'),2);gl.uniform1i(uniform(stamps,'acceptedWidth'),scanFrame.width);gl.uniform1i(uniform(stamps,'glyphCount'),Math.max(1,Array.from(glyphs?.pattern || '*').length));bind(out);
       if(data.length<points.length*6)data=new Float32Array(points.length*6);points.forEach((p,i)=>{const j=i*6;data[j]=p.x;data[j+1]=p.y;data[j+2]=p.px;data[j+3]=p.py;data[j+4]=p.size;data[j+5]=0;});
       gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.vertexAttribDivisor(0,0);gl.bindBuffer(gl.ARRAY_BUFFER,instances);gl.bufferData(gl.ARRAY_BUFFER,data.subarray(0,points.length*6),gl.DYNAMIC_DRAW);

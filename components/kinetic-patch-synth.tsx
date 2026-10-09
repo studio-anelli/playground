@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { fitCanvas, outputDimensions, type CanvasFormat } from "./kinetic-output";
 import { kineticPresets } from "./kinetic-presets";
 import { createKineticGPU, type GPUStamp, type GPUFrame } from "./kinetic-gpu";
 import type { CSSProperties, PointerEvent } from "react";
@@ -93,6 +94,17 @@ export function parsePreset(value: unknown): SynthState {
 }
 export default function KineticPatchSynth() {
   const presetInput = useRef<HTMLInputElement>(null);
+  const stage = useRef<HTMLElement>(null);
+  const [canvasFormat, setCanvasFormat] = useState<CanvasFormat>("screen"), [outputResolution, setOutputResolution] = useState(0);
+  const [customWidth, setCustomWidth] = useState(1600), [customHeight, setCustomHeight] = useState(1200);
+  const [viewSize, setViewSize] = useState({ width: 0, height: 0 });
+  const [pngBusy, setPngBusy] = useState(false);
+  const [nativeView, setNativeView] = useState(false);
+  const outputSettings = useRef({ canvasFormat, outputResolution, customWidth, customHeight });
+  useEffect(() => { outputSettings.current = { canvasFormat, outputResolution, customWidth, customHeight }; }, [canvasFormat, outputResolution, customWidth, customHeight]);
+  useEffect(() => { const el = stage.current; if (!el) return; const measure = () => setViewSize({ width: el.offsetWidth, height: el.offsetHeight }); const observer = new ResizeObserver(measure); observer.observe(el); measure(); return () => observer.disconnect(); }, []);
+  const previewSize = fitCanvas(viewSize.width, viewSize.height, canvasFormat, customWidth, customHeight);
+  const nativeSize = outputDimensions(previewSize.width, previewSize.height, canvasFormat, outputResolution, customWidth, customHeight);
   const [presetMessage, setPresetMessage] = useState("");
   const [waves, setWaves] = useState<Wave[]>(dreamWaves);
   const [feedbackBlend, setFeedbackBlend] = useState<GlobalCompositeOperation>("source-over");
@@ -190,7 +202,11 @@ export default function KineticPatchSynth() {
       const el = canvas.current, ctx = el?.getContext("2d");
       if (el && ctx) {
         el.dataset.renderer = gpu ? "webgl2" : "canvas2d";
-        const rect = el.getBoundingClientRect(), W = Math.max(64, Math.round(rect.width)), H = Math.max(64, Math.round(rect.height)), dpr = Math.min(2, window.devicePixelRatio || 1);
+        const output = outputSettings.current;
+        const host = stage.current!;
+        const rect = fitCanvas(host.offsetWidth, host.offsetHeight, output.canvasFormat, output.customWidth, output.customHeight);
+        const dimensions = outputDimensions(rect.width, rect.height, output.canvasFormat, output.outputResolution, output.customWidth, output.customHeight);
+        const W = dimensions.width, H = dimensions.height, dpr = 1, pixelScale = W / Math.max(64, rect.width);
         if (el.width !== Math.round(W * dpr) || el.height !== Math.round(H * dpr)) { el.width = Math.round(W * dpr); el.height = Math.round(H * dpr); }
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         const screen = s.videoPatches.find(p => p.target === "canvas");
@@ -235,9 +251,10 @@ export default function KineticPatchSynth() {
           source.width = W; source.height = H; sctx.fillStyle = s.ink; sctx.textAlign = "center"; sctx.textBaseline = "middle";
           const lines = s.text.split("\n"); let fitted = Math.min(size, H * .75 / Math.max(1, lines.length));
           sctx.font = `${weight} ${fitted}px ${s.font}`;
+          const availableTextWidth = Math.max(1, W - Math.min(W * .2, 48 * pixelScale));
           const widthOf = (line: string) => Array.from(line).reduce((width, char) => width + sctx.measureText(char).width, 0) + Math.max(0, Array.from(line).length - 1) * s.manual.tracking / 100 * fitted;
           // Tracking follows the fitted font size, including during auto-fit.
-          for (let n = 0; n < 5; n++) { const widest = Math.max(1, ...lines.map(widthOf)); if (widest <= W - 48) break; fitted *= (W - 48) / widest; sctx.font = `${weight} ${fitted}px ${s.font}`; }
+          for (let n = 0; n < 5; n++) { const widest = Math.max(1, ...lines.map(widthOf)); if (widest <= availableTextWidth) break; fitted *= (availableTextWidth) / widest; sctx.font = `${weight} ${fitted}px ${s.font}`; }
           sctx.font = `${weight} ${fitted}px ${s.font}`;
           sctx.textAlign = "left"; sctx.textBaseline = "alphabetic";
           glyphs = [];
@@ -327,14 +344,14 @@ export default function KineticPatchSynth() {
             };
             const regions = route && glyphAligned(route.source) ? glyphs.map(g => ({ x: Math.ceil(g.x + 4), y: Math.ceil(g.y + 4), width: g.width - 8, height: g.height - 8, step: Math.max(1, Math.round(at("step", g.x + g.em / 2, g.y + g.em / 2, g) / 100 * g.em)) })) : [{ x: 0, y: 0, width: input.width, height: input.height, step }];
             const xOnly = node === "sampling" && s.samplingMode === "x", yOnly = node === "sampling" && s.samplingMode === "y";
-            for (const region of regions) for (let y = region.y; y < region.y + region.height; y += xOnly ? 1 : region.step) for (let x = region.x; x < region.x + region.width; x += yOnly ? 1 : region.step) {
+            for (const region of regions) for (let y = region.y; y < region.y + region.height; y += xOnly ? Math.max(1, Math.round(pixelScale)) : region.step) for (let x = region.x; x < region.x + region.width; x += yOnly ? Math.max(1, Math.round(pixelScale)) : region.step) {
               if (x < 0 || y < 0 || x >= input.width || y >= input.height) continue;
               const g = glyphs.find(g => x >= g.x && x < g.x + g.width && y >= g.y && y < g.y + g.height);
-              const j = node === "sampling" ? at("jitter", x, y, g) : 0, px = x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j), py = y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j);
-              const r = node === "vertex" ? at("vertexSize", x, y, g) * canvasUnit : 2.6;
+              const j = node === "sampling" ? at("jitter", x, y, g) * pixelScale : 0, px = x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j), py = y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j);
+              const r = node === "vertex" ? at("vertexSize", x, y, g) * canvasUnit : 2.6 * pixelScale;
               points.push({ x, y, px, py, size: Math.max(1, r) });
             }
-            out = renderer.render(input, points, glyphGPU ? 4 : xOnly || yOnly ? 3 : node === "vertex" && s.vertex === "square" ? 1 : node === "vertex" && s.vertex === "line" ? 2 : 0, s.manual.threshold, node === "sampling" ? s.manual.opacity : 1, s.manual.lineLength, node, node === "vertex" ? mod.vertexMix : 1, glyphGPU ? { pattern: s.glyphPattern, font: s.font, weight: Math.round(mod.weight) } : undefined);
+            out = renderer.render(input, points, glyphGPU ? 4 : xOnly || yOnly ? 3 : node === "vertex" && s.vertex === "square" ? 1 : node === "vertex" && s.vertex === "line" ? 2 : 0, s.manual.threshold, node === "sampling" ? s.manual.opacity : 1, s.manual.lineLength * pixelScale, node, node === "vertex" ? mod.vertexMix : 1, glyphGPU ? { pattern: s.glyphPattern, font: s.font, weight: Math.round(mod.weight) } : undefined, pixelScale);
           }
           visiting.delete(node); resolved.set(node, out); return out;
         };
@@ -391,19 +408,19 @@ export default function KineticPatchSynth() {
             const regions = route && glyphAligned(route.source) ? glyphs.map(g => ({ x: Math.ceil(g.x + 4), y: Math.ceil(g.y + 4), width: g.width - 8, height: g.height - 8, step: Math.max(1, Math.round(at("step", g.x + g.em / 2, g.y + g.em / 2, g) / 100 * g.em)) })) : [{ x: 0, y: 0, width: input.width, height: input.height, step }];
             const characters = Array.from(s.glyphPattern || "*"); let glyphIndex = 0;
             const xOnly = node === "sampling" && s.samplingMode === "x", yOnly = node === "sampling" && s.samplingMode === "y";
-            for (const region of regions) for (let y = region.y; y < region.y + region.height; y += xOnly ? 1 : region.step) for (let x = region.x; x < region.x + region.width; x += yOnly ? 1 : region.step) {
+            for (const region of regions) for (let y = region.y; y < region.y + region.height; y += xOnly ? Math.max(1, Math.round(pixelScale)) : region.step) for (let x = region.x; x < region.x + region.width; x += yOnly ? Math.max(1, Math.round(pixelScale)) : region.step) {
               if (x < 0 || y < 0 || x >= input.width || y >= input.height) continue;
               const offset = (y * input.width + x) * 4, alpha = pixels ? pixels[offset + 3] / 255 : 1;
               if (pixels && alpha < s.manual.threshold) continue;
               const g = glyphs.find(g => x >= g.x && x < g.x + g.width && y >= g.y && y < g.y + g.height);
-              const j = node === "sampling" ? at("jitter", x, y, g) : 0, px = x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j), py = y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j);
+              const j = node === "sampling" ? at("jitter", x, y, g) * pixelScale : 0, px = x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j), py = y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j);
               if (pixels && !useGPU) oc.fillStyle = oc.strokeStyle = `rgba(${pixels[offset]},${pixels[offset + 1]},${pixels[offset + 2]},${alpha})`;
-              const r = node === "vertex" ? at("vertexSize", x, y, g) * canvasUnit : 2.6;
+              const r = node === "vertex" ? at("vertexSize", x, y, g) * canvasUnit : 2.6 * pixelScale;
               oc.beginPath();
-              if (xOnly || yOnly) oc.fillRect(px, py, 1, 1);
+              if (xOnly || yOnly) oc.fillRect(px, py, pixelScale, pixelScale);
               else if (node === "vertex" && s.vertex === "glyph") { oc.font = `${Math.round(mod.weight)} ${Math.max(1, r)}px ${s.font}`; oc.textAlign = "center"; oc.textBaseline = "middle"; oc.fillText(characters[glyphIndex++ % characters.length], px, py); }
               else if (node === "vertex" && s.vertex === "square") oc.fillRect(px - r / 2, py - r / 2, r, r);
-              else if (node === "vertex" && s.vertex === "line") { oc.lineWidth = Math.max(1, r / 3); const len = s.manual.lineLength / (2 * Math.SQRT2); oc.moveTo(px - len, py - len); oc.lineTo(px + len, py + len); oc.stroke(); }
+              else if (node === "vertex" && s.vertex === "line") { oc.lineWidth = Math.max(1, r / 3); const len = s.manual.lineLength * pixelScale / (2 * Math.SQRT2); oc.moveTo(px - len, py - len); oc.lineTo(px + len, py + len); oc.stroke(); }
               else { oc.arc(px, py, Math.max(.5, r / 2), 0, Math.PI * 2); oc.fill(); }
             }
             oc.globalAlpha = 1;
@@ -425,6 +442,21 @@ export default function KineticPatchSynth() {
     };
     raf = requestAnimationFrame(frame); return () => { cancelAnimationFrame(raf); gpu?.dispose(); };
   }, []);
+  const exportPNG = () => {
+    const image = canvas.current; if (!image || pngBusy) return;
+    const o = outputSettings.current, host = stage.current!;
+    const box = fitCanvas(host.offsetWidth, host.offsetHeight, o.canvasFormat, o.customWidth, o.customHeight);
+    const wanted = outputDimensions(box.width, box.height, o.canvasFormat, o.outputResolution, o.customWidth, o.customHeight);
+    if (image.width !== wanted.width || image.height !== wanted.height) { setPresetMessage("Canvas is resizing. Try PNG again in a moment."); return; }
+    const savedWidth = image.width, savedHeight = image.height;
+    setPngBusy(true);
+    try { image.toBlob(blob => {
+      setPngBusy(false); if (!blob) { setPresetMessage("Could not export PNG."); return; }
+      const url = URL.createObjectURL(blob), a = document.createElement("a"); a.href = url;
+      a.download = `k-tic-synth-${text.trim().slice(0, 32).replace(/[^a-z0-9_-]/gi, "-") || "image"}-${savedWidth}x${savedHeight}.png`; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+      setPresetMessage(`PNG saved · ${savedWidth} × ${savedHeight}`);
+    }, "image/png"); } catch { setPngBusy(false); setPresetMessage("Could not export PNG."); }
+  };
   const exportPreset = () => {
     const payload = { format: "k-tic-synth", version: 2, state: live.current };
     const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));
@@ -474,7 +506,7 @@ export default function KineticPatchSynth() {
       setSelected(null); setSelectedVideo(null);
     }} className="kp" style={{ "--kp-bg": bg } as CSSProperties}>
     <header className="kp-header"><Link href="/" onClick={e => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; e.preventDefault(); window.location.assign("/"); }}>← INDEX</Link><h1>K-TIC-SYNTH</h1><button aria-label="Undo last edit" title="Undo · ⌘/Ctrl Z" disabled={!canUndo} onClick={undo}>↶ UNDO</button><button onClick={() => setPaused(v => !v)}>{paused ? "▶ RUN" : "Ⅱ HOLD"}</button></header>
-    <section className="kp-stage"><canvas ref={canvas} aria-label="Animated kinetic typography" /><span className="kp-caption">VISUAL SYNTHESIZER · THREE WAVE ENGINE</span></section>
+    <section ref={stage} className={`kp-stage${nativeView ? " kp-native-view" : ""}`}><canvas ref={canvas} style={viewSize.width ? nativeView ? { width: nativeSize.width, height: nativeSize.height, position: "relative", margin: "54px 16px 16px" } : { width: previewSize.width, height: previewSize.height, position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" } : undefined} aria-label="Animated kinetic typography" /><span className="kp-caption">VISUAL SYNTHESIZER · THREE WAVE ENGINE</span></section>
     <div className="kp-controls"><div ref={panel} className="kp-rack" onPointerMove={e => { if (videoDrag && panel.current) { const r = panel.current.getBoundingClientRect(); if (Math.hypot(e.clientX - r.left - videoDrag.x, e.clientY - r.top - videoDrag.y) > 3) dragMoved.current = true; setVideoDrag({ ...videoDrag, x: e.clientX - r.left, y: e.clientY - r.top }); } if (drag && panel.current) { const r = panel.current.getBoundingClientRect(); if (Math.hypot(e.clientX - r.left - drag.x, e.clientY - r.top - drag.y) > 3) dragMoved.current = true; setDrag({ ...drag, x: e.clientX - r.left, y: e.clientY - r.top }); } }} onPointerUp={finishDrag} onPointerCancel={() => { dragRef.current = null; videoDragRef.current = null; setVideoDrag(null); setDrag(null); }}>
       <svg className="kp-cables" aria-hidden="true">{videoPatches.map(p => { const a = positions[`video-out-${p.source}`], b = positions[`video-in-${p.target}`]; return a && b ? <path key={`video-${p.target}`} className="kp-video-cable kp-removable-cable" onClick={e => { e.stopPropagation(); setVideoPatches(all => all.filter(item => item.target !== p.target)); }} d={cable(a, b)} stroke="#83d8b4" /> : null; })}{videoDrag && positions[`video-out-${videoDrag.source}`] && <path d={cable(positions[`video-out-${videoDrag.source}`], videoDrag)} stroke="#83d8b4" strokeDasharray="4 4" />}{patches.map(p => { const a = positions[`wave${p.wave}`], b = positions[p.target]; return a && b ? <path key={p.id} className="kp-removable-cable" onClick={e => { e.stopPropagation(); setPatches(all => all.filter(item => item.id !== p.id)); }} d={cable(a, b)} stroke={colors[p.wave]} /> : null; })}{drag && positions[`wave${drag.wave}`] && <path d={cable(positions[`wave${drag.wave}`], drag)} stroke={colors[drag.wave]} strokeDasharray="4 4" />}</svg>
       <section className="kp-waves"><div className="kp-title">01 / WAVE MODULATORS</div>
@@ -502,6 +534,6 @@ export default function KineticPatchSynth() {
 
     </div></div>
       <section ref={bay} className={`kp-patches kp-floating ${bayCollapsed ? "is-collapsed" : ""}`} aria-label="Patch bay" style={bayPosition ? { left: bayPosition.x, top: bayPosition.y, bottom: "auto" } : undefined}><div className="kp-title kp-bay-handle" onPointerDown={e => { if ((e.target as HTMLElement).closest("button")) return; const r = bay.current!.getBoundingClientRect(); bayDrag.current = { x: e.clientX - r.left, y: e.clientY - r.top }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerMove={e => { if (!bayDrag.current || !bay.current) return; const r = bay.current.getBoundingClientRect(); setBayPosition({ x: clamp(e.clientX - bayDrag.current.x, 8, Math.max(8, window.innerWidth - r.width - 8)), y: clamp(e.clientY - bayDrag.current.y, 8, Math.max(8, window.innerHeight - r.height - 8)) }); }} onPointerUp={() => { bayDrag.current = null; }} onPointerCancel={() => { bayDrag.current = null; }}>03 / PATCH BAY <span><button aria-label={bayCollapsed ? "Expand patch bay" : "Collapse patch bay"} aria-expanded={!bayCollapsed} onClick={() => setBayCollapsed(v => !v)}>{bayCollapsed ? "+" : "−"}</button> <button aria-label="Clear all video connections" title="Disconnect all video cables" disabled={videoPatches.length === 0} onClick={() => { setVideoPatches([]); setSelectedVideo(null); setVideoDrag(null); videoDragRef.current = null; }}>ZERO VIDEO</button> <button aria-label="Zero all modulation connection amounts" title="Set modulation amounts to 0% while keeping cables connected" disabled={!patches.some(p => p.amount !== 0)} onClick={() => setPatches(all => all.map(p => ({ ...p, amount: 0 })))}>ZERO AMOUNTS</button> <button onClick={() => { setPatches([]); setVideoPatches([]); setSelectedVideo(null); setSelected(null); }}>CLEAR</button></span></div><div className="kp-bay-content" hidden={bayCollapsed}><p>{selectedVideo ? `VIDEO ${selectedVideo.toUpperCase()} · choose a video input` : selected === null ? "Drag or click sockets to connect. Click a cable/input to unplug." : `${sourceNames[selected]} selected · choose an input`}</p>{videoPatches.map(p => <div className="kp-video-patch" key={`video-${p.target}`}><b>VIDEO · {p.source.toUpperCase()} → {p.target.toUpperCase()}</b><button aria-label={`Remove video ${p.source} to ${p.target}`} onClick={() => setVideoPatches(all => all.filter(item => item.target !== p.target))}>×</button></div>)}{patches.length === 0 && videoPatches.length === 0 && <p>No cables connected.</p>}{patches.map(p => { const c = specs.find(c => c[0] === p.target)!; return <div className="kp-patch" key={p.id} style={{ "--wave": colors[p.wave] } as CSSProperties}><b>{sourceNames[p.wave]} → {c[5]} / {c[1]}</b><button aria-label={`Remove ${sourceNames[p.wave]} to ${c[5]} ${c[1]}`} onClick={() => setPatches(all => all.filter(item => item.id !== p.id))}>×</button><div className="kp-knob-control kp-amount"><span>AMOUNT · %</span><Knob name={`Amount ${sourceNames[p.wave]} to ${c[5]} ${c[1]}`} min={-100} max={100} step={1} value={p.amount} onChange={next => setPatches(all => all.map(item => item.id === p.id ? { ...item, amount: next } : item))} /></div></div>; })}</div></section>
-    <footer className="kp-footer"><div className="kp-preset-tools"><select aria-label="Load built-in preset" defaultValue="" onChange={e => { if (e.target.value === "dream") { loadDream(); setPresetMessage("Dream loaded. Undo restores your previous settings."); } const preset = kineticPresets.find(p => p.id === e.target.value); if (preset) { applyPreset(parsePreset(preset.preset)); setPresetMessage(`${preset.name} loaded. Undo restores your previous settings.`); } e.target.value = ""; }}><option value="" disabled>PRESETS</option><option value="dream">Dream</option>{kineticPresets.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select><button onClick={() => presetInput.current?.click()}>IMPORT</button><button onClick={exportPreset}>EXPORT</button><input ref={presetInput} type="file" accept=".json,application/json" aria-label="Import preset file" hidden onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importPreset(file); }} /><span role="status">{presetMessage}</span></div><label>TEXT <textarea aria-label="Text" value={text} onChange={e => setText(e.target.value)} rows={1} /></label><label>BACKGROUND <input aria-label="Background color" type="color" value={bg} onChange={e => setBg(e.target.value)} /></label><button className="kp-bicolour" aria-pressed={bicolour} onClick={() => setBicolour(v => !v)}>BI-COLOUR</button>{bicolour && <label>INK 2 <input aria-label="Second ink color" type="color" value={ink2} onChange={e => setInk2(e.target.value)} /></label>}<label>INK <input aria-label="Ink color" type="color" value={ink} onChange={e => setInk(e.target.value)} /></label></footer>
+    <footer className="kp-footer"><div className="kp-output-tools"><select aria-label="Canvas format" value={canvasFormat} onChange={e => setCanvasFormat(e.target.value as CanvasFormat)}><option value="screen">SCREEN</option><option value="square">SQUARE · 1:1</option><option value="landscape">LANDSCAPE · 16:9</option><option value="portrait">PORTRAIT · 9:16</option><option value="custom">CUSTOM</option></select>{canvasFormat === "custom" ? <><input aria-label="Custom canvas width" type="number" min={64} max={4096} defaultValue={customWidth} onBlur={e => { const n = Math.round(Number(e.target.value)); if (n >= 64 && n <= 4096) setCustomWidth(n); else e.target.value = String(customWidth); }} /><span>×</span><input aria-label="Custom canvas height" type="number" min={64} max={4096} defaultValue={customHeight} onBlur={e => { const n = Math.round(Number(e.target.value)); if (n >= 64 && n <= 4096) setCustomHeight(n); else e.target.value = String(customHeight); }} /></> : <select aria-label="Output resolution" value={outputResolution} onChange={e => setOutputResolution(Number(e.target.value))}><option value={0}>SCREEN SIZE</option><option value={1024}>1K · 1024</option><option value={2048}>2K · 2048</option><option value={4096}>4K · 4096</option></select>}<button aria-label="Inspect native pixels" aria-pressed={nativeView} onClick={() => { setNativeView(v => !v); stage.current?.scrollTo(0, 0); }}>{nativeView ? "FIT" : "100%"}</button><span className="kp-output-dimensions">{nativeSize.width} × {nativeSize.height}</span><button onClick={exportPNG} disabled={pngBusy}>{pngBusy ? "SAVING…" : "PNG ↓"}</button></div><div className="kp-preset-tools"><select aria-label="Load built-in preset" defaultValue="" onChange={e => { if (e.target.value === "dream") { loadDream(); setPresetMessage("Dream loaded. Undo restores your previous settings."); } const preset = kineticPresets.find(p => p.id === e.target.value); if (preset) { applyPreset(parsePreset(preset.preset)); setPresetMessage(`${preset.name} loaded. Undo restores your previous settings.`); } e.target.value = ""; }}><option value="" disabled>PRESETS</option><option value="dream">Dream</option>{kineticPresets.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select><button onClick={() => presetInput.current?.click()}>IMPORT</button><button onClick={exportPreset}>EXPORT</button><input ref={presetInput} type="file" accept=".json,application/json" aria-label="Import preset file" hidden onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importPreset(file); }} /><span role="status">{presetMessage}</span></div><label>TEXT <textarea aria-label="Text" value={text} onChange={e => setText(e.target.value)} rows={1} /></label><label>BACKGROUND <input aria-label="Background color" type="color" value={bg} onChange={e => setBg(e.target.value)} /></label><button className="kp-bicolour" aria-pressed={bicolour} onClick={() => setBicolour(v => !v)}>BI-COLOUR</button>{bicolour && <label>INK 2 <input aria-label="Second ink color" type="color" value={ink2} onChange={e => setInk2(e.target.value)} /></label>}<label>INK <input aria-label="Ink color" type="color" value={ink} onChange={e => setInk(e.target.value)} /></label></footer>
   </main>;
 }
