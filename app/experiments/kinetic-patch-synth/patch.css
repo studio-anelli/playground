@@ -57,3 +57,5 @@
 .kp-cables{z-index:2}
 .kp-cables path{stroke-width:1;opacity:.65}
 .kp-cables .kp-removable-cable:hover{stroke-width:2;opacity:1}
+
+.kp-preset-tools{flex-wrap:wrap}.kp-preset-tools select{font-size:8px;padding:3px 5px;max-width:110px}.kp-preset-tools [role=status]{flex:1 1 90px}
