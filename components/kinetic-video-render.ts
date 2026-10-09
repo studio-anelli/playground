@@ -30,9 +30,9 @@ export function muxAVC(width: number, height: number, description: Uint8Array, s
   const moov = box('moov', mvhd, box('trak', tkhd, box('mdia', mdhd, hdlr, minf)));
   return new Blob([ftyp.buffer as ArrayBuffer, mdat.buffer as ArrayBuffer, moov.buffer as ArrayBuffer], { type: 'video/mp4' });
 }
-export async function renderVideo(canvas: HTMLCanvasElement, seconds: number, signal: AbortSignal, drawFrame: (index: number) => void, progress: (done: number, total: number) => void) {
+export async function renderVideo(canvas: HTMLCanvasElement, seconds: number, signal: AbortSignal, drawFrame: (index: number) => void, progress: (done: number, total: number) => void, fps: 30 | 60 = 30) {
   if (typeof VideoEncoder === 'undefined' || typeof VideoFrame === 'undefined') throw new Error('Frame rendering is unavailable in this browser. Live Record is still available.');
-  const width = canvas.width, height = canvas.height, fps = 30, total = seconds * fps;
+  const width = canvas.width, height = canvas.height, total = seconds * fps;
   let config: VideoEncoderConfig | undefined;
   for (const codec of ['avc1.64003c', 'avc1.640034', 'avc1.42003c', 'avc1.420034']) {
     const candidate: VideoEncoderConfig = { codec, width, height, framerate: fps, bitrate: Math.min(60000000, Math.max(16000000, width * height * 6)), latencyMode: 'realtime', avc: { format: 'avc' } };
