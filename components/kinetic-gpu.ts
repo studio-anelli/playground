@@ -74,8 +74,9 @@ layout(location=0) in vec2 corner;
 layout(location=1) in vec2 center;
 layout(location=2) in vec2 extent;
 uniform vec2 resolution;
+uniform float rotation;
 out vec2 uv;
-void main(){uv=vec2(corner.x+0.5,0.5-corner.y);gl_Position=vec4((center+corner*extent)/resolution*vec2(2.0,-2.0)+vec2(-1.0,1.0),0,1);}`;
+void main(){uv=vec2(corner.x+0.5,0.5-corner.y);vec2 offset=corner*extent;float c=cos(rotation),s=sin(rotation);offset=vec2(c*offset.x-s*offset.y,s*offset.x+c*offset.y);gl_Position=vec4((center+offset)/resolution*vec2(2.0,-2.0)+vec2(-1.0,1.0),0,1);}`;
   const imageFragment = `#version 300 es
 precision highp float;
 precision highp int;
@@ -140,8 +141,8 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
   const texture=(t:WebGLTexture,unit:number,linear=false)=>{gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.TEXTURE_2D,t);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,linear?gl.LINEAR:gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,linear?gl.LINEAR:gl.NEAREST);};
   const upload=(image:HTMLCanvasElement,t:WebGLTexture,unit:number,flip=false)=>{texture(t,unit,true);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,flip);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,flip);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image);};
   const uniform=(p:WebGLProgram,name:string)=>gl.getUniformLocation(p,name);
-  const imagePass=(input:GPUFrame,placements:number[],output:GPUFrame|null,p=copies,history?:GPUFrame,amount=0,mode=0,opacity=1)=>{
-    bind(output);gl.useProgram(p);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);texture(input.texture,0,true);gl.uniform1i(uniform(p,'image'),0);gl.uniform1f(uniform(p,'copyOpacity'),opacity);
+  const imagePass=(input:GPUFrame,placements:number[],output:GPUFrame|null,p=copies,history?:GPUFrame,amount=0,mode=0,opacity=1,rotation=0)=>{
+    bind(output);gl.useProgram(p);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);texture(input.texture,0,true);gl.uniform1i(uniform(p,'image'),0);gl.uniform1f(uniform(p,'copyOpacity'),opacity);gl.uniform1f(uniform(p,'rotation'),rotation);
     if(history){texture(history.texture,1,true);gl.uniform1i(uniform(p,'history'),1);gl.uniform1f(uniform(p,'amount'),amount);gl.uniform1i(uniform(p,'mode'),mode);}
     gl.uniform2f(uniform(p,'resolution'),width,height);
     gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.vertexAttribDivisor(0,0);
@@ -198,7 +199,7 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
       gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.vertexAttribDivisor(0,0);gl.bindBuffer(gl.ARRAY_BUFFER,instances);gl.bufferData(gl.ARRAY_BUFFER,data.subarray(0,points.length*6),gl.DYNAMIC_DRAW);
       for(const [location,count,offset] of [[1,2,0],[2,2,8],[3,1,16],[4,1,20]]){gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,count,gl.FLOAT,false,24,offset);gl.vertexAttribDivisor(location,1);}gl.drawArraysInstanced(gl.TRIANGLES,0,6,points.length);return out;
     },
-    repeat(input:GPUFrame,placements:number[],key:string){const out=target(key);clear(out);imagePass(input,placements,out);return out;},
+    repeat(input:GPUFrame,placements:number[],key:string,rotation=0){const out=target(key);clear(out);imagePass(input,placements,out,copies,undefined,0,0,1,rotation);return out;},
     feedback(input:GPUFrame,amount:number,mode:number,due:boolean,key:string){const out=target(key);clear(out);imagePass(input,full(),out,feedback,target('history'),amount,mode);if(due)copy(out,'history');return out;},
     dispose(){framebuffers.forEach(f=>gl.deleteFramebuffer(f));textures.forEach(t=>gl.deleteTexture(t));buffers.forEach(b=>gl.deleteBuffer(b));programs.forEach(p=>gl.deleteProgram(p));shaders.forEach(s=>gl.deleteShader(s));}
   };
