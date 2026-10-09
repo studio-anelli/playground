@@ -4,6 +4,8 @@ import Link from "next/link";
 import { fitCanvas, outputDimensions, type CanvasFormat } from "./kinetic-output";
 import { renderVideo } from "./kinetic-video-render";
 import { recordCanvas } from "./kinetic-recording";
+import { RasterCache } from "./kinetic-raster-cache";
+import { indexModulation } from "./kinetic-modulation";
 import { kineticPresets } from "./kinetic-presets";
 import { createKineticGPU, type GPUStamp, type GPUFrame } from "./kinetic-gpu";
 import type { CSSProperties, PointerEvent } from "react";
@@ -20,6 +22,9 @@ const specs = [
   ["feedbackAmount", "Input / amount", 0, .98, .01, "feedback"], ["feedbackRefresh", "Refresh · ms", 16, 2000, 1, "feedback"],
 ] as const;
 type Target = typeof specs[number][0];
+const targetSpecs = Object.fromEntries(specs.map(spec => [spec[0], spec])) as Record<Target, typeof specs[number]>;
+const modulationTargets = specs.map(spec => spec[0]);
+const signalControls = (["sampling", "grid", "vertex"] as const).map(group => specs.filter(spec => spec[5] === group));
 type Patch = { id: string; wave: number; target: Target; amount: number };
 type XY = { x: number; y: number };
 type Glyph = { canvas: HTMLCanvasElement; x: number; y: number; width: number; height: number; em: number };
@@ -204,6 +209,8 @@ export default function KineticPatchSynth() {
     const hctx = heat.getContext("2d")!;
     const heatPixels = hctx.createImageData(64, 64);
     let glyphs: Glyph[] = [];
+    // Exact raster reuse, bounded to 32 MiB. Position and tracking never affect the raster.
+    const glyphCache = new RasterCache();
     const nodes: VideoSource[] = ["typography", "sampling", "grid", "vertex", "feedback"];
     const outputs = Object.fromEntries(nodes.map(node => [node, document.createElement("canvas")])) as Record<VideoSource, HTMLCanvasElement>;
     const previousOutputs = Object.fromEntries(nodes.map(node => [node, document.createElement("canvas")])) as Record<VideoSource, HTMLCanvasElement>;
@@ -237,18 +244,19 @@ export default function KineticPatchSynth() {
         }
         const field = (i: number, x: number, y: number) => { if (i === 3) return s.modes.feedback ? feedbackSignal : 0; if (i >= 4) return s.modes[(["sampling", "grid", "vertex"] as const)[i - 4]] ? moduleSignals[i - 4] : 0; const w = s.waves[i]; return w.on ? waveValue(w.shape, phases[i] + w.phase + (x * (1 - w.direction) + y * w.direction) * w.rate, i + 1) * w.amp : 0; };
         const signals = [...s.waves.map((_, i) => field(i, .5, .5)), s.modes.feedback ? feedbackSignal : 0, ...moduleSignals], mod = { ...s.values };
+        const patchIndex = indexModulation(modulationTargets, s.patches);
         const at = (target: Target, x: number, y: number, glyph?: Glyph) => {
-          const spec = specs.find(c => c[0] === target)!;
-          const sum = s.patches.filter(p => p.target === target).reduce((v, p) => v + field(p.wave, glyph ? (x - glyph.x) / glyph.em : x / W, glyph ? (y - glyph.y) / glyph.em : y / H) * p.amount / 100, 0);
+          const spec = targetSpecs[target];
+          const sum = patchIndex[target].reduce((v, p) => v + field(p.wave, glyph ? (x - glyph.x) / glyph.em : x / W, glyph ? (y - glyph.y) / glyph.em : y / H) * p.amount / 100, 0);
           return clamp(s.values[target] + sum * (spec[3] - spec[2]) / 2, spec[2], spec[3]);
         };
         for (const [key, , min, max] of specs) {
-          const sum = s.patches.filter(p => p.target === key).reduce((v, p) => v + signals[p.wave] * p.amount / 100, 0);
+          const sum = patchIndex[key].reduce((v, p) => v + signals[p.wave] * p.amount / 100, 0);
           mod[key] = clamp(s.values[key] + sum * (max - min) / 2, min, max);
         }
         // Module outputs are one-frame-delayed control signals, allowing stable feedback routing.
         (["sampling", "grid", "vertex"] as const).forEach((group, i) => {
-          const controls = specs.filter(spec => spec[5] === group);
+          const controls = signalControls[i];
           moduleSignals[i] = s.modes[group] ? controls.reduce((sum, [key, , min, max]) => sum + 2 * (mod[key] - min) / (max - min) - 1, 0) / controls.length : 0;
         });
         if (history.width !== W || history.height !== H) { history.width = W; history.height = H; feedbackSignal = 0; feedbackTick = -Infinity; }
@@ -260,7 +268,7 @@ export default function KineticPatchSynth() {
         const feedbackDue = s.modes.feedback && !s.paused && feedbackNow - feedbackTick >= feedbackInterval - 1e-6;
         // The output holds the previous input sample; it cannot create an instantaneous self-loop.
         if (feedbackDue) {
-          const inputs = s.patches.filter(p => p.target === "feedbackAmount");
+          const inputs = patchIndex.feedbackAmount;
           const input = inputs.length ? inputs.reduce((sum, p) => sum + signals[p.wave] * p.amount / 100, 0) : signals.slice(0, 3).reduce((sum, v) => sum + v, 0) / 3;
           feedbackSignal = clamp(input + feedbackSignal * mod.feedbackAmount, -1, 1);
           feedbackTick = feedbackNow;
@@ -290,10 +298,15 @@ export default function KineticPatchSynth() {
                 // Each character owns its raster: neighbouring letters cannot leak into its sampling grid.
                 const width = Math.max(1, Math.ceil(m.actualBoundingBoxLeft + m.actualBoundingBoxRight) + 8);
                 const height = Math.max(1, Math.ceil(m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) + 8);
-                const c = document.createElement("canvas"); c.width = width; c.height = height;
-                const gc = c.getContext("2d", { willReadFrequently: true })!;
-                gc.font = sctx.font; gc.textBaseline = "alphabetic"; gc.fillStyle = s.ink;
-                gc.fillText(char, m.actualBoundingBoxLeft + 4, m.actualBoundingBoxAscent + 4);
+                const rasterKey = JSON.stringify([char, sctx.font, s.ink, width, height]);
+                let c = glyphCache.get(rasterKey);
+                if (!c) {
+                  c = document.createElement("canvas"); c.width = width; c.height = height;
+                  const gc = c.getContext("2d", { willReadFrequently: true })!;
+                  gc.font = sctx.font; gc.textBaseline = "alphabetic"; gc.fillStyle = s.ink;
+                  gc.fillText(char, m.actualBoundingBoxLeft + 4, m.actualBoundingBoxAscent + 4);
+                  glyphCache.put(rasterKey, c);
+                }
                 const gx = x - m.actualBoundingBoxLeft - 4, gy = baseline - m.actualBoundingBoxAscent - 4;
                 glyphs.push({ canvas: c, x: gx, y: gy, width, height, em: fitted });
                 sctx.drawImage(c, gx, gy);
