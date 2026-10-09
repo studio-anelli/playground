@@ -3,7 +3,7 @@ export type GPUStamp = { x: number; y: number; px: number; py: number; size: num
 export function createKineticGPU() {
   const canvas = document.createElement('canvas');
   const gl = canvas.getContext('webgl2', { alpha: true, premultipliedAlpha: true, preserveDrawingBuffer: true, antialias: false });
-  if (!gl) return null;
+  if (!gl) { console.warn("K-TIC-SYNTH: WebGL2 unavailable; using Canvas2D"); return null; }
   const shaders: WebGLShader[] = [], programs: WebGLProgram[] = [], buffers: WebGLBuffer[] = [], textures: WebGLTexture[] = [];
   const shader = (type: number, text: string) => {
     const s = gl.createShader(type)!; shaders.push(s); gl.shaderSource(s, text); gl.compileShader(s);
@@ -84,7 +84,7 @@ float a=s.a+b.a*(1.0-s.a);
 vec3 c=(1.0-s.a)*b.rgb*b.a+(1.0-b.a)*s.rgb*s.a+b.a*s.a*blend;
 color=vec4(c,a);}`;
   let stamps: WebGLProgram, copies: WebGLProgram, feedback: WebGLProgram;
-  try { stamps = program(vertex, fragment); copies=program(imageVertex,imageFragment);feedback=program(imageVertex,feedbackFragment); } catch { shaders.forEach(s=>gl.deleteShader(s));programs.forEach(p=>gl.deleteProgram(p));return null; }
+  try { stamps = program(vertex, fragment); copies=program(imageVertex,imageFragment);feedback=program(imageVertex,feedbackFragment); } catch (error) { console.warn("K-TIC-SYNTH: GPU initialisation failed", error); shaders.forEach(s=>gl.deleteShader(s));programs.forEach(p=>gl.deleteProgram(p));return null; }
   const quad = gl.createBuffer()!, instances = gl.createBuffer()!; buffers.push(quad, instances);
   gl.bindBuffer(gl.ARRAY_BUFFER, quad); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-.5,-.5,.5,-.5,-.5,.5,-.5,.5,.5,-.5,.5,.5]), gl.STATIC_DRAW);
   const tex = gl.createTexture()!; textures.push(tex);
