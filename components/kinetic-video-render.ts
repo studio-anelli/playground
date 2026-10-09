@@ -30,9 +30,9 @@ export function muxAVC(width: number, height: number, description: Uint8Array, s
   const moov = box('moov', mvhd, box('trak', tkhd, box('mdia', mdhd, hdlr, minf)));
   return new Blob([ftyp.buffer as ArrayBuffer, mdat.buffer as ArrayBuffer, moov.buffer as ArrayBuffer], { type: 'video/mp4' });
 }
-export async function renderVideo(canvas: HTMLCanvasElement, seconds: number, signal: AbortSignal, drawFrame: (index: number) => void, progress: (done: number, total: number) => void) {
+export async function renderVideo(canvas: HTMLCanvasElement, seconds: number, signal: AbortSignal, drawFrame: (index: number) => void, progress: (done: number, total: number) => void, fps: 30 | 60 = 30, loop = false) {
   if (typeof VideoEncoder === 'undefined' || typeof VideoFrame === 'undefined') throw new Error('Frame rendering is unavailable in this browser. Live Record is still available.');
-  const width = canvas.width, height = canvas.height, fps = 30, total = seconds * fps;
+  const width = canvas.width, height = canvas.height, total = seconds * fps;
   let config: VideoEncoderConfig | undefined;
   for (const codec of ['avc1.64003c', 'avc1.640034', 'avc1.42003c', 'avc1.420034']) {
     const candidate: VideoEncoderConfig = { codec, width, height, framerate: fps, bitrate: Math.min(60000000, Math.max(16000000, width * height * 6)), latencyMode: 'realtime', avc: { format: 'avc' } };
@@ -40,6 +40,10 @@ export async function renderVideo(canvas: HTMLCanvasElement, seconds: number, si
   }
   signal.throwIfAborted();
   if (!config) throw new Error('This browser cannot encode MP4 at this size. Try HD or 2K.');
+  const opening = loop ? document.createElement('canvas') : null;
+  if (opening) { opening.width = width; opening.height = height; opening.getContext('2d')!.drawImage(canvas, 0, 0); }
+  const output = loop ? document.createElement('canvas') : canvas;
+  if (loop) { output.width = width; output.height = height; }
   const samples: VideoSample[] = []; let description = new Uint8Array(), failure: Error | undefined, encodedBytes = 0;
   const encoder = new VideoEncoder({ output: (chunk, metadata) => {
     const data = new Uint8Array(chunk.byteLength); chunk.copyTo(data); encodedBytes += data.length;
@@ -57,7 +61,16 @@ export async function renderVideo(canvas: HTMLCanvasElement, seconds: number, si
     for (let i = 0; i < total; i++) {
       signal.throwIfAborted(); if (failure) throw failure;
       drawFrame(i);
-      const frame = new VideoFrame(canvas, { timestamp: Math.round(i * 1000000 / fps), duration: Math.round((i + 1) * 1000000 / fps) - Math.round(i * 1000000 / fps) });
+      if (opening) {
+        const ctx = output.getContext('2d')!;
+        ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'copy'; ctx.drawImage(canvas, 0, 0);
+        ctx.globalCompositeOperation = 'source-over';
+        // Blend the final half-second to the opening image; leave simulation history untouched.
+        const blendFrames = Math.min(Math.round(fps * .5), total - 1);
+        const t = Math.max(0, (i - (total - 1 - blendFrames)) / blendFrames);
+        ctx.globalAlpha = t * t * (3 - 2 * t); ctx.drawImage(opening, 0, 0); ctx.globalAlpha = 1;
+      }
+      const frame = new VideoFrame(output, { timestamp: Math.round(i * 1000000 / fps), duration: Math.round((i + 1) * 1000000 / fps) - Math.round(i * 1000000 / fps) });
       try { encoder.encode(frame, { keyFrame: true }); } finally { frame.close(); }
       // Bounded encoder queue; wall-clock delays never advance the animation timeline.
       await encoder.flush(); signal.throwIfAborted(); if (failure) throw failure;
