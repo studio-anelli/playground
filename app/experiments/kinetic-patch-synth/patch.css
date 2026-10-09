@@ -40,3 +40,5 @@
 .kp-footer>label:has(textarea){flex:1 0 100%;display:flex;align-items:center;gap:15px}
 
 .kp-glyph-input{width:100%;display:flex!important;align-items:center;gap:8px}.kp-glyph-input input{width:100%;min-width:0;background:#191919;color:#eee9dc;border:1px solid #777367;padding:4px;font:11px ui-monospace,monospace}
+
+.kp-bay-handle{flex-wrap:wrap;gap:6px}.kp-bay-handle>span{display:flex;flex-wrap:wrap;gap:3px}
