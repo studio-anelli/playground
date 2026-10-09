@@ -4,7 +4,7 @@ import Link from "next/link";
 import { fitCanvas, outputDimensions, type CanvasFormat } from "./kinetic-output";
 import { renderVideo } from "./kinetic-video-render";
 import { recordCanvas } from "./kinetic-recording";
-import { waveDivisions, waveHz, sampleWave, type Wave, type Shape, type WaveDivision } from "./kinetic-waves";
+import { waveDivisions, waveHz, sampleWave, sampleAngleWave, wrapAngle, type Wave, type Shape, type WaveDivision } from "./kinetic-waves";
 export { waveValue } from "./kinetic-waves";
 import { RasterCache } from "./kinetic-raster-cache";
 import { indexModulation } from "./kinetic-modulation";
@@ -245,9 +245,14 @@ export default function KineticPatchSynth() {
           const sum = patchIndex[target].reduce((v, p) => v + field(p.wave, glyph ? (x - glyph.x) / glyph.em : x / W, glyph ? (y - glyph.y) / glyph.em : y / H) * p.amount / 100, 0);
           return clamp(s.values[target] + sum * (spec[3] - spec[2]) / 2, spec[2], spec[3]);
         };
+        const rampRotation = patchIndex.repeatAngle.some(p => p.wave < 3 && s.waves[p.wave].on && s.waves[p.wave].amp !== 0 && s.waves[p.wave].shape === "ramp" && p.amount !== 0);
         for (const [key, , min, max] of specs) {
-          const sum = patchIndex[key].reduce((v, p) => v + signals[p.wave] * p.amount / 100, 0);
-          mod[key] = clamp(s.values[key] + sum * (max - min) / 2, min, max);
+          const sum = patchIndex[key].reduce((v, p) => {
+            const value = key === "repeatAngle" && rampRotation && p.wave < 3 ? sampleAngleWave(s.waves, phases, p.wave, .5, .5) : signals[p.wave];
+            return v + value * p.amount / 100;
+          }, 0);
+          const value = s.values[key] + sum * (max - min) / 2;
+          mod[key] = key === "repeatAngle" && rampRotation ? wrapAngle(value) : clamp(value, min, max);
         }
         // Module outputs are one-frame-delayed control signals, allowing stable feedback routing.
         (["sampling", "grid", "vertex"] as const).forEach((group, i) => {
@@ -579,7 +584,7 @@ export default function KineticPatchSynth() {
       <section className="kp-waves"><div className="kp-title">01 / WAVE MODULATORS</div>
         <div className="kp-wave-clock"><label>BPM <input aria-label="Wave tempo BPM" type="number" min={20} max={300} value={bpmDraft} onChange={e => setBpmDraft(e.target.value)} onBlur={() => { const next = Number(bpmDraft); if (bpmDraft.trim() && Number.isFinite(next)) { const tempo = clamp(next, 20, 300); setBpm(tempo); setBpmDraft(String(tempo)); } else setBpmDraft(String(bpm)); }} onKeyDown={e => { if (e.key === "Enter") e.currentTarget.blur(); }} /></label></div>
         {waves.map((w, i) => <div key={i} className="kp-wave" style={{ "--wave": colors[i] } as CSSProperties}><div className="kp-wavehead"><b>WAVE {i + 1}</b><button aria-pressed={w.on} onClick={() => changeWave(i, { on: !w.on })}>{w.on ? "ON" : "OFF"}</button><button className={`kp-socket ${selected === i ? "selected" : ""}`} data-mod-source={i} title="Drag to connect · right-click to unplug" aria-label={`Patch output wave ${i + 1}`} ref={el => { sockets.current[`wave${i}`] = el; }} onClick={() => { if (!dragMoved.current) { setSelectedVideo(null); setSelected(selected === i ? null : i); } }} onPointerDown={e => { if (e.button !== 0) return; dragMoved.current = false; e.currentTarget.setPointerCapture(e.pointerId); const r = panel.current!.getBoundingClientRect(); dragRef.current = { wave: i, x: e.clientX - r.left, y: e.clientY - r.top }; setDrag(dragRef.current); }} /></div>
-          <select className="kp-wave-shape" aria-label={`Wave ${i + 1} shape`} value={w.shape} onChange={e => changeWave(i, { shape: e.target.value as Shape })}>{(["sine", "triangle", "square", "noise", "ramp"] as Shape[]).map(shape => <option key={shape} value={shape}>{shape.toUpperCase()}</option>)}</select>{w.shape === "ramp" && <small className="kp-ramp-help">Full turn: AMP 1 · Angle cable 100% · Angle 0°</small>}
+          <select className="kp-wave-shape" aria-label={`Wave ${i + 1} shape`} value={w.shape} onChange={e => changeWave(i, { shape: e.target.value as Shape })}>{(["sine", "triangle", "square", "noise", "ramp"] as Shape[]).map(shape => <option key={shape} value={shape}>{shape.toUpperCase()}</option>)}</select>{w.shape === "ramp" && <small className="kp-ramp-help">Angle: continuous rotation · AMP and cable amount set speed</small>}
           <div className="kp-wave-timing"><button aria-label={`Wave ${i + 1} timing mode`} onClick={() => changeWave(i, { timing: w.timing === "sync" ? "free" : "sync" })}>{w.timing === "sync" ? "SYNC" : "FREE"}</button>{w.timing === "sync" && <select aria-label={`Wave ${i + 1} division`} value={w.division || "1/4"} onChange={e => changeWave(i, { division: e.target.value as WaveDivision })}>{waveDivisions.map(division => <option key={division}>{division}</option>)}</select>}</div>
           <div className="kp-wavecontrols">{([
             ["rate", "FREQ", .1, 6, .01], ["amp", "AMP", 0, 1, .01], ["speed", "SPEED · Hz", 0, 3, .01], ["direction", "DIR · X/Y", 0, 1, .01], ["phase", "PHASE", 0, 1, .01],
