@@ -1,10 +1,10 @@
-export const waveDivisions = ["1/64", "1/32", "1/16", "1/8", "1/4", "1/2", "3/4", "4/4"] as const;
+export const waveDivisions = ["1/16", "1/8", "1/4", "1/2", "1", "2", "4"] as const;
 export type WaveDivision = typeof waveDivisions[number];
 export type Shape = "sine" | "triangle" | "square" | "noise" | "ramp";
 export type Wave = { on: boolean; shape: Shape; rate: number; amp: number; speed: number; direction: number; phase: number; timing?: "free" | "sync"; division?: WaveDivision };
 export function waveHz(wave: Wave, bpm: number) {
   if (wave.timing !== "sync") return wave.speed;
-  const [numerator, denominator] = (wave.division || "1/4").split("/").map(Number);
+  const [numerator, denominator = 1] = (wave.division || "1/4").split("/").map(Number);
   return bpm / 60 / (4 * numerator / denominator);
 }
 export function waveValue(shape: Shape, phase: number, seed = 0) {
