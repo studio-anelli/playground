@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { createKineticGPU, type GPUStamp } from "./kinetic-gpu";
 import type { CSSProperties, PointerEvent } from "react";
 type RepeatMode = "single" | "line" | "grid";
 type SamplingMode = "xy" | "x" | "y";
@@ -17,7 +18,7 @@ const specs = [
 type Target = typeof specs[number][0];
 type Patch = { id: string; wave: number; target: Target; amount: number };
 type XY = { x: number; y: number };
-type Glyph = { canvas: HTMLCanvasElement; pixels: Uint8ClampedArray; x: number; y: number; width: number; height: number; em: number };
+type Glyph = { canvas: HTMLCanvasElement; x: number; y: number; width: number; height: number; em: number };
 type VideoSource = "typography" | "sampling" | "grid" | "vertex" | "feedback";
 type VideoTarget = Exclude<VideoSource, "typography"> | "canvas";
 type VideoPatch = { source: VideoSource; target: VideoTarget };
@@ -163,7 +164,7 @@ export default function KineticPatchSynth() {
     return () => { observer.disconnect(); rack?.removeEventListener("scroll", measure, true); window.removeEventListener("resize", measure); };
   }, []);
   useEffect(() => {
-    let raf = 0, previous = 0, cacheKey = "", lastRebuild = -100;
+    let raf = 0, previous = 0, lastFrame = -Infinity, feedbackWasOn = false, cacheKey = "", lastRebuild = -100;
     const moduleSignals = [0, 0, 0];
     let feedbackSignal = 0, feedbackTick = -Infinity;
     const history = document.createElement("canvas"), historyCtx = history.getContext("2d")!;
@@ -177,14 +178,26 @@ export default function KineticPatchSynth() {
     const previousOutputs = Object.fromEntries(nodes.map(node => [node, document.createElement("canvas")])) as Record<VideoSource, HTMLCanvasElement>;
     const blank = document.createElement("canvas"); blank.width = 1; blank.height = 1;
     let routeKey = "";
+    let gpu = createKineticGPU();
     const frame = (now: number) => {
+      // Keep React/pointer updates independent of the expensive image pipeline.
+      if (now - lastFrame < 1000 / 30 - .5) { raf = requestAnimationFrame(frame); return; }
+      lastFrame = now;
+      if (gpu && !gpu.available()) { gpu.dispose(); gpu = null; }
       const s = live.current, dt = previous ? Math.min(.05, (now - previous) / 1000) : 0; previous = now;
       if (!s.paused) { s.waves.forEach((w, i) => { if (w.on) phases[i] += dt * w.speed; }); }
       const el = canvas.current, ctx = el?.getContext("2d");
       if (el && ctx) {
+        el.dataset.renderer = gpu ? "webgl2" : "canvas2d";
         const rect = el.getBoundingClientRect(), W = Math.max(64, Math.round(rect.width)), H = Math.max(64, Math.round(rect.height)), dpr = Math.min(2, window.devicePixelRatio || 1);
         if (el.width !== Math.round(W * dpr) || el.height !== Math.round(H * dpr)) { el.width = Math.round(W * dpr); el.height = Math.round(H * dpr); }
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const screen = s.videoPatches.find(p => p.target === "canvas");
+        if (!screen) {
+          ctx.globalCompositeOperation = "source-over"; ctx.fillStyle = s.bg; ctx.fillRect(0, 0, W, H);
+          historyCtx.clearRect(0, 0, history.width, history.height); feedbackTick = -Infinity;
+          raf = requestAnimationFrame(frame); return;
+        }
         const field = (i: number, x: number, y: number) => { if (i === 3) return s.modes.feedback ? feedbackSignal : 0; if (i >= 4) return s.modes[(["sampling", "grid", "vertex"] as const)[i - 4]] ? moduleSignals[i - 4] : 0; const w = s.waves[i]; return w.on ? waveValue(w.shape, phases[i] + w.phase + (x * (1 - w.direction) + y * w.direction) * w.rate, i + 1) * w.amp : 0; };
         const signals = [...s.waves.map((_, i) => field(i, .5, .5)), s.modes.feedback ? feedbackSignal : 0, ...moduleSignals], mod = { ...s.values };
         const at = (target: Target, x: number, y: number, glyph?: Glyph) => {
@@ -201,8 +214,9 @@ export default function KineticPatchSynth() {
           const controls = specs.filter(spec => spec[5] === group);
           moduleSignals[i] = s.modes[group] ? controls.reduce((sum, [key, , min, max]) => sum + 2 * (mod[key] - min) / (max - min) - 1, 0) / controls.length : 0;
         });
-        if (history.width !== el.width || history.height !== el.height) { history.width = el.width; history.height = el.height; feedbackSignal = 0; feedbackTick = -Infinity; }
-        if (!s.modes.feedback) { historyCtx.clearRect(0, 0, history.width, history.height); feedbackSignal = 0; feedbackTick = -Infinity; }
+        if (history.width !== W || history.height !== H) { history.width = W; history.height = H; feedbackSignal = 0; feedbackTick = -Infinity; }
+        if (!s.modes.feedback && feedbackWasOn) { historyCtx.clearRect(0, 0, history.width, history.height); feedbackSignal = 0; feedbackTick = -Infinity; }
+        feedbackWasOn = s.modes.feedback;
         const feedbackDue = s.modes.feedback && !s.paused && now - feedbackTick >= mod.feedbackRefresh;
         // The output holds the previous input sample; it cannot create an instantaneous self-loop.
         if (feedbackDue) {
@@ -240,7 +254,7 @@ export default function KineticPatchSynth() {
                 gc.font = sctx.font; gc.textBaseline = "alphabetic"; gc.fillStyle = s.ink;
                 gc.fillText(char, m.actualBoundingBoxLeft + 4, m.actualBoundingBoxAscent + 4);
                 const gx = x - m.actualBoundingBoxLeft - 4, gy = baseline - m.actualBoundingBoxAscent - 4;
-                glyphs.push({ canvas: c, pixels: gc.getImageData(0, 0, width, height).data, x: gx, y: gy, width, height, em: fitted });
+                glyphs.push({ canvas: c, x: gx, y: gy, width, height, em: fitted });
                 sctx.drawImage(c, gx, gy);
               }
               x += m.width + s.manual.tracking / 100 * fitted;
@@ -249,7 +263,7 @@ export default function KineticPatchSynth() {
           cacheKey = key; lastRebuild = now;
         }
         // Colour the typography source once; downstream nodes preserve the incoming pixels.
-        const typed = outputs.typography, typedCtx = typed.getContext("2d")!;
+        const typed = outputs.typography, typedCtx = typed.getContext("2d", { willReadFrequently: true })!;
         for (const node of nodes) for (const image of [outputs[node], previousOutputs[node]]) {
           if (image.width !== W || image.height !== H) { image.width = W; image.height = H; }
         }
@@ -267,26 +281,32 @@ export default function KineticPatchSynth() {
           }
           hctx.putImageData(heatPixels, 0, 0); typedCtx.globalCompositeOperation = "source-in"; typedCtx.drawImage(heat, 0, 0, W, H); typedCtx.globalCompositeOperation = "source-over";
         }
-        const done = new Set<VideoSource>(["typography"]), visiting = new Set<VideoSource>();
+        const resolved = new Map<VideoSource, HTMLCanvasElement>([["typography", typed]]), visiting = new Set<VideoSource>(), cyclic = new Set<VideoSource>();
         const evaluate = (node: VideoSource): HTMLCanvasElement => {
-          if (done.has(node)) return outputs[node];
+          const cached = resolved.get(node); if (cached) return cached;
           // Cyclic video cables read the previous frame, never recurse indefinitely.
-          if (visiting.has(node)) return previousOutputs[node];
+          if (visiting.has(node)) { cyclic.add(node); return previousOutputs[node]; }
           visiting.add(node);
           const route = s.videoPatches.find(p => p.target === node);
           const input = route ? evaluate(route.source) : blank;
+          // Bypass shares the incoming frame; it needs no full-canvas copy.
+          if (node === "typography" || !s.modes[node]) { visiting.delete(node); resolved.set(node, input); return input; }
           const out = outputs[node], oc = out.getContext("2d", { willReadFrequently: true })!;
           oc.clearRect(0, 0, W, H);
-          if (node === "typography" || !s.modes[node]) oc.drawImage(input, 0, 0);
-          else if (node === "feedback") {
+          if (node === "feedback") {
+            const gpuFeedback = gpu?.feedback(input, history, mod.feedbackAmount, blendModes.findIndex(mode => mode === s.feedbackBlend));
+            if (gpuFeedback) oc.drawImage(gpuFeedback, 0, 0);
+            else {
             oc.drawImage(input, 0, 0);
             oc.globalCompositeOperation = s.feedbackBlend; oc.globalAlpha = mod.feedbackAmount;
             oc.drawImage(history, 0, 0, W, H); oc.globalAlpha = 1; oc.globalCompositeOperation = "source-over";
+            }
             if (feedbackDue) { historyCtx.clearRect(0, 0, history.width, history.height); historyCtx.drawImage(out, 0, 0, history.width, history.height); }
           } else if (node === "grid") {
             const scale = mod.repeatScale / 100, angle = mod.repeatAngle * Math.PI / 180;
             const cx = W / 2 + mod.positionX / 100 * W, cy = H / 2 + mod.positionY / 100 * H;
-            const drawCopy = (dx: number, dy: number) => { oc.save(); oc.translate(cx + dx, cy + dy); oc.scale(scale, scale); oc.drawImage(input, -W / 2, -H / 2); oc.restore(); };
+            const placements: number[] = [];
+            const drawCopy = (dx: number, dy: number) => { if (gpu) { placements.push(cx + dx, cy + dy, W * scale, H * scale); return; } oc.save(); oc.translate(cx + dx, cy + dy); oc.scale(scale, scale); oc.drawImage(input, -W / 2, -H / 2); oc.restore(); };
             if (s.repeatMode === "single") drawCopy(0, 0);
             else if (s.repeatMode === "line") {
               const count = Math.round(s.manual.repeatCount), spacing = mod.repeatSpacingX / 100 * W;
@@ -295,8 +315,11 @@ export default function KineticPatchSynth() {
               const columns = Math.round(s.manual.repeatColumns), rows = Math.round(s.manual.repeatRows);
               for (let y = 0; y < rows; y++) for (let x = 0; x < columns; x++) { const dx = (x - (columns - 1) / 2) * mod.repeatSpacingX / 100 * W, dy = (y - (rows - 1) / 2) * mod.repeatSpacingY / 100 * H; drawCopy(dx * Math.cos(angle) - dy * Math.sin(angle), dx * Math.sin(angle) + dy * Math.cos(angle)); }
             }
+            if (gpu) { const image = gpu.repeat(input, placements); if (image) oc.drawImage(image, 0, 0); }
           } else {
-            const ic = input.getContext("2d", { willReadFrequently: true })!, pixels = ic.getImageData(0, 0, input.width, input.height).data;
+            const useGPU = gpu && !(node === "vertex" && s.vertex === "glyph");
+            const pixels = useGPU ? null : input.getContext("2d", { willReadFrequently: true })!.getImageData(0, 0, input.width, input.height).data;
+            const points: GPUStamp[] = [];
             // Glyph-relative sampling also applies to pixels received from other modules.
             const em = glyphs[0]?.em || size, step = Math.max(1, Math.round(mod.step / 100 * em));
             if (node === "vertex") { oc.globalAlpha = 1 - mod.vertexMix; oc.drawImage(input, 0, 0); oc.globalAlpha = mod.vertexMix; }
@@ -312,12 +335,13 @@ export default function KineticPatchSynth() {
             const xOnly = node === "sampling" && s.samplingMode === "x", yOnly = node === "sampling" && s.samplingMode === "y";
             for (const region of regions) for (let y = region.y; y < region.y + region.height; y += xOnly ? 1 : region.step) for (let x = region.x; x < region.x + region.width; x += yOnly ? 1 : region.step) {
               if (x < 0 || y < 0 || x >= input.width || y >= input.height) continue;
-              const offset = (y * input.width + x) * 4, alpha = pixels[offset + 3] / 255;
-              if (alpha < s.manual.threshold) continue;
+              const offset = (y * input.width + x) * 4, alpha = pixels ? pixels[offset + 3] / 255 : 1;
+              if (pixels && alpha < s.manual.threshold) continue;
               const g = glyphs.find(g => x >= g.x && x < g.x + g.width && y >= g.y && y < g.y + g.height);
               const j = node === "sampling" ? at("jitter", x, y, g) : 0, px = x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j), py = y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j);
-              oc.fillStyle = oc.strokeStyle = `rgba(${pixels[offset]},${pixels[offset + 1]},${pixels[offset + 2]},${alpha})`;
+              if (pixels) oc.fillStyle = oc.strokeStyle = `rgba(${pixels[offset]},${pixels[offset + 1]},${pixels[offset + 2]},${alpha})`;
               const r = node === "vertex" ? at("vertexSize", x, y, g) * canvasUnit : 2.6;
+              if (useGPU) { points.push({ x, y, px, py, size: Math.max(1, r) }); continue; }
               oc.beginPath();
               if (xOnly || yOnly) oc.fillRect(px, py, 1, 1);
               else if (node === "vertex" && s.vertex === "glyph") { oc.font = `${Math.round(mod.weight)} ${Math.max(1, r)}px ${s.font}`; oc.textAlign = "center"; oc.textBaseline = "middle"; oc.fillText(characters[glyphIndex++ % characters.length], px, py); }
@@ -325,22 +349,27 @@ export default function KineticPatchSynth() {
               else if (node === "vertex" && s.vertex === "line") { oc.lineWidth = Math.max(1, r / 3); const len = s.manual.lineLength / (2 * Math.SQRT2); oc.moveTo(px - len, py - len); oc.lineTo(px + len, py + len); oc.stroke(); }
               else { oc.arc(px, py, Math.max(.5, r / 2), 0, Math.PI * 2); oc.fill(); }
             }
+            if (useGPU) {
+              const image = gpu?.render(input, points, xOnly || yOnly ? 3 : node === "vertex" && s.vertex === "square" ? 1 : node === "vertex" && s.vertex === "line" ? 2 : 0, s.manual.threshold, 1, s.manual.lineLength);
+              if (image) oc.drawImage(image, 0, 0);
+            }
             oc.globalAlpha = 1;
           }
-          visiting.delete(node); done.add(node); return out;
+          visiting.delete(node); resolved.set(node, out); return out;
         };
-        // Snapshot every output after evaluating, so loops have a stable previous frame.
-        nodes.forEach(evaluate);
+        // Evaluate only ancestors of the selected canvas output.
+        const finalImage = evaluate(screen.source);
         ctx.clearRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
-        const screen = s.videoPatches.find(p => p.target === "canvas"); if (screen) ctx.drawImage(outputs[screen.source], 0, 0, W, H);
-        nodes.forEach(node => { const pc = previousOutputs[node].getContext("2d")!; pc.clearRect(0, 0, W, H); pc.drawImage(outputs[node], 0, 0); });
+        ctx.drawImage(finalImage, 0, 0, W, H);
+        // Ordinary chains need no previous-frame snapshots; only cycles do.
+        cyclic.forEach(node => { const pc = previousOutputs[node].getContext("2d")!; pc.clearRect(0, 0, W, H); const image = resolved.get(node); if (image) pc.drawImage(image, 0, 0); });
         ctx.globalCompositeOperation = "destination-over";
         ctx.fillStyle = s.bg; ctx.fillRect(0, 0, W, H);
         ctx.globalCompositeOperation = "source-over";
       }
       raf = requestAnimationFrame(frame);
     };
-    raf = requestAnimationFrame(frame); return () => cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(frame); return () => { cancelAnimationFrame(raf); gpu?.dispose(); };
   }, []);
   const exportPreset = () => {
     const payload = { format: "k-tic-synth", version: 2, state: live.current };
