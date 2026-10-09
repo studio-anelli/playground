@@ -92,7 +92,8 @@ color=vec4(c,a);}`;
   };
   const imagePass=(input:HTMLCanvasElement, placements:number[], p:WebGLProgram, history?:HTMLCanvasElement,amount=0,mode=0)=>{
     if(gl.isContextLost())return null;
-    if(canvas.width!==input.width||canvas.height!==input.height){canvas.width=input.width;canvas.height=input.height;}
+    const width=history?.width || input.width,height=history?.height || input.height;
+    if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;}
     gl.viewport(0,0,canvas.width,canvas.height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);gl.useProgram(p);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
     upload(input,tex,0);gl.uniform1i(gl.getUniformLocation(p,'image'),0);
     if(history){upload(history,historyTexture,1);gl.uniform1i(gl.getUniformLocation(p,'history'),1);gl.uniform1f(gl.getUniformLocation(p,'amount'),amount);gl.uniform1i(gl.getUniformLocation(p,'mode'),mode);}
@@ -123,7 +124,7 @@ color=vec4(c,a);}`;
       return canvas;
     },
     repeat(input:HTMLCanvasElement, placements:number[]){return imagePass(input,placements,copies);},
-    feedback(input:HTMLCanvasElement, history:HTMLCanvasElement, amount:number,mode:number){return imagePass(input,[input.width/2,input.height/2,input.width,input.height],feedback,history,amount,mode);},
+    feedback(input:HTMLCanvasElement, history:HTMLCanvasElement, amount:number,mode:number){return imagePass(input,[history.width/2,history.height/2,history.width,history.height],feedback,history,amount,mode);},
     dispose(){textures.forEach(t=>gl.deleteTexture(t));buffers.forEach(b=>gl.deleteBuffer(b));programs.forEach(p=>gl.deleteProgram(p));shaders.forEach(s=>gl.deleteShader(s));}
   };
 }
