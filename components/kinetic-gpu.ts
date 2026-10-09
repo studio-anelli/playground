@@ -117,7 +117,7 @@ color=vec4(c,a);}`;
     gl.drawArraysInstanced(gl.TRIANGLES,0,6,placements.length/4);return canvas;
   };
   const atlasTexture=gl.createTexture()!;textures.push(atlasTexture);
-  const atlasCanvas=document.createElement('canvas');
+  const atlasCanvas=document.createElement('canvas');atlasCanvas.width=1;atlasCanvas.height=1;upload(atlasCanvas,atlasTexture,1);
   let atlasKey='',atlasColumns=1,atlasRows=1,cellWidth=192,cellHeight=192;
   const prepareAtlas=(pattern:string,font:string,weight:number)=>{
     const key=JSON.stringify([pattern,font,weight]);
@@ -144,7 +144,7 @@ color=vec4(c,a);}`;
       gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,input);
       gl.uniform1i(gl.getUniformLocation(stamps,'image'),0);gl.uniform2f(gl.getUniformLocation(stamps,'resolution'),canvas.width,canvas.height);gl.uniform1i(gl.getUniformLocation(stamps,'shape'),shape);gl.uniform1f(gl.getUniformLocation(stamps,'threshold'),threshold);gl.uniform1f(gl.getUniformLocation(stamps,'opacity'),opacity);gl.uniform1f(gl.getUniformLocation(stamps,'lineLength'),lineLength);
       if(glyphs){prepareAtlas(glyphs.pattern,glyphs.font,glyphs.weight);gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,atlasTexture);gl.uniform1i(gl.getUniformLocation(stamps,'atlas'),1);gl.uniform2f(gl.getUniformLocation(stamps,'atlasGrid'),atlasColumns,atlasRows);gl.uniform2f(gl.getUniformLocation(stamps,'atlasCell'),cellWidth,cellHeight);}
-      else {gl.uniform1i(gl.getUniformLocation(stamps,'atlas'),1);gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,atlasTexture);if(!atlasKey){upload(atlasCanvas,atlasTexture,1);}}
+      else {gl.uniform1i(gl.getUniformLocation(stamps,'atlas'),1);gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,atlasTexture);}
       if(data.length<points.length*6)data=new Float32Array(points.length*6);
       points.forEach((p,i)=>{const j=i*6;data[j]=p.x;data[j+1]=p.y;data[j+2]=p.px;data[j+3]=p.py;data[j+4]=p.size;data[j+5]=p.glyph || 0;});
       gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.vertexAttribDivisor(0,0);
