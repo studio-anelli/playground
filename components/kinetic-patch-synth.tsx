@@ -2,6 +2,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { fitCanvas, outputDimensions, type CanvasFormat } from "./kinetic-output";
+import { renderVideo } from "./kinetic-video-render";
+import { recordCanvas } from "./kinetic-recording";
 import { kineticPresets } from "./kinetic-presets";
 import { createKineticGPU, type GPUStamp, type GPUFrame } from "./kinetic-gpu";
 import type { CSSProperties, PointerEvent } from "react";
@@ -100,6 +102,14 @@ export default function KineticPatchSynth() {
   const [viewSize, setViewSize] = useState({ width: 0, height: 0 });
   const [pngBusy, setPngBusy] = useState(false);
   const [nativeView, setNativeView] = useState(false);
+  const [recordSeconds, setRecordSeconds] = useState(10), [recording, setRecording] = useState(false), [recordElapsed, setRecordElapsed] = useState(0);
+  const recordingSession = useRef<ReturnType<typeof recordCanvas> | null>(null);
+  const recordingStarted = useRef(0);
+  const [rendering, setRendering] = useState(false), [renderProgress, setRenderProgress] = useState({ done: 0, total: 0 });
+  const renderAbort = useRef<AbortController | null>(null);
+  const renderDriver = useRef<{ start: () => number; frame: (now: number) => void; resume: () => void } | null>(null);
+  useEffect(() => { if (!recording) return; const timer = setInterval(() => setRecordElapsed(Math.min(recordSeconds, (performance.now() - recordingStarted.current) / 1000)), 200); return () => clearInterval(timer); }, [recording, recordSeconds]);
+  useEffect(() => () => { recordingSession.current?.cancel(); recordingSession.current = null; renderAbort.current?.abort(); }, []);
   const [outputOpen, setOutputOpen] = useState(false), [outputPosition, setOutputPosition] = useState<XY | null>(null);
   const outputWindow = useRef<HTMLElement>(null), outputButton = useRef<HTMLButtonElement>(null);
   const outputDrag = useRef<XY | null>(null);
@@ -138,6 +148,7 @@ export default function KineticPatchSynth() {
   const dragRef = useRef<(XY & { wave: number }) | null>(null);
   const sockets = useRef<Record<string, HTMLButtonElement | null>>({});
   const live = useRef({ waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches });
+  const renderSnapshot = useRef<{ state: typeof live.current; width: number; height: number; displayWidth: number } | null>(null);
   useEffect(() => { live.current = { waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches }; }, [waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches]);
   const undoStack = useRef<(typeof live.current)[]>([]);
   const lastEdit = useRef({ snapshot: { waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches }, time: 0, key: "" });
@@ -197,12 +208,13 @@ export default function KineticPatchSynth() {
     const blank = document.createElement("canvas"); blank.width = 1; blank.height = 1;
     let routeKey = "";
     let gpu = createKineticGPU();
-    const frame = (now: number) => {
+    const frame = (now: number, manualFrame = false) => {
+      if (renderSnapshot.current && !manualFrame) { raf = requestAnimationFrame(frame); return; }
       // Keep React/pointer updates independent of the expensive image pipeline.
-      if (now - lastFrame < 1000 / 30 - .5) { raf = requestAnimationFrame(frame); return; }
+      if (!manualFrame && now - lastFrame < 1000 / 30 - .5) { raf = requestAnimationFrame(frame); return; }
       lastFrame = now;
       if (gpu && !gpu.available()) { gpu.dispose(); gpu = null; }
-      const s = live.current, dt = previous ? Math.min(.05, (now - previous) / 1000) : 0; previous = now;
+      const s = renderSnapshot.current?.state || live.current, dt = previous ? Math.min(.05, (now - previous) / 1000) : 0; previous = now;
       if (!s.paused) { s.waves.forEach((w, i) => { if (w.on) phases[i] += dt * w.speed; }); }
       const el = canvas.current, ctx = el?.getContext("2d");
       if (el && ctx) {
@@ -211,7 +223,7 @@ export default function KineticPatchSynth() {
         const host = stage.current!;
         const rect = fitCanvas(host.offsetWidth, host.offsetHeight, output.canvasFormat, output.customWidth, output.customHeight);
         const dimensions = outputDimensions(rect.width, rect.height, output.canvasFormat, output.outputResolution, output.customWidth, output.customHeight);
-        const W = dimensions.width, H = dimensions.height, dpr = 1, pixelScale = W / Math.max(64, rect.width);
+        const W = renderSnapshot.current?.width || recordingSession.current?.width || dimensions.width, H = renderSnapshot.current?.height || recordingSession.current?.height || dimensions.height, dpr = 1, pixelScale = W / Math.max(64, renderSnapshot.current?.displayWidth || rect.width);
         if (el.width !== Math.round(W * dpr) || el.height !== Math.round(H * dpr)) { el.width = Math.round(W * dpr); el.height = Math.round(H * dpr); }
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         const screen = s.videoPatches.find(p => p.target === "canvas");
@@ -219,7 +231,7 @@ export default function KineticPatchSynth() {
           ctx.globalCompositeOperation = "source-over"; ctx.fillStyle = s.bg; ctx.fillRect(0, 0, W, H);
           historyCtx.clearRect(0, 0, history.width, history.height); feedbackTick = -Infinity;
           gpu?.begin(W, H, "disconnected", false);
-          raf = requestAnimationFrame(frame); return;
+          if (!manualFrame) raf = requestAnimationFrame(frame); return;
         }
         const field = (i: number, x: number, y: number) => { if (i === 3) return s.modes.feedback ? feedbackSignal : 0; if (i >= 4) return s.modes[(["sampling", "grid", "vertex"] as const)[i - 4]] ? moduleSignals[i - 4] : 0; const w = s.waves[i]; return w.on ? waveValue(w.shape, phases[i] + w.phase + (x * (1 - w.direction) + y * w.direction) * w.rate, i + 1) * w.amp : 0; };
         const signals = [...s.waves.map((_, i) => field(i, .5, .5)), s.modes.feedback ? feedbackSignal : 0, ...moduleSignals], mod = { ...s.values };
@@ -252,7 +264,7 @@ export default function KineticPatchSynth() {
         const size = Math.round(mod.fontSize * canvasUnit), weight = Math.round(mod.weight / 10) * 10;
         const key = `${W}|${H}|${s.text}|${s.font}|${size}|${weight}|${s.ink}|${s.manual.tracking}`;
         // Cap expensive glyph rasterisation at 20fps; wave evaluation and drawing remain at display rate.
-        if (key !== cacheKey && (now - lastRebuild >= 50 || !cacheKey)) {
+        if (key !== cacheKey && (manualFrame || now - lastRebuild >= 50 || !cacheKey)) {
           source.width = W; source.height = H; sctx.fillStyle = s.ink; sctx.textAlign = "center"; sctx.textBaseline = "middle";
           const lines = s.text.split("\n"); let fitted = Math.min(size, H * .75 / Math.max(1, lines.length));
           sctx.font = `${weight} ${fitted}px ${s.font}`;
@@ -443,10 +455,47 @@ export default function KineticPatchSynth() {
         ctx.fillStyle = s.bg; ctx.fillRect(0, 0, W, H);
         ctx.globalCompositeOperation = "source-over";
       }
-      raf = requestAnimationFrame(frame);
+      if (!manualFrame) raf = requestAnimationFrame(frame);
     };
-    raf = requestAnimationFrame(frame); return () => { cancelAnimationFrame(raf); gpu?.dispose(); };
+    renderDriver.current = { start: () => previous || performance.now(), frame: now => frame(now, true), resume: () => { const now = performance.now(), offset = now - previous; feedbackTick += offset; lastRebuild += offset; previous = now; lastFrame = now; } };
+    raf = requestAnimationFrame(frame); return () => { renderDriver.current = null; cancelAnimationFrame(raf); gpu?.dispose(); };
   }, []);
+  const startRecording = () => {
+    const image = canvas.current; if (!image || recordingSession.current || renderAbort.current) return;
+    const o = outputSettings.current, host = stage.current!;
+    const box = fitCanvas(host.offsetWidth, host.offsetHeight, o.canvasFormat, o.customWidth, o.customHeight);
+    const wanted = outputDimensions(box.width, box.height, o.canvasFormat, o.outputResolution, o.customWidth, o.customHeight);
+    if (image.width !== wanted.width || image.height !== wanted.height) { setPresetMessage("Canvas is resizing. Try Record again in a moment."); return; }
+    const name = text.trim().slice(0, 32).replace(/[^a-z0-9_-]/gi, "-") || "image", width = image.width, height = image.height;
+    try {
+      recordingSession.current = recordCanvas(image, recordSeconds, (blob, error) => {
+        recordingSession.current = null; setRecording(false);
+        if (!blob) { setPresetMessage(error || "Could not record video."); return; }
+        const url = URL.createObjectURL(blob), a = document.createElement("a"); a.href = url;
+        const extension = blob.type.includes("mp4") ? "mp4" : "webm";
+        a.download = `k-tic-synth-${name}-${width}x${height}.${extension}`; a.click(); setTimeout(() => URL.revokeObjectURL(url), 60000);
+        setPresetMessage(`Video saved · ${width} × ${height}`);
+      });
+      recordingStarted.current = performance.now(); setRecordElapsed(0); setRecording(true); setPresetMessage("Recording canvas. Keep this tab visible.");
+    } catch (error) { setPresetMessage(error instanceof Error ? error.message : "Could not start recording."); }
+  };
+  const startVideoRender = async () => {
+    const image = canvas.current, driver = renderDriver.current; if (!image || !driver || recordingSession.current || renderAbort.current) return;
+    const o = outputSettings.current, host = stage.current!;
+    const box = fitCanvas(host.offsetWidth, host.offsetHeight, o.canvasFormat, o.customWidth, o.customHeight);
+    const wanted = outputDimensions(box.width, box.height, o.canvasFormat, o.outputResolution, o.customWidth, o.customHeight);
+    if (image.width !== wanted.width || image.height !== wanted.height) { setPresetMessage("Canvas is resizing. Try Render again in a moment."); return; }
+    const controller = new AbortController(); renderAbort.current = controller;
+    renderSnapshot.current = { state: structuredClone(live.current), width: image.width, height: image.height, displayWidth: box.width };
+    const width = image.width, height = image.height, name = text.trim().slice(0, 32).replace(/[^a-z0-9_-]/gi, "-") || "image", start = driver.start();
+    setRendering(true); setRenderProgress({ done: 0, total: recordSeconds * 30 }); setPresetMessage("Rendering every frame at 30 fps. This can take longer than playback.");
+    try {
+      const blob = await renderVideo(image, recordSeconds, controller.signal, index => { if (index) driver.frame(start + index * 1000 / 30); }, (done, total) => setRenderProgress({ done, total }));
+      controller.signal.throwIfAborted(); const url = URL.createObjectURL(blob), a = document.createElement("a"); a.href = url; a.download = `k-tic-synth-${name}-${width}x${height}-30fps.mp4`; a.click(); setTimeout(() => URL.revokeObjectURL(url), 60000);
+      setPresetMessage(`Rendered video saved · ${width} × ${height} · 30 fps`);
+    } catch (error) { if (renderDriver.current) setPresetMessage(controller.signal.aborted ? "Video render cancelled." : error instanceof Error ? error.message : "Video render failed."); }
+    finally { renderSnapshot.current = null; renderAbort.current = null; driver.resume(); if (renderDriver.current) setRendering(false); }
+  };
   const exportPNG = () => {
     const image = canvas.current; if (!image || pngBusy) return;
     const o = outputSettings.current, host = stage.current!;
@@ -541,8 +590,9 @@ export default function KineticPatchSynth() {
       <section ref={bay} className={`kp-patches kp-floating ${bayCollapsed ? "is-collapsed" : ""}`} aria-label="Patch bay" style={bayPosition ? { left: bayPosition.x, top: bayPosition.y, bottom: "auto" } : undefined}><div className="kp-title kp-bay-handle" onPointerDown={e => { if ((e.target as HTMLElement).closest("button")) return; const r = bay.current!.getBoundingClientRect(); bayDrag.current = { x: e.clientX - r.left, y: e.clientY - r.top }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerMove={e => { if (!bayDrag.current || !bay.current) return; const r = bay.current.getBoundingClientRect(); setBayPosition({ x: clamp(e.clientX - bayDrag.current.x, 8, Math.max(8, window.innerWidth - r.width - 8)), y: clamp(e.clientY - bayDrag.current.y, 8, Math.max(8, window.innerHeight - r.height - 8)) }); }} onPointerUp={() => { bayDrag.current = null; }} onPointerCancel={() => { bayDrag.current = null; }}>03 / PATCH BAY <span><button aria-label={bayCollapsed ? "Expand patch bay" : "Collapse patch bay"} aria-expanded={!bayCollapsed} onClick={() => setBayCollapsed(v => !v)}>{bayCollapsed ? "+" : "−"}</button> <button aria-label="Clear all video connections" title="Disconnect all video cables" disabled={videoPatches.length === 0} onClick={() => { setVideoPatches([]); setSelectedVideo(null); setVideoDrag(null); videoDragRef.current = null; }}>ZERO VIDEO</button> <button aria-label="Zero all modulation connection amounts" title="Set modulation amounts to 0% while keeping cables connected" disabled={!patches.some(p => p.amount !== 0)} onClick={() => setPatches(all => all.map(p => ({ ...p, amount: 0 })))}>ZERO AMOUNTS</button> <button onClick={() => { setPatches([]); setVideoPatches([]); setSelectedVideo(null); setSelected(null); }}>CLEAR</button></span></div><div className="kp-bay-content" hidden={bayCollapsed}><p>{selectedVideo ? `VIDEO ${selectedVideo.toUpperCase()} · choose a video input` : selected === null ? "Drag or click sockets to connect. Click a cable/input to unplug." : `${sourceNames[selected]} selected · choose an input`}</p>{videoPatches.map(p => <div className="kp-video-patch" key={`video-${p.target}`}><b>VIDEO · {p.source.toUpperCase()} → {p.target.toUpperCase()}</b><button aria-label={`Remove video ${p.source} to ${p.target}`} onClick={() => setVideoPatches(all => all.filter(item => item.target !== p.target))}>×</button></div>)}{patches.length === 0 && videoPatches.length === 0 && <p>No cables connected.</p>}{patches.map(p => { const c = specs.find(c => c[0] === p.target)!; return <div className="kp-patch" key={p.id} style={{ "--wave": colors[p.wave] } as CSSProperties}><b>{sourceNames[p.wave]} → {c[5]} / {c[1]}</b><button aria-label={`Remove ${sourceNames[p.wave]} to ${c[5]} ${c[1]}`} onClick={() => setPatches(all => all.filter(item => item.id !== p.id))}>×</button><div className="kp-knob-control kp-amount"><span>AMOUNT · %</span><Knob name={`Amount ${sourceNames[p.wave]} to ${c[5]} ${c[1]}`} min={-100} max={100} step={1} value={p.amount} onChange={next => setPatches(all => all.map(item => item.id === p.id ? { ...item, amount: next } : item))} /></div></div>; })}</div></section>
     {outputOpen && <section id="kp-output-window" ref={outputWindow} role="dialog" aria-label="Output settings" tabIndex={-1} className="kp-output-window" style={outputPosition ? { left: outputPosition.x, top: outputPosition.y, right: "auto", bottom: "auto" } : undefined} onKeyDown={e => { if (e.key === "Escape") { e.stopPropagation(); closeOutput(); } }}>
       <div className="kp-output-handle" onPointerDown={e => { if (e.button !== 0 || (e.target as HTMLElement).closest("button")) return; e.preventDefault(); const r = outputWindow.current!.getBoundingClientRect(); outputDrag.current = { x: e.clientX - r.left, y: e.clientY - r.top }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerMove={e => { if (!outputDrag.current || !outputWindow.current) return; const r = outputWindow.current.getBoundingClientRect(); setOutputPosition({ x: clamp(e.clientX - outputDrag.current.x, 8, Math.max(8, window.innerWidth - r.width - 8)), y: clamp(e.clientY - outputDrag.current.y, 8, Math.max(8, window.innerHeight - r.height - 8)) }); }} onPointerUp={() => { outputDrag.current = null; }} onPointerCancel={() => { outputDrag.current = null; }}>OUTPUT <button aria-label="Close output settings" onClick={closeOutput}>×</button></div>
-      <div className="kp-output-tools"><select aria-label="Canvas format" value={canvasFormat} onChange={e => setCanvasFormat(e.target.value as CanvasFormat)}><option value="screen">SCREEN</option><option value="square">SQUARE · 1:1</option><option value="landscape">LANDSCAPE · 16:9</option><option value="portrait">PORTRAIT · 9:16</option><option value="custom">CUSTOM</option></select>{canvasFormat === "custom" ? <><input aria-label="Custom canvas width" type="number" min={64} max={4096} defaultValue={customWidth} onBlur={e => { const n = Math.round(Number(e.target.value)); if (n >= 64 && n <= 4096) setCustomWidth(n); else e.target.value = String(customWidth); }} /><span>×</span><input aria-label="Custom canvas height" type="number" min={64} max={4096} defaultValue={customHeight} onBlur={e => { const n = Math.round(Number(e.target.value)); if (n >= 64 && n <= 4096) setCustomHeight(n); else e.target.value = String(customHeight); }} /></> : <select aria-label="Output resolution" value={outputResolution} onChange={e => setOutputResolution(Number(e.target.value))}><option value={0}>SCREEN SIZE</option><option value={1024}>1K · 1024</option><option value={2048}>2K · 2048</option><option value={4096}>4K · 4096</option></select>}<button aria-label="Inspect native pixels" aria-pressed={nativeView} onClick={() => { setNativeView(v => !v); stage.current?.scrollTo(0, 0); }}>{nativeView ? "FIT" : "100%"}</button><span className="kp-output-dimensions">{nativeSize.width} × {nativeSize.height}</span><button onClick={exportPNG} disabled={pngBusy}>{pngBusy ? "SAVING…" : "PNG ↓"}</button></div>
+      <div className="kp-output-tools"><select disabled={recording || rendering} aria-label="Canvas format" value={canvasFormat} onChange={e => setCanvasFormat(e.target.value as CanvasFormat)}><option value="screen">SCREEN</option><option value="square">SQUARE · 1:1</option><option value="landscape">LANDSCAPE · 16:9</option><option value="portrait">PORTRAIT · 9:16</option><option value="custom">CUSTOM</option></select>{canvasFormat === "custom" ? <><input disabled={recording || rendering} aria-label="Custom canvas width" type="number" min={64} max={4096} defaultValue={customWidth} onBlur={e => { const n = Math.round(Number(e.target.value)); if (n >= 64 && n <= 4096) setCustomWidth(n); else e.target.value = String(customWidth); }} /><span>×</span><input disabled={recording || rendering} aria-label="Custom canvas height" type="number" min={64} max={4096} defaultValue={customHeight} onBlur={e => { const n = Math.round(Number(e.target.value)); if (n >= 64 && n <= 4096) setCustomHeight(n); else e.target.value = String(customHeight); }} /></> : <select disabled={recording || rendering} aria-label="Output resolution" value={outputResolution} onChange={e => setOutputResolution(Number(e.target.value))}><option value={0}>SCREEN SIZE</option><option value={1024}>1K · 1024</option><option value={1920}>HD · 1920</option><option value={2048}>2K · 2048</option><option value={4096}>4K · 4096</option></select>}<button aria-label="Inspect native pixels" aria-pressed={nativeView} onClick={() => { setNativeView(v => !v); stage.current?.scrollTo(0, 0); }}>{nativeView ? "FIT" : "100%"}</button><span className="kp-output-dimensions">{nativeSize.width} × {nativeSize.height}</span><button onClick={exportPNG} disabled={pngBusy || rendering}>{pngBusy ? "SAVING…" : "PNG ↓"}</button></div>
+      <div className="kp-video-tools"><b>VIDEO · 30 FPS TARGET</b><select aria-label="Recording duration" disabled={recording || rendering} value={recordSeconds} onChange={e => setRecordSeconds(Number(e.target.value))}><option value={5}>5 SECONDS</option><option value={10}>10 SECONDS</option><option value={20}>20 SECONDS</option></select><button disabled={rendering} className={recording ? "is-recording" : ""} onClick={() => recording ? recordingSession.current?.stop() : startRecording()}>{recording ? "STOP & SAVE" : "● RECORD"}</button><button disabled={recording} onClick={() => rendering ? renderAbort.current?.abort() : void startVideoRender()}>{rendering ? "CANCEL RENDER" : "RENDER VIDEO"}</button><span role="status">{rendering ? `RENDERING · ${renderProgress.done} / ${renderProgress.total} frames` : recording ? `${recordElapsed.toFixed(1)} / ${recordSeconds}s` : "Current output size · MP4 / WebM"}</span>{rendering && <progress aria-label="Video render progress" value={renderProgress.done} max={renderProgress.total} />}<p>Record: live capture. Render: every frame at 30 fps.</p></div>
     </section>}
-    <footer className="kp-footer"><button ref={outputButton} className="kp-output-trigger" aria-expanded={outputOpen} aria-controls="kp-output-window" onClick={() => outputOpen ? closeOutput() : setOutputOpen(true)}>OUTPUT</button><div className="kp-preset-tools"><select aria-label="Load built-in preset" defaultValue="" onChange={e => { if (e.target.value === "dream") { loadDream(); setPresetMessage("Dream loaded. Undo restores your previous settings."); } const preset = kineticPresets.find(p => p.id === e.target.value); if (preset) { applyPreset(parsePreset(preset.preset)); setPresetMessage(`${preset.name} loaded. Undo restores your previous settings.`); } e.target.value = ""; }}><option value="" disabled>PRESETS</option><option value="dream">Dream</option>{kineticPresets.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select><button onClick={() => presetInput.current?.click()}>IMPORT</button><button onClick={exportPreset}>EXPORT</button><input ref={presetInput} type="file" accept=".json,application/json" aria-label="Import preset file" hidden onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importPreset(file); }} /><span role="status">{presetMessage}</span></div><label>TEXT <textarea aria-label="Text" value={text} onChange={e => setText(e.target.value)} rows={1} /></label><label>BACKGROUND <input aria-label="Background color" type="color" value={bg} onChange={e => setBg(e.target.value)} /></label><button className="kp-bicolour" aria-pressed={bicolour} onClick={() => setBicolour(v => !v)}>BI-COLOUR</button>{bicolour && <label>INK 2 <input aria-label="Second ink color" type="color" value={ink2} onChange={e => setInk2(e.target.value)} /></label>}<label>INK <input aria-label="Ink color" type="color" value={ink} onChange={e => setInk(e.target.value)} /></label></footer>
+    <footer className="kp-footer"><button ref={outputButton} className="kp-output-trigger" aria-expanded={outputOpen} aria-controls="kp-output-window" onClick={() => outputOpen ? closeOutput() : setOutputOpen(true)}>{rendering ? "RENDER · OUTPUT" : recording ? "● REC · OUTPUT" : "OUTPUT"}</button><div className="kp-preset-tools"><select aria-label="Load built-in preset" defaultValue="" onChange={e => { if (e.target.value === "dream") { loadDream(); setPresetMessage("Dream loaded. Undo restores your previous settings."); } const preset = kineticPresets.find(p => p.id === e.target.value); if (preset) { applyPreset(parsePreset(preset.preset)); setPresetMessage(`${preset.name} loaded. Undo restores your previous settings.`); } e.target.value = ""; }}><option value="" disabled>PRESETS</option><option value="dream">Dream</option>{kineticPresets.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select><button onClick={() => presetInput.current?.click()}>IMPORT</button><button onClick={exportPreset}>EXPORT</button><input ref={presetInput} type="file" accept=".json,application/json" aria-label="Import preset file" hidden onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importPreset(file); }} /><span role="status">{presetMessage}</span></div><label>TEXT <textarea aria-label="Text" value={text} onChange={e => setText(e.target.value)} rows={1} /></label><label>BACKGROUND <input aria-label="Background color" type="color" value={bg} onChange={e => setBg(e.target.value)} /></label><button className="kp-bicolour" aria-pressed={bicolour} onClick={() => setBicolour(v => !v)}>BI-COLOUR</button>{bicolour && <label>INK 2 <input aria-label="Second ink color" type="color" value={ink2} onChange={e => setInk2(e.target.value)} /></label>}<label>INK <input aria-label="Ink color" type="color" value={ink} onChange={e => setInk(e.target.value)} /></label></footer>
   </main>;
 }
