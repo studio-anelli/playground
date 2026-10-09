@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { kineticPresets } from "./kinetic-presets";
-import { createKineticGPU, type GPUStamp } from "./kinetic-gpu";
+import { createKineticGPU, type GPUStamp, type GPUFrame } from "./kinetic-gpu";
 import type { CSSProperties, PointerEvent } from "react";
 type RepeatMode = "single" | "line" | "grid";
 type SamplingMode = "xy" | "x" | "y";
@@ -197,6 +197,7 @@ export default function KineticPatchSynth() {
         if (!screen) {
           ctx.globalCompositeOperation = "source-over"; ctx.fillStyle = s.bg; ctx.fillRect(0, 0, W, H);
           historyCtx.clearRect(0, 0, history.width, history.height); feedbackTick = -Infinity;
+          gpu?.begin(W, H, "disconnected", false);
           raf = requestAnimationFrame(frame); return;
         }
         const field = (i: number, x: number, y: number) => { if (i === 3) return s.modes.feedback ? feedbackSignal : 0; if (i >= 4) return s.modes[(["sampling", "grid", "vertex"] as const)[i - 4]] ? moduleSignals[i - 4] : 0; const w = s.waves[i]; return w.on ? waveValue(w.shape, phases[i] + w.phase + (x * (1 - w.direction) + y * w.direction) * w.rate, i + 1) * w.amp : 0; };
@@ -265,7 +266,7 @@ export default function KineticPatchSynth() {
         }
         // Colour the typography source once; downstream nodes preserve the incoming pixels.
         const typed = outputs.typography, typedCtx = typed.getContext("2d", { willReadFrequently: true })!;
-        for (const node of nodes) for (const image of [outputs[node], previousOutputs[node]]) {
+        for (const node of gpu ? ["typography" as const] : nodes) for (const image of gpu ? [outputs[node]] : [outputs[node], previousOutputs[node]]) {
           if (image.width !== W || image.height !== H) { image.width = W; image.height = H; }
         }
         const nextRouteKey = JSON.stringify(s.videoPatches);
@@ -282,6 +283,68 @@ export default function KineticPatchSynth() {
           }
           hctx.putImageData(heatPixels, 0, 0); typedCtx.globalCompositeOperation = "source-in"; typedCtx.drawImage(heat, 0, 0, W, H); typedCtx.globalCompositeOperation = "source-over";
         }
+        if (gpu) {
+          try {
+          const renderer = gpu;
+          const gpuBlank = renderer.begin(W, H, nextRouteKey, s.modes.feedback);
+        const resolved = new Map<VideoSource, GPUFrame>([["typography", renderer.load(typed)]]), visiting = new Set<VideoSource>(), cyclic = new Set<VideoSource>();
+        const evaluate = (node: VideoSource): GPUFrame => {
+          const cached = resolved.get(node); if (cached) return cached;
+          // Cyclic video cables read the previous frame, never recurse indefinitely.
+          if (visiting.has(node)) { cyclic.add(node); return renderer.previous(node); }
+          visiting.add(node);
+          const route = s.videoPatches.find(p => p.target === node);
+          const input = route ? evaluate(route.source) : gpuBlank;
+          // Bypass shares the incoming frame; it needs no full-canvas copy.
+          if (node === "typography" || !s.modes[node]) { visiting.delete(node); resolved.set(node, input); return input; }
+          let out: GPUFrame;
+          if (node === "feedback") {
+            out = renderer.feedback(input, mod.feedbackAmount, blendModes.findIndex(mode => mode === s.feedbackBlend), feedbackDue, node);
+          } else if (node === "grid") {
+            const scale = mod.repeatScale / 100, angle = mod.repeatAngle * Math.PI / 180;
+            const cx = W / 2 + mod.positionX / 100 * W, cy = H / 2 + mod.positionY / 100 * H;
+            const placements: number[] = [];
+            const drawCopy = (dx: number, dy: number) => { placements.push(cx + dx, cy + dy, W * scale, H * scale); };
+            if (s.repeatMode === "single") drawCopy(0, 0);
+            else if (s.repeatMode === "line") {
+              const count = Math.round(s.manual.repeatCount), spacing = mod.repeatSpacingX / 100 * W;
+              for (let i = 0; i < count; i++) { const offset = (i - (count - 1) / 2) * spacing; drawCopy(Math.cos(angle) * offset, Math.sin(angle) * offset); }
+            } else {
+              const columns = Math.round(s.manual.repeatColumns), rows = Math.round(s.manual.repeatRows);
+              for (let y = 0; y < rows; y++) for (let x = 0; x < columns; x++) { const dx = (x - (columns - 1) / 2) * mod.repeatSpacingX / 100 * W, dy = (y - (rows - 1) / 2) * mod.repeatSpacingY / 100 * H; drawCopy(dx * Math.cos(angle) - dy * Math.sin(angle), dx * Math.sin(angle) + dy * Math.cos(angle)); }
+            }
+            out = renderer.repeat(input, placements, node);
+          } else {
+            const glyphGPU = node === "vertex" && s.vertex === "glyph";
+            const points: GPUStamp[] = [];
+            // Glyph-relative sampling also applies to pixels received from other modules.
+            const em = glyphs[0]?.em || size, step = Math.max(1, Math.round(mod.step / 100 * em));
+            const lineage = new Set<VideoSource>();
+            const glyphAligned = (current: VideoSource): boolean => {
+              if (current === "typography") return true;
+              if (lineage.has(current) || s.modes[current]) return false;
+              lineage.add(current); const upstream = s.videoPatches.find(p => p.target === current); return upstream ? glyphAligned(upstream.source) : false;
+            };
+            const regions = route && glyphAligned(route.source) ? glyphs.map(g => ({ x: Math.ceil(g.x + 4), y: Math.ceil(g.y + 4), width: g.width - 8, height: g.height - 8, step: Math.max(1, Math.round(at("step", g.x + g.em / 2, g.y + g.em / 2, g) / 100 * g.em)) })) : [{ x: 0, y: 0, width: input.width, height: input.height, step }];
+            const xOnly = node === "sampling" && s.samplingMode === "x", yOnly = node === "sampling" && s.samplingMode === "y";
+            for (const region of regions) for (let y = region.y; y < region.y + region.height; y += xOnly ? 1 : region.step) for (let x = region.x; x < region.x + region.width; x += yOnly ? 1 : region.step) {
+              if (x < 0 || y < 0 || x >= input.width || y >= input.height) continue;
+              const g = glyphs.find(g => x >= g.x && x < g.x + g.width && y >= g.y && y < g.y + g.height);
+              const j = node === "sampling" ? at("jitter", x, y, g) : 0, px = x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j), py = y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j);
+              const r = node === "vertex" ? at("vertexSize", x, y, g) * canvasUnit : 2.6;
+              points.push({ x, y, px, py, size: Math.max(1, r) });
+            }
+            out = renderer.render(input, points, glyphGPU ? 4 : xOnly || yOnly ? 3 : node === "vertex" && s.vertex === "square" ? 1 : node === "vertex" && s.vertex === "line" ? 2 : 0, s.manual.threshold, node === "sampling" ? s.manual.opacity : 1, s.manual.lineLength, node, node === "vertex" ? mod.vertexMix : 1, glyphGPU ? { pattern: s.glyphPattern, font: s.font, weight: Math.round(mod.weight) } : undefined);
+          }
+          visiting.delete(node); resolved.set(node, out); return out;
+        };
+        // Evaluate only ancestors of the selected canvas output.
+        const finalImage = evaluate(screen.source);
+        ctx.clearRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
+        ctx.drawImage(renderer.present(finalImage), 0, 0, W, H);
+        cyclic.forEach(node => { const image = resolved.get(node); if (image) renderer.snapshot(node, image); });
+          } catch (error) { console.warn("K-TIC-SYNTH: GPU chain failed; using Canvas2D", error); gpu.dispose(); gpu = null; }
+        } else {
         const resolved = new Map<VideoSource, HTMLCanvasElement>([["typography", typed]]), visiting = new Set<VideoSource>(), cyclic = new Set<VideoSource>();
         const evaluate = (node: VideoSource): HTMLCanvasElement => {
           const cached = resolved.get(node); if (cached) return cached;
@@ -295,19 +358,15 @@ export default function KineticPatchSynth() {
           const out = outputs[node], oc = out.getContext("2d", { willReadFrequently: true })!;
           oc.clearRect(0, 0, W, H);
           if (node === "feedback") {
-            const gpuFeedback = gpu?.feedback(input, history, mod.feedbackAmount, blendModes.findIndex(mode => mode === s.feedbackBlend));
-            if (gpuFeedback) oc.drawImage(gpuFeedback, 0, 0);
-            else {
             oc.drawImage(input, 0, 0);
             oc.globalCompositeOperation = s.feedbackBlend; oc.globalAlpha = mod.feedbackAmount;
             oc.drawImage(history, 0, 0, W, H); oc.globalAlpha = 1; oc.globalCompositeOperation = "source-over";
-            }
             if (feedbackDue) { historyCtx.clearRect(0, 0, history.width, history.height); historyCtx.drawImage(out, 0, 0, history.width, history.height); }
           } else if (node === "grid") {
             const scale = mod.repeatScale / 100, angle = mod.repeatAngle * Math.PI / 180;
             const cx = W / 2 + mod.positionX / 100 * W, cy = H / 2 + mod.positionY / 100 * H;
-            const placements: number[] = [];
-            const drawCopy = (dx: number, dy: number) => { if (gpu) { placements.push(cx + dx, cy + dy, W * scale, H * scale); return; } oc.save(); oc.translate(cx + dx, cy + dy); oc.scale(scale, scale); oc.drawImage(input, -W / 2, -H / 2); oc.restore(); };
+            
+            const drawCopy = (dx: number, dy: number) => { oc.save(); oc.translate(cx + dx, cy + dy); oc.scale(scale, scale); oc.drawImage(input, -W / 2, -H / 2); oc.restore(); };
             if (s.repeatMode === "single") drawCopy(0, 0);
             else if (s.repeatMode === "line") {
               const count = Math.round(s.manual.repeatCount), spacing = mod.repeatSpacingX / 100 * W;
@@ -316,11 +375,9 @@ export default function KineticPatchSynth() {
               const columns = Math.round(s.manual.repeatColumns), rows = Math.round(s.manual.repeatRows);
               for (let y = 0; y < rows; y++) for (let x = 0; x < columns; x++) { const dx = (x - (columns - 1) / 2) * mod.repeatSpacingX / 100 * W, dy = (y - (rows - 1) / 2) * mod.repeatSpacingY / 100 * H; drawCopy(dx * Math.cos(angle) - dy * Math.sin(angle), dx * Math.sin(angle) + dy * Math.cos(angle)); }
             }
-            if (gpu) { const image = gpu.repeat(input, placements); if (image) oc.drawImage(image, 0, 0); }
           } else {
-            const useGPU = !!gpu, glyphGPU = useGPU && node === "vertex" && s.vertex === "glyph";
-            const pixels = useGPU && !glyphGPU ? null : input.getContext("2d", { willReadFrequently: true })!.getImageData(0, 0, input.width, input.height).data;
-            const points: GPUStamp[] = [];
+            const useGPU = false;
+            const pixels = input.getContext("2d", { willReadFrequently: true })!.getImageData(0, 0, input.width, input.height).data;
             // Glyph-relative sampling also applies to pixels received from other modules.
             const em = glyphs[0]?.em || size, step = Math.max(1, Math.round(mod.step / 100 * em));
             if (node === "vertex") { oc.globalAlpha = 1 - mod.vertexMix; oc.drawImage(input, 0, 0); oc.globalAlpha = mod.vertexMix; }
@@ -342,17 +399,12 @@ export default function KineticPatchSynth() {
               const j = node === "sampling" ? at("jitter", x, y, g) : 0, px = x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j), py = y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j);
               if (pixels && !useGPU) oc.fillStyle = oc.strokeStyle = `rgba(${pixels[offset]},${pixels[offset + 1]},${pixels[offset + 2]},${alpha})`;
               const r = node === "vertex" ? at("vertexSize", x, y, g) * canvasUnit : 2.6;
-              if (useGPU) { points.push({ x, y, px, py, size: Math.max(1, r), glyph: glyphGPU ? glyphIndex++ % characters.length : 0 }); continue; }
               oc.beginPath();
               if (xOnly || yOnly) oc.fillRect(px, py, 1, 1);
               else if (node === "vertex" && s.vertex === "glyph") { oc.font = `${Math.round(mod.weight)} ${Math.max(1, r)}px ${s.font}`; oc.textAlign = "center"; oc.textBaseline = "middle"; oc.fillText(characters[glyphIndex++ % characters.length], px, py); }
               else if (node === "vertex" && s.vertex === "square") oc.fillRect(px - r / 2, py - r / 2, r, r);
               else if (node === "vertex" && s.vertex === "line") { oc.lineWidth = Math.max(1, r / 3); const len = s.manual.lineLength / (2 * Math.SQRT2); oc.moveTo(px - len, py - len); oc.lineTo(px + len, py + len); oc.stroke(); }
               else { oc.arc(px, py, Math.max(.5, r / 2), 0, Math.PI * 2); oc.fill(); }
-            }
-            if (useGPU) {
-              const image = gpu?.render(input, points, glyphGPU ? 4 : xOnly || yOnly ? 3 : node === "vertex" && s.vertex === "square" ? 1 : node === "vertex" && s.vertex === "line" ? 2 : 0, s.manual.threshold, 1, s.manual.lineLength, glyphGPU ? { pattern: s.glyphPattern, font: s.font, weight: Math.round(mod.weight) } : undefined);
-              if (image) oc.drawImage(image, 0, 0);
             }
             oc.globalAlpha = 1;
           }
@@ -364,6 +416,7 @@ export default function KineticPatchSynth() {
         ctx.drawImage(finalImage, 0, 0, W, H);
         // Ordinary chains need no previous-frame snapshots; only cycles do.
         cyclic.forEach(node => { const pc = previousOutputs[node].getContext("2d")!; pc.clearRect(0, 0, W, H); const image = resolved.get(node); if (image) pc.drawImage(image, 0, 0); });
+        }
         ctx.globalCompositeOperation = "destination-over";
         ctx.fillStyle = s.bg; ctx.fillRect(0, 0, W, H);
         ctx.globalCompositeOperation = "source-over";
