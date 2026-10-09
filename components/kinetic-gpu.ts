@@ -17,6 +17,7 @@ export function createKineticGPU() {
   };
   const vertex = `#version 300 es
 precision highp float;
+precision highp int;
 layout(location=0) in vec2 corner;
 layout(location=1) in vec2 samplePixel;
 layout(location=2) in vec2 position;
@@ -36,6 +37,7 @@ void main(){
 }`;
   const fragment = `#version 300 es
 precision highp float;
+precision highp int;
 uniform sampler2D image;
 uniform float threshold;
 uniform float opacity;
@@ -51,6 +53,7 @@ void main(){vec4 c=texture(image,uv);if(c.a<threshold)discard;
 }`;
   const imageVertex = `#version 300 es
 precision highp float;
+precision highp int;
 layout(location=0) in vec2 corner;
 layout(location=1) in vec2 center;
 layout(location=2) in vec2 extent;
@@ -59,10 +62,12 @@ out vec2 uv;
 void main(){uv=corner+0.5;gl_Position=vec4((center+corner*extent)/resolution*vec2(2.0,-2.0)+vec2(-1.0,1.0),0,1);}`;
   const imageFragment = `#version 300 es
 precision highp float;
+precision highp int;
 uniform sampler2D image;in vec2 uv;out vec4 color;
 void main(){vec4 c=texture(image,uv);color=vec4(c.rgb*c.a,c.a);}`;
   const feedbackFragment = `#version 300 es
 precision highp float;
+precision highp int;
 uniform sampler2D image;uniform sampler2D history;uniform float amount;uniform int mode;
 in vec2 uv;out vec4 color;
 void main(){vec4 b=texture(image,uv);vec4 s=texture(history,uv);s.a*=amount;
