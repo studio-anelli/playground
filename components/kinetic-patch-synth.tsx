@@ -188,6 +188,7 @@ export default function KineticPatchSynth() {
       if (!s.paused) { s.waves.forEach((w, i) => { if (w.on) phases[i] += dt * w.speed; }); }
       const el = canvas.current, ctx = el?.getContext("2d");
       if (el && ctx) {
+        el.dataset.renderer = gpu ? "webgl2" : "canvas2d";
         const rect = el.getBoundingClientRect(), W = Math.max(64, Math.round(rect.width)), H = Math.max(64, Math.round(rect.height)), dpr = Math.min(2, window.devicePixelRatio || 1);
         if (el.width !== Math.round(W * dpr) || el.height !== Math.round(H * dpr)) { el.width = Math.round(W * dpr); el.height = Math.round(H * dpr); }
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
