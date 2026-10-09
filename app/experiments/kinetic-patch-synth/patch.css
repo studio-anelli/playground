@@ -42,3 +42,18 @@
 .kp-glyph-input{width:100%;display:flex!important;align-items:center;gap:8px}.kp-glyph-input input{width:100%;min-width:0;background:#191919;color:#eee9dc;border:1px solid #777367;padding:4px;font:11px ui-monospace,monospace}
 
 .kp-bay-handle{flex-wrap:wrap;gap:6px}.kp-bay-handle>span{display:flex;flex-wrap:wrap;gap:3px}
+
+/* Darker panel, with controls masking cables underneath. */
+.kp{background:#151515}
+.kp-controls,.kp-rack,.kp-floating,.kp-footer{background:#151515}
+.kp button,.kp select{background:#101010}
+.kp .kp-knob{background:#101010;box-shadow:inset 0 0 0 3px #202020}
+.kp-patch,.kp-video-patch{background:#20211f}
+.kp-glyph-input input{background:#101010}
+.kp-controls{scrollbar-color:#605e57 #101010}
+.kp-cables{z-index:1}
+.kp-knob-control,.kp-modulehead,.kp-wavehead,.kp-wavecontrols,.kp-video-ports,.kp-feedback-output,.kp-manual,.kp-title,.kp-module>select,.kp-wave>select,.kp-glyph-input,.kp-module>button{position:relative;z-index:2;background:#151515}
+.kp-module>select,.kp-wave>select,.kp-module>button{background:#101010}
+.kp .kp-socket{z-index:3}
+.kp-cables .kp-video-cable{opacity:.5;stroke-width:2}
+.kp-cables .kp-removable-cable:hover{opacity:1;stroke-width:5}
