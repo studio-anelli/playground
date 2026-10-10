@@ -199,7 +199,14 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
       gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.vertexAttribDivisor(0,0);gl.bindBuffer(gl.ARRAY_BUFFER,instances);gl.bufferData(gl.ARRAY_BUFFER,data.subarray(0,points.length*6),gl.DYNAMIC_DRAW);
       for(const [location,count,offset] of [[1,2,0],[2,2,8],[3,1,16],[4,1,20]]){gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,count,gl.FLOAT,false,24,offset);gl.vertexAttribDivisor(location,1);}gl.drawArraysInstanced(gl.TRIANGLES,0,6,points.length);return out;
     },
-    repeat(input:GPUFrame,placements:number[],key:string,rotation=0){const out=target(key);clear(out);imagePass(input,placements,out,copies,undefined,0,0,1,rotation);return out;},
+    repeat(input:GPUFrame,placements:number[],key:string,rotation=0,mode=0){
+      const out=target(key);clear(out);
+      if(mode===0){imagePass(input,placements,out,copies,undefined,0,0,1,rotation);return out;}
+      // Compose transparent copies with the same premultiplied blend math as feedback.
+      const stamp=target('repeat-stamp'),scratch=target('repeat-scratch');let accumulated=out,next=scratch;
+      for(let i=0;i<placements.length;i+=4){clear(stamp);imagePass(input,placements.slice(i,i+4),stamp,copies,undefined,0,0,1,rotation);clear(next);imagePass(accumulated,full(),next,feedback,stamp,1,mode);const swap=accumulated;accumulated=next;next=swap;}
+      return accumulated;
+    },
     feedback(input:GPUFrame,amount:number,mode:number,due:boolean,key:string){const out=target(key);clear(out);imagePass(input,full(),out,feedback,target('history'),amount,mode);if(due)copy(out,'history');return out;},
     dispose(){framebuffers.forEach(f=>gl.deleteFramebuffer(f));textures.forEach(t=>gl.deleteTexture(t));buffers.forEach(b=>gl.deleteBuffer(b));programs.forEach(p=>gl.deleteProgram(p));shaders.forEach(s=>gl.deleteShader(s));}
   };

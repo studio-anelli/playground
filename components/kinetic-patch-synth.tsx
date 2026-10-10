@@ -59,7 +59,7 @@ function Knob({ name, min, max, step, value, onChange }: { name: string; min: nu
 }
 const dreamWaves: Wave[] = [{ on: true, shape: "sine", rate: .57, amp: .59, speed: .07, direction: 0, phase: .49 }, { on: true, shape: "triangle", rate: 2.79, amp: .5, speed: .12, direction: .5, phase: .25 }, { on: true, shape: "triangle", rate: .35, amp: 1, speed: .65, direction: 1, phase: 0 }];
 const dreamPatches: Patch[] = [{ id: "dream-vertex", wave: 2, target: "vertexSize", amount: 100 }, { id: "dream-type", wave: 1, target: "fontSize", amount: 50 }, { id: "dream-step", wave: 0, target: "step", amount: 15 }];
-type SynthState = { bpm: number; waves: Wave[]; values: typeof initial; manual: typeof initialManual; modes: { sampling: boolean; grid: boolean; vertex: boolean; feedback: boolean }; patches: Patch[]; text: string; font: string; vertex: string; repeatMode: RepeatMode; samplingMode: SamplingMode; glyphPattern: string; paused: boolean; bg: string; ink: string; bicolour: boolean; ink2: string; feedbackBlend: GlobalCompositeOperation; videoPatches: VideoPatch[] };
+type SynthState = { bpm: number; waves: Wave[]; values: typeof initial; manual: typeof initialManual; modes: { sampling: boolean; grid: boolean; vertex: boolean; feedback: boolean }; patches: Patch[]; text: string; font: string; vertex: string; repeatMode: RepeatMode; samplingMode: SamplingMode; glyphPattern: string; paused: boolean; bg: string; ink: string; bicolour: boolean; ink2: string; feedbackBlend: GlobalCompositeOperation; repeatBlend: GlobalCompositeOperation; feedbackTiming: "free" | "sync"; feedbackDivision: WaveDivision; videoPatches: VideoPatch[] };
 export function parsePreset(value: unknown): SynthState {
   const object = (v: unknown): Record<string, unknown> => { if (!v || typeof v !== "object" || Array.isArray(v)) throw new Error("Invalid preset structure."); return v as Record<string, unknown>; };
   const num = (v: unknown, min: number, max: number): number => { if (typeof v !== "number" || !Number.isFinite(v) || v < min || v > max) throw new Error("A preset value is outside its allowed range."); return v; };
@@ -89,7 +89,7 @@ export function parsePreset(value: unknown): SynthState {
   const colour = (v: unknown) => { if (typeof v !== "string" || !/^#[0-9a-f]{6}$/i.test(v)) throw new Error("Invalid preset colour."); return v; };
   if (typeof s.text !== "string" || s.text.length > 10000) throw new Error("Preset text is too long.");
   return { bpm: s.bpm === undefined ? 120 : num(s.bpm, 20, 300), waves, values, manual, modes: { sampling: bool(modes.sampling), grid: bool(modes.grid), vertex: bool(modes.vertex), feedback: bool(modes.feedback) }, patches, videoPatches, text: s.text,
-    font: choice(s.font, ["system-ui, sans-serif", "ui-serif, Georgia, serif", "ui-monospace, monospace"]), vertex: choice(s.vertex, ["dot", "line", "square", "glyph"]), repeatMode: choice(s.repeatMode, ["single", "line", "grid"]), samplingMode: choice(s.samplingMode, ["xy", "x", "y"]), glyphPattern: typeof s.glyphPattern === "string" && s.glyphPattern.length > 0 && s.glyphPattern.length <= 64 ? s.glyphPattern : "*+o", paused: bool(s.paused), bg: colour(s.bg), ink: colour(s.ink), ink2: colour(s.ink2), bicolour: bool(s.bicolour), feedbackBlend: choice(s.feedbackBlend, blendModes) };
+    font: choice(s.font, ["system-ui, sans-serif", "ui-serif, Georgia, serif", "ui-monospace, monospace"]), vertex: choice(s.vertex, ["dot", "line", "square", "glyph"]), repeatMode: choice(s.repeatMode, ["single", "line", "grid"]), samplingMode: choice(s.samplingMode, ["xy", "x", "y"]), glyphPattern: typeof s.glyphPattern === "string" && s.glyphPattern.length > 0 && s.glyphPattern.length <= 64 ? s.glyphPattern : "*+o", paused: bool(s.paused), bg: colour(s.bg), ink: colour(s.ink), ink2: colour(s.ink2), bicolour: bool(s.bicolour), feedbackBlend: choice(s.feedbackBlend, blendModes), repeatBlend: s.repeatBlend === undefined ? "source-over" : choice(s.repeatBlend, blendModes), feedbackTiming: s.feedbackTiming === undefined ? "free" : choice(s.feedbackTiming, ["free", "sync"] as const), feedbackDivision: s.feedbackDivision === undefined ? "1/4" : choice(s.feedbackDivision, waveDivisions) };
 }
 export default function KineticPatchSynth() {
   const presetInput = useRef<HTMLInputElement>(null);
@@ -124,6 +124,9 @@ export default function KineticPatchSynth() {
   const [bpmDraft, setBpmDraft] = useState("120");
   useEffect(() => setBpmDraft(String(bpm)), [bpm]);
   const [feedbackBlend, setFeedbackBlend] = useState<GlobalCompositeOperation>("source-over");
+  const [repeatBlend, setRepeatBlend] = useState<GlobalCompositeOperation>("source-over");
+  const [feedbackTiming, setFeedbackTiming] = useState<"free" | "sync">("free");
+  const [feedbackDivision, setFeedbackDivision] = useState<WaveDivision>("1/4");
   const [repeatMode, setRepeatMode] = useState<RepeatMode>("single");
   const [samplingMode, setSamplingMode] = useState<SamplingMode>("xy");
   const [glyphPattern, setGlyphPattern] = useState("*+o");
@@ -148,11 +151,11 @@ export default function KineticPatchSynth() {
   const dragMoved = useRef(false);
   const dragRef = useRef<(XY & { wave: number }) | null>(null);
   const sockets = useRef<Record<string, HTMLButtonElement | null>>({});
-  const live = useRef({ bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches });
+  const live = useRef({ bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches });
   const renderSnapshot = useRef<{ state: typeof live.current; width: number; height: number; displayWidth: number } | null>(null);
-  useEffect(() => { live.current = { bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches }; }, [bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches]);
+  useEffect(() => { live.current = { bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches }; }, [bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches]);
   const undoStack = useRef<(typeof live.current)[]>([]);
-  const lastEdit = useRef({ snapshot: { bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches }, time: 0, key: "" });
+  const lastEdit = useRef({ snapshot: { bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches }, time: 0, key: "" });
   const restoring = useRef(false);
   const [canUndo, setCanUndo] = useState(false);
   useEffect(() => {
@@ -166,12 +169,12 @@ export default function KineticPatchSynth() {
     const merge = key === lastEdit.current.key && now - lastEdit.current.time < 400 && topology(next) === topology(prior);
     if (!merge) { undoStack.current.push(prior); if (undoStack.current.length > 100) undoStack.current.shift(); }
     lastEdit.current = { snapshot: next, time: now, key }; setCanUndo(undoStack.current.length > 0);
-  }, [bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches]);
+  }, [bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches]);
   const undo = useCallback(() => {
     const state = undoStack.current.pop(); if (!state) return;
     restoring.current = true;
     setBpm(state.bpm); setWaves(state.waves); setValues(state.values); setManual(state.manual); setModes(state.modes); setPatches(state.patches); setVideoPatches(state.videoPatches);
-    setText(state.text); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend);
+    setText(state.text); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend); setRepeatBlend(state.repeatBlend); setFeedbackTiming(state.feedbackTiming); setFeedbackDivision(state.feedbackDivision);
     setSelected(null); setSelectedVideo(null); setDrag(null); setVideoDrag(null); dragRef.current = null; videoDragRef.current = null;
     setCanUndo(undoStack.current.length > 0);
   }, []);
@@ -259,8 +262,8 @@ export default function KineticPatchSynth() {
         feedbackWasOn = s.modes.feedback;
         // Shared 30Hz refresh grid keeps history updates independent of export FPS.
         const feedbackNow = Math.floor((now - feedbackClockOrigin) / (1000 / 30) + 1e-6) * (1000 / 30);
-        const feedbackInterval = Math.ceil(mod.feedbackRefresh / (1000 / 30)) * (1000 / 30);
-        const feedbackDue = s.modes.feedback && !s.paused && feedbackNow - feedbackTick >= feedbackInterval - 1e-6;
+        const feedbackInterval = s.feedbackTiming === "sync" ? 1000 / waveHz({ ...s.waves[0], timing: "sync", division: s.feedbackDivision }, s.bpm) : Math.ceil(mod.feedbackRefresh / (1000 / 30)) * (1000 / 30);
+        const feedbackDue = s.modes.feedback && !s.paused && (s.feedbackTiming === "sync" ? Math.floor((feedbackNow + 1e-6) / feedbackInterval) > Math.floor((feedbackTick + 1e-6) / feedbackInterval) : feedbackNow - feedbackTick >= feedbackInterval - 1e-6);
         // The output holds the previous input sample; it cannot create an instantaneous self-loop.
         if (feedbackDue) {
           const inputs = patchIndex.feedbackAmount;
@@ -360,7 +363,7 @@ export default function KineticPatchSynth() {
               const columns = Math.round(s.manual.repeatColumns), rows = Math.round(s.manual.repeatRows);
               for (let y = 0; y < rows; y++) for (let x = 0; x < columns; x++) { const dx = (x - (columns - 1) / 2) * mod.repeatSpacingX / 100 * W, dy = (y - (rows - 1) / 2) * mod.repeatSpacingY / 100 * H; drawCopy(dx * Math.cos(angle) - dy * Math.sin(angle), dx * Math.sin(angle) + dy * Math.cos(angle)); }
             }
-            out = renderer.repeat(input, placements, node, s.repeatMode === "single" ? angle : 0);
+            out = renderer.repeat(input, placements, node, s.repeatMode === "single" ? angle : 0, blendModes.findIndex(mode => mode === s.repeatBlend));
           } else {
             const glyphGPU = node === "vertex" && s.vertex === "glyph";
             const points: GPUStamp[] = [];
@@ -413,7 +416,7 @@ export default function KineticPatchSynth() {
             const scale = mod.repeatScale / 100, angle = mod.repeatAngle * Math.PI / 180;
             const cx = W / 2 + mod.positionX / 100 * W, cy = H / 2 + mod.positionY / 100 * H;
             
-            const drawCopy = (dx: number, dy: number) => { oc.save(); oc.translate(cx + dx, cy + dy); if (s.repeatMode === "single") oc.rotate(angle); oc.scale(scale, scale); oc.drawImage(input, -W / 2, -H / 2); oc.restore(); };
+            const drawCopy = (dx: number, dy: number) => { oc.save(); oc.globalCompositeOperation = s.repeatBlend; oc.translate(cx + dx, cy + dy); if (s.repeatMode === "single") oc.rotate(angle); oc.scale(scale, scale); oc.drawImage(input, -W / 2, -H / 2); oc.restore(); };
             if (s.repeatMode === "single") drawCopy(0, 0);
             else if (s.repeatMode === "line") {
               const count = Math.round(s.manual.repeatCount), spacing = mod.repeatSpacingX / 100 * W;
@@ -531,7 +534,7 @@ export default function KineticPatchSynth() {
   };
   const applyPreset = (state: SynthState) => {
       setBpm(state.bpm); setWaves(state.waves); setValues(state.values); setManual(state.manual); setModes(state.modes); setPatches(state.patches); setVideoPatches(state.videoPatches);
-      setText(state.text); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend);
+      setText(state.text); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend); setRepeatBlend(state.repeatBlend); setFeedbackTiming(state.feedbackTiming); setFeedbackDivision(state.feedbackDivision);
       setSelected(null); setSelectedVideo(null); setDrag(null); setVideoDrag(null); dragRef.current = null; videoDragRef.current = null;
   };
   const importPreset = async (file: File) => {
@@ -542,7 +545,7 @@ export default function KineticPatchSynth() {
       setPresetMessage("Preset imported. Undo restores your previous settings.");
     } catch (error) { setPresetMessage(error instanceof Error ? error.message : "Could not import this preset."); }
   };
-  const loadDream = () => { setBpm(120); setWaves(dreamWaves); setValues(initial); setManual(initialManual); setModes({ sampling: false, grid: false, vertex: true, feedback: false }); setPatches(dreamPatches); setVideoPatches(videoDefaults); setSelectedVideo(null); setText("dream"); setFont("system-ui, sans-serif"); setVertex("dot"); setRepeatMode("single"); setSamplingMode("xy"); setGlyphPattern("*+o"); setBg("#000000"); setInk("#000000"); setInk2("#ffffff"); setBicolour(true); setFeedbackBlend("source-over"); setPaused(false); setSelected(null); };
+  const loadDream = () => { setBpm(120); setWaves(dreamWaves); setValues(initial); setManual(initialManual); setModes({ sampling: false, grid: false, vertex: true, feedback: false }); setPatches(dreamPatches); setVideoPatches(videoDefaults); setSelectedVideo(null); setText("dream"); setFont("system-ui, sans-serif"); setVertex("dot"); setRepeatMode("single"); setSamplingMode("xy"); setGlyphPattern("*+o"); setBg("#000000"); setInk("#000000"); setInk2("#ffffff"); setBicolour(true); setFeedbackBlend("source-over"); setRepeatBlend("source-over"); setFeedbackTiming("free"); setFeedbackDivision("1/4"); setPaused(false); setSelected(null); };
   const changeWave = (i: number, change: Partial<Wave>) => setWaves(all => all.map((w, n) => n === i ? { ...w, ...change } : w));
   const connect = (wave: number, target: Target) => { setPatches(all => all.some(p => p.wave === wave && p.target === target) ? all : [...all, { id: `${wave}-${target}`, wave, target, amount: 50 }]); setSelected(null); setDrag(null); };
   const connectVideo = (source: VideoSource, target: VideoTarget) => { setVideoPatches(all => [...all.filter(p => p.target !== target), { source, target }]); setSelectedVideo(null); setVideoDrag(null); };
@@ -587,12 +590,15 @@ export default function KineticPatchSynth() {
         </div>)}
         <section className="kp-module kp-feedback-module">{videoPorts("feedback")}<div className="kp-modulehead"><h2>FEEDBACK</h2><button aria-label="Enable feedback" aria-pressed={modes.feedback} onClick={() => setModes(m => ({ ...m, feedback: !m.feedback }))}>{modes.feedback ? "ON" : "OFF"}</button></div>
           <div className="kp-feedback-output"><span>MOD OUT</span>{outputSocket(3)}</div>
+          <button aria-label="Feedback refresh timing mode" onClick={() => setFeedbackTiming(t => t === "free" ? "sync" : "free")}>{feedbackTiming === "sync" ? "SYNC · BPM" : "FREE · ms"}</button>
+          {feedbackTiming === "sync" && <select aria-label="Feedback refresh division" value={feedbackDivision} onChange={e => setFeedbackDivision(e.target.value as WaveDivision)}>{waveDivisions.map(d => <option key={d} value={d}>{d}</option>)}</select>}
           <select aria-label="Feedback blend mode" value={feedbackBlend} onChange={e => setFeedbackBlend(e.target.value as GlobalCompositeOperation)}>{blendModes.map(mode => <option key={mode} value={mode}>{mode === "source-over" ? "NORMAL" : mode === "lighter" ? "ADD" : mode.toUpperCase()}</option>)}</select>
-          {specs.filter(spec => spec[5] === "feedback").map(([key, label, min, max, step]) => <div className="kp-control" data-target={key} key={key}><button ref={el => { sockets.current[key] = el; }} data-target={key} className={`kp-socket ${patches.some(p => p.target === key) ? "patched" : ""}`} aria-label={`Patch input feedback ${label}`} onClick={() => { if (selected !== null) connect(selected, key); else setPatches(all => all.filter(p => p.target !== key)); }} /><div className="kp-knob-control"><span>{label}</span><Knob name={`feedback ${label}`} min={min} max={max} step={step} value={values[key]} onChange={next => setValues(v => ({ ...v, [key]: next }))} /></div></div>)}
+          {specs.filter(spec => spec[5] === "feedback" && !(spec[0] === "feedbackRefresh" && feedbackTiming === "sync")).map(([key, label, min, max, step]) => <div className="kp-control" data-target={key} key={key}><button ref={el => { sockets.current[key] = el; }} data-target={key} className={`kp-socket ${patches.some(p => p.target === key) ? "patched" : ""}`} aria-label={`Patch input feedback ${label}`} onClick={() => { if (selected !== null) connect(selected, key); else setPatches(all => all.filter(p => p.target !== key)); }} /><div className="kp-knob-control"><span>{label}</span><Knob name={`feedback ${label}`} min={min} max={max} step={step} value={values[key]} onChange={next => setValues(v => ({ ...v, [key]: next }))} /></div></div>)}
         </section>
       </section>
       <section className="kp-modules"><div className="kp-title">02 / VISUAL OSCILLATORS</div><div className="kp-modulegrid">{(Object.keys(groups).filter(group => group !== "feedback") as (Exclude<keyof typeof groups, "feedback">)[]).map(group => <section className="kp-module" key={group}><div className="kp-modulehead"><h2>{groups[group]}</h2>{group !== "typography" && <button aria-pressed={modes[group]} onClick={() => setModes(m => ({ ...m, [group]: !m[group] }))}>{modes[group] ? "ON" : "OFF"}</button>}</div>
         {videoPorts(group)}
+        {group === "grid" && <select aria-label="Repeat blend mode" value={repeatBlend} onChange={e => setRepeatBlend(e.target.value as GlobalCompositeOperation)}>{blendModes.map(mode => <option key={mode} value={mode}>{mode === "source-over" ? "NORMAL" : mode === "lighter" ? "ADD" : mode.toUpperCase()}</option>)}</select>}
         {group === "grid" && <select aria-label="Repeat mode" value={repeatMode} onChange={e => setRepeatMode(e.target.value as RepeatMode)}><option value="single">SINGLE</option><option value="line">LINE</option><option value="grid">GRID</option></select>}
         {group === "sampling" && <select aria-label="Sampling axes" value={samplingMode} onChange={e => setSamplingMode(e.target.value as SamplingMode)}><option value="xy">X + Y</option><option value="x">X ONLY</option><option value="y">Y ONLY</option></select>}
         {group === "vertex" && <select aria-label="Vertex shape" value={vertex} onChange={e => setVertex(e.target.value)}><option value="line">LINE</option><option value="dot">DOT</option><option value="square">SQUARE</option><option value="glyph">GLYPH</option></select>}{group === "typography" && <select aria-label="System font" value={font} onChange={e => setFont(e.target.value)}><option value="system-ui, sans-serif">SYSTEM SANS</option><option value="ui-serif, Georgia, serif">SYSTEM SERIF</option><option value="ui-monospace, monospace">SYSTEM MONO</option></select>}
