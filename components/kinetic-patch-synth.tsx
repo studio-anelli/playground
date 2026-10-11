@@ -19,7 +19,7 @@ const specs = [
   ["step", "Step · % em", 1, 20, .1, "sampling"], ["jitter", "Jitter", 0, 35, .1, "sampling"],
   ["positionX", "Position X · %", -100, 100, .1, "grid"], ["positionY", "Position Y · %", -100, 100, .1, "grid"],
   ["repeatScale", "Scale · %", 5, 200, 1, "grid"], ["repeatSpacingX", "Spacing X · %", 0, 100, .1, "grid"], ["repeatSpacingY", "Spacing Y · %", 0, 100, .1, "grid"], ["repeatAngle", "Angle · °", -180, 180, 1, "grid"],
-  ["vertexSize", "Size · % canvas", .1, 3, .01, "vertex"], ["vertexMix", "Mix", 0, 1, .01, "vertex"],
+  ["vertexSize", "Size · % em", .1, 100, .1, "vertex"], ["vertexMix", "Mix", 0, 1, .01, "vertex"],
   ["fontSize", "Size · % canvas", 5, 75, .5, "typography"], ["weight", "Weight", 100, 900, 10, "typography"],
   ["feedbackAmount", "Input / amount", 0, .98, .01, "feedback"], ["feedbackRefresh", "Refresh · ms", 16, 2000, 1, "feedback"],
 ] as const;
@@ -37,7 +37,7 @@ const manualSpecs = [
   ["lineLength", "Line length", 1, 80, 1, "vertex"], ["tracking", "Tracking · % em", -10, 30, .1, "typography"],
 ] as const;
 const initialManual = { threshold: .42, opacity: 1, repeatCount: 5, repeatColumns: 3, repeatRows: 3, lineLength: 6, tracking: 16.7 };
-const initial: Record<Target, number> = { step: 3.2, jitter: 0, positionX: 0, positionY: 0, repeatScale: 100, repeatSpacingX: 25, repeatSpacingY: 25, repeatAngle: 0, vertexSize: 1.4, vertexMix: .5, fontSize: 20, weight: 800, feedbackAmount: .65, feedbackRefresh: 120 };
+const initial: Record<Target, number> = { step: 3.2, jitter: 0, positionX: 0, positionY: 0, repeatScale: 100, repeatSpacingX: 25, repeatSpacingY: 25, repeatAngle: 0, vertexSize: 7, vertexMix: .5, fontSize: 20, weight: 800, feedbackAmount: .65, feedbackRefresh: 120 };
 const colors = ["#3478f6", "#f2c438", "#ed514b", "#a4b2ff", "#69c4d0", "#e6a95e", "#b495df"];
 const sourceNames = ["WAVE 1", "WAVE 2", "WAVE 3", "FEEDBACK", "SAMPLING", "GRID", "VERTEX"];
 const blendModes = ["source-over", "screen", "multiply", "overlay", "difference", "exclusion", "lighten", "darken", "lighter"] as const;
@@ -57,7 +57,7 @@ function Knob({ name, min, max, step, value, onChange }: { name: string; min: nu
 }
 const dreamWaves: Wave[] = [{ on: true, shape: "sine", rate: .57, amp: .59, speed: .07, direction: 0, phase: .49 }, { on: true, shape: "triangle", rate: 2.79, amp: .5, speed: .12, direction: .5, phase: .25 }, { on: true, shape: "triangle", rate: .35, amp: 1, speed: .65, direction: 1, phase: 0 }];
 const dreamPatches: Patch[] = [{ id: "dream-vertex", wave: 2, target: "vertexSize", amount: 100 }, { id: "dream-type", wave: 1, target: "fontSize", amount: 50 }, { id: "dream-step", wave: 0, target: "step", amount: 15 }];
-type SynthState = { samplingThicknessX: number; samplingThicknessY: number; textAlign: "left" | "center" | "right"; lineHeight: number; kerning: "none" | "normal"; bpm: number; waves: Wave[]; values: typeof initial; manual: typeof initialManual; modes: { sampling: boolean; grid: boolean; vertex: boolean; feedback: boolean }; patches: Patch[]; text: string; font: string; vertex: string; repeatMode: RepeatMode; samplingMode: SamplingMode; glyphPattern: string; paused: boolean; bg: string; ink: string; bicolour: boolean; ink2: string; feedbackBlend: GlobalCompositeOperation; repeatBlend: GlobalCompositeOperation; feedbackTiming: "free" | "sync"; feedbackDivision: WaveDivision; videoPatches: VideoPatch[] };
+type SynthState = { vertexSizeUnit: "em"; samplingThicknessX: number; samplingThicknessY: number; textAlign: "left" | "center" | "right"; lineHeight: number; kerning: "none" | "normal"; bpm: number; waves: Wave[]; values: typeof initial; manual: typeof initialManual; modes: { sampling: boolean; grid: boolean; vertex: boolean; feedback: boolean }; patches: Patch[]; text: string; font: string; vertex: string; repeatMode: RepeatMode; samplingMode: SamplingMode; glyphPattern: string; paused: boolean; bg: string; ink: string; bicolour: boolean; ink2: string; feedbackBlend: GlobalCompositeOperation; repeatBlend: GlobalCompositeOperation; feedbackTiming: "free" | "sync"; feedbackDivision: WaveDivision; videoPatches: VideoPatch[] };
 export function parsePreset(value: unknown): SynthState {
   const object = (v: unknown): Record<string, unknown> => { if (!v || typeof v !== "object" || Array.isArray(v)) throw new Error("Invalid preset structure."); return v as Record<string, unknown>; };
   const num = (v: unknown, min: number, max: number): number => { if (typeof v !== "number" || !Number.isFinite(v) || v < min || v > max) throw new Error("A preset value is outside its allowed range."); return v; };
@@ -75,7 +75,8 @@ export function parsePreset(value: unknown): SynthState {
   }
   const v = object(s.values), m = object(s.manual), modes = object(s.modes);
   const values = { ...initial }, manual = { ...initialManual };
-  for (const [key, , min, max] of specs) values[key] = num(v[key], min, max);
+  for (const [key, , min, max] of specs) values[key] = key === "vertexSize" && s.vertexSizeUnit === undefined ? num(v[key], .1, 3) / num(v.fontSize, 5, 75) * 100 : num(v[key], min, max);
+  if (s.vertexSizeUnit !== undefined && s.vertexSizeUnit !== "em") throw new Error("Unsupported vertex size unit.");
   for (const [key, , min, max] of manualSpecs) manual[key] = num(m[key], min, max);
   const shapes = ["sine", "triangle", "square", "noise", "ramp"] as const;
   const waves = array(s.waves, 3).map(item => { const w = object(item); return { on: bool(w.on), shape: choice(w.shape, shapes), rate: num(w.rate, .1, 6), amp: num(w.amp, 0, 1), speed: num(w.speed, 0, 3), direction: num(w.direction, 0, 1), phase: num(w.phase, 0, 1), timing: w.timing === undefined ? "free" as const : choice(w.timing, ["free", "sync"] as const), division: w.division === undefined ? "1/4" as const : choice(w.division === "4/4" ? "1" : w.division, waveDivisions) }; });
@@ -86,7 +87,7 @@ export function parsePreset(value: unknown): SynthState {
   if (new Set(videoPatches.map(p => p.target)).size !== videoPatches.length) throw new Error("Each video input accepts one cable.");
   const colour = (v: unknown) => { if (typeof v !== "string" || !/^#[0-9a-f]{6}$/i.test(v)) throw new Error("Invalid preset colour."); return v; };
   if (typeof s.text !== "string" || s.text.length > 10000) throw new Error("Preset text is too long.");
-  return { samplingThicknessX: s.samplingThicknessX === undefined ? 1 : num(s.samplingThicknessX, .25, 8), samplingThicknessY: s.samplingThicknessY === undefined ? 1 : num(s.samplingThicknessY, .25, 8), textAlign: s.textAlign === undefined ? "center" : choice(s.textAlign, ["left", "center", "right"] as const), lineHeight: s.lineHeight === undefined ? 1.1 : num(s.lineHeight, .5, 3), kerning: s.kerning === undefined ? "none" : choice(s.kerning, ["none", "normal"] as const), bpm: s.bpm === undefined ? 120 : num(s.bpm, 20, 300), waves, values, manual, modes: { sampling: bool(modes.sampling), grid: bool(modes.grid), vertex: bool(modes.vertex), feedback: bool(modes.feedback) }, patches, videoPatches, text: s.text,
+  return { vertexSizeUnit: "em", samplingThicknessX: s.samplingThicknessX === undefined ? 1 : num(s.samplingThicknessX, .25, 8), samplingThicknessY: s.samplingThicknessY === undefined ? 1 : num(s.samplingThicknessY, .25, 8), textAlign: s.textAlign === undefined ? "center" : choice(s.textAlign, ["left", "center", "right"] as const), lineHeight: s.lineHeight === undefined ? 1.1 : num(s.lineHeight, .5, 3), kerning: s.kerning === undefined ? "none" : choice(s.kerning, ["none", "normal"] as const), bpm: s.bpm === undefined ? 120 : num(s.bpm, 20, 300), waves, values, manual, modes: { sampling: bool(modes.sampling), grid: bool(modes.grid), vertex: bool(modes.vertex), feedback: bool(modes.feedback) }, patches, videoPatches, text: s.text,
     font: choice(s.font, ["system-ui, sans-serif", "ui-serif, Georgia, serif", "ui-monospace, monospace"]), vertex: choice(s.vertex, ["dot", "line", "square", "glyph"]), repeatMode: choice(s.repeatMode, ["single", "line", "grid"]), samplingMode: choice(s.samplingMode, ["xy", "x", "y"]), glyphPattern: typeof s.glyphPattern === "string" && s.glyphPattern.length > 0 && s.glyphPattern.length <= 64 ? s.glyphPattern : "*+o", paused: bool(s.paused), bg: colour(s.bg), ink: colour(s.ink), ink2: colour(s.ink2), bicolour: bool(s.bicolour), feedbackBlend: choice(s.feedbackBlend, blendModes), repeatBlend: s.repeatBlend === undefined ? "source-over" : choice(s.repeatBlend, blendModes), feedbackTiming: s.feedbackTiming === undefined ? "free" : choice(s.feedbackTiming, ["free", "sync"] as const), feedbackDivision: s.feedbackDivision === undefined ? "1/4" : choice(s.feedbackDivision, waveDivisions) };
 }
 export default function KineticPatchSynth() {
@@ -155,11 +156,11 @@ export default function KineticPatchSynth() {
   const dragMoved = useRef(false);
   const dragRef = useRef<(XY & { wave: number }) | null>(null);
   const sockets = useRef<Record<string, HTMLButtonElement | null>>({});
-  const live = useRef({ samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches });
+  const live = useRef({ vertexSizeUnit: "em" as const, samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches });
   const renderSnapshot = useRef<{ state: typeof live.current; width: number; height: number; displayWidth: number } | null>(null);
-  useEffect(() => { live.current = { samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches }; }, [samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches]);
+  useEffect(() => { live.current = { vertexSizeUnit: "em" as const, samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches }; }, [samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches]);
   const undoStack = useRef<(typeof live.current)[]>([]);
-  const lastEdit = useRef({ snapshot: { samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches }, time: 0, key: "" });
+  const lastEdit = useRef({ snapshot: { vertexSizeUnit: "em" as const, samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches }, time: 0, key: "" });
   const restoring = useRef(false);
   const [canUndo, setCanUndo] = useState(false);
   useEffect(() => {
@@ -210,7 +211,7 @@ export default function KineticPatchSynth() {
     const heat = document.createElement("canvas"); heat.width = 64; heat.height = 64;
     const hctx = heat.getContext("2d")!;
     const heatPixels = hctx.createImageData(64, 64);
-    let glyphs: Glyph[] = [];
+    let glyphs: Glyph[] = [], typographyEm = 1;
     // Exact raster reuse, bounded to 32 MiB. Position and tracking never affect the raster.
     const glyphCache = new RasterCache();
     const nodes: VideoSource[] = ["typography", "sampling", "grid", "vertex", "feedback"];
@@ -297,6 +298,7 @@ export default function KineticPatchSynth() {
           // Tracking follows the fitted font size, including during auto-fit.
           for (let n = 0; n < 5; n++) { const widest = Math.max(1, ...lines.map(widthOf)); if (widest <= availableTextWidth) break; fitted *= (availableTextWidth) / widest; sctx.font = `${weight} ${fitted}px ${s.font}`; }
           sctx.font = `${weight} ${fitted}px ${s.font}`;
+          typographyEm = fitted;
           sctx.textAlign = "left"; sctx.textBaseline = "alphabetic";
           glyphs = [];
           const metrics = sctx.measureText("Mg"), ascent = metrics.actualBoundingBoxAscent, descent = metrics.actualBoundingBoxDescent;
@@ -395,7 +397,7 @@ export default function KineticPatchSynth() {
               if (x < 0 || y < 0 || x >= input.width || y >= input.height) continue;
               const g = glyphs.find(g => x >= g.x && x < g.x + g.width && y >= g.y && y < g.y + g.height);
               const j = node === "sampling" ? at("jitter", x, y, g) * pixelScale : 0, px = x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j), py = y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j);
-              const r = node === "vertex" ? at("vertexSize", x, y, g) * canvasUnit : 2.6 * pixelScale;
+              const r = node === "vertex" ? at("vertexSize", x, y, g) / 100 * (g?.em || typographyEm) : 2.6 * pixelScale;
               points.push({ x, y, px, py, size: Math.max(1, r) });
             }
             out = renderer.render(input, points, glyphGPU ? 4 : xOnly || yOnly ? 3 : node === "vertex" && s.vertex === "square" ? 1 : node === "vertex" && s.vertex === "line" ? 2 : 0, s.manual.threshold, node === "sampling" ? s.manual.opacity : 1, s.manual.lineLength * pixelScale, node, node === "vertex" ? mod.vertexMix : 1, glyphGPU ? { pattern: s.glyphPattern, font: s.font, weight: Math.round(mod.weight) } : undefined, pixelScale, node === "sampling" ? [s.samplingThicknessX, s.samplingThicknessY] : [1, 1]);
@@ -462,7 +464,7 @@ export default function KineticPatchSynth() {
               const g = glyphs.find(g => x >= g.x && x < g.x + g.width && y >= g.y && y < g.y + g.height);
               const j = node === "sampling" ? at("jitter", x, y, g) * pixelScale : 0, px = x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j), py = y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j);
               if (pixels && !useGPU) oc.fillStyle = oc.strokeStyle = `rgba(${pixels[offset]},${pixels[offset + 1]},${pixels[offset + 2]},${alpha})`;
-              const r = node === "vertex" ? at("vertexSize", x, y, g) * canvasUnit : 2.6 * pixelScale;
+              const r = node === "vertex" ? at("vertexSize", x, y, g) / 100 * (g?.em || typographyEm) : 2.6 * pixelScale;
               oc.beginPath();
               if (xOnly || yOnly) oc.fillRect(px, py, pixelScale * s.samplingThicknessX, pixelScale * s.samplingThicknessY);
               else if (node === "vertex" && s.vertex === "glyph") { oc.font = `${Math.round(mod.weight)} ${Math.max(1, r)}px ${s.font}`; oc.textAlign = "center"; oc.textBaseline = "middle"; oc.fillText(characters[glyphIndex++ % characters.length], px, py); }
