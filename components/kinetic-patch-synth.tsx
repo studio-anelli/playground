@@ -57,7 +57,7 @@ function Knob({ name, min, max, step, value, onChange }: { name: string; min: nu
 }
 const dreamWaves: Wave[] = [{ on: true, shape: "sine", rate: .57, amp: .59, speed: .07, direction: 0, phase: .49 }, { on: true, shape: "triangle", rate: 2.79, amp: .5, speed: .12, direction: .5, phase: .25 }, { on: true, shape: "triangle", rate: .35, amp: 1, speed: .65, direction: 1, phase: 0 }];
 const dreamPatches: Patch[] = [{ id: "dream-vertex", wave: 2, target: "vertexSize", amount: 100 }, { id: "dream-type", wave: 1, target: "fontSize", amount: 50 }, { id: "dream-step", wave: 0, target: "step", amount: 15 }];
-type SynthState = { bpm: number; waves: Wave[]; values: typeof initial; manual: typeof initialManual; modes: { sampling: boolean; grid: boolean; vertex: boolean; feedback: boolean }; patches: Patch[]; text: string; font: string; vertex: string; repeatMode: RepeatMode; samplingMode: SamplingMode; glyphPattern: string; paused: boolean; bg: string; ink: string; bicolour: boolean; ink2: string; feedbackBlend: GlobalCompositeOperation; repeatBlend: GlobalCompositeOperation; feedbackTiming: "free" | "sync"; feedbackDivision: WaveDivision; videoPatches: VideoPatch[] };
+type SynthState = { textAlign: "left" | "center" | "right"; lineHeight: number; kerning: "none" | "normal"; bpm: number; waves: Wave[]; values: typeof initial; manual: typeof initialManual; modes: { sampling: boolean; grid: boolean; vertex: boolean; feedback: boolean }; patches: Patch[]; text: string; font: string; vertex: string; repeatMode: RepeatMode; samplingMode: SamplingMode; glyphPattern: string; paused: boolean; bg: string; ink: string; bicolour: boolean; ink2: string; feedbackBlend: GlobalCompositeOperation; repeatBlend: GlobalCompositeOperation; feedbackTiming: "free" | "sync"; feedbackDivision: WaveDivision; videoPatches: VideoPatch[] };
 export function parsePreset(value: unknown): SynthState {
   const object = (v: unknown): Record<string, unknown> => { if (!v || typeof v !== "object" || Array.isArray(v)) throw new Error("Invalid preset structure."); return v as Record<string, unknown>; };
   const num = (v: unknown, min: number, max: number): number => { if (typeof v !== "number" || !Number.isFinite(v) || v < min || v > max) throw new Error("A preset value is outside its allowed range."); return v; };
@@ -86,7 +86,7 @@ export function parsePreset(value: unknown): SynthState {
   if (new Set(videoPatches.map(p => p.target)).size !== videoPatches.length) throw new Error("Each video input accepts one cable.");
   const colour = (v: unknown) => { if (typeof v !== "string" || !/^#[0-9a-f]{6}$/i.test(v)) throw new Error("Invalid preset colour."); return v; };
   if (typeof s.text !== "string" || s.text.length > 10000) throw new Error("Preset text is too long.");
-  return { bpm: s.bpm === undefined ? 120 : num(s.bpm, 20, 300), waves, values, manual, modes: { sampling: bool(modes.sampling), grid: bool(modes.grid), vertex: bool(modes.vertex), feedback: bool(modes.feedback) }, patches, videoPatches, text: s.text,
+  return { textAlign: s.textAlign === undefined ? "center" : choice(s.textAlign, ["left", "center", "right"] as const), lineHeight: s.lineHeight === undefined ? 1.1 : num(s.lineHeight, .5, 3), kerning: s.kerning === undefined ? "none" : choice(s.kerning, ["none", "normal"] as const), bpm: s.bpm === undefined ? 120 : num(s.bpm, 20, 300), waves, values, manual, modes: { sampling: bool(modes.sampling), grid: bool(modes.grid), vertex: bool(modes.vertex), feedback: bool(modes.feedback) }, patches, videoPatches, text: s.text,
     font: choice(s.font, ["system-ui, sans-serif", "ui-serif, Georgia, serif", "ui-monospace, monospace"]), vertex: choice(s.vertex, ["dot", "line", "square", "glyph"]), repeatMode: choice(s.repeatMode, ["single", "line", "grid"]), samplingMode: choice(s.samplingMode, ["xy", "x", "y"]), glyphPattern: typeof s.glyphPattern === "string" && s.glyphPattern.length > 0 && s.glyphPattern.length <= 64 ? s.glyphPattern : "*+o", paused: bool(s.paused), bg: colour(s.bg), ink: colour(s.ink), ink2: colour(s.ink2), bicolour: bool(s.bicolour), feedbackBlend: choice(s.feedbackBlend, blendModes), repeatBlend: s.repeatBlend === undefined ? "source-over" : choice(s.repeatBlend, blendModes), feedbackTiming: s.feedbackTiming === undefined ? "free" : choice(s.feedbackTiming, ["free", "sync"] as const), feedbackDivision: s.feedbackDivision === undefined ? "1/4" : choice(s.feedbackDivision, waveDivisions) };
 }
 export default function KineticPatchSynth() {
@@ -122,6 +122,9 @@ export default function KineticPatchSynth() {
   const [bpmDraft, setBpmDraft] = useState("120");
   useEffect(() => setBpmDraft(String(bpm)), [bpm]);
   const [feedbackBlend, setFeedbackBlend] = useState<GlobalCompositeOperation>("source-over");
+  const [textAlign, setTextAlign] = useState<"left" | "center" | "right">("center");
+  const [lineHeight, setLineHeight] = useState(1.1);
+  const [kerning, setKerning] = useState<"none" | "normal">("none");
   const [repeatBlend, setRepeatBlend] = useState<GlobalCompositeOperation>("source-over");
   const [feedbackTiming, setFeedbackTiming] = useState<"free" | "sync">("free");
   const [feedbackDivision, setFeedbackDivision] = useState<WaveDivision>("1/4");
@@ -150,11 +153,11 @@ export default function KineticPatchSynth() {
   const dragMoved = useRef(false);
   const dragRef = useRef<(XY & { wave: number }) | null>(null);
   const sockets = useRef<Record<string, HTMLButtonElement | null>>({});
-  const live = useRef({ bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches });
+  const live = useRef({ textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches });
   const renderSnapshot = useRef<{ state: typeof live.current; width: number; height: number; displayWidth: number } | null>(null);
-  useEffect(() => { live.current = { bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches }; }, [bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches]);
+  useEffect(() => { live.current = { textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches }; }, [textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches]);
   const undoStack = useRef<(typeof live.current)[]>([]);
-  const lastEdit = useRef({ snapshot: { bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches }, time: 0, key: "" });
+  const lastEdit = useRef({ snapshot: { textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches }, time: 0, key: "" });
   const restoring = useRef(false);
   const [canUndo, setCanUndo] = useState(false);
   useEffect(() => {
@@ -168,12 +171,12 @@ export default function KineticPatchSynth() {
     const merge = key === lastEdit.current.key && now - lastEdit.current.time < 400 && topology(next) === topology(prior);
     if (!merge) { undoStack.current.push(prior); if (undoStack.current.length > 100) undoStack.current.shift(); }
     lastEdit.current = { snapshot: next, time: now, key }; setCanUndo(undoStack.current.length > 0);
-  }, [bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches]);
+  }, [textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches]);
   const undo = useCallback(() => {
     const state = undoStack.current.pop(); if (!state) return;
     restoring.current = true;
     setBpm(state.bpm); setWaves(state.waves); setValues(state.values); setManual(state.manual); setModes(state.modes); setPatches(state.patches); setVideoPatches(state.videoPatches);
-    setText(state.text); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend); setRepeatBlend(state.repeatBlend); setFeedbackTiming(state.feedbackTiming); setFeedbackDivision(state.feedbackDivision);
+    setText(state.text); setTextAlign(state.textAlign); setLineHeight(state.lineHeight); setKerning(state.kerning); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend); setRepeatBlend(state.repeatBlend); setFeedbackTiming(state.feedbackTiming); setFeedbackDivision(state.feedbackDivision);
     setSelected(null); setSelectedVideo(null); setDrag(null); setVideoDrag(null); dragRef.current = null; videoDragRef.current = null;
     setCanUndo(undoStack.current.length > 0);
   }, []);
@@ -272,14 +275,23 @@ export default function KineticPatchSynth() {
         }
         const canvasUnit = Math.min(W, H) / 100;
         const size = Math.round(mod.fontSize * canvasUnit), weight = Math.round(mod.weight / 10) * 10;
-        const key = `${W}|${H}|${s.text}|${s.font}|${size}|${weight}|${s.ink}|${s.manual.tracking}`;
+        const key = `${W}|${H}|${s.text}|${s.font}|${size}|${weight}|${s.ink}|${s.manual.tracking}|${s.textAlign}|${s.lineHeight}|${s.kerning}`;
         // Cap expensive glyph rasterisation at 20fps; wave evaluation and drawing remain at display rate.
         if (key !== cacheKey && (manualFrame || now - lastRebuild >= 50 || !cacheKey)) {
           source.width = W; source.height = H; sctx.fillStyle = s.ink; sctx.textAlign = "center"; sctx.textBaseline = "middle";
-          const lines = s.text.split("\n"); let fitted = Math.min(size, H * .75 / Math.max(1, lines.length));
-          sctx.font = `${weight} ${fitted}px ${s.font}`;
+          const lines = s.text.split("\n"); let fitted = Math.min(size, H * .75 / (1 + Math.max(0, lines.length - 1) * s.lineHeight));
+          sctx.font = `${weight} ${fitted}px ${s.font}`; sctx.fontKerning = s.kerning;
           const availableTextWidth = Math.max(1, W - Math.min(W * .2, 48 * pixelScale));
-          const widthOf = (line: string) => Array.from(line).reduce((width, char) => width + sctx.measureText(char).width, 0) + Math.max(0, Array.from(line).length - 1) * s.manual.tracking / 100 * fitted;
+          const layoutLine = (line: string) => {
+            let width = 0, previous = "";
+            const chars = Array.from(line).map((char, index) => {
+              if (index) width += s.manual.tracking / 100 * fitted;
+              if (previous && s.kerning === "normal") width += sctx.measureText(previous + char).width - sctx.measureText(previous).width - sctx.measureText(char).width;
+              const x = width; width += sctx.measureText(char).width; previous = char; return { char, x };
+            });
+            return { chars, width };
+          };
+          const widthOf = (line: string) => layoutLine(line).width;
           // Tracking follows the fitted font size, including during auto-fit.
           for (let n = 0; n < 5; n++) { const widest = Math.max(1, ...lines.map(widthOf)); if (widest <= availableTextWidth) break; fitted *= (availableTextWidth) / widest; sctx.font = `${weight} ${fitted}px ${s.font}`; }
           sctx.font = `${weight} ${fitted}px ${s.font}`;
@@ -287,9 +299,11 @@ export default function KineticPatchSynth() {
           glyphs = [];
           const metrics = sctx.measureText("Mg"), ascent = metrics.actualBoundingBoxAscent, descent = metrics.actualBoundingBoxDescent;
           lines.forEach((line, i) => {
-            let x = (W - widthOf(line)) / 2;
-            const baseline = H / 2 + (i - (lines.length - 1) / 2) * fitted * 1.1 + (ascent - descent) / 2;
-            for (const char of Array.from(line)) {
+            const layout = layoutLine(line), margin = (W - availableTextWidth) / 2;
+            const origin = s.textAlign === "left" ? margin : s.textAlign === "right" ? W - margin - layout.width : (W - layout.width) / 2;
+            const baseline = H / 2 + (i - (lines.length - 1) / 2) * fitted * s.lineHeight + (ascent - descent) / 2;
+            for (const { char, x: offset } of layout.chars) {
+              const x = origin + offset;
               const m = sctx.measureText(char);
               if (char.trim()) {
                 // Each character owns its raster: neighbouring letters cannot leak into its sampling grid.
@@ -308,7 +322,6 @@ export default function KineticPatchSynth() {
                 glyphs.push({ canvas: c, x: gx, y: gy, width, height, em: fitted });
                 sctx.drawImage(c, gx, gy);
               }
-              x += m.width + s.manual.tracking / 100 * fitted;
             }
           });
           cacheKey = key; lastRebuild = now;
@@ -533,7 +546,7 @@ export default function KineticPatchSynth() {
   };
   const applyPreset = (state: SynthState) => {
       setBpm(state.bpm); setWaves(state.waves); setValues(state.values); setManual(state.manual); setModes(state.modes); setPatches(state.patches); setVideoPatches(state.videoPatches);
-      setText(state.text); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend); setRepeatBlend(state.repeatBlend); setFeedbackTiming(state.feedbackTiming); setFeedbackDivision(state.feedbackDivision);
+      setText(state.text); setTextAlign(state.textAlign); setLineHeight(state.lineHeight); setKerning(state.kerning); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend); setRepeatBlend(state.repeatBlend); setFeedbackTiming(state.feedbackTiming); setFeedbackDivision(state.feedbackDivision);
       setSelected(null); setSelectedVideo(null); setDrag(null); setVideoDrag(null); dragRef.current = null; videoDragRef.current = null;
   };
   const importPreset = async (file: File) => {
@@ -544,7 +557,7 @@ export default function KineticPatchSynth() {
       setPresetMessage("Preset imported. Undo restores your previous settings.");
     } catch (error) { setPresetMessage(error instanceof Error ? error.message : "Could not import this preset."); }
   };
-  const loadDream = () => { setBpm(120); setWaves(dreamWaves); setValues(initial); setManual(initialManual); setModes({ sampling: false, grid: false, vertex: true, feedback: false }); setPatches(dreamPatches); setVideoPatches(videoDefaults); setSelectedVideo(null); setText("dream"); setFont("system-ui, sans-serif"); setVertex("dot"); setRepeatMode("single"); setSamplingMode("xy"); setGlyphPattern("*+o"); setBg("#000000"); setInk("#000000"); setInk2("#ffffff"); setBicolour(true); setFeedbackBlend("source-over"); setRepeatBlend("source-over"); setFeedbackTiming("free"); setFeedbackDivision("1/4"); setPaused(false); setSelected(null); };
+  const loadDream = () => { setTextAlign("center"); setLineHeight(1.1); setKerning("none"); setBpm(120); setWaves(dreamWaves); setValues(initial); setManual(initialManual); setModes({ sampling: false, grid: false, vertex: true, feedback: false }); setPatches(dreamPatches); setVideoPatches(videoDefaults); setSelectedVideo(null); setText("dream"); setFont("system-ui, sans-serif"); setVertex("dot"); setRepeatMode("single"); setSamplingMode("xy"); setGlyphPattern("*+o"); setBg("#000000"); setInk("#000000"); setInk2("#ffffff"); setBicolour(true); setFeedbackBlend("source-over"); setRepeatBlend("source-over"); setFeedbackTiming("free"); setFeedbackDivision("1/4"); setPaused(false); setSelected(null); };
   const changeWave = (i: number, change: Partial<Wave>) => setWaves(all => all.map((w, n) => n === i ? { ...w, ...change } : w));
   const connect = (wave: number, target: Target) => { setPatches(all => all.some(p => p.wave === wave && p.target === target) ? all : [...all, { id: `${wave}-${target}`, wave, target, amount: 50 }]); setSelected(null); setDrag(null); };
   const videoChain = readVideoChain(videoPatches);
@@ -605,6 +618,7 @@ export default function KineticPatchSynth() {
         {group === "grid" && <select aria-label="Repeat mode" value={repeatMode} onChange={e => setRepeatMode(e.target.value as RepeatMode)}><option value="single">SINGLE</option><option value="line">LINE</option><option value="grid">GRID</option></select>}
         {group === "sampling" && <select aria-label="Sampling axes" value={samplingMode} onChange={e => setSamplingMode(e.target.value as SamplingMode)}><option value="xy">X + Y</option><option value="x">X ONLY</option><option value="y">Y ONLY</option></select>}
         {group === "vertex" && <select aria-label="Vertex shape" value={vertex} onChange={e => setVertex(e.target.value)}><option value="line">LINE</option><option value="dot">DOT</option><option value="square">SQUARE</option><option value="glyph">GLYPH</option></select>}{group === "typography" && <select aria-label="System font" value={font} onChange={e => setFont(e.target.value)}><option value="system-ui, sans-serif">SYSTEM SANS</option><option value="ui-serif, Georgia, serif">SYSTEM SERIF</option><option value="ui-monospace, monospace">SYSTEM MONO</option></select>}
+        {group === "typography" && <><select aria-label="Text alignment" value={textAlign} onChange={e => setTextAlign(e.target.value as typeof textAlign)}><option value="left">ALIGN LEFT</option><option value="center">ALIGN CENTRE</option><option value="right">ALIGN RIGHT</option></select><button aria-label="Native font kerning" aria-pressed={kerning === "normal"} onClick={() => setKerning(k => k === "normal" ? "none" : "normal")}>KERNING {kerning === "normal" ? "ON" : "OFF"}</button><div className="kp-knob-control"><span>Line spacing · em</span><Knob name="Typography line spacing" min={.5} max={3} step={.05} value={lineHeight} onChange={setLineHeight} /></div></>}
         {group === "vertex" && vertex === "glyph" && <label className="kp-glyph-input">GLYPHS<input aria-label="Vertex glyph characters" value={glyphPattern} maxLength={64} onChange={e => setGlyphPattern(e.target.value)} onBlur={() => { if (!glyphPattern.trim()) setGlyphPattern("*"); }} /></label>}
         {specs.filter(c => c[5] === group && (group !== "grid" || (repeatMode !== "single" || !["repeatSpacingX", "repeatSpacingY"].includes(c[0]))) && (repeatMode !== "line" || c[0] !== "repeatSpacingY")).map(([key, label, min, max, step]) => <div className="kp-control" data-target={key} key={key}><button ref={el => { sockets.current[key] = el; }} data-target={key} className={`kp-socket ${patches.some(p => p.target === key) ? "patched" : ""}`} aria-label={`Patch input ${group} ${label}`} onClick={() => { if (selected !== null) connect(selected, key); else setPatches(all => all.filter(p => p.target !== key)); }} /><div className="kp-knob-control"><span>{label}</span><Knob name={`${group} ${label}`} min={min} max={max} step={step} value={values[key]} onChange={next => setValues(v => ({ ...v, [key]: next }))} /></div></div>)}
         <div className="kp-manual">{manualSpecs.filter(c => c[5] === group && (group !== "grid" || (repeatMode === "line" ? c[0] === "repeatCount" : repeatMode === "grid" ? c[0] !== "repeatCount" : false)) && (group !== "vertex" || vertex === "line")).map(([key, label, min, max, step]) => <div className="kp-knob-control" key={key}><span>{label}</span><Knob name={`${group} ${label}`} min={min} max={max} step={step} value={manual[key]} onChange={next => setManual(v => ({ ...v, [key]: next }))} /></div>)}</div>
@@ -617,6 +631,6 @@ export default function KineticPatchSynth() {
       <div className="kp-output-tools"><select disabled={recording || rendering} aria-label="Canvas format" value={canvasFormat} onChange={e => setCanvasFormat(e.target.value as CanvasFormat)}><option value="screen">SCREEN</option><option value="square">SQUARE · 1:1</option><option value="landscape">LANDSCAPE · 16:9</option><option value="portrait">PORTRAIT · 9:16</option><option value="custom">CUSTOM</option></select>{canvasFormat === "custom" ? <><input disabled={recording || rendering} aria-label="Custom canvas width" type="number" min={64} max={4096} defaultValue={customWidth} onBlur={e => { const n = Math.round(Number(e.target.value)); if (n >= 64 && n <= 4096) setCustomWidth(n); else e.target.value = String(customWidth); }} /><span>×</span><input disabled={recording || rendering} aria-label="Custom canvas height" type="number" min={64} max={4096} defaultValue={customHeight} onBlur={e => { const n = Math.round(Number(e.target.value)); if (n >= 64 && n <= 4096) setCustomHeight(n); else e.target.value = String(customHeight); }} /></> : <select disabled={recording || rendering} aria-label="Output resolution" value={outputResolution} onChange={e => setOutputResolution(Number(e.target.value))}><option value={0}>SCREEN SIZE</option><option value={1024}>1K · 1024</option><option value={1920}>HD · 1920</option><option value={2048}>2K · 2048</option><option value={4096}>4K · 4096</option></select>}<button aria-label="Inspect native pixels" aria-pressed={nativeView} onClick={() => { setNativeView(v => !v); stage.current?.scrollTo(0, 0); }}>{nativeView ? "FIT" : "100%"}</button><span className="kp-output-dimensions">{nativeSize.width} × {nativeSize.height}</span><button onClick={exportPNG} disabled={pngBusy || rendering}>{pngBusy ? "SAVING…" : "PNG ↓"}</button></div>
       <div className="kp-video-tools"><b>VIDEO</b><select aria-label="Recording duration" disabled={recording || rendering} value={recordSeconds} onChange={e => setRecordSeconds(Number(e.target.value))}><option value={5}>5 SECONDS</option><option value={10}>10 SECONDS</option><option value={20}>20 SECONDS</option></select><button disabled={rendering} className={recording ? "is-recording" : ""} onClick={() => recording ? recordingSession.current?.stop() : startRecording()}>{recording ? "STOP & SAVE" : "● RECORD"}</button><select aria-label="Render frame rate" disabled={recording || rendering} value={renderFps} onChange={e => setRenderFps(Number(e.target.value) as 30 | 60)}><option value={30}>RENDER · 30 FPS</option><option value={60}>RENDER · 60 FPS</option></select><button disabled={recording} onClick={() => rendering ? renderAbort.current?.abort() : void startVideoRender()}>{rendering ? "CANCEL RENDER" : "RENDER VIDEO"}</button><span role="status">{rendering ? `RENDERING · ${renderProgress.done} / ${renderProgress.total} frames` : recording ? `${recordElapsed.toFixed(1)} / ${recordSeconds}s` : "Current output size · MP4 / WebM"}</span>{rendering && <progress aria-label="Video render progress" value={renderProgress.done} max={renderProgress.total} />}<p>Record: live capture, 30 fps target. Render: every frame at selected FPS.</p></div>
     </section>}
-    <footer className="kp-footer"><button ref={outputButton} className="kp-output-trigger" aria-expanded={outputOpen} aria-controls="kp-output-window" onClick={() => outputOpen ? closeOutput() : setOutputOpen(true)}>{rendering ? "RENDER · OUTPUT" : recording ? "● REC · OUTPUT" : "OUTPUT"}</button><div className="kp-preset-tools"><select aria-label="Load built-in preset" defaultValue="" onChange={e => { if (e.target.value === "dream") { loadDream(); setPresetMessage("Dream loaded. Undo restores your previous settings."); } const preset = kineticPresets.find(p => p.id === e.target.value); if (preset) { applyPreset(parsePreset(preset.preset)); setPresetMessage(`${preset.name} loaded. Undo restores your previous settings.`); } e.target.value = ""; }}><option value="" disabled>PRESETS</option><option value="dream">Dream</option>{kineticPresets.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select><button onClick={() => presetInput.current?.click()}>IMPORT</button><button onClick={exportPreset}>EXPORT</button><input ref={presetInput} type="file" accept=".json,application/json" aria-label="Import preset file" hidden onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importPreset(file); }} /><span role="status">{presetMessage}</span></div><label>TEXT <textarea aria-label="Text" value={text} onChange={e => setText(e.target.value)} rows={1} /></label><label>BACKGROUND <input aria-label="Background color" type="color" value={bg} onChange={e => setBg(e.target.value)} /></label><button className="kp-bicolour" aria-pressed={bicolour} onClick={() => setBicolour(v => !v)}>BI-COLOUR</button>{bicolour && <label>INK 2 <input aria-label="Second ink color" type="color" value={ink2} onChange={e => setInk2(e.target.value)} /></label>}<label>INK <input aria-label="Ink color" type="color" value={ink} onChange={e => setInk(e.target.value)} /></label></footer>
+    <footer className="kp-footer"><button ref={outputButton} className="kp-output-trigger" aria-expanded={outputOpen} aria-controls="kp-output-window" onClick={() => outputOpen ? closeOutput() : setOutputOpen(true)}>{rendering ? "RENDER · OUTPUT" : recording ? "● REC · OUTPUT" : "OUTPUT"}</button><div className="kp-preset-tools"><select aria-label="Load built-in preset" defaultValue="" onChange={e => { if (e.target.value === "dream") { loadDream(); setPresetMessage("Dream loaded. Undo restores your previous settings."); } const preset = kineticPresets.find(p => p.id === e.target.value); if (preset) { applyPreset(parsePreset(preset.preset)); setPresetMessage(`${preset.name} loaded. Undo restores your previous settings.`); } e.target.value = ""; }}><option value="" disabled>PRESETS</option><option value="dream">Dream</option>{kineticPresets.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select><button onClick={() => presetInput.current?.click()}>IMPORT</button><button onClick={exportPreset}>EXPORT</button><input ref={presetInput} type="file" accept=".json,application/json" aria-label="Import preset file" hidden onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importPreset(file); }} /><span role="status">{presetMessage}</span></div><label>TEXT <textarea aria-label="Text" placeholder="Type here · Enter for a new line" value={text} onChange={e => setText(e.target.value)} rows={2} /></label><label>BACKGROUND <input aria-label="Background color" type="color" value={bg} onChange={e => setBg(e.target.value)} /></label><button className="kp-bicolour" aria-pressed={bicolour} onClick={() => setBicolour(v => !v)}>BI-COLOUR</button>{bicolour && <label>INK 2 <input aria-label="Second ink color" type="color" value={ink2} onChange={e => setInk2(e.target.value)} /></label>}<label>INK <input aria-label="Ink color" type="color" value={ink} onChange={e => setInk(e.target.value)} /></label></footer>
   </main>;
 }
