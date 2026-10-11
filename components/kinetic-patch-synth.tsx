@@ -349,6 +349,7 @@ export default function KineticPatchSynth() {
           }
           hctx.putImageData(heatPixels, 0, 0); typedCtx.globalCompositeOperation = "source-in"; typedCtx.drawImage(heat, 0, 0, W, H); typedCtx.globalCompositeOperation = "source-over";
         }
+        const sampleSites = new Map<VideoSource, { x: number; y: number }[]>();
         if (gpu) {
           try {
           const renderer = gpu;
@@ -362,7 +363,7 @@ export default function KineticPatchSynth() {
           const route = s.videoPatches.find(p => p.target === node);
           const input = route ? evaluate(route.source) : gpuBlank;
           // Bypass shares the incoming frame; it needs no full-canvas copy.
-          if (node === "typography" || !s.modes[node]) { visiting.delete(node); resolved.set(node, input); return input; }
+          if (node === "typography" || !s.modes[node]) { if (route && sampleSites.has(route.source)) sampleSites.set(node, sampleSites.get(route.source)!); visiting.delete(node); resolved.set(node, input); return input; }
           let out: GPUFrame;
           if (node === "feedback") {
             out = renderer.feedback(input, mod.feedbackAmount, blendModes.findIndex(mode => mode === s.feedbackBlend), feedbackDue, node);
@@ -393,14 +394,22 @@ export default function KineticPatchSynth() {
             };
             const regions = route && glyphAligned(route.source) ? glyphs.map(g => ({ x: Math.ceil(g.x + 4), y: Math.ceil(g.y + 4), width: g.width - 8, height: g.height - 8, step: Math.max(1, Math.round(at("step", g.x + g.em / 2, g.y + g.em / 2, g) / 100 * g.em)) })) : [{ x: 0, y: 0, width: input.width, height: input.height, step }];
             const xOnly = node === "sampling" && s.samplingMode === "x", yOnly = node === "sampling" && s.samplingMode === "y";
-            for (const region of regions) for (let y = region.y; y < region.y + region.height; y += xOnly ? Math.max(1, Math.round(pixelScale)) : region.step) for (let x = region.x; x < region.x + region.width; x += yOnly ? Math.max(1, Math.round(pixelScale)) : region.step) {
+            const inherited = node === "vertex" && route ? sampleSites.get(route.source) : undefined;
+            const sites: { x: number; y: number }[] = [];
+            function* candidates() {
+              if (inherited) { yield* inherited; return; }
+              for (const region of regions) for (let y = region.y; y < region.y + region.height; y += xOnly ? Math.max(1, Math.round(pixelScale)) : region.step) for (let x = region.x; x < region.x + region.width; x += yOnly ? Math.max(1, Math.round(pixelScale)) : region.step) yield { x, y };
+            }
+            for (const { x, y } of candidates()) {
               if (x < 0 || y < 0 || x >= input.width || y >= input.height) continue;
               const g = glyphs.find(g => x >= g.x && x < g.x + g.width && y >= g.y && y < g.y + g.height);
               const j = node === "sampling" ? at("jitter", x, y, g) * pixelScale : 0, px = x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j), py = y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j);
+              if (node === "sampling") sites.push({ x: px + (xOnly || yOnly ? pixelScale * s.samplingThicknessX / 2 : 0), y: py + (xOnly || yOnly ? pixelScale * s.samplingThicknessY / 2 : 0) });
               const r = node === "vertex" ? at("vertexSize", x, y, g) / 100 * (g?.em || typographyEm) : 2.6 * pixelScale;
               points.push({ x, y, px, py, size: Math.max(1, r) });
             }
-            out = renderer.render(input, points, glyphGPU ? 4 : xOnly || yOnly ? 3 : node === "vertex" && s.vertex === "square" ? 1 : node === "vertex" && s.vertex === "line" ? 2 : 0, s.manual.threshold, node === "sampling" ? s.manual.opacity : 1, s.manual.lineLength * pixelScale, node, node === "vertex" ? mod.vertexMix : 1, glyphGPU ? { pattern: s.glyphPattern, font: s.font, weight: Math.round(mod.weight) } : undefined, pixelScale, node === "sampling" ? [s.samplingThicknessX, s.samplingThicknessY] : [1, 1]);
+            if (node === "sampling") sampleSites.set(node, sites);
+            out = renderer.render(input, points, glyphGPU ? 4 : xOnly || yOnly ? 3 : node === "vertex" && s.vertex === "square" ? 1 : node === "vertex" && s.vertex === "line" ? 2 : 0, inherited ? .00001 : s.manual.threshold, node === "sampling" ? s.manual.opacity : 1, s.manual.lineLength * pixelScale, node, node === "vertex" ? mod.vertexMix : 1, glyphGPU ? { pattern: s.glyphPattern, font: s.font, weight: Math.round(mod.weight) } : undefined, pixelScale, node === "sampling" ? [s.samplingThicknessX, s.samplingThicknessY] : [1, 1]);
           }
           visiting.delete(node); resolved.set(node, out); return out;
         };
@@ -420,7 +429,7 @@ export default function KineticPatchSynth() {
           const route = s.videoPatches.find(p => p.target === node);
           const input = route ? evaluate(route.source) : blank;
           // Bypass shares the incoming frame; it needs no full-canvas copy.
-          if (node === "typography" || !s.modes[node]) { visiting.delete(node); resolved.set(node, input); return input; }
+          if (node === "typography" || !s.modes[node]) { if (route && sampleSites.has(route.source)) sampleSites.set(node, sampleSites.get(route.source)!); visiting.delete(node); resolved.set(node, input); return input; }
           const out = outputs[node], oc = out.getContext("2d", { willReadFrequently: true })!;
           oc.clearRect(0, 0, W, H);
           if (node === "feedback") {
@@ -457,13 +466,20 @@ export default function KineticPatchSynth() {
             const regions = route && glyphAligned(route.source) ? glyphs.map(g => ({ x: Math.ceil(g.x + 4), y: Math.ceil(g.y + 4), width: g.width - 8, height: g.height - 8, step: Math.max(1, Math.round(at("step", g.x + g.em / 2, g.y + g.em / 2, g) / 100 * g.em)) })) : [{ x: 0, y: 0, width: input.width, height: input.height, step }];
             const characters = Array.from(s.glyphPattern || "*"); let glyphIndex = 0;
             const xOnly = node === "sampling" && s.samplingMode === "x", yOnly = node === "sampling" && s.samplingMode === "y";
-            for (const region of regions) for (let y = region.y; y < region.y + region.height; y += xOnly ? Math.max(1, Math.round(pixelScale)) : region.step) for (let x = region.x; x < region.x + region.width; x += yOnly ? Math.max(1, Math.round(pixelScale)) : region.step) {
+            const inherited = node === "vertex" && route ? sampleSites.get(route.source) : undefined;
+            const sites: { x: number; y: number }[] = [];
+            function* candidates() {
+              if (inherited) { yield* inherited; return; }
+              for (const region of regions) for (let y = region.y; y < region.y + region.height; y += xOnly ? Math.max(1, Math.round(pixelScale)) : region.step) for (let x = region.x; x < region.x + region.width; x += yOnly ? Math.max(1, Math.round(pixelScale)) : region.step) yield { x, y };
+            }
+            for (const { x, y } of candidates()) {
               if (x < 0 || y < 0 || x >= input.width || y >= input.height) continue;
-              const offset = (y * input.width + x) * 4, alpha = pixels ? pixels[offset + 3] / 255 : 1;
-              if (pixels && alpha < s.manual.threshold) continue;
+              const offset = (Math.floor(y) * input.width + Math.floor(x)) * 4, alpha = pixels ? pixels[offset + 3] / 255 : 1;
+              if (pixels && alpha < (inherited ? .00001 : s.manual.threshold)) continue;
               const g = glyphs.find(g => x >= g.x && x < g.x + g.width && y >= g.y && y < g.y + g.height);
               const j = node === "sampling" ? at("jitter", x, y, g) * pixelScale : 0, px = x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j), py = y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j);
               if (pixels && !useGPU) oc.fillStyle = oc.strokeStyle = `rgba(${pixels[offset]},${pixels[offset + 1]},${pixels[offset + 2]},${alpha})`;
+              if (node === "sampling") sites.push({ x: px + (xOnly || yOnly ? pixelScale * s.samplingThicknessX / 2 : 0), y: py + (xOnly || yOnly ? pixelScale * s.samplingThicknessY / 2 : 0) });
               const r = node === "vertex" ? at("vertexSize", x, y, g) / 100 * (g?.em || typographyEm) : 2.6 * pixelScale;
               oc.beginPath();
               if (xOnly || yOnly) oc.fillRect(px, py, pixelScale * s.samplingThicknessX, pixelScale * s.samplingThicknessY);
@@ -472,6 +488,7 @@ export default function KineticPatchSynth() {
               else if (node === "vertex" && s.vertex === "line") { oc.lineWidth = Math.max(1, r / 3); const len = s.manual.lineLength * pixelScale / (2 * Math.SQRT2); oc.moveTo(px - len, py - len); oc.lineTo(px + len, py + len); oc.stroke(); }
               else { const radius = Math.max(.5, r / 2); oc.ellipse(px, py, radius * (node === "sampling" ? s.samplingThicknessX : 1), radius * (node === "sampling" ? s.samplingThicknessY : 1), 0, 0, Math.PI * 2); oc.fill(); }
             }
+            if (node === "sampling") sampleSites.set(node, sites);
             oc.globalAlpha = 1;
           }
           visiting.delete(node); resolved.set(node, out); return out;
