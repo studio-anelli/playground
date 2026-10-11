@@ -37,7 +37,7 @@ const modulationTargets = specs.map(spec => spec[0]);
 const signalControls = (["sampling", "grid", "vertex"] as const).map(group => specs.filter(spec => spec[5] === group));
 type Patch = { id: string; wave: number; target: Target; amount: number };
 type XY = { x: number; y: number };
-type Glyph = { canvas: HTMLCanvasElement; x: number; y: number; width: number; height: number; em: number; char: string; font: string };
+type Glyph = { canvas: HTMLCanvasElement; x: number; y: number; width: number; height: number; em: number; char: string; font: string; baseline: number; advanceX: number; capHeight: number };
 const videoDefaults: VideoPatch[] = [{ source: "typography", target: "sampling" }, { source: "sampling", target: "grid" }, { source: "grid", target: "vertex" }, { source: "vertex", target: "feedback" }, { source: "feedback", target: "canvas" }];
 const manualSpecs = [
   ["threshold", "Threshold", .01, 1, .01, "sampling"], ["opacity", "Opacity", 0, 1, .01, "sampling"],
@@ -420,7 +420,7 @@ export default function KineticPatchSynth() {
           typographyEm = fitted;
           sctx.textAlign = "left"; sctx.textBaseline = "alphabetic";
           glyphs = [];
-          const metrics = sctx.measureText("Mg"), ascent = metrics.actualBoundingBoxAscent, descent = metrics.actualBoundingBoxDescent;
+          const metrics = sctx.measureText("Mg"), ascent = metrics.actualBoundingBoxAscent, descent = metrics.actualBoundingBoxDescent, capHeight = Math.max(1, sctx.measureText("H").actualBoundingBoxAscent);
           lines.forEach((line, i) => {
             const layout = layoutLine(line), margin = (W - availableTextWidth) / 2;
             const origin = s.textAlign === "left" ? margin : s.textAlign === "right" ? W - margin - layout.width : (W - layout.width) / 2;
@@ -442,7 +442,7 @@ export default function KineticPatchSynth() {
                   glyphCache.put(rasterKey, c);
                 }
                 const gx = x - m.actualBoundingBoxLeft - 4, gy = baseline - m.actualBoundingBoxAscent - 4;
-                glyphs.push({ canvas: c, x: gx, y: gy, width, height, em: fitted, char, font: s.font });
+                glyphs.push({ canvas: c, x: gx, y: gy, width, height, em: fitted, char, font: s.font, baseline, advanceX: x, capHeight });
                 sctx.drawImage(c, gx, gy);
               }
             }
@@ -474,7 +474,7 @@ export default function KineticPatchSynth() {
           em2 = fitted;
           ctx2.textAlign = "left"; ctx2.textBaseline = "alphabetic";
           glyphs2 = [];
-          const metrics = ctx2.measureText("Mg"), ascent = metrics.actualBoundingBoxAscent, descent = metrics.actualBoundingBoxDescent;
+          const metrics = ctx2.measureText("Mg"), ascent = metrics.actualBoundingBoxAscent, descent = metrics.actualBoundingBoxDescent, capHeight = Math.max(1, ctx2.measureText("H").actualBoundingBoxAscent);
           lines.forEach((line, i) => {
             const layout = layoutLine(line), margin = (W - availableTextWidth) / 2;
             const origin = s.secondType.align === "left" ? margin : s.secondType.align === "right" ? W - margin - layout.width : (W - layout.width) / 2;
@@ -496,7 +496,7 @@ export default function KineticPatchSynth() {
                   glyphCache.put(rasterKey, c);
                 }
                 const gx = x - m.actualBoundingBoxLeft - 4, gy = baseline - m.actualBoundingBoxAscent - 4;
-                glyphs2.push({ canvas: c, x: gx, y: gy, width, height, em: fitted, char, font: s.secondType.font });
+                glyphs2.push({ canvas: c, x: gx, y: gy, width, height, em: fitted, char, font: s.secondType.font, baseline, advanceX: x, capHeight });
                 ctx2.drawImage(c, gx, gy);
               }
             }

@@ -28,9 +28,14 @@ export function firstGridCoordinate(min: number, anchor: number | undefined, spa
   const step = Math.max(.0001, spacing);
   return anchor + Math.ceil((min - anchor) / step - 1e-9) * step;
 }
-export function glyphSamplingRegion(g: { x: number; y: number; width: number; height: number; em: number; char: string; font: string }, step: number, origins: GlyphOriginMap) {
-  const point = origins[g.font]?.[g.char];
+/** Fit an integer number of sample bands between baseline and cap height. */
+export function baselineGridStep(capHeight: number, requestedStep: number): number {
+  const height = Math.max(1, capHeight);
+  return height / Math.max(1, Math.round(height / Math.max(1, requestedStep)));
+}
+export function glyphSamplingRegion(g: { x: number; y: number; width: number; height: number; em: number; char: string; font: string; baseline: number; advanceX: number; capHeight: number }, requestedStep: number, origins: GlyphOriginMap) {
+  const point = origins[g.font]?.[g.char], step = baselineGridStep(g.capHeight, requestedStep);
   return { x: Math.ceil(g.x + 4), y: Math.ceil(g.y + 4), width: g.width - 8, height: g.height - 8, em: g.em, step,
-    originX: point ? g.x + 4 + point.x * (g.width - 8) : undefined,
-    originY: point ? g.y + 4 + point.y * (g.height - 8) : undefined };
+    originX: point ? g.x + 4 + point.x * (g.width - 8) : g.advanceX + step / 2,
+    originY: point ? g.y + 4 + point.y * (g.height - 8) : g.baseline - step / 2 };
 }

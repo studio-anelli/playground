@@ -1,13 +1,14 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { firstGridCoordinate, originAlphabet, type GlyphOrigin, type GlyphOriginMap } from "./kinetic-glyph-origins";
+import { baselineGridStep, firstGridCoordinate, originAlphabet, type GlyphOrigin, type GlyphOriginMap } from "./kinetic-glyph-origins";
 
 type Props = { origins: GlyphOriginMap; onChange: (map: GlyphOriginMap) => void; sources: { name: string; font: string; weight: number; text: string }[]; step: number; mode: "xy" | "x" | "y"; onClose: () => void };
 export default function GlyphOriginEditor({ origins, onChange, sources, step, mode, onClose }: Props) {
   const [source, setSource] = useState(0), [char, setChar] = useState("A");
+  const [defaultPoint, setDefaultPoint] = useState<GlyphOrigin>({ x: 0, y: 1 });
   const canvas = useRef<HTMLCanvasElement>(null), windowRef = useRef<HTMLElement>(null);
   const geometry = useRef({ x: 0, y: 0, width: 1, height: 1 }), dragging = useRef(false);
-  const selected = sources[source], point = origins[selected.font]?.[char] || { x: 0, y: 0 };
+  const selected = sources[source], point = origins[selected.font]?.[char] || defaultPoint;
   const chars = Array.from(new Set([...originAlphabet, ...sources.flatMap(s => Array.from(s.text).filter(c => c.trim()))])).slice(0, 128);
   const update = (position: GlyphOrigin) => {
     const existing = origins[selected.font] || {};
@@ -34,7 +35,13 @@ export default function GlyphOriginEditor({ origins, onChange, sources, step, mo
       geometry.current = { x, y, width, height };
       ctx.textBaseline = "alphabetic"; ctx.fillStyle = "#d5d5ce"; ctx.fillText(char, x + m.actualBoundingBoxLeft, y + m.actualBoundingBoxAscent);
       ctx.strokeStyle = "#666"; ctx.lineWidth = 1; ctx.strokeRect(x, y, width, height);
-      const ox = x + point.x * width, oy = y + point.y * height, spacing = Math.max(1, Math.round(step / 100 * size));
+      const capHeight = Math.max(1, ctx.measureText("H").actualBoundingBoxAscent), spacing = baselineGridStep(capHeight, Math.max(1, Math.round(step / 100 * size)));
+      const base = { x: (m.actualBoundingBoxLeft + spacing / 2) / width, y: (m.actualBoundingBoxAscent - spacing / 2) / height };
+      setDefaultPoint(previous => previous.x === base.x && previous.y === base.y ? previous : base);
+      const displayed = origins[selected.font]?.[char] || base;
+      const ox = x + displayed.x * width, oy = y + displayed.y * height, baseline = y + m.actualBoundingBoxAscent;
+      ctx.strokeStyle = "#aaa"; ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.moveTo(16, baseline); ctx.lineTo(c.width - 16, baseline); ctx.moveTo(16, baseline - capHeight); ctx.lineTo(c.width - 16, baseline - capHeight); ctx.stroke(); ctx.setLineDash([]);
+      ctx.font = "9px ui-monospace, monospace"; ctx.fillStyle = "#aaa"; ctx.fillText("BASELINE", 16, baseline + 12); ctx.fillText("CAP", 16, baseline - capHeight - 5);
       ctx.save(); ctx.beginPath(); ctx.rect(x, y, width, height); ctx.clip(); ctx.strokeStyle = "#7194ff66"; ctx.beginPath();
       if (mode !== "y") for (let gx = firstGridCoordinate(x, ox, spacing); gx <= x + width; gx += spacing) { ctx.moveTo(gx, y); ctx.lineTo(gx, y + height); }
       if (mode !== "x") for (let gy = firstGridCoordinate(y, oy, spacing); gy <= y + height; gy += spacing) { ctx.moveTo(x, gy); ctx.lineTo(x + width, gy); }
