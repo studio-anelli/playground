@@ -43,7 +43,7 @@ void main(){
  vec2 offset=corner*size;
  if(shape==0||shape==1){local=corner*(1.0+2.0/max(size,1.0));offset=local*size;}
  if(shape==2){float t=lineLength/1.41421356237; float w=max(1.0,size/3.0);local=corner*vec2(1.0+2.0/max(lineLength,1.0),1.0+2.0/w);offset=vec2(local.x*t-local.y*w/1.41421356237,local.x*t+local.y*w/1.41421356237);}
- if(shape==3)offset=(corner+0.5)*primitiveScale;
+ if(shape==3)offset=corner*primitiveScale;
  atlasUV=vec2(0);
  if(shape==4){offset=corner*size*atlasCell/atlasEm;uint rank=texelFetch(accepted,ivec2(gl_InstanceID%acceptedWidth,gl_InstanceID/acceptedWidth),0).r;float index=float((max(rank,1u)-1u)%uint(glyphCount));atlasUV=(vec2(mod(index,atlasGrid.x),floor(index/atlasGrid.x))+corner+0.5)/atlasGrid;}
  offset*=stampScale;
