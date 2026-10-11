@@ -16,3 +16,5 @@ Image limits: 12 MB and 32 megapixels per image, 64 MB total embedded data, 96 M
 Keep existing preset appearance by default. Preview and test before merging. GPU interaction and export quality still need testing on the user's browser.
 
 Vertex spacing uses each source glyph’s em, including different Type sizes. Glyph and custom SVG stamps have a deterministic orientation-scatter control (±0–180°), saved in presets and undo and used in CPU/GPU exports.
+
+Glyph Origins opens a modal alphabet/numeral editor (A–Z, a–z, 0–9 plus current text characters). Drag or arrow-key a glyph-local anchor, or enter X/Y percentages. Maps are per font family and normalized to glyph ink bounds, shared by Type 1/2 when their font matches. Sampling and direct Vertex grids tile both directions from the anchor; Vertex after Sampling inherits sites. Unmapped letters keep the old grid. Maps are included in undo/presets/frozen exports, and removed custom-font maps are pruned. The editor shows the base Step grid; downstream transformed video uses its existing raster sampling rather than a glyph map.
