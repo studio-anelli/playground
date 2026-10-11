@@ -27,3 +27,10 @@ export function moveVideoModule(chain: readonly VideoModule[], from: number, to:
   if (from < 0 || to < 0 || from >= chain.length || to >= chain.length) return [...chain];
   const next = [...chain], [module] = next.splice(from, 1); next.splice(to, 0, module); return next;
 }
+
+/** The canvas composites two output layers; effect inputs remain single-source. */
+export function connectVideoPatch(patches: readonly VideoPatch[], source: VideoSource, target: VideoTarget): VideoPatch[] {
+  if (target !== 'canvas') return [...patches.filter(p => p.target !== target), { source, target }];
+  const layers = patches.filter(p => p.target === 'canvas' && p.source !== source);
+  return [...patches.filter(p => p.target !== 'canvas'), ...layers.slice(-1), { source, target }];
+}
