@@ -1,9 +1,21 @@
 export type ImportedFont = { id: string; name: string; data: string };
 export type VertexSVG = { name: string; svg: string };
 export const fontFamily = (id: string) => `"ktic-font-${id}", sans-serif`;
+export type FontFormat = "woff2" | "woff" | "ttf" | "otf";
+export function detectFontFormat(bytes: Uint8Array): FontFormat | null {
+  if (bytes.length < 4) return null;
+  const signature = String.fromCharCode(...bytes.slice(0, 4));
+  if (signature === "wOF2") return "woff2";
+  if (signature === "wOFF") return "woff";
+  if (signature === "OTTO") return "otf";
+  if (signature === "true" || (bytes[0] === 0 && bytes[1] === 1 && bytes[2] === 0 && bytes[3] === 0)) return "ttf";
+  return null;
+}
 export function validFontData(data: unknown): data is string {
-  if (typeof data !== "string" || data.length > Math.ceil(4 * 1024 * 1024 / 3) * 4 + 24 || !/^data:font\/woff2;base64,[A-Za-z0-9+/]+={0,2}$/.test(data)) return false;
-  try { return atob(data.split(",")[1].slice(0, 8)).startsWith("wOF2"); } catch { return false; }
+  if (typeof data !== "string" || data.length > Math.ceil(4 * 1024 * 1024 / 3) * 4 + 32) return false;
+  const match = /^data:font\/(woff2|woff|ttf|otf);base64,([A-Za-z0-9+/]+={0,2})$/.exec(data);
+  if (!match) return false;
+  try { const header = Uint8Array.from(atob(match[2].slice(0, 8)), c => c.charCodeAt(0)); return detectFontFormat(header) === match[1]; } catch { return false; }
 }
 export function validateSVG(svg: unknown): asserts svg is string {
   if (typeof svg !== "string" || svg.length > 512 * 1024 || !/<svg[\s>]/i.test(svg) || /<!DOCTYPE|<!ENTITY|\son[a-z]+\s*=|javascript:|@import/i.test(svg)) throw new Error("Choose a static SVG smaller than 512 KB.");
@@ -30,7 +42,7 @@ export async function decodeSVG(svg: string) {
   finally { URL.revokeObjectURL(url); }
 }
 export async function loadImportedFont(font: ImportedFont) {
-  if (!validFontData(font.data)) throw new Error("Choose a valid WOFF2 font smaller than 4 MB.");
+  if (!validFontData(font.data)) throw new Error("Choose a valid WOFF2, WOFF, TTF or OTF font smaller than 4 MB.");
   const bytes = Uint8Array.from(atob(font.data.split(",")[1]), c => c.charCodeAt(0));
   const face = new FontFace(`ktic-font-${font.id}`, bytes, { weight: "100 900" });
   await face.load(); document.fonts.add(face); return face;

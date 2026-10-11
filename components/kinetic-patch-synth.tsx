@@ -8,7 +8,7 @@ import { waveDivisions, waveHz, sampleWave, type Wave, type Shape, type WaveDivi
 export { waveValue } from "./kinetic-waves";
 import { connectVideoPatch, readVideoChain, writeVideoChain, moveVideoModule, videoModules, type VideoSource, type VideoTarget, type VideoPatch, type VideoModule } from "./kinetic-video-chain";
 import { drawImageLayers, decodeLayerImage, imageByteLimit, imageLimit, type ImageLayer } from "./kinetic-image-layers";
-import { fontFamily, validFontData, validateSVG, decodeSVG, loadImportedFont, type ImportedFont, type VertexSVG } from "./kinetic-custom-assets";
+import { fontFamily, detectFontFormat, validFontData, validateSVG, decodeSVG, loadImportedFont, type ImportedFont, type VertexSVG } from "./kinetic-custom-assets";
 import { OpticalKerning } from "./kinetic-optical-kerning";
 import { spacedSites } from "./kinetic-spacing";
 import { RasterCache } from "./kinetic-raster-cache";
@@ -822,12 +822,13 @@ export default function KineticPatchSynth() {
   const importFont = async (file: File) => {
     if (assetBusy) return; const target = fontImportTarget.current; setAssetBusy(true);
     try {
-      if (!file.name.toLowerCase().endsWith(".woff2") || file.size > 4 * 1024 * 1024) throw new Error("Choose a WOFF2 font smaller than 4 MB.");
+      if (!/\.(woff2?|ttf|otf)$/i.test(file.name) || file.size > 4 * 1024 * 1024) throw new Error("Choose a WOFF2, WOFF, TTF or OTF font smaller than 4 MB.");
       if (live.current.customFonts.length >= 4) throw new Error("Remove a font before importing another (maximum four).");
       const bytes = new Uint8Array(await file.arrayBuffer());
-      if (String.fromCharCode(...bytes.slice(0, 4)) !== "wOF2") throw new Error("This file is not WOFF2.");
-      const data = await new Promise<string>((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve("data:font/woff2;base64," + String(reader.result).split(",")[1]); reader.onerror = () => reject(new Error("Could not read font.")); reader.readAsDataURL(file); });
-      const font = { id: crypto.randomUUID(), name: file.name.replace(/\.woff2$/i, "").slice(0, 200), data };
+      const format = detectFontFormat(bytes);
+      if (!format) throw new Error("This file is not a supported font (WOFF2, WOFF, TTF or OTF).");
+      const data = await new Promise<string>((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(`data:font/${format};base64,` + String(reader.result).split(",")[1]); reader.onerror = () => reject(new Error("Could not read font.")); reader.readAsDataURL(file); });
+      const font = { id: crypto.randomUUID(), name: file.name.replace(/\.(woff2?|ttf|otf)$/i, "").slice(0, 200), data };
       await ensureAssets([font], null); setCustomFonts(all => [...all, font]);
       if (target === "typography") setFont(fontFamily(font.id)); else setSecondType(t => ({ ...t, font: fontFamily(font.id) }));
       setPresetMessage("Font imported and included in presets.");
@@ -838,7 +839,7 @@ export default function KineticPatchSynth() {
     try { if (file.size > 512 * 1024) throw new Error("SVG must be smaller than 512 KB."); const shape = { name: file.name.slice(0, 200), svg: await file.text() }; await ensureAssets([], shape); setVertexSVG(shape); setVertex("custom"); setPresetMessage("SVG Vertex shape loaded. Incoming pixels supply its colour."); }
     catch (error) { setPresetMessage(error instanceof Error ? error.message : "Could not import SVG."); } finally { setAssetBusy(false); }
   };
-  const fontManager = <details className="kp-font-manager"><summary>FONTS · {customFonts.length}</summary><button disabled={assetBusy || customFonts.length >= 4} onClick={() => { fontImportTarget.current = typeTab; fontInput.current?.click(); }}>{assetBusy ? "LOADING…" : "+ IMPORT WOFF2"}</button>{customFonts.map(f => <div className="kp-asset-tools" key={f.id}><span title={f.name}>{f.name}</span><button aria-label={`Remove font ${f.name}`} onClick={() => { setCustomFonts(all => all.filter(item => item.id !== f.id)); if (font === fontFamily(f.id)) setFont("system-ui, sans-serif"); if (secondType.font === fontFamily(f.id)) setSecondType(t => ({ ...t, font: "system-ui, sans-serif" })); }}>×</button></div>)}</details>;
+  const fontManager = <details className="kp-font-manager"><summary>FONTS · {customFonts.length}</summary><button disabled={assetBusy || customFonts.length >= 4} onClick={() => { fontImportTarget.current = typeTab; fontInput.current?.click(); }}>{assetBusy ? "LOADING…" : "+ IMPORT FONT"}</button>{customFonts.map(f => <div className="kp-asset-tools" key={f.id}><span title={f.name}>{f.name}</span><button aria-label={`Remove font ${f.name}`} onClick={() => { setCustomFonts(all => all.filter(item => item.id !== f.id)); if (font === fontFamily(f.id)) setFont("system-ui, sans-serif"); if (secondType.font === fontFamily(f.id)) setSecondType(t => ({ ...t, font: "system-ui, sans-serif" })); }}>×</button></div>)}</details>;
   const importImage = async (file: File) => {
     if (imageBusy) return;
     setImageBusy(true);
@@ -873,7 +874,7 @@ export default function KineticPatchSynth() {
       if (target) setPatches(all => all.filter(p => p.target !== target));
       setSelected(null); setSelectedVideo(null);
     }} className="kp" style={{ "--kp-bg": bg } as CSSProperties}>
-    <input ref={fontInput} hidden type="file" accept=".woff2,font/woff2" aria-label="Import WOFF2 font" onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importFont(file); }} /><input ref={svgInput} hidden type="file" accept=".svg,image/svg+xml" aria-label="Import Vertex SVG" onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importSVG(file); }} />
+    <input ref={fontInput} hidden type="file" accept=".woff2,.woff,.ttf,.otf,font/woff2,font/woff,font/ttf,font/otf" aria-label="Import font" onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importFont(file); }} /><input ref={svgInput} hidden type="file" accept=".svg,image/svg+xml" aria-label="Import Vertex SVG" onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importSVG(file); }} />
     <header className="kp-header"><Link href="/" onClick={e => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; e.preventDefault(); window.location.assign("/"); }}>← INDEX</Link><h1>K-TIC-SYNTH</h1><button aria-label="Undo last edit" title="Undo · ⌘/Ctrl Z" disabled={!canUndo} onClick={undo}>↶ UNDO</button><button onClick={() => setPaused(v => !v)}>{paused ? "▶ RUN" : "Ⅱ HOLD"}</button></header>
     <section ref={stage} className={`kp-stage${nativeView ? " kp-native-view" : ""}`}><canvas ref={canvas} style={viewSize.width ? nativeView ? { width: nativeSize.width, height: nativeSize.height, position: "relative", margin: "54px 16px 16px" } : { width: previewSize.width, height: previewSize.height, position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" } : undefined} aria-label="Animated kinetic typography" /><span className="kp-caption">VISUAL SYNTHESIZER · THREE WAVE ENGINE</span></section>
     <div className="kp-controls"><div ref={panel} className="kp-rack" onPointerMove={e => { if (videoDrag && panel.current) { const r = panel.current.getBoundingClientRect(); if (videoDragStart.current && Math.hypot(e.clientX - videoDragStart.current.x, e.clientY - videoDragStart.current.y) > 3) dragMoved.current = true; setVideoDrag({ ...videoDrag, x: e.clientX - r.left, y: e.clientY - r.top }); } if (drag && panel.current) { const r = panel.current.getBoundingClientRect(); if (Math.hypot(e.clientX - r.left - drag.x, e.clientY - r.top - drag.y) > 3) dragMoved.current = true; setDrag({ ...drag, x: e.clientX - r.left, y: e.clientY - r.top }); } }} onPointerUp={finishDrag} onPointerCancel={() => { dragRef.current = null; videoDragRef.current = null; setVideoDrag(null); setDrag(null); }}>
