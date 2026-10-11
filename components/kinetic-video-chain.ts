@@ -28,9 +28,8 @@ export function moveVideoModule(chain: readonly VideoModule[], from: number, to:
   const next = [...chain], [module] = next.splice(from, 1); next.splice(to, 0, module); return next;
 }
 
-/** The canvas composites two output layers; effect inputs remain single-source. */
+/** Each video input composites up to two distinct sources. */
 export function connectVideoPatch(patches: readonly VideoPatch[], source: VideoSource, target: VideoTarget): VideoPatch[] {
-  if (target !== 'canvas') return [...patches.filter(p => p.target !== target), { source, target }];
-  const layers = patches.filter(p => p.target === 'canvas' && p.source !== source);
-  return [...patches.filter(p => p.target !== 'canvas'), ...layers.slice(-1), { source, target }];
+  const layers = patches.filter(p => p.target === target && p.source !== source);
+  return [...patches.filter(p => p.target !== target), ...layers.slice(-1), { source, target }];
 }

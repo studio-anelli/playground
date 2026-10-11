@@ -87,9 +87,11 @@ export function parsePreset(value: unknown): SynthState {
   if (waves.length !== 3) throw new Error("The preset must contain three waves.");
   const patches = array(s.patches, 100).map((item, i) => { const p = object(item); const wave = num(p.wave, 0, 6); if (!Number.isInteger(wave)) throw new Error("Invalid modulation source."); return { id: `import-${i}`, wave, target: choice(p.target, specs.map(spec => spec[0])), amount: num(p.amount, -100, 100) }; });
   if (new Set(patches.map(p => `${p.wave}-${p.target}`)).size !== patches.length) throw new Error("Duplicate modulation cable.");
-  const videoPatches = array(s.videoPatches, 6).map(item => { const p = object(item); return { source: choice(p.source, ["typography", "typography2", "sampling", "grid", "vertex", "feedback"] as const), target: choice(p.target, ["sampling", "grid", "vertex", "feedback", "canvas"] as const) }; });
-  const effectInputs = videoPatches.filter(p => p.target !== "canvas"), canvasInputs = videoPatches.filter(p => p.target === "canvas");
-  if (new Set(effectInputs.map(p => p.target)).size !== effectInputs.length || canvasInputs.length > 2 || new Set(canvasInputs.map(p => p.source)).size !== canvasInputs.length) throw new Error("Effect inputs accept one cable; Canvas accepts two distinct outputs.");
+  const videoPatches = array(s.videoPatches, 10).map(item => { const p = object(item); return { source: choice(p.source, ["typography", "typography2", "sampling", "grid", "vertex", "feedback"] as const), target: choice(p.target, ["sampling", "grid", "vertex", "feedback", "canvas"] as const) }; });
+  for (const target of ["sampling", "grid", "vertex", "feedback", "canvas"]) {
+    const inputs = videoPatches.filter(p => p.target === target);
+    if (inputs.length > 2 || new Set(inputs.map(p => p.source)).size !== inputs.length) throw new Error("Each video input accepts two distinct outputs.");
+  }
   const colour = (v: unknown) => { if (typeof v !== "string" || !/^#[0-9a-f]{6}$/i.test(v)) throw new Error("Invalid preset colour."); return v; };
   if (typeof s.text !== "string" || s.text.length > 10000) throw new Error("Preset text is too long.");
   let secondType = { ...secondTypeDefault };
@@ -240,6 +242,7 @@ export default function KineticPatchSynth() {
     const nodes: VideoSource[] = ["typography", "typography2", "sampling", "grid", "vertex", "feedback"];
     const outputs = Object.fromEntries(nodes.map(node => [node, document.createElement("canvas")])) as Record<VideoSource, HTMLCanvasElement>;
     const previousOutputs = Object.fromEntries(nodes.map(node => [node, document.createElement("canvas")])) as Record<VideoSource, HTMLCanvasElement>;
+    const mixedInputs = Object.fromEntries(nodes.map(node => [node, document.createElement("canvas")])) as Record<VideoSource, HTMLCanvasElement>;
     const blank = document.createElement("canvas"); blank.width = 1; blank.height = 1;
     let routeKey = "";
     let gpu = createKineticGPU();
@@ -429,12 +432,17 @@ export default function KineticPatchSynth() {
         typedCtx2.clearRect(0, 0, W, H);
         if (s.secondType.on) typedCtx2.drawImage(source2, 0, 0);
         if (s.secondType.on && s.secondType.combine) typedCtx.drawImage(typed2, 0, 0);
-        const rootType = (node: VideoSource): "typography" | "typography2" => {
-          const seen = new Set<VideoSource>(); let current = node;
-          while (current !== "typography" && current !== "typography2" && !seen.has(current)) { seen.add(current); const route = s.videoPatches.find(p => p.target === current); if (!route) break; current = route.source; }
-          return current === "typography2" ? "typography2" : "typography";
-        };
         const primaryGlyphs = glyphs, primaryEm = typographyEm;
+        const rootsOf = (node: VideoSource, seen = new Set<VideoSource>()): ("typography" | "typography2")[] => {
+          if (node === "typography" || node === "typography2") return [node];
+          if (seen.has(node)) return [];
+          const next = new Set(seen); next.add(node);
+          return Array.from(new Set(s.videoPatches.filter(p => p.target === node).flatMap(p => rootsOf(p.source, next))));
+        };
+        const glyphsOf = (sources: VideoSource[]) => {
+          const roots = new Set(sources.flatMap(source => rootsOf(source)));
+          return [...(roots.has("typography") ? primaryGlyphs : []), ...(s.secondType.on && (roots.has("typography2") || (roots.has("typography") && s.secondType.combine)) ? glyphs2 : [])];
+        };
         const sampleSites = new Map<VideoSource, { x: number; y: number }[]>();
         if (gpu) {
           try {
@@ -442,17 +450,18 @@ export default function KineticPatchSynth() {
           const gpuBlank = renderer.begin(W, H, nextRouteKey, s.modes.feedback);
         const resolved = new Map<VideoSource, GPUFrame>([["typography", renderer.load(typed)], ["typography2", s.secondType.on && s.videoPatches.some(p => p.source === "typography2") ? renderer.load(typed2, "typography2") : gpuBlank]]), visiting = new Set<VideoSource>(), cyclic = new Set<VideoSource>();
         const evaluate = (node: VideoSource): GPUFrame => {
-          const root = rootType(node), glyphs = root === "typography2" ? (s.secondType.on ? glyphs2 : []) : s.secondType.on && s.secondType.combine ? [...primaryGlyphs, ...glyphs2] : primaryGlyphs;
+          const root = rootsOf(node).find(source => source !== "typography2" || s.secondType.on) || "typography", glyphs = glyphsOf([node]);
           const typographyEm = root === "typography2" ? em2 : primaryEm;
           const glyphFont = root === "typography2" ? s.secondType.font : s.font, glyphWeight = root === "typography2" ? s.secondType.weight : Math.round(mod.weight);
           const cached = resolved.get(node); if (cached) return cached;
           // Cyclic video cables read the previous frame, never recurse indefinitely.
           if (visiting.has(node)) { cyclic.add(node); return renderer.previous(node); }
           visiting.add(node);
-          const route = s.videoPatches.find(p => p.target === node);
-          const input = route ? evaluate(route.source) : gpuBlank;
+          const routes = s.videoPatches.filter(p => p.target === node), route = routes[0];
+          const layers = routes.map(p => evaluate(p.source));
+          const input = layers.length > 1 ? renderer.compose(layers[0], layers[1], "input-" + node) : layers[0] || gpuBlank;
           // Bypass shares the incoming frame; it needs no full-canvas copy.
-          if (node === "typography" || node === "typography2" || !s.modes[node]) { if (route && sampleSites.has(route.source)) sampleSites.set(node, sampleSites.get(route.source)!); visiting.delete(node); resolved.set(node, input); return input; }
+          if (node === "typography" || node === "typography2" || !s.modes[node]) { if (routes.length && routes.every(p => sampleSites.has(p.source))) sampleSites.set(node, routes.flatMap(p => sampleSites.get(p.source)!)); visiting.delete(node); resolved.set(node, input); return input; }
           let out: GPUFrame;
           if (node === "feedback") {
             out = renderer.feedback(input, mod.feedbackAmount, blendModes.findIndex(mode => mode === s.feedbackBlend), feedbackDue, node);
@@ -474,21 +483,24 @@ export default function KineticPatchSynth() {
             const glyphGPU = node === "vertex" && s.vertex === "glyph";
             const points: GPUStamp[] = [];
             // Glyph-relative sampling also applies to pixels received from other modules.
-            const em = glyphs[0]?.em || size, step = Math.max(1, Math.round(mod.step / 100 * em));
+            const em = glyphs[0]?.em || typographyEm, step = Math.max(1, Math.round(mod.step / 100 * em));
             const lineage = new Set<VideoSource>();
             const glyphAligned = (current: VideoSource): boolean => {
               if (current === "typography" || current === "typography2") return true;
               if (lineage.has(current) || s.modes[current]) return false;
-              lineage.add(current); const upstream = s.videoPatches.find(p => p.target === current); return upstream ? glyphAligned(upstream.source) : false;
+              lineage.add(current); const upstream = s.videoPatches.filter(p => p.target === current); const aligned = upstream.length > 0 && upstream.every(p => glyphAligned(p.source)); lineage.delete(current); return aligned;
             };
-            const regions = route && glyphAligned(route.source) ? glyphs.map(g => ({ x: Math.ceil(g.x + 4), y: Math.ceil(g.y + 4), width: g.width - 8, height: g.height - 8, step: Math.max(1, Math.round(at("step", g.x + g.em / 2, g.y + g.em / 2, g) / 100 * g.em)) })) : [{ x: 0, y: 0, width: input.width, height: input.height, step }];
+            const inheritedRoutes = node === "vertex" ? routes.filter(p => sampleSites.has(p.source)) : [];
+            const missingRoutes = routes.filter(p => !inheritedRoutes.includes(p));
+            const regionGlyphs = inheritedRoutes.length ? glyphsOf(missingRoutes.map(p => p.source)) : glyphs;
+            const regions = missingRoutes.length && missingRoutes.every(p => glyphAligned(p.source)) ? regionGlyphs.map(g => ({ x: Math.ceil(g.x + 4), y: Math.ceil(g.y + 4), width: g.width - 8, height: g.height - 8, step: Math.max(1, Math.round(at("step", g.x + g.em / 2, g.y + g.em / 2, g) / 100 * g.em)) })) : [{ x: 0, y: 0, width: input.width, height: input.height, step }];
             const xOnly = node === "sampling" && s.samplingMode === "x", yOnly = node === "sampling" && s.samplingMode === "y";
-            const inherited = node === "vertex" && route ? sampleSites.get(route.source) : undefined;
+            const inherited = inheritedRoutes.length ? inheritedRoutes.flatMap(p => sampleSites.get(p.source)!) : undefined;
             const sites: { x: number; y: number }[] = [];
             function* candidates() {
               if (inherited) { yield* spacedSites(inherited, s.vertexSpacing / 100 * typographyEm, site => {
                 const index = glyphs.findIndex(g => site.x >= g.x && site.x < g.x + g.width && site.y >= g.y && site.y < g.y + g.height); return String(index);
-              }); return; }
+              }); if (!missingRoutes.length) return; }
               for (const region of regions) for (let y = region.y; y < region.y + region.height; y += xOnly ? Math.max(1, Math.round(pixelScale)) : region.step + (yOnly ? s.stripSpacing : node === "vertex" ? s.vertexSpacing : 0) / 100 * typographyEm) for (let x = region.x; x < region.x + region.width; x += yOnly ? Math.max(1, Math.round(pixelScale)) : region.step + (xOnly ? s.stripSpacing : node === "vertex" ? s.vertexSpacing : 0) / 100 * typographyEm) yield { x, y };
             }
             for (const { x, y } of candidates()) {
@@ -515,17 +527,19 @@ export default function KineticPatchSynth() {
         } else {
         const resolved = new Map<VideoSource, HTMLCanvasElement>([["typography", typed], ["typography2", typed2]]), visiting = new Set<VideoSource>(), cyclic = new Set<VideoSource>();
         const evaluate = (node: VideoSource): HTMLCanvasElement => {
-          const root = rootType(node), glyphs = root === "typography2" ? (s.secondType.on ? glyphs2 : []) : s.secondType.on && s.secondType.combine ? [...primaryGlyphs, ...glyphs2] : primaryGlyphs;
+          const root = rootsOf(node).find(source => source !== "typography2" || s.secondType.on) || "typography", glyphs = glyphsOf([node]);
           const typographyEm = root === "typography2" ? em2 : primaryEm;
           const glyphFont = root === "typography2" ? s.secondType.font : s.font, glyphWeight = root === "typography2" ? s.secondType.weight : Math.round(mod.weight);
           const cached = resolved.get(node); if (cached) return cached;
           // Cyclic video cables read the previous frame, never recurse indefinitely.
           if (visiting.has(node)) { cyclic.add(node); return previousOutputs[node]; }
           visiting.add(node);
-          const route = s.videoPatches.find(p => p.target === node);
-          const input = route ? evaluate(route.source) : blank;
+          const routes = s.videoPatches.filter(p => p.target === node), route = routes[0];
+          const layers = routes.map(p => evaluate(p.source));
+          let input = layers[0] || blank;
+          if (layers.length > 1) { const mixed = mixedInputs[node]; if (mixed.width !== W || mixed.height !== H) { mixed.width = W; mixed.height = H; } const mc = mixed.getContext("2d", { willReadFrequently: true })!; mc.clearRect(0, 0, W, H); layers.forEach(layer => mc.drawImage(layer, 0, 0, W, H)); input = mixed; }
           // Bypass shares the incoming frame; it needs no full-canvas copy.
-          if (node === "typography" || node === "typography2" || !s.modes[node]) { if (route && sampleSites.has(route.source)) sampleSites.set(node, sampleSites.get(route.source)!); visiting.delete(node); resolved.set(node, input); return input; }
+          if (node === "typography" || node === "typography2" || !s.modes[node]) { if (routes.length && routes.every(p => sampleSites.has(p.source))) sampleSites.set(node, routes.flatMap(p => sampleSites.get(p.source)!)); visiting.delete(node); resolved.set(node, input); return input; }
           const out = outputs[node], oc = out.getContext("2d", { willReadFrequently: true })!;
           oc.clearRect(0, 0, W, H);
           if (node === "feedback") {
@@ -550,24 +564,27 @@ export default function KineticPatchSynth() {
             const useGPU = false;
             const pixels = input.getContext("2d", { willReadFrequently: true })!.getImageData(0, 0, input.width, input.height).data;
             // Glyph-relative sampling also applies to pixels received from other modules.
-            const em = glyphs[0]?.em || size, step = Math.max(1, Math.round(mod.step / 100 * em));
+            const em = glyphs[0]?.em || typographyEm, step = Math.max(1, Math.round(mod.step / 100 * em));
             if (node === "vertex") { oc.globalAlpha = 1 - mod.vertexMix; oc.drawImage(input, 0, 0); oc.globalAlpha = mod.vertexMix; }
             else oc.globalAlpha = s.manual.opacity;
             const lineage = new Set<VideoSource>();
             const glyphAligned = (current: VideoSource): boolean => {
               if (current === "typography" || current === "typography2") return true;
               if (lineage.has(current) || s.modes[current]) return false;
-              lineage.add(current); const upstream = s.videoPatches.find(p => p.target === current); return upstream ? glyphAligned(upstream.source) : false;
+              lineage.add(current); const upstream = s.videoPatches.filter(p => p.target === current); const aligned = upstream.length > 0 && upstream.every(p => glyphAligned(p.source)); lineage.delete(current); return aligned;
             };
-            const regions = route && glyphAligned(route.source) ? glyphs.map(g => ({ x: Math.ceil(g.x + 4), y: Math.ceil(g.y + 4), width: g.width - 8, height: g.height - 8, step: Math.max(1, Math.round(at("step", g.x + g.em / 2, g.y + g.em / 2, g) / 100 * g.em)) })) : [{ x: 0, y: 0, width: input.width, height: input.height, step }];
+            const inheritedRoutes = node === "vertex" ? routes.filter(p => sampleSites.has(p.source)) : [];
+            const missingRoutes = routes.filter(p => !inheritedRoutes.includes(p));
+            const regionGlyphs = inheritedRoutes.length ? glyphsOf(missingRoutes.map(p => p.source)) : glyphs;
+            const regions = missingRoutes.length && missingRoutes.every(p => glyphAligned(p.source)) ? regionGlyphs.map(g => ({ x: Math.ceil(g.x + 4), y: Math.ceil(g.y + 4), width: g.width - 8, height: g.height - 8, step: Math.max(1, Math.round(at("step", g.x + g.em / 2, g.y + g.em / 2, g) / 100 * g.em)) })) : [{ x: 0, y: 0, width: input.width, height: input.height, step }];
             const characters = Array.from(s.glyphPattern || "*"); let glyphIndex = 0;
             const xOnly = node === "sampling" && s.samplingMode === "x", yOnly = node === "sampling" && s.samplingMode === "y";
-            const inherited = node === "vertex" && route ? sampleSites.get(route.source) : undefined;
+            const inherited = inheritedRoutes.length ? inheritedRoutes.flatMap(p => sampleSites.get(p.source)!) : undefined;
             const sites: { x: number; y: number }[] = [];
             function* candidates() {
               if (inherited) { yield* spacedSites(inherited, s.vertexSpacing / 100 * typographyEm, site => {
                 const index = glyphs.findIndex(g => site.x >= g.x && site.x < g.x + g.width && site.y >= g.y && site.y < g.y + g.height); return String(index);
-              }); return; }
+              }); if (!missingRoutes.length) return; }
               for (const region of regions) for (let y = region.y; y < region.y + region.height; y += xOnly ? Math.max(1, Math.round(pixelScale)) : region.step + (yOnly ? s.stripSpacing : node === "vertex" ? s.vertexSpacing : 0) / 100 * typographyEm) for (let x = region.x; x < region.x + region.width; x += yOnly ? Math.max(1, Math.round(pixelScale)) : region.step + (xOnly ? s.stripSpacing : node === "vertex" ? s.vertexSpacing : 0) / 100 * typographyEm) yield { x, y };
             }
             for (const { x, y } of candidates()) {
@@ -684,8 +701,8 @@ export default function KineticPatchSynth() {
   const setVideoChain = (chain: VideoModule[]) => { setVideoPatches(writeVideoChain(chain, videoPatches.some(p => p.source === "typography2") ? "typography2" : "typography")); setSelectedVideo(null); setVideoDrag(null); videoDragRef.current = null; };
   const moveChain = (module: VideoModule, direction: number) => { if (!videoChain) return; const index = videoChain.indexOf(module); setVideoChain(moveVideoModule(videoChain, index, index + direction)); };
   const chainEditor = <section className="kp-chain" aria-label="Video chain editor"><b>VIDEO CHAIN</b>{videoChain === null ? <div><button onClick={() => setVideoChain(videoModules.slice())}>{videoPatches.length ? "REPLACE WITH DEFAULT CHAIN" : "CONNECT DEFAULT CHAIN"}</button><button onClick={() => setVideoChain([])}>TEXT → CANVAS</button></div> : <><select aria-label="Video chain typography source" value={videoPatches.some(p => p.source === "typography2") ? "typography2" : "typography"} onChange={e => setVideoPatches(writeVideoChain(videoChain, e.target.value as "typography" | "typography2"))}><option value="typography">TYPOGRAPHY 1</option><option value="typography2">TYPOGRAPHY 2</option></select>{videoChain.map((module, index) => <div className="kp-chain-row" key={module} draggable onDragStart={e => { chainDrag.current = module; e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", module); }} onDragEnd={() => { chainDrag.current = null; }} onDragOver={e => { if (chainDrag.current) { e.preventDefault(); e.dataTransfer.dropEffect = "move"; } }} onDrop={e => { e.preventDefault(); const source = chainDrag.current; chainDrag.current = null; if (source) setVideoChain(moveVideoModule(videoChain, videoChain.indexOf(source), index)); }}><span title="Drag to reorder">⠿</span><b>{module === "grid" ? "POSITION / REPEAT" : module.toUpperCase()}</b><button aria-label={`Move ${module} earlier`} disabled={index === 0} onClick={() => moveChain(module, -1)}>↑</button><button aria-label={`Move ${module} later`} disabled={index === videoChain.length - 1} onClick={() => moveChain(module, 1)}>↓</button><button aria-label={`Remove ${module} from video chain`} onClick={() => setVideoChain(videoChain.filter(m => m !== module))}>×</button></div>)}<div className="kp-chain-end">CANVAS</div>{videoModules.some(m => !videoChain.includes(m)) && <select aria-label="Add module to video chain" value="" onChange={e => { if (e.target.value) setVideoChain([...videoChain, e.target.value as VideoModule]); }}><option value="" disabled>+ ADD MODULE</option>{videoModules.filter(m => !videoChain.includes(m)).map(m => <option key={m} value={m}>{m === "grid" ? "POSITION / REPEAT" : m.toUpperCase()}</option>)}</select>}</>}</section>;
-  const connectVideo = (source: VideoSource, target: VideoTarget) => { setVideoPatches(all => connectVideoPatch(all, source, target)); if (target === "canvas" && source === "typography2") setSecondType(t => ({ ...t, combine: false })); setSelectedVideo(null); setVideoDrag(null); videoDragRef.current = null; videoDragStart.current = null; };
-  const videoPorts = (node: VideoSource | "canvas") => <div className="kp-video-ports">{node !== "typography" && node !== "typography2" && <label>VIDEO IN<button className="kp-socket kp-video-socket" data-video-target={node} title={node === "canvas" ? "Connect up to two outputs · click to unplug" : "Click to unplug · select an output to reconnect"} aria-label={`Video input ${node}`} ref={el => { sockets.current[`video-in-${node}`] = el; }} onClick={() => { if (selectedVideo) connectVideo(selectedVideo, node); else setVideoPatches(all => all.filter(p => p.target !== node)); }} /></label>}{node !== "canvas" && <label>VIDEO OUT<button className={`kp-socket kp-video-socket ${selectedVideo === node ? "selected" : ""}`} data-video-source={node} title="Drag to connect · right-click to unplug" aria-label={`Video output ${node}`} ref={el => { sockets.current[`video-out-${node}`] = el; }} onClick={() => { if (!dragMoved.current) { setSelected(null); setSelectedVideo(selectedVideo === node ? null : node); } }} onPointerDown={e => { if (e.button !== 0) return; dragMoved.current = false; videoDragStart.current = { x: e.clientX, y: e.clientY }; e.currentTarget.setPointerCapture(e.pointerId); const r = panel.current!.getBoundingClientRect(); videoDragRef.current = node; setVideoDrag({ source: node, x: e.clientX - r.left, y: e.clientY - r.top }); }} /></label>}</div>;
+  const connectVideo = (source: VideoSource, target: VideoTarget) => { setVideoPatches(all => connectVideoPatch(all, source, target)); if (source === "typography2") setSecondType(t => ({ ...t, combine: false })); setSelectedVideo(null); setVideoDrag(null); videoDragRef.current = null; videoDragStart.current = null; };
+  const videoPorts = (node: VideoSource | "canvas") => <div className="kp-video-ports">{node !== "typography" && node !== "typography2" && <label>VIDEO IN<button className="kp-socket kp-video-socket" data-video-target={node} title={"Connect up to two outputs · click to unplug"} aria-label={`Video input ${node}`} ref={el => { sockets.current[`video-in-${node}`] = el; }} onClick={() => { if (selectedVideo) connectVideo(selectedVideo, node); else setVideoPatches(all => all.filter(p => p.target !== node)); }} /></label>}{node !== "canvas" && <label>VIDEO OUT<button className={`kp-socket kp-video-socket ${selectedVideo === node ? "selected" : ""}`} data-video-source={node} title="Drag to connect · right-click to unplug" aria-label={`Video output ${node}`} ref={el => { sockets.current[`video-out-${node}`] = el; }} onClick={() => { if (!dragMoved.current) { setSelected(null); setSelectedVideo(selectedVideo === node ? null : node); } }} onPointerDown={e => { if (e.button !== 0) return; dragMoved.current = false; videoDragStart.current = { x: e.clientX, y: e.clientY }; e.currentTarget.setPointerCapture(e.pointerId); const r = panel.current!.getBoundingClientRect(); videoDragRef.current = node; setVideoDrag({ source: node, x: e.clientX - r.left, y: e.clientY - r.top }); }} /></label>}</div>;
   const finishDrag = (e: PointerEvent) => {
     if (videoDragRef.current) { const source = videoDragRef.current; videoDragRef.current = null; videoDragStart.current = null; const hit = document.elementFromPoint(e.clientX, e.clientY)?.closest<HTMLElement>("[data-video-target]"); const target = hit?.dataset.videoTarget as VideoTarget | undefined; if (target) connectVideo(source, target); else setVideoDrag(null); return; }
     const active = dragRef.current;
