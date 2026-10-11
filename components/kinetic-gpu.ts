@@ -41,7 +41,7 @@ flat out vec2 uv;
 out vec2 local;
 out vec2 atlasUV;
 void main(){
- local=corner; uv=vec2((samplePixel.x+0.5)/resolution.x,1.0-(samplePixel.y+0.5)/resolution.y);
+ local=corner; uv=vec2((floor(samplePixel.x)+0.5)/resolution.x,1.0-(floor(samplePixel.y)+0.5)/resolution.y);
  vec2 offset=corner*size;
  if(shape==0||shape==1){local=corner*(1.0+2.0/max(size,1.0));offset=local*size;}
  if(shape==2){float t=lineLength/1.41421356237; float w=max(1.0,size/3.0);local=corner*vec2(1.0+2.0/max(lineLength,1.0),1.0+2.0/w);offset=vec2(local.x*t-local.y*w/1.41421356237,local.x*t+local.y*w/1.41421356237);}
@@ -125,7 +125,7 @@ uniform float threshold;
 layout(location=0) out uint result;
 void main(){ivec2 p=ivec2(gl_FragCoord.xy);int index=p.x+p.y*scanWidth;
 if(index>=count){result=0u;return;}
-if(offset==0){vec2 pixel=texelFetch(positions,p,0).rg;vec2 uv=vec2((pixel.x+0.5)/resolution.x,1.0-(pixel.y+0.5)/resolution.y);result=texture(image,uv).a>=threshold?1u:0u;}
+if(offset==0){vec2 pixel=texelFetch(positions,p,0).rg;vec2 uv=vec2((floor(pixel.x)+0.5)/resolution.x,1.0-(floor(pixel.y)+0.5)/resolution.y);result=texture(image,uv).a>=threshold?1u:0u;}
 else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset;result+=texelFetch(previous,ivec2(other%scanWidth,other/scanWidth),0).r;}}}`;
   let stamps: WebGLProgram, copies: WebGLProgram, feedback: WebGLProgram, scan: WebGLProgram;
   try { stamps=program(vertex,fragment);copies=program(imageVertex,imageFragment);feedback=program(imageVertex,feedbackFragment);scan=program(scanVertex,scanFragment); }
