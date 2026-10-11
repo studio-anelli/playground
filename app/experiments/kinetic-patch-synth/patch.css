@@ -106,3 +106,6 @@
 .kp-font-manager>button{margin:8px 0}
 .kp-asset-tools{display:flex;gap:5px;align-items:center;min-width:0}
 .kp-asset-tools span{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:10px}
+
+/* Shared sample selection controls sit above the wave engine. */
+.kp-shared-sampling{border:1px solid #494949;padding:8px;margin-bottom:12px;min-width:0}.kp-shared-sampling .kp-title{min-height:22px;font-size:8px;letter-spacing:.3px}.kp-shared-sampling .kp-control{margin-bottom:4px}.kp-shared-sampling>.kp-knob-control{margin-bottom:0}
