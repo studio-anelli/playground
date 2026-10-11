@@ -100,3 +100,9 @@
 .kp-image-row>button:first-child{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
 .kp-image-row .selected{background:#343434;color:#fff}
 .kp-image-controls{display:grid;gap:8px;margin-top:12px}
+
+.kp-font-manager{padding:8px;border-bottom:1px solid #343434;min-width:0}
+.kp-font-manager summary{cursor:pointer;font-size:10px;letter-spacing:.08em}
+.kp-font-manager>button{margin:8px 0}
+.kp-asset-tools{display:flex;gap:5px;align-items:center;min-width:0}
+.kp-asset-tools span{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:10px}

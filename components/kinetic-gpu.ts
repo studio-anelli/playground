@@ -157,18 +157,25 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
   const copy=(input:GPUFrame,key:string)=>{const out=target(key);if(out===input)return out;clear(out);imagePass(input,full(),out);return out;};
   const atlasTexture=makeTexture(),positionsTexture=makeTexture();
   const atlasCanvas=document.createElement('canvas');atlasCanvas.width=1;atlasCanvas.height=1;upload(atlasCanvas,atlasTexture,1);
-  let atlasKey='',atlasColumns=1,atlasRows=1,cellWidth=192,cellHeight=256,atlasEm=128;
+  let atlasSVGImage:HTMLImageElement|null=null;let atlasKey='',atlasColumns=1,atlasRows=1,cellWidth=192,cellHeight=256,atlasEm=128;
   const prepareAtlas=(pattern:string,font:string,weight:number,requestedSize:number)=>{
     const characters=Array.from(pattern || '*');
     const maxTexture=gl.getParameter(gl.MAX_TEXTURE_SIZE) as number;
     const columns=Math.ceil(Math.sqrt(characters.length)),rows=Math.ceil(characters.length/columns);
     const wanted=2 ** Math.ceil(Math.log2(Math.max(128,requestedSize)));
     const em=Math.max(32,Math.min(1024,wanted,2 ** Math.floor(Math.log2(maxTexture / Math.max(columns*2,rows*2)))));
-    const key=JSON.stringify([pattern,font,weight,em]);if(key===atlasKey)return;
+    const key=JSON.stringify([pattern,font,weight,em]);if(key===atlasKey)return;atlasSVGImage=null;
     atlasEm=em;const context=atlasCanvas.getContext('2d')!;context.font=`${weight} ${em}px ${font}`;
     cellWidth=Math.min(Math.floor(maxTexture/columns),Math.max(Math.ceil(em*1.5),...characters.map(char=>Math.ceil(context.measureText(char).width)+Math.ceil(em/8))));cellHeight=Math.ceil(em*2);atlasColumns=Math.ceil(Math.sqrt(characters.length));atlasRows=Math.ceil(characters.length/atlasColumns);
     atlasCanvas.width=cellWidth*atlasColumns;atlasCanvas.height=cellHeight*atlasRows;context.font=`${weight} ${em}px ${font}`;context.fillStyle='#fff';context.textAlign='center';context.textBaseline='middle';
     characters.forEach((char,i)=>context.fillText(char,(i%atlasColumns+.5)*cellWidth,(Math.floor(i/atlasColumns)+.5)*cellHeight));upload(atlasCanvas,atlasTexture,1);atlasKey=key;
+  };
+  const prepareSVG=(image:HTMLImageElement,key:string,requestedSize:number)=>{
+    const em=Math.min(2048,gl.getParameter(gl.MAX_TEXTURE_SIZE) as number,2 ** Math.ceil(Math.log2(Math.max(128,requestedSize))));
+    const nextKey='svg-'+em;if(nextKey===atlasKey && atlasSVGImage===image)return;atlasSVGImage=image;
+    atlasColumns=atlasRows=1;cellWidth=cellHeight=atlasEm=em;atlasCanvas.width=atlasCanvas.height=em;
+    const scale=em/Math.max(image.naturalWidth,image.naturalHeight),w=image.naturalWidth*scale,h=image.naturalHeight*scale;
+    atlasCanvas.getContext('2d')!.drawImage(image,(em-w)/2,(em-h)/2,w,h);upload(atlasCanvas,atlasTexture,1);atlasKey=nextKey;
   };
   const accepted=(input:GPUFrame,points:GPUStamp[],threshold:number)=>{
     const sw=Math.min(1024,Math.max(1,points.length)),sh=Math.max(1,Math.ceil(points.length/sw)),positions=new Float32Array(sw*sh*2);
@@ -191,8 +198,8 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
     previous(node:string){return target('previous-'+node);},
     snapshot(node:string,input:GPUFrame){copy(input,'previous-'+node);},
     present(input:GPUFrame){bind(null);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);imagePass(input,full(),null);return canvas;},
-    render(input:GPUFrame,points:GPUStamp[],shape:number,threshold:number,opacity:number,lineLength:number,key:string,mix:number,glyphs?:{pattern:string;font:string;weight:number},primitiveScale=1,stampScale:readonly number[]=[1,1]){
-      let ranks:GPUFrame|undefined;if(glyphs){prepareAtlas(glyphs.pattern,glyphs.font,glyphs.weight,points.reduce((max,p)=>Math.max(max,p.size),128));ranks=accepted(input,points,threshold);}
+    render(input:GPUFrame,points:GPUStamp[],shape:number,threshold:number,opacity:number,lineLength:number,key:string,mix:number,glyphs?:{pattern:string;font:string;weight:number;image?:HTMLImageElement;imageKey?:string},primitiveScale=1,stampScale:readonly number[]=[1,1]){
+      let ranks:GPUFrame|undefined;if(glyphs){const size=points.reduce((max,p)=>Math.max(max,p.size),128);if(glyphs.image)prepareSVG(glyphs.image,glyphs.imageKey || "",size);else{prepareAtlas(glyphs.pattern,glyphs.font,glyphs.weight,size);ranks=accepted(input,points,threshold);}}
       const out=target(key);clear(out);
       if(mix<1)imagePass(input,full(),out,copies,undefined,0,0,1-mix);
       gl.useProgram(stamps);bind(out);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);texture(input.texture,0);texture(atlasTexture,1,true);
