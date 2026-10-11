@@ -595,7 +595,9 @@ export default function KineticPatchSynth() {
             for (const { x, y } of candidates()) {
               if (x < 0 || y < 0 || x >= input.width || y >= input.height) continue;
               const g = glyphs.find(g => x >= g.x && x < g.x + g.width && y >= g.y && y < g.y + g.height);
-              const j = node === "sampling" ? at("jitter", x, y, g) * pixelScale : 0, px = node === "sampling" ? Math.floor(x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j)) + .5 : x, py = node === "sampling" ? Math.floor(y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j)) + .5 : y;
+              // Evaluate one jitter value along each glyph strip, retaining the existing XY field.
+              const j = node === "sampling" ? at("jitter", yOnly ? (g ? g.x + g.width / 2 : input.width / 2) : x, xOnly ? (g ? g.y + g.height / 2 : input.height / 2) : y, g) * pixelScale : 0;
+              const px = node === "sampling" ? Math.floor(x + (yOnly ? 0 : Math.sin(x * 73.17 + (xOnly ? 0 : y)) * j)) + .5 : x, py = node === "sampling" ? Math.floor(y + (xOnly ? 0 : Math.cos(y * 37.71 + (yOnly ? 0 : x)) * j)) + .5 : y;
               if (node === "sampling") sites.push({ x: px, y: py });
               const r = node === "vertex" ? at("vertexSize", x, y, g) / 100 * (g?.em || typographyEm) : 2.6 * pixelScale;
               if (node === "vertex" && r <= 0) continue;
@@ -682,7 +684,9 @@ export default function KineticPatchSynth() {
               const offset = (Math.floor(y) * input.width + Math.floor(x)) * 4, alpha = pixels ? pixels[offset + 3] / 255 : 1;
               if (pixels && alpha < (inherited ? .00001 : s.manual.threshold)) continue;
               const g = glyphs.find(g => x >= g.x && x < g.x + g.width && y >= g.y && y < g.y + g.height);
-              const j = node === "sampling" ? at("jitter", x, y, g) * pixelScale : 0, px = node === "sampling" ? Math.floor(x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j)) + .5 : x, py = node === "sampling" ? Math.floor(y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j)) + .5 : y;
+              // Evaluate one jitter value along each glyph strip, retaining the existing XY field.
+              const j = node === "sampling" ? at("jitter", yOnly ? (g ? g.x + g.width / 2 : input.width / 2) : x, xOnly ? (g ? g.y + g.height / 2 : input.height / 2) : y, g) * pixelScale : 0;
+              const px = node === "sampling" ? Math.floor(x + (yOnly ? 0 : Math.sin(x * 73.17 + (xOnly ? 0 : y)) * j)) + .5 : x, py = node === "sampling" ? Math.floor(y + (xOnly ? 0 : Math.cos(y * 37.71 + (yOnly ? 0 : x)) * j)) + .5 : y;
               if (pixels && !useGPU) oc.fillStyle = oc.strokeStyle = `rgba(${pixels[offset]},${pixels[offset + 1]},${pixels[offset + 2]},${alpha})`;
               if (node === "sampling") sites.push({ x: px, y: py });
               const r = node === "vertex" ? at("vertexSize", x, y, g) / 100 * (g?.em || typographyEm) : 2.6 * pixelScale;
