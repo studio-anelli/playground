@@ -14,3 +14,5 @@ Implemented on the current feature branch:
 Image limits: 12 MB and 32 megapixels per image, 64 MB total embedded data, 96 MB preset file. Decoded images are cached outside React snapshots; image pixels are not resampled on import. Background layers are composited at final output and are not video-patch sources or feedback inputs. Image ordering is independent within the above-synth and below-synth stacks; the processed synth output stays between them.
 
 Keep existing preset appearance by default. Preview and test before merging. GPU interaction and export quality still need testing on the user's browser.
+
+Vertex spacing uses each source glyph’s em, including different Type sizes. Glyph and custom SVG stamps have a deterministic orientation-scatter control (±0–180°), saved in presets and undo and used in CPU/GPU exports.
