@@ -6,19 +6,29 @@ import { renderVideo } from "./kinetic-video-render";
 import { recordCanvas } from "./kinetic-recording";
 import { waveDivisions, waveHz, sampleWave, type Wave, type Shape, type WaveDivision } from "./kinetic-waves";
 export { waveValue } from "./kinetic-waves";
+import { connectVideoPatch, readVideoChain, writeVideoChain, moveVideoModule, videoModules, type VideoSource, type VideoTarget, type VideoPatch, type VideoModule } from "./kinetic-video-chain";
+import { drawImageLayers, decodeLayerImage, imageByteLimit, imageLimit, type ImageLayer } from "./kinetic-image-layers";
+import { fontFamily, detectFontFormat, validFontData, validateSVG, decodeSVG, loadImportedFont, type ImportedFont, type VertexSVG } from "./kinetic-custom-assets";
+import { svgRasterSize } from "./kinetic-svg-quality";
+import { OpticalKerning } from "./kinetic-optical-kerning";
+import { spacedSites } from "./kinetic-spacing";
 import { RasterCache } from "./kinetic-raster-cache";
 import { indexModulation } from "./kinetic-modulation";
 import { kineticPresets } from "./kinetic-presets";
+import { samplingDetailScale } from "./kinetic-sampling-detail";
+import GlyphOriginEditor from "./kinetic-glyph-origin-editor";
+import { firstGridCoordinate, glyphSamplingRegion, parseGlyphOrigins, type GlyphOriginMap } from "./kinetic-glyph-origins";
+import { stampOrientation } from "./kinetic-vertex-scatter";
 import { createKineticGPU, type GPUStamp, type GPUFrame } from "./kinetic-gpu";
 import type { CSSProperties, PointerEvent } from "react";
 type RepeatMode = "single" | "line" | "grid";
 type SamplingMode = "xy" | "x" | "y";
 
 const specs = [
-  ["step", "Step · % em", 1, 20, .1, "sampling"], ["jitter", "Jitter", 0, 35, .1, "sampling"],
+  ["step", "Step · % em", 0, 10, .01, "sampling"], ["jitter", "Jitter", 0, 35, .1, "sampling"],
   ["positionX", "Position X · %", -100, 100, .1, "grid"], ["positionY", "Position Y · %", -100, 100, .1, "grid"],
   ["repeatScale", "Scale · %", 5, 200, 1, "grid"], ["repeatSpacingX", "Spacing X · %", 0, 100, .1, "grid"], ["repeatSpacingY", "Spacing Y · %", 0, 100, .1, "grid"], ["repeatAngle", "Angle · °", -180, 180, 1, "grid"],
-  ["vertexSize", "Size · % canvas", .1, 3, .01, "vertex"], ["vertexMix", "Mix", 0, 1, .01, "vertex"],
+  ["vertexSize", "Size · % em", 0, 10, .01, "vertex"], ["vertexMix", "Mix", 0, 1, .01, "vertex"],
   ["fontSize", "Size · % canvas", 5, 75, .5, "typography"], ["weight", "Weight", 100, 900, 10, "typography"],
   ["feedbackAmount", "Input / amount", 0, .98, .01, "feedback"], ["feedbackRefresh", "Refresh · ms", 16, 2000, 1, "feedback"],
 ] as const;
@@ -28,10 +38,7 @@ const modulationTargets = specs.map(spec => spec[0]);
 const signalControls = (["sampling", "grid", "vertex"] as const).map(group => specs.filter(spec => spec[5] === group));
 type Patch = { id: string; wave: number; target: Target; amount: number };
 type XY = { x: number; y: number };
-type Glyph = { canvas: HTMLCanvasElement; x: number; y: number; width: number; height: number; em: number };
-type VideoSource = "typography" | "sampling" | "grid" | "vertex" | "feedback";
-type VideoTarget = Exclude<VideoSource, "typography"> | "canvas";
-type VideoPatch = { source: VideoSource; target: VideoTarget };
+type Glyph = { canvas: HTMLCanvasElement; x: number; y: number; width: number; height: number; em: number; char: string; font: string; baseline: number; advanceX: number; capHeight: number };
 const videoDefaults: VideoPatch[] = [{ source: "typography", target: "sampling" }, { source: "sampling", target: "grid" }, { source: "grid", target: "vertex" }, { source: "vertex", target: "feedback" }, { source: "feedback", target: "canvas" }];
 const manualSpecs = [
   ["threshold", "Threshold", .01, 1, .01, "sampling"], ["opacity", "Opacity", 0, 1, .01, "sampling"],
@@ -39,7 +46,7 @@ const manualSpecs = [
   ["lineLength", "Line length", 1, 80, 1, "vertex"], ["tracking", "Tracking · % em", -10, 30, .1, "typography"],
 ] as const;
 const initialManual = { threshold: .42, opacity: 1, repeatCount: 5, repeatColumns: 3, repeatRows: 3, lineLength: 6, tracking: 16.7 };
-const initial: Record<Target, number> = { step: 3.2, jitter: 0, positionX: 0, positionY: 0, repeatScale: 100, repeatSpacingX: 25, repeatSpacingY: 25, repeatAngle: 0, vertexSize: 1.4, vertexMix: .5, fontSize: 20, weight: 800, feedbackAmount: .65, feedbackRefresh: 120 };
+const initial: Record<Target, number> = { step: 3.2, jitter: 0, positionX: 0, positionY: 0, repeatScale: 100, repeatSpacingX: 25, repeatSpacingY: 25, repeatAngle: 0, vertexSize: 7, vertexMix: .5, fontSize: 20, weight: 800, feedbackAmount: .65, feedbackRefresh: 120 };
 const colors = ["#3478f6", "#f2c438", "#ed514b", "#a4b2ff", "#69c4d0", "#e6a95e", "#b495df"];
 const sourceNames = ["WAVE 1", "WAVE 2", "WAVE 3", "FEEDBACK", "SAMPLING", "GRID", "VERTEX"];
 const blendModes = ["source-over", "screen", "multiply", "overlay", "difference", "exclusion", "lighten", "darken", "lighter"] as const;
@@ -59,7 +66,9 @@ function Knob({ name, min, max, step, value, onChange }: { name: string; min: nu
 }
 const dreamWaves: Wave[] = [{ on: true, shape: "sine", rate: .57, amp: .59, speed: .07, direction: 0, phase: .49 }, { on: true, shape: "triangle", rate: 2.79, amp: .5, speed: .12, direction: .5, phase: .25 }, { on: true, shape: "triangle", rate: .35, amp: 1, speed: .65, direction: 1, phase: 0 }];
 const dreamPatches: Patch[] = [{ id: "dream-vertex", wave: 2, target: "vertexSize", amount: 100 }, { id: "dream-type", wave: 1, target: "fontSize", amount: 50 }, { id: "dream-step", wave: 0, target: "step", amount: 15 }];
-type SynthState = { bpm: number; waves: Wave[]; values: typeof initial; manual: typeof initialManual; modes: { sampling: boolean; grid: boolean; vertex: boolean; feedback: boolean }; patches: Patch[]; text: string; font: string; vertex: string; repeatMode: RepeatMode; samplingMode: SamplingMode; glyphPattern: string; paused: boolean; bg: string; ink: string; bicolour: boolean; ink2: string; feedbackBlend: GlobalCompositeOperation; videoPatches: VideoPatch[] };
+type SecondType = { on: boolean; text: string; font: string; size: number; weight: number; x: number; y: number; tracking: number; lineHeight: number; align: "left" | "center" | "right"; kerning: "none" | "normal" | "optical"; ink: string };
+const secondTypeDefault: SecondType = { on: false, text: "TYPE 2", font: "system-ui, sans-serif", size: 12, weight: 800, x: 0, y: 25, tracking: 0, lineHeight: 1.1, align: "center", kerning: "normal", ink: "#ffffff" };
+type SynthState = { samplingThicknessLinked: boolean; glyphOrigins: GlyphOriginMap; customFonts: ImportedFont[]; vertexSVG: VertexSVG | null; imageLayers: ImageLayer[]; type1On: boolean; secondType: SecondType; stripSpacing: number; vertexSpacing: number; vertexScatter: number; samplingThicknessUnit: "em"; vertexSizeUnit: "em"; samplingThicknessX: number; samplingThicknessY: number; textAlign: "left" | "center" | "right"; lineHeight: number; kerning: "none" | "normal" | "optical"; bpm: number; waves: Wave[]; values: typeof initial; manual: typeof initialManual; modes: { sampling: boolean; grid: boolean; vertex: boolean; feedback: boolean }; patches: Patch[]; text: string; font: string; vertex: string; repeatMode: RepeatMode; samplingMode: SamplingMode; glyphPattern: string; paused: boolean; bg: string; ink: string; bicolour: boolean; ink2: string; feedbackBlend: GlobalCompositeOperation; repeatBlend: GlobalCompositeOperation; feedbackTiming: "free" | "sync"; feedbackDivision: WaveDivision; videoPatches: VideoPatch[] };
 export function parsePreset(value: unknown): SynthState {
   const object = (v: unknown): Record<string, unknown> => { if (!v || typeof v !== "object" || Array.isArray(v)) throw new Error("Invalid preset structure."); return v as Record<string, unknown>; };
   const num = (v: unknown, min: number, max: number): number => { if (typeof v !== "number" || !Number.isFinite(v) || v < min || v > max) throw new Error("A preset value is outside its allowed range."); return v; };
@@ -77,19 +86,49 @@ export function parsePreset(value: unknown): SynthState {
   }
   const v = object(s.values), m = object(s.manual), modes = object(s.modes);
   const values = { ...initial }, manual = { ...initialManual };
-  for (const [key, , min, max] of specs) values[key] = num(v[key], min, max);
+  for (const [key, , min, max] of specs) values[key] = key === "vertexSize" ? Math.min(10, s.vertexSizeUnit === undefined ? num(v[key], .1, 3) / num(v.fontSize, 5, 75) * 100 : num(v[key], 0, 100)) : key === "step" ? Math.min(10, num(v[key], 0, 20)) : num(v[key], min, max);
+  if (s.samplingThicknessUnit !== undefined && s.samplingThicknessUnit !== "em") throw new Error("Unsupported sampling thickness unit.");
+  if (s.vertexSizeUnit !== undefined && s.vertexSizeUnit !== "em") throw new Error("Unsupported vertex size unit.");
   for (const [key, , min, max] of manualSpecs) manual[key] = num(m[key], min, max);
   const shapes = ["sine", "triangle", "square", "noise", "ramp"] as const;
   const waves = array(s.waves, 3).map(item => { const w = object(item); return { on: bool(w.on), shape: choice(w.shape, shapes), rate: num(w.rate, .1, 6), amp: num(w.amp, 0, 1), speed: num(w.speed, 0, 3), direction: num(w.direction, 0, 1), phase: num(w.phase, 0, 1), timing: w.timing === undefined ? "free" as const : choice(w.timing, ["free", "sync"] as const), division: w.division === undefined ? "1/4" as const : choice(w.division === "4/4" ? "1" : w.division, waveDivisions) }; });
   if (waves.length !== 3) throw new Error("The preset must contain three waves.");
   const patches = array(s.patches, 100).map((item, i) => { const p = object(item); const wave = num(p.wave, 0, 6); if (!Number.isInteger(wave)) throw new Error("Invalid modulation source."); return { id: `import-${i}`, wave, target: choice(p.target, specs.map(spec => spec[0])), amount: num(p.amount, -100, 100) }; });
   if (new Set(patches.map(p => `${p.wave}-${p.target}`)).size !== patches.length) throw new Error("Duplicate modulation cable.");
-  const videoPatches = array(s.videoPatches, 5).map(item => { const p = object(item); return { source: choice(p.source, ["typography", "sampling", "grid", "vertex", "feedback"] as const), target: choice(p.target, ["sampling", "grid", "vertex", "feedback", "canvas"] as const) }; });
-  if (new Set(videoPatches.map(p => p.target)).size !== videoPatches.length) throw new Error("Each video input accepts one cable.");
+  const videoPatches = array(s.videoPatches, 10).map(item => { const p = object(item); return { source: choice(p.source, ["typography", "typography2", "sampling", "grid", "vertex", "feedback"] as const), target: choice(p.target, ["sampling", "grid", "vertex", "feedback", "canvas"] as const) }; });
+  for (const target of ["sampling", "grid", "vertex", "feedback", "canvas"]) {
+    const inputs = videoPatches.filter(p => p.target === target);
+    if (inputs.length > 2 || new Set(inputs.map(p => p.source)).size !== inputs.length) throw new Error("Each video input accepts two distinct outputs.");
+  }
   const colour = (v: unknown) => { if (typeof v !== "string" || !/^#[0-9a-f]{6}$/i.test(v)) throw new Error("Invalid preset colour."); return v; };
   if (typeof s.text !== "string" || s.text.length > 10000) throw new Error("Preset text is too long.");
-  return { bpm: s.bpm === undefined ? 120 : num(s.bpm, 20, 300), waves, values, manual, modes: { sampling: bool(modes.sampling), grid: bool(modes.grid), vertex: bool(modes.vertex), feedback: bool(modes.feedback) }, patches, videoPatches, text: s.text,
-    font: choice(s.font, ["system-ui, sans-serif", "ui-serif, Georgia, serif", "ui-monospace, monospace"]), vertex: choice(s.vertex, ["dot", "line", "square", "glyph"]), repeatMode: choice(s.repeatMode, ["single", "line", "grid"]), samplingMode: choice(s.samplingMode, ["xy", "x", "y"]), glyphPattern: typeof s.glyphPattern === "string" && s.glyphPattern.length > 0 && s.glyphPattern.length <= 64 ? s.glyphPattern : "*+o", paused: bool(s.paused), bg: colour(s.bg), ink: colour(s.ink), ink2: colour(s.ink2), bicolour: bool(s.bicolour), feedbackBlend: choice(s.feedbackBlend, blendModes) };
+  const customFonts: ImportedFont[] = s.customFonts === undefined ? [] : array(s.customFonts, 4).map(item => {
+    const f = object(item);
+    if (typeof f.id !== "string" || !/^[a-z0-9-]{1,64}$/.test(f.id) || typeof f.name !== "string" || f.name.length > 200 || !validFontData(f.data)) throw new Error("Invalid imported font.");
+    return { id: f.id, name: f.name, data: f.data };
+  });
+  if (new Set(customFonts.map(f => f.id)).size !== customFonts.length) throw new Error("Duplicate font identifier.");
+  const fontOptions = ["system-ui, sans-serif", "ui-serif, Georgia, serif", "ui-monospace, monospace", ...customFonts.map(f => fontFamily(f.id))];
+  let vertexSVG: VertexSVG | null = null;
+  if (s.vertexSVG !== undefined && s.vertexSVG !== null) { const svg = object(s.vertexSVG); if (typeof svg.name !== "string" || svg.name.length > 200) throw new Error("Invalid SVG name."); validateSVG(svg.svg); vertexSVG = { name: svg.name, svg: svg.svg }; }
+  if (s.vertex === "custom" && !vertexSVG) throw new Error("Custom Vertex mode needs an SVG.");
+  let secondType = { ...secondTypeDefault };
+  if (s.secondType !== undefined) {
+    const t = object(s.secondType);
+    if (typeof t.text !== "string" || t.text.length > 10000) throw new Error("Second text is too long.");
+    secondType = { on: bool(t.on), text: t.text, font: choice(t.font, fontOptions), size: num(t.size, 5, 75), weight: num(t.weight, 100, 900), x: num(t.x, -100, 100), y: num(t.y, -100, 100), tracking: num(t.tracking, -10, 30), lineHeight: num(t.lineHeight, .5, 3), align: choice(t.align, ["left", "center", "right"] as const), kerning: choice(t.kerning, ["none", "normal", "optical"] as const), ink: colour(t.ink) };
+  }
+  const imageLayers: ImageLayer[] = s.imageLayers === undefined ? [] : array(s.imageLayers, imageLimit).map(item => {
+    const l = object(item);
+    if (typeof l.id !== "string" || !l.id || l.id.length > 100 || typeof l.name !== "string" || l.name.length > 200 || typeof l.data !== "string" || l.data.length > imageByteLimit * 1.4 || !/^data:image\/(png|jpeg|webp|avif);base64,[A-Za-z0-9+/]+={0,2}$/.test(l.data)) throw new Error("Invalid image layer.");
+    return { id: l.id, name: l.name, data: l.data, on: bool(l.on), placement: choice(l.placement, ["background", "foreground"] as const), fit: choice(l.fit, ["cover", "contain", "stretch"] as const), x: num(l.x, -100, 100), y: num(l.y, -100, 100), size: num(l.size, 1, 300), angle: num(l.angle, -180, 180), opacity: num(l.opacity, 0, 100), blend: choice(l.blend, blendModes) };
+  });
+  if (new Set(imageLayers.map(l => l.id)).size !== imageLayers.length || imageLayers.reduce((n, l) => n + l.data.length, 0) > 64 * 1024 * 1024) throw new Error("Image layers exceed the preset limit.");
+  const thickness = (value: unknown) => s.samplingThicknessUnit === "em" ? Math.min(10, num(value, 0, 100)) : Math.min(10, (value === undefined ? 1 : num(value, .25, 8)) * 1.5);
+  const samplingThicknessLinked = s.samplingThicknessLinked === undefined ? (s.samplingThicknessX === s.samplingThicknessY) : bool(s.samplingThicknessLinked);
+  const samplingThicknessX = thickness(s.samplingThicknessX), samplingThicknessY = samplingThicknessLinked && s.samplingMode === "xy" ? samplingThicknessX : thickness(s.samplingThicknessY);
+  return { samplingThicknessLinked, glyphOrigins: parseGlyphOrigins(s.glyphOrigins, fontOptions), customFonts, vertexSVG, imageLayers, type1On: s.type1On === undefined ? true : bool(s.type1On), secondType, stripSpacing: s.stripSpacing === undefined ? 0 : Math.min(10, num(s.stripSpacing, 0, 100)), vertexScatter: s.vertexScatter === undefined ? 0 : num(s.vertexScatter, 0, 180), vertexSpacing: s.vertexSpacing === undefined ? 0 : Math.min(10, num(s.vertexSpacing, 0, 100)), samplingThicknessUnit: "em", vertexSizeUnit: "em", samplingThicknessX, samplingThicknessY, textAlign: s.textAlign === undefined ? "center" : choice(s.textAlign, ["left", "center", "right"] as const), lineHeight: s.lineHeight === undefined ? 1.1 : num(s.lineHeight, .5, 3), kerning: s.kerning === undefined ? "none" : choice(s.kerning, ["none", "normal", "optical"] as const), bpm: s.bpm === undefined ? 120 : num(s.bpm, 20, 300), waves, values, manual, modes: { sampling: bool(modes.sampling), grid: bool(modes.grid), vertex: bool(modes.vertex), feedback: bool(modes.feedback) }, patches, videoPatches, text: s.text,
+    font: choice(s.font, fontOptions), vertex: choice(s.vertex, ["dot", "line", "square", "glyph", "custom"]), repeatMode: choice(s.repeatMode, ["single", "line", "grid"]), samplingMode: choice(s.samplingMode, ["xy", "x", "y"]), glyphPattern: typeof s.glyphPattern === "string" && s.glyphPattern.length > 0 && s.glyphPattern.length <= 64 ? s.glyphPattern : "*+o", paused: bool(s.paused), bg: colour(s.bg), ink: colour(s.ink), ink2: colour(s.ink2), bicolour: bool(s.bicolour), feedbackBlend: choice(s.feedbackBlend, blendModes), repeatBlend: s.repeatBlend === undefined ? "source-over" : choice(s.repeatBlend, blendModes), feedbackTiming: s.feedbackTiming === undefined ? "free" : choice(s.feedbackTiming, ["free", "sync"] as const), feedbackDivision: s.feedbackDivision === undefined ? "1/4" : choice(s.feedbackDivision, waveDivisions) };
 }
 export default function KineticPatchSynth() {
   const presetInput = useRef<HTMLInputElement>(null);
@@ -124,16 +163,93 @@ export default function KineticPatchSynth() {
   const [bpmDraft, setBpmDraft] = useState("120");
   useEffect(() => setBpmDraft(String(bpm)), [bpm]);
   const [feedbackBlend, setFeedbackBlend] = useState<GlobalCompositeOperation>("source-over");
+  const [customFonts, setCustomFonts] = useState<ImportedFont[]>([]);
+  const [vertexSVG, setVertexSVG] = useState<VertexSVG | null>(null);
+  const [assetBusy, setAssetBusy] = useState(false);
+  const fontInput = useRef<HTMLInputElement>(null), svgInput = useRef<HTMLInputElement>(null);
+  const fontImportTarget = useRef<"typography" | "typography2">("typography");
+  const loadedFonts = useRef(new Map<string, { data: string; face: FontFace }>());
+  const fontPromises = useRef(new Map<string, Promise<FontFace>>());
+  const decodedSVGs = useRef(new Map<string, HTMLImageElement>());
+  const svgPromises = useRef(new Map<string, Promise<HTMLImageElement>>());
+  const ensureAssets = useCallback(async (fonts: ImportedFont[], shape: VertexSVG | null) => {
+    await Promise.all(fonts.map(async font => {
+      if (loadedFonts.current.get(font.id)?.data === font.data) return;
+      let pending = fontPromises.current.get(font.id);
+      if (!pending) { pending = loadImportedFont(font); fontPromises.current.set(font.id, pending); }
+      try { const face = await pending; const old = loadedFonts.current.get(font.id); if (old) document.fonts.delete(old.face); loadedFonts.current.set(font.id, { data: font.data, face }); }
+      finally { fontPromises.current.delete(font.id); }
+    }));
+    if (shape && !decodedSVGs.current.has(shape.svg)) {
+      let pending = svgPromises.current.get(shape.svg);
+      if (!pending) { pending = decodeSVG(shape.svg); svgPromises.current.set(shape.svg, pending); }
+      try { decodedSVGs.current.set(shape.svg, await pending); } finally { svgPromises.current.delete(shape.svg); }
+    }
+  }, []);
+  useEffect(() => {
+    let disposed = false;
+    void ensureAssets(customFonts, vertexSVG).then(() => {
+      if (disposed) return;
+      const fonts = new Set([...customFonts, ...(renderSnapshot.current?.state.customFonts || [])].map(f => f.id));
+      for (const [id, entry] of loadedFonts.current) if (!fonts.has(id)) { document.fonts.delete(entry.face); loadedFonts.current.delete(id); }
+      for (const svg of decodedSVGs.current.keys()) if (svg !== vertexSVG?.svg && svg !== renderSnapshot.current?.state.vertexSVG?.svg) decodedSVGs.current.delete(svg);
+    }).catch(error => { if (!disposed) setPresetMessage(error instanceof Error ? error.message : "Could not load custom asset."); });
+    return () => { disposed = true; };
+  }, [customFonts, vertexSVG, ensureAssets]);
+  const [imageLayers, setImageLayers] = useState<ImageLayer[]>([]);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [imageBusy, setImageBusy] = useState(false);
+  const imageInput = useRef<HTMLInputElement>(null);
+  const decodedImages = useRef(new Map<string, HTMLImageElement>());
+  const pendingImages = useRef(new Map<string, Promise<HTMLImageElement>>());
+  const ensureImages = useCallback(async (layers: ImageLayer[]) => {
+    await Promise.all(layers.map(async l => {
+      if (decodedImages.current.has(l.data)) return;
+      let pending = pendingImages.current.get(l.data);
+      if (!pending) { pending = decodeLayerImage(l.data); pendingImages.current.set(l.data, pending); }
+      try { decodedImages.current.set(l.data, await pending); } finally { pendingImages.current.delete(l.data); }
+    }));
+  }, []);
+  useEffect(() => {
+    let disposed = false;
+    void ensureImages(imageLayers).then(() => { if (!disposed) { const keep = new Set([...imageLayers, ...(renderSnapshot.current?.state.imageLayers || [])].map(l => l.data)); for (const data of decodedImages.current.keys()) if (!keep.has(data)) decodedImages.current.delete(data); } }).catch(error => { if (!disposed) setPresetMessage(error.message); });
+    return () => { disposed = true; };
+  }, [imageLayers, ensureImages]);
+  const [type1On, setType1On] = useState(true);
+  const [typeTab, setTypeTab] = useState<"typography" | "typography2">("typography");
+  const [secondType, setSecondType] = useState<SecondType>(secondTypeDefault);
+  const [stripSpacing, setStripSpacing] = useState(0);
+  const [vertexSpacing, setVertexSpacing] = useState(0);
+  const [vertexScatter, setVertexScatter] = useState(0);
+  const [glyphOrigins, setGlyphOrigins] = useState<GlyphOriginMap>({});
+  const [originEditorOpen, setOriginEditorOpen] = useState(false);
+  const [samplingThicknessLinked, setSamplingThicknessLinked] = useState(true);
+  const [samplingThicknessX, setSamplingThicknessX] = useState(1.5);
+  const [samplingThicknessY, setSamplingThicknessY] = useState(1.5);
+  const [textAlign, setTextAlign] = useState<"left" | "center" | "right">("center");
+  const [lineHeight, setLineHeight] = useState(1.1);
+  const [kerning, setKerning] = useState<"none" | "normal" | "optical">("none");
+  const [repeatBlend, setRepeatBlend] = useState<GlobalCompositeOperation>("source-over");
+  const [feedbackTiming, setFeedbackTiming] = useState<"free" | "sync">("free");
+  const [feedbackDivision, setFeedbackDivision] = useState<WaveDivision>("1/4");
   const [repeatMode, setRepeatMode] = useState<RepeatMode>("single");
   const [samplingMode, setSamplingMode] = useState<SamplingMode>("xy");
   const [glyphPattern, setGlyphPattern] = useState("*+o");
   const [values, setValues] = useState(initial);
   const [manual, setManual] = useState(initialManual);
   const [modes, setModes] = useState({ sampling: false, grid: false, vertex: true, feedback: false });
+  const chainDrag = useRef<VideoModule | null>(null);
   const [videoPatches, setVideoPatches] = useState<VideoPatch[]>(videoDefaults);
   const [selectedVideo, setSelectedVideo] = useState<VideoSource | null>(null);
   const [videoDrag, setVideoDrag] = useState<(XY & { source: VideoSource }) | null>(null);
   const videoDragRef = useRef<VideoSource | null>(null);
+  const videoDragStart = useRef<XY | null>(null);
+  useEffect(() => {
+    if (!secondType.on) {
+      setSelectedVideo(source => source === "typography2" ? null : source);
+      if (videoDragRef.current === "typography2") { videoDragRef.current = null; videoDragStart.current = null; setVideoDrag(null); }
+    }
+  }, [secondType.on]);
   const [patches, setPatches] = useState<Patch[]>(dreamPatches);
   const [text, setText] = useState("dream"), [font, setFont] = useState("system-ui, sans-serif"), [vertex, setVertex] = useState("dot");
   const [selected, setSelected] = useState<number | null>(null), [drag, setDrag] = useState<(XY & { wave: number }) | null>(null);
@@ -148,16 +264,16 @@ export default function KineticPatchSynth() {
   const dragMoved = useRef(false);
   const dragRef = useRef<(XY & { wave: number }) | null>(null);
   const sockets = useRef<Record<string, HTMLButtonElement | null>>({});
-  const live = useRef({ bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches });
+  const live = useRef({ customFonts, vertexSVG, imageLayers, type1On, secondType, stripSpacing, vertexSpacing, vertexScatter, glyphOrigins, samplingThicknessLinked, samplingThicknessUnit: "em" as const, vertexSizeUnit: "em" as const, samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches });
   const renderSnapshot = useRef<{ state: typeof live.current; width: number; height: number; displayWidth: number } | null>(null);
-  useEffect(() => { live.current = { bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches }; }, [bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches]);
+  useEffect(() => { live.current = { customFonts, vertexSVG, imageLayers, type1On, secondType, stripSpacing, vertexSpacing, vertexScatter, glyphOrigins, samplingThicknessLinked, samplingThicknessUnit: "em" as const, vertexSizeUnit: "em" as const, samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches }; }, [customFonts, vertexSVG, imageLayers, type1On, secondType, stripSpacing, vertexSpacing, vertexScatter, glyphOrigins, samplingThicknessLinked, samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches]);
   const undoStack = useRef<(typeof live.current)[]>([]);
-  const lastEdit = useRef({ snapshot: { bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches }, time: 0, key: "" });
+  const lastEdit = useRef({ snapshot: { customFonts, vertexSVG, imageLayers, type1On, secondType, stripSpacing, vertexSpacing, vertexScatter, glyphOrigins, samplingThicknessLinked, samplingThicknessUnit: "em" as const, vertexSizeUnit: "em" as const, samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches }, time: 0, key: "" });
   const restoring = useRef(false);
   const [canUndo, setCanUndo] = useState(false);
   useEffect(() => {
     const next = live.current, prior = lastEdit.current.snapshot;
-    const changed = (Object.keys(next) as (keyof typeof next)[]).filter(key => JSON.stringify(next[key]) !== JSON.stringify(prior[key]));
+    const changed = (Object.keys(next) as (keyof typeof next)[]).filter(key => (key === "imageLayers" || key === "customFonts" || key === "vertexSVG") ? next[key] !== prior[key] : JSON.stringify(next[key]) !== JSON.stringify(prior[key]));
     if (!changed.length) return;
     if (restoring.current) { restoring.current = false; lastEdit.current = { snapshot: next, time: 0, key: "" }; return; }
     const topology = (state: typeof next) => JSON.stringify([state.videoPatches, state.patches.map(p => [p.id, p.wave, p.target])]);
@@ -166,12 +282,12 @@ export default function KineticPatchSynth() {
     const merge = key === lastEdit.current.key && now - lastEdit.current.time < 400 && topology(next) === topology(prior);
     if (!merge) { undoStack.current.push(prior); if (undoStack.current.length > 100) undoStack.current.shift(); }
     lastEdit.current = { snapshot: next, time: now, key }; setCanUndo(undoStack.current.length > 0);
-  }, [bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, videoPatches]);
+  }, [customFonts, vertexSVG, imageLayers, type1On, secondType, stripSpacing, vertexSpacing, vertexScatter, glyphOrigins, samplingThicknessLinked, samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches]);
   const undo = useCallback(() => {
     const state = undoStack.current.pop(); if (!state) return;
     restoring.current = true;
     setBpm(state.bpm); setWaves(state.waves); setValues(state.values); setManual(state.manual); setModes(state.modes); setPatches(state.patches); setVideoPatches(state.videoPatches);
-    setText(state.text); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend);
+    setCustomFonts(state.customFonts); setVertexSVG(state.vertexSVG); setImageLayers(state.imageLayers); setType1On(state.type1On); setSecondType(state.secondType); setStripSpacing(state.stripSpacing); setVertexSpacing(state.vertexSpacing); setVertexScatter(state.vertexScatter); setGlyphOrigins(state.glyphOrigins); setSamplingThicknessLinked(state.samplingThicknessLinked); setSamplingThicknessX(state.samplingThicknessX); setSamplingThicknessY(state.samplingThicknessY); setText(state.text); setTextAlign(state.textAlign); setLineHeight(state.lineHeight); setKerning(state.kerning); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend); setRepeatBlend(state.repeatBlend); setFeedbackTiming(state.feedbackTiming); setFeedbackDivision(state.feedbackDivision);
     setSelected(null); setSelectedVideo(null); setDrag(null); setVideoDrag(null); dragRef.current = null; videoDragRef.current = null;
     setCanUndo(undoStack.current.length > 0);
   }, []);
@@ -185,14 +301,14 @@ export default function KineticPatchSynth() {
     const measure = () => {
       if (!panel.current) return;
       const box = panel.current.getBoundingClientRect(), next: Record<string, XY> = {};
-      for (const [key, el] of Object.entries(sockets.current)) if (el) { const r = el.getBoundingClientRect(); next[key] = { x: r.left + r.width / 2 - box.left, y: r.top + r.height / 2 - box.top }; }
+      for (const [key, el] of Object.entries(sockets.current)) if (el && el.getClientRects().length) { const r = el.getBoundingClientRect(); next[key] = { x: r.left + r.width / 2 - box.left, y: r.top + r.height / 2 - box.top }; }
       setPositions(next);
     };
-    const observer = new ResizeObserver(measure); if (panel.current) observer.observe(panel.current);
+    const observer = new ResizeObserver(measure); if (panel.current) { observer.observe(panel.current); panel.current.querySelectorAll(".kp-module,.kp-wave").forEach(el => observer.observe(el)); }
     const rack = panel.current; rack?.addEventListener("scroll", measure, true);
     measure(); window.addEventListener("resize", measure);
     return () => { observer.disconnect(); rack?.removeEventListener("scroll", measure, true); window.removeEventListener("resize", measure); };
-  }, []);
+  }, [typeTab, type1On, secondType.on, samplingMode, vertex, repeatMode, feedbackTiming]);
   useEffect(() => {
     let raf = 0, previous = 0, lastFrame = -Infinity, feedbackWasOn = false, cacheKey = "", lastRebuild = -100;
     const moduleSignals = [0, 0, 0];
@@ -203,14 +319,28 @@ export default function KineticPatchSynth() {
     const heat = document.createElement("canvas"); heat.width = 64; heat.height = 64;
     const hctx = heat.getContext("2d")!;
     const heatPixels = hctx.createImageData(64, 64);
-    let glyphs: Glyph[] = [];
+    let glyphs: Glyph[] = [], typographyEm = 1;
+    const source2 = document.createElement("canvas"), ctx2 = source2.getContext("2d", { willReadFrequently: true })!;
+    let glyphs2: Glyph[] = [], em2 = 1, key2 = "", rebuilt2 = -100;
     // Exact raster reuse, bounded to 32 MiB. Position and tracking never affect the raster.
     const glyphCache = new RasterCache();
-    const nodes: VideoSource[] = ["typography", "sampling", "grid", "vertex", "feedback"];
+    const nodes: VideoSource[] = ["typography", "typography2", "sampling", "grid", "vertex", "feedback"];
     const outputs = Object.fromEntries(nodes.map(node => [node, document.createElement("canvas")])) as Record<VideoSource, HTMLCanvasElement>;
     const previousOutputs = Object.fromEntries(nodes.map(node => [node, document.createElement("canvas")])) as Record<VideoSource, HTMLCanvasElement>;
+    const mixedInputs = Object.fromEntries(nodes.map(node => [node, document.createElement("canvas")])) as Record<VideoSource, HTMLCanvasElement>;
     const blank = document.createElement("canvas"); blank.width = 1; blank.height = 1;
     let routeKey = "";
+    const opticalKerning = new OpticalKerning();
+    const svgTints = new Map<string, HTMLCanvasElement>(); let svgTintSource = "";
+    const tintedSVG = (svg: string, colour: string, size: number) => {
+      if (svgTintSource !== svg) { svgTints.clear(); svgTintSource = svg; }
+      const em = svgRasterSize(size);
+      const key = colour + "|" + em, cached = svgTints.get(key); if (cached) return cached;
+      const image = decodedSVGs.current.get(svg); if (!image) return null;
+      const mask = document.createElement("canvas"); const scale = em / Math.max(image.naturalWidth, image.naturalHeight); mask.width = Math.max(1, Math.round(image.naturalWidth * scale)); mask.height = Math.max(1, Math.round(image.naturalHeight * scale));
+      const mc = mask.getContext("2d")!; mc.imageSmoothingEnabled = true; mc.imageSmoothingQuality = "high"; mc.drawImage(image, 0, 0, mask.width, mask.height); mc.globalCompositeOperation = "source-in"; mc.fillStyle = colour; mc.fillRect(0, 0, mask.width, mask.height);
+      if (svgTints.size >= 16) svgTints.delete(svgTints.keys().next().value!); svgTints.set(key, mask); return mask;
+    };
     let gpu = createKineticGPU();
     const frame = (now: number, manualFrame = false) => {
       if (renderSnapshot.current && !manualFrame) { raf = requestAnimationFrame(frame); return; }
@@ -219,6 +349,7 @@ export default function KineticPatchSynth() {
       lastFrame = now;
       if (gpu && !gpu.available()) { gpu.dispose(); gpu = null; }
       const s = renderSnapshot.current?.state || live.current, dt = previous ? Math.min(.05, (now - previous) / 1000) : 0; previous = now;
+      if (s.customFonts.some(f => loadedFonts.current.get(f.id)?.data !== f.data) || (s.vertex === "custom" && s.vertexSVG && !decodedSVGs.current.has(s.vertexSVG.svg))) { if (!manualFrame) raf = requestAnimationFrame(frame); return; }
       if (!s.paused) { s.waves.forEach((w, i) => { if (w.on) phases[i] += dt * waveHz(w, s.bpm); }); }
       const el = canvas.current, ctx = el?.getContext("2d");
       if (el && ctx) {
@@ -232,7 +363,7 @@ export default function KineticPatchSynth() {
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         const screen = s.videoPatches.find(p => p.target === "canvas");
         if (!screen) {
-          ctx.globalCompositeOperation = "source-over"; ctx.fillStyle = s.bg; ctx.fillRect(0, 0, W, H);
+          ctx.globalCompositeOperation = "source-over"; ctx.fillStyle = s.bg; ctx.fillRect(0, 0, W, H); drawImageLayers(ctx, s.imageLayers, decodedImages.current, "background", W, H); drawImageLayers(ctx, s.imageLayers, decodedImages.current, "foreground", W, H);
           historyCtx.clearRect(0, 0, history.width, history.height); feedbackTick = -Infinity;
           gpu?.begin(W, H, "disconnected", false);
           if (!manualFrame) raf = requestAnimationFrame(frame); return;
@@ -259,8 +390,8 @@ export default function KineticPatchSynth() {
         feedbackWasOn = s.modes.feedback;
         // Shared 30Hz refresh grid keeps history updates independent of export FPS.
         const feedbackNow = Math.floor((now - feedbackClockOrigin) / (1000 / 30) + 1e-6) * (1000 / 30);
-        const feedbackInterval = Math.ceil(mod.feedbackRefresh / (1000 / 30)) * (1000 / 30);
-        const feedbackDue = s.modes.feedback && !s.paused && feedbackNow - feedbackTick >= feedbackInterval - 1e-6;
+        const feedbackInterval = s.feedbackTiming === "sync" ? 1000 / waveHz({ ...s.waves[0], timing: "sync", division: s.feedbackDivision }, s.bpm) : Math.ceil(mod.feedbackRefresh / (1000 / 30)) * (1000 / 30);
+        const feedbackDue = s.modes.feedback && !s.paused && (s.feedbackTiming === "sync" ? Math.floor((feedbackNow + 1e-6) / feedbackInterval) > Math.floor((feedbackTick + 1e-6) / feedbackInterval) : feedbackNow - feedbackTick >= feedbackInterval - 1e-6);
         // The output holds the previous input sample; it cannot create an instantaneous self-loop.
         if (feedbackDue) {
           const inputs = patchIndex.feedbackAmount;
@@ -270,24 +401,37 @@ export default function KineticPatchSynth() {
         }
         const canvasUnit = Math.min(W, H) / 100;
         const size = Math.round(mod.fontSize * canvasUnit), weight = Math.round(mod.weight / 10) * 10;
-        const key = `${W}|${H}|${s.text}|${s.font}|${size}|${weight}|${s.ink}|${s.manual.tracking}`;
+        const key = `${W}|${H}|${s.text}|${s.font}|${size}|${weight}|${s.ink}|${s.manual.tracking}|${s.textAlign}|${s.lineHeight}|${s.kerning}`;
         // Cap expensive glyph rasterisation at 20fps; wave evaluation and drawing remain at display rate.
-        if (key !== cacheKey && (manualFrame || now - lastRebuild >= 50 || !cacheKey)) {
+        if (s.type1On && key !== cacheKey && (manualFrame || now - lastRebuild >= 50 || !cacheKey)) {
           source.width = W; source.height = H; sctx.fillStyle = s.ink; sctx.textAlign = "center"; sctx.textBaseline = "middle";
-          const lines = s.text.split("\n"); let fitted = Math.min(size, H * .75 / Math.max(1, lines.length));
-          sctx.font = `${weight} ${fitted}px ${s.font}`;
+          const lines = s.text.split("\n"); let fitted = Math.min(size, H * .75 / (1 + Math.max(0, lines.length - 1) * s.lineHeight));
+          sctx.font = `${weight} ${fitted}px ${s.font}`; sctx.fontKerning = s.kerning === "normal" ? "normal" : "none";
           const availableTextWidth = Math.max(1, W - Math.min(W * .2, 48 * pixelScale));
-          const widthOf = (line: string) => Array.from(line).reduce((width, char) => width + sctx.measureText(char).width, 0) + Math.max(0, Array.from(line).length - 1) * s.manual.tracking / 100 * fitted;
+          const layoutLine = (line: string) => {
+            let width = 0, previous = "";
+            const chars = Array.from(line).map((char, index) => {
+              if (index) width += s.manual.tracking / 100 * fitted;
+              if (previous && s.kerning === "normal") width += sctx.measureText(previous + char).width - sctx.measureText(previous).width - sctx.measureText(char).width;
+              if (previous && s.kerning === "optical") width += opticalKerning.adjustment(previous, char, s.font, weight, fitted);
+              const x = width; width += sctx.measureText(char).width; previous = char; return { char, x };
+            });
+            return { chars, width };
+          };
+          const widthOf = (line: string) => layoutLine(line).width;
           // Tracking follows the fitted font size, including during auto-fit.
           for (let n = 0; n < 5; n++) { const widest = Math.max(1, ...lines.map(widthOf)); if (widest <= availableTextWidth) break; fitted *= (availableTextWidth) / widest; sctx.font = `${weight} ${fitted}px ${s.font}`; }
           sctx.font = `${weight} ${fitted}px ${s.font}`;
+          typographyEm = fitted;
           sctx.textAlign = "left"; sctx.textBaseline = "alphabetic";
           glyphs = [];
-          const metrics = sctx.measureText("Mg"), ascent = metrics.actualBoundingBoxAscent, descent = metrics.actualBoundingBoxDescent;
+          const metrics = sctx.measureText("Mg"), ascent = metrics.actualBoundingBoxAscent, descent = metrics.actualBoundingBoxDescent, capHeight = Math.max(1, sctx.measureText("H").actualBoundingBoxAscent);
           lines.forEach((line, i) => {
-            let x = (W - widthOf(line)) / 2;
-            const baseline = H / 2 + (i - (lines.length - 1) / 2) * fitted * 1.1 + (ascent - descent) / 2;
-            for (const char of Array.from(line)) {
+            const layout = layoutLine(line), margin = (W - availableTextWidth) / 2;
+            const origin = s.textAlign === "left" ? margin : s.textAlign === "right" ? W - margin - layout.width : (W - layout.width) / 2;
+            const baseline = H / 2 + (i - (lines.length - 1) / 2) * fitted * s.lineHeight + (ascent - descent) / 2;
+            for (const { char, x: offset } of layout.chars) {
+              const x = origin + offset;
               const m = sctx.measureText(char);
               if (char.trim()) {
                 // Each character owns its raster: neighbouring letters cannot leak into its sampling grid.
@@ -303,23 +447,76 @@ export default function KineticPatchSynth() {
                   glyphCache.put(rasterKey, c);
                 }
                 const gx = x - m.actualBoundingBoxLeft - 4, gy = baseline - m.actualBoundingBoxAscent - 4;
-                glyphs.push({ canvas: c, x: gx, y: gy, width, height, em: fitted });
+                glyphs.push({ canvas: c, x: gx, y: gy, width, height, em: fitted, char, font: s.font, baseline, advanceX: x, capHeight });
                 sctx.drawImage(c, gx, gy);
               }
-              x += m.width + s.manual.tracking / 100 * fitted;
             }
           });
           cacheKey = key; lastRebuild = now;
         }
+        const size2 = Math.round(s.secondType.size * canvasUnit), weight2 = Math.round(s.secondType.weight / 10) * 10;
+        const secondKey = `${s.secondType.x}|${s.secondType.y}|${W}|${H}|${s.secondType.text}|${s.secondType.font}|${size2}|${weight2}|${s.secondType.ink}|${s.secondType.tracking}|${s.secondType.align}|${s.secondType.lineHeight}|${s.secondType.kerning}`;
+        // Cap expensive glyph rasterisation at 20fps; wave evaluation and drawing remain at display rate.
+        if (s.secondType.on && secondKey !== key2 && (manualFrame || now - rebuilt2 >= 50 || !key2)) {
+          source2.width = W; source2.height = H; ctx2.fillStyle = s.secondType.ink; ctx2.textAlign = "center"; ctx2.textBaseline = "middle";
+          const lines = s.secondType.text.split("\n"); let fitted = Math.min(size2, H * .75 / (1 + Math.max(0, lines.length - 1) * s.secondType.lineHeight));
+          ctx2.font = `${weight2} ${fitted}px ${s.secondType.font}`; ctx2.fontKerning = s.secondType.kerning === "normal" ? "normal" : "none";
+          const availableTextWidth = Math.max(1, W - Math.min(W * .2, 48 * pixelScale));
+          const layoutLine = (line: string) => {
+            let width = 0, previous = "";
+            const chars = Array.from(line).map((char, index) => {
+              if (index) width += s.secondType.tracking / 100 * fitted;
+              if (previous && s.secondType.kerning === "normal") width += ctx2.measureText(previous + char).width - ctx2.measureText(previous).width - ctx2.measureText(char).width;
+              if (previous && s.secondType.kerning === "optical") width += opticalKerning.adjustment(previous, char, s.secondType.font, weight2, fitted);
+              const x = width; width += ctx2.measureText(char).width; previous = char; return { char, x };
+            });
+            return { chars, width };
+          };
+          const widthOf = (line: string) => layoutLine(line).width;
+          // Tracking follows the fitted font size, including during auto-fit.
+          for (let n = 0; n < 5; n++) { const widest = Math.max(1, ...lines.map(widthOf)); if (widest <= availableTextWidth) break; fitted *= (availableTextWidth) / widest; ctx2.font = `${weight2} ${fitted}px ${s.secondType.font}`; }
+          ctx2.font = `${weight2} ${fitted}px ${s.secondType.font}`;
+          em2 = fitted;
+          ctx2.textAlign = "left"; ctx2.textBaseline = "alphabetic";
+          glyphs2 = [];
+          const metrics = ctx2.measureText("Mg"), ascent = metrics.actualBoundingBoxAscent, descent = metrics.actualBoundingBoxDescent, capHeight = Math.max(1, ctx2.measureText("H").actualBoundingBoxAscent);
+          lines.forEach((line, i) => {
+            const layout = layoutLine(line), margin = (W - availableTextWidth) / 2;
+            const origin = s.secondType.align === "left" ? margin : s.secondType.align === "right" ? W - margin - layout.width : (W - layout.width) / 2;
+            const baseline = H / 2 + s.secondType.y / 100 * H + (i - (lines.length - 1) / 2) * fitted * s.secondType.lineHeight + (ascent - descent) / 2;
+            for (const { char, x: offset } of layout.chars) {
+              const x = origin + offset + s.secondType.x / 100 * W;
+              const m = ctx2.measureText(char);
+              if (char.trim()) {
+                // Each character owns its raster: neighbouring letters cannot leak into its sampling grid.
+                const width = Math.max(1, Math.ceil(m.actualBoundingBoxLeft + m.actualBoundingBoxRight) + 8);
+                const height = Math.max(1, Math.ceil(m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) + 8);
+                const rasterKey = JSON.stringify([char, ctx2.font, s.secondType.ink, width, height]);
+                let c = glyphCache.get(rasterKey);
+                if (!c) {
+                  c = document.createElement("canvas"); c.width = width; c.height = height;
+                  const gc = c.getContext("2d", { willReadFrequently: true })!;
+                  gc.font = ctx2.font; gc.textBaseline = "alphabetic"; gc.fillStyle = s.secondType.ink;
+                  gc.fillText(char, m.actualBoundingBoxLeft + 4, m.actualBoundingBoxAscent + 4);
+                  glyphCache.put(rasterKey, c);
+                }
+                const gx = x - m.actualBoundingBoxLeft - 4, gy = baseline - m.actualBoundingBoxAscent - 4;
+                glyphs2.push({ canvas: c, x: gx, y: gy, width, height, em: fitted, char, font: s.secondType.font, baseline, advanceX: x, capHeight });
+                ctx2.drawImage(c, gx, gy);
+              }
+            }
+          });
+          key2 = secondKey; rebuilt2 = now;
+        }
         // Colour the typography source once; downstream nodes preserve the incoming pixels.
         const typed = outputs.typography, typedCtx = typed.getContext("2d", { willReadFrequently: true })!;
-        for (const node of gpu ? ["typography" as const] : nodes) for (const image of gpu ? [outputs[node]] : [outputs[node], previousOutputs[node]]) {
+        for (const node of gpu ? ["typography" as const, "typography2" as const] : nodes) for (const image of gpu ? [outputs[node]] : [outputs[node], previousOutputs[node]]) {
           if (image.width !== W || image.height !== H) { image.width = W; image.height = H; }
         }
         const nextRouteKey = JSON.stringify(s.videoPatches);
         if (routeKey !== nextRouteKey) { historyCtx.clearRect(0, 0, history.width, history.height); nodes.forEach(node => previousOutputs[node].getContext("2d")!.clearRect(0, 0, W, H)); feedbackTick = -Infinity; routeKey = nextRouteKey; }
-        typedCtx.clearRect(0, 0, W, H); typedCtx.drawImage(source, 0, 0);
-        if (s.bicolour) {
+        typedCtx.clearRect(0, 0, W, H); if (s.type1On) typedCtx.drawImage(source, 0, 0);
+        if (s.type1On && s.bicolour) {
           const rgb = (hex: string) => [1, 3, 5].map(offset => parseInt(hex.slice(offset, offset + 2), 16));
           const cold = rgb(s.ink), hot = rgb(s.ink2), total = s.patches.reduce((v, p) => v + Math.abs(p.amount / 100), 0);
           for (let y = 0; y < 64; y++) for (let x = 0; x < 64; x++) {
@@ -330,20 +527,39 @@ export default function KineticPatchSynth() {
           }
           hctx.putImageData(heatPixels, 0, 0); typedCtx.globalCompositeOperation = "source-in"; typedCtx.drawImage(heat, 0, 0, W, H); typedCtx.globalCompositeOperation = "source-over";
         }
+        const typed2 = outputs.typography2, typedCtx2 = typed2.getContext("2d", { willReadFrequently: true })!;
+        typedCtx2.clearRect(0, 0, W, H);
+        if (s.secondType.on) typedCtx2.drawImage(source2, 0, 0);
+        const primaryGlyphs = glyphs, primaryEm = typographyEm;
+        const rootsOf = (node: VideoSource, seen = new Set<VideoSource>()): ("typography" | "typography2")[] => {
+          if (node === "typography" || node === "typography2") return [node];
+          if (seen.has(node)) return [];
+          const next = new Set(seen); next.add(node);
+          return Array.from(new Set(s.videoPatches.filter(p => p.target === node).flatMap(p => rootsOf(p.source, next))));
+        };
+        const glyphsOf = (sources: VideoSource[]) => {
+          const roots = new Set(sources.flatMap(source => rootsOf(source)));
+          return [...(s.type1On && roots.has("typography") ? primaryGlyphs : []), ...(s.secondType.on && roots.has("typography2") ? glyphs2 : [])];
+        };
+        const sampleSites = new Map<VideoSource, { x: number; y: number }[]>();
         if (gpu) {
           try {
           const renderer = gpu;
           const gpuBlank = renderer.begin(W, H, nextRouteKey, s.modes.feedback);
-        const resolved = new Map<VideoSource, GPUFrame>([["typography", renderer.load(typed)]]), visiting = new Set<VideoSource>(), cyclic = new Set<VideoSource>();
+        const resolved = new Map<VideoSource, GPUFrame>([["typography", renderer.load(typed)], ["typography2", s.secondType.on && s.videoPatches.some(p => p.source === "typography2") ? renderer.load(typed2, "typography2") : gpuBlank]]), visiting = new Set<VideoSource>(), cyclic = new Set<VideoSource>();
         const evaluate = (node: VideoSource): GPUFrame => {
+          const root = rootsOf(node).find(source => source === "typography" ? s.type1On : s.secondType.on) || "typography", glyphs = glyphsOf([node]);
+          const typographyEm = root === "typography2" ? em2 : primaryEm, detail = samplingDetailScale(node, s.videoPatches, s.modes.grid, mod.repeatScale / 100);
+          const glyphFont = root === "typography2" ? s.secondType.font : s.font, glyphWeight = root === "typography2" ? s.secondType.weight : Math.round(mod.weight);
           const cached = resolved.get(node); if (cached) return cached;
           // Cyclic video cables read the previous frame, never recurse indefinitely.
           if (visiting.has(node)) { cyclic.add(node); return renderer.previous(node); }
           visiting.add(node);
-          const route = s.videoPatches.find(p => p.target === node);
-          const input = route ? evaluate(route.source) : gpuBlank;
+          const routes = s.videoPatches.filter(p => p.target === node), route = routes[0];
+          const layers = routes.map(p => evaluate(p.source));
+          const input = layers.length > 1 ? renderer.compose(layers[0], layers[1], "input-" + node) : layers[0] || gpuBlank;
           // Bypass shares the incoming frame; it needs no full-canvas copy.
-          if (node === "typography" || !s.modes[node]) { visiting.delete(node); resolved.set(node, input); return input; }
+          if (node === "typography" || node === "typography2" || !s.modes[node]) { if (routes.length && routes.every(p => sampleSites.has(p.source))) sampleSites.set(node, routes.flatMap(p => sampleSites.get(p.source)!)); visiting.delete(node); resolved.set(node, input); return input; }
           let out: GPUFrame;
           if (node === "feedback") {
             out = renderer.feedback(input, mod.feedbackAmount, blendModes.findIndex(mode => mode === s.feedbackBlend), feedbackDue, node);
@@ -360,48 +576,76 @@ export default function KineticPatchSynth() {
               const columns = Math.round(s.manual.repeatColumns), rows = Math.round(s.manual.repeatRows);
               for (let y = 0; y < rows; y++) for (let x = 0; x < columns; x++) { const dx = (x - (columns - 1) / 2) * mod.repeatSpacingX / 100 * W, dy = (y - (rows - 1) / 2) * mod.repeatSpacingY / 100 * H; drawCopy(dx * Math.cos(angle) - dy * Math.sin(angle), dx * Math.sin(angle) + dy * Math.cos(angle)); }
             }
-            out = renderer.repeat(input, placements, node, s.repeatMode === "single" ? angle : 0);
+            out = renderer.repeat(input, placements, node, s.repeatMode === "single" ? angle : 0, blendModes.findIndex(mode => mode === s.repeatBlend));
           } else {
-            const glyphGPU = node === "vertex" && s.vertex === "glyph";
+            const glyphGPU = node === "vertex" && (s.vertex === "glyph" || s.vertex === "custom");
             const points: GPUStamp[] = [];
             // Glyph-relative sampling also applies to pixels received from other modules.
-            const em = glyphs[0]?.em || size, step = Math.max(1, Math.round(mod.step / 100 * em));
+            const em = glyphs[0]?.em || typographyEm, step = Math.max(1, Math.round(mod.step / 100 * em / detail));
             const lineage = new Set<VideoSource>();
             const glyphAligned = (current: VideoSource): boolean => {
-              if (current === "typography") return true;
+              if (current === "typography" || current === "typography2") return true;
               if (lineage.has(current) || s.modes[current]) return false;
-              lineage.add(current); const upstream = s.videoPatches.find(p => p.target === current); return upstream ? glyphAligned(upstream.source) : false;
+              lineage.add(current); const upstream = s.videoPatches.filter(p => p.target === current); const aligned = upstream.length > 0 && upstream.every(p => glyphAligned(p.source)); lineage.delete(current); return aligned;
             };
-            const regions = route && glyphAligned(route.source) ? glyphs.map(g => ({ x: Math.ceil(g.x + 4), y: Math.ceil(g.y + 4), width: g.width - 8, height: g.height - 8, step: Math.max(1, Math.round(at("step", g.x + g.em / 2, g.y + g.em / 2, g) / 100 * g.em)) })) : [{ x: 0, y: 0, width: input.width, height: input.height, step }];
+            const inheritedRoutes = node === "vertex" ? routes.filter(p => sampleSites.has(p.source)) : [];
+            const missingRoutes = routes.filter(p => !inheritedRoutes.includes(p));
+            const regionGlyphs = inheritedRoutes.length ? glyphsOf(missingRoutes.map(p => p.source)) : glyphs;
+            const regions = missingRoutes.length && missingRoutes.every(p => glyphAligned(p.source)) ? regionGlyphs.map(g => glyphSamplingRegion(g, Math.max(1, Math.round(at("step", g.x + g.em / 2, g.y + g.em / 2, g) / 100 * g.em / detail)), s.glyphOrigins)) : [{ x: 0, y: 0, width: input.width, height: input.height, em, step, originX: undefined, originY: undefined }];
             const xOnly = node === "sampling" && s.samplingMode === "x", yOnly = node === "sampling" && s.samplingMode === "y";
-            for (const region of regions) for (let y = region.y; y < region.y + region.height; y += xOnly ? Math.max(1, Math.round(pixelScale)) : region.step) for (let x = region.x; x < region.x + region.width; x += yOnly ? Math.max(1, Math.round(pixelScale)) : region.step) {
+            const inherited = inheritedRoutes.length ? inheritedRoutes.flatMap(p => sampleSites.get(p.source)!) : undefined;
+            const sites: { x: number; y: number }[] = [];
+            function* candidates() {
+              if (inherited) { yield* spacedSites(inherited, site => s.vertexSpacing / 100 / detail * (glyphs.find(g => site.x >= g.x && site.x < g.x + g.width && site.y >= g.y && site.y < g.y + g.height)?.em || typographyEm), site => {
+                const index = glyphs.findIndex(g => site.x >= g.x && site.x < g.x + g.width && site.y >= g.y && site.y < g.y + g.height); return String(index);
+              }); if (!missingRoutes.length) return; }
+              for (const region of regions) {
+                const sx = yOnly ? Math.max(1, Math.round(pixelScale)) : region.step + (xOnly ? s.stripSpacing : node === "vertex" ? s.vertexSpacing : 0) / 100 * region.em / detail;
+                const sy = xOnly ? Math.max(1, Math.round(pixelScale)) : region.step + (yOnly ? s.stripSpacing : node === "vertex" ? s.vertexSpacing : 0) / 100 * region.em / detail;
+                for (let y = xOnly ? region.y : firstGridCoordinate(region.y, region.originY, sy); y < region.y + region.height; y += sy)
+                  for (let x = yOnly ? region.x : firstGridCoordinate(region.x, region.originX, sx); x < region.x + region.width; x += sx) yield { x, y };
+              }
+            }
+            for (const { x, y } of candidates()) {
               if (x < 0 || y < 0 || x >= input.width || y >= input.height) continue;
               const g = glyphs.find(g => x >= g.x && x < g.x + g.width && y >= g.y && y < g.y + g.height);
-              const j = node === "sampling" ? at("jitter", x, y, g) * pixelScale : 0, px = x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j), py = y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j);
-              const r = node === "vertex" ? at("vertexSize", x, y, g) * canvasUnit : 2.6 * pixelScale;
-              points.push({ x, y, px, py, size: Math.max(1, r) });
+              // Evaluate one jitter value along each glyph strip, retaining the existing XY field.
+              const j = node === "sampling" ? at("jitter", yOnly ? (g ? g.x + g.width / 2 : input.width / 2) : x, xOnly ? (g ? g.y + g.height / 2 : input.height / 2) : y, g) * pixelScale / detail : 0;
+              const px = node === "sampling" ? Math.floor(x + (xOnly ? 0 : yOnly ? Math.cos(y * 37.71) * j : Math.sin(x * 73.17 + y) * j)) + .5 : x, py = node === "sampling" ? Math.floor(y + (yOnly ? 0 : xOnly ? Math.sin(x * 73.17) * j : Math.cos(y * 37.71 + x) * j)) + .5 : y;
+              if (node === "sampling") sites.push({ x: px, y: py });
+              const r = node === "vertex" ? at("vertexSize", x, y, g) / 100 / detail * (g?.em || typographyEm) : 2.6 * pixelScale;
+              if (node === "vertex" && r <= 0) continue;
+              points.push({ x, y, px, py, angle: glyphGPU ? stampOrientation(x, y, input.width, input.height, s.vertexScatter) : 0, size: Math.max(1, r), scaleX: node === "sampling" && !yOnly ? (g?.em || typographyEm) / typographyEm : 1, scaleY: node === "sampling" && !xOnly ? (g?.em || typographyEm) / typographyEm : 1 });
             }
-            out = renderer.render(input, points, glyphGPU ? 4 : xOnly || yOnly ? 3 : node === "vertex" && s.vertex === "square" ? 1 : node === "vertex" && s.vertex === "line" ? 2 : 0, s.manual.threshold, node === "sampling" ? s.manual.opacity : 1, s.manual.lineLength * pixelScale, node, node === "vertex" ? mod.vertexMix : 1, glyphGPU ? { pattern: s.glyphPattern, font: s.font, weight: Math.round(mod.weight) } : undefined, pixelScale);
+            if (node === "sampling") sampleSites.set(node, sites);
+            out = renderer.render(input, points, glyphGPU ? 4 : xOnly || yOnly ? 3 : node === "vertex" && s.vertex === "square" ? 1 : node === "vertex" && s.vertex === "line" ? 2 : 0, inherited ? .00001 : s.manual.threshold, node === "sampling" ? s.manual.opacity : 1, s.manual.lineLength * pixelScale / detail, node, node === "vertex" ? mod.vertexMix : 1, glyphGPU ? { pattern: s.vertex === "custom" ? "*" : s.glyphPattern, font: glyphFont, weight: glyphWeight, image: s.vertex === "custom" && s.vertexSVG ? decodedSVGs.current.get(s.vertexSVG.svg) : undefined } : undefined, pixelScale, node === "sampling" ? [yOnly ? 1 : s.samplingThicknessX / 100 / detail * typographyEm / (xOnly ? pixelScale : 2.6 * pixelScale), xOnly ? 1 : s.samplingThicknessY / 100 / detail * typographyEm / (yOnly ? pixelScale : 2.6 * pixelScale)] : [1, 1]);
           }
           visiting.delete(node); resolved.set(node, out); return out;
         };
         // Evaluate only ancestors of the selected canvas output.
-        const finalImage = evaluate(screen.source);
+        const layers = s.videoPatches.filter(p => p.target === "canvas").map(p => evaluate(p.source));
+        const finalImage = layers.length > 1 ? renderer.compose(layers[0], layers[1]) : layers[0];
         ctx.clearRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
+        ctx.fillStyle = s.bg; ctx.fillRect(0, 0, W, H); drawImageLayers(ctx, s.imageLayers, decodedImages.current, "background", W, H);
         ctx.drawImage(renderer.present(finalImage), 0, 0, W, H);
         cyclic.forEach(node => { const image = resolved.get(node); if (image) renderer.snapshot(node, image); });
           } catch (error) { console.warn("K-TIC-SYNTH: GPU chain failed; using Canvas2D", error); gpu.dispose(); gpu = null; }
         } else {
-        const resolved = new Map<VideoSource, HTMLCanvasElement>([["typography", typed]]), visiting = new Set<VideoSource>(), cyclic = new Set<VideoSource>();
+        const resolved = new Map<VideoSource, HTMLCanvasElement>([["typography", typed], ["typography2", typed2]]), visiting = new Set<VideoSource>(), cyclic = new Set<VideoSource>();
         const evaluate = (node: VideoSource): HTMLCanvasElement => {
+          const root = rootsOf(node).find(source => source === "typography" ? s.type1On : s.secondType.on) || "typography", glyphs = glyphsOf([node]);
+          const typographyEm = root === "typography2" ? em2 : primaryEm, detail = samplingDetailScale(node, s.videoPatches, s.modes.grid, mod.repeatScale / 100);
+          const glyphFont = root === "typography2" ? s.secondType.font : s.font, glyphWeight = root === "typography2" ? s.secondType.weight : Math.round(mod.weight);
           const cached = resolved.get(node); if (cached) return cached;
           // Cyclic video cables read the previous frame, never recurse indefinitely.
           if (visiting.has(node)) { cyclic.add(node); return previousOutputs[node]; }
           visiting.add(node);
-          const route = s.videoPatches.find(p => p.target === node);
-          const input = route ? evaluate(route.source) : blank;
+          const routes = s.videoPatches.filter(p => p.target === node), route = routes[0];
+          const layers = routes.map(p => evaluate(p.source));
+          let input = layers[0] || blank;
+          if (layers.length > 1) { const mixed = mixedInputs[node]; if (mixed.width !== W || mixed.height !== H) { mixed.width = W; mixed.height = H; } const mc = mixed.getContext("2d", { willReadFrequently: true })!; mc.clearRect(0, 0, W, H); layers.forEach(layer => mc.drawImage(layer, 0, 0, W, H)); input = mixed; }
           // Bypass shares the incoming frame; it needs no full-canvas copy.
-          if (node === "typography" || !s.modes[node]) { visiting.delete(node); resolved.set(node, input); return input; }
+          if (node === "typography" || node === "typography2" || !s.modes[node]) { if (routes.length && routes.every(p => sampleSites.has(p.source))) sampleSites.set(node, routes.flatMap(p => sampleSites.get(p.source)!)); visiting.delete(node); resolved.set(node, input); return input; }
           const out = outputs[node], oc = out.getContext("2d", { willReadFrequently: true })!;
           oc.clearRect(0, 0, W, H);
           if (node === "feedback") {
@@ -413,7 +657,7 @@ export default function KineticPatchSynth() {
             const scale = mod.repeatScale / 100, angle = mod.repeatAngle * Math.PI / 180;
             const cx = W / 2 + mod.positionX / 100 * W, cy = H / 2 + mod.positionY / 100 * H;
             
-            const drawCopy = (dx: number, dy: number) => { oc.save(); oc.translate(cx + dx, cy + dy); if (s.repeatMode === "single") oc.rotate(angle); oc.scale(scale, scale); oc.drawImage(input, -W / 2, -H / 2); oc.restore(); };
+            const drawCopy = (dx: number, dy: number) => { oc.save(); oc.globalCompositeOperation = s.repeatBlend; oc.translate(cx + dx, cy + dy); if (s.repeatMode === "single") oc.rotate(angle); oc.scale(scale, scale); oc.drawImage(input, -W / 2, -H / 2); oc.restore(); };
             if (s.repeatMode === "single") drawCopy(0, 0);
             else if (s.repeatMode === "line") {
               const count = Math.round(s.manual.repeatCount), spacing = mod.repeatSpacingX / 100 * W;
@@ -426,44 +670,68 @@ export default function KineticPatchSynth() {
             const useGPU = false;
             const pixels = input.getContext("2d", { willReadFrequently: true })!.getImageData(0, 0, input.width, input.height).data;
             // Glyph-relative sampling also applies to pixels received from other modules.
-            const em = glyphs[0]?.em || size, step = Math.max(1, Math.round(mod.step / 100 * em));
+            const em = glyphs[0]?.em || typographyEm, step = Math.max(1, Math.round(mod.step / 100 * em / detail));
             if (node === "vertex") { oc.globalAlpha = 1 - mod.vertexMix; oc.drawImage(input, 0, 0); oc.globalAlpha = mod.vertexMix; }
             else oc.globalAlpha = s.manual.opacity;
             const lineage = new Set<VideoSource>();
             const glyphAligned = (current: VideoSource): boolean => {
-              if (current === "typography") return true;
+              if (current === "typography" || current === "typography2") return true;
               if (lineage.has(current) || s.modes[current]) return false;
-              lineage.add(current); const upstream = s.videoPatches.find(p => p.target === current); return upstream ? glyphAligned(upstream.source) : false;
+              lineage.add(current); const upstream = s.videoPatches.filter(p => p.target === current); const aligned = upstream.length > 0 && upstream.every(p => glyphAligned(p.source)); lineage.delete(current); return aligned;
             };
-            const regions = route && glyphAligned(route.source) ? glyphs.map(g => ({ x: Math.ceil(g.x + 4), y: Math.ceil(g.y + 4), width: g.width - 8, height: g.height - 8, step: Math.max(1, Math.round(at("step", g.x + g.em / 2, g.y + g.em / 2, g) / 100 * g.em)) })) : [{ x: 0, y: 0, width: input.width, height: input.height, step }];
+            const inheritedRoutes = node === "vertex" ? routes.filter(p => sampleSites.has(p.source)) : [];
+            const missingRoutes = routes.filter(p => !inheritedRoutes.includes(p));
+            const regionGlyphs = inheritedRoutes.length ? glyphsOf(missingRoutes.map(p => p.source)) : glyphs;
+            const regions = missingRoutes.length && missingRoutes.every(p => glyphAligned(p.source)) ? regionGlyphs.map(g => glyphSamplingRegion(g, Math.max(1, Math.round(at("step", g.x + g.em / 2, g.y + g.em / 2, g) / 100 * g.em / detail)), s.glyphOrigins)) : [{ x: 0, y: 0, width: input.width, height: input.height, em, step, originX: undefined, originY: undefined }];
             const characters = Array.from(s.glyphPattern || "*"); let glyphIndex = 0;
             const xOnly = node === "sampling" && s.samplingMode === "x", yOnly = node === "sampling" && s.samplingMode === "y";
-            for (const region of regions) for (let y = region.y; y < region.y + region.height; y += xOnly ? Math.max(1, Math.round(pixelScale)) : region.step) for (let x = region.x; x < region.x + region.width; x += yOnly ? Math.max(1, Math.round(pixelScale)) : region.step) {
-              if (x < 0 || y < 0 || x >= input.width || y >= input.height) continue;
-              const offset = (y * input.width + x) * 4, alpha = pixels ? pixels[offset + 3] / 255 : 1;
-              if (pixels && alpha < s.manual.threshold) continue;
-              const g = glyphs.find(g => x >= g.x && x < g.x + g.width && y >= g.y && y < g.y + g.height);
-              const j = node === "sampling" ? at("jitter", x, y, g) * pixelScale : 0, px = x + (yOnly ? 0 : Math.sin(x * 73.17 + y) * j), py = y + (xOnly ? 0 : Math.cos(y * 37.71 + x) * j);
-              if (pixels && !useGPU) oc.fillStyle = oc.strokeStyle = `rgba(${pixels[offset]},${pixels[offset + 1]},${pixels[offset + 2]},${alpha})`;
-              const r = node === "vertex" ? at("vertexSize", x, y, g) * canvasUnit : 2.6 * pixelScale;
-              oc.beginPath();
-              if (xOnly || yOnly) oc.fillRect(px, py, pixelScale, pixelScale);
-              else if (node === "vertex" && s.vertex === "glyph") { oc.font = `${Math.round(mod.weight)} ${Math.max(1, r)}px ${s.font}`; oc.textAlign = "center"; oc.textBaseline = "middle"; oc.fillText(characters[glyphIndex++ % characters.length], px, py); }
-              else if (node === "vertex" && s.vertex === "square") oc.fillRect(px - r / 2, py - r / 2, r, r);
-              else if (node === "vertex" && s.vertex === "line") { oc.lineWidth = Math.max(1, r / 3); const len = s.manual.lineLength * pixelScale / (2 * Math.SQRT2); oc.moveTo(px - len, py - len); oc.lineTo(px + len, py + len); oc.stroke(); }
-              else { oc.arc(px, py, Math.max(.5, r / 2), 0, Math.PI * 2); oc.fill(); }
+            const inherited = inheritedRoutes.length ? inheritedRoutes.flatMap(p => sampleSites.get(p.source)!) : undefined;
+            const sites: { x: number; y: number }[] = [];
+            function* candidates() {
+              if (inherited) { yield* spacedSites(inherited, site => s.vertexSpacing / 100 / detail * (glyphs.find(g => site.x >= g.x && site.x < g.x + g.width && site.y >= g.y && site.y < g.y + g.height)?.em || typographyEm), site => {
+                const index = glyphs.findIndex(g => site.x >= g.x && site.x < g.x + g.width && site.y >= g.y && site.y < g.y + g.height); return String(index);
+              }); if (!missingRoutes.length) return; }
+              for (const region of regions) {
+                const sx = yOnly ? Math.max(1, Math.round(pixelScale)) : region.step + (xOnly ? s.stripSpacing : node === "vertex" ? s.vertexSpacing : 0) / 100 * region.em / detail;
+                const sy = xOnly ? Math.max(1, Math.round(pixelScale)) : region.step + (yOnly ? s.stripSpacing : node === "vertex" ? s.vertexSpacing : 0) / 100 * region.em / detail;
+                for (let y = xOnly ? region.y : firstGridCoordinate(region.y, region.originY, sy); y < region.y + region.height; y += sy)
+                  for (let x = yOnly ? region.x : firstGridCoordinate(region.x, region.originX, sx); x < region.x + region.width; x += sx) yield { x, y };
+              }
             }
+            for (const { x, y } of candidates()) {
+              if (x < 0 || y < 0 || x >= input.width || y >= input.height) continue;
+              const offset = (Math.floor(y) * input.width + Math.floor(x)) * 4, alpha = pixels ? pixels[offset + 3] / 255 : 1;
+              if (pixels && alpha < (inherited ? .00001 : s.manual.threshold)) continue;
+              const g = glyphs.find(g => x >= g.x && x < g.x + g.width && y >= g.y && y < g.y + g.height);
+              // Evaluate one jitter value along each glyph strip, retaining the existing XY field.
+              const j = node === "sampling" ? at("jitter", yOnly ? (g ? g.x + g.width / 2 : input.width / 2) : x, xOnly ? (g ? g.y + g.height / 2 : input.height / 2) : y, g) * pixelScale / detail : 0;
+              const px = node === "sampling" ? Math.floor(x + (xOnly ? 0 : yOnly ? Math.cos(y * 37.71) * j : Math.sin(x * 73.17 + y) * j)) + .5 : x, py = node === "sampling" ? Math.floor(y + (yOnly ? 0 : xOnly ? Math.sin(x * 73.17) * j : Math.cos(y * 37.71 + x) * j)) + .5 : y;
+              if (pixels && !useGPU) oc.fillStyle = oc.strokeStyle = `rgba(${pixels[offset]},${pixels[offset + 1]},${pixels[offset + 2]},${alpha})`;
+              if (node === "sampling") sites.push({ x: px, y: py });
+              const r = node === "vertex" ? at("vertexSize", x, y, g) / 100 / detail * (g?.em || typographyEm) : 2.6 * pixelScale;
+              if (node === "vertex" && r <= 0) continue;
+              oc.beginPath();
+              if (xOnly || yOnly) { const width = yOnly ? pixelScale : s.samplingThicknessX / 100 / detail * (g?.em || typographyEm), height = xOnly ? pixelScale : s.samplingThicknessY / 100 / detail * (g?.em || typographyEm); oc.fillRect(px - width / 2, py - height / 2, width, height); }
+              else if (node === "vertex" && s.vertex === "custom" && s.vertexSVG) { const stamp = tintedSVG(s.vertexSVG.svg, String(oc.fillStyle), r); if (stamp) { const scale = r / Math.max(stamp.width, stamp.height), w = stamp.width * scale, h = stamp.height * scale; oc.imageSmoothingEnabled = true; oc.imageSmoothingQuality = "high"; oc.save(); oc.translate(px, py); oc.rotate(stampOrientation(x, y, input.width, input.height, s.vertexScatter)); oc.drawImage(stamp, -w / 2, -h / 2, w, h); oc.restore(); } }
+              else if (node === "vertex" && s.vertex === "glyph") { oc.font = `${glyphWeight} ${Math.max(1, r)}px ${glyphFont}`; oc.textAlign = "center"; oc.textBaseline = "middle"; oc.save(); oc.translate(px, py); oc.rotate(stampOrientation(x, y, input.width, input.height, s.vertexScatter)); oc.fillText(characters[glyphIndex++ % characters.length], 0, 0); oc.restore(); }
+              else if (node === "vertex" && s.vertex === "square") oc.fillRect(px - r / 2, py - r / 2, r, r);
+              else if (node === "vertex" && s.vertex === "line") { oc.lineWidth = Math.max(1, r / 3); const len = s.manual.lineLength * pixelScale / detail / (2 * Math.SQRT2); oc.moveTo(px - len, py - len); oc.lineTo(px + len, py + len); oc.stroke(); }
+              else { const radius = Math.max(.5, r / 2); oc.ellipse(px, py, node === "sampling" ? s.samplingThicknessX / 200 / detail * (g?.em || typographyEm) : radius, node === "sampling" ? s.samplingThicknessY / 200 / detail * (g?.em || typographyEm) : radius, 0, 0, Math.PI * 2); oc.fill(); }
+            }
+            if (node === "sampling") sampleSites.set(node, sites);
             oc.globalAlpha = 1;
           }
           visiting.delete(node); resolved.set(node, out); return out;
         };
         // Evaluate only ancestors of the selected canvas output.
-        const finalImage = evaluate(screen.source);
+        const layers = s.videoPatches.filter(p => p.target === "canvas").map(p => evaluate(p.source));
         ctx.clearRect(0, 0, W, H); ctx.globalCompositeOperation = "source-over";
-        ctx.drawImage(finalImage, 0, 0, W, H);
+        ctx.fillStyle = s.bg; ctx.fillRect(0, 0, W, H); drawImageLayers(ctx, s.imageLayers, decodedImages.current, "background", W, H);
+        layers.forEach(image => ctx.drawImage(image, 0, 0, W, H));
         // Ordinary chains need no previous-frame snapshots; only cycles do.
         cyclic.forEach(node => { const pc = previousOutputs[node].getContext("2d")!; pc.clearRect(0, 0, W, H); const image = resolved.get(node); if (image) pc.drawImage(image, 0, 0); });
         }
+        drawImageLayers(ctx, s.imageLayers, decodedImages.current, "foreground", W, H);
         ctx.globalCompositeOperation = "destination-over";
         ctx.fillStyle = s.bg; ctx.fillRect(0, 0, W, H);
         ctx.globalCompositeOperation = "source-over";
@@ -473,7 +741,13 @@ export default function KineticPatchSynth() {
     renderDriver.current = { start: () => previous || performance.now(), frame: now => frame(now, true), resume: () => { const now = performance.now(), offset = now - previous; feedbackClockOrigin += offset; lastRebuild += offset; previous = now; lastFrame = now; } };
     raf = requestAnimationFrame(frame); return () => { renderDriver.current = null; cancelAnimationFrame(raf); gpu?.dispose(); };
   }, []);
+  const imagesReady = () => {
+    const s = live.current;
+    if (s.customFonts.some(f => loadedFonts.current.get(f.id)?.data !== f.data) || (s.vertex === "custom" && s.vertexSVG && !decodedSVGs.current.has(s.vertexSVG.svg))) { setPresetMessage("Custom assets are loading. Try export again in a moment."); return false; }
+    if (live.current.imageLayers.some(l => l.on && !decodedImages.current.has(l.data))) { setPresetMessage("Images are loading. Try export again in a moment."); return false; } return true;
+  };
   const startRecording = () => {
+    if (!imagesReady()) return;
     const image = canvas.current; if (!image || recordingSession.current || renderAbort.current) return;
     const o = outputSettings.current, host = stage.current!;
     const box = fitCanvas(host.offsetWidth, host.offsetHeight, o.canvasFormat, o.customWidth, o.customHeight);
@@ -493,6 +767,7 @@ export default function KineticPatchSynth() {
     } catch (error) { setPresetMessage(error instanceof Error ? error.message : "Could not start recording."); }
   };
   const startVideoRender = async () => {
+    if (!imagesReady()) return;
     const image = canvas.current, driver = renderDriver.current; if (!image || !driver || recordingSession.current || renderAbort.current) return;
     const o = outputSettings.current, host = stage.current!;
     const box = fitCanvas(host.offsetWidth, host.offsetHeight, o.canvasFormat, o.customWidth, o.customHeight);
@@ -510,6 +785,7 @@ export default function KineticPatchSynth() {
     finally { renderSnapshot.current = null; renderAbort.current = null; driver.resume(); if (renderDriver.current) setRendering(false); }
   };
   const exportPNG = () => {
+    if (!imagesReady()) return;
     const image = canvas.current; if (!image || pngBusy) return;
     const o = outputSettings.current, host = stage.current!;
     const box = fitCanvas(host.offsetWidth, host.offsetHeight, o.canvasFormat, o.customWidth, o.customHeight);
@@ -531,24 +807,30 @@ export default function KineticPatchSynth() {
   };
   const applyPreset = (state: SynthState) => {
       setBpm(state.bpm); setWaves(state.waves); setValues(state.values); setManual(state.manual); setModes(state.modes); setPatches(state.patches); setVideoPatches(state.videoPatches);
-      setText(state.text); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend);
+      setCustomFonts(state.customFonts); setVertexSVG(state.vertexSVG); setImageLayers(state.imageLayers); setType1On(state.type1On); setSecondType(state.secondType); setStripSpacing(state.stripSpacing); setVertexSpacing(state.vertexSpacing); setVertexScatter(state.vertexScatter); setGlyphOrigins(state.glyphOrigins); setSamplingThicknessLinked(state.samplingThicknessLinked); setSamplingThicknessX(state.samplingThicknessX); setSamplingThicknessY(state.samplingThicknessY); setText(state.text); setTextAlign(state.textAlign); setLineHeight(state.lineHeight); setKerning(state.kerning); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend); setRepeatBlend(state.repeatBlend); setFeedbackTiming(state.feedbackTiming); setFeedbackDivision(state.feedbackDivision);
       setSelected(null); setSelectedVideo(null); setDrag(null); setVideoDrag(null); dragRef.current = null; videoDragRef.current = null;
   };
   const importPreset = async (file: File) => {
     try {
-      if (file.size > 1024 * 1024) throw new Error("Preset files must be smaller than 1 MB.");
+      if (file.size > 96 * 1024 * 1024) throw new Error("Preset files must be smaller than 96 MB.");
       const state = parsePreset(JSON.parse(await file.text()));
+      await ensureImages(state.imageLayers);
+      await ensureAssets(state.customFonts, state.vertexSVG);
       applyPreset(state);
       setPresetMessage("Preset imported. Undo restores your previous settings.");
     } catch (error) { setPresetMessage(error instanceof Error ? error.message : "Could not import this preset."); }
   };
-  const loadDream = () => { setBpm(120); setWaves(dreamWaves); setValues(initial); setManual(initialManual); setModes({ sampling: false, grid: false, vertex: true, feedback: false }); setPatches(dreamPatches); setVideoPatches(videoDefaults); setSelectedVideo(null); setText("dream"); setFont("system-ui, sans-serif"); setVertex("dot"); setRepeatMode("single"); setSamplingMode("xy"); setGlyphPattern("*+o"); setBg("#000000"); setInk("#000000"); setInk2("#ffffff"); setBicolour(true); setFeedbackBlend("source-over"); setPaused(false); setSelected(null); };
+  const loadDream = () => { setCustomFonts([]); setVertexSVG(null); setImageLayers([]); setType1On(true); setSecondType(secondTypeDefault); setStripSpacing(0); setVertexSpacing(0); setVertexScatter(0); setGlyphOrigins({}); setSamplingThicknessLinked(true); setSamplingThicknessX(1.5); setSamplingThicknessY(1.5); setTextAlign("center"); setLineHeight(1.1); setKerning("none"); setBpm(120); setWaves(dreamWaves); setValues(initial); setManual(initialManual); setModes({ sampling: false, grid: false, vertex: true, feedback: false }); setPatches(dreamPatches); setVideoPatches(videoDefaults); setSelectedVideo(null); setText("dream"); setFont("system-ui, sans-serif"); setVertex("dot"); setRepeatMode("single"); setSamplingMode("xy"); setGlyphPattern("*+o"); setBg("#000000"); setInk("#000000"); setInk2("#ffffff"); setBicolour(true); setFeedbackBlend("source-over"); setRepeatBlend("source-over"); setFeedbackTiming("free"); setFeedbackDivision("1/4"); setPaused(false); setSelected(null); };
   const changeWave = (i: number, change: Partial<Wave>) => setWaves(all => all.map((w, n) => n === i ? { ...w, ...change } : w));
   const connect = (wave: number, target: Target) => { setPatches(all => all.some(p => p.wave === wave && p.target === target) ? all : [...all, { id: `${wave}-${target}`, wave, target, amount: 50 }]); setSelected(null); setDrag(null); };
-  const connectVideo = (source: VideoSource, target: VideoTarget) => { setVideoPatches(all => [...all.filter(p => p.target !== target), { source, target }]); setSelectedVideo(null); setVideoDrag(null); };
-  const videoPorts = (node: VideoSource | "canvas") => <div className="kp-video-ports">{node !== "typography" && <label>VIDEO IN<button className="kp-socket kp-video-socket" data-video-target={node} title="Click to unplug · select an output to reconnect" aria-label={`Video input ${node}`} ref={el => { sockets.current[`video-in-${node}`] = el; }} onClick={() => { if (selectedVideo) connectVideo(selectedVideo, node); else setVideoPatches(all => all.filter(p => p.target !== node)); }} /></label>}{node !== "canvas" && <label>VIDEO OUT<button className={`kp-socket kp-video-socket ${selectedVideo === node ? "selected" : ""}`} data-video-source={node} title="Drag to connect · right-click to unplug" aria-label={`Video output ${node}`} ref={el => { sockets.current[`video-out-${node}`] = el; }} onClick={() => { if (!dragMoved.current) { setSelected(null); setSelectedVideo(selectedVideo === node ? null : node); } }} onPointerDown={e => { if (e.button !== 0) return; dragMoved.current = false; e.currentTarget.setPointerCapture(e.pointerId); const r = panel.current!.getBoundingClientRect(); videoDragRef.current = node; setVideoDrag({ source: node, x: e.clientX - r.left, y: e.clientY - r.top }); }} /></label>}</div>;
+  const videoChain = readVideoChain(videoPatches);
+  const setVideoChain = (chain: VideoModule[]) => { setVideoPatches(writeVideoChain(chain, videoPatches.some(p => p.source === "typography2") ? "typography2" : "typography")); setSelectedVideo(null); setVideoDrag(null); videoDragRef.current = null; };
+  const moveChain = (module: VideoModule, direction: number) => { if (!videoChain) return; const index = videoChain.indexOf(module); setVideoChain(moveVideoModule(videoChain, index, index + direction)); };
+  const chainEditor = <section className="kp-chain" aria-label="Video chain editor"><b>VIDEO CHAIN</b>{videoChain === null ? <div><button onClick={() => setVideoChain(videoModules.slice())}>{videoPatches.length ? "REPLACE WITH DEFAULT CHAIN" : "CONNECT DEFAULT CHAIN"}</button><button onClick={() => setVideoChain([])}>TEXT → CANVAS</button></div> : <><select aria-label="Video chain typography source" value={videoPatches.some(p => p.source === "typography2") ? "typography2" : "typography"} onChange={e => setVideoPatches(writeVideoChain(videoChain, e.target.value as "typography" | "typography2"))}><option value="typography">TYPOGRAPHY 1</option><option value="typography2">TYPOGRAPHY 2</option></select>{videoChain.map((module, index) => <div className="kp-chain-row" key={module} draggable onDragStart={e => { chainDrag.current = module; e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", module); }} onDragEnd={() => { chainDrag.current = null; }} onDragOver={e => { if (chainDrag.current) { e.preventDefault(); e.dataTransfer.dropEffect = "move"; } }} onDrop={e => { e.preventDefault(); const source = chainDrag.current; chainDrag.current = null; if (source) setVideoChain(moveVideoModule(videoChain, videoChain.indexOf(source), index)); }}><span title="Drag to reorder">⠿</span><b>{module === "grid" ? "POSITION / REPEAT" : module.toUpperCase()}</b><button aria-label={`Move ${module} earlier`} disabled={index === 0} onClick={() => moveChain(module, -1)}>↑</button><button aria-label={`Move ${module} later`} disabled={index === videoChain.length - 1} onClick={() => moveChain(module, 1)}>↓</button><button aria-label={`Remove ${module} from video chain`} onClick={() => setVideoChain(videoChain.filter(m => m !== module))}>×</button></div>)}<div className="kp-chain-end">CANVAS</div>{videoModules.some(m => !videoChain.includes(m)) && <select aria-label="Add module to video chain" value="" onChange={e => { if (e.target.value) setVideoChain([...videoChain, e.target.value as VideoModule]); }}><option value="" disabled>+ ADD MODULE</option>{videoModules.filter(m => !videoChain.includes(m)).map(m => <option key={m} value={m}>{m === "grid" ? "POSITION / REPEAT" : m.toUpperCase()}</option>)}</select>}</>}</section>;
+  const connectVideo = (source: VideoSource, target: VideoTarget) => { setVideoPatches(all => connectVideoPatch(all, source, target)); setSelectedVideo(null); setVideoDrag(null); videoDragRef.current = null; videoDragStart.current = null; };
+  const videoPorts = (node: VideoSource | "canvas") => <div className="kp-video-ports">{node !== "typography" && node !== "typography2" && <label>VIDEO IN<button className="kp-socket kp-video-socket" data-video-target={node} title={"Connect up to two outputs · click to unplug"} aria-label={`Video input ${node}`} ref={el => { sockets.current[`video-in-${node}`] = el; }} onClick={() => { if (selectedVideo) connectVideo(selectedVideo, node); else setVideoPatches(all => all.filter(p => p.target !== node)); }} /></label>}{node !== "canvas" && <label>VIDEO OUT<button className={`kp-socket kp-video-socket ${selectedVideo === node ? "selected" : ""}`} data-video-source={node} title="Drag to connect · right-click to unplug" aria-label={`Video output ${node}`} ref={el => { sockets.current[`video-out-${node}`] = el; }} onClick={() => { if (!dragMoved.current) { setSelected(null); setSelectedVideo(selectedVideo === node ? null : node); } }} onPointerDown={e => { if (e.button !== 0) return; dragMoved.current = false; videoDragStart.current = { x: e.clientX, y: e.clientY }; e.currentTarget.setPointerCapture(e.pointerId); const r = panel.current!.getBoundingClientRect(); videoDragRef.current = node; setVideoDrag({ source: node, x: e.clientX - r.left, y: e.clientY - r.top }); }} /></label>}</div>;
   const finishDrag = (e: PointerEvent) => {
-    if (videoDragRef.current) { const source = videoDragRef.current; videoDragRef.current = null; const hit = document.elementFromPoint(e.clientX, e.clientY)?.closest<HTMLElement>("[data-video-target]"); const target = hit?.dataset.videoTarget as VideoTarget | undefined; if (target) connectVideo(source, target); else setVideoDrag(null); return; }
+    if (videoDragRef.current) { const source = videoDragRef.current; videoDragRef.current = null; videoDragStart.current = null; const hit = document.elementFromPoint(e.clientX, e.clientY)?.closest<HTMLElement>("[data-video-target]"); const target = hit?.dataset.videoTarget as VideoTarget | undefined; if (target) connectVideo(source, target); else setVideoDrag(null); return; }
     const active = dragRef.current;
     if (!active) return;
     const hit = document.elementFromPoint(e.clientX, e.clientY)?.closest<HTMLElement>("[data-target]");
@@ -563,6 +845,52 @@ export default function KineticPatchSynth() {
   };
   const outputSocket = (id: number) => <button className={`kp-socket ${selected === id ? "selected" : ""}`} data-mod-source={id} aria-label={`Patch output ${sourceNames[id].toLowerCase()}`} title="Drag to connect · right-click to unplug" style={{ borderColor: colors[id] }} ref={el => { sockets.current[`wave${id}`] = el; }} onClick={() => { if (!dragMoved.current) { setSelectedVideo(null); setSelected(selected === id ? null : id); } }} onPointerDown={e => { if (e.button !== 0) return; dragMoved.current = false; e.currentTarget.setPointerCapture(e.pointerId); const r = panel.current!.getBoundingClientRect(); dragRef.current = { wave: id, x: e.clientX - r.left, y: e.clientY - r.top }; setDrag(dragRef.current); }} />;
   const cable = (a: XY, b: XY) => `M ${a.x} ${a.y} C ${a.x + 70} ${a.y}, ${b.x - 70} ${b.y}, ${b.x} ${b.y}`;
+  const importFont = async (file: File) => {
+    if (assetBusy) return; const target = fontImportTarget.current; setAssetBusy(true);
+    try {
+      if (!/\.(woff2?|ttf|otf)$/i.test(file.name) || file.size > 4 * 1024 * 1024) throw new Error("Choose a WOFF2, WOFF, TTF or OTF font smaller than 4 MB.");
+      if (live.current.customFonts.length >= 4) throw new Error("Remove a font before importing another (maximum four).");
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      const format = detectFontFormat(bytes);
+      if (!format) throw new Error("This file is not a supported font (WOFF2, WOFF, TTF or OTF).");
+      const data = await new Promise<string>((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(`data:font/${format};base64,` + String(reader.result).split(",")[1]); reader.onerror = () => reject(new Error("Could not read font.")); reader.readAsDataURL(file); });
+      const font = { id: crypto.randomUUID(), name: file.name.replace(/\.(woff2?|ttf|otf)$/i, "").slice(0, 200), data };
+      await ensureAssets([font], null); setCustomFonts(all => [...all, font]);
+      if (target === "typography") setFont(fontFamily(font.id)); else setSecondType(t => ({ ...t, font: fontFamily(font.id) }));
+      setPresetMessage("Font imported and included in presets.");
+    } catch (error) { setPresetMessage(error instanceof Error ? error.message : "Could not import font."); } finally { setAssetBusy(false); }
+  };
+  const importSVG = async (file: File) => {
+    if (assetBusy) return; setAssetBusy(true);
+    try { if (file.size > 512 * 1024) throw new Error("SVG must be smaller than 512 KB."); const shape = { name: file.name.slice(0, 200), svg: await file.text() }; await ensureAssets([], shape); setVertexSVG(shape); setVertex("custom"); setPresetMessage("SVG Vertex shape loaded. Incoming pixels supply its colour."); }
+    catch (error) { setPresetMessage(error instanceof Error ? error.message : "Could not import SVG."); } finally { setAssetBusy(false); }
+  };
+  const fontManager = <details className="kp-font-manager"><summary>FONTS · {customFonts.length}</summary><button disabled={assetBusy || customFonts.length >= 4} onClick={() => { fontImportTarget.current = typeTab; fontInput.current?.click(); }}>{assetBusy ? "LOADING…" : "+ IMPORT FONT"}</button>{customFonts.map(f => <div className="kp-asset-tools" key={f.id}><span title={f.name}>{f.name}</span><button aria-label={`Remove font ${f.name}`} onClick={() => { setCustomFonts(all => all.filter(item => item.id !== f.id)); setGlyphOrigins(all => { const next = { ...all }; delete next[fontFamily(f.id)]; return next; }); if (font === fontFamily(f.id)) setFont("system-ui, sans-serif"); if (secondType.font === fontFamily(f.id)) setSecondType(t => ({ ...t, font: "system-ui, sans-serif" })); }}>×</button></div>)}</details>;
+  const importImage = async (file: File) => {
+    if (imageBusy) return;
+    setImageBusy(true);
+    try {
+      if (!["image/png", "image/jpeg", "image/webp", "image/avif"].includes(file.type)) throw new Error("Use PNG, JPEG, WebP or AVIF.");
+      if (file.size > imageByteLimit) throw new Error("Images must be smaller than 12 MB.");
+      const data = await new Promise<string>((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(String(reader.result)); reader.onerror = () => reject(new Error("Could not read image.")); reader.readAsDataURL(file); });
+      const image = await decodeLayerImage(data);
+      const current = live.current.imageLayers;
+      if (current.length >= imageLimit || current.reduce((n, l) => n + l.data.length, data.length) > 64 * 1024 * 1024) throw new Error("Maximum eight images and 64 MB of embedded image data.");
+      const id = crypto.randomUUID(); decodedImages.current.set(data, image);
+      setImageLayers(layers => [...layers, { id, name: file.name.slice(0, 200), data, on: true, placement: "background", fit: "cover", x: 0, y: 0, size: 100, angle: 0, opacity: 100, blend: "source-over" }]);
+      setSelectedImage(id); setPresetMessage("Image added. Presets include the original image.");
+    } catch (error) { setPresetMessage(error instanceof Error ? error.message : "Could not import image."); }
+    finally { setImageBusy(false); }
+  };
+  const activeImage = imageLayers.find(l => l.id === selectedImage) || imageLayers[imageLayers.length - 1];
+  const updateImage = (change: Partial<ImageLayer>) => { if (activeImage) setImageLayers(layers => layers.map(l => l.id === activeImage.id ? { ...l, ...change } : l)); };
+  const moveImage = (id: string, direction: number) => setImageLayers(layers => {
+    const from = layers.findIndex(l => l.id === id); if (from < 0) return layers;
+    let to = from + direction; while (to >= 0 && to < layers.length && layers[to].placement !== layers[from].placement) to += direction;
+    if (to < 0 || to >= layers.length) return layers;
+    const next = layers.slice(); [next[from], next[to]] = [next[to], next[from]]; return next;
+  });
+  const imageLayerPanel = <details className="kp-image-layers"><summary>IMAGE LAYERS · {imageLayers.length}</summary><button disabled={imageBusy || imageLayers.length >= imageLimit} onClick={() => imageInput.current?.click()}>{imageBusy ? "LOADING…" : "+ IMPORT IMAGE"}</button><input ref={imageInput} type="file" accept="image/png,image/jpeg,image/webp,image/avif" hidden aria-label="Import image layer" onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importImage(file); }} />{(["foreground", "background"] as const).map(placement => <div className="kp-image-stack" key={placement}><b>{placement === "foreground" ? "ABOVE SYNTH" : "BELOW SYNTH"}</b>{imageLayers.filter(l => l.placement === placement).slice().reverse().map((l, index, layers) => <div className="kp-image-row" key={l.id}><button className={activeImage?.id === l.id ? "selected" : ""} aria-pressed={activeImage?.id === l.id} onClick={() => setSelectedImage(l.id)} title={l.name}>{l.name}</button><button aria-label={`Enable image ${l.name}`} aria-pressed={l.on} onClick={() => setImageLayers(all => all.map(item => item.id === l.id ? { ...item, on: !item.on } : item))}>{l.on ? "ON" : "OFF"}</button><button aria-label={`Move ${l.name} forward`} disabled={index === 0} onClick={() => moveImage(l.id, 1)}>↑</button><button aria-label={`Move ${l.name} backward`} disabled={index === layers.length - 1} onClick={() => moveImage(l.id, -1)}>↓</button><button aria-label={`Remove image ${l.name}`} onClick={() => setImageLayers(all => all.filter(item => item.id !== l.id))}>×</button></div>)}</div>)}{activeImage && <div className="kp-image-controls"><select aria-label="Image placement" value={activeImage.placement} onChange={e => updateImage({ placement: e.target.value as ImageLayer["placement"] })}><option value="background">BELOW SYNTH</option><option value="foreground">ABOVE SYNTH</option></select><select aria-label="Image fit" value={activeImage.fit} onChange={e => updateImage({ fit: e.target.value as ImageLayer["fit"] })}><option value="cover">COVER</option><option value="contain">CONTAIN</option><option value="stretch">STRETCH</option></select><select aria-label="Image blend mode" value={activeImage.blend} onChange={e => updateImage({ blend: e.target.value as GlobalCompositeOperation })}>{blendModes.map(mode => <option key={mode} value={mode}>{mode === "source-over" ? "NORMAL" : mode === "lighter" ? "ADD" : mode.toUpperCase()}</option>)}</select><div className="kp-manual">{([["x", "Position X · %", -100, 100, .1], ["y", "Position Y · %", -100, 100, .1], ["size", "Size · %", 1, 300, .1], ["angle", "Angle · °", -180, 180, .1], ["opacity", "Opacity · %", 0, 100, .1]] as const).map(([key, label, min, max, step]) => <div className="kp-knob-control" key={key}><span>{label}</span><Knob name={`Image ${label}`} min={min} max={max} step={step} value={activeImage[key]} onChange={value => updateImage({ [key]: value })} /></div>)}</div><button onClick={() => updateImage({ x: 0, y: 0, size: 100, angle: 0, opacity: 100, fit: "cover", blend: "source-over" })}>RESET IMAGE</button></div>}</details>;
   return <main onContextMenu={e => {
       const socket = (e.target as Element).closest<HTMLElement>(".kp-socket"); if (!socket) return; e.preventDefault();
       const videoSource = socket.dataset.videoSource, videoTarget = socket.dataset.videoTarget, modSource = socket.dataset.modSource, target = socket.dataset.target;
@@ -572,11 +900,15 @@ export default function KineticPatchSynth() {
       if (target) setPatches(all => all.filter(p => p.target !== target));
       setSelected(null); setSelectedVideo(null);
     }} className="kp" style={{ "--kp-bg": bg } as CSSProperties}>
+    <input ref={fontInput} hidden type="file" accept=".woff2,.woff,.ttf,.otf,font/woff2,font/woff,font/ttf,font/otf" aria-label="Import font" onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importFont(file); }} /><input ref={svgInput} hidden type="file" accept=".svg,image/svg+xml" aria-label="Import Vertex SVG" onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importSVG(file); }} />
     <header className="kp-header"><Link href="/" onClick={e => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; e.preventDefault(); window.location.assign("/"); }}>← INDEX</Link><h1>K-TIC-SYNTH</h1><button aria-label="Undo last edit" title="Undo · ⌘/Ctrl Z" disabled={!canUndo} onClick={undo}>↶ UNDO</button><button onClick={() => setPaused(v => !v)}>{paused ? "▶ RUN" : "Ⅱ HOLD"}</button></header>
     <section ref={stage} className={`kp-stage${nativeView ? " kp-native-view" : ""}`}><canvas ref={canvas} style={viewSize.width ? nativeView ? { width: nativeSize.width, height: nativeSize.height, position: "relative", margin: "54px 16px 16px" } : { width: previewSize.width, height: previewSize.height, position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" } : undefined} aria-label="Animated kinetic typography" /><span className="kp-caption">VISUAL SYNTHESIZER · THREE WAVE ENGINE</span></section>
-    <div className="kp-controls"><div ref={panel} className="kp-rack" onPointerMove={e => { if (videoDrag && panel.current) { const r = panel.current.getBoundingClientRect(); if (Math.hypot(e.clientX - r.left - videoDrag.x, e.clientY - r.top - videoDrag.y) > 3) dragMoved.current = true; setVideoDrag({ ...videoDrag, x: e.clientX - r.left, y: e.clientY - r.top }); } if (drag && panel.current) { const r = panel.current.getBoundingClientRect(); if (Math.hypot(e.clientX - r.left - drag.x, e.clientY - r.top - drag.y) > 3) dragMoved.current = true; setDrag({ ...drag, x: e.clientX - r.left, y: e.clientY - r.top }); } }} onPointerUp={finishDrag} onPointerCancel={() => { dragRef.current = null; videoDragRef.current = null; setVideoDrag(null); setDrag(null); }}>
-      <svg className="kp-cables" aria-hidden="true">{videoPatches.map(p => { const a = positions[`video-out-${p.source}`], b = positions[`video-in-${p.target}`]; return a && b ? <path key={`video-${p.target}`} className="kp-video-cable kp-removable-cable" onClick={e => { e.stopPropagation(); setVideoPatches(all => all.filter(item => item.target !== p.target)); }} d={cable(a, b)} stroke="#83d8b4" /> : null; })}{videoDrag && positions[`video-out-${videoDrag.source}`] && <path d={cable(positions[`video-out-${videoDrag.source}`], videoDrag)} stroke="#83d8b4" strokeDasharray="4 4" />}{patches.map(p => { const a = positions[`wave${p.wave}`], b = positions[p.target]; return a && b ? <path key={p.id} className="kp-removable-cable" onClick={e => { e.stopPropagation(); setPatches(all => all.filter(item => item.id !== p.id)); }} d={cable(a, b)} stroke={colors[p.wave]} /> : null; })}{drag && positions[`wave${drag.wave}`] && <path d={cable(positions[`wave${drag.wave}`], drag)} stroke={colors[drag.wave]} strokeDasharray="4 4" />}</svg>
-      <section className="kp-waves"><div className="kp-title">01 / WAVE MODULATORS</div>
+    <div className="kp-controls"><div ref={panel} className="kp-rack" onPointerMove={e => { if (videoDrag && panel.current) { const r = panel.current.getBoundingClientRect(); if (videoDragStart.current && Math.hypot(e.clientX - videoDragStart.current.x, e.clientY - videoDragStart.current.y) > 3) dragMoved.current = true; setVideoDrag({ ...videoDrag, x: e.clientX - r.left, y: e.clientY - r.top }); } if (drag && panel.current) { const r = panel.current.getBoundingClientRect(); if (Math.hypot(e.clientX - r.left - drag.x, e.clientY - r.top - drag.y) > 3) dragMoved.current = true; setDrag({ ...drag, x: e.clientX - r.left, y: e.clientY - r.top }); } }} onPointerUp={finishDrag} onPointerCancel={() => { dragRef.current = null; videoDragRef.current = null; setVideoDrag(null); setDrag(null); }}>
+      <svg className="kp-cables" aria-hidden="true">{videoPatches.map(p => { const a = positions[`video-out-${p.source}`], b = positions[`video-in-${p.target}`]; return a && b ? <path key={`video-${p.source}-${p.target}`} className="kp-video-cable kp-removable-cable" onClick={e => { e.stopPropagation(); setVideoPatches(all => all.filter(item => item.target !== p.target || item.source !== p.source)); }} d={cable(a, b)} stroke="#83d8b4" /> : null; })}{videoDrag && positions[`video-out-${videoDrag.source}`] && <path d={cable(positions[`video-out-${videoDrag.source}`], videoDrag)} stroke="#83d8b4" strokeDasharray="4 4" />}{patches.map(p => { const a = positions[`wave${p.wave}`], b = positions[p.target]; return a && b ? <path key={p.id} className="kp-removable-cable" onClick={e => { e.stopPropagation(); setPatches(all => all.filter(item => item.id !== p.id)); }} d={cable(a, b)} stroke={colors[p.wave]} /> : null; })}{drag && positions[`wave${drag.wave}`] && <path d={cable(positions[`wave${drag.wave}`], drag)} stroke={colors[drag.wave]} strokeDasharray="4 4" />}</svg>
+      <section className="kp-waves"><section className="kp-shared-sampling" aria-label="Shared Sampling and Vertex controls"><div className="kp-title">SAMPLING / VERTEX</div>
+        {specs.filter(c => c[0] === "step").map(([key, label, min, max, step]) => <div className="kp-control" data-target={key} key={key}><button ref={el => { sockets.current[key] = el; }} data-target={key} className={`kp-socket ${patches.some(p => p.target === key) ? "patched" : ""}`} aria-label={`Patch input sampling ${label}`} onClick={() => { if (selected !== null) connect(selected, key); else setPatches(all => all.filter(p => p.target !== key)); }} /><div className="kp-knob-control"><span>{label}</span><Knob name={`sampling ${label}`} min={min} max={max} step={step} value={values[key]} onChange={next => setValues(v => ({ ...v, [key]: next }))} /></div></div>)}
+        {manualSpecs.filter(c => c[0] === "threshold").map(([key, label, min, max, step]) => <div className="kp-knob-control" key={key}><span>{label}</span><Knob name={`sampling ${label}`} min={min} max={max} step={step} value={manual[key]} onChange={next => setManual(v => ({ ...v, [key]: next }))} /></div>)}
+      <button className="kp-origin-trigger" onClick={() => setOriginEditorOpen(true)}>GLYPH ORIGINS</button></section><div className="kp-title">01 / WAVE MODULATORS</div>
         <div className="kp-wave-clock"><label>BPM <input aria-label="Wave tempo BPM" type="number" min={20} max={300} value={bpmDraft} onChange={e => setBpmDraft(e.target.value)} onBlur={() => { const next = Number(bpmDraft); if (bpmDraft.trim() && Number.isFinite(next)) { const tempo = clamp(next, 20, 300); setBpm(tempo); setBpmDraft(String(tempo)); } else setBpmDraft(String(bpm)); }} onKeyDown={e => { if (e.key === "Enter") e.currentTarget.blur(); }} /></label></div>
         {waves.map((w, i) => <div key={i} className="kp-wave" style={{ "--wave": colors[i] } as CSSProperties}><div className="kp-wavehead"><b>WAVE {i + 1}</b><button aria-pressed={w.on} onClick={() => changeWave(i, { on: !w.on })}>{w.on ? "ON" : "OFF"}</button><button className={`kp-socket ${selected === i ? "selected" : ""}`} data-mod-source={i} title="Drag to connect · right-click to unplug" aria-label={`Patch output wave ${i + 1}`} ref={el => { sockets.current[`wave${i}`] = el; }} onClick={() => { if (!dragMoved.current) { setSelectedVideo(null); setSelected(selected === i ? null : i); } }} onPointerDown={e => { if (e.button !== 0) return; dragMoved.current = false; e.currentTarget.setPointerCapture(e.pointerId); const r = panel.current!.getBoundingClientRect(); dragRef.current = { wave: i, x: e.clientX - r.left, y: e.clientY - r.top }; setDrag(dragRef.current); }} /></div>
           <select className="kp-wave-shape" aria-label={`Wave ${i + 1} shape`} value={w.shape} onChange={e => changeWave(i, { shape: e.target.value as Shape })}>{(["sine", "triangle", "square", "noise", "ramp"] as Shape[]).map(shape => <option key={shape} value={shape}>{shape.toUpperCase()}</option>)}</select>{w.shape === "ramp" && <small className="kp-ramp-help">Full turn: AMP 1 · Angle cable 100% · Angle 0°</small>}
@@ -587,27 +919,37 @@ export default function KineticPatchSynth() {
         </div>)}
         <section className="kp-module kp-feedback-module">{videoPorts("feedback")}<div className="kp-modulehead"><h2>FEEDBACK</h2><button aria-label="Enable feedback" aria-pressed={modes.feedback} onClick={() => setModes(m => ({ ...m, feedback: !m.feedback }))}>{modes.feedback ? "ON" : "OFF"}</button></div>
           <div className="kp-feedback-output"><span>MOD OUT</span>{outputSocket(3)}</div>
+          <button aria-label="Feedback refresh timing mode" onClick={() => setFeedbackTiming(t => t === "free" ? "sync" : "free")}>{feedbackTiming === "sync" ? "SYNC · BPM" : "FREE · ms"}</button>
+          {feedbackTiming === "sync" && <select aria-label="Feedback refresh division" value={feedbackDivision} onChange={e => setFeedbackDivision(e.target.value as WaveDivision)}>{waveDivisions.map(d => <option key={d} value={d}>{d}</option>)}</select>}
           <select aria-label="Feedback blend mode" value={feedbackBlend} onChange={e => setFeedbackBlend(e.target.value as GlobalCompositeOperation)}>{blendModes.map(mode => <option key={mode} value={mode}>{mode === "source-over" ? "NORMAL" : mode === "lighter" ? "ADD" : mode.toUpperCase()}</option>)}</select>
-          {specs.filter(spec => spec[5] === "feedback").map(([key, label, min, max, step]) => <div className="kp-control" data-target={key} key={key}><button ref={el => { sockets.current[key] = el; }} data-target={key} className={`kp-socket ${patches.some(p => p.target === key) ? "patched" : ""}`} aria-label={`Patch input feedback ${label}`} onClick={() => { if (selected !== null) connect(selected, key); else setPatches(all => all.filter(p => p.target !== key)); }} /><div className="kp-knob-control"><span>{label}</span><Knob name={`feedback ${label}`} min={min} max={max} step={step} value={values[key]} onChange={next => setValues(v => ({ ...v, [key]: next }))} /></div></div>)}
+          {specs.filter(spec => spec[5] === "feedback" && !(spec[0] === "feedbackRefresh" && feedbackTiming === "sync")).map(([key, label, min, max, step]) => <div className="kp-control" data-target={key} key={key}><button ref={el => { sockets.current[key] = el; }} data-target={key} className={`kp-socket ${patches.some(p => p.target === key) ? "patched" : ""}`} aria-label={`Patch input feedback ${label}`} onClick={() => { if (selected !== null) connect(selected, key); else setPatches(all => all.filter(p => p.target !== key)); }} /><div className="kp-knob-control"><span>{label}</span><Knob name={`feedback ${label}`} min={min} max={max} step={step} value={values[key]} onChange={next => setValues(v => ({ ...v, [key]: next }))} /></div></div>)}
         </section>
       </section>
-      <section className="kp-modules"><div className="kp-title">02 / VISUAL OSCILLATORS</div><div className="kp-modulegrid">{(Object.keys(groups).filter(group => group !== "feedback") as (Exclude<keyof typeof groups, "feedback">)[]).map(group => <section className="kp-module" key={group}><div className="kp-modulehead"><h2>{groups[group]}</h2>{group !== "typography" && <button aria-pressed={modes[group]} onClick={() => setModes(m => ({ ...m, [group]: !m[group] }))}>{modes[group] ? "ON" : "OFF"}</button>}</div>
+      <section className="kp-modules"><div className="kp-title">02 / VISUAL OSCILLATORS</div><div className="kp-modulegrid">{([["sampling", "vertex"], ["grid"]] as (Exclude<keyof typeof groups, "feedback">)[][]).map(moduleGroups => <section className={moduleGroups.length > 1 ? "kp-combined-module" : "kp-single-module"} key={moduleGroups[0]} aria-label={moduleGroups.length > 1 ? "Sampling and Vertex" : groups[moduleGroups[0]]}>{moduleGroups.length > 1 && <div className="kp-title">SAMPLING / VERTEX</div>}{moduleGroups.map(group => <section className="kp-module" key={group}><div className="kp-modulehead"><h2>{groups[group]}</h2>{group !== "typography" && <button aria-pressed={modes[group]} onClick={() => setModes(m => ({ ...m, [group]: !m[group] }))}>{modes[group] ? "ON" : "OFF"}</button>}</div>
         {videoPorts(group)}
+        {group === "grid" && <select aria-label="Repeat blend mode" value={repeatBlend} onChange={e => setRepeatBlend(e.target.value as GlobalCompositeOperation)}>{blendModes.map(mode => <option key={mode} value={mode}>{mode === "source-over" ? "NORMAL" : mode === "lighter" ? "ADD" : mode.toUpperCase()}</option>)}</select>}
         {group === "grid" && <select aria-label="Repeat mode" value={repeatMode} onChange={e => setRepeatMode(e.target.value as RepeatMode)}><option value="single">SINGLE</option><option value="line">LINE</option><option value="grid">GRID</option></select>}
-        {group === "sampling" && <select aria-label="Sampling axes" value={samplingMode} onChange={e => setSamplingMode(e.target.value as SamplingMode)}><option value="xy">X + Y</option><option value="x">X ONLY</option><option value="y">Y ONLY</option></select>}
-        {group === "vertex" && <select aria-label="Vertex shape" value={vertex} onChange={e => setVertex(e.target.value)}><option value="line">LINE</option><option value="dot">DOT</option><option value="square">SQUARE</option><option value="glyph">GLYPH</option></select>}{group === "typography" && <select aria-label="System font" value={font} onChange={e => setFont(e.target.value)}><option value="system-ui, sans-serif">SYSTEM SANS</option><option value="ui-serif, Georgia, serif">SYSTEM SERIF</option><option value="ui-monospace, monospace">SYSTEM MONO</option></select>}
-        {group === "vertex" && vertex === "glyph" && <label className="kp-glyph-input">GLYPHS<input aria-label="Vertex glyph characters" value={glyphPattern} maxLength={64} onChange={e => setGlyphPattern(e.target.value)} onBlur={() => { if (!glyphPattern.trim()) setGlyphPattern("*"); }} /></label>}
-        {specs.filter(c => c[5] === group && (group !== "grid" || (repeatMode !== "single" || !["repeatSpacingX", "repeatSpacingY"].includes(c[0]))) && (repeatMode !== "line" || c[0] !== "repeatSpacingY")).map(([key, label, min, max, step]) => <div className="kp-control" data-target={key} key={key}><button ref={el => { sockets.current[key] = el; }} data-target={key} className={`kp-socket ${patches.some(p => p.target === key) ? "patched" : ""}`} aria-label={`Patch input ${group} ${label}`} onClick={() => { if (selected !== null) connect(selected, key); else setPatches(all => all.filter(p => p.target !== key)); }} /><div className="kp-knob-control"><span>{label}</span><Knob name={`${group} ${label}`} min={min} max={max} step={step} value={values[key]} onChange={next => setValues(v => ({ ...v, [key]: next }))} /></div></div>)}
-        <div className="kp-manual">{manualSpecs.filter(c => c[5] === group && (group !== "grid" || (repeatMode === "line" ? c[0] === "repeatCount" : repeatMode === "grid" ? c[0] !== "repeatCount" : false)) && (group !== "vertex" || vertex === "line")).map(([key, label, min, max, step]) => <div className="kp-knob-control" key={key}><span>{label}</span><Knob name={`${group} ${label}`} min={min} max={max} step={step} value={manual[key]} onChange={next => setManual(v => ({ ...v, [key]: next }))} /></div>)}</div>
-      </section>)}<section className="kp-module"><div className="kp-modulehead"><h2>CANVAS</h2></div>{videoPorts("canvas")}<button onClick={() => setVideoPatches(videoDefaults)}>DEFAULT ROUTE</button></section></div></section>
+        {group === "sampling" && <select aria-label="Sampling axes" value={samplingMode} onChange={e => { const next = e.target.value as SamplingMode; setSamplingMode(next); if (next === "xy" && samplingThicknessLinked) setSamplingThicknessY(samplingThicknessX); }}><option value="xy">X + Y</option><option value="x">X ONLY</option><option value="y">Y ONLY</option></select>}
+        {group === "sampling" && samplingMode === "xy" && <button className="kp-thickness-link" aria-label="Link X and Y sampling thickness" aria-pressed={samplingThicknessLinked} onClick={() => { const next = !samplingThicknessLinked; setSamplingThicknessLinked(next); if (next) setSamplingThicknessY(samplingThicknessX); }}>{samplingThicknessLinked ? "X/Y LINKED" : "X/Y SEPARATE"}</button>}
+        {group === "sampling" && <div className="kp-thickness">{(["X", "Y"] as const).filter(axis => samplingMode === "xy" || axis.toLowerCase() === samplingMode).map(axis => <div className="kp-knob-control" key={axis}><span>Thickness {axis} · % em</span><Knob name={`Sampling thickness ${axis} · % em`} min={0} max={10} step={.01} value={axis === "X" ? samplingThicknessX : samplingThicknessY} onChange={next => { if (samplingMode === "xy" && samplingThicknessLinked) { setSamplingThicknessX(next); setSamplingThicknessY(next); } else if (axis === "X") setSamplingThicknessX(next); else setSamplingThicknessY(next); }} /></div>)}</div>}
+        {((group === "sampling" && samplingMode !== "xy") || group === "vertex") && <div className="kp-knob-control"><span>{group === "sampling" ? "Extra strip spacing" : "Vertex spacing"} · % em</span><Knob name={group === "sampling" ? "Extra strip spacing · % em" : "Vertex spacing · % em"} min={0} max={10} step={.01} value={group === "sampling" ? stripSpacing : vertexSpacing} onChange={group === "sampling" ? setStripSpacing : setVertexSpacing} /></div>}
+        {group === "vertex" && (vertex === "glyph" || vertex === "custom") && <div className="kp-knob-control"><span>Orientation scatter · ±°</span><Knob name="Orientation scatter · degrees" min={0} max={180} step={1} value={vertexScatter} onChange={setVertexScatter} /></div>}
+        {group === "vertex" && <select aria-label="Vertex shape" value={vertex} onChange={e => setVertex(e.target.value)}><option value="line">LINE</option><option value="dot">DOT</option><option value="square">SQUARE</option><option value="glyph">GLYPH</option><option value="custom" disabled={!vertexSVG}>CUSTOM SVG</option></select>}{group === "typography" && <select aria-label="System font" value={font} onChange={e => setFont(e.target.value)}><option value="system-ui, sans-serif">SYSTEM SANS</option><option value="ui-serif, Georgia, serif">SYSTEM SERIF</option><option value="ui-monospace, monospace">SYSTEM MONO</option>{customFonts.map(f => <option key={f.id} value={fontFamily(f.id)}>{f.name}</option>)}</select>}
+        {group === "typography" && <><select aria-label="Text alignment" value={textAlign} onChange={e => setTextAlign(e.target.value as typeof textAlign)}><option value="left">ALIGN LEFT</option><option value="center">ALIGN CENTRE</option><option value="right">ALIGN RIGHT</option></select><select aria-label="Typography kerning" value={kerning} onChange={e => setKerning(e.target.value as typeof kerning)}><option value="none">KERNING OFF</option><option value="normal">KERNING NATIVE</option><option value="optical">KERNING OPTICAL</option></select><div className="kp-knob-control"><span>Line spacing · em</span><Knob name="Typography line spacing" min={.5} max={3} step={.05} value={lineHeight} onChange={setLineHeight} /></div></>}
+        {group === "vertex" && <div className="kp-asset-tools"><button disabled={assetBusy} onClick={() => svgInput.current?.click()}>{vertexSVG ? "REPLACE SVG" : "IMPORT SVG"}</button>{vertexSVG && <><span title={vertexSVG.name}>{vertexSVG.name}</span><button aria-label="Remove custom SVG" onClick={() => { setVertexSVG(null); if (vertex === "custom") setVertex("dot"); }}>×</button></>}</div>}{group === "vertex" && vertex === "glyph" && <label className="kp-glyph-input">GLYPHS<input aria-label="Vertex glyph characters" value={glyphPattern} maxLength={64} onChange={e => setGlyphPattern(e.target.value)} onBlur={() => { if (!glyphPattern.trim()) setGlyphPattern("*"); }} /></label>}
+        {specs.filter(c => c[0] !== "step" && c[5] === group && (group !== "grid" || (repeatMode !== "single" || !["repeatSpacingX", "repeatSpacingY"].includes(c[0]))) && (repeatMode !== "line" || c[0] !== "repeatSpacingY")).map(([key, label, min, max, step]) => <div className="kp-control" data-target={key} key={key}><button ref={el => { sockets.current[key] = el; }} data-target={key} className={`kp-socket ${patches.some(p => p.target === key) ? "patched" : ""}`} aria-label={`Patch input ${group} ${label}`} onClick={() => { if (selected !== null) connect(selected, key); else setPatches(all => all.filter(p => p.target !== key)); }} /><div className="kp-knob-control"><span>{label}</span><Knob name={`${group} ${label}`} min={min} max={max} step={step} value={values[key]} onChange={next => setValues(v => ({ ...v, [key]: next }))} /></div></div>)}
+        <div className="kp-manual">{manualSpecs.filter(c => c[0] !== "threshold" && c[5] === group && (group !== "grid" || (repeatMode === "line" ? c[0] === "repeatCount" : repeatMode === "grid" ? c[0] !== "repeatCount" : false)) && (group !== "vertex" || vertex === "line")).map(([key, label, min, max, step]) => <div className="kp-knob-control" key={key}><span>{label}</span><Knob name={`${group} ${label}`} min={min} max={max} step={step} value={manual[key]} onChange={next => setManual(v => ({ ...v, [key]: next }))} /></div>)}</div>
+      </section>)}</section>)}<section className="kp-type-tabs"><div className="kp-type-tablist" role="tablist" aria-label="Typography">{(["typography", "typography2"] as const).map((source, index) => <div className="kp-type-tab" key={source}><button id={`kp-type-tab-${index + 1}`} role="tab" aria-selected={typeTab === source} aria-controls={`kp-type-${index + 1}`} tabIndex={typeTab === source ? 0 : -1} onClick={() => setTypeTab(source)} onKeyDown={e => { if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key)) { e.preventDefault(); const next = e.key === "Home" ? "typography" : e.key === "End" ? "typography2" : source === "typography" ? "typography2" : "typography"; setTypeTab(next); document.getElementById(`kp-type-tab-${next === "typography" ? 1 : 2}`)?.focus(); } }}>TYPE {index + 1}</button><button aria-label={`Enable typography ${index + 1}`} aria-pressed={source === "typography" ? type1On : secondType.on} onClick={() => source === "typography" ? setType1On(on => !on) : setSecondType(t => ({ ...t, on: !t.on }))}>{(source === "typography" ? type1On : secondType.on) ? "ON" : "OFF"}</button>{videoPorts(source)}</div>)}</div>{fontManager}<section className="kp-module kp-type-panel" id="kp-type-1" role="tabpanel" aria-labelledby="kp-type-tab-1" hidden={typeTab !== "typography"}>{type1On && <><textarea aria-label="Text" placeholder="Type here · Enter for a new line" value={text} onChange={e => setText(e.target.value)} rows={2} /><select aria-label="System font" value={font} onChange={e => setFont(e.target.value)}><option value="system-ui, sans-serif">SYSTEM SANS</option><option value="ui-serif, Georgia, serif">SYSTEM SERIF</option><option value="ui-monospace, monospace">SYSTEM MONO</option>{customFonts.map(f => <option key={f.id} value={fontFamily(f.id)}>{f.name}</option>)}</select><><select aria-label="Text alignment" value={textAlign} onChange={e => setTextAlign(e.target.value as typeof textAlign)}><option value="left">ALIGN LEFT</option><option value="center">ALIGN CENTRE</option><option value="right">ALIGN RIGHT</option></select><select aria-label="Typography kerning" value={kerning} onChange={e => setKerning(e.target.value as typeof kerning)}><option value="none">KERNING OFF</option><option value="normal">KERNING NATIVE</option><option value="optical">KERNING OPTICAL</option></select><div className="kp-knob-control"><span>Line spacing · em</span><Knob name="Typography line spacing" min={.5} max={3} step={.05} value={lineHeight} onChange={setLineHeight} /></div></><>        {specs.filter(c => c[5] === "typography").map(([key, label, min, max, step]) => <div className="kp-control" data-target={key} key={key}><button ref={el => { sockets.current[key] = el; }} data-target={key} className={`kp-socket ${patches.some(p => p.target === key) ? "patched" : ""}`} aria-label={`Patch input typography ${label}`} onClick={() => { if (selected !== null) connect(selected, key); else setPatches(all => all.filter(p => p.target !== key)); }} /><div className="kp-knob-control"><span>{label}</span><Knob name={`typography ${label}`} min={min} max={max} step={step} value={values[key]} onChange={next => setValues(v => ({ ...v, [key]: next }))} /></div></div>)}
+        <div className="kp-manual">{manualSpecs.filter(c => c[5] === "typography").map(([key, label, min, max, step]) => <div className="kp-knob-control" key={key}><span>{label}</span><Knob name={`typography ${label}`} min={min} max={max} step={step} value={manual[key]} onChange={next => setManual(v => ({ ...v, [key]: next }))} /></div>)}</div></></>}</section><section className="kp-module kp-type-panel" id="kp-type-2" role="tabpanel" aria-labelledby="kp-type-tab-2" hidden={typeTab !== "typography2"}>{secondType.on && <><textarea aria-label="Second text" rows={2} value={secondType.text} onChange={e => setSecondType(t => ({ ...t, text: e.target.value }))} /><select aria-label="Second typography font" value={secondType.font} onChange={e => setSecondType(t => ({ ...t, font: e.target.value }))}><option value="system-ui, sans-serif">SYSTEM SANS</option><option value="ui-serif, Georgia, serif">SYSTEM SERIF</option><option value="ui-monospace, monospace">SYSTEM MONO</option>{customFonts.map(f => <option key={f.id} value={fontFamily(f.id)}>{f.name}</option>)}</select><select aria-label="Second text alignment" value={secondType.align} onChange={e => setSecondType(t => ({ ...t, align: e.target.value as SecondType["align"] }))}><option value="left">ALIGN LEFT</option><option value="center">ALIGN CENTRE</option><option value="right">ALIGN RIGHT</option></select><select aria-label="Second typography kerning" value={secondType.kerning} onChange={e => setSecondType(t => ({ ...t, kerning: e.target.value as SecondType["kerning"] }))}><option value="none">KERNING OFF</option><option value="normal">KERNING NATIVE</option><option value="optical">KERNING OPTICAL</option></select><input type="color" aria-label="Second text ink" value={secondType.ink} onChange={e => setSecondType(t => ({ ...t, ink: e.target.value }))} /><div className="kp-manual">{([["size", "Size · % canvas", 5, 75, .5], ["weight", "Weight", 100, 900, 10], ["x", "Position X · %", -100, 100, .1], ["y", "Position Y · %", -100, 100, .1], ["tracking", "Tracking · % em", -10, 30, .1], ["lineHeight", "Line spacing · em", .5, 3, .05]] as const).map(([key, label, min, max, step]) => <div className="kp-knob-control" key={key}><span>{label}</span><Knob name={`Typography 2 ${label}`} min={min} max={max} step={step} value={secondType[key]} onChange={value => setSecondType(t => ({ ...t, [key]: value }))} /></div>)}</div></>}</section></section><section className="kp-module"><div className="kp-modulehead"><h2>CANVAS</h2></div>{videoPorts("canvas")}<button onClick={() => setVideoPatches(videoDefaults)}>DEFAULT ROUTE</button>{imageLayerPanel}</section></div></section>
 
     </div></div>
-      <section ref={bay} className={`kp-patches kp-floating ${bayCollapsed ? "is-collapsed" : ""}`} aria-label="Patch bay" style={bayPosition ? { left: bayPosition.x, top: bayPosition.y, bottom: "auto" } : undefined}><div className="kp-title kp-bay-handle" onPointerDown={e => { if ((e.target as HTMLElement).closest("button")) return; const r = bay.current!.getBoundingClientRect(); bayDrag.current = { x: e.clientX - r.left, y: e.clientY - r.top }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerMove={e => { if (!bayDrag.current || !bay.current) return; const r = bay.current.getBoundingClientRect(); setBayPosition({ x: clamp(e.clientX - bayDrag.current.x, 8, Math.max(8, window.innerWidth - r.width - 8)), y: clamp(e.clientY - bayDrag.current.y, 8, Math.max(8, window.innerHeight - r.height - 8)) }); }} onPointerUp={() => { bayDrag.current = null; }} onPointerCancel={() => { bayDrag.current = null; }}>03 / PATCH BAY <span><button aria-label={bayCollapsed ? "Expand patch bay" : "Collapse patch bay"} aria-expanded={!bayCollapsed} onClick={() => setBayCollapsed(v => !v)}>{bayCollapsed ? "+" : "−"}</button> <button aria-label="Clear all video connections" title="Disconnect all video cables" disabled={videoPatches.length === 0} onClick={() => { setVideoPatches([]); setSelectedVideo(null); setVideoDrag(null); videoDragRef.current = null; }}>ZERO VIDEO</button> <button aria-label="Zero all modulation connection amounts" title="Set modulation amounts to 0% while keeping cables connected" disabled={!patches.some(p => p.amount !== 0)} onClick={() => setPatches(all => all.map(p => ({ ...p, amount: 0 })))}>ZERO AMOUNTS</button> <button onClick={() => { setPatches([]); setVideoPatches([]); setSelectedVideo(null); setSelected(null); }}>CLEAR</button></span></div><div className="kp-bay-content" hidden={bayCollapsed}><p>{selectedVideo ? `VIDEO ${selectedVideo.toUpperCase()} · choose a video input` : selected === null ? "Drag or click sockets to connect. Click a cable/input to unplug." : `${sourceNames[selected]} selected · choose an input`}</p>{videoPatches.map(p => <div className="kp-video-patch" key={`video-${p.target}`}><b>VIDEO · {p.source.toUpperCase()} → {p.target.toUpperCase()}</b><button aria-label={`Remove video ${p.source} to ${p.target}`} onClick={() => setVideoPatches(all => all.filter(item => item.target !== p.target))}>×</button></div>)}{patches.length === 0 && videoPatches.length === 0 && <p>No cables connected.</p>}{patches.map(p => { const c = specs.find(c => c[0] === p.target)!; return <div className="kp-patch" key={p.id} style={{ "--wave": colors[p.wave] } as CSSProperties}><b>{sourceNames[p.wave]} → {c[5]} / {c[1]}</b><button aria-label={`Remove ${sourceNames[p.wave]} to ${c[5]} ${c[1]}`} onClick={() => setPatches(all => all.filter(item => item.id !== p.id))}>×</button><div className="kp-knob-control kp-amount"><span>AMOUNT · %</span><Knob name={`Amount ${sourceNames[p.wave]} to ${c[5]} ${c[1]}`} min={-100} max={100} step={1} value={p.amount} onChange={next => setPatches(all => all.map(item => item.id === p.id ? { ...item, amount: next } : item))} /></div></div>; })}</div></section>
+      <section ref={bay} className={`kp-patches kp-floating ${bayCollapsed ? "is-collapsed" : ""}`} aria-label="Patch bay" style={bayPosition ? { left: bayPosition.x, top: bayPosition.y, bottom: "auto" } : undefined}><div className="kp-title kp-bay-handle" onPointerDown={e => { if ((e.target as HTMLElement).closest("button")) return; const r = bay.current!.getBoundingClientRect(); bayDrag.current = { x: e.clientX - r.left, y: e.clientY - r.top }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerMove={e => { if (!bayDrag.current || !bay.current) return; const r = bay.current.getBoundingClientRect(); setBayPosition({ x: clamp(e.clientX - bayDrag.current.x, 8, Math.max(8, window.innerWidth - r.width - 8)), y: clamp(e.clientY - bayDrag.current.y, 8, Math.max(8, window.innerHeight - r.height - 8)) }); }} onPointerUp={() => { bayDrag.current = null; }} onPointerCancel={() => { bayDrag.current = null; }}>03 / PATCH BAY <span><button aria-label={bayCollapsed ? "Expand patch bay" : "Collapse patch bay"} aria-expanded={!bayCollapsed} onClick={() => setBayCollapsed(v => !v)}>{bayCollapsed ? "+" : "−"}</button> <button aria-label="Clear all video connections" title="Disconnect all video cables" disabled={videoPatches.length === 0} onClick={() => { setVideoPatches([]); setSelectedVideo(null); setVideoDrag(null); videoDragRef.current = null; }}>ZERO VIDEO</button> <button aria-label="Zero all modulation connection amounts" title="Set modulation amounts to 0% while keeping cables connected" disabled={!patches.some(p => p.amount !== 0)} onClick={() => setPatches(all => all.map(p => ({ ...p, amount: 0 })))}>ZERO AMOUNTS</button> <button onClick={() => { setPatches([]); setVideoPatches([]); setSelectedVideo(null); setSelected(null); }}>CLEAR</button></span></div><div className="kp-bay-content" hidden={bayCollapsed}>{chainEditor}{(selectedVideo || selected !== null) && <p>{selectedVideo ? `VIDEO ${selectedVideo.toUpperCase()} · choose a video input` : selected === null ? "" : `${sourceNames[selected]} selected · choose an input`}</p>}{videoChain === null && videoPatches.map(p => <div className="kp-video-patch" key={`video-${p.source}-${p.target}`}><b>VIDEO · {p.source.toUpperCase()} → {p.target.toUpperCase()}</b><button aria-label={`Remove video ${p.source} to ${p.target}`} onClick={() => setVideoPatches(all => all.filter(item => item.target !== p.target || item.source !== p.source))}>×</button></div>)}{patches.length === 0 && videoPatches.length === 0 && <p>No cables connected.</p>}{patches.map(p => { const c = specs.find(c => c[0] === p.target)!; return <div className="kp-patch" key={p.id} style={{ "--wave": colors[p.wave] } as CSSProperties}><b>{sourceNames[p.wave]} → {c[5]} / {c[1]}</b><button aria-label={`Remove ${sourceNames[p.wave]} to ${c[5]} ${c[1]}`} onClick={() => setPatches(all => all.filter(item => item.id !== p.id))}>×</button><div className="kp-knob-control kp-amount"><span>AMOUNT · %</span><Knob name={`Amount ${sourceNames[p.wave]} to ${c[5]} ${c[1]}`} min={-100} max={100} step={1} value={p.amount} onChange={next => setPatches(all => all.map(item => item.id === p.id ? { ...item, amount: next } : item))} /></div></div>; })}</div></section>
     {outputOpen && <section id="kp-output-window" ref={outputWindow} role="dialog" aria-label="Output settings" tabIndex={-1} className="kp-output-window" style={outputPosition ? { left: outputPosition.x, top: outputPosition.y, right: "auto", bottom: "auto" } : undefined} onKeyDown={e => { if (e.key === "Escape") { e.stopPropagation(); closeOutput(); } }}>
       <div className="kp-output-handle" onPointerDown={e => { if (e.button !== 0 || (e.target as HTMLElement).closest("button")) return; e.preventDefault(); const r = outputWindow.current!.getBoundingClientRect(); outputDrag.current = { x: e.clientX - r.left, y: e.clientY - r.top }; e.currentTarget.setPointerCapture(e.pointerId); }} onPointerMove={e => { if (!outputDrag.current || !outputWindow.current) return; const r = outputWindow.current.getBoundingClientRect(); setOutputPosition({ x: clamp(e.clientX - outputDrag.current.x, 8, Math.max(8, window.innerWidth - r.width - 8)), y: clamp(e.clientY - outputDrag.current.y, 8, Math.max(8, window.innerHeight - r.height - 8)) }); }} onPointerUp={() => { outputDrag.current = null; }} onPointerCancel={() => { outputDrag.current = null; }}>OUTPUT <button aria-label="Close output settings" onClick={closeOutput}>×</button></div>
       <div className="kp-output-tools"><select disabled={recording || rendering} aria-label="Canvas format" value={canvasFormat} onChange={e => setCanvasFormat(e.target.value as CanvasFormat)}><option value="screen">SCREEN</option><option value="square">SQUARE · 1:1</option><option value="landscape">LANDSCAPE · 16:9</option><option value="portrait">PORTRAIT · 9:16</option><option value="custom">CUSTOM</option></select>{canvasFormat === "custom" ? <><input disabled={recording || rendering} aria-label="Custom canvas width" type="number" min={64} max={4096} defaultValue={customWidth} onBlur={e => { const n = Math.round(Number(e.target.value)); if (n >= 64 && n <= 4096) setCustomWidth(n); else e.target.value = String(customWidth); }} /><span>×</span><input disabled={recording || rendering} aria-label="Custom canvas height" type="number" min={64} max={4096} defaultValue={customHeight} onBlur={e => { const n = Math.round(Number(e.target.value)); if (n >= 64 && n <= 4096) setCustomHeight(n); else e.target.value = String(customHeight); }} /></> : <select disabled={recording || rendering} aria-label="Output resolution" value={outputResolution} onChange={e => setOutputResolution(Number(e.target.value))}><option value={0}>SCREEN SIZE</option><option value={1024}>1K · 1024</option><option value={1920}>HD · 1920</option><option value={2048}>2K · 2048</option><option value={4096}>4K · 4096</option></select>}<button aria-label="Inspect native pixels" aria-pressed={nativeView} onClick={() => { setNativeView(v => !v); stage.current?.scrollTo(0, 0); }}>{nativeView ? "FIT" : "100%"}</button><span className="kp-output-dimensions">{nativeSize.width} × {nativeSize.height}</span><button onClick={exportPNG} disabled={pngBusy || rendering}>{pngBusy ? "SAVING…" : "PNG ↓"}</button></div>
       <div className="kp-video-tools"><b>VIDEO</b><select aria-label="Recording duration" disabled={recording || rendering} value={recordSeconds} onChange={e => setRecordSeconds(Number(e.target.value))}><option value={5}>5 SECONDS</option><option value={10}>10 SECONDS</option><option value={20}>20 SECONDS</option></select><button disabled={rendering} className={recording ? "is-recording" : ""} onClick={() => recording ? recordingSession.current?.stop() : startRecording()}>{recording ? "STOP & SAVE" : "● RECORD"}</button><select aria-label="Render frame rate" disabled={recording || rendering} value={renderFps} onChange={e => setRenderFps(Number(e.target.value) as 30 | 60)}><option value={30}>RENDER · 30 FPS</option><option value={60}>RENDER · 60 FPS</option></select><button disabled={recording} onClick={() => rendering ? renderAbort.current?.abort() : void startVideoRender()}>{rendering ? "CANCEL RENDER" : "RENDER VIDEO"}</button><span role="status">{rendering ? `RENDERING · ${renderProgress.done} / ${renderProgress.total} frames` : recording ? `${recordElapsed.toFixed(1)} / ${recordSeconds}s` : "Current output size · MP4 / WebM"}</span>{rendering && <progress aria-label="Video render progress" value={renderProgress.done} max={renderProgress.total} />}<p>Record: live capture, 30 fps target. Render: every frame at selected FPS.</p></div>
     </section>}
-    <footer className="kp-footer"><button ref={outputButton} className="kp-output-trigger" aria-expanded={outputOpen} aria-controls="kp-output-window" onClick={() => outputOpen ? closeOutput() : setOutputOpen(true)}>{rendering ? "RENDER · OUTPUT" : recording ? "● REC · OUTPUT" : "OUTPUT"}</button><div className="kp-preset-tools"><select aria-label="Load built-in preset" defaultValue="" onChange={e => { if (e.target.value === "dream") { loadDream(); setPresetMessage("Dream loaded. Undo restores your previous settings."); } const preset = kineticPresets.find(p => p.id === e.target.value); if (preset) { applyPreset(parsePreset(preset.preset)); setPresetMessage(`${preset.name} loaded. Undo restores your previous settings.`); } e.target.value = ""; }}><option value="" disabled>PRESETS</option><option value="dream">Dream</option>{kineticPresets.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select><button onClick={() => presetInput.current?.click()}>IMPORT</button><button onClick={exportPreset}>EXPORT</button><input ref={presetInput} type="file" accept=".json,application/json" aria-label="Import preset file" hidden onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importPreset(file); }} /><span role="status">{presetMessage}</span></div><label>TEXT <textarea aria-label="Text" value={text} onChange={e => setText(e.target.value)} rows={1} /></label><label>BACKGROUND <input aria-label="Background color" type="color" value={bg} onChange={e => setBg(e.target.value)} /></label><button className="kp-bicolour" aria-pressed={bicolour} onClick={() => setBicolour(v => !v)}>BI-COLOUR</button>{bicolour && <label>INK 2 <input aria-label="Second ink color" type="color" value={ink2} onChange={e => setInk2(e.target.value)} /></label>}<label>INK <input aria-label="Ink color" type="color" value={ink} onChange={e => setInk(e.target.value)} /></label></footer>
+    {originEditorOpen && <GlyphOriginEditor origins={glyphOrigins} onChange={setGlyphOrigins} sources={[{ name: "TYPE 1", font, weight: values.weight, text }, { name: "TYPE 2", font: secondType.font, weight: secondType.weight, text: secondType.text }]} step={values.step} mode={samplingMode} onClose={() => setOriginEditorOpen(false)} />}
+    <footer className="kp-footer"><button ref={outputButton} className="kp-output-trigger" aria-expanded={outputOpen} aria-controls="kp-output-window" onClick={() => outputOpen ? closeOutput() : setOutputOpen(true)}>{rendering ? "RENDER · OUTPUT" : recording ? "● REC · OUTPUT" : "OUTPUT"}</button><div className="kp-preset-tools"><select aria-label="Load built-in preset" defaultValue="" onChange={e => { if (e.target.value === "dream") { loadDream(); setPresetMessage("Dream loaded. Undo restores your previous settings."); } const preset = kineticPresets.find(p => p.id === e.target.value); if (preset) { applyPreset(parsePreset(preset.preset)); setPresetMessage(`${preset.name} loaded. Undo restores your previous settings.`); } e.target.value = ""; }}><option value="" disabled>PRESETS</option><option value="dream">Dream</option>{kineticPresets.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select><button onClick={() => presetInput.current?.click()}>IMPORT</button><button onClick={exportPreset}>EXPORT</button><input ref={presetInput} type="file" accept=".json,application/json" aria-label="Import preset file" hidden onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importPreset(file); }} /><span role="status">{presetMessage}</span></div><label>BACKGROUND <input aria-label="Background color" type="color" value={bg} onChange={e => setBg(e.target.value)} /></label><button className="kp-bicolour" aria-pressed={bicolour} onClick={() => setBicolour(v => !v)}>BI-COLOUR</button>{bicolour && <label>INK 2 <input aria-label="Second ink color" type="color" value={ink2} onChange={e => setInk2(e.target.value)} /></label>}<label>INK <input aria-label="Ink color" type="color" value={ink} onChange={e => setInk(e.target.value)} /></label></footer>
   </main>;
 }

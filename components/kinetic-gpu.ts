@@ -1,5 +1,6 @@
+import { svgAtlasLayout } from "./kinetic-svg-quality";
 /** GPU image passes. Typography and cached glyph atlas use browser font rasterisation. */
-export type GPUStamp = { x: number; y: number; px: number; py: number; size: number; glyph?: number };
+export type GPUStamp = { x: number; y: number; px: number; py: number; size: number; scaleX?: number; scaleY?: number; angle?: number };
 export type GPUFrame = { texture: WebGLTexture; framebuffer: WebGLFramebuffer; width: number; height: number };
 export function createKineticGPU() {
   const canvas = document.createElement('canvas');
@@ -23,7 +24,8 @@ layout(location=0) in vec2 corner;
 layout(location=1) in vec2 samplePixel;
 layout(location=2) in vec2 position;
 layout(location=3) in float size;
-layout(location=4) in float glyph;
+layout(location=4) in float rotation;
+layout(location=5) in vec2 instanceScale;
 uniform vec2 atlasGrid;
 uniform vec2 atlasCell;
 uniform float atlasEm;
@@ -34,17 +36,20 @@ uniform vec2 resolution;
 uniform int shape;
 uniform float lineLength;
 uniform float primitiveScale;
+uniform vec2 stampScale;
 flat out vec2 uv;
 out vec2 local;
 out vec2 atlasUV;
 void main(){
- local=corner; uv=vec2((samplePixel.x+0.5)/resolution.x,1.0-(samplePixel.y+0.5)/resolution.y);
+ local=corner; uv=vec2((floor(samplePixel.x)+0.5)/resolution.x,1.0-(floor(samplePixel.y)+0.5)/resolution.y);
  vec2 offset=corner*size;
  if(shape==0||shape==1){local=corner*(1.0+2.0/max(size,1.0));offset=local*size;}
  if(shape==2){float t=lineLength/1.41421356237; float w=max(1.0,size/3.0);local=corner*vec2(1.0+2.0/max(lineLength,1.0),1.0+2.0/w);offset=vec2(local.x*t-local.y*w/1.41421356237,local.x*t+local.y*w/1.41421356237);}
- if(shape==3)offset=(corner+0.5)*primitiveScale;
+ if(shape==3)offset=corner*primitiveScale;
  atlasUV=vec2(0);
  if(shape==4){offset=corner*size*atlasCell/atlasEm;uint rank=texelFetch(accepted,ivec2(gl_InstanceID%acceptedWidth,gl_InstanceID/acceptedWidth),0).r;float index=float((max(rank,1u)-1u)%uint(glyphCount));atlasUV=(vec2(mod(index,atlasGrid.x),floor(index/atlasGrid.x))+corner+0.5)/atlasGrid;}
+ offset*=stampScale*instanceScale;
+ if(shape==4){float c=cos(rotation),s=sin(rotation);offset=vec2(c*offset.x-s*offset.y,s*offset.x+c*offset.y);}
  vec2 pixel=position+offset;
  gl_Position=vec4(pixel/resolution*vec2(2.0,-2.0)+vec2(-1.0,1.0),0.0,1.0);
 }`;
@@ -120,7 +125,7 @@ uniform float threshold;
 layout(location=0) out uint result;
 void main(){ivec2 p=ivec2(gl_FragCoord.xy);int index=p.x+p.y*scanWidth;
 if(index>=count){result=0u;return;}
-if(offset==0){vec2 pixel=texelFetch(positions,p,0).rg;vec2 uv=vec2((pixel.x+0.5)/resolution.x,1.0-(pixel.y+0.5)/resolution.y);result=texture(image,uv).a>=threshold?1u:0u;}
+if(offset==0){vec2 pixel=texelFetch(positions,p,0).rg;vec2 uv=vec2((floor(pixel.x)+0.5)/resolution.x,1.0-(floor(pixel.y)+0.5)/resolution.y);result=texture(image,uv).a>=threshold?1u:0u;}
 else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset;result+=texelFetch(previous,ivec2(other%scanWidth,other/scanWidth),0).r;}}}`;
   let stamps: WebGLProgram, copies: WebGLProgram, feedback: WebGLProgram, scan: WebGLProgram;
   try { stamps=program(vertex,fragment);copies=program(imageVertex,imageFragment);feedback=program(imageVertex,feedbackFragment);scan=program(scanVertex,scanFragment); }
@@ -138,7 +143,7 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
   };
   const bind=(frame:GPUFrame|null)=>{gl.bindFramebuffer(gl.FRAMEBUFFER,frame?.framebuffer || null);gl.viewport(0,0,frame?.width || width,frame?.height || height);};
   const clear=(frame:GPUFrame)=>{bind(frame);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);};
-  const texture=(t:WebGLTexture,unit:number,linear=false)=>{gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.TEXTURE_2D,t);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,linear?gl.LINEAR:gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,linear?gl.LINEAR:gl.NEAREST);};
+  const texture=(t:WebGLTexture,unit:number,linear=false,mipmapped=false)=>{gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.TEXTURE_2D,t);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,mipmapped?gl.LINEAR_MIPMAP_LINEAR:linear?gl.LINEAR:gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,linear?gl.LINEAR:gl.NEAREST);};
   const upload=(image:HTMLCanvasElement,t:WebGLTexture,unit:number,flip=false)=>{texture(t,unit,true);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,flip);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,flip);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image);};
   const uniform=(p:WebGLProgram,name:string)=>gl.getUniformLocation(p,name);
   const imagePass=(input:GPUFrame,placements:number[],output:GPUFrame|null,p=copies,history?:GPUFrame,amount=0,mode=0,opacity=1,rotation=0)=>{
@@ -147,25 +152,36 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
     gl.uniform2f(uniform(p,'resolution'),width,height);
     gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.vertexAttribDivisor(0,0);
     gl.bindBuffer(gl.ARRAY_BUFFER,instances);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(placements),gl.DYNAMIC_DRAW);
-    for(const [location,offset] of [[1,0],[2,8]]){gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,2,gl.FLOAT,false,16,offset);gl.vertexAttribDivisor(location,1);}gl.disableVertexAttribArray(3);gl.disableVertexAttribArray(4);
+    for(const [location,offset] of [[1,0],[2,8]]){gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,2,gl.FLOAT,false,16,offset);gl.vertexAttribDivisor(location,1);}gl.disableVertexAttribArray(3);gl.disableVertexAttribArray(4);gl.disableVertexAttribArray(5);
     gl.drawArraysInstanced(gl.TRIANGLES,0,6,placements.length/4);
   };
   const full=()=>[width/2,height/2,width,height];
   const copy=(input:GPUFrame,key:string)=>{const out=target(key);if(out===input)return out;clear(out);imagePass(input,full(),out);return out;};
   const atlasTexture=makeTexture(),positionsTexture=makeTexture();
   const atlasCanvas=document.createElement('canvas');atlasCanvas.width=1;atlasCanvas.height=1;upload(atlasCanvas,atlasTexture,1);
-  let atlasKey='',atlasColumns=1,atlasRows=1,cellWidth=192,cellHeight=256,atlasEm=128;
+  let atlasSVGImage:HTMLImageElement|null=null;let atlasKey='',atlasColumns=1,atlasRows=1,cellWidth=192,cellHeight=256,atlasEm=128;
   const prepareAtlas=(pattern:string,font:string,weight:number,requestedSize:number)=>{
     const characters=Array.from(pattern || '*');
     const maxTexture=gl.getParameter(gl.MAX_TEXTURE_SIZE) as number;
     const columns=Math.ceil(Math.sqrt(characters.length)),rows=Math.ceil(characters.length/columns);
     const wanted=2 ** Math.ceil(Math.log2(Math.max(128,requestedSize)));
     const em=Math.max(32,Math.min(1024,wanted,2 ** Math.floor(Math.log2(maxTexture / Math.max(columns*2,rows*2)))));
-    const key=JSON.stringify([pattern,font,weight,em]);if(key===atlasKey)return;
+    const key=JSON.stringify([pattern,font,weight,em]);if(key===atlasKey)return;atlasSVGImage=null;
     atlasEm=em;const context=atlasCanvas.getContext('2d')!;context.font=`${weight} ${em}px ${font}`;
     cellWidth=Math.min(Math.floor(maxTexture/columns),Math.max(Math.ceil(em*1.5),...characters.map(char=>Math.ceil(context.measureText(char).width)+Math.ceil(em/8))));cellHeight=Math.ceil(em*2);atlasColumns=Math.ceil(Math.sqrt(characters.length));atlasRows=Math.ceil(characters.length/atlasColumns);
     atlasCanvas.width=cellWidth*atlasColumns;atlasCanvas.height=cellHeight*atlasRows;context.font=`${weight} ${em}px ${font}`;context.fillStyle='#fff';context.textAlign='center';context.textBaseline='middle';
     characters.forEach((char,i)=>context.fillText(char,(i%atlasColumns+.5)*cellWidth,(Math.floor(i/atlasColumns)+.5)*cellHeight));upload(atlasCanvas,atlasTexture,1);atlasKey=key;
+  };
+  const prepareSVG=(image:HTMLImageElement,requestedSize:number)=>{
+    const layout=svgAtlasLayout(requestedSize,gl.getParameter(gl.MAX_TEXTURE_SIZE) as number);
+    // Animated size changes reuse the mask; only grow it when the output actually needs more detail.
+    if(atlasSVGImage===image && cellWidth>=layout.textureSize)return;
+    atlasSVGImage=image;atlasColumns=atlasRows=1;cellWidth=cellHeight=layout.textureSize;atlasEm=layout.contentSize;
+    atlasCanvas.width=atlasCanvas.height=layout.textureSize;
+    const scale=layout.contentSize/Math.max(image.naturalWidth,image.naturalHeight),w=image.naturalWidth*scale,h=image.naturalHeight*scale;
+    const context=atlasCanvas.getContext('2d')!;context.imageSmoothingEnabled=true;context.imageSmoothingQuality='high';
+    context.drawImage(image,(cellWidth-w)/2,(cellHeight-h)/2,w,h);
+    upload(atlasCanvas,atlasTexture,1);gl.generateMipmap(gl.TEXTURE_2D);atlasKey='svg-'+layout.textureSize;
   };
   const accepted=(input:GPUFrame,points:GPUStamp[],threshold:number)=>{
     const sw=Math.min(1024,Math.max(1,points.length)),sh=Math.max(1,Math.ceil(points.length/sw)),positions=new Float32Array(sw*sh*2);
@@ -188,18 +204,26 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
     previous(node:string){return target('previous-'+node);},
     snapshot(node:string,input:GPUFrame){copy(input,'previous-'+node);},
     present(input:GPUFrame){bind(null);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);imagePass(input,full(),null);return canvas;},
-    render(input:GPUFrame,points:GPUStamp[],shape:number,threshold:number,opacity:number,lineLength:number,key:string,mix:number,glyphs?:{pattern:string;font:string;weight:number},primitiveScale=1){
-      let ranks:GPUFrame|undefined;if(glyphs){prepareAtlas(glyphs.pattern,glyphs.font,glyphs.weight,points.reduce((max,p)=>Math.max(max,p.size),128));ranks=accepted(input,points,threshold);}
+    render(input:GPUFrame,points:GPUStamp[],shape:number,threshold:number,opacity:number,lineLength:number,key:string,mix:number,glyphs?:{pattern:string;font:string;weight:number;image?:HTMLImageElement},primitiveScale=1,stampScale:readonly number[]=[1,1]){
+      let ranks:GPUFrame|undefined;if(glyphs){const size=points.reduce((max,p)=>Math.max(max,p.size),128);if(glyphs.image)prepareSVG(glyphs.image,size);else{prepareAtlas(glyphs.pattern,glyphs.font,glyphs.weight,size);ranks=accepted(input,points,threshold);}}
       const out=target(key);clear(out);
       if(mix<1)imagePass(input,full(),out,copies,undefined,0,0,1-mix);
-      gl.useProgram(stamps);bind(out);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);texture(input.texture,0);texture(atlasTexture,1,true);
-      gl.uniform1i(uniform(stamps,'image'),0);gl.uniform1i(uniform(stamps,'atlas'),1);gl.uniform2f(uniform(stamps,'resolution'),width,height);gl.uniform1i(uniform(stamps,'shape'),shape);gl.uniform1f(uniform(stamps,'threshold'),threshold);gl.uniform1f(uniform(stamps,'opacity'),opacity*mix);gl.uniform1f(uniform(stamps,'lineLength'),lineLength);gl.uniform1f(uniform(stamps,'primitiveScale'),primitiveScale);gl.uniform2f(uniform(stamps,'atlasGrid'),atlasColumns,atlasRows);gl.uniform2f(uniform(stamps,'atlasCell'),cellWidth,cellHeight);gl.uniform1f(uniform(stamps,'atlasEm'),atlasEm);
+      gl.useProgram(stamps);bind(out);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);texture(input.texture,0);texture(atlasTexture,1,true,!!glyphs?.image);
+      gl.uniform1i(uniform(stamps,'image'),0);gl.uniform1i(uniform(stamps,'atlas'),1);gl.uniform2f(uniform(stamps,'resolution'),width,height);gl.uniform1i(uniform(stamps,'shape'),shape);gl.uniform1f(uniform(stamps,'threshold'),threshold);gl.uniform1f(uniform(stamps,'opacity'),opacity*mix);gl.uniform1f(uniform(stamps,'lineLength'),lineLength);gl.uniform1f(uniform(stamps,'primitiveScale'),primitiveScale);gl.uniform2f(uniform(stamps,'stampScale'),stampScale[0],stampScale[1]);gl.uniform2f(uniform(stamps,'atlasGrid'),atlasColumns,atlasRows);gl.uniform2f(uniform(stamps,'atlasCell'),cellWidth,cellHeight);gl.uniform1f(uniform(stamps,'atlasEm'),atlasEm);
       const scanFrame=ranks || target('scan-empty',1,1,true);texture(scanFrame.texture,2);gl.uniform1i(uniform(stamps,'accepted'),2);gl.uniform1i(uniform(stamps,'acceptedWidth'),scanFrame.width);gl.uniform1i(uniform(stamps,'glyphCount'),Math.max(1,Array.from(glyphs?.pattern || '*').length));bind(out);
-      if(data.length<points.length*6)data=new Float32Array(points.length*6);points.forEach((p,i)=>{const j=i*6;data[j]=p.x;data[j+1]=p.y;data[j+2]=p.px;data[j+3]=p.py;data[j+4]=p.size;data[j+5]=0;});
-      gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.vertexAttribDivisor(0,0);gl.bindBuffer(gl.ARRAY_BUFFER,instances);gl.bufferData(gl.ARRAY_BUFFER,data.subarray(0,points.length*6),gl.DYNAMIC_DRAW);
-      for(const [location,count,offset] of [[1,2,0],[2,2,8],[3,1,16],[4,1,20]]){gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,count,gl.FLOAT,false,24,offset);gl.vertexAttribDivisor(location,1);}gl.drawArraysInstanced(gl.TRIANGLES,0,6,points.length);return out;
+      if(data.length<points.length*8)data=new Float32Array(points.length*8);points.forEach((p,i)=>{const j=i*8;data[j]=p.x;data[j+1]=p.y;data[j+2]=p.px;data[j+3]=p.py;data[j+4]=p.size;data[j+5]=p.angle ?? 0;data[j+6]=p.scaleX ?? 1;data[j+7]=p.scaleY ?? 1;});
+      gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.vertexAttribDivisor(0,0);gl.bindBuffer(gl.ARRAY_BUFFER,instances);gl.bufferData(gl.ARRAY_BUFFER,data.subarray(0,points.length*8),gl.DYNAMIC_DRAW);
+      for(const [location,count,offset] of [[1,2,0],[2,2,8],[3,1,16],[4,1,20],[5,2,24]]){gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,count,gl.FLOAT,false,32,offset);gl.vertexAttribDivisor(location,1);}gl.drawArraysInstanced(gl.TRIANGLES,0,6,points.length);return out;
     },
-    repeat(input:GPUFrame,placements:number[],key:string,rotation=0){const out=target(key);clear(out);imagePass(input,placements,out,copies,undefined,0,0,1,rotation);return out;},
+    compose(base:GPUFrame,overlay:GPUFrame,key='canvas-composite'){const out=target(key);clear(out);imagePass(base,full(),out);imagePass(overlay,full(),out);return out;},
+    repeat(input:GPUFrame,placements:number[],key:string,rotation=0,mode=0){
+      const out=target(key);clear(out);
+      if(mode===0){imagePass(input,placements,out,copies,undefined,0,0,1,rotation);return out;}
+      // Compose transparent copies with the same premultiplied blend math as feedback.
+      const stamp=target('repeat-stamp'),scratch=target('repeat-scratch');let accumulated=out,next=scratch;
+      for(let i=0;i<placements.length;i+=4){clear(stamp);imagePass(input,placements.slice(i,i+4),stamp,copies,undefined,0,0,1,rotation);clear(next);imagePass(accumulated,full(),next,feedback,stamp,1,mode);const swap=accumulated;accumulated=next;next=swap;}
+      return accumulated;
+    },
     feedback(input:GPUFrame,amount:number,mode:number,due:boolean,key:string){const out=target(key);clear(out);imagePass(input,full(),out,feedback,target('history'),amount,mode);if(due)copy(out,'history');return out;},
     dispose(){framebuffers.forEach(f=>gl.deleteFramebuffer(f));textures.forEach(t=>gl.deleteTexture(t));buffers.forEach(b=>gl.deleteBuffer(b));programs.forEach(p=>gl.deleteProgram(p));shaders.forEach(s=>gl.deleteShader(s));}
   };
