@@ -90,3 +90,13 @@
 .kp-type-tab .kp-video-ports{width:100%;margin:0}
 .kp-type-panel[hidden]{display:none}
 .kp-type-panel{border:0}
+
+.kp-image-layers{border-top:1px solid #343434;padding-top:10px;min-width:0}
+.kp-image-layers summary{cursor:pointer;font-size:10px;letter-spacing:.08em;padding:5px 0}
+.kp-image-layers>button{margin:8px 0}
+.kp-image-stack{display:grid;gap:4px;margin:8px 0}
+.kp-image-stack>b{font-size:9px;opacity:.6}
+.kp-image-row{display:flex;gap:3px;min-width:0}
+.kp-image-row>button:first-child{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
+.kp-image-row .selected{background:#343434;color:#fff}
+.kp-image-controls{display:grid;gap:8px;margin-top:12px}
