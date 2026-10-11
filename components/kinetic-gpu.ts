@@ -1,5 +1,5 @@
 /** GPU image passes. Typography and cached glyph atlas use browser font rasterisation. */
-export type GPUStamp = { x: number; y: number; px: number; py: number; size: number; glyph?: number };
+export type GPUStamp = { x: number; y: number; px: number; py: number; size: number; scaleX?: number; scaleY?: number; glyph?: number };
 export type GPUFrame = { texture: WebGLTexture; framebuffer: WebGLFramebuffer; width: number; height: number };
 export function createKineticGPU() {
   const canvas = document.createElement('canvas');
@@ -24,6 +24,7 @@ layout(location=1) in vec2 samplePixel;
 layout(location=2) in vec2 position;
 layout(location=3) in float size;
 layout(location=4) in float glyph;
+layout(location=5) in vec2 instanceScale;
 uniform vec2 atlasGrid;
 uniform vec2 atlasCell;
 uniform float atlasEm;
@@ -46,7 +47,7 @@ void main(){
  if(shape==3)offset=corner*primitiveScale;
  atlasUV=vec2(0);
  if(shape==4){offset=corner*size*atlasCell/atlasEm;uint rank=texelFetch(accepted,ivec2(gl_InstanceID%acceptedWidth,gl_InstanceID/acceptedWidth),0).r;float index=float((max(rank,1u)-1u)%uint(glyphCount));atlasUV=(vec2(mod(index,atlasGrid.x),floor(index/atlasGrid.x))+corner+0.5)/atlasGrid;}
- offset*=stampScale;
+ offset*=stampScale*instanceScale;
  vec2 pixel=position+offset;
  gl_Position=vec4(pixel/resolution*vec2(2.0,-2.0)+vec2(-1.0,1.0),0.0,1.0);
 }`;
@@ -149,7 +150,7 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
     gl.uniform2f(uniform(p,'resolution'),width,height);
     gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.vertexAttribDivisor(0,0);
     gl.bindBuffer(gl.ARRAY_BUFFER,instances);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(placements),gl.DYNAMIC_DRAW);
-    for(const [location,offset] of [[1,0],[2,8]]){gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,2,gl.FLOAT,false,16,offset);gl.vertexAttribDivisor(location,1);}gl.disableVertexAttribArray(3);gl.disableVertexAttribArray(4);
+    for(const [location,offset] of [[1,0],[2,8]]){gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,2,gl.FLOAT,false,16,offset);gl.vertexAttribDivisor(location,1);}gl.disableVertexAttribArray(3);gl.disableVertexAttribArray(4);gl.disableVertexAttribArray(5);
     gl.drawArraysInstanced(gl.TRIANGLES,0,6,placements.length/4);
   };
   const full=()=>[width/2,height/2,width,height];
@@ -197,9 +198,9 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
       gl.useProgram(stamps);bind(out);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);texture(input.texture,0);texture(atlasTexture,1,true);
       gl.uniform1i(uniform(stamps,'image'),0);gl.uniform1i(uniform(stamps,'atlas'),1);gl.uniform2f(uniform(stamps,'resolution'),width,height);gl.uniform1i(uniform(stamps,'shape'),shape);gl.uniform1f(uniform(stamps,'threshold'),threshold);gl.uniform1f(uniform(stamps,'opacity'),opacity*mix);gl.uniform1f(uniform(stamps,'lineLength'),lineLength);gl.uniform1f(uniform(stamps,'primitiveScale'),primitiveScale);gl.uniform2f(uniform(stamps,'stampScale'),stampScale[0],stampScale[1]);gl.uniform2f(uniform(stamps,'atlasGrid'),atlasColumns,atlasRows);gl.uniform2f(uniform(stamps,'atlasCell'),cellWidth,cellHeight);gl.uniform1f(uniform(stamps,'atlasEm'),atlasEm);
       const scanFrame=ranks || target('scan-empty',1,1,true);texture(scanFrame.texture,2);gl.uniform1i(uniform(stamps,'accepted'),2);gl.uniform1i(uniform(stamps,'acceptedWidth'),scanFrame.width);gl.uniform1i(uniform(stamps,'glyphCount'),Math.max(1,Array.from(glyphs?.pattern || '*').length));bind(out);
-      if(data.length<points.length*6)data=new Float32Array(points.length*6);points.forEach((p,i)=>{const j=i*6;data[j]=p.x;data[j+1]=p.y;data[j+2]=p.px;data[j+3]=p.py;data[j+4]=p.size;data[j+5]=0;});
-      gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.vertexAttribDivisor(0,0);gl.bindBuffer(gl.ARRAY_BUFFER,instances);gl.bufferData(gl.ARRAY_BUFFER,data.subarray(0,points.length*6),gl.DYNAMIC_DRAW);
-      for(const [location,count,offset] of [[1,2,0],[2,2,8],[3,1,16],[4,1,20]]){gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,count,gl.FLOAT,false,24,offset);gl.vertexAttribDivisor(location,1);}gl.drawArraysInstanced(gl.TRIANGLES,0,6,points.length);return out;
+      if(data.length<points.length*8)data=new Float32Array(points.length*8);points.forEach((p,i)=>{const j=i*8;data[j]=p.x;data[j+1]=p.y;data[j+2]=p.px;data[j+3]=p.py;data[j+4]=p.size;data[j+5]=0;data[j+6]=p.scaleX ?? 1;data[j+7]=p.scaleY ?? 1;});
+      gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.vertexAttribDivisor(0,0);gl.bindBuffer(gl.ARRAY_BUFFER,instances);gl.bufferData(gl.ARRAY_BUFFER,data.subarray(0,points.length*8),gl.DYNAMIC_DRAW);
+      for(const [location,count,offset] of [[1,2,0],[2,2,8],[3,1,16],[4,1,20],[5,2,24]]){gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,count,gl.FLOAT,false,32,offset);gl.vertexAttribDivisor(location,1);}gl.drawArraysInstanced(gl.TRIANGLES,0,6,points.length);return out;
     },
     repeat(input:GPUFrame,placements:number[],key:string,rotation=0,mode=0){
       const out=target(key);clear(out);

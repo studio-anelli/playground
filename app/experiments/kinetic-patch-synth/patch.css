@@ -79,3 +79,5 @@
 .kp-footer textarea{white-space:pre-wrap;min-height:36px;max-height:100px;overflow:auto;resize:vertical;line-height:1.25}
 
 .kp-combined-module{border:1px solid #3a3d38;padding:8px;display:flex;flex-direction:column;gap:16px}.kp-combined-module>.kp-title{padding:0;margin:0;font-size:9px;color:#83d8b4}.kp-combined-module>.kp-module{margin:0}.kp-single-module{min-width:0}.kp-thickness{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+
+.kp-module textarea{box-sizing:border-box;width:100%;min-height:42px;background:#171816;color:#e4e7df;border:1px solid #3a3d38;padding:6px;resize:vertical;font:inherit;line-height:1.3}

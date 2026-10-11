@@ -1,5 +1,5 @@
-export type VideoSource = 'typography' | 'sampling' | 'grid' | 'vertex' | 'feedback';
-export type VideoModule = Exclude<VideoSource, 'typography'>;
+export type VideoSource = 'typography' | 'typography2' | 'sampling' | 'grid' | 'vertex' | 'feedback';
+export type VideoModule = Exclude<VideoSource, 'typography' | 'typography2'>;
 export type VideoTarget = VideoModule | 'canvas';
 export type VideoPatch = { source: VideoSource; target: VideoTarget };
 export const videoModules: readonly VideoModule[] = ['sampling', 'grid', 'vertex', 'feedback'];
@@ -7,7 +7,7 @@ export const videoModules: readonly VideoModule[] = ['sampling', 'grid', 'vertex
 export function readVideoChain(patches: readonly VideoPatch[]): VideoModule[] | null {
   if (!patches.length) return null;
   const chain: VideoModule[] = [], seen = new Set<VideoSource>();
-  let source: VideoSource = 'typography';
+  let source: VideoSource = patches.some(p => p.source === 'typography') ? 'typography' : 'typography2';
   while (!seen.has(source)) {
     seen.add(source);
     const outgoing = patches.filter(p => p.source === source);
@@ -18,9 +18,9 @@ export function readVideoChain(patches: readonly VideoPatch[]): VideoModule[] | 
   }
   return null;
 }
-export function writeVideoChain(chain: readonly VideoModule[]): VideoPatch[] {
+export function writeVideoChain(chain: readonly VideoModule[], source: 'typography' | 'typography2' = 'typography'): VideoPatch[] {
   if (new Set(chain).size !== chain.length || chain.some(m => !videoModules.includes(m))) throw new Error('Invalid video chain.');
-  const sources: VideoSource[] = ['typography', ...chain];
+  const sources: VideoSource[] = [source, ...chain];
   return sources.map((source, i) => ({ source, target: chain[i] || 'canvas' }));
 }
 export function moveVideoModule(chain: readonly VideoModule[], from: number, to: number): VideoModule[] {
