@@ -1,3 +1,4 @@
+import { svgSourceResolution } from "./kinetic-svg-quality";
 export type ImportedFont = { id: string; name: string; data: string };
 export type VertexSVG = { name: string; svg: string };
 export const fontFamily = (id: string) => `"ktic-font-${id}", sans-serif`;
@@ -32,8 +33,11 @@ export function normalizeSVG(source: string) {
   const dimensions = box || [0, 0, parseFloat(root.getAttribute("width") || ""), parseFloat(root.getAttribute("height") || "")];
   if (dimensions.length !== 4 || dimensions.some(n => !Number.isFinite(n)) || dimensions[2] <= 0 || dimensions[3] <= 0) throw new Error("SVG needs a valid viewBox or width and height.");
   root.setAttribute("viewBox", dimensions.join(" ")); root.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-  const scale = 1024 / Math.max(dimensions[2], dimensions[3]);
-  root.setAttribute("width", String(Math.max(1, Math.round(dimensions[2] * scale)))); root.setAttribute("height", String(Math.max(1, Math.round(dimensions[3] * scale))));
+  const scale = svgSourceResolution / Math.max(dimensions[2], dimensions[3]);
+  const width = Math.max(1, Math.round(dimensions[2] * scale)), height = Math.max(1, Math.round(dimensions[3] * scale));
+  root.setAttribute("width", String(width)); root.setAttribute("height", String(height));
+  // Exported inline CSS must not silently reduce the intrinsic raster resolution.
+  root.setAttribute("style", `${root.getAttribute("style") || ""};width:${width}px!important;height:${height}px!important;`);
   return new XMLSerializer().serializeToString(root);
 }
 export async function decodeSVG(svg: string) {

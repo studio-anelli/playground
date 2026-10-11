@@ -9,6 +9,7 @@ export { waveValue } from "./kinetic-waves";
 import { connectVideoPatch, readVideoChain, writeVideoChain, moveVideoModule, videoModules, type VideoSource, type VideoTarget, type VideoPatch, type VideoModule } from "./kinetic-video-chain";
 import { drawImageLayers, decodeLayerImage, imageByteLimit, imageLimit, type ImageLayer } from "./kinetic-image-layers";
 import { fontFamily, detectFontFormat, validFontData, validateSVG, decodeSVG, loadImportedFont, type ImportedFont, type VertexSVG } from "./kinetic-custom-assets";
+import { svgRasterSize } from "./kinetic-svg-quality";
 import { OpticalKerning } from "./kinetic-optical-kerning";
 import { spacedSites } from "./kinetic-spacing";
 import { RasterCache } from "./kinetic-raster-cache";
@@ -322,11 +323,11 @@ export default function KineticPatchSynth() {
     const svgTints = new Map<string, HTMLCanvasElement>(); let svgTintSource = "";
     const tintedSVG = (svg: string, colour: string, size: number) => {
       if (svgTintSource !== svg) { svgTints.clear(); svgTintSource = svg; }
-      const em = Math.min(2048, 2 ** Math.ceil(Math.log2(Math.max(8, size))));
+      const em = svgRasterSize(size);
       const key = colour + "|" + em, cached = svgTints.get(key); if (cached) return cached;
       const image = decodedSVGs.current.get(svg); if (!image) return null;
       const mask = document.createElement("canvas"); const scale = em / Math.max(image.naturalWidth, image.naturalHeight); mask.width = Math.max(1, Math.round(image.naturalWidth * scale)); mask.height = Math.max(1, Math.round(image.naturalHeight * scale));
-      const mc = mask.getContext("2d")!; mc.drawImage(image, 0, 0, mask.width, mask.height); mc.globalCompositeOperation = "source-in"; mc.fillStyle = colour; mc.fillRect(0, 0, mask.width, mask.height);
+      const mc = mask.getContext("2d")!; mc.imageSmoothingEnabled = true; mc.imageSmoothingQuality = "high"; mc.drawImage(image, 0, 0, mask.width, mask.height); mc.globalCompositeOperation = "source-in"; mc.fillStyle = colour; mc.fillRect(0, 0, mask.width, mask.height);
       if (svgTints.size >= 16) svgTints.delete(svgTints.keys().next().value!); svgTints.set(key, mask); return mask;
     };
     let gpu = createKineticGPU();
@@ -599,7 +600,7 @@ export default function KineticPatchSynth() {
               points.push({ x, y, px, py, size: Math.max(1, r), scaleX: node === "sampling" && !yOnly ? (g?.em || typographyEm) / typographyEm : 1, scaleY: node === "sampling" && !xOnly ? (g?.em || typographyEm) / typographyEm : 1 });
             }
             if (node === "sampling") sampleSites.set(node, sites);
-            out = renderer.render(input, points, glyphGPU ? 4 : xOnly || yOnly ? 3 : node === "vertex" && s.vertex === "square" ? 1 : node === "vertex" && s.vertex === "line" ? 2 : 0, inherited ? .00001 : s.manual.threshold, node === "sampling" ? s.manual.opacity : 1, s.manual.lineLength * pixelScale, node, node === "vertex" ? mod.vertexMix : 1, glyphGPU ? { pattern: s.vertex === "custom" ? "*" : s.glyphPattern, font: glyphFont, weight: glyphWeight, image: s.vertex === "custom" && s.vertexSVG ? decodedSVGs.current.get(s.vertexSVG.svg) : undefined, imageKey: s.vertexSVG?.svg } : undefined, pixelScale, node === "sampling" ? [yOnly ? 1 : s.samplingThicknessX / 100 * typographyEm / (xOnly ? pixelScale : 2.6 * pixelScale), xOnly ? 1 : s.samplingThicknessY / 100 * typographyEm / (yOnly ? pixelScale : 2.6 * pixelScale)] : [1, 1]);
+            out = renderer.render(input, points, glyphGPU ? 4 : xOnly || yOnly ? 3 : node === "vertex" && s.vertex === "square" ? 1 : node === "vertex" && s.vertex === "line" ? 2 : 0, inherited ? .00001 : s.manual.threshold, node === "sampling" ? s.manual.opacity : 1, s.manual.lineLength * pixelScale, node, node === "vertex" ? mod.vertexMix : 1, glyphGPU ? { pattern: s.vertex === "custom" ? "*" : s.glyphPattern, font: glyphFont, weight: glyphWeight, image: s.vertex === "custom" && s.vertexSVG ? decodedSVGs.current.get(s.vertexSVG.svg) : undefined } : undefined, pixelScale, node === "sampling" ? [yOnly ? 1 : s.samplingThicknessX / 100 * typographyEm / (xOnly ? pixelScale : 2.6 * pixelScale), xOnly ? 1 : s.samplingThicknessY / 100 * typographyEm / (yOnly ? pixelScale : 2.6 * pixelScale)] : [1, 1]);
           }
           visiting.delete(node); resolved.set(node, out); return out;
         };
@@ -686,7 +687,7 @@ export default function KineticPatchSynth() {
               if (node === "vertex" && r <= 0) continue;
               oc.beginPath();
               if (xOnly || yOnly) { const width = yOnly ? pixelScale : s.samplingThicknessX / 100 * (g?.em || typographyEm), height = xOnly ? pixelScale : s.samplingThicknessY / 100 * (g?.em || typographyEm); oc.fillRect(px - width / 2, py - height / 2, width, height); }
-              else if (node === "vertex" && s.vertex === "custom" && s.vertexSVG) { const stamp = tintedSVG(s.vertexSVG.svg, String(oc.fillStyle), r); if (stamp) { const scale = r / Math.max(stamp.width, stamp.height), w = stamp.width * scale, h = stamp.height * scale; oc.drawImage(stamp, px - w / 2, py - h / 2, w, h); } }
+              else if (node === "vertex" && s.vertex === "custom" && s.vertexSVG) { const stamp = tintedSVG(s.vertexSVG.svg, String(oc.fillStyle), r); if (stamp) { const scale = r / Math.max(stamp.width, stamp.height), w = stamp.width * scale, h = stamp.height * scale; oc.imageSmoothingEnabled = true; oc.imageSmoothingQuality = "high"; oc.drawImage(stamp, px - w / 2, py - h / 2, w, h); } }
               else if (node === "vertex" && s.vertex === "glyph") { oc.font = `${glyphWeight} ${Math.max(1, r)}px ${glyphFont}`; oc.textAlign = "center"; oc.textBaseline = "middle"; oc.fillText(characters[glyphIndex++ % characters.length], px, py); }
               else if (node === "vertex" && s.vertex === "square") oc.fillRect(px - r / 2, py - r / 2, r, r);
               else if (node === "vertex" && s.vertex === "line") { oc.lineWidth = Math.max(1, r / 3); const len = s.manual.lineLength * pixelScale / (2 * Math.SQRT2); oc.moveTo(px - len, py - len); oc.lineTo(px + len, py + len); oc.stroke(); }

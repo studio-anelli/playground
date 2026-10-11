@@ -1,3 +1,4 @@
+import { svgAtlasLayout } from "./kinetic-svg-quality";
 /** GPU image passes. Typography and cached glyph atlas use browser font rasterisation. */
 export type GPUStamp = { x: number; y: number; px: number; py: number; size: number; scaleX?: number; scaleY?: number; glyph?: number };
 export type GPUFrame = { texture: WebGLTexture; framebuffer: WebGLFramebuffer; width: number; height: number };
@@ -141,7 +142,7 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
   };
   const bind=(frame:GPUFrame|null)=>{gl.bindFramebuffer(gl.FRAMEBUFFER,frame?.framebuffer || null);gl.viewport(0,0,frame?.width || width,frame?.height || height);};
   const clear=(frame:GPUFrame)=>{bind(frame);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);};
-  const texture=(t:WebGLTexture,unit:number,linear=false)=>{gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.TEXTURE_2D,t);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,linear?gl.LINEAR:gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,linear?gl.LINEAR:gl.NEAREST);};
+  const texture=(t:WebGLTexture,unit:number,linear=false,mipmapped=false)=>{gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.TEXTURE_2D,t);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,mipmapped?gl.LINEAR_MIPMAP_LINEAR:linear?gl.LINEAR:gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,linear?gl.LINEAR:gl.NEAREST);};
   const upload=(image:HTMLCanvasElement,t:WebGLTexture,unit:number,flip=false)=>{texture(t,unit,true);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,flip);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,flip);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image);};
   const uniform=(p:WebGLProgram,name:string)=>gl.getUniformLocation(p,name);
   const imagePass=(input:GPUFrame,placements:number[],output:GPUFrame|null,p=copies,history?:GPUFrame,amount=0,mode=0,opacity=1,rotation=0)=>{
@@ -170,12 +171,16 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
     atlasCanvas.width=cellWidth*atlasColumns;atlasCanvas.height=cellHeight*atlasRows;context.font=`${weight} ${em}px ${font}`;context.fillStyle='#fff';context.textAlign='center';context.textBaseline='middle';
     characters.forEach((char,i)=>context.fillText(char,(i%atlasColumns+.5)*cellWidth,(Math.floor(i/atlasColumns)+.5)*cellHeight));upload(atlasCanvas,atlasTexture,1);atlasKey=key;
   };
-  const prepareSVG=(image:HTMLImageElement,key:string,requestedSize:number)=>{
-    const em=Math.min(2048,gl.getParameter(gl.MAX_TEXTURE_SIZE) as number,2 ** Math.ceil(Math.log2(Math.max(128,requestedSize))));
-    const nextKey='svg-'+em;if(nextKey===atlasKey && atlasSVGImage===image)return;atlasSVGImage=image;
-    atlasColumns=atlasRows=1;cellWidth=cellHeight=atlasEm=em;atlasCanvas.width=atlasCanvas.height=em;
-    const scale=em/Math.max(image.naturalWidth,image.naturalHeight),w=image.naturalWidth*scale,h=image.naturalHeight*scale;
-    atlasCanvas.getContext('2d')!.drawImage(image,(em-w)/2,(em-h)/2,w,h);upload(atlasCanvas,atlasTexture,1);atlasKey=nextKey;
+  const prepareSVG=(image:HTMLImageElement,requestedSize:number)=>{
+    const layout=svgAtlasLayout(requestedSize,gl.getParameter(gl.MAX_TEXTURE_SIZE) as number);
+    // Animated size changes reuse the mask; only grow it when the output actually needs more detail.
+    if(atlasSVGImage===image && cellWidth>=layout.textureSize)return;
+    atlasSVGImage=image;atlasColumns=atlasRows=1;cellWidth=cellHeight=layout.textureSize;atlasEm=layout.contentSize;
+    atlasCanvas.width=atlasCanvas.height=layout.textureSize;
+    const scale=layout.contentSize/Math.max(image.naturalWidth,image.naturalHeight),w=image.naturalWidth*scale,h=image.naturalHeight*scale;
+    const context=atlasCanvas.getContext('2d')!;context.imageSmoothingEnabled=true;context.imageSmoothingQuality='high';
+    context.drawImage(image,(cellWidth-w)/2,(cellHeight-h)/2,w,h);
+    upload(atlasCanvas,atlasTexture,1);gl.generateMipmap(gl.TEXTURE_2D);atlasKey='svg-'+layout.textureSize;
   };
   const accepted=(input:GPUFrame,points:GPUStamp[],threshold:number)=>{
     const sw=Math.min(1024,Math.max(1,points.length)),sh=Math.max(1,Math.ceil(points.length/sw)),positions=new Float32Array(sw*sh*2);
@@ -198,11 +203,11 @@ else {result=texelFetch(previous,p,0).r;if(index>=offset){int other=index-offset
     previous(node:string){return target('previous-'+node);},
     snapshot(node:string,input:GPUFrame){copy(input,'previous-'+node);},
     present(input:GPUFrame){bind(null);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);imagePass(input,full(),null);return canvas;},
-    render(input:GPUFrame,points:GPUStamp[],shape:number,threshold:number,opacity:number,lineLength:number,key:string,mix:number,glyphs?:{pattern:string;font:string;weight:number;image?:HTMLImageElement;imageKey?:string},primitiveScale=1,stampScale:readonly number[]=[1,1]){
-      let ranks:GPUFrame|undefined;if(glyphs){const size=points.reduce((max,p)=>Math.max(max,p.size),128);if(glyphs.image)prepareSVG(glyphs.image,glyphs.imageKey || "",size);else{prepareAtlas(glyphs.pattern,glyphs.font,glyphs.weight,size);ranks=accepted(input,points,threshold);}}
+    render(input:GPUFrame,points:GPUStamp[],shape:number,threshold:number,opacity:number,lineLength:number,key:string,mix:number,glyphs?:{pattern:string;font:string;weight:number;image?:HTMLImageElement},primitiveScale=1,stampScale:readonly number[]=[1,1]){
+      let ranks:GPUFrame|undefined;if(glyphs){const size=points.reduce((max,p)=>Math.max(max,p.size),128);if(glyphs.image)prepareSVG(glyphs.image,size);else{prepareAtlas(glyphs.pattern,glyphs.font,glyphs.weight,size);ranks=accepted(input,points,threshold);}}
       const out=target(key);clear(out);
       if(mix<1)imagePass(input,full(),out,copies,undefined,0,0,1-mix);
-      gl.useProgram(stamps);bind(out);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);texture(input.texture,0);texture(atlasTexture,1,true);
+      gl.useProgram(stamps);bind(out);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);texture(input.texture,0);texture(atlasTexture,1,true,!!glyphs?.image);
       gl.uniform1i(uniform(stamps,'image'),0);gl.uniform1i(uniform(stamps,'atlas'),1);gl.uniform2f(uniform(stamps,'resolution'),width,height);gl.uniform1i(uniform(stamps,'shape'),shape);gl.uniform1f(uniform(stamps,'threshold'),threshold);gl.uniform1f(uniform(stamps,'opacity'),opacity*mix);gl.uniform1f(uniform(stamps,'lineLength'),lineLength);gl.uniform1f(uniform(stamps,'primitiveScale'),primitiveScale);gl.uniform2f(uniform(stamps,'stampScale'),stampScale[0],stampScale[1]);gl.uniform2f(uniform(stamps,'atlasGrid'),atlasColumns,atlasRows);gl.uniform2f(uniform(stamps,'atlasCell'),cellWidth,cellHeight);gl.uniform1f(uniform(stamps,'atlasEm'),atlasEm);
       const scanFrame=ranks || target('scan-empty',1,1,true);texture(scanFrame.texture,2);gl.uniform1i(uniform(stamps,'accepted'),2);gl.uniform1i(uniform(stamps,'acceptedWidth'),scanFrame.width);gl.uniform1i(uniform(stamps,'glyphCount'),Math.max(1,Array.from(glyphs?.pattern || '*').length));bind(out);
       if(data.length<points.length*8)data=new Float32Array(points.length*8);points.forEach((p,i)=>{const j=i*8;data[j]=p.x;data[j+1]=p.y;data[j+2]=p.px;data[j+3]=p.py;data[j+4]=p.size;data[j+5]=0;data[j+6]=p.scaleX ?? 1;data[j+7]=p.scaleY ?? 1;});
