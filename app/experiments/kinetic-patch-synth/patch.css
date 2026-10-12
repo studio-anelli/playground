@@ -156,3 +156,45 @@
 .kp [data-tooltip]:hover::after{opacity:1;visibility:visible;transition-delay:2s}
 .kp [data-tooltip]:focus-visible::after,.kp-knob-control:focus-within>[data-tooltip]::after,.kp-video-ports label:focus-within>[data-tooltip]::after{opacity:1;visibility:visible;transition-delay:0s}
 .kp-icon-heading{width:max-content;max-width:100%}
+
+/* Use one spacing rhythm instead of flex wrapping individual module controls. */
+.kp-module{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;padding:12px 6px;align-content:start;align-items:start}
+.kp-modulehead{width:100%;min-height:24px;margin:0;padding:0}
+.kp-modulehead h2{line-height:1.3}
+.kp-modulegrid,.kp-combined-module{gap:12px}
+.kp-module>select,.kp-module>textarea,.kp-module>.kp-asset-tools,.kp-module>.kp-glyph-input{width:100%;margin:0;min-width:0}
+.kp-module>select,.kp-type-tab button{min-height:24px}
+.kp-video-ports{width:100%;min-height:24px;align-items:center;gap:12px;padding:0;margin:0}
+.kp-video-ports label{gap:5px}
+.kp-knob-row{margin:0;gap:8px 4px;align-items:start}
+.kp-knob-row>.kp-control,.kp-knob-row>.kp-knob-control{padding-top:18px}
+.kp-knob-row .kp-knob-control>span{height:22px;min-height:22px;display:flex;align-items:center;justify-content:center;line-height:10px;margin:0 0 3px}
+.kp-knob-row .kp-knob-wrap{gap:3px}
+.kp-knob-row .kp-knob-number{height:14px;line-height:14px}
+.kp .kp-thickness-link{justify-self:end;width:28px;min-height:24px;margin:0}
+.kp-module-sampling:has(>.kp-thickness-link){grid-template-columns:minmax(0,1fr) 28px;column-gap:6px}
+.kp-module-sampling:has(>.kp-thickness-link)>*{grid-column:1/-1}
+.kp-module-sampling:has(>.kp-thickness-link)>select{grid-column:1}
+.kp-module-sampling:has(>.kp-thickness-link)>.kp-thickness-link{grid-column:2}
+.kp-module>.kp-knob-control{width:100%;max-width:80px;justify-self:start;padding-top:8px}
+.kp-module>.kp-knob-control>span{min-height:22px;line-height:11px;display:flex;align-items:center;justify-content:center;margin-bottom:3px}
+.kp-type-tabs{padding:12px 6px}
+.kp-type-tablist,.kp-font-manager{padding:0}
+.kp-type-tablist{gap:8px;margin-bottom:8px}
+.kp-type-panel{padding:8px 0 0}
+.kp-type-tab{gap:4px;align-content:start}
+.kp-type-tab .kp-video-ports{min-height:24px}
+.kp-font-manager summary{padding:4px 0;min-height:24px}
+.kp-shared-sampling{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 4px;padding:12px 4px;margin-bottom:12px;align-items:start}
+.kp-shared-sampling>.kp-title,.kp-shared-sampling>.kp-origin-trigger{grid-column:1/-1;margin:0}
+.kp-shared-sampling>.kp-control{position:relative;display:block;padding-top:18px;margin:0;min-width:0}
+.kp-shared-sampling>.kp-control>.kp-socket{position:absolute;top:0;left:calc(50% - 6.5px);width:13px;height:13px}
+.kp-shared-sampling>.kp-knob-control{padding-top:18px}
+.kp-shared-sampling .kp-knob-control>span{height:22px;display:flex;align-items:center;justify-content:center;margin-bottom:3px}
+.kp-shared-sampling .kp-knob-number{max-width:100%}
+.kp-wave{padding:12px 4px}
+.kp-wavehead{min-height:24px;margin-bottom:8px;align-items:center}
+.kp-wavecontrols{gap:8px 4px}
+.kp-wavecontrols .kp-knob-control>span{min-height:20px;display:flex;align-items:center;justify-content:center}
+.kp-feedback-module{margin-top:12px;border:0;padding:12px 4px}
+@media(max-width:800px){.kp-module{padding:10px 4px}.kp-type-tabs{padding:10px 4px}}
