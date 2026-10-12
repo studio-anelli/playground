@@ -267,3 +267,9 @@
 .kp-wave-timing{margin:0}
 .kp-wave:has(.kp-wave-body[hidden]){padding-top:8px;padding-bottom:8px}
 .kp-wave:has(.kp-wave-body[hidden]) .kp-wavehead{margin:0}
+
+/* Type cables enter above the tab controls, leaving the button row clear. */
+.kp-type-tab{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 4px;padding:0;align-items:center}
+.kp-type-tab>.kp-video-ports{grid-column:1/-1;grid-row:1;justify-content:flex-start;width:100%;min-height:24px}
+.kp-type-tab>[role=tab]{grid-column:1;grid-row:2;min-width:0}
+.kp-type-tab>button:not([role=tab]){grid-column:2;grid-row:2}
