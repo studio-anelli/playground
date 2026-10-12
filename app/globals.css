@@ -951,3 +951,100 @@ button, input, select, textarea { font: inherit; }
   .diary-status { grid-template-columns: 1fr; gap: 9px; }
   .diary-archive { margin-top: 58px; }
 }
+
+
+/* BETA 02 — adjustable diary design system; fixed values at three breakpoints */
+.diary-shell {
+  --paper: #ffffff;
+  --ink: #191919;
+  --signal: #2457c5;
+  --line: rgba(25,25,25,.22);
+  --soft-line: rgba(25,25,25,.10);
+  --diary-h1-desktop: 100px;
+  --diary-h2-desktop: 54px;
+  --diary-lead-desktop: 28px;
+  --diary-body-desktop: 20px;
+  --diary-section-desktop: 104px;
+  --diary-outer-desktop: 52px;
+  --diary-h1-tablet: 72px;
+  --diary-h2-tablet: 44px;
+  --diary-lead-tablet: 24px;
+  --diary-body-tablet: 19px;
+  --diary-section-tablet: 84px;
+  --diary-outer-tablet: 36px;
+  --diary-h1-mobile: 48px;
+  --diary-h2-mobile: 34px;
+  --diary-lead-mobile: 22px;
+  --diary-body-mobile: 18px;
+  --diary-section-mobile: 68px;
+  --diary-outer-mobile: 20px;
+  padding-left: var(--diary-outer-desktop);
+  padding-right: var(--diary-outer-desktop);
+  background: var(--paper);
+  color: var(--ink);
+}
+.diary-shell .diary-hero { padding-bottom: 90px; }
+.diary-shell .diary-hero h1 { font-size: var(--diary-h1-desktop); }
+.diary-shell .diary-lead { font-size: var(--diary-lead-desktop); margin-top: 60px; }
+.diary-shell .diary-section { padding-top: var(--diary-section-desktop); padding-bottom: var(--diary-section-desktop); }
+.diary-shell .diary-section h2 { font-size: var(--diary-h2-desktop); }
+.diary-shell .diary-section > p { font-size: var(--diary-body-desktop); }
+.diary-shell .diary-archive { margin-top: 140px; }
+.diary-shell .diary-section > p { max-width: 720px; }
+.diary-shell .diary-hero h1,
+.diary-shell .diary-section h2 { overflow-wrap: anywhere; }
+@media (min-width: 641px) and (max-width: 1023px) {
+  .diary-shell { padding-left: var(--diary-outer-tablet); padding-right: var(--diary-outer-tablet); }
+  .diary-shell .diary-hero h1 { font-size: var(--diary-h1-tablet); }
+  .diary-shell .diary-lead { font-size: var(--diary-lead-tablet); }
+  .diary-shell .diary-section { padding-top: var(--diary-section-tablet); padding-bottom: var(--diary-section-tablet); }
+  .diary-shell .diary-section h2 { font-size: var(--diary-h2-tablet); }
+  .diary-shell .diary-section > p { font-size: var(--diary-body-tablet); }
+  .diary-shell .diary-hero,
+  .diary-shell .diary-layout { grid-template-columns: minmax(115px, .42fr) minmax(0, 2.58fr); column-gap: 24px; }
+  .diary-shell .diary-aside dl div { grid-template-columns: 1fr; gap: 0; }
+}
+@media (max-width: 640px) {
+  .diary-shell { padding-left: var(--diary-outer-mobile); padding-right: var(--diary-outer-mobile); }
+  .diary-shell .diary-hero,
+  .diary-shell .diary-layout { grid-template-columns: 1fr; }
+  .diary-shell .diary-hero { padding-bottom: 58px; }
+  .diary-shell .diary-hero h1 { font-size: var(--diary-h1-mobile); }
+  .diary-shell .diary-lead { font-size: var(--diary-lead-mobile); margin-top: 38px; grid-column: 1; }
+  .diary-shell .diary-section { padding-top: var(--diary-section-mobile); padding-bottom: var(--diary-section-mobile); }
+  .diary-shell .diary-section h2 { font-size: var(--diary-h2-mobile); }
+  .diary-shell .diary-section > p { font-size: var(--diary-body-mobile); }
+  .diary-shell .diary-archive { margin-top: 76px; }
+}
+/* Live edit panel intentionally confined to the preview diary. */
+.diary-tuner { position: fixed; top: 90px; right: 20px; z-index: 1000; font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #171717; }
+.diary-tuner button, .diary-tuner input { font-family: Arial, Helvetica, sans-serif; font-weight: 400; }
+.diary-tuner button { cursor: pointer; }
+.diary-tuner-toggle { display: block; margin-left: auto; padding: 13px 15px; border: 1px solid #171717; background: #181818; color: #fff; font-size: 11px; letter-spacing: .04em; }
+.diary-tuner-panel { width: min(340px, calc(100vw - 32px)); max-height: calc(100dvh - 160px); overflow-y: auto; padding: 20px; border: 1px solid #252525; background: #fcfcfc; box-shadow: 0 12px 36px #0002; }
+.diary-tuner-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid #ddd; }
+.diary-tuner-head strong { font-weight: 600; font-size: 11px; }
+.diary-tuner-head span { font: 10px Arial, sans-serif; color: #767676; }
+.diary-tuner-panel > p { font: 12px/1.5 Arial, sans-serif; margin: 12px 0; color: #555; }
+.diary-tuner-group { border-top: 1px solid #ddd; padding-top: 14px; margin-top: 14px; }
+.diary-tuner-label { display: block; font: 600 10px/1 Arial,sans-serif; letter-spacing: .07em; margin-bottom: 13px; }
+.diary-tuner-color, .diary-tuner-number { display: grid; align-items: center; gap: 8px; margin: 10px 0; }
+.diary-tuner-color { grid-template-columns: 1fr 34px 84px; }
+.diary-tuner-color input[type=color] { border: 0; background: transparent; width: 34px; height: 29px; padding: 0; cursor: pointer; }
+.diary-tuner-hex { min-width: 0; width: 84px; padding: 6px 5px; border: 1px solid #ddd; background: #fff; font-size: 11px; }
+.diary-tuner-tabs { display: flex; border: 1px solid #ccc; }
+.diary-tuner-tabs button { flex: 1; padding: 9px 2px; border: 0; border-right: 1px solid #ccc; background: #f8f8f8; color: #555; font-size: 10px; }
+.diary-tuner-tabs button:last-child { border-right: 0; }
+.diary-tuner-tabs button[aria-pressed=true] { background: #171717; color: #fff; }
+.diary-tuner-panel .diary-tuner-hint { display: block; font-size: 10px; line-height: 1.4; color: #777; margin: 9px 0 12px; }
+.diary-tuner-number { grid-template-columns: 1fr 95px 50px; }
+.diary-tuner-number input[type=range] { width: 95px; accent-color: #171717; }
+.diary-tuner-number input[type=number] { width: 50px; min-width: 0; padding: 6px 3px; border: 1px solid #ddd; background: #fff; text-align: center; font-size: 11px; }
+.diary-tuner-actions { display: flex; gap: 8px; margin-top: 19px; }
+.diary-tuner-actions button { padding: 10px; border: 1px solid #171717; background: #171717; color: #fff; font-size: 10px; }
+.diary-tuner-actions button:last-child { background: #fff; color: #171717; }
+.diary-tuner-panel .diary-tuner-notice { font-size: 11px; margin: 12px 0 0; color: #333; }
+@media (max-width: 640px) {
+  .diary-tuner { right: 10px; top: 65px; }
+  .diary-tuner-panel { max-height: calc(100dvh - 130px); }
+}
