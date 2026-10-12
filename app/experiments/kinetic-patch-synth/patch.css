@@ -115,7 +115,6 @@
 .kp .kp-thickness-link{width:100%;font-size:8px;padding:3px 5px}
 
 /* Compact control rows; sockets and keyboard focus remain visible. */
-.kp-modules{container-type:inline-size}
 .kp-combined-module{border:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
 .kp-modulehead,.kp-manual,.kp-type-tabs,.kp-font-manager,.kp-image-layers,.kp-shared-sampling{border:0}
 .kp-modulehead{padding-bottom:2px}.kp-shared-sampling{padding:4px 0}.kp-module{padding:8px 0}
@@ -131,6 +130,5 @@
 .kp-font-row .kp-knob-control>span{font-size:12px;line-height:16px}
 .kp-video-ports label>span{font-size:15px;line-height:16px}
 .kp-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@container(min-width:240px){.kp-combined-module{grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:10px}}
 
 .kp-rack,.kp-waves,.kp-modules,.kp-wave,.kp-header,.kp-footer{border:0}.kp-controls{border:0;box-shadow:none}.kp-type-tablist{border:0}.kp-module textarea{border:0}.kp-repeat-row:empty{display:none}
