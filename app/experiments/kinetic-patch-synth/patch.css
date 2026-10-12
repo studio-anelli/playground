@@ -273,3 +273,7 @@
 .kp-type-tab>.kp-video-ports{grid-column:1/-1;grid-row:1;justify-content:flex-start;width:100%;min-height:24px}
 .kp-type-tab>[role=tab]{grid-column:1;grid-row:2;min-width:0}
 .kp-type-tab>button:not([role=tab]){grid-column:2;grid-row:2}
+
+/* Thin sockets keep a larger invisible mouse/touch target. */
+.kp .kp-socket::before{content:"";position:absolute;inset:-5px;background:transparent}
+.kp-module-mod-output{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:20px;height:24px}
