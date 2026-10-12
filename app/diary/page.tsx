@@ -1,4 +1,5 @@
 import { SiteHeader } from "@/components/site-header";
+import { DiaryStyleEditor } from "@/components/diary-style-editor";
 
 const recNotes = [
   {
@@ -34,6 +35,7 @@ export default function DiaryPage() {
   return (
     <main className="site-shell diary-shell">
       <SiteHeader />
+      <DiaryStyleEditor />
 
       <nav className="diary-index" aria-label="Diary entries">
         <span>DEVELOPMENT DIARY / 02 ENTRIES</span>
