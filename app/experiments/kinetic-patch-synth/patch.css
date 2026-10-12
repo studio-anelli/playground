@@ -142,3 +142,10 @@
 .kp-font-manager{padding:8px 6px}
 .kp-modulehead{margin-bottom:4px}
 @media(max-width:800px){.kp-module{padding:10px 4px}.kp-modulegrid,.kp-combined-module{gap:12px}.kp-wave{padding:10px 3px}}
+
+/* Consistent Lucide symbols with descriptive tooltips and accessible names. */
+.kp-icon-caption,.kp-port-icon{display:flex!important;align-items:center;justify-content:center}
+.kp-port-output>svg{transform:rotate(180deg)}
+.kp .kp-thickness-link,.kp .kp-origin-trigger{display:flex;align-items:center;justify-content:center;min-height:24px}
+.kp .kp-thickness-link[aria-pressed=false]>svg{opacity:.45}
+.kp-icon-caption>svg,.kp-port-icon>svg{flex-shrink:0}
