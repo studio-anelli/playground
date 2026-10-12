@@ -132,3 +132,13 @@
 .kp-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 .kp-rack,.kp-waves,.kp-modules,.kp-wave,.kp-header,.kp-footer{border:0}.kp-controls{border:0;box-shadow:none}.kp-type-tablist{border:0}.kp-module textarea{border:0}.kp-repeat-row:empty{display:none}
+
+/* Separate the borderless sections with modest internal space. */
+.kp-module{padding:12px 6px}
+.kp-modulegrid,.kp-combined-module{gap:16px}
+.kp-wave{padding:12px 4px}
+.kp-shared-sampling{padding:10px 4px;margin-bottom:16px}
+.kp-type-tablist{padding:10px 6px 4px}
+.kp-font-manager{padding:8px 6px}
+.kp-modulehead{margin-bottom:4px}
+@media(max-width:800px){.kp-module{padding:10px 4px}.kp-modulegrid,.kp-combined-module{gap:12px}.kp-wave{padding:10px 3px}}
