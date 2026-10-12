@@ -5,15 +5,15 @@ import { useEffect, useState } from "react";
 type Screen = "desktop" | "tablet" | "mobile";
 type StyleValues = {
   background: string; ink: string; accent: string;
-  desktop: { h1: number; h2: number; lead: number; body: number; section: number; outer: number };
-  tablet: { h1: number; h2: number; lead: number; body: number; section: number; outer: number };
-  mobile: { h1: number; h2: number; lead: number; body: number; section: number; outer: number };
+  desktop: { h1: number; h2: number; lead: number; body: number; section: number; outer: number; h1Tracking: number; h2Tracking: number; leadTracking: number; bodyTracking: number; h3Tracking: number; labelTracking: number; metaTracking: number };
+  tablet: { h1: number; h2: number; lead: number; body: number; section: number; outer: number; h1Tracking: number; h2Tracking: number; leadTracking: number; bodyTracking: number; h3Tracking: number; labelTracking: number; metaTracking: number };
+  mobile: { h1: number; h2: number; lead: number; body: number; section: number; outer: number; h1Tracking: number; h2Tracking: number; leadTracking: number; bodyTracking: number; h3Tracking: number; labelTracking: number; metaTracking: number };
 };
 const DEFAULTS: StyleValues = {
   background: "#ffffff", ink: "#191919", accent: "#2457c5",
-  desktop: { h1: 100, h2: 54, lead: 28, body: 20, section: 104, outer: 52 },
-  tablet: { h1: 72, h2: 44, lead: 24, body: 19, section: 84, outer: 36 },
-  mobile: { h1: 48, h2: 34, lead: 22, body: 18, section: 68, outer: 20 },
+  desktop: { h1: 100, h2: 54, lead: 28, body: 20, section: 104, outer: 52, h1Tracking: -6, h2Tracking: -3, leadTracking: -0.6, bodyTracking: -0.1, h3Tracking: -0.5, labelTracking: 0.3, metaTracking: 0.3 },
+  tablet: { h1: 72, h2: 44, lead: 24, body: 19, section: 84, outer: 36, h1Tracking: -4.3, h2Tracking: -2.3, leadTracking: -0.5, bodyTracking: -0.1, h3Tracking: -0.5, labelTracking: 0.3, metaTracking: 0.3 },
+  mobile: { h1: 48, h2: 34, lead: 22, body: 18, section: 68, outer: 20, h1Tracking: -2.9, h2Tracking: -1.8, leadTracking: -0.45, bodyTracking: -0.1, h3Tracking: -0.4, labelTracking: 0.3, metaTracking: 0.3 },
 };
 const screens: Screen[] = ["desktop", "tablet", "mobile"];
 const labels: { key: keyof StyleValues["desktop"]; title: string; min: number; max: number; step: number }[] = [
@@ -23,6 +23,15 @@ const labels: { key: keyof StyleValues["desktop"]; title: string; min: number; m
   { key: "body", title: "Body text", min: 14, max: 30, step: 1 },
   { key: "section", title: "Section whitespace", min: 20, max: 190, step: 2 },
   { key: "outer", title: "Page margin", min: 12, max: 100, step: 2 },
+];
+const trackingLabels: { key: keyof StyleValues["desktop"]; title: string }[] = [
+  { key: "h1Tracking", title: "Entry title" },
+  { key: "h2Tracking", title: "Section heading" },
+  { key: "leadTracking", title: "Introduction" },
+  { key: "bodyTracking", title: "Body text" },
+  { key: "h3Tracking", title: "Small headings" },
+  { key: "labelTracking", title: "Section labels" },
+  { key: "metaTracking", title: "Metadata" },
 ];
 const STORAGE = "playground-diary-editor-beta02";
 function readSaved(): StyleValues {
@@ -99,6 +108,17 @@ export function DiaryStyleEditor() {
             <input type="range" min={item.min} max={item.max} step={item.step} value={values[active][item.key]}
               onChange={(event) => setNumber(item.key, Number(event.target.value))}/>
             <input type="number" min={item.min} max={item.max} step={item.step} value={values[active][item.key]}
+              onChange={(event) => setNumber(item.key, Number(event.target.value))}/>
+          </label>)}
+        </div>
+        <div className="diary-tuner-group">
+          <span className="diary-tuner-label">LETTER SPACING / PX</span>
+          <span className="diary-tuner-hint">Negative values tighten letters. Positive values open them up.</span>
+          {trackingLabels.map((item) => <label className="diary-tuner-number" key={item.key}>
+            <span>{item.title}</span>
+            <input type="range" min="-10" max="10" step="0.1" value={values[active][item.key]}
+              onChange={(event) => setNumber(item.key, Number(event.target.value))}/>
+            <input type="number" min="-10" max="10" step="0.1" value={values[active][item.key]}
               onChange={(event) => setNumber(item.key, Number(event.target.value))}/>
           </label>)}
         </div>
