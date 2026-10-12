@@ -149,3 +149,10 @@
 .kp .kp-thickness-link,.kp .kp-origin-trigger{display:flex;align-items:center;justify-content:center;min-height:24px}
 .kp .kp-thickness-link[aria-pressed=false]>svg{opacity:.45}
 .kp-icon-caption>svg,.kp-port-icon>svg{flex-shrink:0}
+
+/* Icon labels wait two seconds on hover; keyboard focus shows them immediately. */
+.kp [data-tooltip]{position:relative}
+.kp [data-tooltip]::after{content:attr(data-tooltip);position:absolute;z-index:25;top:calc(100% + 6px);left:50%;transform:translateX(-50%);width:max-content;max-width:160px;padding:5px 7px;background:#303030;color:#f1f1eb;font:9px/1.4 ui-monospace,monospace;letter-spacing:0;text-align:center;white-space:normal;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .12s ease,visibility 0s linear .12s}
+.kp [data-tooltip]:hover::after{opacity:1;visibility:visible;transition-delay:2s}
+.kp [data-tooltip]:focus-visible::after,.kp-knob-control:focus-within>[data-tooltip]::after,.kp-video-ports label:focus-within>[data-tooltip]::after{opacity:1;visibility:visible;transition-delay:0s}
+.kp-icon-heading{width:max-content;max-width:100%}
