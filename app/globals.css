@@ -1114,3 +1114,118 @@ button, input, select, textarea { font: inherit; }
   .diary-shell .diary-footer,
   .diary-shell .diary-index { letter-spacing: var(--diary-metaTracking-mobile); }
 }
+
+/* Live diary typography geometry: every control maps to a CSS property. */
+.diary-shell .diary-section > .eyebrow { display: block; }
+.diary-shell {
+  --diary-h1Line-desktop: 0.95;
+  --diary-h1Top-desktop: 0px;
+  --diary-h1Bottom-desktop: 0px;
+  --diary-h2Line-desktop: 1.02;
+  --diary-h2Top-desktop: 17px;
+  --diary-h2Bottom-desktop: 33px;
+  --diary-leadLine-desktop: 1.31;
+  --diary-leadTop-desktop: 60px;
+  --diary-leadBottom-desktop: 0px;
+  --diary-bodyLine-desktop: 1.53;
+  --diary-bodyTop-desktop: 0px;
+  --diary-bodyBottom-desktop: 18px;
+  --diary-h3Line-desktop: 1.25;
+  --diary-h3Top-desktop: 7px;
+  --diary-h3Bottom-desktop: 0px;
+  --diary-labelLine-desktop: 1.3;
+  --diary-labelTop-desktop: 0px;
+  --diary-labelBottom-desktop: 0px;
+  --diary-metaLine-desktop: 1.5;
+  --diary-metaTop-desktop: 0px;
+  --diary-metaBottom-desktop: 0px;
+  --diary-h1Width-desktop: 1050px;
+  --diary-h2Width-desktop: 850px;
+  --diary-leadWidth-desktop: 770px;
+  --diary-bodyWidth-desktop: 720px;
+}
+.diary-shell .diary-hero h1 { line-height: var(--diary-h1Line-desktop); margin-top: var(--diary-h1Top-desktop); margin-bottom: var(--diary-h1Bottom-desktop); max-width: min(100%, var(--diary-h1Width-desktop)); }
+.diary-shell .diary-section h2 { line-height: var(--diary-h2Line-desktop); margin-top: var(--diary-h2Top-desktop); margin-bottom: var(--diary-h2Bottom-desktop); max-width: min(100%, var(--diary-h2Width-desktop)); }
+.diary-shell .diary-lead { line-height: var(--diary-leadLine-desktop); margin-top: var(--diary-leadTop-desktop); margin-bottom: var(--diary-leadBottom-desktop); max-width: min(100%, var(--diary-leadWidth-desktop)); }
+.diary-shell .diary-section > p { line-height: var(--diary-bodyLine-desktop); margin-top: var(--diary-bodyTop-desktop); margin-bottom: var(--diary-bodyBottom-desktop); max-width: min(100%, var(--diary-bodyWidth-desktop)); }
+.diary-shell .diary-rec h3, .diary-shell .diary-lesson h3 { line-height: var(--diary-h3Line-desktop); margin-top: var(--diary-h3Top-desktop); margin-bottom: var(--diary-h3Bottom-desktop); }
+.diary-shell .diary-section > .eyebrow { line-height: var(--diary-labelLine-desktop); margin-top: var(--diary-labelTop-desktop); margin-bottom: var(--diary-labelBottom-desktop); }
+.diary-shell .diary-meta { line-height: var(--diary-metaLine-desktop); margin-top: var(--diary-metaTop-desktop); margin-bottom: var(--diary-metaBottom-desktop); }
+.diary-shell .diary-aside dt, .diary-shell .diary-aside dd, .diary-shell .diary-footer, .diary-shell .diary-index { line-height: var(--diary-metaLine-desktop); }
+@media (min-width: 641px) and (max-width: 1023px) {
+.diary-shell {
+  --diary-h1Line-tablet: 0.97;
+  --diary-h1Top-tablet: 0px;
+  --diary-h1Bottom-tablet: 0px;
+  --diary-h2Line-tablet: 1.05;
+  --diary-h2Top-tablet: 17px;
+  --diary-h2Bottom-tablet: 30px;
+  --diary-leadLine-tablet: 1.35;
+  --diary-leadTop-tablet: 60px;
+  --diary-leadBottom-tablet: 0px;
+  --diary-bodyLine-tablet: 1.53;
+  --diary-bodyTop-tablet: 0px;
+  --diary-bodyBottom-tablet: 18px;
+  --diary-h3Line-tablet: 1.3;
+  --diary-h3Top-tablet: 7px;
+  --diary-h3Bottom-tablet: 0px;
+  --diary-labelLine-tablet: 1.3;
+  --diary-labelTop-tablet: 0px;
+  --diary-labelBottom-tablet: 0px;
+  --diary-metaLine-tablet: 1.5;
+  --diary-metaTop-tablet: 0px;
+  --diary-metaBottom-tablet: 0px;
+  --diary-h1Width-tablet: 760px;
+  --diary-h2Width-tablet: 720px;
+  --diary-leadWidth-tablet: 680px;
+  --diary-bodyWidth-tablet: 650px;
+}
+.diary-shell .diary-hero h1 { line-height: var(--diary-h1Line-tablet); margin-top: var(--diary-h1Top-tablet); margin-bottom: var(--diary-h1Bottom-tablet); max-width: min(100%, var(--diary-h1Width-tablet)); }
+.diary-shell .diary-section h2 { line-height: var(--diary-h2Line-tablet); margin-top: var(--diary-h2Top-tablet); margin-bottom: var(--diary-h2Bottom-tablet); max-width: min(100%, var(--diary-h2Width-tablet)); }
+.diary-shell .diary-lead { line-height: var(--diary-leadLine-tablet); margin-top: var(--diary-leadTop-tablet); margin-bottom: var(--diary-leadBottom-tablet); max-width: min(100%, var(--diary-leadWidth-tablet)); }
+.diary-shell .diary-section > p { line-height: var(--diary-bodyLine-tablet); margin-top: var(--diary-bodyTop-tablet); margin-bottom: var(--diary-bodyBottom-tablet); max-width: min(100%, var(--diary-bodyWidth-tablet)); }
+.diary-shell .diary-rec h3, .diary-shell .diary-lesson h3 { line-height: var(--diary-h3Line-tablet); margin-top: var(--diary-h3Top-tablet); margin-bottom: var(--diary-h3Bottom-tablet); }
+.diary-shell .diary-section > .eyebrow { line-height: var(--diary-labelLine-tablet); margin-top: var(--diary-labelTop-tablet); margin-bottom: var(--diary-labelBottom-tablet); }
+.diary-shell .diary-meta { line-height: var(--diary-metaLine-tablet); margin-top: var(--diary-metaTop-tablet); margin-bottom: var(--diary-metaBottom-tablet); }
+.diary-shell .diary-aside dt, .diary-shell .diary-aside dd, .diary-shell .diary-footer, .diary-shell .diary-index { line-height: var(--diary-metaLine-tablet); }
+}
+@media (max-width: 640px) {
+.diary-shell {
+  --diary-h1Line-mobile: 0.98;
+  --diary-h1Top-mobile: 0px;
+  --diary-h1Bottom-mobile: 0px;
+  --diary-h2Line-mobile: 1.08;
+  --diary-h2Top-mobile: 17px;
+  --diary-h2Bottom-mobile: 27px;
+  --diary-leadLine-mobile: 1.35;
+  --diary-leadTop-mobile: 38px;
+  --diary-leadBottom-mobile: 0px;
+  --diary-bodyLine-mobile: 1.54;
+  --diary-bodyTop-mobile: 0px;
+  --diary-bodyBottom-mobile: 18px;
+  --diary-h3Line-mobile: 1.32;
+  --diary-h3Top-mobile: 7px;
+  --diary-h3Bottom-mobile: 0px;
+  --diary-labelLine-mobile: 1.35;
+  --diary-labelTop-mobile: 0px;
+  --diary-labelBottom-mobile: 0px;
+  --diary-metaLine-mobile: 1.5;
+  --diary-metaTop-mobile: 0px;
+  --diary-metaBottom-mobile: 0px;
+  --diary-h1Width-mobile: 560px;
+  --diary-h2Width-mobile: 560px;
+  --diary-leadWidth-mobile: 560px;
+  --diary-bodyWidth-mobile: 560px;
+}
+.diary-shell .diary-hero h1 { line-height: var(--diary-h1Line-mobile); margin-top: var(--diary-h1Top-mobile); margin-bottom: var(--diary-h1Bottom-mobile); max-width: min(100%, var(--diary-h1Width-mobile)); }
+.diary-shell .diary-section h2 { line-height: var(--diary-h2Line-mobile); margin-top: var(--diary-h2Top-mobile); margin-bottom: var(--diary-h2Bottom-mobile); max-width: min(100%, var(--diary-h2Width-mobile)); }
+.diary-shell .diary-lead { line-height: var(--diary-leadLine-mobile); margin-top: var(--diary-leadTop-mobile); margin-bottom: var(--diary-leadBottom-mobile); max-width: min(100%, var(--diary-leadWidth-mobile)); }
+.diary-shell .diary-section > p { line-height: var(--diary-bodyLine-mobile); margin-top: var(--diary-bodyTop-mobile); margin-bottom: var(--diary-bodyBottom-mobile); max-width: min(100%, var(--diary-bodyWidth-mobile)); }
+.diary-shell .diary-rec h3, .diary-shell .diary-lesson h3 { line-height: var(--diary-h3Line-mobile); margin-top: var(--diary-h3Top-mobile); margin-bottom: var(--diary-h3Bottom-mobile); }
+.diary-shell .diary-section > .eyebrow { line-height: var(--diary-labelLine-mobile); margin-top: var(--diary-labelTop-mobile); margin-bottom: var(--diary-labelBottom-mobile); }
+.diary-shell .diary-meta { line-height: var(--diary-metaLine-mobile); margin-top: var(--diary-metaTop-mobile); margin-bottom: var(--diary-metaBottom-mobile); }
+.diary-shell .diary-aside dt, .diary-shell .diary-aside dd, .diary-shell .diary-footer, .diary-shell .diary-index { line-height: var(--diary-metaLine-mobile); }
+}
+.diary-tuner-style { border-top: 1px solid #e2e2e2; padding: 12px 0 7px; }
+.diary-tuner-style > strong { display: block; margin-bottom: 8px; font: 600 11px/1.3 Arial, Helvetica, sans-serif; }
+.diary-tuner-style .diary-tuner-number { margin: 7px 0; }
