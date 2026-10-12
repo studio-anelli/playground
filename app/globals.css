@@ -1048,3 +1048,69 @@ button, input, select, textarea { font: inherit; }
   .diary-tuner { right: 10px; top: 65px; }
   .diary-tuner-panel { max-height: calc(100dvh - 130px); }
 }
+
+
+/* Diary tracking controls (fixed px at each breakpoint). */
+.diary-shell {
+  --diary-h1Tracking-desktop: -6px;
+  --diary-h2Tracking-desktop: -3px;
+  --diary-leadTracking-desktop: -.6px;
+  --diary-bodyTracking-desktop: -.1px;
+  --diary-h3Tracking-desktop: -.5px;
+  --diary-labelTracking-desktop: .3px;
+  --diary-metaTracking-desktop: .3px;
+  --diary-h1Tracking-tablet: -4.3px;
+  --diary-h2Tracking-tablet: -2.3px;
+  --diary-leadTracking-tablet: -.5px;
+  --diary-bodyTracking-tablet: -.1px;
+  --diary-h3Tracking-tablet: -.5px;
+  --diary-labelTracking-tablet: .3px;
+  --diary-metaTracking-tablet: .3px;
+  --diary-h1Tracking-mobile: -2.9px;
+  --diary-h2Tracking-mobile: -1.8px;
+  --diary-leadTracking-mobile: -.45px;
+  --diary-bodyTracking-mobile: -.1px;
+  --diary-h3Tracking-mobile: -.4px;
+  --diary-labelTracking-mobile: .3px;
+  --diary-metaTracking-mobile: .3px;
+}
+.diary-shell .diary-hero h1 { letter-spacing: var(--diary-h1Tracking-desktop); }
+.diary-shell .diary-section h2 { letter-spacing: var(--diary-h2Tracking-desktop); }
+.diary-shell .diary-lead { letter-spacing: var(--diary-leadTracking-desktop); }
+.diary-shell .diary-section > p { letter-spacing: var(--diary-bodyTracking-desktop); }
+.diary-shell .diary-rec h3,
+.diary-shell .diary-lesson h3 { letter-spacing: var(--diary-h3Tracking-desktop); }
+.diary-shell .eyebrow { letter-spacing: var(--diary-labelTracking-desktop); }
+.diary-shell .diary-meta,
+.diary-shell .diary-aside dt,
+.diary-shell .diary-aside dd,
+.diary-shell .diary-footer,
+.diary-shell .diary-index { letter-spacing: var(--diary-metaTracking-desktop); }
+@media (min-width: 641px) and (max-width: 1023px) {
+  .diary-shell .diary-hero h1 { letter-spacing: var(--diary-h1Tracking-tablet); }
+  .diary-shell .diary-section h2 { letter-spacing: var(--diary-h2Tracking-tablet); }
+  .diary-shell .diary-lead { letter-spacing: var(--diary-leadTracking-tablet); }
+  .diary-shell .diary-section > p { letter-spacing: var(--diary-bodyTracking-tablet); }
+  .diary-shell .diary-rec h3,
+  .diary-shell .diary-lesson h3 { letter-spacing: var(--diary-h3Tracking-tablet); }
+  .diary-shell .eyebrow { letter-spacing: var(--diary-labelTracking-tablet); }
+  .diary-shell .diary-meta,
+  .diary-shell .diary-aside dt,
+  .diary-shell .diary-aside dd,
+  .diary-shell .diary-footer,
+  .diary-shell .diary-index { letter-spacing: var(--diary-metaTracking-tablet); }
+}
+@media (max-width: 640px) {
+  .diary-shell .diary-hero h1 { letter-spacing: var(--diary-h1Tracking-mobile); }
+  .diary-shell .diary-section h2 { letter-spacing: var(--diary-h2Tracking-mobile); }
+  .diary-shell .diary-lead { letter-spacing: var(--diary-leadTracking-mobile); }
+  .diary-shell .diary-section > p { letter-spacing: var(--diary-bodyTracking-mobile); }
+  .diary-shell .diary-rec h3,
+  .diary-shell .diary-lesson h3 { letter-spacing: var(--diary-h3Tracking-mobile); }
+  .diary-shell .eyebrow { letter-spacing: var(--diary-labelTracking-mobile); }
+  .diary-shell .diary-meta,
+  .diary-shell .diary-aside dt,
+  .diary-shell .diary-aside dd,
+  .diary-shell .diary-footer,
+  .diary-shell .diary-index { letter-spacing: var(--diary-metaTracking-mobile); }
+}
