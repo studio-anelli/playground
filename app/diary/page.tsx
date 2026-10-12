@@ -35,7 +35,83 @@ export default function DiaryPage() {
     <main className="site-shell diary-shell">
       <SiteHeader />
 
-      <article className="diary-page">
+      <nav className="diary-index" aria-label="Diary entries">
+        <span>DEVELOPMENT DIARY / 02 ENTRIES</span>
+        <div><a href="#beta-02">BETA 02 <span>↗</span></a><a href="#beta-01">BETA 01 <span>↗</span></a></div>
+      </nav>
+      <article className="diary-page diary-entry" id="beta-02">
+        <header className="diary-hero">
+          <div className="diary-meta"><span>BETA 02</span><time dateTime="2026-10-12">12.10.2026</time></div>
+          <h1>Things are getting complicated.</h1>
+          <p className="diary-lead">
+            A few weeks ago, the Playground was a collection of graphic experiments. Now we have oscillators, patch bays, modulation matrices and an increasing number of knobs. Apparently, we are building <em>instruments.</em> Not entirely sure when that happened.
+          </p>
+        </header>
+        <div className="diary-layout">
+          <aside className="diary-aside" aria-label="Beta 02 summary"><dl>
+            <div><dt>Period</dt><dd>22.09—12.10.26</dd></div>
+            <div><dt>State</dt><dd>In progress</dd></div>
+            <div><dt>Focus</dt><dd>K-TIC-SYNTH</dd></div>
+            <div><dt>Casualties</dt><dd>DUST (temporarily)</dd></div>
+            <div><dt>Next</dt><dd>Identity, perhaps</dd></div>
+          </dl></aside>
+          <div className="diary-body">
+            <section className="diary-section">
+              <span className="eyebrow">01 / More knobs, more problems</span>
+              <h2>Building the conditions for things to happen.</h2>
+              <p>Most of our attention went into K-TIC-SYNTH, which started as a relatively simple kinetic typography experiment. Sampling, grid distortion, vertex generation. A few parameters, some animation, reasonably straightforward.</p>
+              <p>Then came oscillators, waveforms, noise, modulation and eventually a patch bay. We can now connect different processes, control their influence and construct increasingly elaborate ways of making letters misbehave.</p>
+              <p>Rather than applying an effect, we are building the conditions for something to happen. It is considerably more interesting. It is also considerably easier to make something completely illegible.</p>
+            </section>
+            <section className="diary-section">
+              <span className="eyebrow">02 / Some things got worse</span>
+              <h2>A respectable achievement.</h2>
+              <p>DUST has been particularly uncooperative. We spent quite some time refining particle behaviour, introducing parameters, modifying distributions and experimenting with presets.</p>
+              <p>Somewhere along the way, we managed to make it more sophisticated and less convincing. A respectable achievement. So we removed some features, reconsidered the underlying behaviour and temporarily unpublished it.</p>
+              <p>Meanwhile, A_SCII continued turning images and typography into characters, while µMS20 and GP999 developed into increasingly elaborate little audio instruments. What began as an aesthetic reference to analogue synthesis is slowly becoming an actual working method. We are borrowing the logic, not just the knobs.</p>
+            </section>
+            <section className="diary-section">
+              <span className="eyebrow">03 / The interface situation</span>
+              <h2>Approximately a thousand rearrangements.</h2>
+              <p>Floating panels, collapsible modules, sliders, knobs, patches, shared controls. At one point, everything was green.</p>
+              <p>The intention was to give the Playground a coherent visual language. The problem is that a drum machine, a particle simulation and a typographic synthesizer do not particularly want to share the same interface. Fair enough.</p>
+              <p>The latest Kinetic Synth is moving towards something more restrained, slightly old-school and hopefully readable. The homepage has also been simplified, with a darker layout and larger previews. We attempted elaborate transitions between the experiments and the index. They were not particularly good. We moved on.</p>
+            </section>
+            <section className="diary-section">
+              <span className="eyebrow">04 / An unexpected synthesis</span>
+              <h2>Wait, haven't we already built this?</h2>
+              <p>Sampling, distortion, oscillation, noise, feedback. Much of what we had been developing as separate experiments was now finding its way into the same application.</p>
+              <p>The Kinetic Synth was becoming a synthesis of several earlier experiments. Which raises a reasonable question: why are we maintaining so many separate tools?</p>
+              <p>We probably do not need to. Some experiments deserve to remain independent. Others might work better as modules. Some are perhaps finished as studies, without requiring another six months of interface development.</p>
+              <p>Not everything needs to become a product. Especially when nobody asked for one.</p>
+            </section>
+            <section className="diary-section">
+              <span className="eyebrow">05 / The question</span>
+              <h2>What are we investigating?</h2>
+              <p>We have somehow managed to avoid defining the Playground's identity while designing increasingly elaborate interfaces for it. Until now, we have described it as a collection of generative graphic experiments. Accurate, but not especially illuminating.</p>
+              <p>We are certainly not inventing generative design. These ideas have been around for decades, and studios like DIA have been exploring related approaches for years.</p>
+              <p>We are interested in something a little more specific. Not necessarily new visual languages, but different ways of designing. Instead of composing an image directly, what happens when we design the system that produces it? What happens when we borrow methods from sound synthesis and apply them to typography?</p>
+              <p>How much control do we actually want? And how useful is an instrument that occasionally refuses to behave? These questions are becoming more interesting than the individual features.</p>
+            </section>
+            <section className="diary-section">
+              <span className="eyebrow">06 / Results before tools</span>
+              <h2>Maybe show the work?</h2>
+              <p>Another slightly obvious realisation. We built a homepage that primarily displays our tools. But perhaps the most interesting thing about the Playground is not the software. It is what comes out of it.</p>
+              <p>Images, animations, textures, compositions, sounds. The actual results. We would like to bring those forward and let the instruments sit somewhere behind them, available to anyone curious enough to investigate.</p>
+              <p>The tools do not need to disappear. They just do not need to introduce themselves before the work does. A single instrument might generate several investigations. Several instruments might contribute to one piece. And the older experiments can live in an archive, including those that did not quite work. No need to erase the evidence.</p>
+            </section>
+            <section className="diary-section diary-closing">
+              <span className="eyebrow">07 / Next</span>
+              <h2>Perhaps fewer knobs for a moment.</h2>
+              <p>For now, we are resisting the temptation to write a manifesto. We have enough things to maintain.</p>
+              <p>Instead, we will reconsider the structure and identity of the Playground, decide which instruments deserve their own space and begin collecting the results of the work. The experiments will continue. But perhaps we can stop adding knobs for a moment.</p>
+              <div className="diary-status"><span>STATUS / BETA 02</span><p>K-TIC-SYNTH: increasingly modular. DUST: temporarily offline. A_SCII: still translating things into other things. µMS20 / GP999: making noise. Homepage: identity crisis. Manifesto: postponed, fortunately.</p></div>
+            </section>
+          </div>
+        </div>
+        <footer className="diary-footer"><span>Previous entry</span><a href="#beta-01">BETA 01 / THE FOUNDATION STOPPED MOVING ↘</a></footer>
+      </article>
+      <article className="diary-page diary-entry diary-archive" id="beta-01">
         <header className="diary-hero">
           <div className="diary-meta">
             <span>BETA 01</span>
@@ -143,8 +219,8 @@ export default function DiaryPage() {
         </div>
 
         <footer className="diary-footer">
-          <span>Next entry</span>
-          <span>When something changes, breaks or becomes worth keeping.</span>
+          <span>Archive / Beta 01</span>
+          <span>12—21.09.2026</span>
         </footer>
       </article>
     </main>
