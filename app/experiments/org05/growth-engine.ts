@@ -53,13 +53,13 @@ function makeInitial(axis:ReturnType<typeof axisFromImage>,a:GrowthMap|undefined
  return pts;
 }
 function growthSnapshots(a:GrowthMap|undefined,guides:GrowthGuide[],s:GrowthSettings):Point[][]{
- const axis=axisFromImage(a),r=rand(s.seed);
+ const axis=axisFromImage(a);
  let loop=makeInitial(axis,a,guides,s);
  const frames:Point[][]=[];
  const steps=140+Math.round(s.expansion*.9);
  const snapshotEvery=Math.max(1,Math.floor(steps/(s.contours+4)));
  const strength=s.influence/100,pressure=s.compression/100,regularity=s.smoothness/100;
- const targetRadius=11+(1-pressure)*11;
+ const repelDistance=17+s.repulsion*.24;
  for(let t=0;t<steps;t++){
    const n=loop.length; const evolved:Point[]=new Array(n);
    const centroid=loop.reduce((acc,p)=>({x:acc.x+p.x/n,y:acc.y+p.y/n}),{x:0,y:0});
@@ -76,12 +76,21 @@ function growthSnapshots(a:GrowthMap|undefined,guides:GrowthGuide[],s:GrowthSett
      const force=clamp(initial+imagePressure-pinch*pressure*2.5,0.15,5.3);
      // Coherent low-frequency waves, phase-locked to the primary contour.
      const phase=i/n*Math.PI*2,mod=(Math.sin(phase*3+s.seed*.01)+.4*Math.sin(phase*5+s.seed*.007))*(1-regularity)*.32;
+     let repelX=0,repelY=0;
+     if(s.repulsion>0){
+       for(let j=0;j<n;j+=3){
+         const separation=Math.min(Math.abs(j-i),n-Math.abs(j-i));
+         if(separation<7)continue;
+         const q=loop[j],dx=p.x-q.x,dy=p.y-q.y,d=Math.hypot(dx,dy);
+         if(d>.01&&d<repelDistance){const f=(repelDistance-d)/repelDistance;repelX+=dx/d*f;repelY+=dy/d*f}
+       }
+     }
      const relaxX=(prev.x+next.x-2*p.x)*(.15+regularity*.28);
      const relaxY=(prev.y+next.y-2*p.y)*(.15+regularity*.28);
      // Neighbour spacing regulates growth without costly global self-collisions.
      const prevDistance=hypot(p,prev),nextDistance=hypot(p,next);
      const spacing=(prevDistance-nextDistance)*.09;
-     evolved[i]={x:p.x+nx*(force+mod)+relaxX+spacing*tangent.x/tl,y:p.y+ny*(force+mod)+relaxY+spacing*tangent.y/tl};
+     evolved[i]={x:p.x+nx*(force+mod)+relaxX+spacing*tangent.x/tl+clamp(repelX,-1.8,1.8)*s.repulsion*.009,y:p.y+ny*(force+mod)+relaxY+spacing*tangent.y/tl+clamp(repelY,-1.8,1.8)*s.repulsion*.009};
    }
    loop=resampleClosed(blurLoop(evolved,regularity>.55?2:1),140);
    if(t%snapshotEvery===0&&t>0)frames.push(loop.map(p=>({...p})));
