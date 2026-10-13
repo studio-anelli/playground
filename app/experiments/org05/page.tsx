@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 type V = { x: number; y: number };
 type Guide = V & { strength: number };
 type Analysis = { w: number; h: number; field: Float32Array; edge: Float32Array; gx: Float32Array; gy: Float32Array; guides: Guide[] };
-type Nature = "STRATA" | "TOPOGRAPHIC" | "PETAL" | "SWARM";
+type Nature = "GROWTH" | "FLOW" | "REACTION";
 const W = 1000, H = 760, AW = 110, AH = 84;
 const clamp=(v:number,a:number,b:number)=>Math.max(a,Math.min(b,v));
 const rnd=(seed:number)=>{let a=seed>>>0;return ()=>{a+=0x6D2B79F5;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296;}};
@@ -61,73 +61,116 @@ function contours(a:Analysis|undefined,level:number){
  });
  return lines;
 }
+
 function createGraphic(a:Analysis|undefined,guides:Guide[],nature:Nature,seed:number,density:number,variation:number,width:number,influence:number,palette:string[],background:string):string{
- const r=rnd(seed),lines:string[]=[],count=Math.round(12+density*.42),size=.7+width/38;
- const ink=()=>palette[Math.floor(r()*palette.length)];
- if(nature==="TOPOGRAPHIC"){
-  const n=Math.round(4+density*.16);
-  for(let k=0;k<n;k++){const level=.07+(k+.5)*.87/n;for(const path of contours(a,level)){
-   if(path.length<7)continue;
-   const simplified=path.filter((_,i)=>i%2===0||i===path.length-1);
-   const col=palette[k%palette.length],w=(1.5+size*(k%4===0?5.2:1.9))*(.6+variation/110);
-   lines.push(line(simplified,w,col,.83));
-  }}
-  if(!a){for(let j=0;j<14;j++){const pts:V[]=[];const cx=500+(r()-.5)*230,cy=380+(r()-.5)*120,rx=105+j*22,ry=80+j*16;for(let i=0;i<=100;i++){let t=i/100*Math.PI*2;pts.push({x:cx+Math.cos(t)*rx,y:cy+Math.sin(t)*ry})}lines.push(line(pts,2+size,ink(),.8));}}
- }
- if(nature==="STRATA"){
-  const major=guides.length?guides:[{x:.5,y:.5,strength:1}];
-  for(let i=0;i<count;i++){
-   const origin=major[i%major.length],angle=(-.9+(i%4)*.33)+variation/260;
-   const start={x:-70+r()*150,y:(i+.4)*H/count+(origin.y-.5)*75};
-   const pts:V[]=[],step=13,offset=(r()-.5)*34;
-   for(let n=0;n<100;n++){
-    const x=start.x+n*step,y=start.y;const f=get(a,"field",clamp(x/W,0,1),clamp(y/H,0,1)),e=get(a,"edge",clamp(x/W,0,1),clamp(y/H,0,1));
-    const val=Math.sin(x/180+seed*.001+i*.37)*38*(variation/100)+(f-.5)*100*(influence/100)+offset+(e*32*(influence/100));
-    pts.push({x,y:y+val});
+ const random=rnd(seed),out:string[]=[];
+ const anchors=guides.length?guides:[{x:.5,y:.5,strength:1}];
+ const amount=Math.max(0,Math.min(1,influence/100));
+ const nw=(v:V)=>Math.hypot(v.x,v.y)||1;
+ const unit=(v:V):V=>{let l=nw(v);return{x:v.x/l,y:v.y/l}};
+ if(nature==="GROWTH"){
+  // Differential growth: periodic closed polylines undergo growth, neighbor
+  // relaxation, repulsion, adaptive splitting, and image-weighted expansion.
+  const loops:V[][]=[];
+  anchors.slice(0,Math.max(1,Math.min(4,anchors.length))).forEach((p,g)=>{
+    const cx=p.x*W,cy=p.y*H,radius=28+density*.46+g*11,n=18+Math.round(density*.08);
+    const nodes:V[]=[];for(let i=0;i<n;i++){let angle=i/n*Math.PI*2,rr=radius*(.87+random()*.26);nodes.push({x:cx+rr*Math.cos(angle),y:cy+rr*Math.sin(angle)})}loops.push(nodes);
+  });
+  const iterations=35+Math.floor(density*.5),maxGap=20-width*.09,repelDist=30+variation*.16;
+  for(let t=0;t<iterations;t++){
+   for(let k=0;k<loops.length;k++){
+    let nodes=loops[k];if(nodes.length>460)continue;
+    const center=nodes.reduce((m,p)=>({x:m.x+p.x/nodes.length,y:m.y+p.y/nodes.length}),{x:0,y:0});
+    const updated=nodes.map((p,i)=>{
+      let prev=nodes[(i+nodes.length-1)%nodes.length],next=nodes[(i+1)%nodes.length];
+      const tangent=unit({x:next.x-prev.x,y:next.y-prev.y});
+      let normal={x:-tangent.y,y:tangent.x};
+      if(normal.x*(p.x-center.x)+normal.y*(p.y-center.y)<0)normal={x:-normal.x,y:-normal.y};
+      let repX=0,repY=0;
+      for(let j=0;j<nodes.length;j++){let distIdx=Math.min(Math.abs(i-j),nodes.length-Math.abs(i-j));if(distIdx<=2)continue;
+        let dx=p.x-nodes[j].x,dy=p.y-nodes[j].y,d=Math.hypot(dx,dy);
+        if(d>0.1&&d<repelDist){let force=(repelDist-d)/repelDist;repX+=dx/d*force;repY+=dy/d*force}
+      }
+      const x=Math.max(0,Math.min(1,p.x/W)),y=Math.max(0,Math.min(1,p.y/H));
+      const mass=get(a,"field",x,y),edge=get(a,"edge",x,y);
+      const pressure=(2.1+(mass-.43)*5*amount+edge*3*amount);
+      const drift=(noise(x*13+t*.03,y*13,k+seed)-.5)*variation*.015;
+      return {x:p.x+normal.x*pressure+repX*.7+tangent.x*drift,y:p.y+normal.y*pressure+repY*.7+tangent.y*drift};
+    });
+    const split:V[]=[];
+    for(let i=0;i<updated.length;i++){let p=updated[i],q=updated[(i+1)%updated.length];split.push(p);if(Math.hypot(p.x-q.x,p.y-q.y)>maxGap)split.push({x:(p.x+q.x)/2,y:(p.y+q.y)/2})}
+    loops[k]=split;
    }
-   const segments=pts.filter((p,j)=>j%2===0&&get(a,"field",clamp(p.x/W,0,1),clamp(p.y/H,0,1))>.08);
-   const w=(i%5===0?10:1.7+r()*5)*size*(.5+variation/120);
-   lines.push(line(segments.length>9?segments:pts,w,ink(),.82));
-   if(i%4===0){const translated=pts.map(p=>({x:p.x+10,y:p.y+8+r()*24}));lines.push(line(translated,1.4*size,ink(),.65));}
   }
- }
- if(nature==="PETAL"){
-  const anchors=guides.length?guides:[{x:.5,y:.5,strength:1}];
-  anchors.forEach((anchor,id)=>{
-   const n=Math.round(12+density*.26),cx=anchor.x*W,cy=anchor.y*H;
-   const sweep=Math.PI*2;
-   for(let j=0;j<n;j++){
-    const angle=j/n*sweep+seed*.015+id*.6,reach=105+r()*260*(.45+variation/100);
-    const curvature=(r()-.5)*.95,pts:V[]=[];
-    for(let t=0;t<=35;t++){const u=t/35,ang=angle+curvature*u*u+Math.sin(u*Math.PI)*(variation/100)*.35;
-     const radius=reach*u*(.7+.3*Math.sin(u*Math.PI)),photo=get(a,"edge",clamp((cx+Math.cos(ang)*radius)/W,0,1),clamp((cy+Math.sin(ang)*radius)/H,0,1));
-     pts.push({x:cx+Math.cos(ang)*radius+Math.sin(u*5+id)*(photo*influence*.14),y:cy+Math.sin(ang)*radius});}
-    lines.push(line(pts,(j%7===0?5:1.3+r()*2.5)*size,ink(),.6+r()*.35));
-   }
+  loops.forEach((nodes,i)=>{
+   let closed=[...nodes,nodes[0]];
+   out.push(line(closed,1.3+width*.035,palette[i%palette.length],.96));
+   out.push(line(closed,4+width*.07,palette[i%palette.length],.24));
   });
  }
- if(nature==="SWARM"){
-  const agents=Math.round(38+density*2.3),anchors=guides.length?guides:[{x:.5,y:.5,strength:1}];
-  for(let i=0;i<agents;i++){
-   const anchor=anchors[i%anchors.length],spread=95+variation*2.2;
-   let x=anchor.x*W+(r()-.5)*spread,y=anchor.y*H+(r()-.5)*spread,ang=r()*Math.PI*2;
-   const pts:V[]=[],steps=10+Math.round(r()*38);
-   for(let k=0;k<steps;k++){
-    const f=tangent(a,clamp(x/W,0,1),clamp(y/H,0,1),ang,seed+i);
-    ang=Math.atan2(f.y,f.x)+(r()-.5)*variation/140;
-    x+=Math.cos(ang)*(6+variation*.09);y+=Math.sin(ang)*(6+variation*.09);
-    pts.push({x,y});if(x< -50||x>W+50||y< -50||y>H+50)break;
+ if(nature==="FLOW"){
+   // Streamline trajectories move under an image-gradient-derived vector field
+   // with a soft noise perturbation and attraction to their starting anchor.
+   const agents=30+Math.floor(density*1.7);
+   for(let i=0;i<agents;i++){
+     let origin=anchors[i%anchors.length],x=origin.x*W+(random()-.5)*(55+variation*2),y=origin.y*H+(random()-.5)*(55+variation*2);
+     let angle=random()*Math.PI*2,points:V[]=[];
+     const steps=23+Math.floor(random()*(25+density*.35));
+     for(let j=0;j<steps;j++){
+       let u=Math.max(0,Math.min(1,x/W)),v=Math.max(0,Math.min(1,y/H));
+       let gx=get(a,"gx",u,v),gy=get(a,"gy",u,v),grad=Math.hypot(gx,gy);
+       let tangent=grad>.012?{x:-gy/grad,y:gx/grad}:{x:Math.cos(angle),y:Math.sin(angle)};
+       let turn=(noise(u*17+j*.016,v*17+i*.09,seed)-.5)*(0.35+variation*.02);
+       angle=Math.atan2(tangent.y*amount+Math.sin(angle)*(1-amount),tangent.x*amount+Math.cos(angle)*(1-amount))+turn;
+       x+=Math.cos(angle)*(5+variation*.09);y+=Math.sin(angle)*(5+variation*.09);
+       points.push({x,y});if(x<-30||x>W+30||y<-30||y>H+30)break;
+     }
+     out.push(line(points,(i%9===0?4.5:0.7+random()*1.7)+width*.018,palette[i%palette.length],.55+random()*.37));
    }
-   lines.push(line(pts,(i%11===0?4.8:.7+r()*1.9)*size,ink(),.5+r()*.48));
-  }
  }
- return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'"><rect width="'+W+'" height="'+H+'" fill="'+background+'"/><g>'+lines.join("")+'</g></svg>';
+ if(nature==="REACTION"){
+   // Deterministic Gray-Scott reaction-diffusion on a coarse lattice; the
+   // source image drives the initial concentration and spatial feed rate.
+   const w=110,h=84,A=new Float32Array(w*h),B=new Float32Array(w*h); A.fill(1);
+   for(let y=0;y<h;y++)for(let x=0;x<w;x++){let k=y*w+x,u=x/(w-1),v=y/(h-1),mass=get(a,"field",u,v),edge=get(a,"edge",u,v);
+      B[k]=Math.min(1,Math.max(0,mass*.28*amount+edge*.31*amount+noise(x*.24,y*.24,seed)*.13));}
+   let feed=.028+density*.00036,kill=.053+variation*.00018;
+   for(let it=0;it<125;it++){
+     const nextA=new Float32Array(w*h),nextB=new Float32Array(w*h);
+     for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++){
+        let k=y*w+x,aa=A[k],bb=B[k],lapA=A[k-1]+A[k+1]+A[k-w]+A[k+w]-4*aa,lapB=B[k-1]+B[k+1]+B[k-w]+B[k+w]-4*bb;
+        let localFeed=feed+get(a,"field",x/(w-1),y/(h-1))*.009*amount;
+        let localKill=kill-get(a,"edge",x/(w-1),y/(h-1))*.007*amount;
+        let reaction=aa*bb*bb;
+        nextA[k]=Math.max(0,Math.min(1,aa+lapA-reaction+localFeed*(1-aa)));
+        nextB[k]=Math.max(0,Math.min(1,bb+(.5+variation*.002)*lapB+reaction-(localKill+localFeed)*bb));
+     }
+     A.set(nextA);B.set(nextB);
+   }
+   // Marching squares: contour lines from simulated concentration (not
+   // contours of the source pixels). Kept as vector paths for SVG export.
+   const levels=5+Math.floor(density*.06);
+   for(let l=0;l<levels;l++){
+      const level=.1+l/levels*.68;
+      for(let y=0;y<h-1;y++)for(let x=0;x<w-1;x++){
+       let vals=[B[y*w+x],B[y*w+x+1],B[(y+1)*w+x+1],B[(y+1)*w+x]];
+       let corners=[[x,y],[x+1,y],[x+1,y+1],[x,y+1]];
+       const intersections:V[]=[];
+       for(let q=0;q<4;q++){let p=(q+1)%4,v1=vals[q],v2=vals[p];
+         if((v1<level)!==(v2<level)){let t=(level-v1)/(v2-v1);intersections.push({x:(corners[q][0]+(corners[p][0]-corners[q][0])*t)*W/(w-1),y:(corners[q][1]+(corners[p][1]-corners[q][1])*t)*H/(h-1)})}
+       }
+       if(intersections.length>=2)out.push(line([intersections[0],intersections[1]],1.2+width*.027,palette[l%palette.length],.8));
+       if(intersections.length===4)out.push(line([intersections[2],intersections[3]],1.2+width*.027,palette[l%palette.length],.8));
+      }
+   }
+ }
+ return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'"><rect width="'+W+'" height="'+H+'" fill="'+background+'"/><g>'+out.join("")+'</g></svg>';
 }
 export default function Org05(){
  const imgRef=useRef<HTMLImageElement|null>(null),drag=useRef<number|null>(null),analysisRef=useRef<HTMLCanvasElement>(null);
  const [sourceName,setSourceName]=useState("No image — use the synthetic study or upload one"),[revision,setRevision]=useState(0);
  const [threshold,setThreshold]=useState(48),[smoothing,setSmoothing]=useState(35),[contrast,setContrast]=useState(42),[analysis,setAnalysis]=useState<Analysis|undefined>(),[guides,setGuides]=useState<Guide[]>([{x:.37,y:.44,strength:1},{x:.66,y:.63,strength:1}]);
- const [nature,setNature]=useState<Nature>("TOPOGRAPHIC"),[seed,setSeed]=useState(2718),[density,setDensity]=useState(50),[variation,setVariation]=useState(62),[width,setWidth]=useState(32),[influence,setInfluence]=useState(75),[showAnalysis,setShowAnalysis]=useState(true),[palette,setPalette]=useState("ink");
+ const [nature,setNature]=useState<Nature>("GROWTH"),[seed,setSeed]=useState(2718),[density,setDensity]=useState(50),[variation,setVariation]=useState(62),[width,setWidth]=useState(32),[influence,setInfluence]=useState(75),[showAnalysis,setShowAnalysis]=useState(true),[palette,setPalette]=useState("ink");
  const palettes:Record<string,{bg:string;ink:string[]}>={ink:{bg:"#f4eadd",ink:["#0e232f","#16383a","#192634"]},signal:{bg:"#f1dbbf",ink:["#ed643b","#153c50","#624687","#25252a"]},acid:{bg:"#f1f1c8",ink:["#002e24","#2f8f4b","#f26d21","#111b18"]},mono:{bg:"#eaeaea",ink:["#111111","#555555","#999999"]}};
  useEffect(()=>{if(!imgRef.current)return;setAnalysis(analyze(imgRef.current,threshold,smoothing,contrast));},[threshold,smoothing,contrast,revision]);
  useEffect(()=>{if(analysis)setGuides(analysis.guides);},[analysis]);
@@ -139,7 +182,7 @@ export default function Org05(){
  const download=()=>{const link=document.createElement("a");link.href=URL.createObjectURL(new Blob([svg],{type:"image/svg+xml"}));link.download="ORG-LINE-"+nature+"-"+seed+".svg";link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000)};
  return <main style={{display:"grid",gridTemplateColumns:"minmax(0,1fr) 326px",height:"100dvh",background:"#242424",color:"#eee",fontFamily:"Arial,Helvetica,sans-serif"}}>
  <section style={{minWidth:0,display:"flex",flexDirection:"column"}}>
- <header style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"15px 24px",background:"#101010",borderBottom:"1px solid #333"}}><div><b style={{fontSize:23}}>ORG/LINE</b> <span style={{fontSize:10,letterSpacing:2,color:"#999",marginLeft:12}}>EXTRACTED LINE SYSTEMS</span></div><a href="/" style={{color:"#aaa",fontSize:12}}>← INDEX</a></header>
+ <header style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"15px 24px",background:"#101010",borderBottom:"1px solid #333"}}><div><b style={{fontSize:23}}>ORG/MATH</b> <span style={{fontSize:10,letterSpacing:2,color:"#999",marginLeft:12}}>IMAGE-STEERED MATHEMATICAL SYSTEMS</span></div><a href="/" style={{color:"#aaa",fontSize:12}}>← INDEX</a></header>
  <div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",padding:24,minHeight:0}}><div style={{width:"100%",maxWidth:1100,maxHeight:"100%",aspectRatio:"1000 / 760",boxShadow:"0 12px 42px #0007",background:"#f4eadd"}} dangerouslySetInnerHTML={{__html:svg}}/></div>
  <footer style={{background:"#111",padding:"12px 24px",fontSize:10,letterSpacing:1,color:"#aaa"}}>IMAGE → STRUCTURE → LINE GRAMMAR · PRIVATE DEVELOPMENT PREVIEW</footer>
  </section>
@@ -149,9 +192,9 @@ export default function Org05(){
  <button onClick={()=>setShowAnalysis(v=>!v)} style={{width:"100%",padding:9,background:"#303030",border:"1px solid #555",color:"#eee",cursor:"pointer"}}>{showAnalysis?"HIDE ANALYSIS":"SHOW ANALYSIS"}</button>
  {showAnalysis&&<div style={{marginTop:9}}>{analysis?<canvas ref={analysisRef} style={{width:"100%",touchAction:"none",cursor:"crosshair"}} onPointerDown={e=>{const rect=e.currentTarget.getBoundingClientRect();const x=(e.clientX-rect.left)/rect.width,y=(e.clientY-rect.top)/rect.height;let index=-1,dist=25;guides.forEach((p,i)=>{const d=Math.hypot((p.x-x)*rect.width,(p.y-y)*rect.height);if(d<dist){dist=d;index=i}});if(index>=0){drag.current=index;e.currentTarget.setPointerCapture(e.pointerId)}}} onPointerMove={pointer} onPointerUp={()=>drag.current=null} onPointerCancel={()=>drag.current=null}/>:<div style={{background:"#292929",padding:16,fontSize:11}}>Upload a source to reveal its analysis.</div>}<p style={{fontSize:10,color:"#999"}}>Move the orange guides to redirect generated line families.</p><button onClick={()=>setGuides(v=>[...v,{x:.5,y:.5,strength:1}])}>+ GUIDE</button><button onClick={()=>setGuides(v=>v.slice(0,-1))} style={{marginLeft:8}}>− GUIDE</button></div>}
  <div style={{borderTop:"1px solid #383838",paddingTop:17,marginTop:20}}>{slider("Threshold",threshold,setThreshold)}{slider("Simplify / blur",smoothing,setSmoothing)}{slider("Contrast",contrast,setContrast)}</div>
- <div style={{borderTop:"1px solid #383838",paddingTop:17,marginTop:6}}><div style={{fontSize:10,letterSpacing:2,color:"#999",marginBottom:13}}>02 / LINE NATURE</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:5}}>{(["STRATA","TOPOGRAPHIC","PETAL","SWARM"] as Nature[]).map(n=><button key={n} onClick={()=>setNature(n)} style={{padding:"12px 4px",fontSize:11,background:n===nature?"#eee":"#262626",color:n===nature?"#111":"#ddd",border:"1px solid #555",cursor:"pointer"}}>{n}</button>)}</div><p style={{fontSize:10,color:"#888",lineHeight:1.6}}>{nature==="STRATA"?"Layered pressure, seams and sediment-like bands.":nature==="TOPOGRAPHIC"?"Actual isolines extracted from tonal regions, with weighted contour passes.":nature==="PETAL"?"Curved trajectories radiating from editable focal origins.":"Many short autonomous lines forming directional swarms."}</p></div>
+ <div style={{borderTop:"1px solid #383838",paddingTop:17,marginTop:6}}><div style={{fontSize:10,letterSpacing:2,color:"#999",marginBottom:13}}>02 / LINE NATURE</div><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:5}}>{(["GROWTH","FLOW","REACTION"] as Nature[]).map(n=><button key={n} onClick={()=>setNature(n)} style={{padding:"12px 4px",fontSize:11,background:n===nature?"#eee":"#262626",color:n===nature?"#111":"#ddd",border:"1px solid #555",cursor:"pointer"}}>{n}</button>)}</div><p style={{fontSize:10,color:"#888",lineHeight:1.6}}>{nature==="FLOW"?"Adaptive node subdivision, self-repulsion, and image-driven growth.":nature==="GROWTH"?"Differential growth: closed lines expand and repel.":nature==="REACTION"?"Gray-Scott reaction–diffusion driven by the image.":"Autonomous agents integrate an image-derived vector field."}</p></div>
  <div style={{borderTop:"1px solid #383838",paddingTop:18}}>{slider("Density",density,setDensity)}{slider("Variation",variation,setVariation)}{slider("Width contrast",width,setWidth)}{slider("Image influence",influence,setInfluence)}</div>
  <div style={{borderTop:"1px solid #383838",paddingTop:18}}><label style={{fontSize:11}}>Palette<select value={palette} onChange={e=>setPalette(e.target.value)} style={{display:"block",width:"100%",background:"#252525",padding:10,marginTop:9,color:"#eee",border:"1px solid #555"}}><option value="ink">Ink / Paper</option><option value="signal">Signal / Pop</option><option value="acid">Acid / Botanical</option><option value="mono">Monochrome</option></select></label><label style={{display:"flex",justifyContent:"space-between",fontSize:11,alignItems:"center",margin:"17px 0"}}>Seed <input type="number" value={seed} onChange={e=>setSeed(Number(e.target.value))} style={{width:96,padding:8,color:"#eee",background:"#252525",border:"1px solid #555"}}/></label><button onClick={()=>setSeed(Math.floor(Math.random()*999999))} style={{width:"100%",padding:12,background:"#f16c39",border:0,cursor:"pointer",fontWeight:700}}>↻ NEW INTERPRETATION</button><button onClick={download} style={{width:"100%",marginTop:7,padding:11,background:"#222",color:"#eee",border:"1px solid #555",cursor:"pointer"}}>EXPORT SVG ↗</button></div>
- <p style={{fontSize:10,lineHeight:1.5,color:"#777",marginTop:18}}>Four distinct growth laws, not four filters. Draft experiment — not on the public index.</p>
+ <p style={{fontSize:10,lineHeight:1.5,color:"#777",marginTop:18}}>Three mathematical engines, not visual presets. Draft experiment — not on the public index.</p>
  </aside></main>;
 }
