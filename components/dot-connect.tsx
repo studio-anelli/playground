@@ -1,7 +1,7 @@
 "use client";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import "./dot-connect.css";
+import "../app/experiments/dot-connect/dot-connect.css";
 
 type P={x:number;y:number;r:number;c:number};
 type Group={ids:number[];pairs:[number,number][];holes:{x:number;y:number}[];id:number};
