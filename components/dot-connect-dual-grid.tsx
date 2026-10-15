@@ -3,7 +3,7 @@ import {useMemo,useRef,useState} from "react";
 import Link from "next/link";
 import "./dual-grid.css";
 type Pt={x:number;y:number;r:number;c:number};
-type Group={id:number;ids:number[];pairs:[number,number][];cells:{x:number;y:number;closed:boolean}[]};
+type Group={id:number;ids:number[];pairs:[number,number][];cells:{x:number;y:number;closed:boolean;active:boolean}[]};
 const key=(a:number,b:number)=>Math.min(a,b)+":"+Math.max(a,b);
 const prng=(seed:number)=>{let a=seed>>>0;return()=>{a+=0x6d2b79f5;let t=a;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return ((t^t>>>14)>>>0)/4294967296}};
 const palette=["#f14b18","#522d8b","#dfa031","#166a80","#c51c2a"];
@@ -17,12 +17,13 @@ function connected(pts:Pt[],edges:Set<string>,cols:number,rows:number):Group[]{
  for(let r=0;r<rows-1;r++)for(let c=0;c<cols-1;c++){const a=r*cols+c,b=a+1,d=a+cols,e=d+1;
  if(![a,b,d,e].some(j=>members.has(j)))continue;
  const closed=[key(a,b),key(b,e),key(e,d),key(d,a)].every(k=>edges.has(k));
- cells.push({x:(pts[a].x+pts[e].x)/2,y:(pts[a].y+pts[e].y)/2,closed})}
+ const count=[key(a,b),key(b,e),key(e,d),key(d,a)].filter(k=>edges.has(k)).length;
+ cells.push({x:(pts[a].x+pts[e].x)/2,y:(pts[a].y+pts[e].y)/2,closed,active:count>=2})}
  groups.push({id:Math.min(...ids),ids,pairs,cells})}
  return groups;
 }
-function contour(g:Group,pts:Pt[],radius:number,gap:number,neck:number,fluid:number):string{
- const smooth=radius*(.20+fluid*.82),tube=radius*(.15+neck*.42);
+function contour(g:Group,pts:Pt[],radius:number,gap:number,neck:number,junction:number):string{
+ const smooth=radius*.52,tube=radius*(.15+neck*.42);
  let minx=Infinity,miny=Infinity,maxx=-Infinity,maxy=-Infinity;
  for(const id of g.ids){const p=pts[id];minx=Math.min(minx,p.x);miny=Math.min(miny,p.y);maxx=Math.max(maxx,p.x);maxy=Math.max(maxy,p.y)}
  const pad=radius+smooth+8,step=Math.max(1.6,Math.min(3,Math.min(gap,radius*2)/18));
@@ -31,12 +32,14 @@ function contour(g:Group,pts:Pt[],radius:number,gap:number,neck:number,fluid:num
  const values=new Float32Array(nx*ny);
  const lines=g.pairs.map(([a,b])=>{const p=pts[a],q=pts[b],dx=q.x-p.x,dy=q.y-p.y;return{p,dx,dy,d2:dx*dx+dy*dy}});
  const minSmooth=(a:number,b:number,k:number)=>{const h=Math.max(k-Math.abs(a-b),0)/k;return Math.min(a,b)-h*h*k*.25};
- const hr=gap*.12,wall=Math.max(radius*.35,Math.min(gap*.17,radius*.75));
+ // Grid B is a local negative-space field at each 2x2 junction, never a global smoothing control.
+ const bRadius=gap*(.08+junction*.23),blend=Math.max(1.5,radius*.11);
+ const smoothMax=(a:number,b:number,k:number)=>-minSmooth(-a,-b,k);
  for(let y=0;y<ny;y++)for(let x=0;x<nx;x++){
  const px=minx+x*step,py=miny+y*step;let d=Infinity;
  for(const id of g.ids){const p=pts[id];d=Math.min(d,Math.hypot(px-p.x,py-p.y)-radius)}
  for(const l of lines){const t=Math.max(0,Math.min(1,((px-l.p.x)*l.dx+(py-l.p.y)*l.dy)/l.d2));d=minSmooth(d,Math.hypot(px-l.p.x-t*l.dx,py-l.p.y-t*l.dy)-tube,smooth)}
- for(const h of g.cells)if(h.closed)d=minSmooth(d,Math.hypot(px-h.x,py-h.y)-(hr+wall),Math.min(smooth,radius*.7));
+ for(const h of g.cells)if(h.active&&!h.closed){const distance=Math.hypot(px-h.x,py-h.y);if(distance<bRadius+blend)d=smoothMax(d,bRadius-distance,blend)}
  values[y*nx+x]=d;
  }
  type V={id:string;x:number;y:number};
@@ -93,11 +96,11 @@ export default function DualGrid(){
  <path key={g.id} d={path} fill={isOutline?"none":color} fillRule="evenodd" stroke={isOutline?color:"none"} strokeWidth={Math.max(1.6,r*.16)} strokeLinejoin="round"/>:
  <circle key={g.id} cx={pts[g.id].x} cy={pts[g.id].y} r={r} fill={isOutline?"none":color} stroke={isOutline?color:"none"} strokeWidth={Math.max(1.6,r*.16)}/>})}
  {guides&&<g id="dg-guides" pointerEvents="none">{pts.map((p,i)=><circle key={i} cx={p.x} cy={p.y} r={r} fill="none" stroke="#4765b1" strokeOpacity=".35" strokeWidth="1"/>)}{Array.from({length:Math.max(0,(cols-1)*(rows-1))},(_,i)=>{const rr=Math.floor(i/(cols-1)),c=i%(cols-1);return <circle key={i} cx={(pts[rr*cols+c].x+pts[(rr+1)*cols+c+1].x)/2} cy={(pts[rr*cols+c].y+pts[(rr+1)*cols+c+1].y)/2} r={step*junction/200} fill="none" stroke="#d94a80" strokeOpacity=".4" strokeDasharray="3 4"/>})}</g>}
- </svg><p className="dg-hint">GRID A: MODULES · GRID B: NEGATIVE-SPACE JUNCTIONS</p></section>
+ </svg><p className="dg-hint">GRID A: MODULES · GRID B: LOCAL JUNCTIONS ONLY</p></section>
  <aside className="dg-panel"><div className="dg-control"><span>TOOL</span><div className="dg-pair"><button className={tool==="connect"?"selected":""} onClick={()=>setTool("connect")}>CONNECT</button><button className={tool==="remove"?"selected":""} onClick={()=>setTool("remove")}>REMOVE</button></div></div>
  <div className="dg-control"><span>DIRECTION</span><div className="dg-pair"><button className={direction==="all"?"selected":""} onClick={()=>changeDir("all")}>ALL</button><button className={direction==="diagonal"?"selected":""} onClick={()=>changeDir("diagonal")}>DIAGONAL</button></div></div>
  {slider("COLUMNS",cols,v=>{setCols(v);reSeed(v,rows)},2,20,"")}{slider("ROWS",rows,v=>{setRows(v);reSeed(cols,v)},2,20,"")}
- {slider("SPACING",spacing,setSpacing,60,150)}{slider("GRID A / DOT SIZE",dotSize,setDotSize,30,96)}{slider("GRID A / MERGE WIDTH",bridge,setBridge,20,100)}{slider("GRID B / CURVATURE",junction,setJunction,10,95)}{slider("GRID B / HOLE",holeSize,setHoleSize,10,90)}{slider("RANDOM DENSITY",density,v=>{setDensity(v);reSeed(cols,rows,v)},0,75)}
+ {slider("SPACING",spacing,setSpacing,60,150)}{slider("GRID A / DOT SIZE",dotSize,setDotSize,30,96)}{slider("GRID A / MERGE WIDTH",bridge,setBridge,20,100)}{slider("GRID B / JUNCTION CUT",junction,setJunction,10,95)}{slider("GRID B / HOLE",holeSize,setHoleSize,10,90)}{slider("RANDOM DENSITY",density,v=>{setDensity(v);reSeed(cols,rows,v)},0,75)}
  <label className="dg-control"><span>SHOW CONSTRUCTION GRID</span><input type="checkbox" checked={guides} onChange={e=>setGuides(e.target.checked)}/></label>
  <div className="dg-control"><span>COLOUR</span><div className="dg-pair"><input type="color" aria-label="Ink" value={ink} onChange={e=>setInk(e.target.value)}/><input type="color" aria-label="Background" value={bg} onChange={e=>setBg(e.target.value)}/><button className={multi?"selected":""} onClick={()=>setMulti(!multi)}>MULTI</button></div></div>
  <div className="dg-pair"><button className="selected" onClick={()=>{const v=Math.floor(Math.random()*999999);setSeed(v);reSeed(cols,rows,density,v)}}>↻ RANDOM</button><button onClick={()=>{setEdges(new Set());setOutlined(new Set())}}>CLEAR</button></div>
