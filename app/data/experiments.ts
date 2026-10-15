@@ -13,6 +13,16 @@ export type Experiment = {
 
 const experimentCatalog: Experiment[] = [
   {
+    id: "REC-11",
+    slug: "dot-connect",
+    title: "DOT / CONNECT",
+    kind: "tool",
+    status: "test",
+    year: "2026",
+    tags: ["generative graphics", "fluid geometry", "SVG"],
+    summary: "A connected-dot drawing instrument with editable grid dimensions, fluid contours, circular voids and vector export.",
+  },
+  {
     id: "REC-10",
     slug: "k-tic-synth",
     title: "K-TIC-SYNTH",
