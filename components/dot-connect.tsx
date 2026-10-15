@@ -68,9 +68,10 @@ function contour(g:Group,pts:P[],radius:number,gap:number,neck:number,fluid:numb
  }
  return path;
 }
-function makeSeed(cols:number,rows:number,density:number,seed:number){const e=new Set<string>(),random=rng(seed);for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){const a=r*cols+c;for(const [dx,dy] of [[1,0],[0,1],[1,1],[-1,1]]){const xx=c+dx,yy=r+dy;if(xx>=0&&xx<cols&&yy>=0&&yy<rows&&random()<density*(dx&&dy?.53:1))e.add(key(a,yy*cols+xx))}}return e}
+function makeSeed(cols:number,rows:number,density:number,seed:number,direction:"all"|"diagonal"="all"){const e=new Set<string>(),random=rng(seed);for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){const a=r*cols+c;for(const [dx,dy] of (direction==="diagonal"?[[1,1],[-1,1]]:[[1,0],[0,1],[1,1],[-1,1]])){const xx=c+dx,yy=r+dy;if(xx>=0&&xx<cols&&yy>=0&&yy<rows&&random()<density*(dx&&dy?.53:1))e.add(key(a,yy*cols+xx))}}return e}
 export default function DotConnect(){
  const [cols,setCols]=useState(10),[rows,setRows]=useState(10),[spacing,setSpacing]=useState(100),[size,setSize]=useState(70),[neck,setNeck]=useState(45),[fluid,setFluid]=useState(70),[hole,setHole]=useState(55),[density,setDensity]=useState(22),[ink,setInk]=useState("#f34c1d"),[bg,setBg]=useState("#d7d7d4"),[multi,setMulti]=useState(false),[outline,setOutline]=useState(false),[tool,setTool]=useState<"connect"|"remove">("connect"),[seed,setSeed]=useState(31415);
+ const [direction,setDirection]=useState<"all"|"diagonal">("all");
  const [edges,setEdges]=useState<Set<string>>(()=>makeSeed(10,10,.22,31415)),[colors,setColors]=useState<Record<number,number>>({});
  const svg=useRef<SVGSVGElement>(null),drag=useRef<{start:number;last:number;moved:boolean}|null>(null);
  const base=600/Math.max(9,cols-1,rows-1),gap=base*spacing/100,radius=base*size/100*.46;
@@ -79,9 +80,10 @@ export default function DotConnect(){
  const groups=useMemo(()=>groupNodes(pts,edges,cols,rows),[pts,edges,cols,rows]);
  const holePath=(x:number,y:number,r:number)=>`M ${x-r} ${y} A ${r} ${r} 0 1 0 ${x+r} ${y} A ${r} ${r} 0 1 0 ${x-r} ${y} Z`;
  const paths=useMemo(()=>groups.map(g=>({group:g,d:g.pairs.length?contour(g,pts,radius,gap,neck/100,fluid/100)+g.holes.map(h=>holePath(h.x,h.y,gap*(.12+hole/100*.22))).join(" "):""})),[groups,pts,radius,gap,neck,fluid,hole]);
- const reSeed=(c=cols,r=rows,d=density,s=seed)=>{setEdges(makeSeed(c,r,d/100,s));setColors({})};
+ const reSeed=(c=cols,r=rows,d=density,s=seed,dir=direction)=>{setEdges(makeSeed(c,r,d/100,s,dir));setColors({})};
+ const changeDirection=(dir:"all"|"diagonal")=>{setDirection(dir);if(dir==="diagonal"){setEdges(old=>new Set([...old].filter(k=>{const [a,b]=k.split(":").map(Number);return pts[a]&&pts[b]&&Math.abs(pts[a].r-pts[b].r)===1&&Math.abs(pts[a].c-pts[b].c)===1})));setColors({})}};
  const pick=(e:React.PointerEvent<SVGSVGElement>)=>{const rect=svg.current!.getBoundingClientRect();const x=offset+(e.clientX-rect.left)/rect.width*view,y=offset+(e.clientY-rect.top)/rect.height*view;let best=-1,dist=Infinity;pts.forEach((p,i)=>{const v=(p.x-x)**2+(p.y-y)**2;if(v<dist){dist=v;best=i}});return Math.sqrt(dist)<gap*.56?best:-1};
- const travel=(a:number,b:number)=>{if(a<0||b<0||a===b)return;const p=pts[a],q=pts[b],n=Math.max(Math.abs(p.r-q.r),Math.abs(p.c-q.c));setEdges(old=>{const next=new Set(old);let prev=a;for(let j=1;j<=n;j++){const r=Math.round(p.r+(q.r-p.r)*j/n),c=Math.round(p.c+(q.c-p.c)*j/n),id=r*cols+c;if(id!==prev&&Math.max(Math.abs(pts[prev].r-r),Math.abs(pts[prev].c-c))===1){const k=key(prev,id);if(tool==="connect")next.add(k);else next.delete(k)}prev=id}return next})};
+ const travel=(a:number,b:number)=>{if(a<0||b<0||a===b)return;const p=pts[a],q=pts[b],n=Math.max(Math.abs(p.r-q.r),Math.abs(p.c-q.c));setEdges(old=>{const next=new Set(old);let prev=a;for(let j=1;j<=n;j++){const r=Math.round(p.r+(q.r-p.r)*j/n),c=Math.round(p.c+(q.c-p.c)*j/n),id=r*cols+c;if(id!==prev&&Math.max(Math.abs(pts[prev].r-r),Math.abs(pts[prev].c-c))===1&&(direction==="all"||(Math.abs(pts[prev].r-r)===1&&Math.abs(pts[prev].c-c)===1))){const k=key(prev,id);if(tool==="connect")next.add(k);else next.delete(k)}prev=id}return next})};
  const slider=(label:string,value:number,onChange:(n:number)=>void,min:number,max:number,suffix="%")=><label className="dc-control"><span>{label}<b>{value}{suffix}</b></span><input type="range" min={min} max={max} value={value} onChange={e=>onChange(+e.target.value)}/></label>;
  const exportSvg=()=>{const xml=new XMLSerializer().serializeToString(svg.current!);const blob=new Blob([xml],{type:"image/svg+xml"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=`dot-connect-${cols}x${rows}-${seed}.svg`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)};
  return <main className="dc-page">
@@ -93,6 +95,7 @@ export default function DotConnect(){
  </svg><div className="dc-help">DRAG TO CONNECT · CLICK A GROUP TO RECOLOUR</div></section>
  <aside className="dc-panel">
  <div className="dc-control"><span>TOOL</span><div className="dc-pair"><button className={tool==="connect"?"active":""} onClick={()=>setTool("connect")}>CONNECT</button><button className={tool==="remove"?"active":""} onClick={()=>setTool("remove")}>REMOVE</button></div></div>
+ <div className="dc-control"><span>DIRECTION</span><div className="dc-pair"><button className={direction==="all"?"active":""} onClick={()=>changeDirection("all")}>ALL</button><button className={direction==="diagonal"?"active":""} onClick={()=>changeDirection("diagonal")}>DIAGONAL ONLY</button></div></div>
  <div className="dc-control"><span>RENDER</span><div className="dc-pair"><button className={!outline?"active":""} onClick={()=>setOutline(false)}>SOLID</button><button className={outline?"active":""} onClick={()=>setOutline(true)}>OUTLINE</button></div></div>
  {slider("COLUMNS",cols,n=>{setCols(n);reSeed(n,rows)},2,24,"")}
  {slider("ROWS",rows,n=>{setRows(n);reSeed(cols,n)},2,24,"")}
@@ -105,6 +108,6 @@ export default function DotConnect(){
  <div className="dc-control"><span>COLOURS</span><div className="dc-pair dc-colors"><input aria-label="Ink" type="color" value={ink} onChange={e=>setInk(e.target.value)}/><input aria-label="Background" type="color" value={bg} onChange={e=>setBg(e.target.value)}/><button className={multi?"active":""} onClick={()=>{setMulti(!multi);setColors({})}}>MULTI {multi?"ON":"OFF"}</button></div></div>
  <div className="dc-pair"><button className="active" onClick={()=>{const s=Math.floor(Math.random()*999999);setSeed(s);reSeed(cols,rows,density,s)}}>↻ RANDOM</button><button onClick={()=>{setEdges(new Set());setColors({})}}>CLEAR</button></div>
  <label className="dc-control"><span>SEED</span><input type="number" value={seed} onChange={e=>{const s=Math.max(0,Math.floor(+e.target.value||0));setSeed(s);reSeed(cols,rows,density,s)}}/></label>
- </aside></div><footer className="dc-footer"><span>8-NEIGHBOUR / FLUID VECTOR CONTOURS</span><span>{edges.size} LINKS · {groups.reduce((s,g)=>s+g.holes.length,0)} HOLES</span></footer>
+ </aside></div><footer className="dc-footer"><span>{direction==="diagonal"?"DIAGONAL-ONLY":"8-NEIGHBOUR"} / FLUID VECTOR CONTOURS</span><span>{edges.size} LINKS · {groups.reduce((s,g)=>s+g.holes.length,0)} HOLES</span></footer>
  </main>;
 }
