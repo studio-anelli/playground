@@ -1,6 +1,6 @@
 "use client";
 import {useRef,useState} from "react";
-import Link from "next/link";
+
 import "./grid-sections.css";
 
 type Section={id:number;color:string};
@@ -67,7 +67,7 @@ export default function GridSections(){
  setPainted(result)};
  const resize=(c:number,r:number)=>{setCols(c);setRows(r);setPainted(old=>{const next:Record<string,number>={};for(const [k,id] of Object.entries(old)){const [index,corner]=k.split(":").map(Number),row=Math.floor(index/COLS),col=index%COLS;if(row<r&&col<c)next[regionKey(row*c+col,corner)]=id}return next})};
  const save=()=>{const element=svg.current?.cloneNode(true) as SVGSVGElement;if(!element)return;element.querySelector("#construction-grid")?.remove();element.setAttribute("width",String(W));element.setAttribute("height",String(H));const xml=new XMLSerializer().serializeToString(element),url=URL.createObjectURL(new Blob([xml],{type:"image/svg+xml;charset=utf-8"})),a=document.createElement("a");a.href=url;a.download=`grid-sections-${COLS}x${ROWS}-${seed}.svg`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
- return <main className="dg-root"><header className="dg-header"><Link href="/">← DOT / CONNECT</Link><strong>GRID / SECTIONS <small>{COLS} × {ROWS} GEOMETRY</small></strong><button onClick={save}>↓ EXPORT SVG</button></header>
+ return <main className="dg-root"><header className="dg-header"><a href="/">← INDEX</a><strong>GRID / SECTIONS <small>{COLS} × {ROWS} GEOMETRY</small></strong><button onClick={save}>↓ EXPORT SVG</button></header>
  <div className="dg-layout"><section className="dg-stage">
  <svg ref={svg} viewBox={`0 0 ${W} ${H}`} xmlns="http://www.w3.org/2000/svg"
  onPointerDown={e=>{if(e.pointerType==="mouse"&&e.button!==0)return;const p=locate(e);if(!p)return;e.preventDefault();e.currentTarget.setPointerCapture(e.pointerId);stroke.current={id:e.pointerId,last:"",mode:e.shiftKey?"erase":e.metaKey||e.ctrlKey?"paint":"select"};apply(p)}}
