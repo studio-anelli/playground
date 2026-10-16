@@ -22,10 +22,14 @@ function shapes(indices:number[],cols:number,unit:number){
  for(let j=0;j<indices.length*4+4;j++){const n=segments.get(k);if(!n?.length)break;const [x,y]=k.split(",").map(Number);vertices.push({x,y});const next=n.pop()!;if(!n.length)segments.delete(k);k=pair(next);if(k===startKey){closed=true;break}}
  if(!closed||vertices.length<3)continue;
  const fmt=(v:number)=>Number(v.toFixed(2));
- const c=vertices.map((v,i)=>{const prev=vertices[(i+vertices.length-1)%vertices.length],next=vertices[(i+1)%vertices.length];const before=Math.hypot(v.x-prev.x,v.y-prev.y),after=Math.hypot(v.x-next.x,v.y-next.y),rr=Math.min(corner,before*.48,after*.48);
- return {entry:{x:v.x+(prev.x-v.x)*rr/before,y:v.y+(prev.y-v.y)*rr/before},exit:{x:v.x+(next.x-v.x)*rr/after,y:v.y+(next.y-v.y)*rr/after},v}});
+ const clean=vertices.filter((v,i)=>{const prev=vertices[(i+vertices.length-1)%vertices.length],next=vertices[(i+1)%vertices.length];return (v.x-prev.x)*(next.y-v.y)-(v.y-prev.y)*(next.x-v.x)!==0});
+ if(clean.length<3)continue;
+ const c=clean.map((v,i)=>{const prev=clean[(i+clean.length-1)%clean.length],next=clean[(i+1)%clean.length];const before=Math.hypot(v.x-prev.x,v.y-prev.y),after=Math.hypot(v.x-next.x,v.y-next.y),rr=Math.min(corner,before/2,after/2);
+ const turn=(v.x-prev.x)*(next.y-v.y)-(v.y-prev.y)*(next.x-v.x);
+ return {entry:{x:v.x+(prev.x-v.x)*rr/before,y:v.y+(prev.y-v.y)*rr/before},exit:{x:v.x+(next.x-v.x)*rr/after,y:v.y+(next.y-v.y)*rr/after},v,rr,turn}});
  let d="M "+fmt(c[0].entry.x)+" "+fmt(c[0].entry.y);
- for(let i=0;i<c.length;i++){const a=c[i];d+=" Q "+fmt(a.v.x)+" "+fmt(a.v.y)+" "+fmt(a.exit.x)+" "+fmt(a.exit.y);const next=c[(i+1)%c.length];d+=" L "+fmt(next.entry.x)+" "+fmt(next.entry.y)}paths.push(d+" Z");
+ for(let i=0;i<c.length;i++){const a=c[i];d+=" A "+fmt(a.rr)+" "+fmt(a.rr)+" 0 0 "+(a.turn>0?1:0)+" "+fmt(a.exit.x)+" "+fmt(a.exit.y);const next=c[(i+1)%c.length];d+=" L "+fmt(next.entry.x)+" "+fmt(next.entry.y)}
+ paths.push(d+" Z");
  }
  return paths.join(" ");
 }
