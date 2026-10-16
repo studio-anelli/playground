@@ -35,7 +35,7 @@ export default function GridSections(){
  const [painted,setPainted]=useState<Record<string,number>>({});
  const [active,setActive]=useState(1);
  const [background,setBackground]=useState("#f2f2ef"),[showGuides,setShowGuides]=useState(true);
- const svg=useRef<SVGSVGElement>(null),stroke=useRef<{id:number;last:string;mode:EditMode}|null>(null);
+ const svg=useRef<SVGSVGElement>(null),stroke=useRef<{id:number;last:string;mode:EditMode}|null>(null),hover=useRef("");
  const chosen=sections.find(s=>s.id===active)||sections[0];
  const locate=(e:React.PointerEvent<SVGSVGElement>)=>{const m=svg.current?.getScreenCTM();if(!m)return null;const p=new DOMPoint(e.clientX,e.clientY).matrixTransform(m.inverse());return hit(p.x,p.y,COLS,ROWS)};
  const apply=(loc:{cell:number;corner:number}|null)=>{if(!loc)return;const k=regionKey(loc.cell,loc.corner),mode=stroke.current?.mode||"select";
@@ -71,7 +71,7 @@ export default function GridSections(){
  <div className="dg-layout"><section className="dg-stage">
  <svg ref={svg} viewBox={`0 0 ${W} ${H}`} xmlns="http://www.w3.org/2000/svg"
  onPointerDown={e=>{if(e.pointerType==="mouse"&&e.button!==0)return;const p=locate(e);if(!p)return;e.preventDefault();e.currentTarget.setPointerCapture(e.pointerId);stroke.current={id:e.pointerId,last:"",mode:e.shiftKey?"erase":e.metaKey||e.ctrlKey?"paint":"select"};apply(p)}}
- onPointerMove={e=>{if(stroke.current?.id===e.pointerId&&stroke.current.mode!=="select")apply(locate(e))}}
+ onPointerMove={e=>{if(stroke.current?.id===e.pointerId){if(stroke.current.mode!=="select")apply(locate(e));return}const mode=e.shiftKey?"erase":e.metaKey||e.ctrlKey?"paint":null;if(!mode){hover.current="";return}const loc=locate(e);if(!loc)return;const token=mode+":"+regionKey(loc.cell,loc.corner);if(hover.current===token)return;hover.current=token;stroke.current={id:e.pointerId,last:"",mode};apply(loc);stroke.current=null}} onPointerLeave={()=>{hover.current=""}}
  onPointerUp={e=>{if(stroke.current?.id!==e.pointerId)return;apply(locate(e));stroke.current=null;if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId)}}
  onPointerCancel={()=>stroke.current=null} onLostPointerCapture={()=>stroke.current=null}>
  <rect width={W} height={H} fill={background}/>
@@ -82,8 +82,8 @@ export default function GridSections(){
  {Array.from({length:ROWS+1},(_,i)=><path key={"y"+i} d={`M 0 ${i*U} H ${W}`}/>)}
  {Array.from({length:COLS*ROWS},(_,i)=><circle key={"o"+i} cx={(i%COLS+.5)*U} cy={(Math.floor(i/COLS)+.5)*U} r={U/2}/>)}
  </g>}
- </svg><p className="dg-hint">CLICK SELECT · ⌘ DRAG PAINT · SHIFT DRAG ERASE</p></section>
- <aside className="dg-panel"><div className="dg-control"><span>INTERACTION</span><span>CLICK — SELECT COLOUR</span><span>⌘ + DRAG — PAINT</span><span>SHIFT + DRAG — ERASE</span></div>
+ </svg><p className="dg-hint">CLICK SELECT · ⌘ HOVER PAINT · SHIFT HOVER ERASE</p></section>
+ <aside className="dg-panel"><div className="dg-control"><span>INTERACTION</span><span>CLICK — SELECT COLOUR</span><span>⌘ + HOVER — PAINT</span><span>SHIFT + HOVER — ERASE</span></div>
  <div className="dg-control"><span>SECTIONS</span><div className="dg-swatch">{sections.map(s=><button key={s.id} className={active===s.id?"selected":""} onClick={()=>setActive(s.id)}><i style={{background:s.color}}/>{s.id}</button>)}</div><button onClick={create}>+ NEW COLOUR / SECTION</button></div>
  <div className="dg-control"><span>SECTION {active} COLOUR</span><input type="color" value={chosen.color} onChange={e=>setSections(ss=>ss.map(s=>s.id===active?{...s,color:e.target.value}:s))}/></div>
  <div className="dg-control"><span>GRID SIZE</span><div className="dg-pair"><label>COLS <input type="number" min="2" max="30" value={COLS} onChange={e=>resize(Math.max(2,Math.min(30,Math.round(+e.target.value)||2)),ROWS)}/></label><label>ROWS <input type="number" min="2" max="30" value={ROWS} onChange={e=>resize(COLS,Math.max(2,Math.min(30,Math.round(+e.target.value)||2)))}/></label></div><span>{COLS*ROWS} circles · {COLS*ROWS*4} corner regions</span></div>
