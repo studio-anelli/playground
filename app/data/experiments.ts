@@ -13,6 +13,16 @@ export type Experiment = {
 
 const experimentCatalog: Experiment[] = [
   {
+    id: "REC-11",
+    slug: "grid-sections",
+    title: "GRID / SECTIONS",
+    kind: "tool",
+    status: "public",
+    year: "2026",
+    tags: ["shape builder", "geometric grid", "SVG"],
+    summary: "An editable square-and-circle grid for colour composition, directional island generation and precise SVG output.",
+  },
+  {
     id: "REC-10",
     slug: "k-tic-synth",
     title: "K-TIC-SYNTH",
