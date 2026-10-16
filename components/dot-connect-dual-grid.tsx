@@ -1,65 +1,68 @@
 "use client";
-import {useMemo,useRef,useState} from "react";
+import {useRef,useState} from "react";
 import Link from "next/link";
 import "./dual-grid.css";
 
-type Section={id:number;color:string;margin:number};
-type Point={x:number;y:number};
-const colors=["#ec5238","#2b80dd","#19a05d","#f0bb36","#db67b7","#272727"];
-const pair=(p:Point)=>p.x+","+p.y;
-function shapes(indices:number[],cols:number,unit:number){
- const corner=unit/2; // A perfect inscribed circle determines the fixed quarter-circle junction geometry.
- const cells=new Set(indices),segments=new Map<string,Point[]>();
- const add=(a:Point,b:Point)=>{const k=pair(a);segments.set(k,[...(segments.get(k)||[]),b])};
- for(const id of indices){const r=Math.floor(id/cols),c=id%cols,x=c*unit,y=r*unit;
- if(!cells.has(id-cols))add({x,y},{x:x+unit,y});
- if(!cells.has(id+1)||c===cols-1)add({x:x+unit,y},{x:x+unit,y:y+unit});
- if(!cells.has(id+cols))add({x:x+unit,y:y+unit},{x,y:y+unit});
- if(!cells.has(id-1)||c===0)add({x,y:y+unit},{x,y});
- }
- const paths:string[]=[];let budget=indices.length*4+4;
- while(segments.size&&budget-->0){const startKey=segments.keys().next().value as string,vertices:Point[]=[];let k=startKey,closed=false;
- for(let j=0;j<indices.length*4+4;j++){const n=segments.get(k);if(!n?.length)break;const [x,y]=k.split(",").map(Number);vertices.push({x,y});const next=n.pop()!;if(!n.length)segments.delete(k);k=pair(next);if(k===startKey){closed=true;break}}
- if(!closed||vertices.length<3)continue;
- const fmt=(v:number)=>Number(v.toFixed(2));
- const clean=vertices.filter((v,i)=>{const prev=vertices[(i+vertices.length-1)%vertices.length],next=vertices[(i+1)%vertices.length];return (v.x-prev.x)*(next.y-v.y)-(v.y-prev.y)*(next.x-v.x)!==0});
- if(clean.length<3)continue;
- const c=clean.map((v,i)=>{const prev=clean[(i+clean.length-1)%clean.length],next=clean[(i+1)%clean.length];const before=Math.hypot(v.x-prev.x,v.y-prev.y),after=Math.hypot(v.x-next.x,v.y-next.y),rr=Math.min(corner,before/2,after/2);
- const turn=(v.x-prev.x)*(next.y-v.y)-(v.y-prev.y)*(next.x-v.x);
- return {entry:{x:v.x+(prev.x-v.x)*rr/before,y:v.y+(prev.y-v.y)*rr/before},exit:{x:v.x+(next.x-v.x)*rr/after,y:v.y+(next.y-v.y)*rr/after},v,rr,turn}});
- let d="M "+fmt(c[0].entry.x)+" "+fmt(c[0].entry.y);
- for(let i=0;i<c.length;i++){const a=c[i];d+=" A "+fmt(a.rr)+" "+fmt(a.rr)+" 0 0 "+(a.turn>0?1:0)+" "+fmt(a.exit.x)+" "+fmt(a.exit.y);const next=c[(i+1)%c.length];d+=" L "+fmt(next.entry.x)+" "+fmt(next.entry.y)}
- paths.push(d+" Z");
- }
- return paths.join(" ");
+type Section={id:number;color:string};
+type Mode="paint"|"erase"|"select";
+const COLS=11,ROWS=8,U=60,W=COLS*U,H=ROWS*U;
+const swatches=["#ef513b","#2581db","#16965b","#f3b62e","#d477bd","#202020"];
+const regionKey=(cell:number,corner:number)=>cell+":"+corner;
+// A corner wedge is exactly the region inside one square, outside its inscribed circle.
+// Its straight sides follow the square grid; its curved edge is a true quarter-circle.
+function wedgePath(cell:number,corner:number){
+ const x=(cell%COLS)*U,y=Math.floor(cell/COLS)*U,h=U/2;
+ const fx=(n:number)=>Number(n.toFixed(3));
+ if(corner===0)return `M ${x} ${y} L ${x+h} ${y} A ${h} ${h} 0 0 0 ${x} ${y+h} Z`;
+ if(corner===1)return `M ${x+U} ${y} L ${x+U} ${y+h} A ${h} ${h} 0 0 0 ${x+h} ${y} Z`;
+ if(corner===2)return `M ${x+U} ${y+U} L ${x+h} ${y+U} A ${h} ${h} 0 0 0 ${x+U} ${y+h} Z`;
+ return `M ${x} ${y+U} L ${x} ${y+h} A ${h} ${h} 0 0 0 ${x+h} ${y+U} Z`;
+}
+function hit(x:number,y:number){
+ if(x<0||y<0||x>=W||y>=H)return null;
+ const c=Math.floor(x/U),r=Math.floor(y/U),cell=r*COLS+c;
+ const dx=x-(c+.5)*U,dy=y-(r+.5)*U;
+ // Circle is region -1, the four quarter-square gaps are 0..3.
+ const corner=dx*dx+dy*dy<=U*U/4?-1:(dy<0?(dx<0?0:1):(dx>=0?2:3));
+ return {cell,corner};
 }
 export default function GridSections(){
- const cols=11,rows=8;const [sections,setSections]=useState<Section[]>([{id:1,color:colors[0],margin:5},{id:2,color:colors[1],margin:5},{id:3,color:colors[2],margin:5},{id:4,color:colors[3],margin:5}]);
- const [cells,setCells]=useState<Record<number,number>>({});
- const [active,setActive]=useState(1),[tool,setTool]=useState<"paint"|"erase"|"select">("paint"),[showGrid,setShowGrid]=useState(true),[background,setBackground]=useState("#f0f0ed");
- const ref=useRef<SVGSVGElement>(null),drag=useRef<number|null>(null);
- const unit=60,viewW=cols*unit,viewH=rows*unit,chosen=sections.find(x=>x.id===active)||sections[0];
- const paths=useMemo(()=>sections.map(s=>({section:s,ids:Object.keys(cells).map(Number).filter(k=>cells[k]===s.id&&k>=0&&k<cols*rows),path:""})).map(x=>({...x,path:shapes(x.ids,cols,unit)})),[sections,cells,cols,rows]);
- const edit=(id:number)=>{if(id<0||id>=cols*rows)return;if(tool==="select"){const sectionId=cells[id];if(sectionId)setActive(sectionId);return}setCells(prev=>{const next={...prev};if(tool==="erase")delete next[id];else next[id]=active;return next})};
- const locate=(e:React.PointerEvent<SVGSVGElement>)=>{const matrix=ref.current?.getScreenCTM();if(!matrix)return -1;const p=new DOMPoint(e.clientX,e.clientY).matrixTransform(matrix.inverse()),c=Math.floor(p.x/unit),r=Math.floor(p.y/unit);return c>=0&&c<cols&&r>=0&&r<rows?r*cols+c:-1};
- const updateSection=(changes:Partial<Section>)=>setSections(old=>old.map(s=>s.id===active?{...s,...changes}:s));
- const newSection=()=>{const id=Math.max(0,...sections.map(x=>x.id))+1;setSections(old=>[...old,{id,color:colors[(id-1)%colors.length],margin:5}]);setActive(id);setTool("paint")};
- const exportSvg=()=>{const node=ref.current?.cloneNode(true) as SVGSVGElement;if(!node)return;node.querySelector("#construction-grid")?.remove();node.setAttribute("width",String(viewW));node.setAttribute("height",String(viewH));const content=new XMLSerializer().serializeToString(node),url=URL.createObjectURL(new Blob([content],{type:"image/svg+xml"})),a=document.createElement("a");a.href=url;a.download="grid-sections.svg";a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)};
- const slider=(label:string,value:number,change:(n:number)=>void,max:number)=><label className="dg-control"><span>{label}<b>{value}px</b></span><input type="range" min="0" max={max} value={value} onChange={e=>change(+e.target.value)}/></label>;
- return <main className="dg-root"><header className="dg-header"><Link href="/experiments/dot-connect">← DOT / CONNECT</Link><strong>GRID / SECTIONS <small>SHAPE BUILDER</small></strong><button onClick={exportSvg}>↓ EXPORT SVG</button></header>
- <div className="dg-layout"><section className="dg-stage"><svg ref={ref} viewBox={`0 0 ${viewW} ${viewH}`} xmlns="http://www.w3.org/2000/svg" onPointerDown={e=>{if(e.pointerType==="mouse"&&e.button!==0)return;const id=locate(e);if(id<0)return;e.currentTarget.setPointerCapture(e.pointerId);drag.current=e.pointerId;edit(id)}} onPointerMove={e=>{if(drag.current===e.pointerId)edit(locate(e))}} onPointerUp={e=>{if(drag.current===e.pointerId)drag.current=null;if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId)}} onPointerCancel={()=>drag.current=null} onLostPointerCapture={()=>drag.current=null}>
- <rect width={viewW} height={viewH} fill={background}/>
- {paths.map(({section:s,path})=>path?<path key={s.id} d={path} fill={s.color} fillRule="evenodd" stroke={background} strokeWidth={s.margin*2} strokeLinejoin="round" strokeLinecap="round"/>:null)}
- {showGrid&&<g id="construction-grid" pointerEvents="none" fill="none" stroke="#202020" strokeWidth="1">{Array.from({length:cols+1},(_,i)=><path key={"c"+i} d={`M ${i*unit} 0 V ${viewH}`}/>)}{Array.from({length:rows+1},(_,i)=><path key={"r"+i} d={`M 0 ${i*unit} H ${viewW}`}/>)}{Array.from({length:cols*rows},(_,i)=><circle key={"dot"+i} cx={(i%cols+.5)*unit} cy={(Math.floor(i/cols)+.5)*unit} r={unit/2}/>)}</g>}
- </svg><p className="dg-hint">SELECT GRID CELLS TO MERGE THEIR CIRCULAR INTERSECTIONS · SVG EXPORT</p></section>
- <aside className="dg-panel"><div className="dg-control"><span>DRAW MODE</span><div className="dg-pair">{(["paint","select","erase"] as const).map(t=><button key={t} className={tool===t?"selected":""} onClick={()=>setTool(t)}>{t.toUpperCase()}</button>)}</div></div>
- <div className="dg-control"><span>SECTIONS</span><div className="dg-swatch">{sections.map(s=><button key={s.id} className={s.id===active?"selected":""} onClick={()=>{setActive(s.id);setTool("paint")}} title={"Section "+s.id}><i style={{background:s.color}}/>{s.id}</button>)}</div><button onClick={newSection}>+ NEW SECTION</button></div>
- <div className="dg-control"><span>ACTIVE SECTION {active}</span><input type="color" aria-label="Section colour" value={chosen.color} onChange={e=>updateSection({color:e.target.value})}/></div>
- {slider("SECTION SPACING",chosen.margin,n=>updateSection({margin:n}),25)}
-
- <div className="dg-control"><span>FIXED GRID <b>11 × 8</b></span></div>
- <label className="dg-control"><span>SHOW CONSTRUCTION GRID</span><input type="checkbox" checked={showGrid} onChange={e=>setShowGrid(e.target.checked)}/></label>
+ const [sections,setSections]=useState<Section[]>([{id:1,color:swatches[0]},{id:2,color:swatches[1]},{id:3,color:swatches[2]}]);
+ const [painted,setPainted]=useState<Record<string,number>>({});
+ const [active,setActive]=useState(1),[mode,setMode]=useState<Mode>("paint");
+ const [background,setBackground]=useState("#f2f2ef"),[showGuides,setShowGuides]=useState(true);
+ const svg=useRef<SVGSVGElement>(null),stroke=useRef<{id:number;last:string}|null>(null);
+ const chosen=sections.find(s=>s.id===active)||sections[0];
+ const locate=(e:React.PointerEvent<SVGSVGElement>)=>{const m=svg.current?.getScreenCTM();if(!m)return null;const p=new DOMPoint(e.clientX,e.clientY).matrixTransform(m.inverse());return hit(p.x,p.y)};
+ const apply=(loc:{cell:number;corner:number}|null)=>{if(!loc)return;const k=regionKey(loc.cell,loc.corner);
+ if(stroke.current?.last===k&&mode!=="select")return;if(stroke.current)stroke.current.last=k;
+ if(mode==="select"){if(painted[k])setActive(painted[k]);return}
+ setPainted(prev=>{if(mode==="erase"){if(!(k in prev))return prev;const n={...prev};delete n[k];return n}if(prev[k]===active)return prev;return {...prev,[k]:active}})};
+ const color=(id:number)=>sections.find(s=>s.id===id)?.color||swatches[0];
+ const create=()=>{const id=Math.max(...sections.map(s=>s.id),0)+1;setSections(s=>[...s,{id,color:swatches[(id-1)%swatches.length]}]);setActive(id);setMode("paint")};
+ const save=()=>{const element=svg.current?.cloneNode(true) as SVGSVGElement;if(!element)return;element.querySelector("#construction-grid")?.remove();element.setAttribute("width",String(W));element.setAttribute("height",String(H));const xml=new XMLSerializer().serializeToString(element),url=URL.createObjectURL(new Blob([xml],{type:"image/svg+xml;charset=utf-8"})),a=document.createElement("a");a.href=url;a.download="grid-sections-11x8.svg";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+ return <main className="dg-root"><header className="dg-header"><Link href="/experiments/dot-connect">← DOT / CONNECT</Link><strong>GRID / SECTIONS <small>11 × 8 GEOMETRY</small></strong><button onClick={save}>↓ EXPORT SVG</button></header>
+ <div className="dg-layout"><section className="dg-stage">
+ <svg ref={svg} viewBox={`0 0 ${W} ${H}`} xmlns="http://www.w3.org/2000/svg"
+ onPointerDown={e=>{if(e.pointerType==="mouse"&&e.button!==0)return;const p=locate(e);if(!p)return;e.preventDefault();e.currentTarget.setPointerCapture(e.pointerId);stroke.current={id:e.pointerId,last:""};apply(p)}}
+ onPointerMove={e=>{if(stroke.current?.id===e.pointerId)apply(locate(e))}}
+ onPointerUp={e=>{if(stroke.current?.id!==e.pointerId)return;apply(locate(e));stroke.current=null;if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId)}}
+ onPointerCancel={()=>stroke.current=null} onLostPointerCapture={()=>stroke.current=null}>
+ <rect width={W} height={H} fill={background}/>
+ {Array.from({length:COLS*ROWS},(_,i)=>{const assigned=painted[regionKey(i,-1)];return assigned?<circle key={"circle-"+i} cx={(i%COLS+.5)*U} cy={(Math.floor(i/COLS)+.5)*U} r={U/2} fill={color(assigned)}/>:null})}
+ {Array.from({length:COLS*ROWS*4},(_,i)=>{const cell=Math.floor(i/4),corner=i%4,assigned=painted[regionKey(cell,corner)];return assigned?<path key={"corner-"+i} d={wedgePath(cell,corner)} fill={color(assigned)}/>:null})}
+ {showGuides&&<g id="construction-grid" stroke="#1e1e1e" strokeWidth=".85" fill="none" pointerEvents="none">
+ {Array.from({length:COLS+1},(_,i)=><path key={"x"+i} d={`M ${i*U} 0 V ${H}`}/>)}
+ {Array.from({length:ROWS+1},(_,i)=><path key={"y"+i} d={`M 0 ${i*U} H ${W}`}/>)}
+ {Array.from({length:COLS*ROWS},(_,i)=><circle key={"o"+i} cx={(i%COLS+.5)*U} cy={(Math.floor(i/COLS)+.5)*U} r={U/2}/>)}
+ </g>}
+ </svg><p className="dg-hint">PAINT INSIDE A CIRCLE OR ITS FOUR CORNER GAPS · EXACT GRID GEOMETRY</p></section>
+ <aside className="dg-panel"><div className="dg-control"><span>TOOL</span><div className="dg-pair">{(["paint","select","erase"] as Mode[]).map(t=><button key={t} className={mode===t?"selected":""} onClick={()=>setMode(t)}>{t.toUpperCase()}</button>)}</div></div>
+ <div className="dg-control"><span>SECTIONS</span><div className="dg-swatch">{sections.map(s=><button key={s.id} className={active===s.id?"selected":""} onClick={()=>{setActive(s.id);setMode("paint")}}><i style={{background:s.color}}/>{s.id}</button>)}</div><button onClick={create}>+ NEW COLOUR / SECTION</button></div>
+ <div className="dg-control"><span>SECTION {active} COLOUR</span><input type="color" value={chosen.color} onChange={e=>setSections(ss=>ss.map(s=>s.id===active?{...s,color:e.target.value}:s))}/></div>
+ <div className="dg-control"><span>GEOMETRY</span><b>11 COLUMNS × 8 ROWS</b><span>88 circles · 352 corner regions</span></div>
+ <label className="dg-control"><span>SHOW CONSTRUCTION GRID</span><input type="checkbox" checked={showGuides} onChange={e=>setShowGuides(e.target.checked)}/></label>
  <div className="dg-control"><span>BACKGROUND</span><input type="color" value={background} onChange={e=>setBackground(e.target.value)}/></div>
- <div className="dg-pair"><button onClick={()=>setCells({})}>CLEAR CELLS</button><button onClick={()=>{setCells({});setSections([{id:1,color:colors[0],margin:5}]);setActive(1)}}>RESET</button></div>
- </aside></div><footer className="dg-footer"><span>FIXED 11 × 8 SQUARE/CIRCLE GRID / MERGED SECTION CONTOURS</span><span>{sections.length} SECTIONS</span></footer></main>
+ <div className="dg-pair"><button onClick={()=>setPainted({})}>CLEAR</button><button onClick={()=>{setPainted({});setActive(1);setMode("paint")}}>RESET</button></div>
+ </aside></div><footer className="dg-footer"><span>INSCRIBED CIRCLES + SELECTABLE CORNER SPACES / NO ROUNDED SHAPE EFFECTS</span><span>{Object.keys(painted).length} PAINTED REGIONS</span></footer></main>
 }
