@@ -29,9 +29,8 @@ function shapes(indices:number[],cols:number,unit:number,corner:number){
  return paths.join(" ");
 }
 export default function GridSections(){
- const [cols,setCols]=useState(11),[rows,setRows]=useState(12),[sections,setSections]=useState<Section[]>([{id:1,color:colors[0],margin:5,corner:32},{id:2,color:colors[1],margin:5,corner:32},{id:3,color:colors[2],margin:5,corner:32},{id:4,color:colors[3],margin:5,corner:32}]);
- const [cells,setCells]=useState<Record<number,number>>(()=>{const o:Record<number,number>={};const paint=(id:number,coordinates:[number,number][])=>coordinates.forEach(([r,c])=>o[r*11+c]=id);
- paint(1,[[0,0],[0,1],[0,2],[1,0],[2,0],[3,0],[3,1]]);paint(2,[[0,4],[0,5],[0,6],[1,4],[2,4],[2,5],[2,6],[3,6]]);paint(3,[[4,1],[4,2],[4,3],[5,1],[6,1],[6,2],[6,3],[6,4]]);paint(4,[[5,6],[5,7],[5,8],[6,8],[7,8],[7,9],[7,10]]);return o});
+ const cols=11,rows=8;const [sections,setSections]=useState<Section[]>([{id:1,color:colors[0],margin:5,corner:32},{id:2,color:colors[1],margin:5,corner:32},{id:3,color:colors[2],margin:5,corner:32},{id:4,color:colors[3],margin:5,corner:32}]);
+ const [cells,setCells]=useState<Record<number,number>>({});
  const [active,setActive]=useState(1),[tool,setTool]=useState<"paint"|"erase"|"select">("paint"),[showGrid,setShowGrid]=useState(true),[background,setBackground]=useState("#f0f0ed");
  const ref=useRef<SVGSVGElement>(null),drag=useRef<number|null>(null);
  const unit=60,viewW=cols*unit,viewH=rows*unit,chosen=sections.find(x=>x.id===active)||sections[0];
@@ -46,14 +45,14 @@ export default function GridSections(){
  <div className="dg-layout"><section className="dg-stage"><svg ref={ref} viewBox={`0 0 ${viewW} ${viewH}`} xmlns="http://www.w3.org/2000/svg" onPointerDown={e=>{if(e.pointerType==="mouse"&&e.button!==0)return;const id=locate(e);if(id<0)return;e.currentTarget.setPointerCapture(e.pointerId);drag.current=e.pointerId;edit(id)}} onPointerMove={e=>{if(drag.current===e.pointerId)edit(locate(e))}} onPointerUp={e=>{if(drag.current===e.pointerId)drag.current=null;if(e.currentTarget.hasPointerCapture(e.pointerId))e.currentTarget.releasePointerCapture(e.pointerId)}} onPointerCancel={()=>drag.current=null} onLostPointerCapture={()=>drag.current=null}>
  <rect width={viewW} height={viewH} fill={background}/>
  {paths.map(({section:s,path})=>path?<path key={s.id} d={path} fill={s.color} fillRule="evenodd" stroke={background} strokeWidth={s.margin*2} strokeLinejoin="round" strokeLinecap="round"/>:null)}
- {showGrid&&<g id="construction-grid" pointerEvents="none" opacity=".24" stroke="#3d4e78" strokeWidth="0.7">{Array.from({length:cols+1},(_,i)=><path key={"c"+i} d={`M ${i*unit} 0 V ${viewH}`}/>)}{Array.from({length:rows+1},(_,i)=><path key={"r"+i} d={`M 0 ${i*unit} H ${viewW}`}/>)}</g>}
+ {showGrid&&<g id="construction-grid" pointerEvents="none" fill="none" stroke="#202020" strokeWidth="1">{Array.from({length:cols+1},(_,i)=><path key={"c"+i} d={`M ${i*unit} 0 V ${viewH}`}/>)}{Array.from({length:rows+1},(_,i)=><path key={"r"+i} d={`M 0 ${i*unit} H ${viewW}`}/>)}{Array.from({length:cols*rows},(_,i)=><circle key={"dot"+i} cx={(i%cols+.5)*unit} cy={(Math.floor(i/cols)+.5)*unit} r={unit/2}/>)}</g>}
  </svg><p className="dg-hint">PAINT CELLS TO BUILD SHAPES · SELECT TO EDIT EACH SECTION · SVG EXPORT</p></section>
  <aside className="dg-panel"><div className="dg-control"><span>DRAW MODE</span><div className="dg-pair">{(["paint","select","erase"] as const).map(t=><button key={t} className={tool===t?"selected":""} onClick={()=>setTool(t)}>{t.toUpperCase()}</button>)}</div></div>
  <div className="dg-control"><span>SECTIONS</span><div className="dg-swatch">{sections.map(s=><button key={s.id} className={s.id===active?"selected":""} onClick={()=>{setActive(s.id);setTool("paint")}} title={"Section "+s.id}><i style={{background:s.color}}/>{s.id}</button>)}</div><button onClick={newSection}>+ NEW SECTION</button></div>
  <div className="dg-control"><span>ACTIVE SECTION {active}</span><input type="color" aria-label="Section colour" value={chosen.color} onChange={e=>updateSection({color:e.target.value})}/></div>
  {slider("SECTION MARGIN",chosen.margin,n=>updateSection({margin:n}),25)}
  {slider("CORNER RADIUS",chosen.corner,n=>updateSection({corner:n}),35)}
- <div className="dg-control"><span>GRID SIZE</span><div className="dg-pair"><label>COLS <input type="number" min="2" max="30" value={cols} onChange={e=>{setCols(Math.max(2,Math.min(30,+e.target.value||2)));setCells({})}}/></label><label>ROWS <input type="number" min="2" max="30" value={rows} onChange={e=>{setRows(Math.max(2,Math.min(30,+e.target.value||2)));setCells({})}}/></label></div></div>
+ <div className="dg-control"><span>FIXED GRID <b>11 × 8</b></span></div>
  <label className="dg-control"><span>SHOW CONSTRUCTION GRID</span><input type="checkbox" checked={showGrid} onChange={e=>setShowGrid(e.target.checked)}/></label>
  <div className="dg-control"><span>BACKGROUND</span><input type="color" value={background} onChange={e=>setBackground(e.target.value)}/></div>
  <div className="dg-pair"><button onClick={()=>setCells({})}>CLEAR CELLS</button><button onClick={()=>{setCells({});setSections([{id:1,color:colors[0],margin:5,corner:32}]);setActive(1)}}>RESET</button></div>
