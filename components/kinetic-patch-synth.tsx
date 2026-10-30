@@ -33,9 +33,21 @@ const specs = [
   ["fontSize", "Size · % canvas", 5, 75, .5, "typography"], ["weight", "Weight", 100, 900, 10, "typography"],
   ["feedbackAmount", "Input / amount", 0, .98, .01, "feedback"], ["feedbackRefresh", "Refresh · ms", 16, 2000, 1, "feedback"],
 ] as const;
-type Target = typeof specs[number][0];
+const extraSpecs = [
+  ["threshold", 0.01, 1], ["opacity", 0, 1], ["repeatCount", 1, 32],
+  ["repeatColumns", 1, 12], ["repeatRows", 1, 12], ["lineLength", 1, 80],
+  ["tracking", -10, 30], ["samplingThicknessX", 0, 10], ["samplingThicknessY", 0, 10],
+  ["stripSpacing", 0, 10], ["vertexSpacing", 0, 10], ["vertexScatter", 0, 180],
+  ["lineHeight", 0.5, 3], ["secondSize", 5, 75], ["secondWeight", 100, 900],
+  ["secondX", -100, 100], ["secondY", -100, 100], ["secondTracking", -10, 30],
+  ["secondLineHeight", 0.5, 3],
+] as const;
+const switchTargets = ["vertexSource", "motionMode", "motionBlend", "feedbackBlendMode", "samplingAxes", "textAlignMode", "kerningMode", "feedbackTimingMode"] as const;
+type NumericExtra = typeof extraSpecs[number][0];
+type SwitchTarget = typeof switchTargets[number];
+type Target = typeof specs[number][0] | NumericExtra | SwitchTarget;
 const targetSpecs = Object.fromEntries(specs.map(spec => [spec[0], spec])) as Record<Target, typeof specs[number]>;
-const modulationTargets = specs.map(spec => spec[0]);
+const modulationTargets: Target[] = [...specs.map(spec => spec[0]), ...extraSpecs.map(spec => spec[0]), ...switchTargets];
 const signalControls = (["sampling", "grid", "vertex"] as const).map(group => specs.filter(spec => spec[5] === group));
 type Patch = { id: string; wave: number; target: Target; amount: number };
 type XY = { x: number; y: number };
@@ -94,7 +106,7 @@ export function parsePreset(value: unknown): SynthState {
   const shapes = ["sine", "triangle", "square", "noise", "ramp"] as const;
   const waves = array(s.waves, 3).map(item => { const w = object(item); return { on: bool(w.on), shape: choice(w.shape, shapes), rate: num(w.rate, .1, 6), amp: num(w.amp, 0, 1), speed: num(w.speed, 0, 3), direction: num(w.direction, 0, 1), phase: num(w.phase, 0, 1), timing: w.timing === undefined ? "free" as const : choice(w.timing, ["free", "sync"] as const), division: w.division === undefined ? "1/4" as const : choice(w.division === "4/4" ? "1" : w.division, waveDivisions) }; });
   if (waves.length !== 3) throw new Error("The preset must contain three waves.");
-  const patches = array(s.patches, 100).map((item, i) => { const p = object(item); const wave = num(p.wave, 0, 6); if (!Number.isInteger(wave)) throw new Error("Invalid modulation source."); return { id: `import-${i}`, wave, target: choice(p.target, specs.map(spec => spec[0])), amount: num(p.amount, -100, 100) }; });
+  const patches = array(s.patches, 100).map((item, i) => { const p = object(item); const wave = num(p.wave, 0, 6); if (!Number.isInteger(wave)) throw new Error("Invalid modulation source."); return { id: `import-${i}`, wave, target: choice(p.target, modulationTargets), amount: num(p.amount, -100, 100) }; });
   if (new Set(patches.map(p => `${p.wave}-${p.target}`)).size !== patches.length) throw new Error("Duplicate modulation cable.");
   const videoPatches = array(s.videoPatches, 10).map(item => { const p = object(item); return { source: choice(p.source, ["typography", "typography2", "sampling", "grid", "vertex", "feedback"] as const), target: choice(p.target, ["sampling", "grid", "vertex", "feedback", "canvas"] as const) }; });
   for (const target of ["sampling", "grid", "vertex", "feedback", "canvas"]) {
@@ -359,7 +371,7 @@ export default function KineticPatchSynth() {
       if (!manualFrame && now - lastFrame < 1000 / 30 - .5) { raf = requestAnimationFrame(frame); return; }
       lastFrame = now;
       if (gpu && !gpu.available()) { gpu.dispose(); gpu = null; }
-      const s = renderSnapshot.current?.state || live.current, dt = previous ? Math.min(.05, (now - previous) / 1000) : 0; previous = now;
+      const sourceState = renderSnapshot.current?.state || live.current, s = { ...sourceState, manual: { ...sourceState.manual }, secondType: { ...sourceState.secondType } }, dt = previous ? Math.min(.05, (now - previous) / 1000) : 0; previous = now;
       if (s.customFonts.some(f => loadedFonts.current.get(f.id)?.data !== f.data) || (s.vertex === "custom" && s.vertexSVG && !decodedSVGs.current.has(s.vertexSVG.svg))) { if (!manualFrame) raf = requestAnimationFrame(frame); return; }
       if (!s.paused) { s.waves.forEach((w, i) => { if (w.on) phases[i] += dt * waveHz(w, s.bpm); }); }
       const el = canvas.current, ctx = el?.getContext("2d");
@@ -382,7 +394,7 @@ export default function KineticPatchSynth() {
         const field = (i: number, x: number, y: number) => { if (i === 3) return s.modes.feedback ? feedbackSignal : 0; if (i >= 4) return s.modes[(["sampling", "grid", "vertex"] as const)[i - 4]] ? moduleSignals[i - 4] : 0; return sampleWave(s.waves, phases, i, x, y); };
         const signals = [...s.waves.map((_, i) => field(i, .5, .5)), s.modes.feedback ? feedbackSignal : 0, ...moduleSignals], mod = { ...s.values };
         const patchIndex = indexModulation(modulationTargets, s.patches);
-        const at = (target: Target, x: number, y: number, glyph?: Glyph) => {
+        const at = (target: typeof specs[number][0], x: number, y: number, glyph?: Glyph) => {
           const spec = targetSpecs[target];
           const sum = patchIndex[target].reduce((v, p) => v + field(p.wave, glyph ? (x - glyph.x) / glyph.em : x / W, glyph ? (y - glyph.y) / glyph.em : y / H) * p.amount / 100, 0);
           return clamp(s.values[target] + sum * (spec[3] - spec[2]) / 2, spec[2], spec[3]);
@@ -391,6 +403,44 @@ export default function KineticPatchSynth() {
           const sum = patchIndex[key].reduce((v, p) => v + signals[p.wave] * p.amount / 100, 0);
           mod[key] = clamp(s.values[key] + sum * (max - min) / 2, min, max);
         }
+
+        const modulationSum = (target: Target) => patchIndex[target].reduce((sum, p) => sum + signals[p.wave] * p.amount / 100, 0);
+        const modNumeric = (key: NumericExtra, base: number) => {
+          const spec = extraSpecs.find(item => item[0] === key)!;
+          const sum = modulationSum(key);
+          return clamp(base + sum * (spec[2] - spec[1]) / 2, spec[1], spec[2]);
+        };
+        const selectStep = <T,>(key: SwitchTarget, options: readonly T[], base: T): T => {
+          const index = Math.max(0, options.indexOf(base));
+          const shift = Math.round(clamp(modulationSum(key), -1, 1));
+          return options[clamp(index + shift, 0, options.length - 1)];
+        };
+        for (const [key] of extraSpecs) {
+          if (!patchIndex[key].length) continue;
+          if (key in s.manual) {
+            const manualKey = key as keyof typeof s.manual;
+            s.manual[manualKey] = modNumeric(key, s.manual[manualKey]);
+          } else if (key.startsWith("second")) {
+            const secondKeys = { secondSize: "size", secondWeight: "weight", secondX: "x", secondY: "y", secondTracking: "tracking", secondLineHeight: "lineHeight" } as const;
+            const secondKey = secondKeys[key as keyof typeof secondKeys];
+            if (secondKey) s.secondType[secondKey] = modNumeric(key, s.secondType[secondKey]);
+          } else if (key === "samplingThicknessX") s.samplingThicknessX = modNumeric(key, s.samplingThicknessX);
+          else if (key === "samplingThicknessY") s.samplingThicknessY = modNumeric(key, s.samplingThicknessY);
+          else if (key === "stripSpacing") s.stripSpacing = modNumeric(key, s.stripSpacing);
+          else if (key === "vertexSpacing") s.vertexSpacing = modNumeric(key, s.vertexSpacing);
+          else if (key === "vertexScatter") s.vertexScatter = modNumeric(key, s.vertexScatter);
+          else if (key === "lineHeight") s.lineHeight = modNumeric(key, s.lineHeight);
+        }
+        // Stepped modulation: a signal chooses the previous/current/next option.
+        // The imported/custom SVG slot is only selectable when an asset exists.
+        s.vertex = selectStep("vertexSource", s.vertexSVG ? ["line", "dot", "square", "glyph", "custom"] : ["line", "dot", "square", "glyph"], s.vertex);
+        s.repeatMode = selectStep("motionMode", ["single", "line", "grid"] as const, s.repeatMode);
+        s.repeatBlend = selectStep("motionBlend", blendModes, s.repeatBlend);
+        s.feedbackBlend = selectStep("feedbackBlendMode", blendModes, s.feedbackBlend);
+        s.samplingMode = selectStep("samplingAxes", ["xy", "x", "y"] as const, s.samplingMode);
+        s.textAlign = selectStep("textAlignMode", ["left", "center", "right"] as const, s.textAlign);
+        s.kerning = selectStep("kerningMode", ["none", "normal", "optical"] as const, s.kerning);
+        s.feedbackTiming = selectStep("feedbackTimingMode", ["free", "sync"] as const, s.feedbackTiming);
         // Module outputs are one-frame-delayed control signals, allowing stable feedback routing.
         (["sampling", "grid", "vertex"] as const).forEach((group, i) => {
           const controls = signalControls[i];
