@@ -232,7 +232,9 @@ export const illustratorCss=`
 .di-page .di-opening .di-hero-photo{flex:0 0 auto}
 .di-page .di-opening .di-slogan{flex:1;justify-content:center}
 .di-page .di-fullphoto{height:100vh;min-height:100vh;isolation:isolate}
-.di-page .di-aanpak-dot-art{position:absolute;z-index:3;width:100%;height:100%;left:0;top:0;overflow:visible;pointer-events:none}
+.di-page .di-aanpak-dot-art{position:absolute;z-index:3;width:100%;height:auto;aspect-ratio:1440/660;left:0;top:auto;bottom:-10%;overflow:visible;pointer-events:none}
+.di-page .di-fullphoto{overflow:visible;z-index:3}
+.di-page .di-functions{z-index:1}
 /* Unlike the discarded bubble row, the source forms a diagonal progression,
    from a small dot near the top-left to increasingly large circles
    crossing the photo's bottom edge into the cream section. */
