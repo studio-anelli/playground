@@ -61,7 +61,7 @@ export function IllustratorLanding(p:Props){
   <section id="di-ambition" className="di-ambition" data-edit-section="intro">
     <IllustratorDots kind="ambition"/>
     <span className="di-side-label">DE AMBITIE</span>
-    <h1 data-edit-key="heroTitle">{p.heroTitle}</h1>
+    <h1 data-edit-key="heroTitle">{p.heroTitle==="EEN PLEK OM HET VERSCHIL TE MAKEN."?"EEN PLEK\nOM HET VERSCHIL\nTE MAKEN.":p.heroTitle}</h1>
     <p data-edit-key="introText">{p.heroText} {p.introText}</p>
   </section>
   <section id="di-themes" className="di-themes" data-edit-section="themes">
@@ -88,12 +88,12 @@ export function IllustratorLanding(p:Props){
   </section>
   <section id="di-planning" className="di-planning" data-edit-section="next">
     <span className="di-side-label">PLANNING</span>
-    <h2 data-edit-key="nextTitle">{p.nextTitle}</h2>
+    <h2 data-edit-key="nextTitle">{p.nextTitle==="Samen werken aan de volgende stap."?"SAMEN WERKEN\nAAN DE\nVOLGENDE STAP.":p.nextTitle}</h2>
     <div className="di-milestones">{p.milestones.map((m,i)=><article data-edit-list="milestones" data-edit-index={i} key={i}><h3>{i===2?"STRAKS":m.title.toUpperCase()}</h3><p>{m.description}</p></article>)}</div>
     <IllustratorDots kind="timeline"/>
   </section>
   <section id="di-contact" className="di-contact" data-edit-section="cta">
-   <div className="di-cta-wave"><IllustratorDots kind="cta"/><div className="di-cta-copy"><h2 data-edit-key="ctaTitle">{p.ctaTitle.charAt(0).toUpperCase()+p.ctaTitle.slice(1).toLowerCase()}</h2><p data-edit-key="ctaText">{p.ctaText}</p></div></div>
+   <div className="di-cta-wave"><IllustratorDots kind="cta"/><div className="di-cta-copy"><h2 data-edit-key="ctaTitle">{p.ctaTitle.toUpperCase()==="DURF JIJ OOK?"?<><span>Durf</span><span> jij ook?</span></>:p.ctaTitle}</h2><p data-edit-key="ctaText">{p.ctaText}</p></div></div>
   </section>
   <footer className="di-footer" data-edit-section="footer">
     <div className="di-partner-list">{partners.map(x=><div key={x}>{x}</div>)}</div>
@@ -210,4 +210,9 @@ export const illustratorCss=`
 .di-planning .di-source-timeline{height:auto!important;aspect-ratio:1440/110}
 .di-contact .di-source-cta{width:100%;height:100%;object-fit:cover}
 .di-page .di-dot-matrix i,.di-page .di-photo-bubbles i{aspect-ratio:1;flex:none;border-radius:50%}
+
+/* Respect source-artboard line breaks; do not let browser reflow destroy designed blocks. */
+.di-page .di-ambition h1,.di-page .di-planning h2{white-space:pre-line}
+.di-page .di-cta-copy h2 span:first-child{color:var(--di-ink)}
+.di-page .di-cta-copy h2 span:last-child{color:var(--di-paper)}
 `;
