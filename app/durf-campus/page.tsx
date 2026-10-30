@@ -158,6 +158,7 @@ export default function DurfCampusLab(){
   const [data,setData]=useState<PageData>(()=>clone(original));
   const [ready,setReady]=useState(false);
   const [view,setView]=useState<"desktop"|"mobile">("desktop");
+  const [sidebarCollapsed,setSidebarCollapsed]=useState(false);
   const [photo1,setPhoto1]=useState<string>();
   const [photo2,setPhoto2]=useState<string>();
   const [heroPhoto,setHeroPhoto]=useState<string>();
@@ -217,9 +218,9 @@ export default function DurfCampusLab(){
   const collection=(key:"themes"|"functions"|"milestones")=><div className="dl-stack">{data[key].map((item,i)=><div className="dl-item" key={i}><label className="dl-field"><span>{String(i+1).padStart(2,"0")} / Title</span><input value={item.title} onChange={e=>changeItem(key,i,"title",e.target.value)}/></label><label className="dl-field"><span>Description</span><textarea rows={2} value={item.description} onChange={e=>changeItem(key,i,"description",e.target.value)}/></label></div>)}</div>;
   return <main className="durf-lab">
     <style>{styles}</style>
-    <div className="dl-toolbar"><div className="dl-actions"><strong>DURF / WEB LAB <small>04</small></strong><button className={view==="desktop"?"active":""} onClick={()=>setView("desktop")}>Desktop</button><button className={view==="mobile"?"active":""} onClick={()=>setView("mobile")}>Mobile</button></div><div className="dl-actions"><label className="dl-theme-select"><span>THEME</span><select aria-label="Landing page visual theme" value={data.designTheme||"original"} onChange={e=>update("designTheme",e.target.value as PageData["designTheme"])}><option value="original">01 · Original</option><option value="editorial">02 · Editorial Grid</option><option value="illustrator">03 · Illustrator layout</option></select></label><button onClick={()=>download(JSON.stringify(data,null,2),"durf-campus-project.json","application/json")}>Export JSON ↓</button><label className="dl-upload">Import JSON<input aria-label="Import DURF JSON" type="file" accept=".json,application/json" onChange={e=>importJson(e.target.files?.[0])}/></label></div></div>
-    <div className="dl-layout"><div className="dl-frame"><div className="dl-browser"><span>○ ○ ○</span><span>durf-campus / work in progress</span><span>↕ SCROLL</span></div><div className={`dl-viewport ${view==="mobile"?"mobile":""}`} onClick={selectPreview}><Page data={{...data,images:{hero:resolveImage(data.images.hero),process1:resolveImage(data.images.process1),process2:resolveImage(data.images.process2)}}} photo1={photo1} photo2={photo2} heroPhoto={heroPhoto} selected={selected} onColumnSelect={onColumnSelect}/></div></div>
-    {inspectorOpen&&floatingId&&<div className="dl-inspector" role="dialog" aria-label="Element properties" style={{left:inspectorPosition.x,top:inspectorPosition.y}}>
+    <div className="dl-toolbar"><div className="dl-actions"><strong>DURF / WEB LAB <small>04</small></strong><button className={view==="desktop"?"active":""} onClick={()=>setView("desktop")}>Desktop</button><button className={view==="mobile"?"active":""} onClick={()=>setView("mobile")}>Mobile</button></div><div className="dl-actions"><button type="button" className="dl-sidebar-toggle" aria-expanded={!sidebarCollapsed} aria-controls="durf-editor-sidebar" onClick={()=>{setSidebarCollapsed(v=>!v);setInspectorOpen(false)}} title={sidebarCollapsed?"Show editing controls":"Preview at full width"}>{sidebarCollapsed?"☷ Show editor":"◧ Hide editor"}</button><label className="dl-theme-select"><span>THEME</span><select aria-label="Landing page visual theme" value={data.designTheme||"original"} onChange={e=>update("designTheme",e.target.value as PageData["designTheme"])}><option value="original">01 · Original</option><option value="editorial">02 · Editorial Grid</option><option value="illustrator">03 · Illustrator layout</option></select></label><button onClick={()=>download(JSON.stringify(data,null,2),"durf-campus-project.json","application/json")}>Export JSON ↓</button><label className="dl-upload">Import JSON<input aria-label="Import DURF JSON" type="file" accept=".json,application/json" onChange={e=>importJson(e.target.files?.[0])}/></label></div></div>
+    <div className={`dl-layout ${sidebarCollapsed?"dl-layout-expanded":""}`}><div className="dl-frame"><div className="dl-browser"><span>○ ○ ○</span><span>durf-campus / work in progress</span><span>↕ SCROLL</span></div><div className={`dl-viewport ${view==="mobile"?"mobile":""}`} onClick={sidebarCollapsed?undefined:selectPreview}><Page data={{...data,images:{hero:resolveImage(data.images.hero),process1:resolveImage(data.images.process1),process2:resolveImage(data.images.process2)}}} photo1={photo1} photo2={photo2} heroPhoto={heroPhoto} selected={selected} onColumnSelect={onColumnSelect}/></div></div>
+    {!sidebarCollapsed&&inspectorOpen&&floatingId&&<div className="dl-inspector" role="dialog" aria-label="Element properties" style={{left:inspectorPosition.x,top:inspectorPosition.y}}>
 <div className="dl-inspector-head" onPointerDown={e=>{if((e.target as HTMLElement).closest("button"))return;dragOrigin.current={x:e.clientX,y:e.clientY,startX:inspectorPosition.x,startY:inspectorPosition.y};e.currentTarget.setPointerCapture(e.pointerId);}}>
 <span>⠿　{floatingKind.toUpperCase()} / {floatingId.startsWith("auto|")?"Selected element":floatingId}</span><button type="button" aria-label="Close inspector" onClick={()=>setInspectorOpen(false)}>×</button></div>
 <div className="dl-inspector-body">
@@ -235,7 +236,7 @@ export default function DurfCampusLab(){
 <button className="dl-small-button" onClick={()=>setData(p=>{const next={...p.elementStyles};delete next[activeElement||floatingId];return {...p,elementStyles:next}})}>Reset appearance</button>
 </div>}
 </div></div>}
-    <aside className="dl-panel" data-tab={tab}><div className="dl-panel-title"><strong>Landing page editor</strong><p>DURF identity v1.1 · saved locally in this browser</p><div className="dl-tabs" role="tablist" aria-label="Editor settings">{([["general","General"],["images","Images"],["layout","Layout / Structure"]] as const).map(([id,name])=><button type="button" role="tab" aria-selected={tab===id} className={tab===id?"active":""} key={id} onClick={()=>setTab(id)}>{name}</button>)}</div></div>
+    {!sidebarCollapsed&&<aside id="durf-editor-sidebar" className="dl-panel" data-tab={tab}><div className="dl-panel-title"><strong>Landing page editor</strong><p>DURF identity v1.1 · saved locally in this browser</p><div className="dl-tabs" role="tablist" aria-label="Editor settings">{([["general","General"],["images","Images"],["layout","Layout / Structure"]] as const).map(([id,name])=><button type="button" role="tab" aria-selected={tab===id} className={tab===id?"active":""} key={id} onClick={()=>setTab(id)}>{name}</button>)}</div></div>
       <details className="dl-tab-hidden"><summary>00 / Click to edit</summary><div className="dl-stack">
       <p className="dl-tip">Click any headline, paragraph, card or section in the preview to select it here. Selected text and cards can be edited below.</p>
       {selected?.kind==="asset"&&assetPicker(selected.slot)}
@@ -286,10 +287,12 @@ export default function DurfCampusLab(){
       <details className="dl-tab-layout" open><summary>09 / Column division</summary><div className="dl-stack"><p className="dl-tip">Choose column division for each content row. Mobile layouts stack automatically.</p>{(["themes","functions","process","next"] as RowKey[]).map(key=><div className="dl-field" key={key}><span>{sectionNames[key]} / columns</span><select value={data.columns[key]} onChange={e=>updateColumns(key,Number(e.target.value))}>{Array.from({length:key==="process"?2:key==="next"?3:4},(_,i)=><option key={i} value={i+1}>{i+1} column{i?"s":""}</option>)}</select>{data.columns[key]===2&&<label className="dl-field"><span>Left / right width: {data.columnBalance?.[key]||50}% / {100-(data.columnBalance?.[key]||50)}%</span><input type="range" min="20" max="80" step="5" value={data.columnBalance?.[key]||50} onChange={e=>updateBalance(key,Number(e.target.value))}/></label>}</div>)}</div></details>
       <details className="dl-tab-layout" open><summary>08 / Sections & order</summary><div className="dl-stack">{data.order.map((s,i)=><div className="dl-order" key={s}><label><input type="checkbox" checked={!data.hidden.includes(s)} onChange={e=>update("hidden",e.target.checked?data.hidden.filter(x=>x!==s):[...data.hidden,s])}/>{sectionNames[s]}</label><div><button title="Move up" disabled={i===0} onClick={()=>move(s,-1)}>↑</button><button title="Move down" disabled={i===data.order.length-1} onClick={()=>move(s,1)}>↓</button></div></div>)}</div></details>
       <div className="dl-bottom"><button onClick={()=>{if(confirm("Restore the original DURF prototype settings?")){setData(clone(original));setStatus("Prototype reset.");}}}>Reset prototype</button><p>Draft copy for themes and functions. Delta is schematic, not an official logo. Contact is intentionally not live.</p>{status&&<p role="status">{status}</p>}</div>
-    </aside></div>
+    </aside>}</div>
   </main>;
 }
 const styles = `
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Instrument+Sans:wght@400;500;600;700;800&display=swap');
+
 ${illustratorCss}
 
 
@@ -313,7 +316,7 @@ ${editorialCss}
 .dp-multi .dp-function,.dp-multi .dp-event{grid-template-columns:1fr;align-content:start}
 @media(max-width:580px){.dl-viewport.mobile .dp-grid,.dl-viewport.mobile .dp-photos,.dl-viewport.mobile .dp-rows.dp-multi{grid-template-columns:1fr!important}.dl-inspector{left:10px!important;top:12vh!important;width:calc(100vw - 20px)}}
 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Instrument+Sans:wght@400;500;600;700;800&display=swap');
+
 .durf-lab{font-family:Arial,sans-serif;color:#25231F;background:#f1f0eb;min-height:100vh;padding:16px;font-size:13px}
 .durf-lab *{box-sizing:border-box}.durf-lab button,.durf-lab input,.durf-lab textarea,.durf-lab select{font:inherit}.durf-lab button{cursor:pointer}
 .dl-toolbar,.dl-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.dl-toolbar{justify-content:space-between;margin-bottom:12px}.dl-actions strong{margin-right:13px;font-size:12px}.dl-actions small{opacity:.5}.dl-actions button,.dl-upload,.dl-bottom button{padding:9px 11px;background:white;border:1px solid #c8c8c0;border-radius:5px;font-size:12px;cursor:pointer}.dl-actions button.active{background:#25231F;color:#F8F4EC}.dl-upload input{display:none}
@@ -405,4 +408,9 @@ ${editorialCss}
 .dl-viewport.mobile .dp-editorial-theme .dp-section{padding:32px 5% 48px}.dl-viewport.mobile .dp-editorial-theme .dp-hero-content{max-width:100%}.dl-viewport.mobile .dp-editorial-theme .dp-art{width:80%;opacity:.24}.dl-viewport.mobile .dp-editorial-theme .dp-grid,.dl-viewport.mobile .dp-editorial-theme .dp-photos,.dl-viewport.mobile .dp-editorial-theme .dp-editorial-grid{grid-template-columns:1fr!important}
 
 ${editorialV2Css}
+
+.dl-layout.dl-layout-expanded{grid-template-columns:minmax(0,1fr)!important}
+.dl-layout-expanded .dl-frame{width:100%;max-width:none}
+.dl-sidebar-toggle{white-space:nowrap;font-weight:600}
+@media(min-width:900px){.dl-layout-expanded .dl-viewport{height:calc(100vh - 125px)}}
 `;
