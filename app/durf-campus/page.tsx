@@ -288,7 +288,6 @@ export default function DurfCampusLab(){
   </main>;
 }
 const styles = `
-${editorialV2Css}
 
 .dp-detail{font-family:"Instrument Sans",sans-serif;font-size:clamp(14px,1.65vw,19px);line-height:1.45;max-width:750px;margin:24px 0 0;letter-spacing:-.01em}
 
@@ -400,4 +399,6 @@ ${editorialCss}
 .dp-editorial-theme .dp-detail{border-left:3px solid var(--orange);padding-left:18px}
 @media(max-width:760px){.dp-editorial-theme .dp-hero-content{max-width:100%}.dp-editorial-theme .dp-art{width:75%;opacity:.24}.dp-editorial-theme .dp-hero-content h1{font-size:clamp(50px,12vw,90px)}.dp-editorial-theme .dp-section{padding:32px 5% 48px}.dp-editorial-theme .dp-event{grid-template-columns:95px 1fr}.dp-editorial-theme .dp-tile{min-height:175px}.dp-editorial-theme .dp-editorial-grid{grid-template-columns:1fr!important}}
 .dl-viewport.mobile .dp-editorial-theme .dp-section{padding:32px 5% 48px}.dl-viewport.mobile .dp-editorial-theme .dp-hero-content{max-width:100%}.dl-viewport.mobile .dp-editorial-theme .dp-art{width:80%;opacity:.24}.dl-viewport.mobile .dp-editorial-theme .dp-grid,.dl-viewport.mobile .dp-editorial-theme .dp-photos,.dl-viewport.mobile .dp-editorial-theme .dp-editorial-grid{grid-template-columns:1fr!important}
+
+${editorialV2Css}
 `;
