@@ -23,7 +23,6 @@ export default function KineticTimeline({data,onChange,position,onSeek,playing,o
     if(upper.startsWith("FEEDBACK /")||key.startsWith("feedback"))return "FEEDBACK";
     return "MOTION";
   };
-  const availableOptions=options.filter(o=>!selected.has(o.key)&&moduleOf(o.key,o.label)===moduleTab);
 
   const [selectedKey,setSelectedKey]=useState<{target:string;time:number}|null>(null);
   const panel=useRef<HTMLElement>(null);
@@ -31,6 +30,7 @@ export default function KineticTimeline({data,onChange,position,onSeek,playing,o
   const targetSelect=useRef<HTMLSelectElement>(null);
   const drag=useRef<{kind:"panel"|"resize"|"ruler"|"key";pointerId:number;startX:number;startY:number;initialX:number;initialY:number;target?:string;keyTime?:number;originalFrames?:TimelineData["tracks"][number]["frames"];moved:boolean}|null>(null);
   const selected=new Set(data.tracks.map(t=>t.target));
+  const availableOptions=options.filter(o=>!selected.has(o.key)&&moduleOf(o.key,o.label)===moduleTab);
   const time=clamp(position,0,data.duration),width=Math.max(250,data.duration*zoom);
   const tick=zoom>=85?.5:zoom>=45?1:zoom>=25?2:5;
   const ticks=Array.from({length:Math.floor(data.duration/tick)+1},(_,i)=>round(i*tick));
