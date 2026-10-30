@@ -1,5 +1,6 @@
 "use client";
 import type {CSSProperties} from "react";
+import {OfficialDurfWordmark,OfficialDelta,IllustratorDots} from "./official-artwork";
 
 type Item={title:string;description:string};
 type Props={
@@ -23,7 +24,7 @@ function DotMatrix({color}:{color:string}){
 function Wave({color,className="",rows=1}:{color:string;className?:string;rows?:number}){
  return <div className={`di-wave ${className}`} aria-hidden="true">{Array.from({length:rows},(_,j)=><div className="di-wave-row" key={j}>{Array.from({length:8},(_,i)=><i key={i} style={{background:color}}/>)}</div>)}</div>
 }
-function DurfWordmark({light=false}:{light?:boolean}){return <div className={`di-wordmark ${light?"is-light":""}`} aria-label="DURF">DURF</div>}
+function DurfWordmark({light=false}:{light?:boolean}){return <OfficialDurfWordmark className={`di-wordmark ${light?"is-light":""}`}/>;}
 export function IllustratorLanding(p:Props){
  const {palette:c}=p;
  const artStyle={"--di-paper":c.paper,"--di-green":c.green,"--di-pink":c.pink,"--di-orange":c.orange,"--di-ink":c.ink} as CSSProperties;
@@ -37,11 +38,11 @@ export function IllustratorLanding(p:Props){
    <nav aria-label="Sections"><a href="#di-ambition">DE AMBITIE</a><a href="#di-themes">INHOUD</a><a href="#di-functions">AANPAK</a><a href="#di-planning">PLANNING</a><a href="#di-contact">CONTACT</a></nav>
   </header>
   <section id="di-top" className="di-opening" data-edit-section="hero">
-   <div className="di-hero-photo" data-edit-asset="hero"><img src={hero} alt="Rotterdam / DURF Campus" /><DotRibbon color={c.paper} count={8} type="growth" className="di-hero-dots"/></div>
+   <div className="di-hero-photo" data-edit-asset="hero"><img src={hero} alt="Rotterdam / DURF Campus" /><IllustratorDots kind="hero"/></div>
    <div className="di-slogan"><span>Droom. Denk.</span><span>Durf. Doe.</span></div>
   </section>
   <section id="di-ambition" className="di-ambition" data-edit-section="intro">
-    <div className="di-overflow-dots">{Array.from({length:8},(_,i)=><i key={i} style={{background:c.pink,transform:`scale(${.28+i*.15})`}}/>)}</div>
+    <IllustratorDots kind="ambition"/>
     <span className="di-side-label">DE AMBITIE</span>
     <h1 data-edit-key="heroTitle">{p.heroTitle}</h1>
     <p data-edit-key="introText">{p.heroText} {p.introText}</p>
@@ -72,14 +73,14 @@ export function IllustratorLanding(p:Props){
     <span className="di-side-label">PLANNING</span>
     <h2 data-edit-key="nextTitle">{p.nextTitle}</h2>
     <div className="di-milestones">{p.milestones.map((m,i)=><article data-edit-list="milestones" data-edit-index={i} key={i}><h3>{i===2?"STRAKS":m.title.toUpperCase()}</h3><p>{m.description}</p></article>)}</div>
-    <DotRibbon color={c.orange} count={9} type="wave" className="di-milestone-dots"/>
+    <IllustratorDots kind="timeline"/>
   </section>
   <section id="di-contact" className="di-contact" data-edit-section="cta">
-   <div className="di-cta-wave"><Wave color={c.orange} rows={3}/><div className="di-cta-copy"><h2 data-edit-key="ctaTitle">{p.ctaTitle.charAt(0).toUpperCase()+p.ctaTitle.slice(1).toLowerCase()}</h2><p data-edit-key="ctaText">{p.ctaText}</p></div><DotRibbon color={c.orange} count={7} type="line" className="di-cta-bottom-dots"/></div>
+   <div className="di-cta-wave"><IllustratorDots kind="cta"/><div className="di-cta-copy"><h2 data-edit-key="ctaTitle">{p.ctaTitle.charAt(0).toUpperCase()+p.ctaTitle.slice(1).toLowerCase()}</h2><p data-edit-key="ctaText">{p.ctaText}</p></div></div>
   </section>
   <footer className="di-footer" data-edit-section="footer">
     <div className="di-partner-list">{partners.map(x=><div key={x}>{x}</div>)}</div>
-    <div className="di-footer-logo"><div className="di-footer-overline">DESIGNING　 URBAN　 RESILIENT　 FUTURES</div><div className="di-footer-lockup"><DurfWordmark light/><svg viewBox="0 0 100 100" role="img" aria-label="Delta icon"><path fill="currentColor" d="M11 46 63 9Q76 1 80 17L80 83Q76 99 63 91L11 54Q5 50 11 46Z"/><path fill="#25231F" d="M28 50 66 26V74Z"/></svg></div><span className="di-delta-caption">Rooted in the Rotterdam Delta</span></div>
+    <div className="di-footer-logo"><div className="di-footer-overline">DESIGNING　 URBAN　 RESILIENT　 FUTURES</div><div className="di-footer-lockup"><DurfWordmark light/><OfficialDelta className="di-official-delta"/></div><span className="di-delta-caption">Rooted in the Rotterdam Delta</span></div>
   </footer>
  </div>;
 }
@@ -120,4 +121,43 @@ export const illustratorCss=`
 .di-page [data-edit-key],.di-page [data-edit-list],.di-page [data-edit-asset]{cursor:pointer}.di-page [data-edit-key]:hover,.di-page [data-edit-list]:hover,.di-page [data-edit-asset]:hover{outline:2px solid var(--di-ink);outline-offset:3px}
 @media(max-width:850px){.di-header{min-height:120px}.di-header nav{gap:10px}.di-header nav a{font-size:11px}.di-wordmark{font-size:clamp(72px,12vw,130px)}.di-themes{grid-template-columns:1fr;min-height:0}.di-dot-matrix{width:45%;height:auto;aspect-ratio:9/11}.di-theme-grid{column-gap:25px}.di-ambition{padding-top:200px;min-height:620px}.di-ambition p{margin-left:22%}.di-functions-grid{gap:30px}.di-functions-intro{gap:25px}.di-milestones{gap:25px}.di-footer{min-height:620px}}
 @media(max-width:600px){.di-header{flex-direction:column;align-items:start;min-height:0;padding-top:22px}.di-header nav{padding-top:20px}.di-logo .di-wordmark{font-size:90px}.di-hero-photo{height:245px}.di-slogan{font-size:clamp(43px,11vw,66px);padding:48px 3%}.di-ambition{min-height:0;padding:160px 6% 55px}.di-overflow-dots{right:-60%;top:10px}.di-overflow-dots i{width:110px;height:110px}.di-ambition h1{font-size:clamp(42px,10.5vw,69px);margin-bottom:45px}.di-ambition p{margin-left:0;font-size:17px}.di-side-label{font-size:15px;right:2%}.di-themes{padding:45px 6% 65px}.di-dot-matrix{width:70%;margin-bottom:15px}.di-themes h2{font-size:clamp(48px,11vw,78px)}.di-theme-grid{grid-template-columns:1fr 1fr;column-gap:20px;row-gap:35px}.di-theme-grid h3{font-size:22px;margin-bottom:10px}.di-theme-grid p{font-size:12px}.di-fullphoto{height:330px}.di-functions{padding:55px 6% 70px}.di-functions-intro{grid-template-columns:1fr;margin-bottom:55px}.di-functions-intro h2{font-size:65px}.di-functions-intro p{font-size:23px;margin:0}.di-functions-grid{grid-template-columns:1fr}.di-function-list{gap:25px}.di-function-photo{aspect-ratio:4/3}.di-planning{min-height:0;padding:65px 6% 25px}.di-planning h2{font-size:clamp(48px,10vw,70px);margin-bottom:70px}.di-milestones{grid-template-columns:1fr;gap:35px}.di-milestones h3{font-size:38px;margin-bottom:12px}.di-milestones p{font-size:16px}.di-milestone-dots{margin-top:65px}.di-contact{min-height:0;padding:0 4%}.di-cta-wave{min-height:430px;padding:40px 0}.di-cta-copy{padding:50px 8%;border-radius:55px}.di-wave-row{min-height:100px}.di-cta-copy h2{font-size:clamp(50px,12vw,80px);margin-bottom:20px}.di-cta-copy p{font-size:15px}.di-footer{padding:120px 6% 40px;min-height:610px}.di-partner-list{font-size:19px}.di-footer-lockup .di-wordmark{font-size:95px}.di-footer-lockup svg{width:70px;height:70px}.di-footer-overline{font-size:9px}.di-delta-caption{font-size:11px}}
+
+/* Illustrator measured artboard: 1440 x 7227 px; InstrumentSans-Regular throughout. */
+.di-page{font-family:'Instrument Sans',sans-serif}
+.di-wordmark{display:block;width:clamp(260px,43vw,650px);height:auto;color:var(--di-ink);overflow:visible}
+.di-logo .di-wordmark{width:clamp(280px,43vw,650px)}
+.di-header{min-height:190px;align-items:center;padding:30px 4.5% 20px}
+.di-header nav{gap:18px;align-items:end}
+.di-header nav a{font-family:'Instrument Sans',sans-serif;font-size:clamp(12px,1.944vw,28px);font-weight:400;letter-spacing:-.035em;white-space:nowrap}
+.di-slogan{font-size:clamp(50px,6.25vw,90px);font-weight:400;line-height:.844;letter-spacing:-.045em;padding-top:58px;padding-bottom:78px}
+.di-ambition{padding:280px 4.95% 70px;overflow:hidden}
+.di-ambition h1{font-size:clamp(54px,6.875vw,99px);line-height:.909;font-weight:400;letter-spacing:-.02em;max-width:1000px;margin-bottom:88px}
+.di-ambition p{font-size:clamp(16px,1.944vw,28px);line-height:1.214;font-weight:400;letter-spacing:0}
+.di-themes h2{font-size:clamp(52px,6.25vw,90px);line-height:.8;letter-spacing:-.035em;font-weight:400}
+.di-theme-grid h3{font-size:clamp(22px,2.222vw,32px);line-height:.875;font-weight:400;letter-spacing:-.015em}
+.di-theme-grid p{font-size:clamp(13px,1.25vw,18px);line-height:1.55;font-weight:400}
+.di-functions-intro h2{font-size:clamp(65px,6.25vw,90px);line-height:.8;font-weight:400;letter-spacing:-.035em}
+.di-functions-intro p{font-size:clamp(22px,2.431vw,35px);line-height:1.31;font-weight:400;letter-spacing:0}
+.di-function-list h3{font-size:clamp(24px,2.222vw,32px);font-weight:400;line-height:1.14;letter-spacing:0}
+.di-function-list p{font-size:clamp(13px,1.25vw,18px);font-weight:400;line-height:1.67}
+.di-planning h2{font-size:clamp(60px,6.875vw,99px);line-height:.95;letter-spacing:-.025em;font-weight:400}
+.di-milestones h3{font-size:clamp(33px,3.611vw,52px);font-weight:400;line-height:1.28}
+.di-milestones p{font-size:clamp(16px,1.528vw,22px);font-weight:400;line-height:1.365}
+.di-cta-copy h2{font-size:clamp(65px,7.638vw,110px);font-weight:400;line-height:.97;letter-spacing:-.02em}
+.di-cta-copy p{font-size:clamp(17px,1.944vw,28px);font-weight:400;line-height:1.22}
+.di-partner-list{font-size:clamp(17px,1.944vw,28px);font-weight:400;line-height:1.643}
+.di-footer-lockup .di-wordmark{display:block;width:clamp(240px,33vw,490px);height:auto;color:var(--di-paper)}
+.di-footer-lockup .di-official-delta{display:block;width:clamp(65px,8vw,116px);height:auto;color:var(--di-paper)}
+.di-footer-lockup{align-items:center;gap:30px}
+.di-source-dots{position:absolute;width:100%;height:auto;pointer-events:none;z-index:2;display:block;overflow:visible}
+.di-hero-photo .di-source-hero{left:0;top:0;width:100%;height:100%;z-index:3}
+.di-ambition .di-source-ambition{left:0;top:-30px;width:100%;height:480px}
+.di-planning .di-source-timeline{position:relative;left:-4%;width:108%;height:120px;margin-top:45px}
+.di-contact{height:100vh;min-height:700px;padding:0;background:var(--di-pink)}
+.di-cta-wave{position:relative;height:100%;min-height:0;padding:0 4%;display:flex;align-items:center;justify-content:center}
+.di-source-cta{inset:0;width:100%;height:100%;z-index:0}
+.di-cta-copy{position:relative;z-index:2;max-width:1020px;margin:0;background:transparent;border-radius:0;padding:0;box-shadow:none}
+.di-cta-copy h2{max-width:960px}
+.di-footer{min-height:800px}
+@media(max-width:600px){.di-header{min-height:0;align-items:flex-start;gap:16px}.di-logo .di-wordmark{width:min(88vw,410px)}.di-header nav a{font-size:12px}.di-slogan{font-size:clamp(47px,10vw,70px)}.di-ambition h1{font-size:clamp(42px,9vw,66px)}.di-ambition p{font-size:17px}.di-themes h2,.di-functions-intro h2{font-size:clamp(54px,10vw,72px)}.di-theme-grid h3{font-size:22px}.di-theme-grid p{font-size:12px}.di-planning h2{font-size:clamp(49px,10vw,67px)}.di-contact{height:100svh;min-height:580px}.di-cta-copy{max-width:94%;padding:0}.di-cta-copy h2{font-size:clamp(48px,12vw,78px)}.di-cta-copy p{font-size:16px}.di-footer-lockup .di-wordmark{width:min(65vw,300px)}.di-footer-lockup .di-official-delta{width:70px}.di-partner-list{font-size:19px}}
 `;
