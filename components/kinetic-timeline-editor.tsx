@@ -12,7 +12,19 @@ export default function KineticTimeline({data,onChange,position,onSeek,playing,o
   const [zoom,setZoom]=useState(48); // pixels per second (AE-style horizontal time zoom)
   const [panelPosition,setPanelPosition]=useState<{x:number;y:number}|null>(null);
   const [panelSize,setPanelSize]=useState({width:Math.min(1050,typeof window==="undefined"?1050:window.innerWidth-36),height:355});
-  const [selectedTarget,setSelectedTarget]=useState("");
+  const [moduleTab,setModuleTab]=useState("SAMPLING");
+  const moduleTabs=["SAMPLING","MOTION","VERTEX","TYPOGRAPHY","FEEDBACK"] as const;
+  const moduleOf=(key:string,label:string)=>{
+    const upper=label.toUpperCase();
+    if(upper.startsWith("SAMPLING /")||["threshold","opacity","samplingThicknessX","samplingThicknessY","stripSpacing","samplingAxes"].includes(key))return "SAMPLING";
+    if(upper.startsWith("GRID /")||["repeatCount","repeatColumns","repeatRows","motionMode","motionBlend"].includes(key))return "MOTION";
+    if(upper.startsWith("VERTEX /")||["vertexSpacing","vertexScatter","lineLength","vertexSource"].includes(key))return "VERTEX";
+    if(upper.startsWith("TYPOGRAPHY /")||["tracking","lineHeight","textAlignMode","kerningMode"].includes(key)||key.startsWith("second"))return "TYPOGRAPHY";
+    if(upper.startsWith("FEEDBACK /")||key.startsWith("feedback"))return "FEEDBACK";
+    return "MOTION";
+  };
+  const availableOptions=options.filter(o=>!selected.has(o.key)&&moduleOf(o.key,o.label)===moduleTab);
+
   const [selectedKey,setSelectedKey]=useState<{target:string;time:number}|null>(null);
   const panel=useRef<HTMLElement>(null);
   const laneViewport=useRef<HTMLDivElement>(null);
@@ -77,9 +89,12 @@ export default function KineticTimeline({data,onChange,position,onSeek,playing,o
       <label><input type="checkbox" checked={data.loop} onChange={e=>onChange({...data,loop:e.target.checked})}/> LOOP</label>
       <output>{time.toFixed(2)} / {data.duration.toFixed(1)} s</output>
     </header>
+    <nav className="kt-module-tabs" aria-label="Timeline parameter modules">
+      {moduleTabs.map(tab=><button key={tab} type="button" className={moduleTab===tab?"is-active":""} aria-pressed={moduleTab===tab} onClick={()=>setModuleTab(tab)}>{tab}<span>{options.filter(o=>!selected.has(o.key)&&moduleOf(o.key,o.label)===tab).length}</span></button>)}
+    </nav>
     <div className="kt-toolbar">
-      <select ref={targetSelect} aria-label="Parameter to animate">{options.filter(o=>!selected.has(o.key)).map(o=><option key={o.key} value={o.key}>{o.label}</option>)}</select>
-      <button onClick={()=>{const key=targetSelect.current?.value;if(key)addKey(key,time);}}>+ TRACK</button>
+      <select ref={targetSelect} aria-label={`Animate parameter in ${moduleTab}`} disabled={!availableOptions.length}>{availableOptions.map(o=><option key={o.key} value={o.key}>{o.label.replace(/^[^/]+ \/ /,"")}</option>)}</select>
+      <button disabled={!availableOptions.length} onClick={()=>{const key=targetSelect.current?.value;if(key&&availableOptions.some(o=>o.key===key))addKey(key,time);}}>+ TRACK</button>
       <label className="kt-zoom">TIME ZOOM <button title="Zoom out" onClick={()=>setZoom(z=>Math.max(12,Math.round(z/1.5)))}>−</button><input aria-label="Timeline horizontal zoom" type="range" min="12" max="240" step="1" value={zoom} onChange={e=>setZoom(Number(e.target.value))}/><button title="Zoom in" onClick={()=>setZoom(z=>Math.min(240,Math.round(z*1.5)))}>+</button></label>
       <span>{zoom} PX/S</span>
     </div>
