@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 
 type Item = { title: string; description: string };
@@ -28,6 +28,8 @@ const initialPalette:Record<BrandColour,string>={green:"#507568",orange:"#F16A37
 const colourNames:Record<BrandColour,string>={green:"Mooi Groen",orange:"Heel Oranje",pink:"Ultra Roze",paper:"Oud Wit",ink:"Bijna Zwart"};
 type Selection = {kind:"asset";slot:AssetSlot} | {kind:"field";key:string} | {kind:"item";list:"themes"|"functions"|"milestones";index:number} | {kind:"section";key:SectionKey};
 type SectionKey = "hero" | "intro" | "themes" | "functions" | "process" | "next" | "cta" | "footer";
+type EditorTab = "general"|"images"|"layout";
+type RowKey = "themes"|"functions"|"process"|"next";
 type PageData = {
   heroTitle: string; heroText: string; introTitle: string; introText: string;
   processTitle: string; processText: string; ctaTitle: string; ctaText: string;
@@ -37,7 +39,7 @@ type PageData = {
   density: number; scale: number; typeScale: number; compact: boolean;
   fonts: Record<FontRole,FontStyle>; palette:Record<BrandColour,string>;
   sectionColours:Record<"hero"|"functions"|"cta",BrandColour>;
-  images:Record<AssetSlot,string>; graphicAsset:"a"|"b"|"procedural"; logoColour:BrandColour; elementStyles:Record<string,ElementStyle>;
+  images:Record<AssetSlot,string>; graphicAsset:"a"|"b"|"procedural"; logoColour:BrandColour; elementStyles:Record<string,ElementStyle>; columns:Record<RowKey,number>;
 };
 const KEY = "durf-campus-lab-v1";
 const original: PageData = {
@@ -55,7 +57,7 @@ const original: PageData = {
   order:["hero","intro","themes","functions","process","next","cta","footer"], hidden:[],
   graphic:"circles",colour:"balanced",density:60,scale:100,typeScale:100,compact:false,
   fonts:initialFonts,palette:initialPalette,sectionColours:{hero:"green",functions:"orange",cta:"pink"},
-  images:{hero:"",process1:photoUrl(photoLibrary[3][1]),process2:photoUrl(photoLibrary[7][1])},graphicAsset:"a",logoColour:"green",elementStyles:{}
+  images:{hero:"",process1:photoUrl(photoLibrary[3][1]),process2:photoUrl(photoLibrary[7][1])},graphicAsset:"a",logoColour:"green",elementStyles:{},columns:{themes:2,functions:1,process:2,next:1}
 };
 const sectionNames: Record<SectionKey,string> = {hero:"Hero",intro:"Proposition",themes:"Four themes",functions:"Four functions",process:"Development photography",next:"Next steps",cta:"Collaboration CTA",footer:"Partners / contact"};
 const partners=["Gemeente Rotterdam","Erasmus Universiteit Rotterdam","Technische Universiteit Delft","Erasmus MC","Hogeschool Rotterdam","Albeda MBO"];
@@ -76,10 +78,10 @@ function Page({data,photo1,photo2,heroPhoto,selected}:{data:PageData;photo1?:str
     switch(key){
     case "hero": return <section className="dp-section dp-hero" key={key}><div className="dp-art">{(heroPhoto||data.images.hero)&&<img className="dp-hero-photo" data-edit-asset="hero" src={heroPhoto||data.images.hero} alt="DURF hero"/>}{data.graphic==="circles"?(data.graphicAsset==="procedural"?<Dots density={data.density} scale={data.scale}/>:<div className="dp-brand-circles-wrap" style={{transform:`scale(${data.scale/100})`}}><DurfCircles variant={data.graphicAsset==="a"?1:2}/></div>):data.graphic==="delta"?<svg className="dp-delta" viewBox="0 0 500 500" fill="none" aria-hidden="true"><path d="M250 35L480 450H20Z" stroke="currentColor" strokeWidth="27" strokeLinejoin="round"/><path d="M250 155L370 385H130Z" stroke="currentColor" strokeWidth="10" strokeLinejoin="round"/></svg>:null}</div><div className="dp-overline"><span>ROTTERDAM / CAMPUS IN ONTWIKKELING</span><span>001</span></div><div className="dp-hero-content"><h1 data-edit-key="heroTitle" data-element-id="heroTitle" style={elementStyle("heroTitle")}>{data.heroTitle}</h1><p data-edit-key="heroText" data-element-id="heroText" style={elementStyle("heroText")}>{data.heroText}</p><a href="#durf-lab-cta" className="dp-button">Ontdek DURF <span>↗</span></a></div><div className="dp-overline"><span>SAMEN DENKEN. SAMEN DOEN.</span><span>↓ SCROLL</span></div></section>;
     case "intro":return <section className="dp-section" key={key}><div className="dp-overline"><span>01 / DE AMBITIE</span><span>ROTTERDAM</span></div><h2 data-edit-key="introTitle" data-element-id="introTitle" style={elementStyle("introTitle")}>{data.introTitle}</h2><p className="dp-lead" data-edit-key="introText" data-element-id="introText" style={elementStyle("introText")}>{data.introText}</p></section>;
-    case "themes":return <section className="dp-section" key={key}><div className="dp-overline"><span>02 / INHOUD</span><span>VIER THEMA'S</span></div><h2>De vraagstukken van morgen.</h2><p className="dp-lead">Vier thema's die richting geven aan onze gezamenlijke ambitie.</p><div className="dp-grid">{data.themes.map((t,i)=><article className="dp-tile" data-edit-list="themes" data-edit-index={i} data-element-id={"themes-"+i} style={elementStyle("themes-"+i)} key={i}><div className="dp-tile-top"><span className="dp-mono">0{i+1}</span><i style={{background:["var(--green)","var(--orange)","var(--pink)","var(--ink)"][i]}}/></div><div><h3>{t.title}</h3><p>{t.description}</p></div></article>)}</div></section>;
-    case "functions":return <section className="dp-section dp-functions" key={key}><div className="dp-overline"><span>03 / AANPAK</span><span>VIER FUNCTIES</span></div><h2>Van denken naar doen.</h2><p className="dp-lead">De functies die we samen willen ontwikkelen.</p><div className="dp-rows">{data.functions.map((t,i)=><article key={i} className="dp-function" data-edit-list="functions" data-edit-index={i} data-element-id={"functions-"+i} style={elementStyle("functions-"+i)}><span className="dp-mono">0{i+1}</span><div><h3>{t.title}</h3><p>{t.description}</p></div><span>↗</span></article>)}</div></section>;
-    case "process":return <section className="dp-section" key={key}><div className="dp-overline"><span>04 / HET PROCES</span><span>IN ONTWIKKELING</span></div><h2 data-edit-key="processTitle" data-element-id="processTitle" style={elementStyle("processTitle")}>{data.processTitle}</h2><p className="dp-lead" data-edit-key="processText" data-element-id="processText" style={elementStyle("processText")}>{data.processText}</p><div className="dp-photos"><div className="dp-photo" data-edit-asset="process1">{(photo1||data.images.process1)?<img src={photo1||data.images.process1} alt="DURF development process, first photograph"/>:<><span>01 / IN GESPREK</span><span>FOTO VOLGT</span></>}</div><div className="dp-photo" data-edit-asset="process2">{(photo2||data.images.process2)?<img src={photo2||data.images.process2} alt="DURF development process, second photograph"/>:<span>02 / IN ONTWIKKELING</span>}</div></div><p className="dp-mono dp-photo-note">FOTOGRAFIE / SESSIE 17 NOVEMBER 2026</p></section>;
-    case "next":return <section className="dp-section" key={key}><div className="dp-overline"><span>05 / PLANNING</span><span>VOLGENDE STAPPEN</span></div><h2>Dit staat er op de agenda.</h2><div className="dp-rows">{data.milestones.map((m,i)=><article className="dp-event" data-edit-list="milestones" data-edit-index={i} key={i}><span className="dp-mono">0{i+1} / {m.title}</span><h3>{m.description}</h3></article>)}</div></section>;
+    case "themes":return <section className="dp-section" key={key}><div className="dp-overline"><span>02 / INHOUD</span><span>VIER THEMA'S</span></div><h2>De vraagstukken van morgen.</h2><p className="dp-lead">Vier thema's die richting geven aan onze gezamenlijke ambitie.</p><div className="dp-grid" style={{gridTemplateColumns:`repeat(${data.columns.themes||2},minmax(0,1fr))`}}>{data.themes.map((t,i)=><article className="dp-tile" data-edit-list="themes" data-edit-index={i} data-element-id={"themes-"+i} style={elementStyle("themes-"+i)} key={i}><div className="dp-tile-top"><span className="dp-mono">0{i+1}</span><i style={{background:["var(--green)","var(--orange)","var(--pink)","var(--ink)"][i]}}/></div><div><h3>{t.title}</h3><p>{t.description}</p></div></article>)}</div></section>;
+    case "functions":return <section className="dp-section dp-functions" key={key}><div className="dp-overline"><span>03 / AANPAK</span><span>VIER FUNCTIES</span></div><h2>Van denken naar doen.</h2><p className="dp-lead">De functies die we samen willen ontwikkelen.</p><div className={`dp-rows ${data.columns.functions>1?"dp-multi":""}`} style={data.columns.functions>1?{display:"grid",gridTemplateColumns:`repeat(${data.columns.functions},minmax(0,1fr))`,gap:18}:undefined}>{data.functions.map((t,i)=><article key={i} className="dp-function" data-edit-list="functions" data-edit-index={i} data-element-id={"functions-"+i} style={elementStyle("functions-"+i)}><span className="dp-mono">0{i+1}</span><div><h3>{t.title}</h3><p>{t.description}</p></div><span>↗</span></article>)}</div></section>;
+    case "process":return <section className="dp-section" key={key}><div className="dp-overline"><span>04 / HET PROCES</span><span>IN ONTWIKKELING</span></div><h2 data-edit-key="processTitle" data-element-id="processTitle" style={elementStyle("processTitle")}>{data.processTitle}</h2><p className="dp-lead" data-edit-key="processText" data-element-id="processText" style={elementStyle("processText")}>{data.processText}</p><div className="dp-photos" style={{gridTemplateColumns:`repeat(${data.columns.process||2},minmax(0,1fr))`}}><div className="dp-photo" data-edit-asset="process1">{(photo1||data.images.process1)?<img src={photo1||data.images.process1} alt="DURF development process, first photograph"/>:<><span>01 / IN GESPREK</span><span>FOTO VOLGT</span></>}</div><div className="dp-photo" data-edit-asset="process2">{(photo2||data.images.process2)?<img src={photo2||data.images.process2} alt="DURF development process, second photograph"/>:<span>02 / IN ONTWIKKELING</span>}</div></div><p className="dp-mono dp-photo-note">FOTOGRAFIE / SESSIE 17 NOVEMBER 2026</p></section>;
+    case "next":return <section className="dp-section" key={key}><div className="dp-overline"><span>05 / PLANNING</span><span>VOLGENDE STAPPEN</span></div><h2>Dit staat er op de agenda.</h2><div className={`dp-rows ${data.columns.next>1?"dp-multi":""}`} style={data.columns.next>1?{display:"grid",gridTemplateColumns:`repeat(${data.columns.next},minmax(0,1fr))`,gap:18}:undefined}>{data.milestones.map((m,i)=><article className="dp-event" data-edit-list="milestones" data-edit-index={i} key={i}><span className="dp-mono">0{i+1} / {m.title}</span><h3>{m.description}</h3></article>)}</div></section>;
     case "cta":return <section className="dp-section dp-cta" id="durf-lab-cta" key={key}><div className="dp-overline"><span>06 / SAMENWERKEN</span><span>DOE MEE ↗</span></div><h2 data-edit-key="ctaTitle" data-element-id="ctaTitle" style={elementStyle("ctaTitle")}>{data.ctaTitle}</h2><p className="dp-lead" data-edit-key="ctaText" data-element-id="ctaText" style={elementStyle("ctaText")}>{data.ctaText}</p><a className="dp-button" href="#durf-lab-footer">Laten we verbinden <span>↗</span></a></section>;
     case "footer":return <footer className="dp-section dp-footer" id="durf-lab-footer" key={key}><div className="dp-logo"><DurfLogo/><span>CAMPUS</span></div><div className="dp-mono">DE ZES KERNPARTNERS</div><div className="dp-partners">{partners.map(p=><span key={p}>{p}</span>)}</div><div className="dp-footline dp-mono"><span>ROTTERDAM / 2026</span><span>CONTACTGEGEVENS VOLGEN</span></div></footer>;
     }
@@ -109,8 +111,17 @@ export default function DurfCampusLab(){
   const [status,setStatus]=useState("");
   const [selected,setSelected]=useState<Selection|null>(null);
   const [activeElement,setActiveElement]=useState<string|null>(null);
+  const [tab,setTab]=useState<EditorTab>("general");
+  const [inspectorOpen,setInspectorOpen]=useState(false);
+  const [inspectorPosition,setInspectorPosition]=useState({x:80,y:115});
+  const dragOrigin=useRef<{x:number;y:number;startX:number;startY:number}|null>(null);
+  const [floatingKind,setFloatingKind]=useState<"field"|"item"|"asset"|"section"|"element">("element");
+  const [floatingId,setFloatingId]=useState<string|null>(null);
+  useEffect(()=>{const move=(e:PointerEvent)=>{if(!dragOrigin.current)return;const d=dragOrigin.current;setInspectorPosition({x:Math.max(0,Math.min(window.innerWidth-170,d.startX+e.clientX-d.x)),y:Math.max(0,Math.min(window.innerHeight-80,d.startY+e.clientY-d.y))});};const up=()=>{dragOrigin.current=null;};window.addEventListener("pointermove",move);window.addEventListener("pointerup",up);return()=>{window.removeEventListener("pointermove",move);window.removeEventListener("pointerup",up)};},[]);
+  const openInspector=(kind:"field"|"item"|"asset"|"section"|"element",id:string)=>{setFloatingKind(kind);setFloatingId(id);setInspectorOpen(true);};
+
   const resolveImage=(src:string)=>{if(src.startsWith("library:")){const key=src.slice(8);const n=Number(key.replace("photo-",""));return Number.isInteger(n)&&n>0&&n<=10?"/durf-campus/photos/"+String(n).padStart(2,"0")+".webp":"";}if(src.includes("unsplash.com/photos/")){const id=photoLibrary.find(([,id])=>src.includes(id));return id?photoUrl(id[1]):src;}return src;};
-  useEffect(()=>{try{const saved=localStorage.getItem(KEY);if(saved){const parsed:unknown=JSON.parse(saved);if(isPageData(parsed)){setData({...clone(original),...parsed,fonts:{...initialFonts,...parsed.fonts},palette:{...initialPalette,...parsed.palette},sectionColours:{...original.sectionColours,...parsed.sectionColours},images:{...original.images,...parsed.images},elementStyles:{...original.elementStyles,...parsed.elementStyles}});}}}catch{}setReady(true);},[]);
+  useEffect(()=>{try{const saved=localStorage.getItem(KEY);if(saved){const parsed:unknown=JSON.parse(saved);if(isPageData(parsed)){setData({...clone(original),...parsed,fonts:{...initialFonts,...parsed.fonts},palette:{...initialPalette,...parsed.palette},sectionColours:{...original.sectionColours,...parsed.sectionColours},images:{...original.images,...parsed.images},elementStyles:{...original.elementStyles,...parsed.elementStyles},columns:{...original.columns,...parsed.columns}});}}}catch{}setReady(true);},[]);
   useEffect(()=>{if(!ready)return;try{localStorage.setItem(KEY,JSON.stringify(data));}catch{}},[data,ready]);
   const update=<K extends keyof PageData>(key:K,value:PageData[K])=>setData(p=>({...p,[key]:value}));
   const setFont=(role:FontRole,key:keyof FontStyle,value:number)=>setData(p=>({...p,fonts:{...p.fonts,[role]:{...p.fonts[role],[key]:value}}}));
@@ -119,17 +130,19 @@ export default function DurfCampusLab(){
   const selectPreview=(event:import("react").MouseEvent<HTMLDivElement>)=>{
     const target=event.target as HTMLElement;
     const el=target.closest<HTMLElement>("[data-element-id]");
-    if(el?.dataset.elementId)setActiveElement(el.dataset.elementId);
+    if(el?.dataset.elementId){setActiveElement(el.dataset.elementId);openInspector("element",el.dataset.elementId);}
     if(target.closest("a"))return;
     const asset=target.closest<HTMLElement>("[data-edit-asset]");
-    if(asset?.dataset.editAsset){setSelected({kind:"asset",slot:asset.dataset.editAsset as AssetSlot});return;}
+    if(asset?.dataset.editAsset){setSelected({kind:"asset",slot:asset.dataset.editAsset as AssetSlot});openInspector("asset",asset.dataset.editAsset);return;}
     const field=target.closest<HTMLElement>("[data-edit-key]");
     const item=target.closest<HTMLElement>("[data-edit-list]");
     const section=target.closest<HTMLElement>("[data-edit-section]");
-    if(field?.dataset.editKey){setSelected({kind:"field",key:field.dataset.editKey});return;}
-    if(item?.dataset.editList){setSelected({kind:"item",list:item.dataset.editList as "themes"|"functions"|"milestones",index:Number(item.dataset.editIndex)});return;}
-    if(section?.dataset.editSection){setSelected({kind:"section",key:section.dataset.editSection as SectionKey});}
+    if(field?.dataset.editKey){setSelected({kind:"field",key:field.dataset.editKey});openInspector("field",field.dataset.editKey);return;}
+    if(item?.dataset.editList){setSelected({kind:"item",list:item.dataset.editList as "themes"|"functions"|"milestones",index:Number(item.dataset.editIndex)});openInspector("item",item.dataset.editList+":"+item.dataset.editIndex);return;}
+    if(section?.dataset.editSection){setSelected({kind:"section",key:section.dataset.editSection as SectionKey});openInspector("section",section.dataset.editSection);return;}
+    const fallback=target.closest<HTMLElement>("h1,h2,h3,p,a,span,img,button,article,footer,header,section,div");if(fallback&&fallback.closest(".durf-page")){const root=fallback.closest(".durf-page");let current:Element|null=fallback;const parts:string[]=[];while(current&&current!==root){const parent:Element|null=current.parentElement;if(!parent)break;parts.unshift(":scope > :nth-child("+Array.from(parent.children).indexOf(current as Element).toString().replace(/^(\d+)$/,n=>String(Number(n)+1))+")");current=parent;}const path=parts.join(" ");setActiveElement("auto|"+path);openInspector("element","auto|"+path);}
   };
+  const updateColumns=(key:RowKey,value:number)=>setData(p=>({...p,columns:{...p.columns,[key]:value}}));
   const updateElement=(id:string,key:keyof ElementStyle,value:number|string)=>setData(p=>({...p,elementStyles:{...p.elementStyles,[id]:{...defaultElement,...p.elementStyles[id],[key]:value}}}));
   const changeItem=(key:"themes"|"functions"|"milestones",idx:number,field:keyof Item,value:string)=>setData(p=>({...p,[key]:p[key].map((item,i)=>i===idx?{...item,[field]:value}:item)}));
   function move(key:SectionKey,by:number){setData(p=>{const order=[...p.order],i=order.indexOf(key),j=i+by;if(j<0||j>=order.length)return p;[order[i],order[j]]=[order[j],order[i]];return {...p,order};});}
