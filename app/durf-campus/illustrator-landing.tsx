@@ -160,4 +160,15 @@ export const illustratorCss=`
 .di-cta-copy h2{max-width:960px}
 .di-footer{min-height:800px}
 @media(max-width:600px){.di-header{min-height:0;align-items:flex-start;gap:16px}.di-logo .di-wordmark{width:min(88vw,410px)}.di-header nav a{font-size:12px}.di-slogan{font-size:clamp(47px,10vw,70px)}.di-ambition h1{font-size:clamp(42px,9vw,66px)}.di-ambition p{font-size:17px}.di-themes h2,.di-functions-intro h2{font-size:clamp(54px,10vw,72px)}.di-theme-grid h3{font-size:22px}.di-theme-grid p{font-size:12px}.di-planning h2{font-size:clamp(49px,10vw,67px)}.di-contact{height:100svh;min-height:580px}.di-cta-copy{max-width:94%;padding:0}.di-cta-copy h2{font-size:clamp(48px,12vw,78px)}.di-cta-copy p{font-size:16px}.di-footer-lockup .di-wordmark{width:min(65vw,300px)}.di-footer-lockup .di-official-delta{width:70px}.di-partner-list{font-size:19px}}
+
+/* Illustrator exported InstrumentSans-Regular, 400 at all visible sizes.
+   Do not synthesize bold or narrow text by negative tracking. */
+.di-page{font-family:'Instrument Sans',sans-serif;font-optical-sizing:none;font-synthesis:none;font-stretch:100%;font-variation-settings:'wght' 400,'wdth' 100}
+.di-page :is(h1,h2,h3,p,a,.di-slogan,.di-side-label,.di-partner-list,.di-footer-overline,.di-delta-caption){font-weight:400!important;letter-spacing:normal!important;font-stretch:100%;font-variation-settings:'wght' 400,'wdth' 100;font-synthesis:none}
+.di-page .di-source-dots{object-fit:contain;transform:none!important;overflow:visible}
+.di-opening>.di-source-hero{height:auto!important;aspect-ratio:1440/850}
+.di-ambition .di-source-ambition{height:auto!important;aspect-ratio:1440/600}
+.di-planning .di-source-timeline{height:auto!important;aspect-ratio:1440/110}
+.di-contact .di-source-cta{width:100%;height:100%;object-fit:cover}
+.di-page .di-dot-matrix i,.di-page .di-photo-bubbles i{aspect-ratio:1;flex:none;border-radius:50%}
 `;
