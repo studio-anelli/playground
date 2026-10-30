@@ -18,7 +18,7 @@ import { indexModulation } from "./kinetic-modulation";
 import { kineticPresets } from "./kinetic-presets";
 import { userKineticPresets } from "./kinetic-user-presets";
 import KineticTimeline from "./kinetic-timeline-editor";
-import { timelineDefaults, evaluateTrack, timelineAt, type TimelineData } from "./kinetic-timeline";
+import { timelineDefaults, evaluateTrack, timelineAt, parseTimeline, type TimelineData } from "./kinetic-timeline";
 import { samplingDetailScale } from "./kinetic-sampling-detail";
 import GlyphOriginEditor from "./kinetic-glyph-origin-editor";
 import { firstGridCoordinate, glyphSamplingRegion, parseGlyphOrigins, type GlyphOriginMap } from "./kinetic-glyph-origins";
@@ -928,7 +928,7 @@ export default function KineticPatchSynth() {
     }, "image/png"); } catch { setPngBusy(false); setPresetMessage("Could not export PNG."); }
   };
   const exportPreset = () => {
-    const payload = { format: "k-tic-synth", version: 2, state: live.current };
+    const payload = { format: "k-tic-synth", version: 2, state: live.current, timeline: timelineState.current };
     const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));
     const a = document.createElement("a"); a.href = url; a.download = `k-tic-synth-${text.trim().slice(0, 32).replace(/[^a-z0-9_-]/gi, "-") || "preset"}.json`; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); setPresetMessage("Preset exported.");
   };
@@ -940,11 +940,14 @@ export default function KineticPatchSynth() {
   const importPreset = async (file: File) => {
     try {
       if (file.size > 96 * 1024 * 1024) throw new Error("Preset files must be smaller than 96 MB.");
-      const state = parsePreset(JSON.parse(await file.text()));
+      const document = JSON.parse(await file.text());
+      const state = parsePreset(document);
+      const restoredTimeline = parseTimeline(document.timeline);
       await ensureImages(state.imageLayers);
       await ensureAssets(state.customFonts, state.vertexSVG);
       applyPreset(state);
-      setPresetMessage("Preset imported. Undo restores your previous settings.");
+      setTimeline(restoredTimeline); seekTimeline(0); timelineClock.current.playing=false; setTimelinePlaying(false);
+      setPresetMessage("Preset and timeline imported. Undo restores synth settings.");
     } catch (error) { setPresetMessage(error instanceof Error ? error.message : "Could not import this preset."); }
   };
   const loadDream = () => { setCustomFonts([]); setVertexSVG(null); setImageLayers([]); setType1On(true); setSecondType(secondTypeDefault); setStripSpacing(0); setVertexSpacing(0); setVertexScatter(0); setGlyphOrigins({}); setSamplingThicknessLinked(true); setSamplingThicknessX(1.5); setSamplingThicknessY(1.5); setTextAlign("center"); setLineHeight(1.1); setKerning("none"); setBpm(120); setWaves(dreamWaves); setValues(initial); setManual(initialManual); setModes({ sampling: false, grid: false, vertex: true, feedback: false }); setPatches(dreamPatches); setVideoPatches(videoDefaults); setSelectedVideo(null); setText("dream"); setFont("system-ui, sans-serif"); setVertex("dot"); setRepeatMode("single"); setSamplingMode("xy"); setGlyphPattern("*+o"); setBg("#000000"); setInk("#000000"); setInk2("#ffffff"); setBicolour(true); setFeedbackBlend("source-over"); setRepeatBlend("source-over"); setFeedbackTiming("free"); setFeedbackDivision("1/4"); setPaused(false); setSelected(null); };
