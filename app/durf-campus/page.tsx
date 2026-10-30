@@ -35,6 +35,7 @@ type RowKey = "themes"|"functions"|"process"|"next";
 type BackgroundSettings={src:string;x:number;y:number;fit:"cover"|"contain";};
 const defaultBackground:BackgroundSettings={src:"",x:50,y:50,fit:"cover"};
 type PageData = {
+  designTheme:"original"|"editorial";
   heroTitle: string; heroText: string; introTitle: string; introText: string;
   processTitle: string; processText: string; ctaTitle: string; ctaText: string;
   themesLead:string;functionsLead:string;approachText:string;locationText:string;nextTitle:string;nextLead:string;
@@ -48,6 +49,7 @@ type PageData = {
 };
 const KEY = "durf-campus-lab-v1";
 const original: PageData = {
+  designTheme:"original",
   heroTitle: "EEN PLEK OM HET VERSCHIL TE MAKEN.",
   heroText: "DURF verbindt kennis, onderwijs, praktijk en beleid om samen te werken aan de grote vraagstukken van Rotterdam.",
   introTitle: "Samen leren. Samen veranderen.",
@@ -132,7 +134,7 @@ function Page({data,photo1,photo2,heroPhoto,selected,onColumnSelect}:{data:PageD
     case "footer":return <footer className="dp-section dp-footer" id="durf-lab-footer" key={key}><div className="dp-logo"><DurfLogo/><span>CAMPUS</span></div><div className="dp-mono">DE ZES KERNPARTNERS</div><div className="dp-partners">{partners.map(p=><span key={p}>{p}</span>)}</div><div className="dp-footline dp-mono"><span>ROTTERDAM / 2026</span><span>CONTACTGEGEVENS VOLGEN</span></div></footer>;
     }
   };
-  return <div className={`durf-page ${data.compact?"dp-compact":""}`} style={{
+  return <div className={`durf-page ${data.compact?"dp-compact":""} ${data.designTheme==="editorial"?"dp-editorial-theme":""}`} style={{
   ["--display" as string]:`clamp(${46*data.typeScale/100*data.fonts.display.size/100}px,${8.3*data.typeScale/100*data.fonts.display.size/100}vw,${115*data.typeScale/100*data.fonts.display.size/100}px)`,
   ["--heading" as string]:`clamp(${32*data.fonts.heading.size/100}px,${5.5*data.fonts.heading.size/100}vw,${76*data.fonts.heading.size/100}px)`,
   ["--green" as string]:data.palette.green,["--orange" as string]:data.palette.orange,
@@ -209,7 +211,7 @@ export default function DurfCampusLab(){
   const collection=(key:"themes"|"functions"|"milestones")=><div className="dl-stack">{data[key].map((item,i)=><div className="dl-item" key={i}><label className="dl-field"><span>{String(i+1).padStart(2,"0")} / Title</span><input value={item.title} onChange={e=>changeItem(key,i,"title",e.target.value)}/></label><label className="dl-field"><span>Description</span><textarea rows={2} value={item.description} onChange={e=>changeItem(key,i,"description",e.target.value)}/></label></div>)}</div>;
   return <main className="durf-lab">
     <style>{styles}</style>
-    <div className="dl-toolbar"><div className="dl-actions"><strong>DURF / WEB LAB <small>03</small></strong><button className={view==="desktop"?"active":""} onClick={()=>setView("desktop")}>Desktop</button><button className={view==="mobile"?"active":""} onClick={()=>setView("mobile")}>Mobile</button></div><div className="dl-actions"><button onClick={()=>download(JSON.stringify(data,null,2),"durf-campus-project.json","application/json")}>Export JSON ↓</button><label className="dl-upload">Import JSON<input aria-label="Import DURF JSON" type="file" accept=".json,application/json" onChange={e=>importJson(e.target.files?.[0])}/></label></div></div>
+    <div className="dl-toolbar"><div className="dl-actions"><strong>DURF / WEB LAB <small>04</small></strong><button className={view==="desktop"?"active":""} onClick={()=>setView("desktop")}>Desktop</button><button className={view==="mobile"?"active":""} onClick={()=>setView("mobile")}>Mobile</button></div><div className="dl-actions"><label className="dl-theme-select"><span>THEME</span><select aria-label="Landing page visual theme" value={data.designTheme||"original"} onChange={e=>update("designTheme",e.target.value as PageData["designTheme"])}><option value="original">01 · Original</option><option value="editorial">02 · Editorial Grid</option></select></label><button onClick={()=>download(JSON.stringify(data,null,2),"durf-campus-project.json","application/json")}>Export JSON ↓</button><label className="dl-upload">Import JSON<input aria-label="Import DURF JSON" type="file" accept=".json,application/json" onChange={e=>importJson(e.target.files?.[0])}/></label></div></div>
     <div className="dl-layout"><div className="dl-frame"><div className="dl-browser"><span>○ ○ ○</span><span>durf-campus / work in progress</span><span>↕ SCROLL</span></div><div className={`dl-viewport ${view==="mobile"?"mobile":""}`} onClick={selectPreview}><Page data={{...data,images:{hero:resolveImage(data.images.hero),process1:resolveImage(data.images.process1),process2:resolveImage(data.images.process2)}}} photo1={photo1} photo2={photo2} heroPhoto={heroPhoto} selected={selected} onColumnSelect={onColumnSelect}/></div></div>
     {inspectorOpen&&floatingId&&<div className="dl-inspector" role="dialog" aria-label="Element properties" style={{left:inspectorPosition.x,top:inspectorPosition.y}}>
 <div className="dl-inspector-head" onPointerDown={e=>{if((e.target as HTMLElement).closest("button"))return;dragOrigin.current={x:e.clientX,y:e.clientY,startX:inspectorPosition.x,startY:inspectorPosition.y};e.currentTarget.setPointerCapture(e.pointerId);}}>
@@ -244,6 +246,7 @@ export default function DurfCampusLab(){
 {(["colour","background"] as const).map(k=><label className="dl-field" key={k}><span>{k==="colour"?"Text colour":"Background"}</span><select value={data.elementStyles[activeElement]?.[k]??defaultElement[k]} onChange={e=>updateElement(activeElement,k,e.target.value)}><option value={k==="colour"?"inherit":"transparent"}>{k==="colour"?"Inherit":"Transparent"}</option>{(Object.keys(initialPalette) as BrandColour[]).map(c=><option key={c} value={c}>{colourNames[c]}</option>)}</select></label>)}
 <button className="dl-small-button" onClick={()=>setData(p=>{const next={...p.elementStyles};delete next[activeElement];return {...p,elementStyles:next}})}>Reset this element</button></>:<p className="dl-tip">Select an element in the preview.</p>}
 </div></details>
+<details className="dl-tab-general" open><summary>00 / Design direction</summary><div className="dl-stack"><p className="dl-tip">Change visual direction without replacing the copy, images or layout settings. Editorial Grid is an initial experiment based on the requested grid-based, minimal aesthetic.</p><label className="dl-field"><span>Theme</span><select value={data.designTheme||"original"} onChange={e=>update("designTheme",e.target.value as PageData["designTheme"])}><option value="original">01 / Original DURF</option><option value="editorial">02 / Editorial Grid</option></select></label></div></details>
 <details className="dl-tab-general"><summary>01 / Visual language</summary><div className="dl-stack">
         <label className="dl-field"><span>Graphic source</span><select value={data.graphicAsset} onChange={e=>update("graphicAsset",e.target.value as PageData["graphicAsset"])}><option value="a">DURF circular composition A</option><option value="b">DURF circular composition B</option><option value="procedural">Procedural circles</option></select></label><label className="dl-field"><span>Wordmark colour</span><select value={data.logoColour} onChange={e=>update("logoColour",e.target.value as BrandColour)}>{(Object.keys(initialPalette) as BrandColour[]).map(k=><option value={k} key={k}>{colourNames[k]}</option>)}</select></label>
         <label className="dl-field"><span>Hero treatment</span><select value={data.graphic} onChange={e=>update("graphic",e.target.value as PageData["graphic"])}><option value="circles">Circular system</option><option value="type">Typography only</option><option value="delta">Delta exploration</option></select></label>
@@ -331,4 +334,56 @@ ${editorialCss}
 .dl-tip{font-size:11px;line-height:1.5;color:#777}.dp-compact .dp-section{padding-top:37px;padding-bottom:37px}.dp-compact .dp-hero{min-height:430px}
 .dl-viewport.mobile .durf-page{--display:48px!important;--heading:37px!important}.dl-viewport.mobile .dp-nav nav{display:none}.dl-viewport.mobile .dp-section{padding:45px 7%}.dl-viewport.mobile .dp-hero{min-height:530px}.dl-viewport.mobile .durf-dots{width:105%;right:-43%;top:15%}.dl-viewport.mobile .dp-delta{width:95%;right:-30%}.dl-viewport.mobile .dp-grid,.dl-viewport.mobile .dp-photos{grid-template-columns:1fr}.dl-viewport.mobile .dp-tile{min-height:145px}.dl-viewport.mobile .dp-function{grid-template-columns:40px 1fr 15px}.dl-viewport.mobile .dp-event{grid-template-columns:85px 1fr}.dl-viewport.mobile .dp-partners{grid-template-columns:repeat(2,1fr)}
 @media(max-width:900px){.dl-layout{grid-template-columns:1fr}.dl-panel{max-height:none;min-height:0}.dl-viewport{height:670px}.durf-page{--display:clamp(44px,8vw,90px);--heading:clamp(32px,5vw,66px)}}@media(max-width:520px){.durf-lab{padding:8px}.dp-nav nav{display:none}.dp-grid,.dp-photos{grid-template-columns:1fr}.dp-partners{grid-template-columns:repeat(2,1fr)}.dp-event{grid-template-columns:80px 1fr}}
+
+/* 02 / EDITORIAL GRID — distinct design direction; original remains untouched */
+.dl-theme-select{display:flex;align-items:center;gap:7px;padding:0 7px;background:#fff;border:1px solid #c8c8c0;border-radius:5px;height:35px}
+.dl-theme-select span{font:500 9px 'IBM Plex Mono',monospace;letter-spacing:.05em;color:#777}.dl-theme-select select{font-size:11px;max-width:142px;border:0;background:transparent;color:inherit;outline:0}
+.dp-editorial-theme{--editorial-line:1px solid var(--ink);font-family:'Instrument Sans',sans-serif;background:var(--paper)}
+.dp-editorial-theme .dp-nav{border-bottom:var(--editorial-line);padding:14px 3.2%;min-height:76px;align-items:center}
+.dp-editorial-theme .dp-nav nav{font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.03em}
+.dp-editorial-theme .dp-brand-header{gap:7px}
+.dp-editorial-theme .dp-section-wrap{border-bottom:var(--editorial-line)}
+.dp-editorial-theme .dp-section{padding:46px 3.2% 65px}
+.dp-editorial-theme .dp-overline{border-bottom:var(--editorial-line);padding-bottom:16px;margin-bottom:27px;letter-spacing:.025em;font-size:10px}
+.dp-editorial-theme .dp-overline span{font-family:'IBM Plex Mono',monospace}
+.dp-editorial-theme .dp-section h2{font-weight:700;letter-spacing:-.065em;line-height:.98;max-width:950px}
+.dp-editorial-theme .dp-section .dp-lead{font-size:clamp(17px,2vw,26px);max-width:760px;line-height:1.34}
+.dp-editorial-theme .dp-hero{min-height:680px;display:flex;flex-direction:column;justify-content:space-between;background:var(--paper)!important;color:var(--ink)!important;position:relative;isolation:isolate}
+.dp-editorial-theme .dp-hero .dp-overline{position:relative;z-index:4}
+.dp-editorial-theme .dp-hero-content{position:relative;z-index:4;max-width:74%;margin-top:55px}
+.dp-editorial-theme .dp-hero-content h1{font-weight:800;font-size:clamp(62px,9.4vw,146px);line-height:.86;letter-spacing:-.085em;max-width:1040px;text-wrap:balance}
+.dp-editorial-theme .dp-hero-content p{font-size:clamp(17px,1.75vw,24px);line-height:1.3;max-width:530px}
+.dp-editorial-theme .dp-hero .dp-button{background:var(--orange);color:var(--ink);border:1px solid var(--ink);border-radius:0}
+.dp-editorial-theme .dp-art{width:46%;height:70%;position:absolute;right:0;top:14%;overflow:hidden;z-index:0}
+.dp-editorial-theme .dp-hero-photo{object-fit:cover;opacity:1}
+.dp-editorial-theme .dp-brand-circles-wrap{width:74%;right:-18%;top:17%;color:var(--green);opacity:.85}
+.dp-editorial-theme .dp-hero .dp-overline:last-child{margin-bottom:0;margin-top:30px}
+.dp-editorial-theme .dp-grid{margin-top:38px;border:0;background:none;gap:0;border-top:var(--editorial-line);border-left:var(--editorial-line)}
+.dp-editorial-theme .dp-tile{min-height:250px;border-right:var(--editorial-line);border-bottom:var(--editorial-line);padding:18px 18px 25px;gap:35px;background:transparent}
+.dp-editorial-theme .dp-tile h3{font-size:clamp(28px,3.3vw,46px);letter-spacing:-.06em;line-height:1.01}
+.dp-editorial-theme .dp-tile p{font-size:14px;max-width:360px}
+.dp-editorial-theme .dp-tile-top i{width:14px;height:14px}
+.dp-editorial-theme .dp-functions{background:var(--paper)!important;color:var(--ink)}
+.dp-editorial-theme .dp-function{border-top:var(--editorial-line);padding:25px 3px 33px;grid-template-columns:90px minmax(0,1fr) 22px}
+.dp-editorial-theme .dp-function:last-child{border-bottom:var(--editorial-line)}
+.dp-editorial-theme .dp-function h3{font-size:clamp(28px,4.5vw,60px);line-height:1;letter-spacing:-.065em}
+.dp-editorial-theme .dp-photos{gap:2px;background:var(--ink);border:2px solid var(--ink);margin-top:36px}
+.dp-editorial-theme .dp-photo{padding:0;min-height:345px}
+.dp-editorial-theme .dp-photo:before{display:none}
+.dp-editorial-theme .dp-photo img{filter:none}
+.dp-editorial-theme .dp-photo-note{margin-top:12px}
+.dp-editorial-theme .dp-event{border-top:var(--editorial-line);grid-template-columns:185px minmax(0,1fr);padding:22px 0 26px}
+.dp-editorial-theme .dp-event h3{font-size:clamp(20px,2.6vw,33px);line-height:1.14}
+.dp-editorial-theme .dp-cta{background:var(--orange)!important;color:var(--ink);min-height:480px}
+.dp-editorial-theme .dp-cta .dp-button{border-radius:0;background:var(--ink);color:var(--paper)}
+.dp-editorial-theme .dp-footer{background:var(--ink);color:var(--paper);border-top:var(--editorial-line)}
+.dp-editorial-theme .dp-partners{gap:0;border-top:1px solid var(--paper)}
+.dp-editorial-theme .dp-partners span{padding:15px 5px;border-bottom:1px solid var(--paper);font-size:13px}
+.dp-editorial-theme .dp-editorial-row{background:var(--paper);padding:48px 3.2%;border-bottom:var(--editorial-line)}
+.dp-editorial-theme .dp-editorial-grid{gap:0!important}
+.dp-editorial-theme .dp-editorial-col{border:1px solid var(--ink)}
+.dp-editorial-theme .dp-editorial-copy h2{font-size:clamp(28px,4vw,58px);letter-spacing:-.07em}
+.dp-editorial-theme .dp-detail{border-left:3px solid var(--orange);padding-left:18px}
+@media(max-width:760px){.dp-editorial-theme .dp-hero-content{max-width:100%}.dp-editorial-theme .dp-art{width:75%;opacity:.24}.dp-editorial-theme .dp-hero-content h1{font-size:clamp(50px,12vw,90px)}.dp-editorial-theme .dp-section{padding:32px 5% 48px}.dp-editorial-theme .dp-event{grid-template-columns:95px 1fr}.dp-editorial-theme .dp-tile{min-height:175px}.dp-editorial-theme .dp-editorial-grid{grid-template-columns:1fr!important}}
+.dl-viewport.mobile .dp-editorial-theme .dp-section{padding:32px 5% 48px}.dl-viewport.mobile .dp-editorial-theme .dp-hero-content{max-width:100%}.dl-viewport.mobile .dp-editorial-theme .dp-art{width:80%;opacity:.24}.dl-viewport.mobile .dp-editorial-theme .dp-grid,.dl-viewport.mobile .dp-editorial-theme .dp-photos,.dl-viewport.mobile .dp-editorial-theme .dp-editorial-grid{grid-template-columns:1fr!important}
 `;
