@@ -113,6 +113,12 @@ function migrateContent(previous:PageData):PageData {
   if(previous.functions?.length===4)next.functions=previous.functions.map((x,i)=>x.title==="Functie "+(i+1)&&x.description==="Voeg de vastgestelde functiebeschrijving toe."?{...original.functions[i]}:x);
   const oldMilestones=["Het concept samen verder ontwikkelen","Perspectieven en ideeën samenbrengen","Nieuwe initiatieven concreet maken"];
   if(previous.milestones?.length===3)next.milestones=previous.milestones.map((x,i)=>x.description===oldMilestones[i]?{...original.milestones[i]}:x);
+  // Upgrade only untouched typography defaults from the previous Illustrator theme.
+  // Explicitly adjusted variable-axis settings remain intact.
+  for (const [role,oldWeight,oldWidth] of [["body",500,90],["caption",600,90]] as const) {
+    const axes=next.illustratorType?.[role];
+    if (axes?.weight===oldWeight && axes?.width===oldWidth) next.illustratorType[role]={...defaultIllustratorType[role]};
+  }
   return next;
 }
 function isPageData(x: unknown): x is PageData {
