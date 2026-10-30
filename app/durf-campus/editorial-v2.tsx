@@ -54,7 +54,7 @@ export const editorialV2Css=`
 .dp-editorial-theme .dp-v2-large .dp-function:last-child{border-bottom:var(--v2-rule)}
 .dp-editorial-theme .dp-v2-large .dp-function h3{font-size:clamp(42px,6.3vw,92px);letter-spacing:-.08em;line-height:.86}
 .dp-editorial-theme .dp-v2-large .dp-function p{font-size:clamp(13px,1.4vw,16px);margin-top:18px}
-.dp-editorial-theme .dp-v2-image-spread{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr);align-items:stretch;gap:3px;border:0;background:var(--ink);margin-top:42px}
+.dp-editorial-theme .dp-v2-image-spread{display:grid;grid-template-columns:minmax(0,8fr) minmax(0,4fr)!important;align-items:stretch;gap:3px;border:0;background:var(--ink);margin-top:42px}
 .dp-editorial-theme .dp-v2-image-spread .dp-photo{min-height:390px;margin:0}
 .dp-editorial-theme .dp-v2-image-spread .dp-photo:first-child{min-height:450px}
 .dp-editorial-theme .dp-v2-image-spread .dp-photo:last-child{background:var(--paper)}
