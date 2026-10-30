@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {EditorialRowView,initialEditorialRows,defaultColumn,editorialCss,type EditorialRow,type EditorialColumn} from "./editorial-row";
 import {EditorialColumnInspector} from "./editorial-controls";
 import {DotPhoto,editorialV2Css} from "./editorial-v2";
-import {IllustratorLanding,illustratorCss} from "./illustrator-landing";
+import {IllustratorLanding,illustratorCss,defaultIllustratorType,type IllustratorTypeRole,type IllustratorTypeSettings} from "./illustrator-landing";
 
 
 type Item = { title: string; description: string };
@@ -38,6 +38,7 @@ type BackgroundSettings={src:string;x:number;y:number;fit:"cover"|"contain";};
 const defaultBackground:BackgroundSettings={src:"",x:50,y:50,fit:"cover"};
 type PageData = {
   designTheme:"original"|"editorial"|"illustrator";
+  illustratorType:IllustratorTypeSettings;
   editorialOptions:{themesLayout:"matrix"|"index";functionsLayout:"large"|"rows";dotMode:"none"|"field"|"cutout";spacing:"compact"|"standard"|"generous";imageLayout:"spread"|"standard";};
   heroTitle: string; heroText: string; introTitle: string; introText: string;
   processTitle: string; processText: string; ctaTitle: string; ctaText: string;
@@ -53,6 +54,7 @@ type PageData = {
 const KEY = "durf-campus-lab-v1";
 const original: PageData = {
   designTheme:"original",
+  illustratorType:defaultIllustratorType,
   editorialOptions:{themesLayout:"matrix",functionsLayout:"large",dotMode:"cutout",spacing:"standard",imageLayout:"spread"},
   heroTitle: "EEN PLEK OM HET VERSCHIL TE MAKEN.",
   heroText: "DURF verbindt kennis, onderwijs, praktijk en beleid om samen te werken aan de grote vraagstukken van Rotterdam.",
@@ -125,7 +127,7 @@ function Dots({density,scale}:{density:number;scale:number}) {
 function Page({data,photo1,photo2,heroPhoto,selected,onColumnSelect}:{data:PageData;photo1?:string;photo2?:string;heroPhoto?:string;selected:Selection|null;onColumnSelect:(rowId:string,index:number)=>void}) {
   const elementStyle=(id:string):import("react").CSSProperties=>{const c={...defaultElement,...data.elementStyles[id]};return {marginTop:c.marginTop,marginBottom:c.marginBottom,padding:c.padding,maxWidth:c.maxWidth+"%",textAlign:c.align,color:c.colour==="inherit"?undefined:data.palette[c.colour],backgroundColor:c.background==="transparent"?undefined:data.palette[c.background],borderRadius:c.radius};};
 
-  if(data.designTheme==="illustrator")return <IllustratorLanding palette={data.palette} heroTitle={data.heroTitle} heroText={data.heroText} introText={data.introText} themes={data.themes} functions={data.functions} milestones={data.milestones} functionsLead={data.functionsLead} nextTitle={data.nextTitle} ctaTitle={data.ctaTitle} ctaText={data.ctaText} images={data.images} heroOverride={heroPhoto} process1Override={photo1} process2Override={photo2}/>;
+  if(data.designTheme==="illustrator")return <IllustratorLanding palette={data.palette} heroTitle={data.heroTitle} heroText={data.heroText} introText={data.introText} themes={data.themes} functions={data.functions} milestones={data.milestones} functionsLead={data.functionsLead} nextTitle={data.nextTitle} ctaTitle={data.ctaTitle} ctaText={data.ctaText} typeSettings={data.illustratorType||defaultIllustratorType} images={data.images} heroOverride={heroPhoto} process1Override={photo1} process2Override={photo2}/>;
   const section=(key:SectionKey)=>{
     switch(key){
     case "hero": return <section className="dp-section dp-hero" key={key}><div className="dp-art">{(heroPhoto||data.images.hero)&&<img className="dp-hero-photo" data-edit-asset="hero" src={heroPhoto||data.images.hero} alt="DURF hero"/>}{data.graphic==="circles"?(data.graphicAsset==="procedural"?<Dots density={data.density} scale={data.scale}/>:<div className="dp-brand-circles-wrap" style={{transform:`scale(${data.scale/100})`}}><DurfCircles variant={data.graphicAsset==="a"?1:2}/></div>):data.graphic==="delta"?<svg className="dp-delta" viewBox="0 0 500 500" fill="none" aria-hidden="true"><path d="M250 35L480 450H20Z" stroke="currentColor" strokeWidth="27" strokeLinejoin="round"/><path d="M250 155L370 385H130Z" stroke="currentColor" strokeWidth="10" strokeLinejoin="round"/></svg>:null}</div>{data.designTheme==="editorial"&&data.editorialOptions?.dotMode!=="none"&&<div className="dp-v2-dot-hero"><DotPhoto src={heroPhoto||data.images.hero||photoUrl(photoLibrary[3][1])} mode={data.editorialOptions?.dotMode||"cutout"} accent={data.palette.green} bg={data.palette.paper}/></div>}<div className="dp-overline"><span>ROTTERDAM / CAMPUS IN ONTWIKKELING</span><span>001</span></div><div className="dp-hero-content"><h1 data-edit-key="heroTitle" data-element-id="heroTitle" style={elementStyle("heroTitle")}>{data.heroTitle}</h1><p data-edit-key="heroText" data-element-id="heroText" style={elementStyle("heroText")}>{data.heroText}</p><a href="#durf-lab-cta" className="dp-button">Ontdek DURF <span>↗</span></a></div><div className="dp-overline"><span>SAMEN DENKEN. SAMEN DOEN.</span><span>↓ SCROLL</span></div></section>;
@@ -175,9 +177,10 @@ export default function DurfCampusLab(){
   const openInspector=(kind:"field"|"item"|"asset"|"section"|"element"|"column",id:string)=>{setFloatingKind(kind);setFloatingId(id);setInspectorOpen(true);};
 
   const resolveImage=(src:string)=>{if(src.startsWith("library:")){const key=src.slice(8);const n=Number(key.replace("photo-",""));return Number.isInteger(n)&&n>0&&n<=10?"/durf-campus/photos/"+String(n).padStart(2,"0")+".webp":"";}if(src.includes("unsplash.com/photos/")){const id=photoLibrary.find(([,id])=>src.includes(id));return id?photoUrl(id[1]):src;}return src;};
-  useEffect(()=>{try{const saved=localStorage.getItem(KEY);if(saved){const parsed:unknown=JSON.parse(saved);if(isPageData(parsed)){setData(migrateContent({...clone(original),...parsed,fonts:{...initialFonts,...parsed.fonts},palette:{...initialPalette,...parsed.palette},sectionColours:{...original.sectionColours,...parsed.sectionColours},editorialOptions:{...original.editorialOptions,...parsed.editorialOptions},images:{...original.images,...parsed.images},elementStyles:{...original.elementStyles,...parsed.elementStyles},columns:{...original.columns,...parsed.columns},columnBalance:{...original.columnBalance,...parsed.columnBalance},backgrounds:{...original.backgrounds,...parsed.backgrounds},editorialRows:Array.isArray(parsed.editorialRows)?parsed.editorialRows:clone(original).editorialRows,order:parsed.order.includes("editorial")?parsed.order:[...parsed.order.slice(0,-1),"editorial","footer"]}));}}}catch{}setReady(true);},[]);
+  useEffect(()=>{try{const saved=localStorage.getItem(KEY);if(saved){const parsed:unknown=JSON.parse(saved);if(isPageData(parsed)){setData(migrateContent({...clone(original),...parsed,fonts:{...initialFonts,...parsed.fonts},palette:{...initialPalette,...parsed.palette},sectionColours:{...original.sectionColours,...parsed.sectionColours},editorialOptions:{...original.editorialOptions,...parsed.editorialOptions},illustratorType:{...defaultIllustratorType,...parsed.illustratorType},images:{...original.images,...parsed.images},elementStyles:{...original.elementStyles,...parsed.elementStyles},columns:{...original.columns,...parsed.columns},columnBalance:{...original.columnBalance,...parsed.columnBalance},backgrounds:{...original.backgrounds,...parsed.backgrounds},editorialRows:Array.isArray(parsed.editorialRows)?parsed.editorialRows:clone(original).editorialRows,order:parsed.order.includes("editorial")?parsed.order:[...parsed.order.slice(0,-1),"editorial","footer"]}));}}}catch{}setReady(true);},[]);
   useEffect(()=>{if(!ready)return;try{localStorage.setItem(KEY,JSON.stringify(data));}catch{}},[data,ready]);
   const update=<K extends keyof PageData>(key:K,value:PageData[K])=>setData(p=>({...p,[key]:value}));
+  const updateIllustratorType=(role:IllustratorTypeRole,axis:"weight"|"width",value:number)=>setData(p=>({...p,illustratorType:{...(p.illustratorType||defaultIllustratorType),[role]:{...defaultIllustratorType[role],...p.illustratorType?.[role],[axis]:value}}}));
   const updateEditorial=<K extends keyof PageData["editorialOptions"]>(key:K,value:PageData["editorialOptions"][K])=>setData(p=>({...p,editorialOptions:{...original.editorialOptions,...p.editorialOptions,[key]:value}}));
   const setFont=(role:FontRole,key:keyof FontStyle,value:number)=>setData(p=>({...p,fonts:{...p.fonts,[role]:{...p.fonts[role],[key]:value}}}));
   const updatePalette=(key:BrandColour,value:string)=>setData(p=>({...p,palette:{...p.palette,[key]:value}}));
@@ -254,6 +257,15 @@ export default function DurfCampusLab(){
 <button className="dl-small-button" onClick={()=>setData(p=>{const next={...p.elementStyles};delete next[activeElement];return {...p,elementStyles:next}})}>Reset this element</button></>:<p className="dl-tip">Select an element in the preview.</p>}
 </div></details>
 <details className="dl-tab-general" open><summary>00 / Design direction</summary><div className="dl-stack"><p className="dl-tip">Change visual direction without replacing the copy, images or layout settings. Editorial Grid is an initial experiment based on the requested grid-based, minimal aesthetic.</p><label className="dl-field"><span>Theme</span><select value={data.designTheme||"original"} onChange={e=>update("designTheme",e.target.value as PageData["designTheme"])}><option value="original">01 / Original DURF</option><option value="editorial">02 / Editorial Grid</option><option value="illustrator">03 / Illustrator layout</option></select></label></div></details>
+<details className="dl-tab-general" open><summary>03 / Illustrator typography · variable axes</summary><div className="dl-stack">
+<p className="dl-tip">Theme 03. Instrument Sans variable font: width (wdth) 75–100 and weight (wght) 400–700. Changes update the page live and are saved with your project. These are tunable reference values, not verified numeric axis values from the Illustrator source.</p>
+{(["navigation","display","heading","condensed","body","caption","cta"] as IllustratorTypeRole[]).map(role=><div key={role} className="dl-type-axis-group">
+<strong>{({navigation:"Navigation / side labels",display:"Opening slogan",heading:"Major headings / theme titles",condensed:"VAN DENKEN NAAR DOEN",body:"Body paragraphs",caption:"Emphasised paragraphs / footer",cta:"Durf jij ook?"} as Record<IllustratorTypeRole,string>)[role]}</strong>
+<label className="dl-field"><span>Weight · {data.illustratorType?.[role]?.weight??defaultIllustratorType[role].weight}</span><input type="range" min="400" max="700" step="10" value={data.illustratorType?.[role]?.weight??defaultIllustratorType[role].weight} onChange={e=>updateIllustratorType(role,"weight",Number(e.target.value))}/></label>
+<label className="dl-field"><span>Width · {data.illustratorType?.[role]?.width??defaultIllustratorType[role].width}%</span><input type="range" min="75" max="100" step="1" value={data.illustratorType?.[role]?.width??defaultIllustratorType[role].width} onChange={e=>updateIllustratorType(role,"width",Number(e.target.value))}/></label>
+</div>)}
+<button type="button" className="dl-small-button" onClick={()=>update("illustratorType",JSON.parse(JSON.stringify(defaultIllustratorType)))}>Reset typography axes</button>
+</div></details>
 <details className="dl-tab-general" open><summary>00 / Editorial Grid v2</summary><div className="dl-stack">
 <p className="dl-tip">Theme 02 only. These controls preserve the original theme and are saved with the project JSON.</p>
 <label className="dl-field"><span>Themes</span><select value={data.editorialOptions?.themesLayout||"matrix"} onChange={e=>updateEditorial("themesLayout",e.target.value as PageData["editorialOptions"]["themesLayout"])}><option value="matrix">Two-by-two matrix</option><option value="index">Editorial index</option></select></label>
@@ -413,4 +425,5 @@ ${editorialV2Css}
 .dl-layout-expanded .dl-frame{width:100%;max-width:none}
 .dl-sidebar-toggle{white-space:nowrap;font-weight:600}
 @media(min-width:900px){.dl-layout-expanded .dl-viewport{height:calc(100vh - 125px)}}
+.dl-type-axis-group{border:1px solid #ddd;padding:10px;display:grid;gap:10px;background:#f9f9f7}.dl-type-axis-group strong{font-size:11px}
 `;
