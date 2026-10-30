@@ -10,8 +10,8 @@ export const defaultIllustratorType:IllustratorTypeSettings={
  display:{weight:700,width:100},
  heading:{weight:700,width:100},
  condensed:{weight:700,width:85},
- body:{weight:500,width:90},
- caption:{weight:600,width:90},
+ body:{weight:600,width:85},
+ caption:{weight:650,width:85},
  cta:{weight:700,width:100}
 };
 type Item={title:string;description:string};
