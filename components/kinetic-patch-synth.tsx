@@ -105,7 +105,7 @@ export function parsePreset(value: unknown): SynthState {
   if (s.vertexSizeUnit !== undefined && s.vertexSizeUnit !== "em") throw new Error("Unsupported vertex size unit.");
   for (const [key, , min, max] of manualSpecs) manual[key] = num(m[key], min, max);
   const shapes = ["sine", "triangle", "square", "noise", "ramp"] as const;
-  const waves = array(s.waves, 3).map(item => { const w = object(item); return { on: bool(w.on), shape: choice(w.shape, shapes), rate: num(w.rate, .1, 6), amp: num(w.amp, 0, 1), speed: num(w.speed, 0, 3), direction: num(w.direction, 0, 1), phase: num(w.phase, 0, 1), timing: w.timing === undefined ? "free" as const : choice(w.timing, ["free", "sync"] as const), division: w.division === undefined ? "1/4" as const : choice(w.division === "4/4" ? "1" : w.division, waveDivisions) }; });
+  const waves = array(s.waves, 3).map(item => { const w = object(item); return { on: bool(w.on), shape: choice(w.shape, shapes), rate: num(w.rate, .1, 6), amp: num(w.amp, 0, 1), speed: num(w.speed, 0, 3), direction: num(w.direction, 0, 1), phase: num(w.phase, 0, 1), timing: w.timing === undefined ? "free" as const : choice(w.timing, ["free", "sync"] as const), division: w.division === undefined ? "1/4" as const : choice(w.division === "4/4" ? "1" : w.division, waveDivisions), noiseMode: w.noiseMode === undefined ? "random" as const : choice(w.noiseMode, ["cycle", "random"] as const), noiseRange: w.noiseRange === undefined ? 1 : num(w.noiseRange, 1, 12) }; });
   if (waves.length !== 3) throw new Error("The preset must contain three waves.");
   const patches = array(s.patches, 100).map((item, i) => { const p = object(item); const wave = num(p.wave, 0, 6); if (!Number.isInteger(wave)) throw new Error("Invalid modulation source."); return { id: `import-${i}`, wave, target: choice(p.target, modulationTargets), amount: num(p.amount, -100, 100) }; });
   if (new Set(patches.map(p => `${p.wave}-${p.target}`)).size !== patches.length) throw new Error("Duplicate modulation cable.");
@@ -413,7 +413,7 @@ export default function KineticPatchSynth() {
         };
         const selectStep = <T,>(key: SwitchTarget, options: readonly T[], base: T): T => {
           const index = Math.max(0, options.indexOf(base));
-          const shift = Math.round(clamp(modulationSum(key), -1, 1));
+          const shift = Math.round(clamp(modulationSum(key), -12, 12));
           return options[clamp(index + shift, 0, options.length - 1)];
         };
         for (const [key] of extraSpecs) {
@@ -432,7 +432,7 @@ export default function KineticPatchSynth() {
           else if (key === "vertexScatter") s.vertexScatter = modNumeric(key, s.vertexScatter);
           else if (key === "lineHeight") s.lineHeight = modNumeric(key, s.lineHeight);
         }
-        // Stepped modulation: a signal chooses the previous/current/next option.
+        // Stepped modulation: noise can traverse several positions per cycle (e.g. -5…+5).
         // The imported/custom SVG slot is only selectable when an asset exists.
         s.vertex = selectStep("vertexSource", s.vertexSVG ? ["line", "dot", "square", "glyph", "custom"] : ["line", "dot", "square", "glyph"], s.vertex);
         s.repeatMode = selectStep("motionMode", ["single", "line", "grid"] as const, s.repeatMode);
@@ -981,6 +981,10 @@ export default function KineticPatchSynth() {
         <div className="kp-wave-clock"><label>BPM <input aria-label="Wave tempo BPM" type="number" min={20} max={300} value={bpmDraft} onChange={e => setBpmDraft(e.target.value)} onBlur={() => { const next = Number(bpmDraft); if (bpmDraft.trim() && Number.isFinite(next)) { const tempo = clamp(next, 20, 300); setBpm(tempo); setBpmDraft(String(tempo)); } else setBpmDraft(String(bpm)); }} onKeyDown={e => { if (e.key === "Enter") e.currentTarget.blur(); }} /></label></div>
         {waves.map((w, i) => <div key={i} className="kp-wave" style={{ "--wave": colors[i] } as CSSProperties}><div className="kp-wavehead"><b>WAVE {i + 1}</b><button aria-label={`Enable wave ${i + 1}`} aria-controls={`kp-wave-body-${i}`} aria-expanded={w.on} aria-pressed={w.on} onClick={() => changeWave(i, { on: !w.on })}>{w.on ? "ON" : "OFF"}</button><button className={`kp-socket ${selected === i ? "selected" : ""}`} data-mod-source={i} title="Drag to connect · right-click to unplug" aria-label={`Patch output wave ${i + 1}`} ref={el => { sockets.current[`wave${i}`] = el; }} onClick={() => { if (!dragMoved.current) { setSelectedVideo(null); setSelected(selected === i ? null : i); } }} onPointerDown={e => { if (e.button !== 0) return; dragMoved.current = false; e.currentTarget.setPointerCapture(e.pointerId); const r = panel.current!.getBoundingClientRect(); dragRef.current = { wave: i, x: e.clientX - r.left, y: e.clientY - r.top }; setDrag(dragRef.current); }} /></div>
           <div id={`kp-wave-body-${i}`} className="kp-wave-body" hidden={!w.on}><div className="kp-wave-shape-field" data-tooltip={`Wave ${i + 1} · ${w.shape}`}><svg viewBox="0 0 28 18" aria-hidden="true"><path d={w.shape === "sine" ? "M2 9C6-1 8-1 14 9S22 19 26 9" : w.shape === "triangle" ? "M2 14L8 4L14 14L20 4L26 14" : w.shape === "square" ? "M2 14V4H9V14H17V4H26V14" : w.shape === "ramp" ? "M2 14L13 4V14L26 4" : "M2 9L5 3L8 14L11 7L14 12L17 2L20 15L23 6L26 9"} /></svg><select className="kp-wave-shape" aria-label={`Wave ${i + 1} shape`} value={w.shape} onChange={e => changeWave(i, { shape: e.target.value as Shape })}>{(["sine", "triangle", "square", "noise", "ramp"] as Shape[]).map(shape => <option key={shape} value={shape} aria-label={shape}>{({ sine: "∿", triangle: "△", square: "⊓", noise: "≋", ramp: "↗" } as Record<Shape, string>)[shape]}</option>)}</select></div>{w.shape === "ramp" && <small className="kp-ramp-help">Full turn: AMP 1 · Angle cable 100% · Angle 0°</small>}
+          {w.shape === "noise" && <div className="kp-noise-config">
+            <label>NOISE MODE<select aria-label={`Wave ${i + 1} noise mode`} value={w.noiseMode || "random"} onChange={e => changeWave(i, { noiseMode: e.target.value as "cycle" | "random" })}><option value="cycle">CYCLE · ASCENDING</option><option value="random">RANDOM · STEPPED</option></select></label>
+            <label>STEP RANGE<select aria-label={`Wave ${i + 1} noise step range`} value={w.noiseRange || 1} onChange={e => changeWave(i, { noiseRange: Number(e.target.value) })}>{[1,2,3,4,5,6,7,8,9,10,11,12].map(n => <option value={n} key={n}>{`−${n} / 0 / +${n}`}</option>)}</select></label>
+          </div>}
           <div className="kp-wave-timing"><button aria-label={`Wave ${i + 1} timing mode`} onClick={() => changeWave(i, { timing: w.timing === "sync" ? "free" : "sync" })}>{w.timing === "sync" ? "SYNC" : "FREE"}</button>{w.timing === "sync" && <select aria-label={`Wave ${i + 1} division`} value={w.division || "1/4"} onChange={e => changeWave(i, { division: e.target.value as WaveDivision })}>{waveDivisions.map(division => <option key={division}>{division}</option>)}</select>}</div>
           <div className="kp-wavecontrols">{([
             ["rate", "FREQ", .1, 6, .01], ["amp", "AMP", 0, 1, .01], ["speed", "SPEED · Hz", 0, 3, .01], ["direction", "DIR · X/Y", 0, 1, .01], ["phase", "PHASE", 0, 1, .01],
