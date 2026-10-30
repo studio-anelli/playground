@@ -291,7 +291,7 @@ export default function DurfCampusLab(){
   </main>;
 }
 const styles = `
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Instrument+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap');
 
 ${illustratorCss}
 
