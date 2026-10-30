@@ -1,14 +1,16 @@
 "use client";
+import {useId} from "react";
 type DotMode="none"|"field"|"cutout";
 export function DotPhoto({src,mode="field",accent="#507568",bg="#F8F4EC"}:{src:string;mode?:DotMode;accent?:string;bg?:string}){
+  const maskId=useId();
   const dots=Array.from({length:77},(_,i)=>{const x=i%11,y=Math.floor(i/11);const main=(x===3||x===7||y===3);const active=main||(x>=1&&x<=3&&y>=1&&y<=2)||(x>=7&&x<=9&&y>=4&&y<=5);return {x,y,active};});
   if(mode==="none")return null;
   return <svg className="dp-v2-dot-photo" viewBox="0 0 550 350" preserveAspectRatio="xMidYMid slice" aria-label="DURF circular grid graphic" role="img">
     <defs><pattern id="durf-v2-grid" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="17" fill="#fff"/></pattern>
-      <mask id="durf-v2-photo-mask"><rect width="550" height="350" fill="#000"/>{dots.filter(d=>d.active).map(d=><circle key={d.x+"-"+d.y} cx={25+d.x*50} cy={25+d.y*50} r="18" fill="white"/>)}</mask>
+      <mask id={maskId}><rect width="550" height="350" fill="#000"/>{dots.filter(d=>d.active).map(d=><circle key={d.x+"-"+d.y} cx={25+d.x*50} cy={25+d.y*50} r="18" fill="white"/>)}</mask>
     </defs>
     <rect width="550" height="350" fill={bg}/>
-    {mode==="cutout"&&src?<image href={src} width="550" height="350" preserveAspectRatio="xMidYMid slice" mask="url(#durf-v2-photo-mask)"/>:null}
+    {mode==="cutout"&&src?<image href={src} width="550" height="350" preserveAspectRatio="xMidYMid slice" mask={`url(#${maskId})`}/>:null}
     {mode==="field"&&dots.filter(d=>d.active).map(d=><circle key={d.x+"-"+d.y} cx={25+d.x*50} cy={25+d.y*50} r="17" fill={accent}/>)}
     {mode==="cutout"&&<path d="M0 349H550" stroke={accent}/>}
   </svg>;
