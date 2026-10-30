@@ -349,3 +349,10 @@
 .kt .kt-inspector input{width:72px}
 .kt .kt-resize{position:absolute;right:0;bottom:0;z-index:15;width:24px;height:24px;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px;color:#aebdb0;cursor:nwse-resize;touch-action:none;background:#343c35}
 @media(max-width:800px){.kp .kt.kt-floating{min-width:320px}.kt .kt-sticky-label{flex-basis:118px;width:118px;min-width:118px}.kt .kt-toolbar{gap:4px}.kt .kt-zoom input[type=range]{width:75px}}
+
+/* Timeline module tabs keep long parameter menus focused. */
+.kt .kt-module-tabs{display:flex;flex:0 0 auto;gap:3px;overflow-x:auto;padding:6px 10px 0;background:#242a25;border-bottom:1px solid #58605a}
+.kt .kt-module-tabs button{border:1px solid #485249;border-bottom:0;border-radius:3px 3px 0 0;background:#2c342d;color:#b9c5b9;white-space:nowrap;padding:6px 9px;letter-spacing:.04em;font-size:10px}
+.kt .kt-module-tabs button.is-active{background:#d6ddd1;color:#1d261e;border-color:#d6ddd1;font-weight:700}
+.kt .kt-module-tabs button span{margin-left:7px;font-size:9px;opacity:.65}
+.kt .kt-toolbar select:disabled,.kt .kt-toolbar button:disabled{opacity:.45;cursor:not-allowed}
