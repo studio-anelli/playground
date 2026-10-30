@@ -2,6 +2,18 @@
 import type {CSSProperties} from "react";
 import {OfficialDurfWordmark,OfficialDelta,IllustratorDots} from "./official-artwork";
 
+export type IllustratorTypeRole="navigation"|"display"|"heading"|"condensed"|"body"|"caption"|"cta";
+export type IllustratorTypeAxes={weight:number;width:number};
+export type IllustratorTypeSettings=Record<IllustratorTypeRole,IllustratorTypeAxes>;
+export const defaultIllustratorType:IllustratorTypeSettings={
+ navigation:{weight:700,width:75},
+ display:{weight:700,width:100},
+ heading:{weight:700,width:100},
+ condensed:{weight:700,width:85},
+ body:{weight:500,width:90},
+ caption:{weight:600,width:90},
+ cta:{weight:700,width:100}
+};
 type Item={title:string;description:string};
 type Props={
   palette:{green:string;orange:string;pink:string;paper:string;ink:string};
@@ -10,6 +22,7 @@ type Props={
   images:{hero:string;process1:string;process2:string};
   heroOverride?:string;process1Override?:string;process2Override?:string;
   onColumnSelect?:(id:string,index:number)=>void;
+  typeSettings:IllustratorTypeSettings;
 };
 const partners=["Gemeente Rotterdam","Erasmus Universiteit Rotterdam","Technische Universiteit Delft","Erasmus MC","Hogeschool Rotterdam","Albeda MBO"];
 function DotRibbon({count=9,color="#F16A37",type="growth",className=""}:{count?:number;color?:string;type?:"growth"|"wave"|"line";className?:string}){
@@ -27,7 +40,11 @@ function Wave({color,className="",rows=1}:{color:string;className?:string;rows?:
 function DurfWordmark({light=false}:{light?:boolean}){return <OfficialDurfWordmark className={`di-wordmark ${light?"is-light":""}`}/>;}
 export function IllustratorLanding(p:Props){
  const {palette:c}=p;
- const artStyle={"--di-paper":c.paper,"--di-green":c.green,"--di-pink":c.pink,"--di-orange":c.orange,"--di-ink":c.ink} as CSSProperties;
+ const artStyle:CSSProperties={"--di-paper":c.paper,"--di-green":c.green,"--di-pink":c.pink,"--di-orange":c.orange,"--di-ink":c.ink} as CSSProperties;
+ for(const role of Object.keys(defaultIllustratorType) as IllustratorTypeRole[]){
+  const axes={...defaultIllustratorType[role],...p.typeSettings?.[role]};
+  Object.assign(artStyle,{["--di-"+role+"-weight"]:axes.weight,["--di-"+role+"-width"]:axes.width});
+ }
  const hero=p.heroOverride||p.images.hero||"/durf-campus/photos/08.webp";
  const process1=p.process1Override||p.images.process1||"/durf-campus/photos/01.webp";
  const process2=p.process2Override||p.images.process2||"/durf-campus/photos/06.webp";
@@ -166,24 +183,24 @@ export const illustratorCss=`
    Keep sizes from the Illustrator 1440px source, but avoid simulating width with tracking. */
 .di-page{font-family:'Instrument Sans',sans-serif;font-optical-sizing:none;font-synthesis:none;font-variation-settings:'wght' 500,'wdth' 90}
 .di-page :is(h1,h2,h3,p,a,.di-slogan,.di-side-label,.di-partner-list,.di-footer-overline,.di-delta-caption){font-synthesis:none}
-.di-page .di-header nav a{font-size:clamp(13px,1.944vw,28px);font-weight:700!important;font-stretch:75%;font-variation-settings:'wght' 700,'wdth' 75;letter-spacing:-.012em}
-.di-page .di-slogan{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.03em}
-.di-page .di-ambition h1{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.012em;line-height:.909}
-.di-page .di-ambition p{font-weight:500!important;font-stretch:95%;font-variation-settings:'wght' 500,'wdth' 95;letter-spacing:-.012em}
-.di-page .di-themes h2{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.028em}
-.di-page .di-theme-grid h3{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.02em}
-.di-page .di-theme-grid p{font-weight:500!important;font-stretch:90%;font-variation-settings:'wght' 500,'wdth' 90;letter-spacing:-.006em}
-.di-page .di-functions-intro h2{font-weight:700!important;font-stretch:85%;font-variation-settings:'wght' 700,'wdth' 85;letter-spacing:-.01em}
-.di-page .di-functions-intro p{font-weight:700!important;font-stretch:95%;font-variation-settings:'wght' 700,'wdth' 95;letter-spacing:-.015em}
-.di-page .di-function-list h3{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.016em}
-.di-page .di-function-list p{font-weight:500!important;font-stretch:90%;font-variation-settings:'wght' 500,'wdth' 90;letter-spacing:-.005em}
-.di-page .di-planning h2{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.015em}
-.di-page .di-milestones h3{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.01em}
-.di-page .di-milestones p{font-weight:600!important;font-stretch:90%;font-variation-settings:'wght' 600,'wdth' 90;letter-spacing:-.007em}
-.di-page .di-cta-copy h2{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.025em}
-.di-page .di-cta-copy p{font-weight:700!important;font-stretch:90%;font-variation-settings:'wght' 700,'wdth' 90;letter-spacing:-.012em}
-.di-page .di-partner-list{font-weight:600!important;font-stretch:75%;font-variation-settings:'wght' 600,'wdth' 75;letter-spacing:0}
-.di-page .di-side-label{font-weight:700!important;font-stretch:75%;font-variation-settings:'wght' 700,'wdth' 75;letter-spacing:-.015em}
+.di-page .di-header nav a{font-size:clamp(13px,1.944vw,28px);font-weight:var(--di-navigation-weight)!important;font-stretch:75%;font-variation-settings:'wght' var(--di-navigation-weight),'wdth' var(--di-navigation-width);letter-spacing:-.012em}
+.di-page .di-slogan{font-weight:var(--di-display-weight)!important;font-stretch:100%;font-variation-settings:'wght' var(--di-display-weight),'wdth' var(--di-display-width);letter-spacing:-.03em}
+.di-page .di-ambition h1{font-weight:var(--di-heading-weight)!important;font-stretch:100%;font-variation-settings:'wght' var(--di-heading-weight),'wdth' var(--di-heading-width);letter-spacing:-.012em;line-height:.909}
+.di-page .di-ambition p{font-weight:var(--di-body-weight)!important;font-stretch:95%;font-variation-settings:'wght' var(--di-body-weight),'wdth' var(--di-body-width);letter-spacing:-.012em}
+.di-page .di-themes h2{font-weight:var(--di-heading-weight)!important;font-stretch:100%;font-variation-settings:'wght' var(--di-heading-weight),'wdth' var(--di-heading-width);letter-spacing:-.028em}
+.di-page .di-theme-grid h3{font-weight:var(--di-heading-weight)!important;font-stretch:100%;font-variation-settings:'wght' var(--di-heading-weight),'wdth' var(--di-heading-width);letter-spacing:-.02em}
+.di-page .di-theme-grid p{font-weight:var(--di-body-weight)!important;font-stretch:90%;font-variation-settings:'wght' var(--di-body-weight),'wdth' var(--di-body-width);letter-spacing:-.006em}
+.di-page .di-functions-intro h2{font-weight:var(--di-condensed-weight)!important;font-stretch:85%;font-variation-settings:'wght' var(--di-condensed-weight),'wdth' var(--di-condensed-width);letter-spacing:-.01em}
+.di-page .di-functions-intro p{font-weight:var(--di-caption-weight)!important;font-stretch:95%;font-variation-settings:'wght' var(--di-caption-weight),'wdth' var(--di-caption-width);letter-spacing:-.015em}
+.di-page .di-function-list h3{font-weight:var(--di-heading-weight)!important;font-stretch:100%;font-variation-settings:'wght' var(--di-heading-weight),'wdth' var(--di-heading-width);letter-spacing:-.016em}
+.di-page .di-function-list p{font-weight:var(--di-body-weight)!important;font-stretch:90%;font-variation-settings:'wght' var(--di-body-weight),'wdth' var(--di-body-width);letter-spacing:-.005em}
+.di-page .di-planning h2{font-weight:var(--di-heading-weight)!important;font-stretch:100%;font-variation-settings:'wght' var(--di-heading-weight),'wdth' var(--di-heading-width);letter-spacing:-.015em}
+.di-page .di-milestones h3{font-weight:var(--di-heading-weight)!important;font-stretch:100%;font-variation-settings:'wght' var(--di-heading-weight),'wdth' var(--di-heading-width);letter-spacing:-.01em}
+.di-page .di-milestones p{font-weight:var(--di-caption-weight)!important;font-stretch:90%;font-variation-settings:'wght' var(--di-caption-weight),'wdth' var(--di-caption-width);letter-spacing:-.007em}
+.di-page .di-cta-copy h2{font-weight:var(--di-cta-weight)!important;font-stretch:100%;font-variation-settings:'wght' var(--di-cta-weight),'wdth' var(--di-cta-width);letter-spacing:-.025em}
+.di-page .di-cta-copy p{font-weight:var(--di-caption-weight)!important;font-stretch:90%;font-variation-settings:'wght' var(--di-caption-weight),'wdth' var(--di-caption-width);letter-spacing:-.012em}
+.di-page .di-partner-list{font-weight:var(--di-caption-weight)!important;font-stretch:75%;font-variation-settings:'wght' var(--di-caption-weight),'wdth' var(--di-caption-width);letter-spacing:0}
+.di-page .di-side-label{font-weight:var(--di-navigation-weight)!important;font-stretch:75%;font-variation-settings:'wght' var(--di-navigation-weight),'wdth' var(--di-navigation-width);letter-spacing:-.015em}
 .di-page .di-footer-overline{font-weight:700!important}
 .di-page .di-delta-caption{font-weight:600!important}
 
