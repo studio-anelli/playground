@@ -277,3 +277,12 @@
 /* Thin sockets keep a larger invisible mouse/touch target. */
 .kp .kp-socket::before{content:"";position:absolute;inset:-5px;background:transparent}
 .kp-module-mod-output{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:20px;height:24px}
+
+/* Pluggable selectors and previously unpatched right-rack controls. */
+.kp-extra-control { display:flex; align-items:center; gap:7px; min-width:0; margin-bottom:7px; }
+.kp-extra-control > .kp-socket { flex:0 0 auto; width:13px; height:13px; }
+.kp-extra-control > .kp-knob-control,
+.kp-extra-control > select,
+.kp-extra-control > button:not(.kp-socket) { flex:1 1 auto; min-width:0; }
+.kp-extra-control > select { margin:0; width:100%; }
+.kp-extra-control > .kp-knob-control .kp-knob-number { min-width:0; }
