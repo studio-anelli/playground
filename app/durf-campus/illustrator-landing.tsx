@@ -161,10 +161,32 @@ export const illustratorCss=`
 .di-footer{min-height:800px}
 @media(max-width:600px){.di-header{min-height:0;align-items:flex-start;gap:16px}.di-logo .di-wordmark{width:min(88vw,410px)}.di-header nav a{font-size:12px}.di-slogan{font-size:clamp(47px,10vw,70px)}.di-ambition h1{font-size:clamp(42px,9vw,66px)}.di-ambition p{font-size:17px}.di-themes h2,.di-functions-intro h2{font-size:clamp(54px,10vw,72px)}.di-theme-grid h3{font-size:22px}.di-theme-grid p{font-size:12px}.di-planning h2{font-size:clamp(49px,10vw,67px)}.di-contact{height:100svh;min-height:580px}.di-cta-copy{max-width:94%;padding:0}.di-cta-copy h2{font-size:clamp(48px,12vw,78px)}.di-cta-copy p{font-size:16px}.di-footer-lockup .di-wordmark{width:min(65vw,300px)}.di-footer-lockup .di-official-delta{width:70px}.di-partner-list{font-size:19px}}
 
-/* Illustrator exported InstrumentSans-Regular, 400 at all visible sizes.
-   Do not synthesize bold or narrow text by negative tracking. */
-.di-page{font-family:'Instrument Sans',sans-serif;font-optical-sizing:none;font-synthesis:none;font-stretch:100%;font-variation-settings:'wght' 400,'wdth' 100}
-.di-page :is(h1,h2,h3,p,a,.di-slogan,.di-side-label,.di-partner-list,.di-footer-overline,.di-delta-caption){font-weight:400!important;letter-spacing:normal!important;font-stretch:100%;font-variation-settings:'wght' 400,'wdth' 100;font-synthesis:none}
+/* Recovered Illustrator PDF uses multiple frozen Instrument Sans instances.
+   Explicitly assign BOTH variable axes per typography role; width 75–100, weight 400–700.
+   Keep sizes from the Illustrator 1440px source, but avoid simulating width with tracking. */
+.di-page{font-family:'Instrument Sans',sans-serif;font-optical-sizing:none;font-synthesis:none;font-variation-settings:'wght' 500,'wdth' 90}
+.di-page :is(h1,h2,h3,p,a,.di-slogan,.di-side-label,.di-partner-list,.di-footer-overline,.di-delta-caption){font-synthesis:none}
+.di-page .di-header nav a{font-size:clamp(13px,1.944vw,28px);font-weight:700!important;font-stretch:75%;font-variation-settings:'wght' 700,'wdth' 75;letter-spacing:-.012em}
+.di-page .di-slogan{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.03em}
+.di-page .di-ambition h1{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.012em;line-height:.909}
+.di-page .di-ambition p{font-weight:500!important;font-stretch:95%;font-variation-settings:'wght' 500,'wdth' 95;letter-spacing:-.012em}
+.di-page .di-themes h2{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.028em}
+.di-page .di-theme-grid h3{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.02em}
+.di-page .di-theme-grid p{font-weight:500!important;font-stretch:90%;font-variation-settings:'wght' 500,'wdth' 90;letter-spacing:-.006em}
+.di-page .di-functions-intro h2{font-weight:700!important;font-stretch:85%;font-variation-settings:'wght' 700,'wdth' 85;letter-spacing:-.01em}
+.di-page .di-functions-intro p{font-weight:700!important;font-stretch:95%;font-variation-settings:'wght' 700,'wdth' 95;letter-spacing:-.015em}
+.di-page .di-function-list h3{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.016em}
+.di-page .di-function-list p{font-weight:500!important;font-stretch:90%;font-variation-settings:'wght' 500,'wdth' 90;letter-spacing:-.005em}
+.di-page .di-planning h2{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.015em}
+.di-page .di-milestones h3{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.01em}
+.di-page .di-milestones p{font-weight:600!important;font-stretch:90%;font-variation-settings:'wght' 600,'wdth' 90;letter-spacing:-.007em}
+.di-page .di-cta-copy h2{font-weight:700!important;font-stretch:100%;font-variation-settings:'wght' 700,'wdth' 100;letter-spacing:-.025em}
+.di-page .di-cta-copy p{font-weight:700!important;font-stretch:90%;font-variation-settings:'wght' 700,'wdth' 90;letter-spacing:-.012em}
+.di-page .di-partner-list{font-weight:600!important;font-stretch:75%;font-variation-settings:'wght' 600,'wdth' 75;letter-spacing:0}
+.di-page .di-side-label{font-weight:700!important;font-stretch:75%;font-variation-settings:'wght' 700,'wdth' 75;letter-spacing:-.015em}
+.di-page .di-footer-overline{font-weight:700!important}
+.di-page .di-delta-caption{font-weight:600!important}
+
 .di-page .di-source-dots{object-fit:contain;transform:none!important;overflow:visible}
 .di-opening>.di-source-hero{height:auto!important;aspect-ratio:1440/850}
 .di-ambition .di-source-ambition{height:auto!important;aspect-ratio:1440/600}
