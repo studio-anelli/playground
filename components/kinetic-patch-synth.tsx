@@ -17,6 +17,8 @@ import { RasterCache } from "./kinetic-raster-cache";
 import { indexModulation } from "./kinetic-modulation";
 import { kineticPresets } from "./kinetic-presets";
 import { userKineticPresets } from "./kinetic-user-presets";
+import KineticTimeline from "./kinetic-timeline-editor";
+import { timelineDefaults, evaluateTrack, timelineAt, type TimelineData } from "./kinetic-timeline";
 import { samplingDetailScale } from "./kinetic-sampling-detail";
 import GlyphOriginEditor from "./kinetic-glyph-origin-editor";
 import { firstGridCoordinate, glyphSamplingRegion, parseGlyphOrigins, type GlyphOriginMap } from "./kinetic-glyph-origins";
@@ -258,6 +260,34 @@ export default function KineticPatchSynth() {
   const [samplingMode, setSamplingMode] = useState<SamplingMode>("xy");
   const [glyphPattern, setGlyphPattern] = useState("*+o");
   const [values, setValues] = useState(initial);
+  const [timelineOpen, setTimelineOpen] = useState(false);
+  const [timeline, setTimeline] = useState<TimelineData>(timelineDefaults);
+  const [timelinePlaying, setTimelinePlaying] = useState(false);
+  const [timelineTime, setTimelineTime] = useState(0);
+  const timelineClock = useRef({ time: 0, playing: false, lastDisplay: 0 });
+  const timelineState = useRef(timeline);
+  useEffect(() => { timelineState.current = timeline; }, [timeline]);
+  const seekTimeline = (t: number) => { timelineClock.current.time = Math.min(timeline.duration,Math.max(0,t)); setTimelineTime(timelineClock.current.time); };
+  const toggleTimeline = () => { timelineClock.current.playing = !timelineClock.current.playing; setTimelinePlaying(timelineClock.current.playing); };
+  const timelineOptions = [
+    ...specs.map(([key,label,min,max,step,group])=>({key,label:`${group.toUpperCase()} / ${label}`,min,max,step})),
+    ...extraSpecs.map(([key,min,max])=>({key,label:key.replace(/([A-Z])/g," $1").toUpperCase(),min,max,step:.1})),
+    ...switchTargets.map(key=>({key,label:key.replace(/([A-Z])/g," $1").toUpperCase(),min:0,max:12,step:1,discrete:true}))
+  ];
+  const timelineCurrentValue = (key:string): number => {
+    if(key in values) return values[key as keyof typeof values];
+    if(key in manual) return manual[key as keyof typeof manual];
+    if(key==="vertexSource") return ["line","dot","square","glyph","custom"].indexOf(vertex);
+    if(key==="motionMode") return ["single","line","grid"].indexOf(repeatMode);
+    if(key==="motionBlend") return blendModes.indexOf(repeatBlend as typeof blendModes[number]);
+    if(key==="feedbackBlendMode") return blendModes.indexOf(feedbackBlend as typeof blendModes[number]);
+    if(key==="samplingAxes") return ["xy","x","y"].indexOf(samplingMode);
+    if(key==="textAlignMode") return ["left","center","right"].indexOf(textAlign);
+    if(key==="kerningMode") return ["none","normal","optical"].indexOf(kerning);
+    if(key==="feedbackTimingMode") return ["free","sync"].indexOf(feedbackTiming);
+    const extras:Record<string,number>={samplingThicknessX,samplingThicknessY,stripSpacing,vertexSpacing,vertexScatter,lineHeight,secondSize:secondType.size,secondWeight:secondType.weight,secondX:secondType.x,secondY:secondType.y,secondTracking:secondType.tracking,secondLineHeight:secondType.lineHeight};
+    return extras[key]??0;
+  };
   const [manual, setManual] = useState(initialManual);
   const [modes, setModes] = useState({ sampling: false, grid: false, vertex: true, feedback: false });
   const chainDrag = useRef<VideoModule | null>(null);
@@ -372,7 +402,42 @@ export default function KineticPatchSynth() {
       if (!manualFrame && now - lastFrame < 1000 / 30 - .5) { raf = requestAnimationFrame(frame); return; }
       lastFrame = now;
       if (gpu && !gpu.available()) { gpu.dispose(); gpu = null; }
-      const sourceState = renderSnapshot.current?.state || live.current, s = { ...sourceState, manual: { ...sourceState.manual }, secondType: { ...sourceState.secondType } }, dt = previous ? Math.min(.05, (now - previous) / 1000) : 0; previous = now;
+      const sourceState = renderSnapshot.current?.state || live.current, s = { ...sourceState, values: { ...sourceState.values }, manual: { ...sourceState.manual }, secondType: { ...sourceState.secondType } }, dt = previous ? Math.min(.05, (now - previous) / 1000) : 0; previous = now;
+      const clock = timelineClock.current, timelineData = timelineState.current;
+      if (clock.playing && !manualFrame) {
+        clock.time += dt;
+        if (clock.time >= timelineData.duration) {
+          if(timelineData.loop) clock.time %= timelineData.duration;
+          else { clock.time = timelineData.duration; clock.playing=false; setTimelinePlaying(false); }
+        }
+        if(now-clock.lastDisplay>85) { clock.lastDisplay=now; setTimelineTime(clock.time); }
+      }
+      const animated=new Map<string,number>();
+      for (const track of timelineData.tracks) {
+        const value=evaluateTrack(track,timelineAt(timelineData,clock.time));
+        if(value!==undefined) animated.set(track.target,value);
+      }
+      const selectedValue = <T,>(target:string,values:readonly T[],base:T):T => {
+        const val=animated.get(target);
+        return val===undefined?base:values[clamp(Math.round(val),0,values.length-1)];
+      };
+      for(const [key] of specs) { const value=animated.get(key); if(value!==undefined) s.values[key]=value; }
+      for(const [key] of manualSpecs) { const value=animated.get(key); if(value!==undefined) s.manual[key]=value; }
+      const extended:Record<string,(n:number)=>void>={
+        samplingThicknessX:n=>{s.samplingThicknessX=n;},samplingThicknessY:n=>{s.samplingThicknessY=n;},
+        stripSpacing:n=>{s.stripSpacing=n;},vertexSpacing:n=>{s.vertexSpacing=n;},vertexScatter:n=>{s.vertexScatter=n;},lineHeight:n=>{s.lineHeight=n;},
+        secondSize:n=>{s.secondType.size=n;},secondWeight:n=>{s.secondType.weight=n;},secondX:n=>{s.secondType.x=n;},
+        secondY:n=>{s.secondType.y=n;},secondTracking:n=>{s.secondType.tracking=n;},secondLineHeight:n=>{s.secondType.lineHeight=n;}
+      };
+      for(const [key,set] of Object.entries(extended)) {const value=animated.get(key);if(value!==undefined)set(value);}
+      s.vertex=selectedValue("vertexSource",s.vertexSVG?["line","dot","square","glyph","custom"]:["line","dot","square","glyph"],s.vertex);
+      s.repeatMode=selectedValue("motionMode",["single","line","grid"] as const,s.repeatMode);
+      s.repeatBlend=selectedValue("motionBlend",blendModes,s.repeatBlend);
+      s.feedbackBlend=selectedValue("feedbackBlendMode",blendModes,s.feedbackBlend);
+      s.samplingMode=selectedValue("samplingAxes",["xy","x","y"] as const,s.samplingMode);
+      s.textAlign=selectedValue("textAlignMode",["left","center","right"] as const,s.textAlign);
+      s.kerning=selectedValue("kerningMode",["none","normal","optical"] as const,s.kerning);
+      s.feedbackTiming=selectedValue("feedbackTimingMode",["free","sync"] as const,s.feedbackTiming);
       if (s.customFonts.some(f => loadedFonts.current.get(f.id)?.data !== f.data) || (s.vertex === "custom" && s.vertexSVG && !decodedSVGs.current.has(s.vertexSVG.svg))) { if (!manualFrame) raf = requestAnimationFrame(frame); return; }
       if (!s.paused) { s.waves.forEach((w, i) => { if (w.on) phases[i] += dt * waveHz(w, s.bpm); }); }
       const el = canvas.current, ctx = el?.getContext("2d");
@@ -970,8 +1035,9 @@ export default function KineticPatchSynth() {
       setSelected(null); setSelectedVideo(null);
     }} className="kp" style={{ "--kp-bg": bg } as CSSProperties}>
     <input ref={fontInput} hidden type="file" accept=".woff2,.woff,.ttf,.otf,font/woff2,font/woff,font/ttf,font/otf" aria-label="Import font" onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importFont(file); }} /><input ref={svgInput} hidden type="file" accept=".svg,image/svg+xml" aria-label="Import Vertex SVG" onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importSVG(file); }} />
-    <header className="kp-header"><Link href="/" onClick={e => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; e.preventDefault(); window.location.assign("/"); }}>← INDEX</Link><h1>K-TIC-SYNTH</h1><button aria-label="Undo last edit" title="Undo · ⌘/Ctrl Z" disabled={!canUndo} onClick={undo}>↶ UNDO</button><button onClick={() => setPaused(v => !v)}>{paused ? "▶ RUN" : "Ⅱ HOLD"}</button></header>
+    <header className="kp-header"><Link href="/" onClick={e => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; e.preventDefault(); window.location.assign("/"); }}>← INDEX</Link><h1>K-TIC-SYNTH</h1><button aria-label="Undo last edit" title="Undo · ⌘/Ctrl Z" disabled={!canUndo} onClick={undo}>↶ UNDO</button><button onClick={() => setPaused(v => !v)}>{paused ? "▶ RUN" : "Ⅱ HOLD"}</button><button aria-pressed={timelineOpen} onClick={()=>setTimelineOpen(v=>!v)}>{timelineOpen?"◈ TIMELINE ON":"◇ TIMELINE"}</button></header>
     <section ref={stage} className={`kp-stage${nativeView ? " kp-native-view" : ""}`}><canvas ref={canvas} style={viewSize.width ? nativeView ? { width: nativeSize.width, height: nativeSize.height, position: "relative", margin: "54px 16px 16px" } : { width: previewSize.width, height: previewSize.height, position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" } : undefined} aria-label="Animated kinetic typography" /><span className="kp-caption">VISUAL SYNTHESIZER · THREE WAVE ENGINE</span></section>
+    {timelineOpen && <KineticTimeline data={timeline} onChange={setTimeline} position={timelineTime} onSeek={seekTimeline} playing={timelinePlaying} onPlay={toggleTimeline} options={timelineOptions} readValue={timelineCurrentValue}/>}
     <div className="kp-controls"><div ref={panel} className="kp-rack" onPointerMove={e => { if (videoDrag && panel.current) { const r = panel.current.getBoundingClientRect(); if (videoDragStart.current && Math.hypot(e.clientX - videoDragStart.current.x, e.clientY - videoDragStart.current.y) > 3) dragMoved.current = true; setVideoDrag({ ...videoDrag, x: e.clientX - r.left, y: e.clientY - r.top }); } if (drag && panel.current) { const r = panel.current.getBoundingClientRect(); if (Math.hypot(e.clientX - r.left - drag.x, e.clientY - r.top - drag.y) > 3) dragMoved.current = true; setDrag({ ...drag, x: e.clientX - r.left, y: e.clientY - r.top }); } }} onPointerUp={finishDrag} onPointerCancel={() => { dragRef.current = null; videoDragRef.current = null; setVideoDrag(null); setDrag(null); }}>
       <svg className="kp-cables" aria-hidden="true">{videoPatches.map(p => { const a = positions[`video-out-${p.source}`], b = positions[`video-in-${p.target}`]; return a && b ? <path key={`video-${p.source}-${p.target}`} className="kp-video-cable kp-removable-cable" onClick={e => { e.stopPropagation(); setVideoPatches(all => all.filter(item => item.target !== p.target || item.source !== p.source)); }} d={cable(a, b)} stroke="#b8b4a9" /> : null; })}{videoDrag && positions[`video-out-${videoDrag.source}`] && <path d={cable(positions[`video-out-${videoDrag.source}`], videoDrag)} stroke="#b8b4a9" strokeDasharray="4 4" />}{patches.map(p => { const a = positions[`wave${p.wave}`], b = positions[p.target]; return a && b ? <path key={p.id} className="kp-removable-cable" onClick={e => { e.stopPropagation(); setPatches(all => all.filter(item => item.id !== p.id)); }} d={cable(a, b)} stroke={colors[p.wave]} /> : null; })}{drag && positions[`wave${drag.wave}`] && <path d={cable(positions[`wave${drag.wave}`], drag)} stroke={colors[drag.wave]} strokeDasharray="4 4" />}</svg>
       <section className="kp-waves"><section className="kp-shared-sampling" aria-label="Shared Sampling and Vertex controls"><div className="kp-shared-head"><div className="kp-title kp-icon-heading" data-tooltip="Shared Sampling / Vertex"><Grid3X3 size={16} strokeWidth={1.5} aria-hidden="true" /><span className="kp-sr-only">Shared Sampling / Vertex</span></div><button className="kp-origin-trigger" data-tooltip="Edit glyph sampling origins" aria-label="Edit glyph sampling origins" onClick={() => setOriginEditorOpen(true)}><BookType size={16} strokeWidth={1.5} aria-hidden="true" /></button></div>
