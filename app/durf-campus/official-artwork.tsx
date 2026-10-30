@@ -19,11 +19,11 @@ const heroDots=[[797,463.3,39.2],[701.6,499.3,48.1],[598.1,538.3,57],[487.7,579.
 const ambitionDots=[[153.5,965.8,19.8],[374.7,997.7,55.9],[595.9,1029.6,91.9],[817.1,1061.5,127.9],[1038.2,1093.4,163.9],[1259.4,1125.3,199.9],[1480.6,1157.2,235.9]];
 const timelineDots=[[102.3,5332.6,19.5],[281,5332.6,25.7],[459.7,5332.6,31.9],[638.4,5332.6,38],[817.1,5332.6,33.7],[995.9,5332.6,27.5],[1174.6,5332.6,20.8],[1353.3,5332.6,19.5]];
 export function IllustratorDots({kind}:{kind:"hero"|"ambition"|"timeline"|"cta"}){
- if(kind==="cta")return <svg className="di-source-dots di-source-cta" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">{Array.from({length:7},(_,x)=>Array.from({length:5},(_,y)=>{
+ if(kind==="cta")return <svg className="di-source-dots di-source-cta" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">{Array.from({length:7},(_,x)=>Array.from({length:5},(_,y)=>{
  const r=[152.6,124.5,96.5,68.4,40.4][y];
  return <circle key={x+"-"+y} cx={208+x*170.6667} cy={190+y*180} r={r} fill="#F16A37"/>;
  }))}</svg>;
  const src=kind==="hero"?heroDots:kind==="ambition"?ambitionDots:timelineDots;
  const origin=kind==="hero"?0:kind==="ambition"?900:0;
- return <svg className={"di-source-dots di-source-"+kind} viewBox={kind==="hero"?"0 0 1440 850":kind==="ambition"?"0 0 1440 600":"0 0 1440 110"} preserveAspectRatio="none" aria-hidden="true">{src.map(([x,y,r],i)=><circle key={i} cx={x} cy={kind==="timeline"?y-5275:y-origin} r={r} fill={kind==="hero"?"#F8F4EC":kind==="ambition"?"#DD8EB9":"#F16A37"}/>)}</svg>;
+ return <svg className={"di-source-dots di-source-"+kind} viewBox={kind==="hero"?"0 0 1440 850":kind==="ambition"?"0 0 1440 600":"0 0 1440 110"} preserveAspectRatio="xMidYMid meet" aria-hidden="true">{src.map(([x,y,r],i)=><circle key={i} cx={x} cy={kind==="timeline"?y-5275:y-origin} r={r} fill={kind==="hero"?"#F8F4EC":kind==="ambition"?"#DD8EB9":"#F16A37"}/>)}</svg>;
 }
