@@ -38,7 +38,7 @@ export function IllustratorLanding(p:Props){
    <nav aria-label="Sections"><a href="#di-ambition">DE AMBITIE</a><a href="#di-themes">INHOUD</a><a href="#di-functions">AANPAK</a><a href="#di-planning">PLANNING</a><a href="#di-contact">CONTACT</a></nav>
   </header>
   <section id="di-top" className="di-opening" data-edit-section="hero">
-   <div className="di-hero-photo" data-edit-asset="hero"><img src={hero} alt="Rotterdam / DURF Campus" /><IllustratorDots kind="hero"/></div>
+   <div className="di-hero-photo" data-edit-asset="hero"><img src={hero} alt="Rotterdam / DURF Campus" /></div><IllustratorDots kind="hero"/>
    <div className="di-slogan"><span>Droom. Denk.</span><span>Durf. Doe.</span></div>
   </section>
   <section id="di-ambition" className="di-ambition" data-edit-section="intro">
@@ -150,7 +150,7 @@ export const illustratorCss=`
 .di-footer-lockup .di-official-delta{display:block;width:clamp(65px,8vw,116px);height:auto;color:var(--di-paper)}
 .di-footer-lockup{align-items:center;gap:30px}
 .di-source-dots{position:absolute;width:100%;height:auto;pointer-events:none;z-index:2;display:block;overflow:visible}
-.di-hero-photo .di-source-hero{left:0;top:0;width:100%;height:100%;z-index:3}
+.di-opening{position:relative}.di-opening>.di-source-hero{left:0;top:-190px;width:100%;height:850px;z-index:3}
 .di-ambition .di-source-ambition{left:0;top:-30px;width:100%;height:480px}
 .di-planning .di-source-timeline{position:relative;left:-4%;width:108%;height:120px;margin-top:45px}
 .di-contact{height:100vh;min-height:700px;padding:0;background:var(--di-pink)}
