@@ -286,3 +286,8 @@
 .kp-extra-control > button:not(.kp-socket) { flex:1 1 auto; min-width:0; }
 .kp-extra-control > select { margin:0; width:100%; }
 .kp-extra-control > .kp-knob-control .kp-knob-number { min-width:0; }
+
+/* Sample-and-hold NOISE wave: compact stepped-mode controls. */
+.kp-noise-config { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; margin:8px 0; }
+.kp-noise-config label { display:flex; flex-direction:column; gap:4px; min-width:0; font-size:9px; font-weight:600; letter-spacing:.03em; }
+.kp-noise-config select { width:100%; min-width:0; margin:0; font:inherit; font-weight:400; padding:4px 2px; }
