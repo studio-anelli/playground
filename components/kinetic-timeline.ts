@@ -27,3 +27,23 @@ export function upsertKey(data:TimelineData,target:string,time:number,value:numb
   const frames=(existing?.frames||[]).filter(frame=>Math.abs(frame.time-t)>.015).concat({time:t,value,curve}).sort((a,b)=>a.time-b.time);
   return {...data,tracks:existing?data.tracks.map(track=>track.target===target?{...track,frames}:track):[...data.tracks,{target,frames}]};
 }
+
+export function parseTimeline(input:unknown): TimelineData {
+  if (!input || typeof input!=="object" || Array.isArray(input)) return timelineDefaults;
+  const o=input as Record<string,unknown>;
+  const duration=typeof o.duration==="number"&&Number.isFinite(o.duration)&&o.duration>=1&&o.duration<=120?o.duration:12;
+  if(!Array.isArray(o.tracks)||o.tracks.length>60) throw new Error("Invalid timeline tracks.");
+  const tracks=o.tracks.map(value=>{
+    if(!value||typeof value!=="object")throw new Error("Invalid timeline track.");
+    const t=value as Record<string,unknown>;
+    if(typeof t.target!=="string"||t.target.length>100||!Array.isArray(t.frames)||t.frames.length>500)throw new Error("Invalid keyframe track.");
+    const frames=t.frames.map(v=>{
+      if(!v||typeof v!=="object")throw new Error("Invalid keyframe.");
+      const f=v as Record<string,unknown>;
+      if(typeof f.time!=="number"||!Number.isFinite(f.time)||f.time<0||f.time>duration||typeof f.value!=="number"||!Number.isFinite(f.value)||!["linear","smooth","hold"].includes(String(f.curve)))throw new Error("Invalid keyframe value.");
+      return {time:f.time,value:f.value,curve:f.curve as Curve};
+    });
+    return {target:t.target as string,frames};
+  });
+  return {duration,loop:o.loop!==false,tracks};
+}
