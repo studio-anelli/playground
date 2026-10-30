@@ -77,7 +77,9 @@ export function IllustratorLanding(p:Props){
       </div>
     </div>
   </section>
-  <div className="di-fullphoto" data-edit-asset="process1"><img src={process1} alt="DURF collaboration and making" /><div className="di-photo-bubbles">{Array.from({length:7},(_,i)=><i key={i} style={{width:`${25+i*20}px`,height:`${25+i*20}px`}}/>)}</div></div>
+  <div className="di-fullphoto" data-edit-asset="process1"><img src={process1} alt="DURF collaboration and making" /><svg className="di-aanpak-dot-art" viewBox="0 0 1440 660" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+  {[[145,125,16],[345,242,46],[572,343,78],[808,453,109],[1070,572,144],[1350,676,164]].map(([cx,cy,r],i)=><circle key={i} cx={cx} cy={cy} r={r} fill={c.paper}/>)}
+</svg></div>
   <section id="di-functions" className="di-functions" data-edit-section="functions">
     <span className="di-side-label">AANPAK</span>
     <div className="di-functions-intro"><h2>VAN<br/>DENKEN<br/>NAAR<br/>DOEN.</h2><p data-edit-key="functionsLead">{p.functionsLead}</p></div>
@@ -215,4 +217,32 @@ export const illustratorCss=`
 .di-page .di-ambition h1,.di-page .di-planning h2{white-space:pre-line}
 .di-page .di-cta-copy h2 span:first-child{color:var(--di-ink)}
 .di-page .di-cta-copy h2 span:last-child{color:var(--di-paper)}
+
+/* Artboard-faithful section rhythm: each major scene occupies at least one viewport.
+   Content can extend past the viewport rather than clipping. */
+.di-page .di-opening,
+.di-page .di-ambition,
+.di-page .di-themes,
+.di-page .di-fullphoto,
+.di-page .di-functions,
+.di-page .di-planning,
+.di-page .di-contact,
+.di-page .di-footer{min-height:100vh}
+.di-page .di-opening{display:flex;flex-direction:column;justify-content:space-between}
+.di-page .di-opening .di-hero-photo{flex:0 0 auto}
+.di-page .di-opening .di-slogan{flex:1;justify-content:center}
+.di-page .di-fullphoto{height:100vh;min-height:100vh;isolation:isolate}
+.di-page .di-aanpak-dot-art{position:absolute;z-index:3;width:100%;height:100%;left:0;top:0;overflow:visible;pointer-events:none}
+/* Unlike the discarded bubble row, the source forms a diagonal progression,
+   from a small dot near the top-left to increasingly large circles
+   crossing the photo's bottom edge into the cream section. */
+.di-page .di-fullphoto img{object-fit:cover}
+.di-page .di-contact{height:100vh;min-height:100vh}
+@media(max-width:600px){
+  .di-page .di-opening,.di-page .di-ambition,.di-page .di-themes,
+  .di-page .di-fullphoto,.di-page .di-functions,.di-page .di-planning,
+  .di-page .di-contact,.di-page .di-footer{min-height:100svh}
+  .di-page .di-fullphoto{height:100svh}
+  .di-page .di-contact{height:100svh}
+}
 `;
