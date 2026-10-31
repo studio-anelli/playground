@@ -423,3 +423,11 @@
   .kt .kt-track-height-handle{flex-basis:118px;width:118px!important;margin-left:-118px;font-size:8px!important;gap:2px!important}
   .kt .kt-track-height-handle span:last-child{letter-spacing:0!important}
 }
+
+/* The handle lives in the sticky module label, not beyond the wide SVG. */
+.kt .kt-curve-row .kt-track-label > .kt-track-height-handle{
+  position:absolute!important;left:0!important;right:0!important;bottom:0!important;
+  width:100%!important;height:27px!important;margin:0!important;
+  flex:none!important;padding:0 4px!important;box-sizing:border-box!important;
+}
+.kt .kt-curve-row .kt-track-label > button:not(.kt-track-title):not(.kt-track-height-handle){bottom:36px}
