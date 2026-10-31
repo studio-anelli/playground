@@ -9,6 +9,7 @@ const clamp=(n:number,a:number,b:number)=>Math.max(a,Math.min(b,n));
 const round=(n:number)=>Math.round(n*100)/100;
 
 export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,onRedo,position,onSeek,playing,onPlay,options,readValue}:Props){
+  const [graphOpen,setGraphOpen]=useState(false);
   const [zoom,setZoom]=useState(48); // pixels per second (AE-style horizontal time zoom)
   const [panelPosition,setPanelPosition]=useState<{x:number;y:number}|null>(null);
   const [panelSize,setPanelSize]=useState({width:Math.min(1050,typeof window==="undefined"?1050:window.innerWidth-36),height:355});
@@ -35,7 +36,7 @@ export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,on
   const tick=zoom>=85?.5:zoom>=45?1:zoom>=25?2:5;
   const ticks=Array.from({length:Math.floor(data.duration/tick)+1},(_,i)=>round(i*tick));
   const selectedFrame=selectedKey?data.tracks.find(t=>t.target===selectedKey.target)?.frames.find(f=>Math.abs(f.time-selectedKey.time)<.025):undefined;
-  const changeKey=(target:string,oldTime:number,patch:Partial<{time:number;value:number;curve:Curve}>)=>{
+  const changeKey=(target:string,oldTime:number,patch:Partial<{time:number;value:number;curve:Curve;outHandle:{x:number;y:number};inHandle:{x:number;y:number}}>)=>{
     const nextTime=patch.time===undefined?oldTime:round(clamp(patch.time,0,data.duration));
     onChange({...data,tracks:data.tracks.map(t=>t.target!==target?t:{...t,frames:t.frames.map(f=>Math.abs(f.time-oldTime)<.015?{...f,...patch,time:nextTime}:f).sort((a,b)=>a.time-b.time)})});
     setSelectedKey({target,time:nextTime});
@@ -110,12 +111,47 @@ export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,on
           {track.frames.map((frame,i)=><button key={i} className={`kt-key ${selectedKey?.target===track.target&&Math.abs(selectedKey.time-frame.time)<.015?"is-selected":""}`} style={{left:frame.time*zoom}} title={`${frame.time.toFixed(2)}s · ${frame.value} · drag to move`} aria-label={`Drag keyframe at ${frame.time.toFixed(2)} seconds`} onPointerDown={e=>keyDown(e,track.target,frame.time)} onPointerMove={laneMove} onPointerUp={endPointer} onPointerCancel={endPointer}>◆</button>)}
         </div></div>})}
     </div>
+    <div className="kt-graph-head"><button aria-pressed={graphOpen} onClick={()=>setGraphOpen(v=>!v)}>{graphOpen?"▾ HIDE GRAPH EDITOR":"▸ GRAPH EDITOR / BÉZIER"}</button><span>{selectedKey?"Drag the curve handles to shape easing":"Select a keyframe to edit its curve"}</span></div>
     <div className="kt-inspector">{selectedKey&&selectedFrame?<><strong>KEYFRAME / {currentOpt?.label||selectedKey.target}</strong>
       <label>TIME <input type="number" min={0} max={data.duration} step={.01} value={selectedFrame.time} onChange={e=>{const n=Number(e.target.value);if(Number.isFinite(n))changeKey(selectedKey.target,selectedKey.time,{time:n});}}/>s</label>
       <label>VALUE <input type="number" min={currentOpt?.min} max={currentOpt?.max} step={currentOpt?.step||.1} value={selectedFrame.value} onChange={e=>{const n=Number(e.target.value);if(Number.isFinite(n))changeKey(selectedKey.target,selectedKey.time,{value:clamp(n,currentOpt?.min??n,currentOpt?.max??n)});}}/></label>
-      <label>CURVE <select value={selectedFrame.curve} onChange={e=>changeKey(selectedKey.target,selectedKey.time,{curve:e.target.value as Curve})}><option value="linear">LINEAR</option><option value="smooth">SMOOTH</option><option value="hold">HOLD / STEP</option></select></label>
+      <label>CURVE <select value={selectedFrame.curve} onChange={e=>changeKey(selectedKey.target,selectedKey.time,{curve:e.target.value as Curve})}><option value="linear">LINEAR</option><option value="smooth">SMOOTH</option><option value="hold">HOLD / STEP</option><option value="bezier">BÉZIER</option></select></label>
       <button onClick={()=>{onChange({...data,tracks:data.tracks.map(t=>t.target!==selectedKey.target?t:{...t,frames:t.frames.filter(f=>Math.abs(f.time-selectedKey.time)>.015)})});setSelectedKey(null);}}>DELETE KEY</button>
       </>:<span>Double-click a lane to draw a keyframe. Drag diamonds to retime. Drag the title to move; use the corner to resize.</span>}</div>
+    {graphOpen && selectedKey && selectedFrame && (()=>{
+      const track=data.tracks.find(t=>t.target===selectedKey.target);
+      const frames=track?.frames.slice().sort((a,b)=>a.time-b.time)||[];
+      const i=frames.findIndex(f=>Math.abs(f.time-selectedKey.time)<.015);
+      const next=frames[i+1];
+      if(!next)return <div className="kt-graph-empty">Add another keyframe after the selected key to edit its Bézier segment.</div>;
+      const start=selectedFrame, end=next;
+      const incoming=end.inHandle??{x:.33,y:-.33}, outgoing=start.outHandle??{x:.33,y:.33};
+      const viewW=420,viewH=132,x0=20,x3=400,y0=108,y3=24;
+      const point=(h:{x:number;y:number},isIn:boolean)=>({x:isIn?x3-h.x*(x3-x0):x0+h.x*(x3-x0),y:isIn?y3-(h.y)*(y0-y3):y0-h.y*(y0-y3)});
+      const p1=point(outgoing,false),p2=point(incoming,true);
+      const onHandle=(e:ReactPointerEvent<SVGCircleElement>,kind:"out"|"in")=>{
+        e.preventDefault();e.stopPropagation();e.currentTarget.setPointerCapture(e.pointerId);
+        const owner=e.currentTarget.ownerSVGElement;
+        if(!owner)return;
+        const move=(ev:PointerEvent)=>{
+          const r=owner.getBoundingClientRect(),xx=(ev.clientX-r.left)/r.width*viewW,yy=(ev.clientY-r.top)/r.height*viewH;
+          const h=kind==="out"?{x:round(clamp((xx-x0)/(x3-x0),0,1)),y:round((y0-yy)/(y0-y3))}:{x:round(clamp((x3-xx)/(x3-x0),0,1)),y:round((y3-yy)/(y0-y3))};
+          const base=data.tracks.find(t=>t.target===selectedKey.target);
+          if(!base)return;
+          onChange({...data,tracks:data.tracks.map(t=>t.target!==selectedKey.target?t:{...t,frames:t.frames.map(f=>Math.abs(f.time-(kind==="out"?start.time:end.time))<.015?{...f,curve:kind==="out"?"bezier":f.curve,...(kind==="out"?{outHandle:h}:{inHandle:h})}:f)})});
+        };
+        const stop=()=>{window.removeEventListener("pointermove",move);window.removeEventListener("pointerup",stop)};
+        window.addEventListener("pointermove",move);window.addEventListener("pointerup",stop,{once:true});
+      };
+      return <div className="kt-bezier-graph"><div className="kt-bezier-title">{start.time.toFixed(2)}s → {end.time.toFixed(2)}s · VALUE GRAPH</div><svg viewBox="0 0 420 132" aria-label="Editable Bézier segment between selected keyframe and next keyframe">
+        {Array.from({length:5},(_,j)=><g key={j}><line x1={20+j*95} x2={20+j*95} y1="10" y2="120" stroke="#48534b" strokeWidth=".5"/><line x1="15" x2="410" y1={24+j*21} y2={24+j*21} stroke="#48534b" strokeWidth=".5"/></g>)}
+        <path d={`M ${x0} ${y0} C ${p1.x} ${p1.y} ${p2.x} ${p2.y} ${x3} ${y3}`} stroke="#99b5ff" strokeWidth="2.5" fill="none"/>
+        <path d={`M${x0} ${y0} L${p1.x} ${p1.y} M${x3} ${y3} L${p2.x} ${p2.y}`} stroke="#cad2c2" strokeWidth="1" strokeDasharray="3 3"/>
+        <circle cx={x0} cy={y0} r="4" fill="#fff"/><circle cx={x3} cy={y3} r="4" fill="#fff"/>
+        <circle cx={p1.x} cy={p1.y} r="6" fill="#20342a" stroke="#b6d2fe" strokeWidth="2" onPointerDown={e=>onHandle(e,"out")} style={{cursor:"grab",touchAction:"none"}}/>
+        <circle cx={p2.x} cy={p2.y} r="6" fill="#20342a" stroke="#b6d2fe" strokeWidth="2" onPointerDown={e=>onHandle(e,"in")} style={{cursor:"grab",touchAction:"none"}}/>
+      </svg><span>Outgoing and incoming handles are independent · drag to change timing and easing.</span></div>;
+    })()}
     <div className="kt-resize" role="separator" aria-label="Resize timeline panel" title="Drag to resize timeline" onPointerDown={e=>panelDown(e,"resize")} onPointerMove={pointerMove} onPointerUp={endPointer} onPointerCancel={endPointer}>◢</div>
   </section>;
 }
