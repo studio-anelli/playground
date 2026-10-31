@@ -4,11 +4,11 @@ import type { TimelineData, Curve } from "./kinetic-timeline";
 import { upsertKey } from "./kinetic-timeline";
 
 type Parameter={key:string;label:string;min:number;max:number;step:number;discrete?:boolean};
-type Props={data:TimelineData;onChange:(d:TimelineData)=>void;position:number;onSeek:(t:number)=>void;playing:boolean;onPlay:()=>void;options:Parameter[];readValue:(key:string)=>number};
+type Props={data:TimelineData;onChange:(d:TimelineData)=>void;canUndo:boolean;canRedo:boolean;onUndo:()=>void;onRedo:()=>void;position:number;onSeek:(t:number)=>void;playing:boolean;onPlay:()=>void;options:Parameter[];readValue:(key:string)=>number};
 const clamp=(n:number,a:number,b:number)=>Math.max(a,Math.min(b,n));
 const round=(n:number)=>Math.round(n*100)/100;
 
-export default function KineticTimeline({data,onChange,position,onSeek,playing,onPlay,options,readValue}:Props){
+export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,onRedo,position,onSeek,playing,onPlay,options,readValue}:Props){
   const [zoom,setZoom]=useState(48); // pixels per second (AE-style horizontal time zoom)
   const [panelPosition,setPanelPosition]=useState<{x:number;y:number}|null>(null);
   const [panelSize,setPanelSize]=useState({width:Math.min(1050,typeof window==="undefined"?1050:window.innerWidth-36),height:355});
@@ -84,6 +84,7 @@ export default function KineticTimeline({data,onChange,position,onSeek,playing,o
     style={{left:panelPosition?.x??"auto",top:panelPosition?.y??"auto",right:panelPosition? "auto":16,bottom:panelPosition?"auto":16,width:panelSize.width,height:panelSize.height}}>
     <header className="kt-top kt-handle" onPointerDown={e=>panelDown(e,"panel")} onPointerMove={pointerMove} onPointerUp={endPointer} onPointerCancel={endPointer}>
       <strong title="Drag to move timeline">⠿ 04 / TIMELINE</strong>
+      <button aria-label="Undo timeline edit" title="Timeline Undo" disabled={!canUndo} onClick={onUndo}>↶ UNDO</button><button aria-label="Redo timeline edit" title="Timeline Redo" disabled={!canRedo} onClick={onRedo}>↷ REDO</button>
       <button onClick={onPlay}>{playing?"Ⅱ PAUSE":"▶ PLAY"}</button><button onClick={()=>onSeek(0)}>↤ START</button>
       <label>DURATION <input aria-label="Timeline duration seconds" type="number" min={1} max={120} value={data.duration} onChange={e=>{const n=Number(e.target.value);if(n>=1&&n<=120)onChange({...data,duration:n,tracks:data.tracks.map(t=>({...t,frames:t.frames.filter(f=>f.time<=n)}))});}}/>s</label>
       <label><input type="checkbox" checked={data.loop} onChange={e=>onChange({...data,loop:e.target.checked})}/> LOOP</label>
