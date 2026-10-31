@@ -1,6 +1,6 @@
 "use client";
-import { useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
-import type { TimelineData, Curve } from "./kinetic-timeline";
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import type { TimelineData, Curve, Keyframe } from "./kinetic-timeline";
 import { upsertKey } from "./kinetic-timeline";
 
 type Parameter={key:string;label:string;min:number;max:number;step:number;discrete?:boolean};
@@ -26,6 +26,9 @@ export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,on
   };
 
   const [selectedKey,setSelectedKey]=useState<{target:string;time:number}|null>(null);
+  // Internal timeline clipboard: copies the complete keyframe, including Bézier handles.
+  const [copiedKey,setCopiedKey]=useState<{target:string;frame:Keyframe}|null>(null);
+  const [pasteTarget,setPasteTarget]=useState<string|null>(null);
   const panel=useRef<HTMLElement>(null);
   const laneViewport=useRef<HTMLDivElement>(null);
   const targetSelect=useRef<HTMLSelectElement>(null);
@@ -80,12 +83,52 @@ export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,on
     }
   };
   const addKey=(target:string,t:number)=>{const opt=options.find(o=>o.key===target);const keyTime=round(clamp(t,0,data.duration));onChange(upsertKey(data,target,keyTime,readValue(target),opt?.discrete?"hold":"linear"));setSelectedKey({target,time:keyTime});onSeek(keyTime);};
+  const copyKey=()=>{
+    if(!selectedKey||!selectedFrame)return;
+    setCopiedKey({target:selectedKey.target,frame:{
+      ...selectedFrame,
+      outHandle:selectedFrame.outHandle?{...selectedFrame.outHandle}:undefined,
+      inHandle:selectedFrame.inHandle?{...selectedFrame.inHandle}:undefined
+    }});
+    setPasteTarget(selectedKey.target);
+  };
+  const pasteKey=()=>{
+    if(!copiedKey)return;
+    // Paste into the selected lane if one was explicitly chosen, otherwise the source lane.
+    const target=pasteTarget??copiedKey.target;
+    const pastedTime=round(clamp(time,0,data.duration));
+    const frame:Keyframe={...copiedKey.frame,time:pastedTime,
+      outHandle:copiedKey.frame.outHandle?{...copiedKey.frame.outHandle}:undefined,
+      inHandle:copiedKey.frame.inHandle?{...copiedKey.frame.inHandle}:undefined};
+    const existing=data.tracks.find(t=>t.target===target);
+    const frames=[...(existing?.frames??[]).filter(f=>Math.abs(f.time-pastedTime)>.015),frame].sort((a,b)=>a.time-b.time);
+    onChange({...data,tracks:existing?data.tracks.map(t=>t.target===target?{...t,frames}:t):[...data.tracks,{target,frames}]});
+    setSelectedKey({target,time:pastedTime});
+    setPasteTarget(target);
+    onSeek(pastedTime);
+  };
+  const copyKeyRef=useRef(copyKey),pasteKeyRef=useRef(pasteKey);
+  copyKeyRef.current=copyKey;pasteKeyRef.current=pasteKey;
+  useEffect(()=>{
+    const shortcuts=(event:KeyboardEvent)=>{
+      if(!(event.metaKey||event.ctrlKey)||event.altKey||event.shiftKey)return;
+      if(!(event.target instanceof Node)||!panel.current?.contains(event.target))return;
+      if(event.target instanceof HTMLElement&&event.target.closest("input,textarea,select,[contenteditable=true]"))return;
+      const key=event.key.toLowerCase();
+      if(key==="c"&&selectedKey){event.preventDefault();event.stopImmediatePropagation();copyKeyRef.current();}
+      if(key==="v"&&copiedKey){event.preventDefault();event.stopImmediatePropagation();pasteKeyRef.current();}
+    };
+    window.addEventListener("keydown",shortcuts,true);
+    return ()=>window.removeEventListener("keydown",shortcuts,true);
+  },[selectedKey,copiedKey]);
   const currentOpt=options.find(o=>o.key===selectedKey?.target);
   return <section id="kp-timeline-panel" ref={panel} className="kt kt-floating" aria-label="REC-10 keyframe timeline"
     style={{left:panelPosition?.x??"auto",top:panelPosition?.y??"auto",right:panelPosition? "auto":16,bottom:panelPosition?"auto":16,width:panelSize.width,height:panelSize.height}}>
     <header className="kt-top kt-handle" onPointerDown={e=>panelDown(e,"panel")} onPointerMove={pointerMove} onPointerUp={endPointer} onPointerCancel={endPointer}>
       <strong title="Drag to move timeline">⠿ 04 / TIMELINE</strong>
       <button aria-label="Undo timeline edit" title="Timeline Undo" disabled={!canUndo} onClick={onUndo}>↶ UNDO</button><button aria-label="Redo timeline edit" title="Timeline Redo" disabled={!canRedo} onClick={onRedo}>↷ REDO</button>
+      <button aria-label="Copy selected keyframe" title="Copy keyframe · ⌘/Ctrl C" disabled={!selectedFrame} onClick={copyKey}>⧉ COPY</button>
+      <button aria-label="Paste keyframe at playhead" title="Paste at playhead · ⌘/Ctrl V" disabled={!copiedKey} onClick={pasteKey}>⧉ PASTE</button>
       <button onClick={onPlay}>{playing?"Ⅱ PAUSE":"▶ PLAY"}</button><button onClick={()=>onSeek(0)}>↤ START</button>
       <label>DURATION <input aria-label="Timeline duration seconds" type="number" min={1} max={120} value={data.duration} onChange={e=>{const n=Number(e.target.value);if(n>=1&&n<=120)onChange({...data,duration:n,tracks:data.tracks.map(t=>({...t,frames:t.frames.filter(f=>f.time<=n)}))});}}/>s</label>
       <label><input type="checkbox" checked={data.loop} onChange={e=>onChange({...data,loop:e.target.checked})}/> LOOP</label>
@@ -105,12 +148,13 @@ export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,on
         {ticks.map(t=><span key={t} className="kt-tick" style={{left:t*zoom}}>{t}s</span>)}<i className="kt-playhead" style={{left:time*zoom}}/>
       </div></div>
       {data.tracks.map(track=>{const opt=options.find(o=>o.key===track.target);return <div className="kt-track-row" key={track.target}>
-        <div className="kt-sticky-label kt-track-label"><button className="kt-track-title" onClick={()=>setSelectedTarget(track.target)} title={opt?.label}>{opt?.label||track.target}</button><button title="Keyframe at playhead" onClick={()=>addKey(track.target,time)}>◇</button><button title="Remove track" onClick={()=>{onChange({...data,tracks:data.tracks.filter(t=>t.target!==track.target)});if(selectedKey?.target===track.target)setSelectedKey(null);}}>×</button></div>
+        <div className="kt-sticky-label kt-track-label"><button className="kt-track-title" onClick={()=>setPasteTarget(track.target)} title={opt?.label}>{opt?.label||track.target}</button><button title="Keyframe at playhead" onClick={()=>addKey(track.target,time)}>◇</button><button title="Remove track" onClick={()=>{onChange({...data,tracks:data.tracks.filter(t=>t.target!==track.target)});if(selectedKey?.target===track.target)setSelectedKey(null);}}>×</button></div>
         <div className="kt-lane" style={{width,backgroundSize:`${zoom*tick}px 100%`}} onDoubleClick={e=>{if((e.target as HTMLElement).closest(".kt-key"))return;addKey(track.target,trackTime(e.clientX,e.currentTarget));}} onPointerDown={e=>{if((e.target as HTMLElement).closest(".kt-key"))return;onSeek(round(trackTime(e.clientX,e.currentTarget)));}}>
           <i className="kt-playhead" style={{left:time*zoom}}/>
           {track.frames.map((frame,i)=><button key={i} className={`kt-key ${selectedKey?.target===track.target&&Math.abs(selectedKey.time-frame.time)<.015?"is-selected":""}`} style={{left:frame.time*zoom}} title={`${frame.time.toFixed(2)}s · ${frame.value} · drag to move`} aria-label={`Drag keyframe at ${frame.time.toFixed(2)} seconds`} onPointerDown={e=>keyDown(e,track.target,frame.time)} onPointerMove={laneMove} onPointerUp={endPointer} onPointerCancel={endPointer}>◆</button>)}
         </div></div>})}
     </div>
+    {copiedKey&&<div className="kt-clipboard">COPIED · {options.find(o=>o.key===copiedKey.target)?.label||copiedKey.target} · {copiedKey.frame.value} <span>Paste at {time.toFixed(2)}s {pasteTarget&&pasteTarget!==copiedKey.target?`→ ${options.find(o=>o.key===pasteTarget)?.label||pasteTarget}`:""} · click a track name to choose destination</span></div>}
     <div className="kt-graph-head"><button aria-pressed={graphOpen} onClick={()=>setGraphOpen(v=>!v)}>{graphOpen?"▾ HIDE GRAPH EDITOR":"▸ GRAPH EDITOR / BÉZIER"}</button><span>{selectedKey?"Drag the curve handles to shape easing":"Select a keyframe to edit its curve"}</span></div>
     <div className="kt-inspector">{selectedKey&&selectedFrame?<><strong>KEYFRAME / {currentOpt?.label||selectedKey.target}</strong>
       <label>TIME <input type="number" min={0} max={data.duration} step={.01} value={selectedFrame.time} onChange={e=>{const n=Number(e.target.value);if(Number.isFinite(n))changeKey(selectedKey.target,selectedKey.time,{time:n});}}/>s</label>
