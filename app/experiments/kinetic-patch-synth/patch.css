@@ -440,3 +440,19 @@
 .kp-chain .kp-chain-start{font-weight:700;color:#d5e6d7;border:1px solid #566b5c;padding:7px 9px;background:#27362b;margin-top:10px}
 .kp-chain .kp-chain-repair{display:grid;gap:8px;padding:12px 0}
 .kp-chain .kp-chain-error{color:#ffb9a6;font-size:11px}
+
+/* Larger hit area for the knob without enlarging the instrument face.
+   The 38px dial stays centered inside an accessible 48px gesture target. */
+.kp .kp-knob-wrap{width:48px!important;height:48px!important;min-width:48px!important;overflow:visible}
+.kp .kp-knob{position:absolute!important;inset:0!important;width:48px!important;height:48px!important;min-width:48px!important;display:flex!important;align-items:center!important;justify-content:center!important;touch-action:none;cursor:ns-resize;border-radius:50%}
+.kp .kp-knob-ring{flex:none;width:38px!important;height:38px!important;pointer-events:none}
+.kp .kp-knob-number{z-index:3;top:50%!important;left:50%!important}
+.kp .kp-knob:hover,.kp .kp-knob:focus-visible,.kp .kp-knob-wrap.is-dragging .kp-knob{background:rgba(170,184,166,.12)!important}
+.kp .kp-knob-wrap.is-dragging .kp-knob-ring{filter:brightness(1.25)}
+.kp .kp-knob:focus-visible{outline:1px solid #b8c8df;outline-offset:0}
+@media(max-width:1100px){.kp .kp-knob-wrap,.kp .kp-knob{width:44px!important;height:44px!important;min-width:44px!important}.kp .kp-knob-ring{width:34px!important;height:34px!important}}
+
+/* Knob captions are active drag targets, without changing the rack geometry. */
+.kp .kp-knob-drag-label{cursor:ns-resize!important;touch-action:none;user-select:none;-webkit-user-select:none;transition:color .12s ease}
+.kp .kp-knob-drag-label:hover{color:#fff!important}
+.kp .kp-knob-control:has(.kp-knob-wrap.is-dragging)>.kp-knob-drag-label{color:#b5ccff!important}

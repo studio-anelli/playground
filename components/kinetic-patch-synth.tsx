@@ -70,15 +70,127 @@ const blendModes = ["source-over", "screen", "multiply", "overlay", "difference"
 const groups = { sampling: "SAMPLING", grid: "MOTION", vertex: "VERTEX", typography: "TYPOGRAPHY", feedback: "FEEDBACK" };
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
 function Knob({ name, min, max, step, value, onChange }: { name: string; min: number; max: number; step: number; value: number; onChange: (value: number) => void }) {
-  const gesture = useRef<{ y: number; value: number } | null>(null);
-  const decimals = (String(step).split(".")[1] || "").length;
-  const update = (next: number) => onChange(Number(clamp(min + Math.round((next - min) / step) * step, min, max).toFixed(decimals)));
-  return <div className="kp-knob-wrap"><button type="button" className="kp-knob" role="slider" aria-label={name} aria-valuemin={min} aria-valuemax={max} aria-valuenow={value} aria-valuetext={String(value)} title="Drag up/down · Shift for fine control · arrows to adjust" style={{ "--knob-angle": `${-135 + (value - min) / (max - min) * 270}deg` } as CSSProperties}
-    onPointerDown={e => { if (e.button !== 0) return; e.preventDefault(); e.stopPropagation(); e.currentTarget.focus(); e.currentTarget.setPointerCapture(e.pointerId); gesture.current = { y: e.clientY, value }; }}
-    onPointerMove={e => { const g = gesture.current; if (!g) return; e.stopPropagation(); const next = clamp(g.value + (g.y - e.clientY) * (max - min) / 240 * (e.shiftKey ? .1 : 1), min, max); g.y = e.clientY; g.value = next; update(next); }}
-    onPointerUp={e => { e.stopPropagation(); gesture.current = null; }} onPointerCancel={() => { gesture.current = null; }} onLostPointerCapture={() => { gesture.current = null; }}
-    onKeyDown={e => { const sign = e.key === "ArrowUp" || e.key === "ArrowRight" ? 1 : e.key === "ArrowDown" || e.key === "ArrowLeft" ? -1 : 0; if (sign) { e.preventDefault(); update(value + sign * step * (e.shiftKey ? 1 : 5)); } else if (e.key === "Home" || e.key === "End") { e.preventDefault(); update(e.key === "Home" ? min : max); } }}><svg className="kp-knob-ring" viewBox="0 0 36 36" aria-hidden="true"><circle className="kp-knob-track" cx="18" cy="18" r="15" /><circle className="kp-knob-fill" cx="18" cy="18" r="15" strokeDasharray={`${clamp((value - min) / (max - min), 0, 1) * 70.686} 94.248`} /></svg></button>
-    <input className="kp-knob-number" aria-label={`${name} exact value`} type="number" min={min} max={max} step={step} value={value} onChange={e => { if (e.target.value !== "") update(Number(e.target.value)); }} />
+  // A larger pointer target surrounds the original compact visual dial.
+  // Keep fractional drag position before snapping so tiny motions accumulate
+  // instead of getting lost to the displayed step size.
+  const gesture=useRef<{pointerId:number;y:number;raw:number}|null>(null);
+  const numberInput=useRef<HTMLInputElement>(null);
+  const wrapRef=useRef<HTMLDivElement>(null);
+  const latestKnob=useRef({min,max,step,value,onChange});
+  latestKnob.current={min,max,step,value,onChange};
+  // The caption immediately before this knob is another full drag surface.
+  // Event delegation preserves all current .kp-knob-control labels and icons.
+  useEffect(()=>{
+    const label=wrapRef.current?.previousElementSibling;
+    if(!(label instanceof HTMLElement))return;
+    const start=(e:PointerEvent)=>{
+      if(e.button!==0)return;
+      e.preventDefault();e.stopPropagation();
+      label.setPointerCapture(e.pointerId);
+      gesture.current={pointerId:e.pointerId,y:e.clientY,raw:latestKnob.current.value};
+      setDragging(true);
+    };
+    const move=(e:PointerEvent)=>{
+      const g=gesture.current;
+      if(!g||g.pointerId!==e.pointerId)return;
+      e.preventDefault();e.stopPropagation();
+      const cfg=latestKnob.current;
+      const sensitivity=e.altKey?.025:e.shiftKey?.12:1;
+      g.raw=clamp(g.raw+(g.y-e.clientY)*(cfg.max-cfg.min)/300*sensitivity,cfg.min,cfg.max);
+      g.y=e.clientY;
+      const decimals=(String(cfg.step).split(".")[1]||"").length;
+      const next=clamp(cfg.min+Math.round((g.raw-cfg.min)/cfg.step)*cfg.step,cfg.min,cfg.max);
+      cfg.onChange(Number(next.toFixed(decimals)));
+    };
+    const stop=(e:PointerEvent)=>{
+      if(gesture.current?.pointerId!==e.pointerId)return;
+      gesture.current=null;setDragging(false);
+      e.stopPropagation();
+    };
+    const exact=(e:MouseEvent)=>{
+      e.preventDefault();e.stopPropagation();
+      numberInput.current?.focus();numberInput.current?.select();
+    };
+    label.classList.add("kp-knob-drag-label");
+    label.title="Drag up/down to adjust · Shift for fine · Option/Alt for ultra fine";
+    label.addEventListener("pointerdown",start);
+    label.addEventListener("pointermove",move);
+    label.addEventListener("pointerup",stop);
+    label.addEventListener("pointercancel",stop);
+    label.addEventListener("lostpointercapture",stop);
+    label.addEventListener("dblclick",exact);
+    return ()=>{
+      label.classList.remove("kp-knob-drag-label");
+      label.removeAttribute("title");
+      label.removeEventListener("pointerdown",start);
+      label.removeEventListener("pointermove",move);
+      label.removeEventListener("pointerup",stop);
+      label.removeEventListener("pointercancel",stop);
+      label.removeEventListener("lostpointercapture",stop);
+      label.removeEventListener("dblclick",exact);
+    };
+  },[]);
+  const [dragging,setDragging]=useState(false);
+  const decimals=(String(step).split(".")[1]||"").length;
+  const commit=(next:number)=>{
+    if(!Number.isFinite(next))return;
+    const snapped=clamp(min+Math.round((clamp(next,min,max)-min)/step)*step,min,max);
+    onChange(Number(snapped.toFixed(decimals)));
+  };
+  const endGesture=()=>{
+    gesture.current=null;
+    setDragging(false);
+  };
+  return <div ref={wrapRef} className={`kp-knob-wrap ${dragging?"is-dragging":""}`}>
+    <button type="button" className="kp-knob" role="slider"
+      aria-label={name} aria-valuemin={min} aria-valuemax={max}
+      aria-valuenow={value} aria-valuetext={String(value)}
+      aria-keyshortcuts="ArrowUp ArrowDown ArrowLeft ArrowRight Home End PageUp PageDown Enter"
+      title="Drag vertically · Shift: fine · Option/Alt: ultra fine · Double-click: exact value"
+      style={{"--knob-angle":`${-135+(value-min)/Math.max(.000001,max-min)*270}deg`} as CSSProperties}
+      onPointerDown={e=>{
+        if(e.button!==0)return;
+        e.preventDefault();e.stopPropagation();
+        e.currentTarget.focus();
+        e.currentTarget.setPointerCapture(e.pointerId);
+        gesture.current={pointerId:e.pointerId,y:e.clientY,raw:value};
+        setDragging(true);
+      }}
+      onPointerMove={e=>{
+        const g=gesture.current;
+        if(!g||g.pointerId!==e.pointerId)return;
+        e.preventDefault();e.stopPropagation();
+        const sensitivity=e.altKey?.025:e.shiftKey?.12:1;
+        const delta=(g.y-e.clientY)*(max-min)/300*sensitivity;
+        g.raw=clamp(g.raw+delta,min,max);
+        g.y=e.clientY;
+        commit(g.raw);
+      }}
+      onPointerUp={e=>{if(gesture.current?.pointerId===e.pointerId){e.stopPropagation();endGesture();}}}
+      onPointerCancel={endGesture} onLostPointerCapture={endGesture}
+      onDoubleClick={e=>{
+        e.preventDefault();e.stopPropagation();endGesture();
+        numberInput.current?.focus();
+        numberInput.current?.select();
+      }}
+      onKeyDown={e=>{
+        if(e.key==="Enter"){e.preventDefault();numberInput.current?.focus();numberInput.current?.select();return;}
+        const sign=e.key==="ArrowUp"||e.key==="ArrowRight"?1:e.key==="ArrowDown"||e.key==="ArrowLeft"?-1:0;
+        if(sign){e.preventDefault();commit(value+sign*step*(e.shiftKey?1:5));return;}
+        if(e.key==="PageUp"||e.key==="PageDown"){e.preventDefault();commit(value+(e.key==="PageUp"?1:-1)*step*20);return;}
+        if(e.key==="Home"||e.key==="End"){e.preventDefault();commit(e.key==="Home"?min:max);}
+      }}>
+      <svg className="kp-knob-ring" viewBox="0 0 36 36" aria-hidden="true">
+        <circle className="kp-knob-track" cx="18" cy="18" r="15"/>
+        <circle className="kp-knob-fill" cx="18" cy="18" r="15"
+          strokeDasharray={`${clamp((value-min)/Math.max(.000001,max-min),0,1)*70.686} 94.248`}/>
+      </svg>
+    </button>
+    <input ref={numberInput} className="kp-knob-number"
+      aria-label={`${name} exact value`} type="number" min={min} max={max}
+      step={step} value={value}
+      onChange={e=>{if(e.target.value!=="")commit(Number(e.target.value));}}
+      onKeyDown={e=>{if(e.key==="Enter"){e.currentTarget.blur();e.stopPropagation();}}}/>
   </div>;
 }
 const dreamWaves: Wave[] = [{ on: true, shape: "sine", rate: .57, amp: .59, speed: .07, direction: 0, phase: .49 }, { on: true, shape: "triangle", rate: 2.79, amp: .5, speed: .12, direction: .5, phase: .25 }, { on: true, shape: "triangle", rate: .35, amp: 1, speed: .65, direction: 1, phase: 0 }];
