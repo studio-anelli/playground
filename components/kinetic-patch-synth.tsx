@@ -7,7 +7,7 @@ import { renderVideo } from "./kinetic-video-render";
 import { recordCanvas } from "./kinetic-recording";
 import { waveDivisions, waveHz, sampleWave, type Wave, type Shape, type WaveDivision } from "./kinetic-waves";
 export { waveValue } from "./kinetic-waves";
-import { connectVideoPatch, readVideoChain, writeVideoChain, readSourceVideoChain, writeSourceVideoChain, moveVideoModule, videoModules, type VideoSource, type VideoTarget, type VideoPatch, type VideoModule } from "./kinetic-video-chain";
+import { connectVideoPatch, readSourceVideoChain, writeSourceVideoChain, moveVideoModule, videoModules, type VideoSource, type VideoTarget, type VideoPatch, type VideoModule } from "./kinetic-video-chain";
 import { drawImageLayers, decodeLayerImage, imageByteLimit, imageLimit, type ImageLayer } from "./kinetic-image-layers";
 import { fontFamily, detectFontFormat, validFontData, validateSVG, decodeSVG, loadImportedFont, type ImportedFont, type VertexSVG } from "./kinetic-custom-assets";
 import { svgRasterSize } from "./kinetic-svg-quality";
