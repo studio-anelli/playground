@@ -33,3 +33,32 @@ export function connectVideoPatch(patches: readonly VideoPatch[], source: VideoS
   const layers = patches.filter(p => p.target === target && p.source !== source);
   return [...patches.filter(p => p.target !== target), ...layers.slice(-1), { source, target }];
 }
+
+/** Read the route from one typography source, even if another route is present. */
+export function readSourceVideoChain(patches: readonly VideoPatch[], root: 'typography' | 'typography2'): VideoModule[] | null {
+  if(!patches.some(p=>p.source===root))return [];
+  const chain:VideoModule[]=[],visited=new Set<VideoSource>();
+  let current:VideoSource=root;
+  while(!visited.has(current)){
+    visited.add(current);
+    const outgoing=patches.filter(p=>p.source===current);
+    if(outgoing.length!==1)return null;
+    const next=outgoing[0].target;
+    if(next==='canvas')return chain;
+    chain.push(next);current=next;
+  }
+  return null;
+}
+/** Rebuild independent branches without stealing modules from the other type. */
+export function writeSourceVideoChain(patches:readonly VideoPatch[],root:'typography'|'typography2', chain:readonly VideoModule[]):VideoPatch[]{
+  const opposite=root==='typography'?'typography2':'typography';
+  const other=readSourceVideoChain(patches,opposite);
+  const current=readSourceVideoChain(patches,root);
+  if(current===null)throw new Error('This Type route has branches. Disconnect manual cables before rebuilding the chain.');
+  const expected=(patches.some(p=>p.source===root)?current.length+1:0)+(patches.some(p=>p.source===opposite)&&other!==null?other.length+1:0);
+  if(expected!==patches.length)throw new Error('Additional manual video cables exist. Disconnect them before editing the independent chains.');
+  if(other===null)throw new Error('The other route contains complex patching; simplify it before editing chains.');
+  if(chain.some(m=>other.includes(m)))throw new Error('A module can belong to only one independent typography chain.');
+  const updated=[...writeVideoChain(chain,root),...(patches.some(p=>p.source===opposite)?writeVideoChain(other,opposite):[])];
+  return updated;
+}
