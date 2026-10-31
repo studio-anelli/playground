@@ -1050,10 +1050,56 @@ export default function KineticPatchSynth() {
   };
   const changeWave = (i: number, change: Partial<Wave>) => setWaves(all => all.map((w, n) => n === i ? { ...w, ...change } : w));
   const connect = (wave: number, target: Target) => { setPatches(all => all.some(p => p.wave === wave && p.target === target) ? all : [...all, { id: `${wave}-${target}`, wave, target, amount: 50 }]); setSelected(null); setDrag(null); };
-  const videoChain = readVideoChain(videoPatches);
-  const setVideoChain = (chain: VideoModule[]) => { setVideoPatches(writeVideoChain(chain, videoPatches.some(p => p.source === "typography2") ? "typography2" : "typography")); setSelectedVideo(null); setVideoDrag(null); videoDragRef.current = null; };
-  const moveChain = (module: VideoModule, direction: number) => { if (!videoChain) return; const index = videoChain.indexOf(module); setVideoChain(moveVideoModule(videoChain, index, index + direction)); };
-  const chainEditor = <section className="kp-chain" aria-label="Video chain editor"><b>VIDEO CHAIN</b>{videoChain === null ? <div><button onClick={() => setVideoChain(videoModules.slice())}>{videoPatches.length ? "REPLACE WITH DEFAULT CHAIN" : "CONNECT DEFAULT CHAIN"}</button><button onClick={() => setVideoChain([])}>TEXT → CANVAS</button></div> : <><select aria-label="Video chain typography source" value={videoPatches.some(p => p.source === "typography2") ? "typography2" : "typography"} onChange={e => setVideoPatches(writeVideoChain(videoChain, e.target.value as "typography" | "typography2"))}><option value="typography">TYPOGRAPHY 1</option><option value="typography2">TYPOGRAPHY 2</option></select>{videoChain.map((module, index) => <div className="kp-chain-row" key={module} draggable onDragStart={e => { chainDrag.current = module; e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", module); }} onDragEnd={() => { chainDrag.current = null; }} onDragOver={e => { if (chainDrag.current) { e.preventDefault(); e.dataTransfer.dropEffect = "move"; } }} onDrop={e => { e.preventDefault(); const source = chainDrag.current; chainDrag.current = null; if (source) setVideoChain(moveVideoModule(videoChain, videoChain.indexOf(source), index)); }}><span title="Drag to reorder">⠿</span><b>{module === "grid" ? "MOTION" : module.toUpperCase()}</b><button aria-label={`Move ${module} earlier`} disabled={index === 0} onClick={() => moveChain(module, -1)}>↑</button><button aria-label={`Move ${module} later`} disabled={index === videoChain.length - 1} onClick={() => moveChain(module, 1)}>↓</button><button aria-label={`Remove ${module} from video chain`} onClick={() => setVideoChain(videoChain.filter(m => m !== module))}>×</button></div>)}<div className="kp-chain-end">CANVAS</div>{videoModules.some(m => !videoChain.includes(m)) && <select aria-label="Add module to video chain" value="" onChange={e => { if (e.target.value) setVideoChain([...videoChain, e.target.value as VideoModule]); }}><option value="" disabled>+ ADD MODULE</option>{videoModules.filter(m => !videoChain.includes(m)).map(m => <option key={m} value={m}>{m === "grid" ? "MOTION" : m.toUpperCase()}</option>)}</select>}</>}</section>;
+  const [chainTab,setChainTab]=useState<"typography"|"typography2">("typography");
+  const [chainError,setChainError]=useState("");
+  const sourceChains={
+    typography:readSourceVideoChain(videoPatches,"typography"),
+    typography2:readSourceVideoChain(videoPatches,"typography2")
+  };
+  const videoChain=sourceChains[chainTab];
+  const occupiedByOther=new Set(sourceChains[chainTab==="typography"?"typography2":"typography"]??[]);
+  const setVideoChain=(chain:VideoModule[])=>{
+    try {
+      setVideoPatches(writeSourceVideoChain(videoPatches,chainTab,chain));
+      setChainError("");
+      setSelectedVideo(null);setVideoDrag(null);videoDragRef.current=null;
+    }catch(error){setChainError(error instanceof Error?error.message:"Invalid chain.");}
+  };
+  const moveChain=(module:VideoModule,direction:number)=>{
+    if(!videoChain)return;
+    const index=videoChain.indexOf(module);setVideoChain(moveVideoModule(videoChain,index,index+direction));
+  };
+  const chainEditor=<section className="kp-chain" aria-label="Video chain editor">
+    <b>VIDEO CHAIN · EFFECT ORDER</b>
+    <div className="kp-chain-tabs" role="tablist" aria-label="Video chain typography sources">
+      {(["typography","typography2"] as const).map((source,index)=><button key={source} role="tab" aria-selected={chainTab===source} onClick={()=>{setChainTab(source);setChainError("");}}>TYPE {index+1} CHAIN</button>)}
+    </div>
+    <small className="kp-chain-hint">Independent order per type · effect modules are shared · drag a row or use ↑ ↓</small>
+    {chainError&&<p role="alert" className="kp-chain-error">{chainError}</p>}
+    {videoChain===null?<div className="kp-chain-repair">
+      <span>This route uses complex or branching patch connections.</span>
+      <button onClick={()=>setVideoChain([])}>RESET THIS TYPE → CANVAS</button>
+    </div>:<>
+      <div className="kp-chain-start">TYPE {chainTab==="typography"?"1":"2"}</div>
+      {videoChain.map((module,index)=><div className="kp-chain-row" key={module} draggable
+        onDragStart={e=>{chainDrag.current=module;e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",module);}}
+        onDragEnd={()=>{chainDrag.current=null;}}
+        onDragOver={e=>{if(chainDrag.current){e.preventDefault();e.dataTransfer.dropEffect="move";}}}
+        onDrop={e=>{e.preventDefault();const from=chainDrag.current;chainDrag.current=null;if(from)setVideoChain(moveVideoModule(videoChain,videoChain.indexOf(from),index));}}>
+        <span title="Drag to reorder">⠿</span><b>{module==="grid"?"MOTION":module.toUpperCase()}</b>
+        <button aria-label={`Move ${module} earlier`} disabled={index===0} onClick={()=>moveChain(module,-1)}>↑</button>
+        <button aria-label={`Move ${module} later`} disabled={index===videoChain.length-1} onClick={()=>moveChain(module,1)}>↓</button>
+        <button aria-label={`Remove ${module} from Type ${chainTab==="typography"?1:2} chain`} onClick={()=>setVideoChain(videoChain.filter(m=>m!==module))}>×</button>
+      </div>)}
+      <div className="kp-chain-end">CANVAS</div>
+      {videoModules.some(m=>!videoChain.includes(m)&&!occupiedByOther.has(m))&&
+      <select aria-label={`Add module to Type ${chainTab==="typography"?1:2} chain`} value="" onChange={e=>{if(e.target.value)setVideoChain([...videoChain,e.target.value as VideoModule]);}}>
+        <option value="" disabled>+ ADD MODULE</option>
+        {videoModules.filter(m=>!videoChain.includes(m)&&!occupiedByOther.has(m)).map(m=><option key={m} value={m}>{m==="grid"?"MOTION":m.toUpperCase()}</option>)}
+      </select>}
+      {occupiedByOther.size>0&&<small className="kp-chain-hint">Modules assigned to the other Type chain are unavailable here. Remove them from that chain to transfer them.</small>}
+    </>}
+  </section>;
   const connectVideo = (source: VideoSource, target: VideoTarget) => { setVideoPatches(all => connectVideoPatch(all, source, target)); setSelectedVideo(null); setVideoDrag(null); videoDragRef.current = null; videoDragStart.current = null; };
   const patchedKnob = ([key, label, min, max, step, group]: (typeof specs)[number]) => <div className="kp-control" data-target={key} key={key}><button ref={el => { sockets.current[key] = el; }} data-target={key} className={`kp-socket ${patches.some(p => p.target === key) ? "patched" : ""}`} aria-label={`Patch input ${group} ${label}`} onClick={() => { if (selected !== null) connect(selected, key); else setPatches(all => all.filter(p => p.target !== key)); }} /><div className="kp-knob-control"><ControlCaption label={label} /><Knob name={`${group} ${label}`} min={min} max={max} step={step} value={values[key]} onChange={next => setValues(v => ({ ...v, [key]: next }))} /></div></div>;
   const patchInput = (key: Target, label: string, content: ReactNode) => <div className="kp-control kp-extra-control" data-target={key} key={key}>
