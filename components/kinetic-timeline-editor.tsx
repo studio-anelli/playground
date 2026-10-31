@@ -16,12 +16,17 @@ export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,on
   const [moduleTab,setModuleTab]=useState("SAMPLING");
   const [trackHeights,setTrackHeights]=useState<Record<string,number>>({});
   const DEFAULT_TRACK_HEIGHT=180;
+  // A lone automation curve should occupy the editing window, not sit above
+  // a large unused area. Manual adjustment always takes precedence.
+  const curveHeight=(target:string)=>trackHeights[target]??(
+    data.tracks.length===1?Math.max(180,Math.min(560,panelSize.height-265)):DEFAULT_TRACK_HEIGHT
+  );
   const heightDrag=useRef<{target:string;startY:number;original:number;pointerId:number}|null>(null);
   const startTrackResize=(event:ReactPointerEvent<HTMLButtonElement>,target:string)=>{
     if(event.button!==0)return;
     event.preventDefault();event.stopPropagation();
     event.currentTarget.setPointerCapture(event.pointerId);
-    heightDrag.current={target,startY:event.clientY,original:trackHeights[target]??DEFAULT_TRACK_HEIGHT,pointerId:event.pointerId};
+    heightDrag.current={target,startY:event.clientY,original:curveHeight(target),pointerId:event.pointerId};
   };
   const moveTrackResize=(event:ReactPointerEvent<HTMLButtonElement>)=>{
     const active=heightDrag.current;
@@ -164,7 +169,7 @@ export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,on
       <div className="kt-ruler-row"><div className="kt-sticky-label">PARAMETER / KEYFRAMES</div><div className="kt-time-ruler" style={{width}} onPointerDown={rulerDown} onPointerMove={laneMove} onPointerUp={endPointer} onPointerCancel={endPointer}>
         {ticks.map(t=><span key={t} className="kt-tick" style={{left:t*zoom}}>{t}s</span>)}<i className="kt-playhead" style={{left:time*zoom}}/>
       </div></div>
-      {data.tracks.map(track=>{const opt=options.find(o=>o.key===track.target);return <div className="kt-track-row kt-curve-row" key={track.target} style={{height:trackHeights[track.target]??DEFAULT_TRACK_HEIGHT,minHeight:trackHeights[track.target]??116}}>
+      {data.tracks.map(track=>{const opt=options.find(o=>o.key===track.target);return <div className="kt-track-row kt-curve-row" key={track.target} style={{height:curveHeight(track.target),minHeight:trackHeights[track.target]??116}}>
         <div className="kt-sticky-label kt-track-label">
           <button className="kt-track-title" onClick={()=>setPasteTarget(track.target)} title={opt?.label}>{opt?.label||track.target}</button>
           <span className="kt-track-range">{opt?.min??0} … {opt?.max??100}</span>
