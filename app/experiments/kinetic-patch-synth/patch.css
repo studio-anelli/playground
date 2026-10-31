@@ -373,3 +373,19 @@
 .kt .kt-clipboard span{font-size:9px;opacity:.8}
 .kt .kt-top button:disabled{opacity:.35;cursor:default}
 .kt .kt-track-title:focus-visible{outline:1px solid #a2c9ff}
+
+/* Unified value graph: all keys and Bezier handles live inside each track. */
+.kt .kt-curve-row{height:116px;min-height:116px;align-items:stretch}
+.kt .kt-curve-row .kt-sticky-label{flex-direction:column;align-items:stretch;justify-content:center;gap:4px;padding:7px 8px}
+.kt .kt-curve-row .kt-track-title{flex:0 0 auto;text-align:left;white-space:normal;overflow:hidden;text-overflow:ellipsis;max-height:33px}
+.kt .kt-track-range{font-size:9px;color:#9fb4a0;letter-spacing:.02em}
+.kt .kt-curve-row .kt-track-label>button:not(.kt-track-title){position:absolute;bottom:9px}
+.kt .kt-curve-row .kt-track-label>button:nth-last-child(2){right:30px}
+.kt .kt-curve-row .kt-track-label>button:last-child{right:6px}
+.kt .kt-curve-row .kt-track-label{position:sticky}
+.kt .kt-curve-svg{flex:0 0 auto;display:block;overflow:hidden;touch-action:none;background:#212a23}
+.kt .kt-curve-row:nth-child(odd) .kt-curve-svg{background:#273128}
+.kt .kt-curve-point,.kt .kt-curve-handle{touch-action:none;cursor:grab}
+.kt .kt-curve-point:active,.kt .kt-curve-handle:active{cursor:grabbing}
+.kt .kt-inspector{flex:0 0 auto}
+.kt .kt-scroll{min-height:90px}
