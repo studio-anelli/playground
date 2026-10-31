@@ -1058,7 +1058,6 @@ export default function KineticPatchSynth() {
     typography2:readSourceVideoChain(videoPatches,"typography2")
   };
   const videoChain=sourceChains[chainTab];
-  const occupiedByOther=new Set(sourceChains[chainTab==="typography"?"typography2":"typography"]??[]);
   const setVideoChain=(chain:VideoModule[])=>{
     try {
       setVideoPatches(writeSourceVideoChain(videoPatches,chainTab,chain));
@@ -1075,7 +1074,7 @@ export default function KineticPatchSynth() {
     <div className="kp-chain-tabs" role="tablist" aria-label="Video chain typography sources">
       {(["typography","typography2"] as const).map((source,index)=><button key={source} role="tab" aria-selected={chainTab===source} onClick={()=>{setChainTab(source);setChainError("");}}>TYPE {index+1} CHAIN</button>)}
     </div>
-    <small className="kp-chain-hint">Independent order per type · effect modules are shared · drag a row or use ↑ ↓</small>
+    <small className="kp-chain-hint">Drag a row or use ↑ ↓ to reorder · changes update the live video cables</small>
     {chainError&&<p role="alert" className="kp-chain-error">{chainError}</p>}
     {videoChain===null?<div className="kp-chain-repair">
       <span>This route uses custom or branching cables. Disconnect those cables on the patch bay before editing the ordered chain, so they are not lost.</span>
@@ -1093,12 +1092,12 @@ export default function KineticPatchSynth() {
         <button aria-label={`Remove ${module} from Type ${chainTab==="typography"?1:2} chain`} onClick={()=>setVideoChain(videoChain.filter(m=>m!==module))}>×</button>
       </div>)}
       <div className="kp-chain-end">CANVAS</div>
-      {videoModules.some(m=>!videoChain.includes(m)&&!occupiedByOther.has(m))&&
+      {videoModules.some(m=>!videoChain.includes(m))&&
       <select aria-label={`Add module to Type ${chainTab==="typography"?1:2} chain`} value="" onChange={e=>{if(e.target.value)setVideoChain([...videoChain,e.target.value as VideoModule]);}}>
         <option value="" disabled>+ ADD MODULE</option>
-        {videoModules.filter(m=>!videoChain.includes(m)&&!occupiedByOther.has(m)).map(m=><option key={m} value={m}>{m==="grid"?"MOTION":m.toUpperCase()}</option>)}
+        {videoModules.filter(m=>!videoChain.includes(m)).map(m=><option key={m} value={m}>{m==="grid"?"MOTION":m.toUpperCase()}</option>)}
       </select>}
-      {occupiedByOther.size>0&&<small className="kp-chain-hint">Modules assigned to the other Type chain are unavailable here. Remove them from that chain to transfer them.</small>}
+      <small className="kp-chain-hint">Shared modules can be used by both types. Reordering updates the actual video cables; incompatible loops are rejected.</small>
     </>}
   </section>;
   const connectVideo = (source: VideoSource, target: VideoTarget) => { setVideoPatches(all => connectVideoPatch(all, source, target)); setSelectedVideo(null); setVideoDrag(null); videoDragRef.current = null; videoDragStart.current = null; };
