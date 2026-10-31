@@ -267,6 +267,39 @@ export default function KineticPatchSynth() {
   const timelineClock = useRef({ time: 0, playing: false, lastDisplay: 0 });
   const timelineState = useRef(timeline);
   useEffect(() => { timelineState.current = timeline; }, [timeline]);
+  const timelineUndoStack = useRef<TimelineData[]>([]);
+  const timelineRedoStack = useRef<TimelineData[]>([]);
+  const timelineEdit = useRef({ when: 0, shape: "" });
+  const [timelineHistory, setTimelineHistory] = useState({ undo: false, redo: false });
+  const timelineShape = (t:TimelineData) => JSON.stringify(t.tracks.map(track=>[track.target,track.frames.length,track.frames.map(f=>f.curve)]));
+  const updateTimeline = (next:TimelineData) => {
+    const prior=timelineState.current;
+    if(JSON.stringify(prior)===JSON.stringify(next))return;
+    const shape=timelineShape(next), now=Date.now();
+    // Continuous drags / number edits are one history step; adding/removing
+    // tracks or keyframes always creates a separate step.
+    const coalesce=shape===timelineShape(prior)&&shape===timelineEdit.current.shape&&now-timelineEdit.current.when<420;
+    if(!coalesce){timelineUndoStack.current.push(prior);if(timelineUndoStack.current.length>100)timelineUndoStack.current.shift();}
+    timelineRedoStack.current=[];
+    timelineEdit.current={when:now,shape};
+    timelineState.current=next;
+    setTimeline(next);
+    setTimelineHistory({undo:timelineUndoStack.current.length>0,redo:false});
+  };
+  const undoTimeline = () => {
+    const prior=timelineUndoStack.current.pop();if(!prior)return;
+    timelineRedoStack.current.push(timelineState.current);
+    timelineState.current=prior;setTimeline(prior);
+    timelineEdit.current={when:0,shape:""};
+    setTimelineHistory({undo:timelineUndoStack.current.length>0,redo:true});
+  };
+  const redoTimeline = () => {
+    const next=timelineRedoStack.current.pop();if(!next)return;
+    timelineUndoStack.current.push(timelineState.current);
+    timelineState.current=next;setTimeline(next);
+    timelineEdit.current={when:0,shape:""};
+    setTimelineHistory({undo:true,redo:timelineRedoStack.current.length>0});
+  };
   const seekTimeline = (t: number) => { timelineClock.current.time = Math.min(timeline.duration,Math.max(0,t)); setTimelineTime(timelineClock.current.time); };
   const toggleTimeline = () => { timelineClock.current.playing = !timelineClock.current.playing; setTimelinePlaying(timelineClock.current.playing); };
   const timelineOptions = [
@@ -323,6 +356,8 @@ export default function KineticPatchSynth() {
   const lastEdit = useRef({ snapshot: { customFonts, vertexSVG, imageLayers, type1On, secondType, stripSpacing, vertexSpacing, vertexScatter, glyphOrigins, samplingThicknessLinked, samplingThicknessUnit: "em" as const, vertexSizeUnit: "em" as const, samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches }, time: 0, key: "" });
   const restoring = useRef(false);
   const [canUndo, setCanUndo] = useState(false);
+  const redoStack = useRef<(typeof live.current)[]>([]);
+  const [canRedo, setCanRedo] = useState(false);
   useEffect(() => {
     const next = live.current, prior = lastEdit.current.snapshot;
     const changed = (Object.keys(next) as (keyof typeof next)[]).filter(key => (key === "imageLayers" || key === "customFonts" || key === "vertexSVG") ? next[key] !== prior[key] : JSON.stringify(next[key]) !== JSON.stringify(prior[key]));
@@ -333,22 +368,43 @@ export default function KineticPatchSynth() {
     // A continuous knob/text gesture is one undo step; cable actions always get their own step.
     const merge = key === lastEdit.current.key && now - lastEdit.current.time < 400 && topology(next) === topology(prior);
     if (!merge) { undoStack.current.push(prior); if (undoStack.current.length > 100) undoStack.current.shift(); }
+    redoStack.current=[];setCanRedo(false);
     lastEdit.current = { snapshot: next, time: now, key }; setCanUndo(undoStack.current.length > 0);
   }, [customFonts, vertexSVG, imageLayers, type1On, secondType, stripSpacing, vertexSpacing, vertexScatter, glyphOrigins, samplingThicknessLinked, samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches]);
   const undo = useCallback(() => {
     const state = undoStack.current.pop(); if (!state) return;
+    redoStack.current.push(live.current);setCanRedo(true);
     restoring.current = true;
     setBpm(state.bpm); setWaves(state.waves); setValues(state.values); setManual(state.manual); setModes(state.modes); setPatches(state.patches); setVideoPatches(state.videoPatches);
     setCustomFonts(state.customFonts); setVertexSVG(state.vertexSVG); setImageLayers(state.imageLayers); setType1On(state.type1On); setSecondType(state.secondType); setStripSpacing(state.stripSpacing); setVertexSpacing(state.vertexSpacing); setVertexScatter(state.vertexScatter); setGlyphOrigins(state.glyphOrigins); setSamplingThicknessLinked(state.samplingThicknessLinked); setSamplingThicknessX(state.samplingThicknessX); setSamplingThicknessY(state.samplingThicknessY); setText(state.text); setTextAlign(state.textAlign); setLineHeight(state.lineHeight); setKerning(state.kerning); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend); setRepeatBlend(state.repeatBlend); setFeedbackTiming(state.feedbackTiming); setFeedbackDivision(state.feedbackDivision);
     setSelected(null); setSelectedVideo(null); setDrag(null); setVideoDrag(null); dragRef.current = null; videoDragRef.current = null;
     setCanUndo(undoStack.current.length > 0);
   }, []);
+  const redo = useCallback(() => {
+    const state=redoStack.current.pop();if(!state)return;
+    undoStack.current.push(live.current);
+    restoring.current=true;
+    setBpm(state.bpm); setWaves(state.waves); setValues(state.values); setManual(state.manual); setModes(state.modes); setPatches(state.patches); setVideoPatches(state.videoPatches);
+    setCustomFonts(state.customFonts); setVertexSVG(state.vertexSVG); setImageLayers(state.imageLayers); setType1On(state.type1On); setSecondType(state.secondType); setStripSpacing(state.stripSpacing); setVertexSpacing(state.vertexSpacing); setVertexScatter(state.vertexScatter); setGlyphOrigins(state.glyphOrigins); setSamplingThicknessLinked(state.samplingThicknessLinked); setSamplingThicknessX(state.samplingThicknessX); setSamplingThicknessY(state.samplingThicknessY); setText(state.text); setTextAlign(state.textAlign); setLineHeight(state.lineHeight); setKerning(state.kerning); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend); setRepeatBlend(state.repeatBlend); setFeedbackTiming(state.feedbackTiming); setFeedbackDivision(state.feedbackDivision);
+    setSelected(null); setSelectedVideo(null); setDrag(null); setVideoDrag(null); dragRef.current = null; videoDragRef.current = null;
+    setCanUndo(true);setCanRedo(redoStack.current.length>0);
+  },[]);
   useEffect(() => {
     const shortcut = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "z" && !event.shiftKey && !(event.target instanceof HTMLElement && event.target.closest("input,textarea,select,[contenteditable=true]"))) { event.preventDefault(); undo(); }
+      if (!(event.metaKey || event.ctrlKey) || (event.target instanceof HTMLElement && event.target.closest("input,textarea,select,[contenteditable=true]"))) return;
+      const key=event.key.toLowerCase();
+      const reverse=key==="z"&&event.shiftKey || key==="y";
+      if(key!=="z"&&!reverse)return;
+      event.preventDefault();
+      // The timeline's edit history is independent from the main instrument.
+      if(timelineOpen && event.target instanceof HTMLElement && event.target.closest("#kp-timeline-panel")) {
+        if(reverse)redoTimeline();else undoTimeline();
+      }else {
+        if(reverse)redo();else undo();
+      }
     };
     window.addEventListener("keydown", shortcut); return () => window.removeEventListener("keydown", shortcut);
-  }, [undo]);
+  }, [undo,redo,timelineOpen]);
   useEffect(() => {
     const measure = () => {
       if (!panel.current) return;
@@ -1038,9 +1094,9 @@ export default function KineticPatchSynth() {
       setSelected(null); setSelectedVideo(null);
     }} className="kp" style={{ "--kp-bg": bg } as CSSProperties}>
     <input ref={fontInput} hidden type="file" accept=".woff2,.woff,.ttf,.otf,font/woff2,font/woff,font/ttf,font/otf" aria-label="Import font" onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importFont(file); }} /><input ref={svgInput} hidden type="file" accept=".svg,image/svg+xml" aria-label="Import Vertex SVG" onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importSVG(file); }} />
-    <header className="kp-header"><Link href="/" onClick={e => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; e.preventDefault(); window.location.assign("/"); }}>← INDEX</Link><h1>K-TIC-SYNTH</h1><button aria-label="Undo last edit" title="Undo · ⌘/Ctrl Z" disabled={!canUndo} onClick={undo}>↶ UNDO</button><button onClick={() => setPaused(v => !v)}>{paused ? "▶ RUN" : "Ⅱ HOLD"}</button><button className="kp-timeline-toggle" aria-expanded={timelineOpen} aria-controls="kp-timeline-panel" onClick={()=>setTimelineOpen(v=>!v)}>{timelineOpen?"◈ CLOSE TIMELINE":"◇ TIMELINE"}</button></header>
+    <header className="kp-header"><Link href="/" onClick={e => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; e.preventDefault(); window.location.assign("/"); }}>← INDEX</Link><h1>K-TIC-SYNTH</h1><button aria-label="Undo last synth edit" title="Synth Undo · ⌘/Ctrl Z" disabled={!canUndo} onClick={undo}>↶ UNDO</button><button aria-label="Redo last synth edit" title="Synth Redo · ⌘/Ctrl Shift Z" disabled={!canRedo} onClick={redo}>↷ REDO</button><button onClick={() => setPaused(v => !v)}>{paused ? "▶ RUN" : "Ⅱ HOLD"}</button><button className="kp-timeline-toggle" aria-expanded={timelineOpen} aria-controls="kp-timeline-panel" onClick={()=>setTimelineOpen(v=>!v)}>{timelineOpen?"◈ CLOSE TIMELINE":"◇ TIMELINE"}</button></header>
     <section ref={stage} className={`kp-stage${nativeView ? " kp-native-view" : ""}`}><canvas ref={canvas} style={viewSize.width ? nativeView ? { width: nativeSize.width, height: nativeSize.height, position: "relative", margin: "54px 16px 16px" } : { width: previewSize.width, height: previewSize.height, position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" } : undefined} aria-label="Animated kinetic typography" /><span className="kp-caption">VISUAL SYNTHESIZER · THREE WAVE ENGINE</span></section>
-    {timelineOpen && <KineticTimeline data={timeline} onChange={setTimeline} position={timelineTime} onSeek={seekTimeline} playing={timelinePlaying} onPlay={toggleTimeline} options={timelineOptions} readValue={timelineCurrentValue}/>}
+    {timelineOpen && <KineticTimeline data={timeline} onChange={updateTimeline} canUndo={timelineHistory.undo} canRedo={timelineHistory.redo} onUndo={undoTimeline} onRedo={redoTimeline} position={timelineTime} onSeek={seekTimeline} playing={timelinePlaying} onPlay={toggleTimeline} options={timelineOptions} readValue={timelineCurrentValue}/>}
     <div className="kp-controls"><div ref={panel} className="kp-rack" onPointerMove={e => { if (videoDrag && panel.current) { const r = panel.current.getBoundingClientRect(); if (videoDragStart.current && Math.hypot(e.clientX - videoDragStart.current.x, e.clientY - videoDragStart.current.y) > 3) dragMoved.current = true; setVideoDrag({ ...videoDrag, x: e.clientX - r.left, y: e.clientY - r.top }); } if (drag && panel.current) { const r = panel.current.getBoundingClientRect(); if (Math.hypot(e.clientX - r.left - drag.x, e.clientY - r.top - drag.y) > 3) dragMoved.current = true; setDrag({ ...drag, x: e.clientX - r.left, y: e.clientY - r.top }); } }} onPointerUp={finishDrag} onPointerCancel={() => { dragRef.current = null; videoDragRef.current = null; setVideoDrag(null); setDrag(null); }}>
       <svg className="kp-cables" aria-hidden="true">{videoPatches.map(p => { const a = positions[`video-out-${p.source}`], b = positions[`video-in-${p.target}`]; return a && b ? <path key={`video-${p.source}-${p.target}`} className="kp-video-cable kp-removable-cable" onClick={e => { e.stopPropagation(); setVideoPatches(all => all.filter(item => item.target !== p.target || item.source !== p.source)); }} d={cable(a, b)} stroke="#b8b4a9" /> : null; })}{videoDrag && positions[`video-out-${videoDrag.source}`] && <path d={cable(positions[`video-out-${videoDrag.source}`], videoDrag)} stroke="#b8b4a9" strokeDasharray="4 4" />}{patches.map(p => { const a = positions[`wave${p.wave}`], b = positions[p.target]; return a && b ? <path key={p.id} className="kp-removable-cable" onClick={e => { e.stopPropagation(); setPatches(all => all.filter(item => item.id !== p.id)); }} d={cable(a, b)} stroke={colors[p.wave]} /> : null; })}{drag && positions[`wave${drag.wave}`] && <path d={cable(positions[`wave${drag.wave}`], drag)} stroke={colors[drag.wave]} strokeDasharray="4 4" />}</svg>
       <section className="kp-waves"><section className="kp-shared-sampling" aria-label="Shared Sampling and Vertex controls"><div className="kp-shared-head"><div className="kp-title kp-icon-heading" data-tooltip="Shared Sampling / Vertex"><Grid3X3 size={16} strokeWidth={1.5} aria-hidden="true" /><span className="kp-sr-only">Shared Sampling / Vertex</span></div><button className="kp-origin-trigger" data-tooltip="Edit glyph sampling origins" aria-label="Edit glyph sampling origins" onClick={() => setOriginEditorOpen(true)}><BookType size={16} strokeWidth={1.5} aria-hidden="true" /></button></div>
