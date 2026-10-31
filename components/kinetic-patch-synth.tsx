@@ -17,6 +17,9 @@ import { RasterCache } from "./kinetic-raster-cache";
 import { indexModulation } from "./kinetic-modulation";
 import { kineticPresets } from "./kinetic-presets";
 import { userKineticPresets } from "./kinetic-user-presets";
+import defaultKineticPreset from "./kinetic-default-preset.json";
+import KineticTimeline from "./kinetic-timeline-editor";
+import { timelineDefaults, evaluateTrack, timelineAt, parseTimeline, type TimelineData } from "./kinetic-timeline";
 import { samplingDetailScale } from "./kinetic-sampling-detail";
 import GlyphOriginEditor from "./kinetic-glyph-origin-editor";
 import { firstGridCoordinate, glyphSamplingRegion, parseGlyphOrigins, type GlyphOriginMap } from "./kinetic-glyph-origins";
@@ -105,7 +108,7 @@ export function parsePreset(value: unknown): SynthState {
   if (s.vertexSizeUnit !== undefined && s.vertexSizeUnit !== "em") throw new Error("Unsupported vertex size unit.");
   for (const [key, , min, max] of manualSpecs) manual[key] = num(m[key], min, max);
   const shapes = ["sine", "triangle", "square", "noise", "ramp"] as const;
-  const waves = array(s.waves, 3).map(item => { const w = object(item); return { on: bool(w.on), shape: choice(w.shape, shapes), rate: num(w.rate, .1, 6), amp: num(w.amp, 0, 1), speed: num(w.speed, 0, 3), direction: num(w.direction, 0, 1), phase: num(w.phase, 0, 1), timing: w.timing === undefined ? "free" as const : choice(w.timing, ["free", "sync"] as const), division: w.division === undefined ? "1/4" as const : choice(w.division === "4/4" ? "1" : w.division, waveDivisions), noiseMode: w.noiseMode === undefined ? "random" as const : choice(w.noiseMode, ["cycle", "random"] as const), noiseRange: w.noiseRange === undefined ? 1 : num(w.noiseRange, 1, 12) }; });
+  const waves = array(s.waves, 3).map(item => { const w = object(item); return { on: bool(w.on), shape: choice(w.shape, shapes), rate: num(w.rate, .1, 6), amp: num(w.amp, 0, 1), speed: num(w.speed, 0, 3), direction: num(w.direction, 0, 1), phase: num(w.phase, 0, 1), timing: w.timing === undefined ? "free" as const : choice(w.timing, ["free", "sync"] as const), division: w.division === undefined ? "1/4" as const : choice(w.division === "4/4" ? "1" : w.division, waveDivisions), noiseMode: w.noiseMode === undefined ? "random" as const : choice(w.noiseMode, ["cycle", "random"] as const), noiseRange: w.noiseRange === undefined ? 1 : num(w.noiseRange, 1, 12), noiseOutput: w.noiseOutput === undefined ? "full" as const : choice(w.noiseOutput, ["full", "positive", "negative"] as const) }; });
   if (waves.length !== 3) throw new Error("The preset must contain three waves.");
   const patches = array(s.patches, 100).map((item, i) => { const p = object(item); const wave = num(p.wave, 0, 6); if (!Number.isInteger(wave)) throw new Error("Invalid modulation source."); return { id: `import-${i}`, wave, target: choice(p.target, modulationTargets), amount: num(p.amount, -100, 100) }; });
   if (new Set(patches.map(p => `${p.wave}-${p.target}`)).size !== patches.length) throw new Error("Duplicate modulation cable.");
@@ -258,6 +261,67 @@ export default function KineticPatchSynth() {
   const [samplingMode, setSamplingMode] = useState<SamplingMode>("xy");
   const [glyphPattern, setGlyphPattern] = useState("*+o");
   const [values, setValues] = useState(initial);
+  const [timelineOpen, setTimelineOpen] = useState(false);
+  const [timeline, setTimeline] = useState<TimelineData>(timelineDefaults);
+  const [timelinePlaying, setTimelinePlaying] = useState(false);
+  const [timelineTime, setTimelineTime] = useState(0);
+  const timelineClock = useRef({ time: 0, playing: false, lastDisplay: 0 });
+  const timelineState = useRef(timeline);
+  useEffect(() => { timelineState.current = timeline; }, [timeline]);
+  const timelineUndoStack = useRef<TimelineData[]>([]);
+  const timelineRedoStack = useRef<TimelineData[]>([]);
+  const timelineEdit = useRef({ when: 0, shape: "" });
+  const [timelineHistory, setTimelineHistory] = useState({ undo: false, redo: false });
+  const timelineShape = (t:TimelineData) => JSON.stringify(t.tracks.map(track=>[track.target,track.frames.length,track.frames.map(f=>f.curve)]));
+  const updateTimeline = (next:TimelineData) => {
+    const prior=timelineState.current;
+    if(JSON.stringify(prior)===JSON.stringify(next))return;
+    const shape=timelineShape(next), now=Date.now();
+    // Continuous drags / number edits are one history step; adding/removing
+    // tracks or keyframes always creates a separate step.
+    const coalesce=shape===timelineShape(prior)&&shape===timelineEdit.current.shape&&now-timelineEdit.current.when<420;
+    if(!coalesce){timelineUndoStack.current.push(prior);if(timelineUndoStack.current.length>100)timelineUndoStack.current.shift();}
+    timelineRedoStack.current=[];
+    timelineEdit.current={when:now,shape};
+    timelineState.current=next;
+    setTimeline(next);
+    setTimelineHistory({undo:timelineUndoStack.current.length>0,redo:false});
+  };
+  const undoTimeline = () => {
+    const prior=timelineUndoStack.current.pop();if(!prior)return;
+    timelineRedoStack.current.push(timelineState.current);
+    timelineState.current=prior;setTimeline(prior);
+    timelineEdit.current={when:0,shape:""};
+    setTimelineHistory({undo:timelineUndoStack.current.length>0,redo:true});
+  };
+  const redoTimeline = () => {
+    const next=timelineRedoStack.current.pop();if(!next)return;
+    timelineUndoStack.current.push(timelineState.current);
+    timelineState.current=next;setTimeline(next);
+    timelineEdit.current={when:0,shape:""};
+    setTimelineHistory({undo:true,redo:timelineRedoStack.current.length>0});
+  };
+  const seekTimeline = (t: number) => { timelineClock.current.time = Math.min(timeline.duration,Math.max(0,t)); setTimelineTime(timelineClock.current.time); };
+  const toggleTimeline = () => { timelineClock.current.playing = !timelineClock.current.playing; setTimelinePlaying(timelineClock.current.playing); };
+  const timelineOptions = [
+    ...specs.map(([key,label,min,max,step,group])=>({key,label:`${group.toUpperCase()} / ${label}`,min,max,step})),
+    ...extraSpecs.map(([key,min,max])=>({key,label:key.replace(/([A-Z])/g," $1").toUpperCase(),min,max,step:.1})),
+    ...switchTargets.map(key=>({key,label:key.replace(/([A-Z])/g," $1").toUpperCase(),min:0,max:12,step:1,discrete:true}))
+  ];
+  const timelineCurrentValue = (key:string): number => {
+    if(key in values) return values[key as keyof typeof values];
+    if(key in manual) return manual[key as keyof typeof manual];
+    if(key==="vertexSource") return ["line","dot","square","glyph","custom"].indexOf(vertex);
+    if(key==="motionMode") return ["single","line","grid"].indexOf(repeatMode);
+    if(key==="motionBlend") return blendModes.indexOf(repeatBlend as typeof blendModes[number]);
+    if(key==="feedbackBlendMode") return blendModes.indexOf(feedbackBlend as typeof blendModes[number]);
+    if(key==="samplingAxes") return ["xy","x","y"].indexOf(samplingMode);
+    if(key==="textAlignMode") return ["left","center","right"].indexOf(textAlign);
+    if(key==="kerningMode") return ["none","normal","optical"].indexOf(kerning);
+    if(key==="feedbackTimingMode") return ["free","sync"].indexOf(feedbackTiming);
+    const extras:Record<string,number>={samplingThicknessX,samplingThicknessY,stripSpacing,vertexSpacing,vertexScatter,lineHeight,secondSize:secondType.size,secondWeight:secondType.weight,secondX:secondType.x,secondY:secondType.y,secondTracking:secondType.tracking,secondLineHeight:secondType.lineHeight};
+    return extras[key]??0;
+  };
   const [manual, setManual] = useState(initialManual);
   const [modes, setModes] = useState({ sampling: false, grid: false, vertex: true, feedback: false });
   const chainDrag = useRef<VideoModule | null>(null);
@@ -293,6 +357,8 @@ export default function KineticPatchSynth() {
   const lastEdit = useRef({ snapshot: { customFonts, vertexSVG, imageLayers, type1On, secondType, stripSpacing, vertexSpacing, vertexScatter, glyphOrigins, samplingThicknessLinked, samplingThicknessUnit: "em" as const, vertexSizeUnit: "em" as const, samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches }, time: 0, key: "" });
   const restoring = useRef(false);
   const [canUndo, setCanUndo] = useState(false);
+  const redoStack = useRef<(typeof live.current)[]>([]);
+  const [canRedo, setCanRedo] = useState(false);
   useEffect(() => {
     const next = live.current, prior = lastEdit.current.snapshot;
     const changed = (Object.keys(next) as (keyof typeof next)[]).filter(key => (key === "imageLayers" || key === "customFonts" || key === "vertexSVG") ? next[key] !== prior[key] : JSON.stringify(next[key]) !== JSON.stringify(prior[key]));
@@ -303,22 +369,43 @@ export default function KineticPatchSynth() {
     // A continuous knob/text gesture is one undo step; cable actions always get their own step.
     const merge = key === lastEdit.current.key && now - lastEdit.current.time < 400 && topology(next) === topology(prior);
     if (!merge) { undoStack.current.push(prior); if (undoStack.current.length > 100) undoStack.current.shift(); }
+    redoStack.current=[];setCanRedo(false);
     lastEdit.current = { snapshot: next, time: now, key }; setCanUndo(undoStack.current.length > 0);
   }, [customFonts, vertexSVG, imageLayers, type1On, secondType, stripSpacing, vertexSpacing, vertexScatter, glyphOrigins, samplingThicknessLinked, samplingThicknessX, samplingThicknessY, textAlign, lineHeight, kerning, bpm, waves, values, manual, modes, patches, text, font, vertex, repeatMode, samplingMode, glyphPattern, paused, bg, ink, bicolour, ink2, feedbackBlend, repeatBlend, feedbackTiming, feedbackDivision, videoPatches]);
   const undo = useCallback(() => {
     const state = undoStack.current.pop(); if (!state) return;
+    redoStack.current.push(live.current);setCanRedo(true);
     restoring.current = true;
     setBpm(state.bpm); setWaves(state.waves); setValues(state.values); setManual(state.manual); setModes(state.modes); setPatches(state.patches); setVideoPatches(state.videoPatches);
     setCustomFonts(state.customFonts); setVertexSVG(state.vertexSVG); setImageLayers(state.imageLayers); setType1On(state.type1On); setSecondType(state.secondType); setStripSpacing(state.stripSpacing); setVertexSpacing(state.vertexSpacing); setVertexScatter(state.vertexScatter); setGlyphOrigins(state.glyphOrigins); setSamplingThicknessLinked(state.samplingThicknessLinked); setSamplingThicknessX(state.samplingThicknessX); setSamplingThicknessY(state.samplingThicknessY); setText(state.text); setTextAlign(state.textAlign); setLineHeight(state.lineHeight); setKerning(state.kerning); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend); setRepeatBlend(state.repeatBlend); setFeedbackTiming(state.feedbackTiming); setFeedbackDivision(state.feedbackDivision);
     setSelected(null); setSelectedVideo(null); setDrag(null); setVideoDrag(null); dragRef.current = null; videoDragRef.current = null;
     setCanUndo(undoStack.current.length > 0);
   }, []);
+  const redo = useCallback(() => {
+    const state=redoStack.current.pop();if(!state)return;
+    undoStack.current.push(live.current);
+    restoring.current=true;
+    setBpm(state.bpm); setWaves(state.waves); setValues(state.values); setManual(state.manual); setModes(state.modes); setPatches(state.patches); setVideoPatches(state.videoPatches);
+    setCustomFonts(state.customFonts); setVertexSVG(state.vertexSVG); setImageLayers(state.imageLayers); setType1On(state.type1On); setSecondType(state.secondType); setStripSpacing(state.stripSpacing); setVertexSpacing(state.vertexSpacing); setVertexScatter(state.vertexScatter); setGlyphOrigins(state.glyphOrigins); setSamplingThicknessLinked(state.samplingThicknessLinked); setSamplingThicknessX(state.samplingThicknessX); setSamplingThicknessY(state.samplingThicknessY); setText(state.text); setTextAlign(state.textAlign); setLineHeight(state.lineHeight); setKerning(state.kerning); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend); setRepeatBlend(state.repeatBlend); setFeedbackTiming(state.feedbackTiming); setFeedbackDivision(state.feedbackDivision);
+    setSelected(null); setSelectedVideo(null); setDrag(null); setVideoDrag(null); dragRef.current = null; videoDragRef.current = null;
+    setCanUndo(true);setCanRedo(redoStack.current.length>0);
+  },[]);
   useEffect(() => {
     const shortcut = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "z" && !event.shiftKey && !(event.target instanceof HTMLElement && event.target.closest("input,textarea,select,[contenteditable=true]"))) { event.preventDefault(); undo(); }
+      if (!(event.metaKey || event.ctrlKey) || (event.target instanceof HTMLElement && event.target.closest("input,textarea,select,[contenteditable=true]"))) return;
+      const key=event.key.toLowerCase();
+      const reverse=key==="z"&&event.shiftKey || key==="y";
+      if(key!=="z"&&!reverse)return;
+      event.preventDefault();
+      // The timeline's edit history is independent from the main instrument.
+      if(timelineOpen && event.target instanceof HTMLElement && event.target.closest("#kp-timeline-panel")) {
+        if(reverse)redoTimeline();else undoTimeline();
+      }else {
+        if(reverse)redo();else undo();
+      }
     };
     window.addEventListener("keydown", shortcut); return () => window.removeEventListener("keydown", shortcut);
-  }, [undo]);
+  }, [undo,redo,timelineOpen]);
   useEffect(() => {
     const measure = () => {
       if (!panel.current) return;
@@ -372,7 +459,42 @@ export default function KineticPatchSynth() {
       if (!manualFrame && now - lastFrame < 1000 / 30 - .5) { raf = requestAnimationFrame(frame); return; }
       lastFrame = now;
       if (gpu && !gpu.available()) { gpu.dispose(); gpu = null; }
-      const sourceState = renderSnapshot.current?.state || live.current, s = { ...sourceState, manual: { ...sourceState.manual }, secondType: { ...sourceState.secondType } }, dt = previous ? Math.min(.05, (now - previous) / 1000) : 0; previous = now;
+      const sourceState = renderSnapshot.current?.state || live.current, s = { ...sourceState, values: { ...sourceState.values }, manual: { ...sourceState.manual }, secondType: { ...sourceState.secondType } }, dt = previous ? Math.min(.05, (now - previous) / 1000) : 0; previous = now;
+      const clock = timelineClock.current, timelineData = timelineState.current;
+      if (clock.playing && !manualFrame) {
+        clock.time += dt;
+        if (clock.time >= timelineData.duration) {
+          if(timelineData.loop) clock.time %= timelineData.duration;
+          else { clock.time = timelineData.duration; clock.playing=false; setTimelinePlaying(false); }
+        }
+        if(now-clock.lastDisplay>85) { clock.lastDisplay=now; setTimelineTime(clock.time); }
+      }
+      const animated=new Map<string,number>();
+      for (const track of timelineData.tracks) {
+        const value=evaluateTrack(track,timelineAt(timelineData,clock.time));
+        if(value!==undefined) animated.set(track.target,value);
+      }
+      const selectedValue = <T,>(target:string,values:readonly T[],base:T):T => {
+        const val=animated.get(target);
+        return val===undefined?base:values[clamp(Math.round(val),0,values.length-1)];
+      };
+      for(const [key] of specs) { const value=animated.get(key); if(value!==undefined) s.values[key]=value; }
+      for(const [key] of manualSpecs) { const value=animated.get(key); if(value!==undefined) s.manual[key]=value; }
+      const extended:Record<string,(n:number)=>void>={
+        samplingThicknessX:n=>{s.samplingThicknessX=n;},samplingThicknessY:n=>{s.samplingThicknessY=n;},
+        stripSpacing:n=>{s.stripSpacing=n;},vertexSpacing:n=>{s.vertexSpacing=n;},vertexScatter:n=>{s.vertexScatter=n;},lineHeight:n=>{s.lineHeight=n;},
+        secondSize:n=>{s.secondType.size=n;},secondWeight:n=>{s.secondType.weight=n;},secondX:n=>{s.secondType.x=n;},
+        secondY:n=>{s.secondType.y=n;},secondTracking:n=>{s.secondType.tracking=n;},secondLineHeight:n=>{s.secondType.lineHeight=n;}
+      };
+      for(const [key,set] of Object.entries(extended)) {const value=animated.get(key);if(value!==undefined)set(value);}
+      s.vertex=selectedValue("vertexSource",s.vertexSVG?["line","dot","square","glyph","custom"]:["line","dot","square","glyph"],s.vertex);
+      s.repeatMode=selectedValue("motionMode",["single","line","grid"] as const,s.repeatMode);
+      s.repeatBlend=selectedValue("motionBlend",blendModes,s.repeatBlend);
+      s.feedbackBlend=selectedValue("feedbackBlendMode",blendModes,s.feedbackBlend);
+      s.samplingMode=selectedValue("samplingAxes",["xy","x","y"] as const,s.samplingMode);
+      s.textAlign=selectedValue("textAlignMode",["left","center","right"] as const,s.textAlign);
+      s.kerning=selectedValue("kerningMode",["none","normal","optical"] as const,s.kerning);
+      s.feedbackTiming=selectedValue("feedbackTimingMode",["free","sync"] as const,s.feedbackTiming);
       if (s.customFonts.some(f => loadedFonts.current.get(f.id)?.data !== f.data) || (s.vertex === "custom" && s.vertexSVG && !decodedSVGs.current.has(s.vertexSVG.svg))) { if (!manualFrame) raf = requestAnimationFrame(frame); return; }
       if (!s.paused) { s.waves.forEach((w, i) => { if (w.on) phases[i] += dt * waveHz(w, s.bpm); }); }
       const el = canvas.current, ctx = el?.getContext("2d");
@@ -863,7 +985,7 @@ export default function KineticPatchSynth() {
     }, "image/png"); } catch { setPngBusy(false); setPresetMessage("Could not export PNG."); }
   };
   const exportPreset = () => {
-    const payload = { format: "k-tic-synth", version: 2, state: live.current };
+    const payload = { format: "k-tic-synth", version: 2, state: live.current, timeline: timelineState.current };
     const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" }));
     const a = document.createElement("a"); a.href = url; a.download = `k-tic-synth-${text.trim().slice(0, 32).replace(/[^a-z0-9_-]/gi, "-") || "preset"}.json`; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); setPresetMessage("Preset exported.");
   };
@@ -872,17 +994,56 @@ export default function KineticPatchSynth() {
       setCustomFonts(state.customFonts); setVertexSVG(state.vertexSVG); setImageLayers(state.imageLayers); setType1On(state.type1On); setSecondType(state.secondType); setStripSpacing(state.stripSpacing); setVertexSpacing(state.vertexSpacing); setVertexScatter(state.vertexScatter); setGlyphOrigins(state.glyphOrigins); setSamplingThicknessLinked(state.samplingThicknessLinked); setSamplingThicknessX(state.samplingThicknessX); setSamplingThicknessY(state.samplingThicknessY); setText(state.text); setTextAlign(state.textAlign); setLineHeight(state.lineHeight); setKerning(state.kerning); setFont(state.font); setVertex(state.vertex); setRepeatMode(state.repeatMode); setSamplingMode(state.samplingMode); setGlyphPattern(state.glyphPattern); setPaused(state.paused); setBg(state.bg); setInk(state.ink); setBicolour(state.bicolour); setInk2(state.ink2); setFeedbackBlend(state.feedbackBlend); setRepeatBlend(state.repeatBlend); setFeedbackTiming(state.feedbackTiming); setFeedbackDivision(state.feedbackDivision);
       setSelected(null); setSelectedVideo(null); setDrag(null); setVideoDrag(null); dragRef.current = null; videoDragRef.current = null;
   };
+  const restorePresetTimeline = (preset: TimelineData) => {
+    const hasKeys = preset.tracks.some(track => track.frames.length > 0);
+    timelineState.current = preset;
+    setTimeline(preset);
+    timelineClock.current.time = 0;
+    timelineClock.current.lastDisplay = 0;
+    timelineClock.current.playing = hasKeys;
+    setTimelineTime(0);
+    setTimelinePlaying(hasKeys);
+    // Preset loading begins a new timeline history.
+    timelineUndoStack.current = [];
+    timelineRedoStack.current = [];
+    timelineEdit.current = { when: 0, shape: "" };
+    setTimelineHistory({ undo: false, redo: false });
+    if (hasKeys) setPaused(false);
+  };
+  const initialPresetLoaded = useRef(false);
+  useEffect(() => {
+    if(initialPresetLoaded.current)return;
+    initialPresetLoaded.current=true;
+    let active=true;
+    const initialize = async () => {
+      try {
+        const state=parsePreset(defaultKineticPreset);
+        await ensureAssets(state.customFonts,state.vertexSVG);
+        if(!active)return;
+        applyPreset(state);
+        restorePresetTimeline(parseTimeline(defaultKineticPreset.timeline));
+      } catch(error) {
+        if(active)setPresetMessage(error instanceof Error? `Default preset: ${error.message}`:"Could not load the default preset.");
+      }
+    };
+    void initialize();
+    return ()=>{active=false;initialPresetLoaded.current=false;};
+    // Initialize the bundled default once on mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
   const importPreset = async (file: File) => {
     try {
       if (file.size > 96 * 1024 * 1024) throw new Error("Preset files must be smaller than 96 MB.");
-      const state = parsePreset(JSON.parse(await file.text()));
+      const document = JSON.parse(await file.text());
+      const state = parsePreset(document);
+      const restoredTimeline = parseTimeline(document.timeline);
       await ensureImages(state.imageLayers);
       await ensureAssets(state.customFonts, state.vertexSVG);
       applyPreset(state);
-      setPresetMessage("Preset imported. Undo restores your previous settings.");
+      restorePresetTimeline(restoredTimeline);
+      setPresetMessage("Preset and timeline imported. Undo restores synth settings.");
     } catch (error) { setPresetMessage(error instanceof Error ? error.message : "Could not import this preset."); }
   };
-  const loadDream = () => { setCustomFonts([]); setVertexSVG(null); setImageLayers([]); setType1On(true); setSecondType(secondTypeDefault); setStripSpacing(0); setVertexSpacing(0); setVertexScatter(0); setGlyphOrigins({}); setSamplingThicknessLinked(true); setSamplingThicknessX(1.5); setSamplingThicknessY(1.5); setTextAlign("center"); setLineHeight(1.1); setKerning("none"); setBpm(120); setWaves(dreamWaves); setValues(initial); setManual(initialManual); setModes({ sampling: false, grid: false, vertex: true, feedback: false }); setPatches(dreamPatches); setVideoPatches(videoDefaults); setSelectedVideo(null); setText("dream"); setFont("system-ui, sans-serif"); setVertex("dot"); setRepeatMode("single"); setSamplingMode("xy"); setGlyphPattern("*+o"); setBg("#000000"); setInk("#000000"); setInk2("#ffffff"); setBicolour(true); setFeedbackBlend("source-over"); setRepeatBlend("source-over"); setFeedbackTiming("free"); setFeedbackDivision("1/4"); setPaused(false); setSelected(null); };
   const changeWave = (i: number, change: Partial<Wave>) => setWaves(all => all.map((w, n) => n === i ? { ...w, ...change } : w));
   const connect = (wave: number, target: Target) => { setPatches(all => all.some(p => p.wave === wave && p.target === target) ? all : [...all, { id: `${wave}-${target}`, wave, target, amount: 50 }]); setSelected(null); setDrag(null); };
   const videoChain = readVideoChain(videoPatches);
@@ -970,8 +1131,9 @@ export default function KineticPatchSynth() {
       setSelected(null); setSelectedVideo(null);
     }} className="kp" style={{ "--kp-bg": bg } as CSSProperties}>
     <input ref={fontInput} hidden type="file" accept=".woff2,.woff,.ttf,.otf,font/woff2,font/woff,font/ttf,font/otf" aria-label="Import font" onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importFont(file); }} /><input ref={svgInput} hidden type="file" accept=".svg,image/svg+xml" aria-label="Import Vertex SVG" onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importSVG(file); }} />
-    <header className="kp-header"><Link href="/" onClick={e => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; e.preventDefault(); window.location.assign("/"); }}>← INDEX</Link><h1>K-TIC-SYNTH</h1><button aria-label="Undo last edit" title="Undo · ⌘/Ctrl Z" disabled={!canUndo} onClick={undo}>↶ UNDO</button><button onClick={() => setPaused(v => !v)}>{paused ? "▶ RUN" : "Ⅱ HOLD"}</button></header>
+    <header className="kp-header"><Link href="/" onClick={e => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; e.preventDefault(); window.location.assign("/"); }}>← INDEX</Link><h1>K-TIC-SYNTH</h1><button aria-label="Undo last synth edit" title="Synth Undo · ⌘/Ctrl Z" disabled={!canUndo} onClick={undo}>↶ UNDO</button><button aria-label="Redo last synth edit" title="Synth Redo · ⌘/Ctrl Shift Z" disabled={!canRedo} onClick={redo}>↷ REDO</button><button onClick={() => setPaused(v => !v)}>{paused ? "▶ RUN" : "Ⅱ HOLD"}</button><button className="kp-timeline-toggle" aria-expanded={timelineOpen} aria-controls="kp-timeline-panel" onClick={()=>setTimelineOpen(v=>!v)}>{timelineOpen?"◈ CLOSE TIMELINE":"◇ TIMELINE"}</button></header>
     <section ref={stage} className={`kp-stage${nativeView ? " kp-native-view" : ""}`}><canvas ref={canvas} style={viewSize.width ? nativeView ? { width: nativeSize.width, height: nativeSize.height, position: "relative", margin: "54px 16px 16px" } : { width: previewSize.width, height: previewSize.height, position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" } : undefined} aria-label="Animated kinetic typography" /><span className="kp-caption">VISUAL SYNTHESIZER · THREE WAVE ENGINE</span></section>
+    {timelineOpen && <KineticTimeline data={timeline} onChange={updateTimeline} canUndo={timelineHistory.undo} canRedo={timelineHistory.redo} onUndo={undoTimeline} onRedo={redoTimeline} position={timelineTime} onSeek={seekTimeline} playing={timelinePlaying} onPlay={toggleTimeline} options={timelineOptions} readValue={timelineCurrentValue}/>}
     <div className="kp-controls"><div ref={panel} className="kp-rack" onPointerMove={e => { if (videoDrag && panel.current) { const r = panel.current.getBoundingClientRect(); if (videoDragStart.current && Math.hypot(e.clientX - videoDragStart.current.x, e.clientY - videoDragStart.current.y) > 3) dragMoved.current = true; setVideoDrag({ ...videoDrag, x: e.clientX - r.left, y: e.clientY - r.top }); } if (drag && panel.current) { const r = panel.current.getBoundingClientRect(); if (Math.hypot(e.clientX - r.left - drag.x, e.clientY - r.top - drag.y) > 3) dragMoved.current = true; setDrag({ ...drag, x: e.clientX - r.left, y: e.clientY - r.top }); } }} onPointerUp={finishDrag} onPointerCancel={() => { dragRef.current = null; videoDragRef.current = null; setVideoDrag(null); setDrag(null); }}>
       <svg className="kp-cables" aria-hidden="true">{videoPatches.map(p => { const a = positions[`video-out-${p.source}`], b = positions[`video-in-${p.target}`]; return a && b ? <path key={`video-${p.source}-${p.target}`} className="kp-video-cable kp-removable-cable" onClick={e => { e.stopPropagation(); setVideoPatches(all => all.filter(item => item.target !== p.target || item.source !== p.source)); }} d={cable(a, b)} stroke="#b8b4a9" /> : null; })}{videoDrag && positions[`video-out-${videoDrag.source}`] && <path d={cable(positions[`video-out-${videoDrag.source}`], videoDrag)} stroke="#b8b4a9" strokeDasharray="4 4" />}{patches.map(p => { const a = positions[`wave${p.wave}`], b = positions[p.target]; return a && b ? <path key={p.id} className="kp-removable-cable" onClick={e => { e.stopPropagation(); setPatches(all => all.filter(item => item.id !== p.id)); }} d={cable(a, b)} stroke={colors[p.wave]} /> : null; })}{drag && positions[`wave${drag.wave}`] && <path d={cable(positions[`wave${drag.wave}`], drag)} stroke={colors[drag.wave]} strokeDasharray="4 4" />}</svg>
       <section className="kp-waves"><section className="kp-shared-sampling" aria-label="Shared Sampling and Vertex controls"><div className="kp-shared-head"><div className="kp-title kp-icon-heading" data-tooltip="Shared Sampling / Vertex"><Grid3X3 size={16} strokeWidth={1.5} aria-hidden="true" /><span className="kp-sr-only">Shared Sampling / Vertex</span></div><button className="kp-origin-trigger" data-tooltip="Edit glyph sampling origins" aria-label="Edit glyph sampling origins" onClick={() => setOriginEditorOpen(true)}><BookType size={16} strokeWidth={1.5} aria-hidden="true" /></button></div>
@@ -983,6 +1145,7 @@ export default function KineticPatchSynth() {
           <div id={`kp-wave-body-${i}`} className="kp-wave-body" hidden={!w.on}><div className="kp-wave-shape-field" data-tooltip={`Wave ${i + 1} · ${w.shape}`}><svg viewBox="0 0 28 18" aria-hidden="true"><path d={w.shape === "sine" ? "M2 9C6-1 8-1 14 9S22 19 26 9" : w.shape === "triangle" ? "M2 14L8 4L14 14L20 4L26 14" : w.shape === "square" ? "M2 14V4H9V14H17V4H26V14" : w.shape === "ramp" ? "M2 14L13 4V14L26 4" : "M2 9L5 3L8 14L11 7L14 12L17 2L20 15L23 6L26 9"} /></svg><select className="kp-wave-shape" aria-label={`Wave ${i + 1} shape`} value={w.shape} onChange={e => changeWave(i, { shape: e.target.value as Shape })}>{(["sine", "triangle", "square", "noise", "ramp"] as Shape[]).map(shape => <option key={shape} value={shape} aria-label={shape}>{({ sine: "∿", triangle: "△", square: "⊓", noise: "≋", ramp: "↗" } as Record<Shape, string>)[shape]}</option>)}</select></div>{w.shape === "ramp" && <small className="kp-ramp-help">Full turn: AMP 1 · Angle cable 100% · Angle 0°</small>}
           {w.shape === "noise" && <div className="kp-noise-config">
             <label>NOISE MODE<select aria-label={`Wave ${i + 1} noise mode`} value={w.noiseMode || "random"} onChange={e => changeWave(i, { noiseMode: e.target.value as "cycle" | "random" })}><option value="cycle">CYCLE · ASCENDING</option><option value="random">RANDOM · STEPPED</option></select></label>
+            <label>OUTPUT<select aria-label={`Wave ${i + 1} noise output range`} value={w.noiseOutput || "full"} onChange={e => changeWave(i, { noiseOutput: e.target.value as "full" | "positive" | "negative" })}><option value="full">FULL · −N…+N</option><option value="positive">POSITIVE · 0…+N</option><option value="negative">NEGATIVE · −N…0</option></select></label>
             <label>STEP RANGE<select aria-label={`Wave ${i + 1} noise step range`} value={w.noiseRange || 1} onChange={e => changeWave(i, { noiseRange: Number(e.target.value) })}>{[1,2,3,4,5,6,7,8,9,10,11,12].map(n => <option value={n} key={n}>{`−${n} / 0 / +${n}`}</option>)}</select></label>
           </div>}
           <div className="kp-wave-timing"><button aria-label={`Wave ${i + 1} timing mode`} onClick={() => changeWave(i, { timing: w.timing === "sync" ? "free" : "sync" })}>{w.timing === "sync" ? "SYNC" : "FREE"}</button>{w.timing === "sync" && <select aria-label={`Wave ${i + 1} division`} value={w.division || "1/4"} onChange={e => changeWave(i, { division: e.target.value as WaveDivision })}>{waveDivisions.map(division => <option key={division}>{division}</option>)}</select>}</div>
@@ -1025,7 +1188,7 @@ export default function KineticPatchSynth() {
       <div className="kp-video-tools"><b>VIDEO</b><select aria-label="Recording duration" disabled={recording || rendering} value={recordSeconds} onChange={e => setRecordSeconds(Number(e.target.value))}><option value={5}>5 SECONDS</option><option value={10}>10 SECONDS</option><option value={20}>20 SECONDS</option></select><button disabled={rendering} className={recording ? "is-recording" : ""} onClick={() => recording ? recordingSession.current?.stop() : startRecording()}>{recording ? "STOP & SAVE" : "● RECORD"}</button><select aria-label="Render frame rate" disabled={recording || rendering} value={renderFps} onChange={e => setRenderFps(Number(e.target.value) as 30 | 60)}><option value={30}>RENDER · 30 FPS</option><option value={60}>RENDER · 60 FPS</option></select><button disabled={recording} onClick={() => rendering ? renderAbort.current?.abort() : void startVideoRender()}>{rendering ? "CANCEL RENDER" : "RENDER VIDEO"}</button><span role="status">{rendering ? `RENDERING · ${renderProgress.done} / ${renderProgress.total} frames` : recording ? `${recordElapsed.toFixed(1)} / ${recordSeconds}s` : "Current output size · MP4 / WebM"}</span>{rendering && <progress aria-label="Video render progress" value={renderProgress.done} max={renderProgress.total} />}<p>Record: live capture, 30 fps target. Render: every frame at selected FPS.</p></div>
     </section>}
     {originEditorOpen && <GlyphOriginEditor origins={glyphOrigins} onChange={setGlyphOrigins} sources={[{ name: "TYPE 1", font, weight: values.weight, text }, { name: "TYPE 2", font: secondType.font, weight: secondType.weight, text: secondType.text }]} step={values.step} mode={samplingMode} onClose={() => setOriginEditorOpen(false)} />}
-    <footer className="kp-footer"><div className="kp-preset-tools"><select aria-label="Load built-in preset" defaultValue="" onChange={e => { if (e.target.value === "dream") { loadDream(); setPresetMessage("Dream loaded. Undo restores your previous settings."); } const preset = [...kineticPresets, ...userKineticPresets].find(p => p.id === e.target.value); if (preset) { applyPreset(parsePreset(preset.preset)); setPresetMessage(`${preset.name} loaded. Undo restores your previous settings.`); } e.target.value = ""; }}><option value="" disabled>PRESETS</option><option value="dream">Dream</option>{[...kineticPresets, ...userKineticPresets].map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select><button onClick={() => presetInput.current?.click()}>IMPORT</button><button onClick={exportPreset}>EXPORT</button><button ref={outputButton} className="kp-output-trigger" aria-expanded={outputOpen} aria-controls="kp-output-window" onClick={() => outputOpen ? closeOutput() : setOutputOpen(true)}>{rendering ? "RENDER · OUTPUT" : recording ? "● REC · OUTPUT" : "OUTPUT"}</button><input ref={presetInput} type="file" accept=".json,application/json" aria-label="Import preset file" hidden onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importPreset(file); }} /><span role="status">{presetMessage}</span></div><label>BACKGROUND <input aria-label="Background color" type="color" value={bg} onChange={e => setBg(e.target.value)} /></label><button className="kp-bicolour" aria-pressed={bicolour} onClick={() => setBicolour(v => !v)}>BI-COLOUR</button>{bicolour && <label>INK 2 <input aria-label="Second ink color" type="color" value={ink2} onChange={e => setInk2(e.target.value)} /></label>}<label>INK <input aria-label="Ink color" type="color" value={ink} onChange={e => setInk(e.target.value)} /></label></footer>
+    <footer className="kp-footer"><div className="kp-preset-tools"><select aria-label="Load built-in preset" defaultValue="" onChange={e => { const presets = [{id:"playground-v3",name:"Playground v3",preset:defaultKineticPreset},...kineticPresets,...userKineticPresets]; const preset = presets.find(p => p.id === e.target.value); if (preset) { const state=parsePreset(preset.preset); void ensureAssets(state.customFonts,state.vertexSVG).then(()=>{applyPreset(state);restorePresetTimeline(parseTimeline((preset.preset as { timeline?: unknown }).timeline));setPresetMessage(`${preset.name} loaded. Undo restores your previous settings.`);}).catch(err=>setPresetMessage(err instanceof Error?err.message:"Could not load preset.")); } e.target.value = ""; }}><option value="" disabled>PRESETS</option><option value="playground-v3">Playground v3 · DEFAULT</option>{[...kineticPresets, ...userKineticPresets].map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select><button onClick={() => presetInput.current?.click()}>IMPORT</button><button onClick={exportPreset}>EXPORT</button><button ref={outputButton} className="kp-output-trigger" aria-expanded={outputOpen} aria-controls="kp-output-window" onClick={() => outputOpen ? closeOutput() : setOutputOpen(true)}>{rendering ? "RENDER · OUTPUT" : recording ? "● REC · OUTPUT" : "OUTPUT"}</button><input ref={presetInput} type="file" accept=".json,application/json" aria-label="Import preset file" hidden onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importPreset(file); }} /><span role="status">{presetMessage}</span></div><label>BACKGROUND <input aria-label="Background color" type="color" value={bg} onChange={e => setBg(e.target.value)} /></label><button className="kp-bicolour" aria-pressed={bicolour} onClick={() => setBicolour(v => !v)}>BI-COLOUR</button>{bicolour && <label>INK 2 <input aria-label="Second ink color" type="color" value={ink2} onChange={e => setInk2(e.target.value)} /></label>}<label>INK <input aria-label="Ink color" type="color" value={ink} onChange={e => setInk(e.target.value)} /></label></footer>
   </main>;
 }
 

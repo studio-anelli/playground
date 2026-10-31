@@ -291,3 +291,143 @@
 .kp-noise-config { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; margin:8px 0; }
 .kp-noise-config label { display:flex; flex-direction:column; gap:4px; min-width:0; font-size:9px; font-weight:600; letter-spacing:.03em; }
 .kp-noise-config select { width:100%; min-width:0; margin:0; font:inherit; font-weight:400; padding:4px 2px; }
+
+/* REC-10 timeline panel: compact transport and parameter lanes. */
+.kt{position:absolute;z-index:22;left:12px;right:12px;bottom:100px;max-height:48vh;overflow:auto;background:#202422;color:#e9e9dd;border:1px solid #777b72;box-shadow:0 10px 40px #0007;padding:12px;font:11px/1.4 system-ui,sans-serif}
+.kt button,.kt select,.kt input{font:inherit;color:inherit;background:#343a36;border:1px solid #797f76;padding:5px;min-width:0}
+.kt button{cursor:pointer}.kt button:hover{background:#505952}
+.kt-top{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:12px}
+.kt-top strong{margin-right:auto;letter-spacing:.08em}.kt-top label,.kt-add{display:flex;align-items:center;gap:5px}.kt-top input[type=number]{width:48px}.kt-top input[type=checkbox]{accent-color:#8babff}.kt-top output{font-variant-numeric:tabular-nums}
+.kt-add{margin-bottom:10px}.kt-add select{flex:1}
+.kt-tracks{border:1px solid #5c615a;min-height:80px}
+.kt-ruler,.kt-row{display:grid;grid-template-columns:minmax(120px,27%) 1fr;min-height:41px;border-bottom:1px solid #4d534e}
+.kt-ruler>span,.kt-rowlabel{padding:8px;display:flex;align-items:center;gap:7px}
+.kt-rowlabel strong{font-size:10px;font-weight:500;flex:1}.kt-rowlabel button{padding:2px 5px}
+.kt-track-area{position:relative;min-width:0;background:repeating-linear-gradient(90deg,transparent,transparent calc(16.666% - 1px),#515952 calc(16.666% - 1px),#515952 16.666%);cursor:crosshair}
+.kt-ruler .kt-track-area>span{position:absolute;top:6px;color:#aeb8ad;font-size:9px}
+.kt-track-area>i{position:absolute;left:0;top:0;bottom:0;width:1px;background:#f4b555;pointer-events:none;z-index:1}
+.kt-key{position:absolute;top:50%;transform:translate(-50%,-50%);border:0!important;background:transparent!important;color:#92afff!important;padding:3px!important;font-size:17px!important;z-index:2}
+.kt-editor{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.kt-editor>div{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:6px;border:1px solid #626862}.kt-editor label{display:flex;align-items:center;gap:5px}.kt-editor input{width:75px}
+.kt p{margin:9px 0 0;color:#aeb7ae;font-size:10px}
+@media(max-width:800px){.kt{bottom:90px;max-height:55vh;left:6px;right:6px}.kt-ruler,.kt-row{grid-template-columns:115px 1fr}}
+
+/* Timeline access remains visible regardless of the narrow header width. */
+.kp .kp-timeline-toggle{position:fixed;top:9px;right:16px;z-index:80;pointer-events:auto;background:#202422;color:#f5f5ed;border:1px solid #a9b3a7;padding:8px 13px;font-weight:700;letter-spacing:.06em;box-shadow:0 2px 10px #0004;white-space:nowrap}
+.kp .kp-timeline-toggle:hover,.kp .kp-timeline-toggle[aria-expanded=true]{background:#4268d5;color:white}
+.kp .kt{position:fixed;top:auto;left:18px;right:18px;bottom:16px;z-index:70;max-height:min(55vh,540px);min-height:145px;box-shadow:0 10px 45px #000a}
+@media(max-width:800px){.kp .kp-timeline-toggle{right:8px;top:8px;padding:6px 9px}.kp .kt{left:6px;right:6px;bottom:8px;max-height:58vh}}
+
+/* REC-10 timeline V2: floating, movable, resizable, zoomable editing surface. */
+.kp .kt.kt-floating{position:fixed;z-index:70;display:flex;flex-direction:column;min-width:420px;min-height:175px;max-width:calc(100vw - 4px);max-height:calc(100vh - 4px);overflow:hidden;box-sizing:border-box;padding:0;background:#202422;color:#e9e9dd;user-select:none}
+.kt .kt-handle{flex:0 0 auto;min-height:42px;margin:0;padding:7px 12px;background:#292e2b;border-bottom:1px solid #596159;cursor:grab;touch-action:none}
+.kt .kt-handle:active{cursor:grabbing}
+.kt .kt-toolbar{display:flex;gap:7px;align-items:center;padding:7px 12px;flex-wrap:wrap;background:#252925;border-bottom:1px solid #58605a}
+.kt .kt-toolbar>select{flex:1;min-width:90px;max-width:300px}
+.kt .kt-toolbar>span{white-space:nowrap;color:#a4b3a7;font-size:9px}
+.kt .kt-zoom{display:flex;align-items:center;gap:4px;margin-left:auto;white-space:nowrap}
+.kt .kt-zoom input[type=range]{width:110px;padding:0;accent-color:#8baaff}
+.kt .kt-zoom button{padding:3px 7px}
+.kt .kt-scroll{flex:1;min-height:65px;overflow:auto;background:#1e2320}
+.kt .kt-ruler-row,.kt .kt-track-row{display:flex;width:max-content;min-width:100%;height:39px;border-bottom:1px solid #3e4940}
+.kt .kt-ruler-row{height:35px}
+.kt .kt-sticky-label{position:sticky;left:0;z-index:5;flex:0 0 194px;width:194px;min-width:194px;display:flex;align-items:center;padding:5px 9px;background:#2b302d;border-right:1px solid #5b655c;box-sizing:border-box;white-space:nowrap;overflow:hidden;font-size:9px}
+.kt .kt-track-label{gap:4px}
+.kt .kt-track-label>.kt-track-title{flex:1;overflow:hidden;text-overflow:ellipsis;text-align:left;background:transparent;border:0;font-weight:600;padding:4px}
+.kt .kt-track-label>button:not(.kt-track-title){padding:2px 5px}
+.kt .kt-time-ruler,.kt .kt-lane{position:relative;flex:0 0 auto;touch-action:none;box-sizing:border-box}
+.kt .kt-time-ruler{cursor:ew-resize;background:#252c27}
+.kt .kt-tick{position:absolute;top:4px;padding:0 3px;font-size:9px;color:#adb9af;transform:translateX(0);border-left:1px solid #69766a;height:22px}
+.kt .kt-lane{background-image:linear-gradient(to right,#4a554b 1px,transparent 1px);background-repeat:repeat}
+.kt .kt-track-row:nth-child(odd) .kt-lane{background-color:#242b25}
+.kt .kt-playhead{position:absolute;top:0;bottom:0;pointer-events:none;z-index:3;width:1px;background:#ffbf72}
+.kt .kt-key{top:50%;z-index:4;touch-action:none;cursor:ew-resize;white-space:nowrap}
+.kt .kt-key.is-selected{color:#fff!important;text-shadow:0 0 8px #8faeff}
+.kt .kt-inspector{flex:0 0 auto;min-height:43px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:7px 22px 7px 12px;border-top:1px solid #5b665c;background:#282e2a;font-size:10px}
+.kt .kt-inspector>span{color:#b3bdb4}
+.kt .kt-inspector strong{max-width:230px;overflow:hidden;text-overflow:ellipsis}
+.kt .kt-inspector label{display:flex;align-items:center;gap:5px}
+.kt .kt-inspector input{width:72px}
+.kt .kt-resize{position:absolute;right:0;bottom:0;z-index:15;width:24px;height:24px;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px;color:#aebdb0;cursor:nwse-resize;touch-action:none;background:#343c35}
+@media(max-width:800px){.kp .kt.kt-floating{min-width:320px}.kt .kt-sticky-label{flex-basis:118px;width:118px;min-width:118px}.kt .kt-toolbar{gap:4px}.kt .kt-zoom input[type=range]{width:75px}}
+
+/* Timeline module tabs keep long parameter menus focused. */
+.kt .kt-module-tabs{display:flex;flex:0 0 auto;gap:3px;overflow-x:auto;padding:6px 10px 0;background:#242a25;border-bottom:1px solid #58605a}
+.kt .kt-module-tabs button{border:1px solid #485249;border-bottom:0;border-radius:3px 3px 0 0;background:#2c342d;color:#b9c5b9;white-space:nowrap;padding:6px 9px;letter-spacing:.04em;font-size:10px}
+.kt .kt-module-tabs button.is-active{background:#d6ddd1;color:#1d261e;border-color:#d6ddd1;font-weight:700}
+.kt .kt-module-tabs button span{margin-left:7px;font-size:9px;opacity:.65}
+.kt .kt-toolbar select:disabled,.kt .kt-toolbar button:disabled{opacity:.45;cursor:not-allowed}
+
+/* Bézier graph controls for timeline V3. */
+.kt .kt-graph-head{flex:0 0 auto;display:flex;align-items:center;gap:12px;background:#252e28;border-top:1px solid #566357;padding:4px 12px}
+.kt .kt-graph-head button{background:#354236;color:#e5e9dc;font-weight:700;letter-spacing:.04em}
+.kt .kt-graph-head span{font-size:9px;color:#b5c4b4}
+.kt .kt-bezier-graph{flex:0 0 auto;background:#1d2721;border-top:1px solid #526052;padding:6px 12px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.kt .kt-bezier-graph svg{width:100%;max-width:610px;height:132px;overflow:visible}
+.kt .kt-bezier-title{font-size:9px;color:#c6d5ca;letter-spacing:.06em}
+.kt .kt-bezier-graph>span,.kt .kt-graph-empty{font-size:9px;color:#b7c6b9}
+.kt .kt-graph-empty{padding:15px}
+.kt .kt-inspector{min-height:43px}
+.kp .kt.kt-floating:has(.kt-bezier-graph){min-height:310px}
+
+.kt .kt-clipboard{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:5px 12px;background:#304034;color:#e8f4e8;font-size:10px;border-top:1px solid #617562}
+.kt .kt-clipboard span{font-size:9px;opacity:.8}
+.kt .kt-top button:disabled{opacity:.35;cursor:default}
+.kt .kt-track-title:focus-visible{outline:1px solid #a2c9ff}
+
+/* Unified value graph: all keys and Bezier handles live inside each track. */
+.kt .kt-curve-row{height:116px;min-height:116px;align-items:stretch}
+.kt .kt-curve-row .kt-sticky-label{flex-direction:column;align-items:stretch;justify-content:center;gap:4px;padding:7px 8px}
+.kt .kt-curve-row .kt-track-title{flex:0 0 auto;text-align:left;white-space:normal;overflow:hidden;text-overflow:ellipsis;max-height:33px}
+.kt .kt-track-range{font-size:9px;color:#9fb4a0;letter-spacing:.02em}
+.kt .kt-curve-row .kt-track-label>button:not(.kt-track-title){position:absolute;bottom:9px}
+.kt .kt-curve-row .kt-track-label>button:nth-last-child(2){right:30px}
+.kt .kt-curve-row .kt-track-label>button:last-child{right:6px}
+.kt .kt-curve-row .kt-track-label{position:sticky}
+.kt .kt-curve-svg{flex:0 0 auto;display:block;overflow:hidden;touch-action:none;background:#212a23}
+.kt .kt-curve-row:nth-child(odd) .kt-curve-svg{background:#273128}
+.kt .kt-curve-point,.kt .kt-curve-handle{touch-action:none;cursor:grab}
+.kt .kt-curve-point:active,.kt .kt-curve-handle:active{cursor:grabbing}
+.kt .kt-inspector{flex:0 0 auto}
+.kt .kt-scroll{min-height:90px}
+
+/* Per-track vertical graph stretching; scale is handled by SVG coordinates. */
+.kt .kt-curve-row{position:relative}
+.kt .kt-track-height-handle{position:absolute;bottom:0;left:194px;right:0;width:calc(100% - 194px);height:12px;padding:0!important;border:0!important;border-top:1px solid #60705f!important;border-radius:0;background:rgba(129,153,132,.16)!important;color:#b1c1af!important;cursor:ns-resize!important;touch-action:none;z-index:10;line-height:8px!important;font-size:12px!important;letter-spacing:5px!important;opacity:.55}
+.kt .kt-track-height-handle:hover,.kt .kt-track-height-handle:active{opacity:1;background:rgba(150,184,154,.35)!important}
+.kt .kt-curve-svg{height:auto;min-height:0}
+@media(max-width:800px){.kt .kt-track-height-handle{left:118px;width:calc(100% - 118px)}}
+
+/* Timeline usability pass: graph-first default and unmistakable track resize grip. */
+.kt .kt-curve-row{align-items:stretch;background:#1f2922}
+.kt .kt-curve-row > .kt-curve-svg{height:100%!important;align-self:stretch;background-color:#243228}
+.kt .kt-curve-row:nth-child(odd) > .kt-curve-svg{background-color:#28362c}
+.kt .kt-curve-row .kt-sticky-label{justify-content:flex-start;padding:14px 10px 30px;gap:10px;background:#2b352d}
+.kt .kt-curve-row .kt-track-title{font-size:11px;line-height:1.35;font-weight:700;max-height:none}
+.kt .kt-track-range{font-size:10px;color:#b5c9b5}
+.kt .kt-curve-row .kt-track-label>button:not(.kt-track-title){bottom:36px}
+.kt .kt-track-height-handle{
+  position:sticky!important;left:0!important;right:auto!important;bottom:0!important;
+  flex:0 0 194px;width:194px!important;height:25px!important;
+  margin-left:-194px;padding:0 8px!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;
+  background:#5c7661!important;color:#f4fff3!important;border:1px solid #a6c4aa!important;
+  font:700 9px/1 system-ui,sans-serif!important;letter-spacing:.06em!important;
+  cursor:ns-resize!important;opacity:1!important;touch-action:none;z-index:12!important;
+}
+.kt .kt-track-height-handle:hover,.kt .kt-track-height-handle:active{background:#799983!important}
+.kt .kt-track-height-handle span:first-child{font-size:17px;font-weight:400;line-height:1}
+.kt .kt-track-height-handle span:last-child{white-space:nowrap}
+.kt .kt-ruler-row{border-bottom:1px solid #879887}
+.kt .kt-scroll{background:#1e2821}
+@media(max-width:800px){
+  .kt .kt-track-height-handle{flex-basis:118px;width:118px!important;margin-left:-118px;font-size:8px!important;gap:2px!important}
+  .kt .kt-track-height-handle span:last-child{letter-spacing:0!important}
+}
+
+/* The handle lives in the sticky module label, not beyond the wide SVG. */
+.kt .kt-curve-row .kt-track-label > .kt-track-height-handle{
+  position:absolute!important;left:0!important;right:0!important;bottom:0!important;
+  width:100%!important;height:27px!important;margin:0!important;
+  flex:none!important;padding:0 4px!important;box-sizing:border-box!important;
+}
+.kt .kt-curve-row .kt-track-label > button:not(.kt-track-title):not(.kt-track-height-handle){bottom:36px}
