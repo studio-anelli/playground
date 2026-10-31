@@ -75,6 +75,61 @@ function Knob({ name, min, max, step, value, onChange }: { name: string; min: nu
   // instead of getting lost to the displayed step size.
   const gesture=useRef<{pointerId:number;y:number;raw:number}|null>(null);
   const numberInput=useRef<HTMLInputElement>(null);
+  const wrapRef=useRef<HTMLDivElement>(null);
+  const latestKnob=useRef({min,max,step,value,onChange});
+  latestKnob.current={min,max,step,value,onChange};
+  // The caption immediately before this knob is another full drag surface.
+  // Event delegation preserves all current .kp-knob-control labels and icons.
+  useEffect(()=>{
+    const label=wrapRef.current?.previousElementSibling;
+    if(!(label instanceof HTMLElement))return;
+    const start=(e:PointerEvent)=>{
+      if(e.button!==0)return;
+      e.preventDefault();e.stopPropagation();
+      label.setPointerCapture(e.pointerId);
+      gesture.current={pointerId:e.pointerId,y:e.clientY,raw:latestKnob.current.value};
+      setDragging(true);
+    };
+    const move=(e:PointerEvent)=>{
+      const g=gesture.current;
+      if(!g||g.pointerId!==e.pointerId)return;
+      e.preventDefault();e.stopPropagation();
+      const cfg=latestKnob.current;
+      const sensitivity=e.altKey?.025:e.shiftKey?.12:1;
+      g.raw=clamp(g.raw+(g.y-e.clientY)*(cfg.max-cfg.min)/300*sensitivity,cfg.min,cfg.max);
+      g.y=e.clientY;
+      const decimals=(String(cfg.step).split(".")[1]||"").length;
+      const next=clamp(cfg.min+Math.round((g.raw-cfg.min)/cfg.step)*cfg.step,cfg.min,cfg.max);
+      cfg.onChange(Number(next.toFixed(decimals)));
+    };
+    const stop=(e:PointerEvent)=>{
+      if(gesture.current?.pointerId!==e.pointerId)return;
+      gesture.current=null;setDragging(false);
+      e.stopPropagation();
+    };
+    const exact=(e:MouseEvent)=>{
+      e.preventDefault();e.stopPropagation();
+      numberInput.current?.focus();numberInput.current?.select();
+    };
+    label.classList.add("kp-knob-drag-label");
+    label.title="Drag up/down to adjust · Shift for fine · Option/Alt for ultra fine";
+    label.addEventListener("pointerdown",start);
+    label.addEventListener("pointermove",move);
+    label.addEventListener("pointerup",stop);
+    label.addEventListener("pointercancel",stop);
+    label.addEventListener("lostpointercapture",stop);
+    label.addEventListener("dblclick",exact);
+    return ()=>{
+      label.classList.remove("kp-knob-drag-label");
+      label.removeAttribute("title");
+      label.removeEventListener("pointerdown",start);
+      label.removeEventListener("pointermove",move);
+      label.removeEventListener("pointerup",stop);
+      label.removeEventListener("pointercancel",stop);
+      label.removeEventListener("lostpointercapture",stop);
+      label.removeEventListener("dblclick",exact);
+    };
+  },[]);
   const [dragging,setDragging]=useState(false);
   const decimals=(String(step).split(".")[1]||"").length;
   const commit=(next:number)=>{
@@ -86,7 +141,7 @@ function Knob({ name, min, max, step, value, onChange }: { name: string; min: nu
     gesture.current=null;
     setDragging(false);
   };
-  return <div className={`kp-knob-wrap ${dragging?"is-dragging":""}`}>
+  return <div ref={wrapRef} className={`kp-knob-wrap ${dragging?"is-dragging":""}`}>
     <button type="button" className="kp-knob" role="slider"
       aria-label={name} aria-valuemin={min} aria-valuemax={max}
       aria-valuenow={value} aria-valuetext={String(value)}
