@@ -17,6 +17,7 @@ import { RasterCache } from "./kinetic-raster-cache";
 import { indexModulation } from "./kinetic-modulation";
 import { kineticPresets } from "./kinetic-presets";
 import { userKineticPresets } from "./kinetic-user-presets";
+import defaultKineticPreset from "./kinetic-default-preset.json";
 import KineticTimeline from "./kinetic-timeline-editor";
 import { timelineDefaults, evaluateTrack, timelineAt, parseTimeline, type TimelineData } from "./kinetic-timeline";
 import { samplingDetailScale } from "./kinetic-sampling-detail";
@@ -1009,6 +1010,27 @@ export default function KineticPatchSynth() {
     setTimelineHistory({ undo: false, redo: false });
     if (hasKeys) setPaused(false);
   };
+  const initialPresetLoaded = useRef(false);
+  useEffect(() => {
+    if(initialPresetLoaded.current)return;
+    initialPresetLoaded.current=true;
+    let active=true;
+    const initialize = async () => {
+      try {
+        const state=parsePreset(defaultKineticPreset);
+        await ensureAssets(state.customFonts,state.vertexSVG);
+        if(!active)return;
+        applyPreset(state);
+        restorePresetTimeline(parseTimeline(defaultKineticPreset.timeline));
+      } catch(error) {
+        if(active)setPresetMessage(error instanceof Error? `Default preset: ${error.message}`:"Could not load the default preset.");
+      }
+    };
+    void initialize();
+    return ()=>{active=false;initialPresetLoaded.current=false;};
+    // Initialize the bundled default once on mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
   const importPreset = async (file: File) => {
     try {
       if (file.size > 96 * 1024 * 1024) throw new Error("Preset files must be smaller than 96 MB.");
@@ -1022,7 +1044,6 @@ export default function KineticPatchSynth() {
       setPresetMessage("Preset and timeline imported. Undo restores synth settings.");
     } catch (error) { setPresetMessage(error instanceof Error ? error.message : "Could not import this preset."); }
   };
-  const loadDream = () => { setCustomFonts([]); setVertexSVG(null); setImageLayers([]); setType1On(true); setSecondType(secondTypeDefault); setStripSpacing(0); setVertexSpacing(0); setVertexScatter(0); setGlyphOrigins({}); setSamplingThicknessLinked(true); setSamplingThicknessX(1.5); setSamplingThicknessY(1.5); setTextAlign("center"); setLineHeight(1.1); setKerning("none"); setBpm(120); setWaves(dreamWaves); setValues(initial); setManual(initialManual); setModes({ sampling: false, grid: false, vertex: true, feedback: false }); setPatches(dreamPatches); setVideoPatches(videoDefaults); setSelectedVideo(null); setText("dream"); setFont("system-ui, sans-serif"); setVertex("dot"); setRepeatMode("single"); setSamplingMode("xy"); setGlyphPattern("*+o"); setBg("#000000"); setInk("#000000"); setInk2("#ffffff"); setBicolour(true); setFeedbackBlend("source-over"); setRepeatBlend("source-over"); setFeedbackTiming("free"); setFeedbackDivision("1/4"); setPaused(false); setSelected(null); };
   const changeWave = (i: number, change: Partial<Wave>) => setWaves(all => all.map((w, n) => n === i ? { ...w, ...change } : w));
   const connect = (wave: number, target: Target) => { setPatches(all => all.some(p => p.wave === wave && p.target === target) ? all : [...all, { id: `${wave}-${target}`, wave, target, amount: 50 }]); setSelected(null); setDrag(null); };
   const videoChain = readVideoChain(videoPatches);
@@ -1167,7 +1188,7 @@ export default function KineticPatchSynth() {
       <div className="kp-video-tools"><b>VIDEO</b><select aria-label="Recording duration" disabled={recording || rendering} value={recordSeconds} onChange={e => setRecordSeconds(Number(e.target.value))}><option value={5}>5 SECONDS</option><option value={10}>10 SECONDS</option><option value={20}>20 SECONDS</option></select><button disabled={rendering} className={recording ? "is-recording" : ""} onClick={() => recording ? recordingSession.current?.stop() : startRecording()}>{recording ? "STOP & SAVE" : "● RECORD"}</button><select aria-label="Render frame rate" disabled={recording || rendering} value={renderFps} onChange={e => setRenderFps(Number(e.target.value) as 30 | 60)}><option value={30}>RENDER · 30 FPS</option><option value={60}>RENDER · 60 FPS</option></select><button disabled={recording} onClick={() => rendering ? renderAbort.current?.abort() : void startVideoRender()}>{rendering ? "CANCEL RENDER" : "RENDER VIDEO"}</button><span role="status">{rendering ? `RENDERING · ${renderProgress.done} / ${renderProgress.total} frames` : recording ? `${recordElapsed.toFixed(1)} / ${recordSeconds}s` : "Current output size · MP4 / WebM"}</span>{rendering && <progress aria-label="Video render progress" value={renderProgress.done} max={renderProgress.total} />}<p>Record: live capture, 30 fps target. Render: every frame at selected FPS.</p></div>
     </section>}
     {originEditorOpen && <GlyphOriginEditor origins={glyphOrigins} onChange={setGlyphOrigins} sources={[{ name: "TYPE 1", font, weight: values.weight, text }, { name: "TYPE 2", font: secondType.font, weight: secondType.weight, text: secondType.text }]} step={values.step} mode={samplingMode} onClose={() => setOriginEditorOpen(false)} />}
-    <footer className="kp-footer"><div className="kp-preset-tools"><select aria-label="Load built-in preset" defaultValue="" onChange={e => { if (e.target.value === "dream") { loadDream(); restorePresetTimeline(timelineDefaults); setPresetMessage("Dream loaded. Undo restores your previous settings."); } const preset = [...kineticPresets, ...userKineticPresets].find(p => p.id === e.target.value); if (preset) { applyPreset(parsePreset(preset.preset)); restorePresetTimeline(parseTimeline((preset.preset as { timeline?: unknown }).timeline)); setPresetMessage(`${preset.name} loaded. Undo restores your previous settings.`); } e.target.value = ""; }}><option value="" disabled>PRESETS</option><option value="dream">Dream</option>{[...kineticPresets, ...userKineticPresets].map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select><button onClick={() => presetInput.current?.click()}>IMPORT</button><button onClick={exportPreset}>EXPORT</button><button ref={outputButton} className="kp-output-trigger" aria-expanded={outputOpen} aria-controls="kp-output-window" onClick={() => outputOpen ? closeOutput() : setOutputOpen(true)}>{rendering ? "RENDER · OUTPUT" : recording ? "● REC · OUTPUT" : "OUTPUT"}</button><input ref={presetInput} type="file" accept=".json,application/json" aria-label="Import preset file" hidden onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importPreset(file); }} /><span role="status">{presetMessage}</span></div><label>BACKGROUND <input aria-label="Background color" type="color" value={bg} onChange={e => setBg(e.target.value)} /></label><button className="kp-bicolour" aria-pressed={bicolour} onClick={() => setBicolour(v => !v)}>BI-COLOUR</button>{bicolour && <label>INK 2 <input aria-label="Second ink color" type="color" value={ink2} onChange={e => setInk2(e.target.value)} /></label>}<label>INK <input aria-label="Ink color" type="color" value={ink} onChange={e => setInk(e.target.value)} /></label></footer>
+    <footer className="kp-footer"><div className="kp-preset-tools"><select aria-label="Load built-in preset" defaultValue="" onChange={e => { const presets = [{id:"playground-v3",name:"Playground v3",preset:defaultKineticPreset},...kineticPresets,...userKineticPresets]; const preset = presets.find(p => p.id === e.target.value); if (preset) { const state=parsePreset(preset.preset); void ensureAssets(state.customFonts,state.vertexSVG).then(()=>{applyPreset(state);restorePresetTimeline(parseTimeline((preset.preset as { timeline?: unknown }).timeline));setPresetMessage(`${preset.name} loaded. Undo restores your previous settings.`);}).catch(err=>setPresetMessage(err instanceof Error?err.message:"Could not load preset.")); } e.target.value = ""; }}><option value="" disabled>PRESETS</option><option value="playground-v3">Playground v3 · DEFAULT</option>{[...kineticPresets, ...userKineticPresets].map(p => <option key={p.id} value={p.id}>{p.name}</option>)}</select><button onClick={() => presetInput.current?.click()}>IMPORT</button><button onClick={exportPreset}>EXPORT</button><button ref={outputButton} className="kp-output-trigger" aria-expanded={outputOpen} aria-controls="kp-output-window" onClick={() => outputOpen ? closeOutput() : setOutputOpen(true)}>{rendering ? "RENDER · OUTPUT" : recording ? "● REC · OUTPUT" : "OUTPUT"}</button><input ref={presetInput} type="file" accept=".json,application/json" aria-label="Import preset file" hidden onChange={e => { const file = e.currentTarget.files?.[0]; e.currentTarget.value = ""; if (file) void importPreset(file); }} /><span role="status">{presetMessage}</span></div><label>BACKGROUND <input aria-label="Background color" type="color" value={bg} onChange={e => setBg(e.target.value)} /></label><button className="kp-bicolour" aria-pressed={bicolour} onClick={() => setBicolour(v => !v)}>BI-COLOUR</button>{bicolour && <label>INK 2 <input aria-label="Second ink color" type="color" value={ink2} onChange={e => setInk2(e.target.value)} /></label>}<label>INK <input aria-label="Ink color" type="color" value={ink} onChange={e => setInk(e.target.value)} /></label></footer>
   </main>;
 }
 
