@@ -2,18 +2,18 @@
 import { useRef, type PointerEvent as ReactPointerEvent } from "react";
 import type { Keyframe, TimelineData, TimelineTrack } from "./kinetic-timeline";
 
-const HEIGHT=116, TOP=12, BOTTOM=104, SPAN=BOTTOM-TOP;
 const clamp=(n:number,a:number,b:number)=>Math.min(b,Math.max(a,n));
 const round=(n:number)=>Math.round(n*100)/100;
 type Props={
   track:TimelineTrack; min:number;max:number;discrete:boolean;
-  duration:number;zoom:number;tick:number;time:number;
+  duration:number;zoom:number;tick:number;time:number;height:number;
   selectedTime:number|null; onSelect:(time:number)=>void;
   onChange:(next:TimelineTrack)=>void; onSeek:(time:number)=>void;
   onAdd:(time:number,value:number)=>void;
 };
 type Drag={kind:"point"|"out"|"in";index:number;startX:number;startY:number;frames:Keyframe[];pointerId:number};
-export default function KineticCurveLane({track,min,max,discrete,duration,zoom,tick,time,selectedTime,onSelect,onChange,onSeek,onAdd}:Props){
+export default function KineticCurveLane({track,min,max,discrete,duration,zoom,tick,time,height,selectedTime,onSelect,onChange,onSeek,onAdd}:Props){
+  const HEIGHT=height, TOP=12, BOTTOM=height-12, SPAN=BOTTOM-TOP;
   const svg=useRef<SVGSVGElement>(null);
   const drag=useRef<Drag|null>(null);
   const width=Math.max(250,duration*zoom),delta=Math.max(.00001,max-min);
