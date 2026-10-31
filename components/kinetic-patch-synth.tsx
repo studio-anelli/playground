@@ -1078,8 +1078,7 @@ export default function KineticPatchSynth() {
     <small className="kp-chain-hint">Independent order per type · effect modules are shared · drag a row or use ↑ ↓</small>
     {chainError&&<p role="alert" className="kp-chain-error">{chainError}</p>}
     {videoChain===null?<div className="kp-chain-repair">
-      <span>This route uses complex or branching patch connections.</span>
-      <button onClick={()=>setVideoChain([])}>RESET THIS TYPE → CANVAS</button>
+      <span>This route uses custom or branching cables. Disconnect those cables on the patch bay before editing the ordered chain, so they are not lost.</span>
     </div>:<>
       <div className="kp-chain-start">TYPE {chainTab==="typography"?"1":"2"} {videoPatches.some(p=>p.source===chainTab)?"· CONNECTED":"· NOT CONNECTED"}</div>
       {!videoPatches.some(p=>p.source===chainTab)&&<button className="kp-chain-connect" onClick={()=>setVideoChain(videoChain)}>CONNECT TYPE {chainTab==="typography"?"1":"2"} → CANVAS</button>}
