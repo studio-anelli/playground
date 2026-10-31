@@ -43,7 +43,7 @@ const extraSpecs = [
   ["tracking", -10, 30], ["samplingThicknessX", 0, 10], ["samplingThicknessY", 0, 10],
   ["stripSpacing", 0, 10], ["vertexSpacing", 0, 10], ["vertexScatter", 0, 180],
   ["lineHeight", 0.5, 3], ["secondSize", 5, 75], ["secondWeight", 100, 900],
-  ["secondX", -100, 100], ["secondY", -100, 100], ["secondTracking", -10, 30],
+  ["secondX", -100, 100], ["secondY", -100, 100], ["secondRotation", -180, 180], ["secondTracking", -10, 30],
   ["secondLineHeight", 0.5, 3],
 ] as const;
 const switchTargets = ["vertexSource", "motionMode", "motionBlend", "feedbackBlendMode", "samplingAxes", "textAlignMode", "kerningMode", "feedbackTimingMode"] as const;
@@ -322,7 +322,7 @@ export default function KineticPatchSynth() {
     if(key==="textAlignMode") return ["left","center","right"].indexOf(textAlign);
     if(key==="kerningMode") return ["none","normal","optical"].indexOf(kerning);
     if(key==="feedbackTimingMode") return ["free","sync"].indexOf(feedbackTiming);
-    const extras:Record<string,number>={samplingThicknessX,samplingThicknessY,stripSpacing,vertexSpacing,vertexScatter,lineHeight,secondSize:secondType.size,secondWeight:secondType.weight,secondX:secondType.x,secondY:secondType.y,secondTracking:secondType.tracking,secondLineHeight:secondType.lineHeight};
+    const extras:Record<string,number>={samplingThicknessX,samplingThicknessY,stripSpacing,vertexSpacing,vertexScatter,lineHeight,secondSize:secondType.size,secondWeight:secondType.weight,secondX:secondType.x,secondY:secondType.y,secondRotation:secondType.rotation,secondTracking:secondType.tracking,secondLineHeight:secondType.lineHeight};
     return extras[key]??0;
   };
   const [manual, setManual] = useState(initialManual);
@@ -487,7 +487,7 @@ export default function KineticPatchSynth() {
         samplingThicknessX:n=>{s.samplingThicknessX=n;},samplingThicknessY:n=>{s.samplingThicknessY=n;},
         stripSpacing:n=>{s.stripSpacing=n;},vertexSpacing:n=>{s.vertexSpacing=n;},vertexScatter:n=>{s.vertexScatter=n;},lineHeight:n=>{s.lineHeight=n;},
         secondSize:n=>{s.secondType.size=n;},secondWeight:n=>{s.secondType.weight=n;},secondX:n=>{s.secondType.x=n;},
-        secondY:n=>{s.secondType.y=n;},secondTracking:n=>{s.secondType.tracking=n;},secondLineHeight:n=>{s.secondType.lineHeight=n;}
+        secondY:n=>{s.secondType.y=n;},secondRotation:n=>{s.secondType.rotation=n;},secondTracking:n=>{s.secondType.tracking=n;},secondLineHeight:n=>{s.secondType.lineHeight=n;}
       };
       for(const [key,set] of Object.entries(extended)) {const value=animated.get(key);if(value!==undefined)set(value);}
       s.vertex=selectedValue("vertexSource",s.vertexSVG?["line","dot","square","glyph","custom"]:["line","dot","square","glyph"],s.vertex);
