@@ -396,3 +396,30 @@
 .kt .kt-track-height-handle:hover,.kt .kt-track-height-handle:active{opacity:1;background:rgba(150,184,154,.35)!important}
 .kt .kt-curve-svg{height:auto;min-height:0}
 @media(max-width:800px){.kt .kt-track-height-handle{left:118px;width:calc(100% - 118px)}}
+
+/* Timeline usability pass: graph-first default and unmistakable track resize grip. */
+.kt .kt-curve-row{align-items:stretch;background:#1f2922}
+.kt .kt-curve-row > .kt-curve-svg{height:100%!important;align-self:stretch;background-color:#243228}
+.kt .kt-curve-row:nth-child(odd) > .kt-curve-svg{background-color:#28362c}
+.kt .kt-curve-row .kt-sticky-label{justify-content:flex-start;padding:14px 10px 30px;gap:10px;background:#2b352d}
+.kt .kt-curve-row .kt-track-title{font-size:11px;line-height:1.35;font-weight:700;max-height:none}
+.kt .kt-track-range{font-size:10px;color:#b5c9b5}
+.kt .kt-curve-row .kt-track-label>button:not(.kt-track-title){bottom:36px}
+.kt .kt-track-height-handle{
+  position:sticky!important;left:0!important;right:auto!important;bottom:0!important;
+  flex:0 0 194px;width:194px!important;height:25px!important;
+  margin-left:-194px;padding:0 8px!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;
+  background:#5c7661!important;color:#f4fff3!important;border:1px solid #a6c4aa!important;
+  font:700 9px/1 system-ui,sans-serif!important;letter-spacing:.06em!important;
+  cursor:ns-resize!important;opacity:1!important;touch-action:none;z-index:12!important;
+}
+.kt .kt-track-height-handle:hover,.kt .kt-track-height-handle:active{background:#799983!important}
+.kt .kt-track-height-handle span:first-child{font-size:17px;font-weight:400;line-height:1}
+.kt .kt-track-height-handle span:last-child{white-space:nowrap}
+.kt .kt-ruler-row{border-bottom:1px solid #879887}
+.kt .kt-scroll{background:#1e2821}
+@media(max-width:800px){
+  .kt .kt-track-height-handle{flex-basis:118px;width:118px!important;margin-left:-118px;font-size:8px!important;gap:2px!important}
+  .kt .kt-track-height-handle span:last-child{letter-spacing:0!important}
+}
