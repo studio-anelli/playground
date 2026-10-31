@@ -1081,7 +1081,8 @@ export default function KineticPatchSynth() {
       <span>This route uses complex or branching patch connections.</span>
       <button onClick={()=>setVideoChain([])}>RESET THIS TYPE → CANVAS</button>
     </div>:<>
-      <div className="kp-chain-start">TYPE {chainTab==="typography"?"1":"2"}</div>
+      <div className="kp-chain-start">TYPE {chainTab==="typography"?"1":"2"} {videoPatches.some(p=>p.source===chainTab)?"· CONNECTED":"· NOT CONNECTED"}</div>
+      {!videoPatches.some(p=>p.source===chainTab)&&<button className="kp-chain-connect" onClick={()=>setVideoChain(videoChain)}>CONNECT TYPE {chainTab==="typography"?"1":"2"} → CANVAS</button>}
       {videoChain.map((module,index)=><div className="kp-chain-row" key={module} draggable
         onDragStart={e=>{chainDrag.current=module;e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",module);}}
         onDragEnd={()=>{chainDrag.current=null;}}
