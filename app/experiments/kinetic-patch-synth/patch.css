@@ -431,3 +431,12 @@
   flex:none!important;padding:0 4px!important;box-sizing:border-box!important;
 }
 .kt .kt-curve-row .kt-track-label > button:not(.kt-track-title):not(.kt-track-height-handle){bottom:36px}
+
+/* Independent typography video-chain tabs */
+.kp-chain .kp-chain-tabs{display:flex;gap:5px;margin:9px 0 6px;border-bottom:1px solid #555e56}
+.kp-chain .kp-chain-tabs button{flex:1;white-space:nowrap;border:1px solid #5a685e;border-bottom:0;background:#28332c;color:#d0d7cd;padding:8px 9px;font-weight:700;font-size:10px}
+.kp-chain .kp-chain-tabs button[aria-selected=true]{background:#d6ded4;color:#1e2820}
+.kp-chain .kp-chain-hint{display:block;color:#b8c9bb;font-size:10px;line-height:1.45;margin:5px 0 10px}
+.kp-chain .kp-chain-start{font-weight:700;color:#d5e6d7;border:1px solid #566b5c;padding:7px 9px;background:#27362b;margin-top:10px}
+.kp-chain .kp-chain-repair{display:grid;gap:8px;padding:12px 0}
+.kp-chain .kp-chain-error{color:#ffb9a6;font-size:11px}
