@@ -49,16 +49,48 @@ export function readSourceVideoChain(patches: readonly VideoPatch[], root: 'typo
   }
   return null;
 }
-/** Rebuild independent branches without stealing modules from the other type. */
-export function writeSourceVideoChain(patches:readonly VideoPatch[],root:'typography'|'typography2', chain:readonly VideoModule[]):VideoPatch[]{
+/** Reorder a typography route without deleting shared-module connections.
+ *  A module is a single effect node that may receive both typography sources.
+ *  A proposed route is rejected only when it would make an invalid/cyclic graph.
+ */
+export function writeSourceVideoChain(
+  patches:readonly VideoPatch[],
+  root:'typography'|'typography2',
+  chain:readonly VideoModule[]
+):VideoPatch[]{
+  if(new Set(chain).size!==chain.length||chain.some(m=>!videoModules.includes(m)))
+    throw new Error('A video chain can use each known module at most once.');
   const opposite=root==='typography'?'typography2':'typography';
-  const other=readSourceVideoChain(patches,opposite);
   const current=readSourceVideoChain(patches,root);
-  if(current===null)throw new Error('This Type route has branches. Disconnect manual cables before rebuilding the chain.');
-  const expected=(patches.some(p=>p.source===root)?current.length+1:0)+(patches.some(p=>p.source===opposite)&&other!==null?other.length+1:0);
-  if(expected!==patches.length)throw new Error('Additional manual video cables exist. Disconnect them before editing the independent chains.');
-  if(other===null)throw new Error('The other route contains complex patching; simplify it before editing chains.');
-  if(chain.some(m=>other.includes(m)))throw new Error('A module can belong to only one independent typography chain.');
-  const updated=[...writeVideoChain(chain,root),...(patches.some(p=>p.source===opposite)?writeVideoChain(other,opposite):[])];
+  const other=readSourceVideoChain(patches,opposite);
+  if(current===null||other===null)
+    throw new Error('Custom branching cables are present. Disconnect them before using the ordered chain editor.');
+
+  // Preserve outbound connections of modules removed from this route if Type 2
+  // (or Type 1) also uses them. Replace every link on the requested route.
+  const otherModules=new Set(other);
+  const replaced=new Set<VideoSource>([
+    root,
+    ...chain,
+    ...current.filter(m=>!otherModules.has(m))
+  ]);
+  const updated:VideoPatch[]=[
+    ...patches.filter(p=>!replaced.has(p.source)),
+    ...writeVideoChain(chain,root)
+  ];
+  const sources=new Set<string>();
+  for(const p of updated){
+    if(sources.has(p.source))throw new Error('A shared effect cannot send output to two different destinations. Simplify the other route first.');
+    sources.add(p.source);
+  }
+  for(const target of [...videoModules,'canvas'] as VideoTarget[]){
+    if(updated.filter(p=>p.target===target).length>2)
+      throw new Error('Each effect input supports at most two incoming video connections.');
+  }
+  const next=readSourceVideoChain(updated,root);
+  if(next===null||next.join('|')!==chain.join('|'))
+    throw new Error('This order conflicts with the other typography chain or creates a feedback loop.');
+  if(readSourceVideoChain(updated,opposite)===null)
+    throw new Error('This order would create a loop in the other typography chain.');
   return updated;
 }
