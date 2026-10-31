@@ -170,6 +170,7 @@ export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,on
           <span className="kt-track-range">{opt?.min??0} … {opt?.max??100}</span>
           <button title="Add keyframe at playhead" onClick={()=>addKey(track.target,time)}>◇</button>
           <button title="Remove track" onClick={()=>{onChange({...data,tracks:data.tracks.filter(t=>t.target!==track.target)});if(selectedKey?.target===track.target)setSelectedKey(null);}}>×</button>
+          <button className="kt-track-height-handle" aria-label={`Resize ${opt?.label??track.target} curve height`} title="Drag up or down to resize this curve track" onPointerDown={event=>startTrackResize(event,track.target)} onPointerMove={moveTrackResize} onPointerUp={endTrackResize} onPointerCancel={endTrackResize}><span>↕</span><span>DRAG TO RESIZE</span></button>
         </div>
         <KineticCurveLane track={track} min={opt?.min??0} max={opt?.max??100} discrete={!!opt?.discrete} duration={data.duration} zoom={zoom} tick={tick} time={time} height={trackHeights[track.target]??116}
           selectedTime={selectedKey?.target===track.target?selectedKey.time:null}
@@ -183,7 +184,7 @@ export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,on
             onChange({...data,tracks:data.tracks.map(t=>t.target===track.target?{...t,frames}:t)});
             setSelectedKey({target:track.target,time:keyTime});setPasteTarget(track.target);onSeek(keyTime);
           }}/>
-        <button className="kt-track-height-handle" aria-label={`Resize ${opt?.label??track.target} curve height`} title="Drag up or down to resize this curve track" onPointerDown={event=>startTrackResize(event,track.target)} onPointerMove={moveTrackResize} onPointerUp={endTrackResize} onPointerCancel={endTrackResize}><span>↕</span><span>DRAG TO RESIZE</span></button>
+        
       </div>})}
     </div>
     {copiedKey&&<div className="kt-clipboard">COPIED · {options.find(o=>o.key===copiedKey.target)?.label||copiedKey.target} · {copiedKey.frame.value} <span>Paste at {time.toFixed(2)}s {pasteTarget&&pasteTarget!==copiedKey.target?`→ ${options.find(o=>o.key===pasteTarget)?.label||pasteTarget}`:""} · click a track name to choose destination</span></div>}
