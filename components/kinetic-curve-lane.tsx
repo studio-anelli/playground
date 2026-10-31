@@ -85,7 +85,7 @@ export default function KineticCurveLane({track,min,max,discrete,duration,zoom,t
     {frames.length===1&&<path d={`M 0 ${y(frames[0].value)} H ${width}`} stroke="#89afea" strokeWidth="1.8" fill="none"/>}
     {parts.map(part=><path key={part.i} d={part.path} fill="none" stroke="#8eafea" strokeWidth="2" strokeLinejoin="round"/>)}
     <line x1={x(time)} x2={x(time)} y1="0" y2={HEIGHT} stroke="#ffbf72" strokeWidth="1.1" pointerEvents="none"/>
-    {parts.filter(p=>p.bezier&&(Math.abs(selectedTime??-1-p.first.time)<.025||Math.abs(selectedTime??-1-p.last.time)<.025)).map(p=><g key={`handle-${p.i}`}>
+    {parts.filter(p=>p.bezier&&(selectedTime!==null&&(Math.abs(selectedTime-p.first.time)<.025||Math.abs(selectedTime-p.last.time)<.025))).map(p=><g key={`handle-${p.i}`}>
       <path d={`M ${p.x0} ${p.y0} L ${p.p1.x} ${p.p1.y} M ${p.x3} ${p.y3} L ${p.p2.x} ${p.p2.y}`} fill="none" stroke="#a9b9a5" strokeDasharray="3 3"/>
       <circle className="kt-curve-handle" cx={p.p1.x} cy={p.p1.y} r="5.5" stroke="#c7d7fa" strokeWidth="1.5" fill="#27362b" onPointerDown={e=>begin(e,"out",p.i)} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop}/>
       <circle className="kt-curve-handle" cx={p.p2.x} cy={p.p2.y} r="5.5" stroke="#c7d7fa" strokeWidth="1.5" fill="#27362b" onPointerDown={e=>begin(e,"in",p.i+1)} onPointerMove={move} onPointerUp={stop} onPointerCancel={stop}/>
