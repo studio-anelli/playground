@@ -14,6 +14,22 @@ export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,on
   const [panelPosition,setPanelPosition]=useState<{x:number;y:number}|null>(null);
   const [panelSize,setPanelSize]=useState({width:Math.min(1050,typeof window==="undefined"?1050:window.innerWidth-36),height:355});
   const [moduleTab,setModuleTab]=useState("SAMPLING");
+  const [trackHeights,setTrackHeights]=useState<Record<string,number>>({});
+  const heightDrag=useRef<{target:string;startY:number;original:number;pointerId:number}|null>(null);
+  const startTrackResize=(event:ReactPointerEvent<HTMLButtonElement>,target:string)=>{
+    if(event.button!==0)return;
+    event.preventDefault();event.stopPropagation();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    heightDrag.current={target,startY:event.clientY,original:trackHeights[target]??116,pointerId:event.pointerId};
+  };
+  const moveTrackResize=(event:ReactPointerEvent<HTMLButtonElement>)=>{
+    const active=heightDrag.current;
+    if(!active||active.pointerId!==event.pointerId)return;
+    setTrackHeights(heights=>({...heights,[active.target]:Math.max(90,Math.min(480,Math.round(active.original+event.clientY-active.startY)))}));
+  };
+  const endTrackResize=(event:ReactPointerEvent<HTMLButtonElement>)=>{
+    if(heightDrag.current?.pointerId===event.pointerId)heightDrag.current=null;
+  };
   const moduleTabs=["SAMPLING","MOTION","VERTEX","TYPOGRAPHY","FEEDBACK"] as const;
   const moduleOf=(key:string,label:string)=>{
     const upper=label.toUpperCase();
@@ -147,14 +163,14 @@ export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,on
       <div className="kt-ruler-row"><div className="kt-sticky-label">PARAMETER / KEYFRAMES</div><div className="kt-time-ruler" style={{width}} onPointerDown={rulerDown} onPointerMove={laneMove} onPointerUp={endPointer} onPointerCancel={endPointer}>
         {ticks.map(t=><span key={t} className="kt-tick" style={{left:t*zoom}}>{t}s</span>)}<i className="kt-playhead" style={{left:time*zoom}}/>
       </div></div>
-      {data.tracks.map(track=>{const opt=options.find(o=>o.key===track.target);return <div className="kt-track-row kt-curve-row" key={track.target}>
+      {data.tracks.map(track=>{const opt=options.find(o=>o.key===track.target);return <div className="kt-track-row kt-curve-row" key={track.target} style={{height:trackHeights[track.target]??116,minHeight:trackHeights[track.target]??116}}>
         <div className="kt-sticky-label kt-track-label">
           <button className="kt-track-title" onClick={()=>setPasteTarget(track.target)} title={opt?.label}>{opt?.label||track.target}</button>
           <span className="kt-track-range">{opt?.min??0} … {opt?.max??100}</span>
           <button title="Add keyframe at playhead" onClick={()=>addKey(track.target,time)}>◇</button>
           <button title="Remove track" onClick={()=>{onChange({...data,tracks:data.tracks.filter(t=>t.target!==track.target)});if(selectedKey?.target===track.target)setSelectedKey(null);}}>×</button>
         </div>
-        <KineticCurveLane track={track} min={opt?.min??0} max={opt?.max??100} discrete={!!opt?.discrete} duration={data.duration} zoom={zoom} tick={tick} time={time}
+        <KineticCurveLane track={track} min={opt?.min??0} max={opt?.max??100} discrete={!!opt?.discrete} duration={data.duration} zoom={zoom} tick={tick} time={time} height={trackHeights[track.target]??116}
           selectedTime={selectedKey?.target===track.target?selectedKey.time:null}
           onSelect={keyTime=>{setSelectedKey({target:track.target,time:keyTime});setPasteTarget(track.target);}}
           onChange={next=>onChange({...data,tracks:data.tracks.map(t=>t.target===track.target?next:t)})}
@@ -166,6 +182,7 @@ export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,on
             onChange({...data,tracks:data.tracks.map(t=>t.target===track.target?{...t,frames}:t)});
             setSelectedKey({target:track.target,time:keyTime});setPasteTarget(track.target);onSeek(keyTime);
           }}/>
+        <button className="kt-track-height-handle" aria-label={`Resize ${opt?.label??track.target} curve height`} title="Drag vertically to enlarge this graph for fine editing" onPointerDown={event=>startTrackResize(event,track.target)} onPointerMove={moveTrackResize} onPointerUp={endTrackResize} onPointerCancel={endTrackResize}>⋮⋮</button>
       </div>})}
     </div>
     {copiedKey&&<div className="kt-clipboard">COPIED · {options.find(o=>o.key===copiedKey.target)?.label||copiedKey.target} · {copiedKey.frame.value} <span>Paste at {time.toFixed(2)}s {pasteTarget&&pasteTarget!==copiedKey.target?`→ ${options.find(o=>o.key===pasteTarget)?.label||pasteTarget}`:""} · click a track name to choose destination</span></div>}
