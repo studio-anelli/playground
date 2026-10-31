@@ -82,7 +82,7 @@ export default function KineticTimeline({data,onChange,canUndo,canRedo,onUndo,on
       setSelectedKey({target:d.target,time:nextTime});onSeek(nextTime);
     }
   };
-  const addKey=(target:string,t:number)=>{const opt=options.find(o=>o.key===target);const keyTime=round(clamp(t,0,data.duration));onChange(upsertKey(data,target,keyTime,readValue(target),opt?.discrete?"hold":"linear"));setSelectedKey({target,time:keyTime});onSeek(keyTime);};
+  const addKey=(target:string,t:number)=>{const opt=options.find(o=>o.key===target);const keyTime=round(clamp(t,0,data.duration));onChange(upsertKey(data,target,keyTime,readValue(target),opt?.discrete?"hold":"bezier"));setSelectedKey({target,time:keyTime});onSeek(keyTime);};
   const copyKey=()=>{
     if(!selectedKey||!selectedFrame)return;
     setCopiedKey({target:selectedKey.target,frame:{
