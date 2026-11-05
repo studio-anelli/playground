@@ -13,7 +13,7 @@ export type Experiment = {
 
 const experimentCatalog: Experiment[] = [
   {
-    id: "REC-12",
+    id: "REC-11",
     slug: "durf-dots",
     title: "DURF / DOT SYSTEM",
     kind: "tool",
@@ -21,16 +21,6 @@ const experimentCatalog: Experiment[] = [
     year: "2026",
     tags: ["dot matrix", "generative graphics", "SVG / video"],
     summary: "A generative dot-field composer with patterns, pointer interaction, motion playback and SVG, PNG and video export.",
-  },
-  {
-    id: "REC-11",
-    slug: "grid-sections",
-    title: "GRID / SECTIONS",
-    kind: "tool",
-    status: "public",
-    year: "2026",
-    tags: ["shape builder", "geometric grid", "SVG"],
-    summary: "An editable square-and-circle grid for colour composition, directional island generation and precise SVG output.",
   },
   {
     id: "REC-10",
