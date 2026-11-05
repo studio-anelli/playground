@@ -106,7 +106,7 @@ export default function DurfDotsLab(){
   const start=performance.now();const duration=c.videoDuration*1000;const run=(now:number)=>{const t=clamp((now-start)/duration,0,1);draw(ctx,renderedDots(arr,c,t,{x:0,y:0,active:false}),c);if(t<1&&recorder.state==="recording")requestAnimationFrame(run);else if(recorder.state==="recording"){window.setTimeout(()=>{if(recorder.state==="recording")recorder.stop();setPlaying(wasPlaying)},100)}};requestAnimationFrame(run);
  };
  const onPointer=(e:React.PointerEvent<SVGSVGElement>)=>{const b=e.currentTarget.getBoundingClientRect();setPointer({x:(e.clientX-b.left)/b.width*cfg.width,y:(e.clientY-b.top)/b.height*cfg.height,active:true})};
- return <main className="dd"><style>{css}</style><header className="dd-head"><div><small>ANELLI STUDIO / PLAYGROUND / EXPERIMENT</small><h1>DURF / DOT SYSTEM</h1></div><span className="dd-badge">REC-12 · BETA</span><Link href="/">← INDEX</Link></header>
+ return <main className="dd"><style>{css}</style><header className="dd-head"><div><small>ANELLI STUDIO / PLAYGROUND / EXPERIMENT</small><h1>DURF / DOT SYSTEM</h1></div><span className="dd-badge">REC-11 · BETA</span><Link href="/">← INDEX</Link></header>
  <div className="dd-shell"><div className="dd-main"><div className="dd-view" style={{background:cfg.transparent?"repeating-conic-gradient(#ddd 0% 25%,#fff 0% 50%) 50% / 24px 24px":cfg.background}}>
  <svg ref={svgRef} viewBox={`0 0 ${cfg.width} ${cfg.height}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive dot composition" onPointerMove={onPointer} onPointerLeave={()=>setPointer(p=>({...p,active:false}))}>
  {visible.map((d,i)=><circle key={i} cx={number(d.x)} cy={number(d.y)} r={number(d.radius)} fill={cfg.foreground}/>)}</svg>
