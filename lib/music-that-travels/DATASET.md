@@ -1,6 +1,6 @@
 # Music That Travels · saved collection dataset
 
-Two independent experiences use the same source snapshot. Geography is `/geography`; the retained 100-record chromatic study is `/chromatic`. `/` is the experiment entry point. No Playground production changes are included in this checkout.
+Two independent experiences use the same source snapshot. Geography is `/geography`; the retained 100-record chromatic study is `/chromatic`. `/` is the experiment entry point. Playground REC-12 serves these pages under `/experiments/music-that-travels`.
 
 ## Identity and eligibility
 
@@ -30,11 +30,11 @@ The geographic UI reads `/api/atlas`, a stable snapshot. It does not fetch all e
 
 Geography displays every eligible copy individually. A seeded random scatter and collision separation give records equal visual priority. Placement is approximate, becomes relatively tighter to the geographic anchor at higher zoom, and never implies street-level accuracy. Reshuffle changes the seed. Documented traces remain visible.
 
-## Musical-association pilot
+## Reviewed associations and the original pilot
 
-`artist-origins.json` records reviewed Discogs artist IDs matched to named artists, each with typed, sourced geographic associations. It distinguishes associated areas, formative musical scenes, group formation, and documented later bases. `origin-pilot.json` joins those associations and nine explicitly geographic compilations to 100 distinct collection editions (102 copy instances), all also having known edition markets. Both geographic modes use this same sample. MusicBrainz country area is labelled an associated area, never silently promoted to band formation, birthplace or a release-date recording location. Original studio evidence and the full collection snapshot remain intact. Multiple places for collaborations and compilations are retained as distinct map positions. Sources include MusicBrainz (core artist-area data), first-party artist/label bios, interviews and catalogue documentation.
+`artist-origins.json` records reviewed Discogs artist IDs matched to named artists, each with typed, sourced geographic associations. It distinguishes associated areas, formative musical scenes, group formation, and documented later bases. `origin-pilot.json` joins those associations and nine explicitly geographic compilations to 100 distinct collection editions (102 copy instances), all also having known edition markets. The pilot remains a regression fixture; the current Geography screen loads all 610 entries. MusicBrainz country area is labelled an associated area, never silently promoted to band formation, birthplace or a release-date recording location. Original studio evidence and the full collection snapshot remain intact. Multiple places for collaborations and compilations are retained as distinct map positions. Sources include MusicBrainz (core artist-area data), first-party artist/label bios, interviews and catalogue documentation.
 
-Rebuild the pilot with `python3 scripts/build-origin-pilot.py`, then build the Worker with `python3 scripts/prepare-worker.py`. No artist lookup or geographic reinterpretation runs on page load. The MusicBrainz API was inaccessible from the execution environment during this pilot, so artist matches and associated-area fields were reviewed through its public indexed pages instead.
+Apply reviewed associations to every matching collection edition with `python3 lib/music-that-travels/prepare-origins.py`, then build the Worker with `python3 lib/music-that-travels/build.py`. No artist lookup or geographic reinterpretation runs on page load. The MusicBrainz API was inaccessible from the execution environment during this pilot, so artist matches and associated-area fields were reviewed through its public indexed pages instead.
 
 ## Zoom-aware geography
 
@@ -49,3 +49,7 @@ Travel lines are omitted for matching named places, locations within roughly 20 
 Cover spacing now increases by zoom tier (34 / 72 / 140 screen units as a target), while centers continue to respect national polygons. Adaptive artwork caps are 76 / 168 / 280 units, reduced by actual neighbour space and viewport margins. Covers near the title and navigation margins are reduced or omitted until panned into view. Larger cards use a separate cached `/api/artwork/:id` proxy for the collection’s larger image URL, with thumbnail fallback. Original collection and origin associations are unchanged.
 
 The current visual pass uses more generous spacing, larger minimum covers, a quieter base map and faint background traces. Hovering an individual cover brings it above adjacent artwork; keyboard selection uses the highlighted foreground cover. Camera and national-position constraints are unchanged.
+
+## Full-collection Geography
+
+The current map retains all 610 entries / 608 editions. Edition markets place 600 entries (598 editions); 10 stay unplaced. `origin-collection.json` applies reviewed artist IDs and explicit compilation overrides across the full snapshot, retaining the pilot’s curated associations. This covers 106 entries / 104 editions. The remaining 504 entries are available in the music unplaced tray, and their panels still show edition metadata. Missing collaborators are labelled rather than assigned another artist’s location. No country, studio or genre is inferred as an artist origin. Chromatic remains its separate 100-record trial.
