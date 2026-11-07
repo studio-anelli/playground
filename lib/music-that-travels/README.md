@@ -3,7 +3,7 @@
 Two independent HTML experiences served through a namespaced Next/Vinext route.
 
 - `/experiments/music-that-travels`: entry screen
-- `/experiments/music-that-travels/geography`: full saved collection: 610 entries / 608 editions; 600 entries have edition markets, 106 have reviewed artist/scene associations
+- `/experiments/music-that-travels/geography`: full saved collection: 610 entries / 608 editions; 600 entries have edition markets, 118 have sourced cultural connections
 - `/experiments/music-that-travels/chromatic`: original 100-record artwork colour trial
 - `/experiments/music-that-travels/dataset`: coverage and criteria
 
@@ -26,3 +26,11 @@ Wheel zoom uses normalized pixel magnitude rather than a fixed step per event. T
 ## Dense overview rendering
 
 While moving a world-level view with more than 180 eligible entries, reuse the last exact marker/route/traveler paint through a shared affine camera transform. Each motion frame writes the map transform and three overlay transforms instead of walking the cover DOM. At gesture end, drag release, perspective/selection change, or entry into country zoom, clear the temporary transforms and redraw exact positions. Covers and their independent click/keyboard targets remain present. Dense overview artwork disables drop-shadow filters on the large sprite images, avoiding hundreds of filtered surfaces. Persistent marker child references and unchanged attribute checks reduce settled/per-record work. `tests/dense-overview.mjs` checks constant layer writes, mapping and exit conditions.
+
+## Cultural threads
+
+Each collection entry has one overview anchor. Its sourced relationships live in `origin-collection.json.records[id].threads`: stable id, kind (`artist`, `repertoire`, `recording`), relation verb, subject, place/coordinates/precision, source, optional period and note. Legacy artist/compilation associations and reviewed recording evidence are converted by `prepare-origins.py`. `cultural-threads.json` supplies explicitly reviewed artist and release-specific claims. Country repertoire links stay country-level; no nationality or genre inference runs.
+
+The first version contains 137 threads across 116 editions / 118 entries. One selected cover reveals typed map endpoints and matching source cards. Selecting a thread highlights and frames it; Show all restores the set. Artist, repertoire, recording and edition-market edges keep different meanings, colours and labels; these are relationships, not a literal travel itinerary. Edition markets retain their separate lens. Query `?record=<Discogs release ID>&scale=music` opens a selected record for review.
+
+Validation: `tests/cultural-threads.mjs` verifies provenance, kinds, one overview cover per entry, separation of Altın Gün’s Amsterdam base / Turkish repertoire / Swiss edition market, Sun Ra’s ensemble association / Milan performance, and avoidance of title-based artist inheritance. Artist-ID matching keeps Sun Ra and The Sun Ra Arkestra distinct identities with explicit sourced connections.

@@ -1,6 +1,6 @@
 {
-  "schema_version": 2,
-  "criteria": "Musical association, group formation and documented scene. Never substitute studio or edition country. Associated areas and later bases are labelled explicitly, not presented as release-date origins.",
+  "schema_version": 3,
+  "criteria": "Cultural threads are typed, sourced relationships. They are not a physical itinerary. A broad territory is not promoted to a city. No birthplace, nationality, title or genre is inferred as musical heritage.",
   "ids": [
     110,
     944,
@@ -18,6 +18,7 @@
     567634,
     697572,
     805316,
+    962321,
     981136,
     985747,
     1027491,
@@ -30,11 +31,13 @@
     1614712,
     1704802,
     2045030,
+    2071439,
     2214344,
     2230011,
     2543335,
     2578052,
     2936028,
+    2981774,
     3146173,
     3558397,
     3835570,
@@ -42,6 +45,7 @@
     3880099,
     4330903,
     4619489,
+    5035765,
     5156837,
     6127229,
     6912363,
@@ -57,6 +61,7 @@
     8539380,
     8610636,
     8630272,
+    8786827,
     8800233,
     8807880,
     8872804,
@@ -69,8 +74,10 @@
     9425519,
     9698138,
     9992673,
+    10395690,
     10496968,
     10559651,
+    10676369,
     10708678,
     10883955,
     11009929,
@@ -78,6 +85,7 @@
     11573136,
     11636825,
     11740322,
+    11758168,
     11780074,
     11813901,
     11888376,
@@ -85,13 +93,17 @@
     12097296,
     12101577,
     12298829,
+    12343877,
+    12716187,
     12863875,
     12965221,
     13402018,
     13433334,
     13657670,
+    13710933,
     13986179,
     14207369,
+    14270021,
     14457597,
     14480820,
     14837376,
@@ -107,8 +119,8 @@
     27478812,
     30112238
   ],
-  "distinct_editions": 104,
-  "copy_count": 106,
+  "distinct_editions": 116,
+  "copy_count": 118,
   "collection_entries": 610,
   "records": {
     "7548627": {
@@ -136,7 +148,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Australia",
+          "lon": 134,
+          "lat": -25,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Mall Grab",
+          "city": "Australia",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-f528bc9df93a"
+        }
+      ],
+      "primary_thread_id": "thread-f528bc9df93a",
+      "unlocated_artists": []
     },
     "27478812": {
       "label": "Bristol",
@@ -175,7 +205,39 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "relation": "Artist based in",
+          "precision": "city",
+          "source": "https://www.createdefinerelease.com/producers/om-unit",
+          "note": "Artistic base, not a claim about birthplace or recording studio.",
+          "subject": "Om Unit",
+          "city": "Bristol",
+          "studio": "Artist based in",
+          "kind": "artist",
+          "id": "thread-93d26c2a19b4"
+        },
+        {
+          "label": "Sweden",
+          "lon": 15,
+          "lat": 62,
+          "relation": "Artist associated area",
+          "precision": "country",
+          "source": "https://inkonst.com/en/artists/andreas-tilliander-tm404-mokira",
+          "note": "TM404 is Andreas Tilliander’s project.",
+          "subject": "TM404",
+          "city": "Sweden",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-a325837bc45c"
+        }
+      ],
+      "primary_thread_id": "thread-93d26c2a19b4",
+      "unlocated_artists": []
     },
     "20923105": {
       "label": "Ghana",
@@ -202,7 +264,25 @@
           "studio": "Compilation documents"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Ghana",
+          "lon": -2,
+          "lat": 8,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://analogafrica.bandcamp.com/track/egye-tu-gbe",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Ghana",
+          "studio": "Compilation documents",
+          "kind": "repertoire",
+          "id": "thread-82e1f5c92c31"
+        }
+      ],
+      "primary_thread_id": "thread-82e1f5c92c31",
+      "unlocated_artists": []
     },
     "30112238": {
       "label": "Kinshasa",
@@ -241,7 +321,39 @@
           "studio": "Compilation documents"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Kinshasa",
+          "lon": 15.2667,
+          "lat": -4.325,
+          "relation": "Compilation documents",
+          "precision": "city",
+          "source": "https://analogafrica.bandcamp.com/album/congo-funk-sound-madness-from-the-shores-of-the-mighty-congo-river-kinshasa-brazzaville-1969-1982-analog-africa-nr-38?from=footer-cc-a1289343264",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Kinshasa",
+          "studio": "Compilation documents",
+          "kind": "repertoire",
+          "id": "thread-afd07cd62355"
+        },
+        {
+          "label": "Brazzaville",
+          "lon": 15.2833,
+          "lat": -4.2667,
+          "relation": "Compilation documents",
+          "precision": "city",
+          "source": "https://analogafrica.bandcamp.com/album/congo-funk-sound-madness-from-the-shores-of-the-mighty-congo-river-kinshasa-brazzaville-1969-1982-analog-africa-nr-38?from=footer-cc-a1289343264",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Brazzaville",
+          "studio": "Compilation documents",
+          "kind": "repertoire",
+          "id": "thread-6aebddd91ae9"
+        }
+      ],
+      "primary_thread_id": "thread-afd07cd62355",
+      "unlocated_artists": []
     },
     "7555330": {
       "label": "Rome",
@@ -268,7 +380,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Rome",
+          "lon": 12.4964,
+          "lat": 41.9028,
+          "relation": "Band formed in",
+          "source": "https://www.allmusic.com/artist/darcangelo-mn0000139093",
+          "precision": "city",
+          "note": "",
+          "subject": "D'Arcangelo",
+          "city": "Rome",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-aad56e043e8a"
+        }
+      ],
+      "primary_thread_id": "thread-aad56e043e8a",
+      "unlocated_artists": []
     },
     "10883955": {
       "label": "Netherlands",
@@ -295,7 +425,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Netherlands",
+          "lon": 5,
+          "lat": 52,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/071cb80d-a198-4f88-b41e-f4dd9a65ec80",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Kettel",
+          "city": "Netherlands",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-e1646a69cc6d"
+        }
+      ],
+      "primary_thread_id": "thread-e1646a69cc6d",
+      "unlocated_artists": []
     },
     "11780074": {
       "label": "Chicago",
@@ -322,7 +470,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/d9733f21-71d7-4fa7-813d-67eca0f0eaaf/relationships",
+          "precision": "city",
+          "note": "",
+          "subject": "The Sun Ra Arkestra",
+          "city": "Chicago",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-0e80132901d3"
+        }
+      ],
+      "primary_thread_id": "thread-0e80132901d3",
+      "unlocated_artists": []
     },
     "110": {
       "label": "Detroit",
@@ -349,7 +515,25 @@
           "studio": "Musical roots"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Detroit",
+          "lon": -83.0458,
+          "lat": 42.3314,
+          "relation": "Musical roots",
+          "source": "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+          "precision": "city",
+          "note": "",
+          "subject": "Jeff Mills",
+          "city": "Detroit",
+          "studio": "Musical roots",
+          "kind": "artist",
+          "id": "thread-62c41333e86f"
+        }
+      ],
+      "primary_thread_id": "thread-62c41333e86f",
+      "unlocated_artists": []
     },
     "1614712": {
       "label": "Louisiana",
@@ -376,7 +560,25 @@
           "studio": "Compilation documents"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Louisiana",
+          "lon": -92,
+          "lat": 31,
+          "relation": "Compilation documents",
+          "precision": "region",
+          "source": "https://www.acerecords.co.uk/southern-funkin-louisiana-funk-and-soul-1967-1979",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Louisiana",
+          "studio": "Compilation documents",
+          "kind": "repertoire",
+          "id": "thread-a5e8b67c4605"
+        }
+      ],
+      "primary_thread_id": "thread-a5e8b67c4605",
+      "unlocated_artists": []
     },
     "2230011": {
       "label": "Italy",
@@ -403,7 +605,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-b389e6f565ec"
+        }
+      ],
+      "primary_thread_id": "thread-b389e6f565ec",
+      "unlocated_artists": []
     },
     "8539380": {
       "label": "Italy",
@@ -430,7 +650,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-b389e6f565ec"
+        }
+      ],
+      "primary_thread_id": "thread-b389e6f565ec",
+      "unlocated_artists": []
     },
     "12083950": {
       "label": "France",
@@ -457,7 +695,25 @@
           "studio": "Compilation documents"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "France",
+          "lon": 2,
+          "lat": 47,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://www.bornbadrecords.net/releases/",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "France",
+          "studio": "Compilation documents",
+          "kind": "repertoire",
+          "id": "thread-b345a6f3fb59"
+        }
+      ],
+      "primary_thread_id": "thread-b345a6f3fb59",
+      "unlocated_artists": []
     },
     "11888376": {
       "label": "United Kingdom",
@@ -484,7 +740,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Ross From Friends",
+          "city": "United Kingdom",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-41ce0d0e2e7c"
+        }
+      ],
+      "primary_thread_id": "thread-41ce0d0e2e7c",
+      "unlocated_artists": []
     },
     "12298829": {
       "label": "United Kingdom",
@@ -511,7 +785,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Ross From Friends",
+          "city": "United Kingdom",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-41ce0d0e2e7c"
+        }
+      ],
+      "primary_thread_id": "thread-41ce0d0e2e7c",
+      "unlocated_artists": []
     },
     "1028298": {
       "label": "United States",
@@ -538,7 +830,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "George Clinton",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-f789bac6ee9f"
+        }
+      ],
+      "primary_thread_id": "thread-f789bac6ee9f",
+      "unlocated_artists": []
     },
     "1042849": {
       "label": "United States",
@@ -565,7 +875,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "George Clinton",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-f789bac6ee9f"
+        }
+      ],
+      "primary_thread_id": "thread-f789bac6ee9f",
+      "unlocated_artists": []
     },
     "212060": {
       "label": "United States",
@@ -592,7 +920,59 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "George Clinton",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-f789bac6ee9f"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "You Shouldn't-Nuf Bit Fish",
+          "label": "Detroit",
+          "lon": -83.0458,
+          "lat": 42.3314,
+          "precision": "city",
+          "source": "https://content.govdelivery.com/accounts/MIDOT/bulletins/2279917",
+          "location_source": "https://content.govdelivery.com/accounts/MIDOT/bulletins/2279917",
+          "note": "",
+          "venue": "United Sound Systems",
+          "coverage": "partial",
+          "city": "Detroit",
+          "studio": "Recorded at",
+          "id": "thread-7d8cfe0ffacb"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "You Shouldn't-Nuf Bit Fish",
+          "label": "Miami",
+          "lon": -80.1918,
+          "lat": 25.7617,
+          "precision": "city",
+          "source": "https://www.criteriastudios.com/history",
+          "location_source": "https://www.criteriastudios.com/history",
+          "note": "",
+          "venue": "Criteria Recording Studios",
+          "coverage": "partial",
+          "city": "Miami",
+          "studio": "Recorded at",
+          "id": "thread-46b483c3755e"
+        }
+      ],
+      "primary_thread_id": "thread-f789bac6ee9f",
+      "unlocated_artists": []
     },
     "9153158": {
       "label": "United States",
@@ -619,7 +999,42 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/561d854a-6a28-4aa7-8c99-323e6ce46c2a",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Miles Davis",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-fa8759b8fbd4"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Birth Of The Cool",
+          "label": "New York",
+          "lon": -73.97,
+          "lat": 40.75,
+          "precision": "city",
+          "source": "https://www.juilliard.edu/event/187791/juilliard-apollo-birth-cool?start_date_from=03%2F29%2F23",
+          "location_source": "https://www.juilliard.edu/event/187791/juilliard-apollo-birth-cool?start_date_from=03%2F29%2F23",
+          "note": "The original Birth of the Cool sessions were recorded in New York in 1949 and 1950.",
+          "venue": "Capitol recording sessions, New York",
+          "coverage": "documented recording location",
+          "city": "New York",
+          "studio": "Recorded at",
+          "id": "thread-72c235defafb"
+        }
+      ],
+      "primary_thread_id": "thread-fa8759b8fbd4",
+      "unlocated_artists": []
     },
     "3842748": {
       "label": "United States",
@@ -646,7 +1061,42 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/561d854a-6a28-4aa7-8c99-323e6ce46c2a",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Miles Davis",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-fa8759b8fbd4"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Sketches Of Spain = スケッチ・オブ・スペイン",
+          "label": "New York",
+          "lon": -73.97,
+          "lat": 40.75,
+          "precision": "city",
+          "source": "https://www.milesdavis.com/track/will-o-the-wisp-mono-version/",
+          "location_source": "https://www.milesdavis.com/track/will-o-the-wisp-mono-version/",
+          "note": "The sessions for Sketches of Spain took place in New York; the title is not its recording location.",
+          "venue": "Columbia 30th Street Studio",
+          "coverage": "documented recording location",
+          "city": "New York",
+          "studio": "Recorded at",
+          "id": "thread-e13873748f60"
+        }
+      ],
+      "primary_thread_id": "thread-fa8759b8fbd4",
+      "unlocated_artists": []
     },
     "8036642": {
       "label": "Australia",
@@ -673,7 +1123,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Australia",
+          "lon": 134,
+          "lat": -25,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Mall Grab",
+          "city": "Australia",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-f528bc9df93a"
+        }
+      ],
+      "primary_thread_id": "thread-f528bc9df93a",
+      "unlocated_artists": []
     },
     "36972": {
       "label": "United States",
@@ -700,7 +1168,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Herbie Hancock",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-b70b01c57445"
+        }
+      ],
+      "primary_thread_id": "thread-b70b01c57445",
+      "unlocated_artists": []
     },
     "10496968": {
       "label": "United States",
@@ -727,7 +1213,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Herbie Hancock",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-b70b01c57445"
+        }
+      ],
+      "primary_thread_id": "thread-b70b01c57445",
+      "unlocated_artists": []
     },
     "12863875": {
       "label": "United States",
@@ -754,7 +1258,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Herbie Hancock",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-b70b01c57445"
+        }
+      ],
+      "primary_thread_id": "thread-b70b01c57445",
+      "unlocated_artists": []
     },
     "13402018": {
       "label": "Miami",
@@ -781,7 +1303,25 @@
           "studio": "Band associated with"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Miami",
+          "lon": -80.1918,
+          "lat": 25.7617,
+          "relation": "Band associated with",
+          "source": "https://psychicmirrors.bandcamp.com/community",
+          "precision": "city",
+          "note": "",
+          "subject": "Psychic Mirrors",
+          "city": "Miami",
+          "studio": "Band associated with",
+          "kind": "artist",
+          "id": "thread-5c72512e3a46"
+        }
+      ],
+      "primary_thread_id": "thread-5c72512e3a46",
+      "unlocated_artists": []
     },
     "14877491": {
       "label": "Miami",
@@ -808,7 +1348,25 @@
           "studio": "Band associated with"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Miami",
+          "lon": -80.1918,
+          "lat": 25.7617,
+          "relation": "Band associated with",
+          "source": "https://psychicmirrors.bandcamp.com/community",
+          "precision": "city",
+          "note": "",
+          "subject": "Psychic Mirrors",
+          "city": "Miami",
+          "studio": "Band associated with",
+          "kind": "artist",
+          "id": "thread-5c72512e3a46"
+        }
+      ],
+      "primary_thread_id": "thread-5c72512e3a46",
+      "unlocated_artists": []
     },
     "13657670": {
       "label": "Manchester",
@@ -835,7 +1393,25 @@
           "studio": "Early musical base"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Manchester",
+          "lon": -2.2426,
+          "lat": 53.4808,
+          "relation": "Early musical base",
+          "source": "https://nextupthrowback.wordpress.com/2016/02/19/manchester-rising-no-moon/",
+          "precision": "city",
+          "note": "2016 artist feature; not the artist’s later German base.",
+          "subject": "No Moon",
+          "city": "Manchester",
+          "studio": "Early musical base",
+          "kind": "artist",
+          "id": "thread-07817901cb2b"
+        }
+      ],
+      "primary_thread_id": "thread-07817901cb2b",
+      "unlocated_artists": []
     },
     "11813901": {
       "label": "Manchester",
@@ -862,7 +1438,25 @@
           "studio": "Early musical base"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Manchester",
+          "lon": -2.2426,
+          "lat": 53.4808,
+          "relation": "Early musical base",
+          "source": "https://nextupthrowback.wordpress.com/2016/02/19/manchester-rising-no-moon/",
+          "precision": "city",
+          "note": "2016 artist feature; not the artist’s later German base.",
+          "subject": "No Moon",
+          "city": "Manchester",
+          "studio": "Early musical base",
+          "kind": "artist",
+          "id": "thread-07817901cb2b"
+        }
+      ],
+      "primary_thread_id": "thread-07817901cb2b",
+      "unlocated_artists": []
     },
     "8610636": {
       "label": "United Kingdom",
@@ -889,7 +1483,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Ross From Friends",
+          "city": "United Kingdom",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-41ce0d0e2e7c"
+        }
+      ],
+      "primary_thread_id": "thread-41ce0d0e2e7c",
+      "unlocated_artists": []
     },
     "8268802": {
       "label": "Netherlands",
@@ -916,7 +1528,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Netherlands",
+          "lon": 5,
+          "lat": 52,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/071cb80d-a198-4f88-b41e-f4dd9a65ec80",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Kettel",
+          "city": "Netherlands",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-e1646a69cc6d"
+        }
+      ],
+      "primary_thread_id": "thread-e1646a69cc6d",
+      "unlocated_artists": []
     },
     "14480820": {
       "label": "United States",
@@ -943,7 +1573,42 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/561d854a-6a28-4aa7-8c99-323e6ce46c2a",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Miles Davis",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-fa8759b8fbd4"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Kind Of Blue",
+          "label": "New York",
+          "lon": -73.97,
+          "lat": 40.75,
+          "precision": "city",
+          "source": "https://www.milesdavis.com/news/60-years-ago-miles-davis-completes-kind-of-blue/",
+          "location_source": "https://www.milesdavis.com/news/60-years-ago-miles-davis-completes-kind-of-blue/",
+          "note": "Recorded in New York in 1959.",
+          "venue": "Columbia 30th Street Studio",
+          "coverage": "documented recording location",
+          "city": "New York",
+          "studio": "Recorded at",
+          "id": "thread-d94e14d64a7b"
+        }
+      ],
+      "primary_thread_id": "thread-fa8759b8fbd4",
+      "unlocated_artists": []
     },
     "1218134": {
       "label": "Italy",
@@ -970,7 +1635,42 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Franco Battiato",
+          "city": "Italy",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-f65d476c4ce3"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Patriots",
+          "label": "Milan",
+          "lon": 9.19,
+          "lat": 45.4642,
+          "precision": "city",
+          "source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+          "location_source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+          "note": "",
+          "venue": "Studio Radius",
+          "coverage": "credited recording locations",
+          "city": "Milan",
+          "studio": "Recorded at",
+          "id": "thread-4ecca2ad708b"
+        }
+      ],
+      "primary_thread_id": "thread-f65d476c4ce3",
+      "unlocated_artists": []
     },
     "985747": {
       "label": "Italy",
@@ -997,7 +1697,42 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Franco Battiato",
+          "city": "Italy",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-f65d476c4ce3"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "La Voce Del Padrone",
+          "label": "Milan",
+          "lon": 9.19,
+          "lat": 45.4642,
+          "precision": "city",
+          "source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+          "location_source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+          "note": "",
+          "venue": "Studio Radius",
+          "coverage": "credited recording locations",
+          "city": "Milan",
+          "studio": "Recorded at",
+          "id": "thread-e7e62896926c"
+        }
+      ],
+      "primary_thread_id": "thread-f65d476c4ce3",
+      "unlocated_artists": []
     },
     "25308625": {
       "label": "Italy",
@@ -1024,7 +1759,42 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Franco Battiato",
+          "city": "Italy",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-f65d476c4ce3"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "La Voce Del Padrone",
+          "label": "Milan",
+          "lon": 9.19,
+          "lat": 45.4642,
+          "precision": "city",
+          "source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+          "location_source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+          "note": "",
+          "venue": "Studio Radius",
+          "coverage": "credited recording locations",
+          "city": "Milan",
+          "studio": "Recorded at",
+          "id": "thread-e7e62896926c"
+        }
+      ],
+      "primary_thread_id": "thread-f65d476c4ce3",
+      "unlocated_artists": []
     },
     "1358351": {
       "label": "Italy",
@@ -1051,7 +1821,42 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Franco Battiato",
+          "city": "Italy",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-f65d476c4ce3"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "L'Arca Di Noè",
+          "label": "Milan",
+          "lon": 9.19,
+          "lat": 45.4642,
+          "precision": "city",
+          "source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+          "location_source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+          "note": "",
+          "venue": "Studio Radius",
+          "coverage": "credited recording locations",
+          "city": "Milan",
+          "studio": "Recorded at",
+          "id": "thread-08010d3f3fa4"
+        }
+      ],
+      "primary_thread_id": "thread-f65d476c4ce3",
+      "unlocated_artists": []
     },
     "3880099": {
       "label": "Naples",
@@ -1078,7 +1883,25 @@
           "studio": "Musical scene"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Naples",
+          "lon": 14.2681,
+          "lat": 40.8518,
+          "relation": "Musical scene",
+          "source": "https://www.pinodaniele.com/about/",
+          "precision": "city",
+          "note": "",
+          "subject": "Pino Daniele",
+          "city": "Naples",
+          "studio": "Musical scene",
+          "kind": "artist",
+          "id": "thread-77af3914286f"
+        }
+      ],
+      "primary_thread_id": "thread-77af3914286f",
+      "unlocated_artists": []
     },
     "1244858": {
       "label": "Naples",
@@ -1105,7 +1928,25 @@
           "studio": "Musical scene"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Naples",
+          "lon": 14.2681,
+          "lat": 40.8518,
+          "relation": "Musical scene",
+          "source": "https://www.pinodaniele.com/about/",
+          "precision": "city",
+          "note": "",
+          "subject": "Pino Daniele",
+          "city": "Naples",
+          "studio": "Musical scene",
+          "kind": "artist",
+          "id": "thread-77af3914286f"
+        }
+      ],
+      "primary_thread_id": "thread-77af3914286f",
+      "unlocated_artists": []
     },
     "11009929": {
       "label": "Berlin",
@@ -1132,7 +1973,25 @@
           "studio": "Artist based in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist based in",
+          "source": "https://ra.co/dj/evageist/biography",
+          "precision": "city",
+          "note": "Biography includes the Dniheb and Blumareciano releases in this collection.",
+          "subject": "Eva Geist",
+          "city": "Berlin",
+          "studio": "Artist based in",
+          "kind": "artist",
+          "id": "thread-cc95557c62dd"
+        }
+      ],
+      "primary_thread_id": "thread-cc95557c62dd",
+      "unlocated_artists": []
     },
     "14207369": {
       "label": "Italy",
@@ -1159,7 +2018,42 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-b389e6f565ec"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Le Nuvole",
+          "label": "Milan",
+          "lon": 9.19,
+          "lat": 45.4642,
+          "precision": "city",
+          "source": "https://www.metropolis-studio.it/en/studio_en/",
+          "location_source": "https://www.metropolis-studio.it/en/studio_en/",
+          "note": "",
+          "venue": "Metropolis Recording Studio, Milano",
+          "coverage": "credited recording locations",
+          "city": "Milan",
+          "studio": "Recorded at",
+          "id": "thread-2b5827defc8d"
+        }
+      ],
+      "primary_thread_id": "thread-b389e6f565ec",
+      "unlocated_artists": []
     },
     "14457597": {
       "label": "United States",
@@ -1186,7 +2080,42 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Herbie Hancock",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-b70b01c57445"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Directstep = ダイレクトステップ",
+          "label": "Tokyo",
+          "lon": 139.69,
+          "lat": 35.68,
+          "precision": "city",
+          "source": "https://www.herbiehancock.com/music/discography/album/directstep/",
+          "location_source": "https://www.herbiehancock.com/music/discography/album/directstep/",
+          "note": "Recorded in Tokyo in October 1978, using direct-to-disc recording.",
+          "venue": "CBS/Sony Studios",
+          "coverage": "documented recording location",
+          "city": "Tokyo",
+          "studio": "Recorded at",
+          "id": "thread-a935daeacec5"
+        }
+      ],
+      "primary_thread_id": "thread-b70b01c57445",
+      "unlocated_artists": []
     },
     "11573136": {
       "label": "Rome",
@@ -1213,7 +2142,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Rome",
+          "lon": 12.4964,
+          "lat": 41.9028,
+          "relation": "Band formed in",
+          "source": "https://www.allmusic.com/artist/darcangelo-mn0000139093",
+          "precision": "city",
+          "note": "",
+          "subject": "D'Arcangelo",
+          "city": "Rome",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-aad56e043e8a"
+        }
+      ],
+      "primary_thread_id": "thread-aad56e043e8a",
+      "unlocated_artists": []
     },
     "8872804": {
       "label": "London",
@@ -1240,7 +2187,42 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/83d91898-7763-47d7-b03b-b92132375c47",
+          "precision": "city",
+          "note": "",
+          "subject": "Pink Floyd",
+          "city": "London",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-88091579aa12"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Atom Heart Mother",
+          "label": "London",
+          "lon": -0.17,
+          "lat": 51.53,
+          "precision": "city",
+          "source": "https://store.pinkfloyd.com/products/atom-heart-mother-lp",
+          "location_source": "https://store.pinkfloyd.com/products/atom-heart-mother-lp",
+          "note": "Atom Heart Mother was recorded at Abbey Road Studios in London.",
+          "venue": "Abbey Road Studios",
+          "coverage": "documented recording location",
+          "city": "London",
+          "studio": "Recorded at",
+          "id": "thread-a4000cd053aa"
+        }
+      ],
+      "primary_thread_id": "thread-88091579aa12",
+      "unlocated_artists": []
     },
     "8888357": {
       "label": "Australia",
@@ -1267,7 +2249,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Australia",
+          "lon": 134,
+          "lat": -25,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Mall Grab",
+          "city": "Australia",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-f528bc9df93a"
+        }
+      ],
+      "primary_thread_id": "thread-f528bc9df93a",
+      "unlocated_artists": []
     },
     "9698138": {
       "label": "Australia",
@@ -1294,7 +2294,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Australia",
+          "lon": 134,
+          "lat": -25,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Mall Grab",
+          "city": "Australia",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-f528bc9df93a"
+        }
+      ],
+      "primary_thread_id": "thread-f528bc9df93a",
+      "unlocated_artists": []
     },
     "24896429": {
       "label": "United States",
@@ -1321,7 +2339,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Kendrick Lamar",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-7788ad8b02fe"
+        }
+      ],
+      "primary_thread_id": "thread-7788ad8b02fe",
+      "unlocated_artists": []
     },
     "24882914": {
       "label": "United States",
@@ -1348,7 +2384,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Kendrick Lamar",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-7788ad8b02fe"
+        }
+      ],
+      "primary_thread_id": "thread-7788ad8b02fe",
+      "unlocated_artists": []
     },
     "6127229": {
       "label": "Boston",
@@ -1375,7 +2429,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Boston",
+          "lon": -71.0589,
+          "lat": 42.3601,
+          "relation": "Band formed in",
+          "source": "https://www.mmone.org/ultimate-spinach-2/",
+          "precision": "city",
+          "note": "",
+          "subject": "Ultimate Spinach",
+          "city": "Boston",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-418b76b5f5d5"
+        }
+      ],
+      "primary_thread_id": "thread-418b76b5f5d5",
+      "unlocated_artists": []
     },
     "13986179": {
       "label": "Paris",
@@ -1402,7 +2474,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Paris",
+          "lon": 2.3522,
+          "lat": 48.8566,
+          "relation": "Band formed in",
+          "source": "https://836m.org/artist/limperatrice/",
+          "precision": "city",
+          "note": "",
+          "subject": "L’impératrice",
+          "city": "Paris",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-cca356cc7e34"
+        }
+      ],
+      "primary_thread_id": "thread-cca356cc7e34",
+      "unlocated_artists": []
     },
     "9034937": {
       "label": "Berlin",
@@ -1429,7 +2519,25 @@
           "studio": "Artist based in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist based in",
+          "source": "https://ra.co/dj/evageist/biography",
+          "precision": "city",
+          "note": "Biography includes the Dniheb and Blumareciano releases in this collection.",
+          "subject": "Eva Geist",
+          "city": "Berlin",
+          "studio": "Artist based in",
+          "kind": "artist",
+          "id": "thread-cc95557c62dd"
+        }
+      ],
+      "primary_thread_id": "thread-cc95557c62dd",
+      "unlocated_artists": []
     },
     "12965221": {
       "label": "United Kingdom",
@@ -1456,7 +2564,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Ross From Friends",
+          "city": "United Kingdom",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-41ce0d0e2e7c"
+        }
+      ],
+      "primary_thread_id": "thread-41ce0d0e2e7c",
+      "unlocated_artists": []
     },
     "4330903": {
       "label": "Dayton",
@@ -1483,7 +2609,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Dayton",
+          "lon": -84.1916,
+          "lat": 39.7589,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/81e07550-d0e2-467e-bc71-44b5d52de8f4",
+          "precision": "city",
+          "note": "",
+          "subject": "Ohio Players",
+          "city": "Dayton",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-288f1e05a290"
+        }
+      ],
+      "primary_thread_id": "thread-288f1e05a290",
+      "unlocated_artists": []
     },
     "3558397": {
       "label": "Dayton",
@@ -1510,7 +2654,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Dayton",
+          "lon": -84.1916,
+          "lat": 39.7589,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/81e07550-d0e2-467e-bc71-44b5d52de8f4",
+          "precision": "city",
+          "note": "",
+          "subject": "Ohio Players",
+          "city": "Dayton",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-288f1e05a290"
+        }
+      ],
+      "primary_thread_id": "thread-288f1e05a290",
+      "unlocated_artists": []
     },
     "9185698": {
       "label": "United Kingdom",
@@ -1537,7 +2699,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/3e95edd2-5af6-47d4-aac4-c27e58fb08f8",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Dom & Roland",
+          "city": "United Kingdom",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-34ce7af72475"
+        }
+      ],
+      "primary_thread_id": "thread-34ce7af72475",
+      "unlocated_artists": []
     },
     "3146173": {
       "label": "Boston",
@@ -1564,7 +2744,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Boston",
+          "lon": -71.0589,
+          "lat": 42.3601,
+          "relation": "Band formed in",
+          "source": "https://www.mmone.org/ultimate-spinach-2/",
+          "precision": "city",
+          "note": "",
+          "subject": "Ultimate Spinach",
+          "city": "Boston",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-418b76b5f5d5"
+        }
+      ],
+      "primary_thread_id": "thread-418b76b5f5d5",
+      "unlocated_artists": []
     },
     "1363509": {
       "label": "Boston",
@@ -1591,7 +2789,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Boston",
+          "lon": -71.0589,
+          "lat": 42.3601,
+          "relation": "Band formed in",
+          "source": "https://www.mmone.org/ultimate-spinach-2/",
+          "precision": "city",
+          "note": "",
+          "subject": "Ultimate Spinach",
+          "city": "Boston",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-418b76b5f5d5"
+        }
+      ],
+      "primary_thread_id": "thread-418b76b5f5d5",
+      "unlocated_artists": []
     },
     "18007090": {
       "label": "Paris",
@@ -1618,7 +2834,42 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Paris",
+          "lon": 2.3522,
+          "lat": 48.8566,
+          "relation": "Band formed in",
+          "source": "https://836m.org/artist/limperatrice/",
+          "precision": "city",
+          "note": "",
+          "subject": "L’impératrice",
+          "city": "Paris",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-cca356cc7e34"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Tako Tsubo",
+          "label": "Paris",
+          "lon": 2.3522,
+          "lat": 48.8566,
+          "precision": "city",
+          "source": "https://studios-ferber.com/contact/",
+          "location_source": "https://studios-ferber.com/contact/",
+          "note": "",
+          "venue": "Studios Ferber",
+          "coverage": "partial",
+          "city": "Paris",
+          "studio": "Recorded at",
+          "id": "thread-288b1c94a1ba"
+        }
+      ],
+      "primary_thread_id": "thread-cca356cc7e34",
+      "unlocated_artists": []
     },
     "11534317": {
       "label": "United Kingdom",
@@ -1645,7 +2896,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Ross From Friends",
+          "city": "United Kingdom",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-41ce0d0e2e7c"
+        }
+      ],
+      "primary_thread_id": "thread-41ce0d0e2e7c",
+      "unlocated_artists": []
     },
     "19378": {
       "label": "United Kingdom",
@@ -1672,7 +2941,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/3e95edd2-5af6-47d4-aac4-c27e58fb08f8",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Dom & Roland",
+          "city": "United Kingdom",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-34ce7af72475"
+        }
+      ],
+      "primary_thread_id": "thread-34ce7af72475",
+      "unlocated_artists": []
     },
     "12097296": {
       "label": "Naples",
@@ -1699,7 +2986,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Naples",
+          "lon": 14.2681,
+          "lat": 40.8518,
+          "relation": "Band formed in",
+          "source": "https://italiana.esteri.it/italiana/en/eventi/nu-guinea-in-paris/",
+          "precision": "city",
+          "note": "",
+          "subject": "Nu Guinea",
+          "city": "Naples",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-a1ab9fe16d49"
+        }
+      ],
+      "primary_thread_id": "thread-a1ab9fe16d49",
+      "unlocated_artists": []
     },
     "11636825": {
       "label": "Berlin",
@@ -1726,7 +3031,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/4c41d78d-9dd5-430d-81ea-286052158293",
+          "precision": "city",
+          "note": "Berlin-based artistic association, not South Korean birthplace or an album-specific recording location.",
+          "subject": "Peggy Gou",
+          "city": "Berlin",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-b5a6a375c43b"
+        }
+      ],
+      "primary_thread_id": "thread-b5a6a375c43b",
+      "unlocated_artists": []
     },
     "1704802": {
       "label": "District of Columbia / Maryland / Virginia",
@@ -1753,7 +3076,25 @@
           "studio": "Compilation documents"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "District of Columbia / Maryland / Virginia",
+          "lon": -77,
+          "lat": 38,
+          "relation": "Compilation documents",
+          "precision": "region",
+          "source": "https://ppudc.bandcamp.com/album/dmv-district-maryland-virginia-vol-1",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "District of Columbia / Maryland / Virginia",
+          "studio": "Compilation documents",
+          "kind": "repertoire",
+          "id": "thread-110850b85124"
+        }
+      ],
+      "primary_thread_id": "thread-110850b85124",
+      "unlocated_artists": []
     },
     "5156837": {
       "label": "Miami",
@@ -1780,7 +3121,25 @@
           "studio": "Band associated with"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Miami",
+          "lon": -80.1918,
+          "lat": 25.7617,
+          "relation": "Band associated with",
+          "source": "https://psychicmirrors.bandcamp.com/community",
+          "precision": "city",
+          "note": "",
+          "subject": "Psychic Mirrors",
+          "city": "Miami",
+          "studio": "Band associated with",
+          "kind": "artist",
+          "id": "thread-5c72512e3a46"
+        }
+      ],
+      "primary_thread_id": "thread-5c72512e3a46",
+      "unlocated_artists": []
     },
     "11740322": {
       "label": "Berlin",
@@ -1807,7 +3166,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/4c41d78d-9dd5-430d-81ea-286052158293",
+          "precision": "city",
+          "note": "Berlin-based artistic association, not South Korean birthplace or an album-specific recording location.",
+          "subject": "Peggy Gou",
+          "city": "Berlin",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-b5a6a375c43b"
+        }
+      ],
+      "primary_thread_id": "thread-b5a6a375c43b",
+      "unlocated_artists": []
     },
     "2936028": {
       "label": "United Kingdom",
@@ -1834,7 +3211,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Photek",
+          "city": "United Kingdom",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-a2b36cce4266"
+        }
+      ],
+      "primary_thread_id": "thread-a2b36cce4266",
+      "unlocated_artists": []
     },
     "9359985": {
       "label": "London",
@@ -1861,7 +3256,42 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/83d91898-7763-47d7-b03b-b92132375c47",
+          "precision": "city",
+          "note": "",
+          "subject": "Pink Floyd",
+          "city": "London",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-88091579aa12"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Animals",
+          "label": "London",
+          "lon": -0.12,
+          "lat": 51.51,
+          "precision": "city",
+          "source": "https://archive.pinkfloyd.com/history/timeline_1976",
+          "location_source": "https://archive.pinkfloyd.com/history/timeline_1976",
+          "note": "Animals was recorded at Pink Floyd’s studio in North London in 1976.",
+          "venue": "Britannia Row Studios",
+          "coverage": "documented recording location",
+          "city": "London",
+          "studio": "Recorded at",
+          "id": "thread-dc6cfd2ec9c6"
+        }
+      ],
+      "primary_thread_id": "thread-88091579aa12",
+      "unlocated_artists": []
     },
     "21993661": {
       "label": "New York",
@@ -1888,7 +3318,25 @@
           "studio": "Early musical development"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "relation": "Early musical development",
+          "source": "https://ra.co/dj/fredp/biography",
+          "precision": "city",
+          "note": "New York underground formative years. This is not the artist’s later Berlin base.",
+          "subject": "Fred P.",
+          "city": "New York",
+          "studio": "Early musical development",
+          "kind": "artist",
+          "id": "thread-3b1532308722"
+        }
+      ],
+      "primary_thread_id": "thread-3b1532308722",
+      "unlocated_artists": []
     },
     "18064021": {
       "label": "New York",
@@ -1915,7 +3363,25 @@
           "studio": "Early musical development"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "relation": "Early musical development",
+          "source": "https://ra.co/dj/fredp/biography",
+          "precision": "city",
+          "note": "New York underground formative years. This is not the artist’s later Berlin base.",
+          "subject": "Fred P.",
+          "city": "New York",
+          "studio": "Early musical development",
+          "kind": "artist",
+          "id": "thread-3b1532308722"
+        }
+      ],
+      "primary_thread_id": "thread-3b1532308722",
+      "unlocated_artists": []
     },
     "2578052": {
       "label": "Italy",
@@ -1942,7 +3408,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-b389e6f565ec"
+        }
+      ],
+      "primary_thread_id": "thread-b389e6f565ec",
+      "unlocated_artists": []
     },
     "981136": {
       "label": "Italy",
@@ -1969,7 +3453,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-b389e6f565ec"
+        }
+      ],
+      "primary_thread_id": "thread-b389e6f565ec",
+      "unlocated_artists": []
     },
     "21926020": {
       "label": "Detroit",
@@ -1996,7 +3498,25 @@
           "studio": "Musical roots"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Detroit",
+          "lon": -83.0458,
+          "lat": 42.3314,
+          "relation": "Musical roots",
+          "source": "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+          "precision": "city",
+          "note": "",
+          "subject": "Jeff Mills",
+          "city": "Detroit",
+          "studio": "Musical roots",
+          "kind": "artist",
+          "id": "thread-62c41333e86f"
+        }
+      ],
+      "primary_thread_id": "thread-62c41333e86f",
+      "unlocated_artists": []
     },
     "944": {
       "label": "Detroit",
@@ -2023,7 +3543,25 @@
           "studio": "Musical roots"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Detroit",
+          "lon": -83.0458,
+          "lat": 42.3314,
+          "relation": "Musical roots",
+          "source": "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+          "precision": "city",
+          "note": "",
+          "subject": "Jeff Mills",
+          "city": "Detroit",
+          "studio": "Musical roots",
+          "kind": "artist",
+          "id": "thread-62c41333e86f"
+        }
+      ],
+      "primary_thread_id": "thread-62c41333e86f",
+      "unlocated_artists": []
     },
     "12101577": {
       "label": "Italy",
@@ -2050,7 +3588,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Franco Battiato",
+          "city": "Italy",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-f65d476c4ce3"
+        }
+      ],
+      "primary_thread_id": "thread-f65d476c4ce3",
+      "unlocated_artists": []
     },
     "2543335": {
       "label": "Italy",
@@ -2077,7 +3633,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-b389e6f565ec"
+        }
+      ],
+      "primary_thread_id": "thread-b389e6f565ec",
+      "unlocated_artists": []
     },
     "2214344": {
       "label": "Italy",
@@ -2104,7 +3678,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-b389e6f565ec"
+        }
+      ],
+      "primary_thread_id": "thread-b389e6f565ec",
+      "unlocated_artists": []
     },
     "10708678": {
       "label": "Italy",
@@ -2131,7 +3723,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-b389e6f565ec"
+        }
+      ],
+      "primary_thread_id": "thread-b389e6f565ec",
+      "unlocated_artists": []
     },
     "9369950": {
       "label": "Mali",
@@ -2158,7 +3768,25 @@
           "studio": "Compilation documents"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Mali",
+          "lon": -4,
+          "lat": 17,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://worldmusic.net/products/lost-in-mali",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Mali",
+          "studio": "Compilation documents",
+          "kind": "repertoire",
+          "id": "thread-e50ee1cd753e"
+        }
+      ],
+      "primary_thread_id": "thread-e50ee1cd753e",
+      "unlocated_artists": []
     },
     "8800233": {
       "label": "Suriname",
@@ -2185,7 +3813,25 @@
           "studio": "Compilation documents"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Suriname",
+          "lon": -56,
+          "lat": 4,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://rushhourmusic.bandcamp.com/album/surinam-funk-force",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Suriname",
+          "studio": "Compilation documents",
+          "kind": "repertoire",
+          "id": "thread-d55bd70a0989"
+        }
+      ],
+      "primary_thread_id": "thread-d55bd70a0989",
+      "unlocated_artists": []
     },
     "9992673": {
       "label": "Italy",
@@ -2212,7 +3858,25 @@
           "studio": "Compilation documents"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://www.discogs.com/release/9992673",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Italy",
+          "studio": "Compilation documents",
+          "kind": "repertoire",
+          "id": "thread-99c150ac8612"
+        }
+      ],
+      "primary_thread_id": "thread-99c150ac8612",
+      "unlocated_artists": []
     },
     "11795": {
       "label": "United Kingdom",
@@ -2239,7 +3903,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Photek",
+          "city": "United Kingdom",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-a2b36cce4266"
+        }
+      ],
+      "primary_thread_id": "thread-a2b36cce4266",
+      "unlocated_artists": []
     },
     "8630272": {
       "label": "London",
@@ -2266,7 +3948,25 @@
           "studio": "Early musical development"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "relation": "Early musical development",
+          "source": "https://mixmag.net/feature/dan-shake-mixmag-cover-interview-dj",
+          "precision": "city",
+          "note": "First-person interview describes early music production in Wood Green.",
+          "subject": "Dan Shake",
+          "city": "London",
+          "studio": "Early musical development",
+          "kind": "artist",
+          "id": "thread-8d35bf263d0e"
+        }
+      ],
+      "primary_thread_id": "thread-8d35bf263d0e",
+      "unlocated_artists": []
     },
     "7938017": {
       "label": "London",
@@ -2293,7 +3993,25 @@
           "studio": "Early musical development"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "relation": "Early musical development",
+          "source": "https://mixmag.net/feature/dan-shake-mixmag-cover-interview-dj",
+          "precision": "city",
+          "note": "First-person interview describes early music production in Wood Green.",
+          "subject": "Dan Shake",
+          "city": "London",
+          "studio": "Early musical development",
+          "kind": "artist",
+          "id": "thread-8d35bf263d0e"
+        }
+      ],
+      "primary_thread_id": "thread-8d35bf263d0e",
+      "unlocated_artists": []
     },
     "13433334": {
       "label": "London",
@@ -2320,7 +4038,25 @@
           "studio": "Early musical development"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "relation": "Early musical development",
+          "source": "https://mixmag.net/feature/dan-shake-mixmag-cover-interview-dj",
+          "precision": "city",
+          "note": "First-person interview describes early music production in Wood Green.",
+          "subject": "Dan Shake",
+          "city": "London",
+          "studio": "Early musical development",
+          "kind": "artist",
+          "id": "thread-8d35bf263d0e"
+        }
+      ],
+      "primary_thread_id": "thread-8d35bf263d0e",
+      "unlocated_artists": []
     },
     "9425519": {
       "label": "Nigeria",
@@ -2347,7 +4083,25 @@
           "studio": "Compilation documents"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Nigeria",
+          "lon": 8,
+          "lat": 9,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://soundwayrecords.bandcamp.com/album/doing-it-in-lagos?from=footer-cc-a841407783",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Nigeria",
+          "studio": "Compilation documents",
+          "kind": "repertoire",
+          "id": "thread-9d4e031190da"
+        }
+      ],
+      "primary_thread_id": "thread-9d4e031190da",
+      "unlocated_artists": []
     },
     "567634": {
       "label": "United States",
@@ -2374,7 +4128,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/7e092d19-6726-4b9a-a879-157065833481",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Timmy Thomas",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-d3057b3f7d86"
+        }
+      ],
+      "primary_thread_id": "thread-d3057b3f7d86",
+      "unlocated_artists": []
     },
     "8121481": {
       "label": "United States",
@@ -2401,7 +4173,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/7e092d19-6726-4b9a-a879-157065833481",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Timmy Thomas",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-d3057b3f7d86"
+        }
+      ],
+      "primary_thread_id": "thread-d3057b3f7d86",
+      "unlocated_artists": []
     },
     "14837376": {
       "label": "United Kingdom",
@@ -2428,7 +4218,25 @@
           "studio": "Musical scene"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Musical scene",
+          "source": "https://courtney-pine.com/biography",
+          "precision": "country",
+          "note": "",
+          "subject": "Courtney Pine",
+          "city": "United Kingdom",
+          "studio": "Musical scene",
+          "kind": "artist",
+          "id": "thread-8c44ef5382fb"
+        }
+      ],
+      "primary_thread_id": "thread-8c44ef5382fb",
+      "unlocated_artists": []
     },
     "114068": {
       "label": "Bristol",
@@ -2455,7 +4263,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "relation": "Band formed in",
+          "source": "https://www.allmusic.com/artist/reprazent-mn0000459997",
+          "precision": "city",
+          "note": "",
+          "subject": "Roni Size / Reprazent",
+          "city": "Bristol",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-9bb42bcd53c3"
+        }
+      ],
+      "primary_thread_id": "thread-9bb42bcd53c3",
+      "unlocated_artists": []
     },
     "61693": {
       "label": "Bristol",
@@ -2482,7 +4308,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "relation": "Band formed in",
+          "source": "https://www.allmusic.com/artist/reprazent-mn0000459997",
+          "precision": "city",
+          "note": "",
+          "subject": "Roni Size / Reprazent",
+          "city": "Bristol",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-9bb42bcd53c3"
+        }
+      ],
+      "primary_thread_id": "thread-9bb42bcd53c3",
+      "unlocated_artists": []
     },
     "95045": {
       "label": "Bristol",
@@ -2509,7 +4353,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "relation": "Band formed in",
+          "source": "https://www.allmusic.com/artist/reprazent-mn0000459997",
+          "precision": "city",
+          "note": "",
+          "subject": "Roni Size / Reprazent",
+          "city": "Bristol",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-9bb42bcd53c3"
+        }
+      ],
+      "primary_thread_id": "thread-9bb42bcd53c3",
+      "unlocated_artists": []
     },
     "805316": {
       "label": "United Kingdom",
@@ -2536,7 +4398,25 @@
           "studio": "Musical scene"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Musical scene",
+          "source": "https://courtney-pine.com/biography",
+          "precision": "country",
+          "note": "",
+          "subject": "Courtney Pine",
+          "city": "United Kingdom",
+          "studio": "Musical scene",
+          "kind": "artist",
+          "id": "thread-8c44ef5382fb"
+        }
+      ],
+      "primary_thread_id": "thread-8c44ef5382fb",
+      "unlocated_artists": []
     },
     "7704301": {
       "label": "Naples",
@@ -2563,7 +4443,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Naples",
+          "lon": 14.2681,
+          "lat": 40.8518,
+          "relation": "Band formed in",
+          "source": "https://italiana.esteri.it/italiana/en/eventi/nu-guinea-in-paris/",
+          "precision": "city",
+          "note": "",
+          "subject": "Nu Guinea",
+          "city": "Naples",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-a1ab9fe16d49"
+        }
+      ],
+      "primary_thread_id": "thread-a1ab9fe16d49",
+      "unlocated_artists": []
     },
     "8807880": {
       "label": "Berlin",
@@ -2590,7 +4488,25 @@
           "studio": "Artist based in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist based in",
+          "source": "https://discoscapablanca.bandcamp.com/album/about-u",
+          "precision": "city",
+          "note": "Artist base documented in 2023; not a claim about where earlier releases were made.",
+          "subject": "Florian Kupfer",
+          "city": "Berlin",
+          "studio": "Artist based in",
+          "kind": "artist",
+          "id": "thread-8e127bac18bd"
+        }
+      ],
+      "primary_thread_id": "thread-8e127bac18bd",
+      "unlocated_artists": []
     },
     "7269434": {
       "label": "Berlin",
@@ -2617,7 +4533,25 @@
           "studio": "Artist based in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist based in",
+          "source": "https://discoscapablanca.bandcamp.com/album/about-u",
+          "precision": "city",
+          "note": "Artist base documented in 2023; not a claim about where earlier releases were made.",
+          "subject": "Florian Kupfer",
+          "city": "Berlin",
+          "studio": "Artist based in",
+          "kind": "artist",
+          "id": "thread-8e127bac18bd"
+        }
+      ],
+      "primary_thread_id": "thread-8e127bac18bd",
+      "unlocated_artists": []
     },
     "1027491": {
       "label": "United States",
@@ -2644,7 +4578,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/76325a9d-6c25-4649-96b1-84e9b99d6b4b",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "John Cage",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-2680fd5fdac3"
+        }
+      ],
+      "primary_thread_id": "thread-2680fd5fdac3",
+      "unlocated_artists": []
     },
     "165894": {
       "label": "Amityville",
@@ -2671,7 +4623,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Amityville",
+          "lon": -73.4171,
+          "lat": 40.6787,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/a8ebde98-7e91-46c7-992c-90039ba42017?all=0&page=3&va=1",
+          "precision": "city",
+          "note": "",
+          "subject": "De La Soul",
+          "city": "Amityville",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-c22eb5588fef"
+        }
+      ],
+      "primary_thread_id": "thread-c22eb5588fef",
+      "unlocated_artists": []
     },
     "18497": {
       "label": "Amityville",
@@ -2698,7 +4668,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Amityville",
+          "lon": -73.4171,
+          "lat": 40.6787,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/a8ebde98-7e91-46c7-992c-90039ba42017?all=0&page=3&va=1",
+          "precision": "city",
+          "note": "",
+          "subject": "De La Soul",
+          "city": "Amityville",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-c22eb5588fef"
+        }
+      ],
+      "primary_thread_id": "thread-c22eb5588fef",
+      "unlocated_artists": []
     },
     "7568442": {
       "label": "United States",
@@ -2725,7 +4713,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Kendrick Lamar",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-7788ad8b02fe"
+        }
+      ],
+      "primary_thread_id": "thread-7788ad8b02fe",
+      "unlocated_artists": []
     },
     "10559651": {
       "label": "United States",
@@ -2752,7 +4758,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Kendrick Lamar",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-7788ad8b02fe"
+        }
+      ],
+      "primary_thread_id": "thread-7788ad8b02fe",
+      "unlocated_artists": []
     },
     "32063": {
       "label": "Detroit",
@@ -2779,7 +4803,25 @@
           "studio": "Musical roots"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Detroit",
+          "lon": -83.0458,
+          "lat": 42.3314,
+          "relation": "Musical roots",
+          "source": "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+          "precision": "city",
+          "note": "",
+          "subject": "Jeff Mills",
+          "city": "Detroit",
+          "studio": "Musical roots",
+          "kind": "artist",
+          "id": "thread-62c41333e86f"
+        }
+      ],
+      "primary_thread_id": "thread-62c41333e86f",
+      "unlocated_artists": []
     },
     "2045030": {
       "label": "Chicago",
@@ -2806,7 +4848,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/d9733f21-71d7-4fa7-813d-67eca0f0eaaf/relationships",
+          "precision": "city",
+          "note": "",
+          "subject": "The Sun Ra Arkestra",
+          "city": "Chicago",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-0e80132901d3"
+        }
+      ],
+      "primary_thread_id": "thread-0e80132901d3",
+      "unlocated_artists": []
     },
     "322096": {
       "label": "United States",
@@ -2833,7 +4893,25 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Musical association pilot"
+      "coverage": "Sourced cultural threads",
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/76325a9d-6c25-4649-96b1-84e9b99d6b4b",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "John Cage",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-2680fd5fdac3"
+        }
+      ],
+      "primary_thread_id": "thread-2680fd5fdac3",
+      "unlocated_artists": []
     },
     "697572": {
       "label": "United States",
@@ -2860,11 +4938,28 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Reviewed musical associations",
+      "coverage": "Sourced cultural threads",
       "unlocated_artists": [
         "The Parliaments",
         "Funkadelic"
-      ]
+      ],
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "George Clinton",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-f789bac6ee9f"
+        }
+      ],
+      "primary_thread_id": "thread-f789bac6ee9f"
     },
     "3835570": {
       "label": "United States",
@@ -2891,10 +4986,44 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Reviewed musical associations",
+      "coverage": "Sourced cultural threads",
       "unlocated_artists": [
         "Jan Steele"
-      ]
+      ],
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/76325a9d-6c25-4649-96b1-84e9b99d6b4b",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "John Cage",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-2680fd5fdac3"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Voices And Instruments",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://www.rbkc.gov.uk/wamdocs/Appendix%20E%20Kensington%20Record%20Labels.pdf",
+          "location_source": "https://www.rbkc.gov.uk/wamdocs/Appendix%20E%20Kensington%20Record%20Labels.pdf",
+          "note": "",
+          "venue": "Basing Street Studios",
+          "coverage": "credited recording locations",
+          "city": "London",
+          "studio": "Recorded at",
+          "id": "thread-992092dee80b"
+        }
+      ],
+      "primary_thread_id": "thread-2680fd5fdac3"
     },
     "6912363": {
       "label": "Chicago",
@@ -2921,8 +5050,25 @@
           "studio": "Band formed in"
         }
       ],
-      "coverage": "Reviewed musical associations",
-      "unlocated_artists": []
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [],
+      "threads": [
+        {
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/d9733f21-71d7-4fa7-813d-67eca0f0eaaf/relationships",
+          "precision": "city",
+          "note": "",
+          "subject": "The Sun Ra Arkestra",
+          "city": "Chicago",
+          "studio": "Band formed in",
+          "kind": "artist",
+          "id": "thread-0e80132901d3"
+        }
+      ],
+      "primary_thread_id": "thread-0e80132901d3"
     },
     "4619489": {
       "label": "United States",
@@ -2949,10 +5095,779 @@
           "studio": "Artist associated area"
         }
       ],
-      "coverage": "Reviewed musical associations",
+      "coverage": "Sourced cultural threads",
       "unlocated_artists": [
         "Kim Carnes"
+      ],
+      "threads": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "George Clinton",
+          "city": "United States",
+          "studio": "Artist associated area",
+          "kind": "artist",
+          "id": "thread-f789bac6ee9f"
+        }
+      ],
+      "primary_thread_id": "thread-f789bac6ee9f"
+    },
+    "5035765": {
+      "kind": "recording",
+      "relation": "Recorded at",
+      "subject": "On The Move",
+      "label": "New York",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "precision": "city",
+      "source": "https://powerstation.nyc/contact",
+      "location_source": "https://powerstation.nyc/contact",
+      "note": "",
+      "venue": "Power Station",
+      "coverage": "Sourced cultural threads",
+      "city": "New York",
+      "studio": "Recorded at",
+      "id": "thread-1eaecccdf2bb",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "On The Move",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://powerstation.nyc/contact",
+          "location_source": "https://powerstation.nyc/contact",
+          "note": "",
+          "venue": "Power Station",
+          "coverage": "credited recording locations",
+          "city": "New York",
+          "studio": "Recorded at",
+          "id": "thread-1eaecccdf2bb"
+        }
+      ],
+      "primary_thread_id": "thread-1eaecccdf2bb",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "On The Move",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://powerstation.nyc/contact",
+          "location_source": "https://powerstation.nyc/contact",
+          "note": "",
+          "venue": "Power Station",
+          "coverage": "credited recording locations",
+          "city": "New York",
+          "studio": "Recorded at",
+          "id": "thread-1eaecccdf2bb"
+        }
+      ],
+      "unlocated_artists": [
+        "Jun Fukamachi"
       ]
+    },
+    "2981774": {
+      "kind": "artist",
+      "relation": "Founded the Arkestra in",
+      "subject": "Sun Ra",
+      "label": "Chicago",
+      "lon": -87.6298,
+      "lat": 41.8781,
+      "precision": "city",
+      "period": "Mid-1950s",
+      "source": "https://tickets.citywinery.com/event/sun-ra-arkestra-quwhex",
+      "note": "A connection through the ensemble Sun Ra founded. It does not identify where this particular record was made.",
+      "city": "Chicago",
+      "studio": "Founded the Arkestra in",
+      "id": "thread-1ed18bd0aeee",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Founded the Arkestra in",
+          "subject": "Sun Ra",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "period": "Mid-1950s",
+          "source": "https://tickets.citywinery.com/event/sun-ra-arkestra-quwhex",
+          "note": "A connection through the ensemble Sun Ra founded. It does not identify where this particular record was made.",
+          "city": "Chicago",
+          "studio": "Founded the Arkestra in",
+          "id": "thread-1ed18bd0aeee"
+        }
+      ],
+      "primary_thread_id": "thread-1ed18bd0aeee",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Founded the Arkestra in",
+          "subject": "Sun Ra",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "period": "Mid-1950s",
+          "source": "https://tickets.citywinery.com/event/sun-ra-arkestra-quwhex",
+          "note": "A connection through the ensemble Sun Ra founded. It does not identify where this particular record was made.",
+          "city": "Chicago",
+          "studio": "Founded the Arkestra in",
+          "id": "thread-1ed18bd0aeee"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Ras G"
+      ]
+    },
+    "12343877": {
+      "kind": "artist",
+      "relation": "Founded the Arkestra in",
+      "subject": "Sun Ra",
+      "label": "Chicago",
+      "lon": -87.6298,
+      "lat": 41.8781,
+      "precision": "city",
+      "period": "Mid-1950s",
+      "source": "https://tickets.citywinery.com/event/sun-ra-arkestra-quwhex",
+      "note": "A connection through the ensemble Sun Ra founded. It does not identify where this particular record was made.",
+      "city": "Chicago",
+      "studio": "Founded the Arkestra in",
+      "id": "thread-1ed18bd0aeee",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Founded the Arkestra in",
+          "subject": "Sun Ra",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "period": "Mid-1950s",
+          "source": "https://tickets.citywinery.com/event/sun-ra-arkestra-quwhex",
+          "note": "A connection through the ensemble Sun Ra founded. It does not identify where this particular record was made.",
+          "city": "Chicago",
+          "studio": "Founded the Arkestra in",
+          "id": "thread-1ed18bd0aeee"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded live in",
+          "subject": "Disco 3000",
+          "label": "Milan",
+          "lon": 9.19,
+          "lat": 45.4642,
+          "precision": "city",
+          "period": "January 1978",
+          "source": "https://artyardrecords.co.uk/sun-ra-disco-3000-complete-milan-concert-1978/",
+          "note": "Art Yard documents the Milan concert recording. This session location remains separate from Sun Ra’s Chicago ensemble connection.",
+          "city": "Milan",
+          "studio": "Recorded live in",
+          "id": "thread-9f3063110832"
+        }
+      ],
+      "primary_thread_id": "thread-1ed18bd0aeee",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Founded the Arkestra in",
+          "subject": "Sun Ra",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "period": "Mid-1950s",
+          "source": "https://tickets.citywinery.com/event/sun-ra-arkestra-quwhex",
+          "note": "A connection through the ensemble Sun Ra founded. It does not identify where this particular record was made.",
+          "city": "Chicago",
+          "studio": "Founded the Arkestra in",
+          "id": "thread-1ed18bd0aeee"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "962321": {
+      "kind": "recording",
+      "relation": "Recorded at",
+      "subject": "C'est Chic",
+      "label": "New York",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "precision": "city",
+      "source": "https://powerstation.nyc/contact",
+      "location_source": "https://powerstation.nyc/contact",
+      "note": "",
+      "venue": "Power Station",
+      "coverage": "Sourced cultural threads",
+      "city": "New York",
+      "studio": "Recorded at",
+      "id": "thread-f785b29cb3d5",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "C'est Chic",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://powerstation.nyc/contact",
+          "location_source": "https://powerstation.nyc/contact",
+          "note": "",
+          "venue": "Power Station",
+          "coverage": "credited recording locations",
+          "city": "New York",
+          "studio": "Recorded at",
+          "id": "thread-f785b29cb3d5"
+        }
+      ],
+      "primary_thread_id": "thread-f785b29cb3d5",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "C'est Chic",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://powerstation.nyc/contact",
+          "location_source": "https://powerstation.nyc/contact",
+          "note": "",
+          "venue": "Power Station",
+          "coverage": "credited recording locations",
+          "city": "New York",
+          "studio": "Recorded at",
+          "id": "thread-f785b29cb3d5"
+        }
+      ],
+      "unlocated_artists": [
+        "Chic"
+      ]
+    },
+    "2071439": {
+      "kind": "recording",
+      "relation": "Recorded at",
+      "subject": "Street Lady",
+      "label": "Los Angeles",
+      "lon": -118.2437,
+      "lat": 34.0522,
+      "precision": "city",
+      "source": "https://soundfactoryhollywood.com/sound-factory-studio-b/",
+      "location_source": "https://soundfactoryhollywood.com/sound-factory-studio-b/",
+      "note": "",
+      "venue": "The Sound Factory",
+      "coverage": "Sourced cultural threads",
+      "city": "Los Angeles",
+      "studio": "Recorded at",
+      "id": "thread-6cacf211653b",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Street Lady",
+          "label": "Los Angeles",
+          "lon": -118.2437,
+          "lat": 34.0522,
+          "precision": "city",
+          "source": "https://soundfactoryhollywood.com/sound-factory-studio-b/",
+          "location_source": "https://soundfactoryhollywood.com/sound-factory-studio-b/",
+          "note": "",
+          "venue": "The Sound Factory",
+          "coverage": "credited recording locations",
+          "city": "Los Angeles",
+          "studio": "Recorded at",
+          "id": "thread-6cacf211653b"
+        }
+      ],
+      "primary_thread_id": "thread-6cacf211653b",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Street Lady",
+          "label": "Los Angeles",
+          "lon": -118.2437,
+          "lat": 34.0522,
+          "precision": "city",
+          "source": "https://soundfactoryhollywood.com/sound-factory-studio-b/",
+          "location_source": "https://soundfactoryhollywood.com/sound-factory-studio-b/",
+          "note": "",
+          "venue": "The Sound Factory",
+          "coverage": "credited recording locations",
+          "city": "Los Angeles",
+          "studio": "Recorded at",
+          "id": "thread-6cacf211653b"
+        }
+      ],
+      "unlocated_artists": [
+        "Donald Byrd"
+      ]
+    },
+    "10676369": {
+      "kind": "recording",
+      "relation": "Recorded at",
+      "subject": "Illmatic",
+      "label": "New York",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "precision": "city",
+      "source": "https://uniquerecording.com/studio/",
+      "location_source": "https://uniquerecording.com/studio/",
+      "note": "",
+      "venue": "Unique Recording",
+      "coverage": "Sourced cultural threads",
+      "city": "New York",
+      "studio": "Recorded at",
+      "id": "thread-7f0c756eced6",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Illmatic",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://uniquerecording.com/studio/",
+          "location_source": "https://uniquerecording.com/studio/",
+          "note": "",
+          "venue": "Unique Recording",
+          "coverage": "partial",
+          "city": "New York",
+          "studio": "Recorded at",
+          "id": "thread-7f0c756eced6"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Illmatic",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://studios.sonymusic.com/studios/battery-studios-400",
+          "location_source": "https://studios.sonymusic.com/studios/battery-studios-400",
+          "note": "",
+          "venue": "Battery Studios, New York",
+          "coverage": "partial",
+          "city": "New York",
+          "studio": "Recorded at",
+          "id": "thread-0525f18e5146"
+        }
+      ],
+      "primary_thread_id": "thread-7f0c756eced6",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Illmatic",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://uniquerecording.com/studio/",
+          "location_source": "https://uniquerecording.com/studio/",
+          "note": "",
+          "venue": "Unique Recording",
+          "coverage": "partial",
+          "city": "New York",
+          "studio": "Recorded at",
+          "id": "thread-7f0c756eced6"
+        }
+      ],
+      "unlocated_artists": [
+        "Nas"
+      ]
+    },
+    "10395690": {
+      "kind": "recording",
+      "relation": "Recorded at",
+      "subject": "ODD EP",
+      "label": "Budapest",
+      "lon": 19.0402,
+      "lat": 47.4979,
+      "precision": "city",
+      "source": "https://www.discogs.com/label/1258397",
+      "location_source": "https://www.discogs.com/label/1258397",
+      "note": "",
+      "venue": "Szemlőhegy, Budapest, Hungary",
+      "coverage": "Sourced cultural threads",
+      "city": "Budapest",
+      "studio": "Recorded at",
+      "id": "thread-8e0db07ed4b5",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "ODD EP",
+          "label": "Budapest",
+          "lon": 19.0402,
+          "lat": 47.4979,
+          "precision": "city",
+          "source": "https://www.discogs.com/label/1258397",
+          "location_source": "https://www.discogs.com/label/1258397",
+          "note": "",
+          "venue": "Szemlőhegy, Budapest, Hungary",
+          "coverage": "credited recording locations",
+          "city": "Budapest",
+          "studio": "Recorded at",
+          "id": "thread-8e0db07ed4b5"
+        }
+      ],
+      "primary_thread_id": "thread-8e0db07ed4b5",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "ODD EP",
+          "label": "Budapest",
+          "lon": 19.0402,
+          "lat": 47.4979,
+          "precision": "city",
+          "source": "https://www.discogs.com/label/1258397",
+          "location_source": "https://www.discogs.com/label/1258397",
+          "note": "",
+          "venue": "Szemlőhegy, Budapest, Hungary",
+          "coverage": "credited recording locations",
+          "city": "Budapest",
+          "studio": "Recorded at",
+          "id": "thread-8e0db07ed4b5"
+        }
+      ],
+      "unlocated_artists": [
+        "Norwell"
+      ]
+    },
+    "13710933": {
+      "kind": "recording",
+      "relation": "Recorded at",
+      "subject": "24 - 24 Music",
+      "label": "New York",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "precision": "city",
+      "source": "https://thekitchen.org/about/",
+      "location_source": "https://thekitchen.org/about/",
+      "note": "",
+      "venue": "The Kitchen, New York City",
+      "coverage": "Sourced cultural threads",
+      "city": "New York",
+      "studio": "Recorded at",
+      "id": "thread-9ef0e8f1603f",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "24 - 24 Music",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://thekitchen.org/about/",
+          "location_source": "https://thekitchen.org/about/",
+          "note": "",
+          "venue": "The Kitchen, New York City",
+          "coverage": "partial",
+          "city": "New York",
+          "studio": "Recorded at",
+          "id": "thread-9ef0e8f1603f"
+        }
+      ],
+      "primary_thread_id": "thread-9ef0e8f1603f",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "24 - 24 Music",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://thekitchen.org/about/",
+          "location_source": "https://thekitchen.org/about/",
+          "note": "",
+          "venue": "The Kitchen, New York City",
+          "coverage": "partial",
+          "city": "New York",
+          "studio": "Recorded at",
+          "id": "thread-9ef0e8f1603f"
+        }
+      ],
+      "unlocated_artists": [
+        "Dinosaur L"
+      ]
+    },
+    "8786827": {
+      "kind": "recording",
+      "relation": "Recorded at",
+      "subject": "It Won't Come Easy / Batman",
+      "label": "Kingston",
+      "lon": -76.7936,
+      "lat": 17.9712,
+      "precision": "city",
+      "source": "https://www.vprecords.com/studio-17-with-silent-addy-and-yaadcore-launches/",
+      "location_source": "https://www.vprecords.com/studio-17-with-silent-addy-and-yaadcore-launches/",
+      "note": "",
+      "venue": "Randy's Studio",
+      "coverage": "Sourced cultural threads",
+      "city": "Kingston",
+      "studio": "Recorded at",
+      "id": "thread-4e1452f58fad",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "It Won't Come Easy / Batman",
+          "label": "Kingston",
+          "lon": -76.7936,
+          "lat": 17.9712,
+          "precision": "city",
+          "source": "https://www.vprecords.com/studio-17-with-silent-addy-and-yaadcore-launches/",
+          "location_source": "https://www.vprecords.com/studio-17-with-silent-addy-and-yaadcore-launches/",
+          "note": "",
+          "venue": "Randy's Studio",
+          "coverage": "credited recording locations",
+          "city": "Kingston",
+          "studio": "Recorded at",
+          "id": "thread-4e1452f58fad"
+        }
+      ],
+      "primary_thread_id": "thread-4e1452f58fad",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "It Won't Come Easy / Batman",
+          "label": "Kingston",
+          "lon": -76.7936,
+          "lat": 17.9712,
+          "precision": "city",
+          "source": "https://www.vprecords.com/studio-17-with-silent-addy-and-yaadcore-launches/",
+          "location_source": "https://www.vprecords.com/studio-17-with-silent-addy-and-yaadcore-launches/",
+          "note": "",
+          "venue": "Randy's Studio",
+          "coverage": "credited recording locations",
+          "city": "Kingston",
+          "studio": "Recorded at",
+          "id": "thread-4e1452f58fad"
+        }
+      ],
+      "unlocated_artists": [
+        "The Man X",
+        "The Wailers Band",
+        "Randy's All Stars"
+      ]
+    },
+    "12716187": {
+      "kind": "recording",
+      "relation": "Recorded at",
+      "subject": "Universal Beings",
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "precision": "city",
+      "source": "https://www.sydkemp.com/studio",
+      "location_source": "https://www.sydkemp.com/studio",
+      "note": "",
+      "venue": "Total Refreshment Centre",
+      "coverage": "Sourced cultural threads",
+      "city": "London",
+      "studio": "Recorded at",
+      "id": "thread-c1e4171b10e5",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Universal Beings",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://www.sydkemp.com/studio",
+          "location_source": "https://www.sydkemp.com/studio",
+          "note": "",
+          "venue": "Total Refreshment Centre",
+          "coverage": "partial",
+          "city": "London",
+          "studio": "Recorded at",
+          "id": "thread-c1e4171b10e5"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Universal Beings",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "source": "https://coprosperity.org/about",
+          "location_source": "https://coprosperity.org/about",
+          "note": "",
+          "venue": "Co-Prosperity Sphere",
+          "coverage": "partial",
+          "city": "Chicago",
+          "studio": "Recorded at",
+          "id": "thread-88cb48865c0e"
+        }
+      ],
+      "primary_thread_id": "thread-c1e4171b10e5",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Universal Beings",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://www.sydkemp.com/studio",
+          "location_source": "https://www.sydkemp.com/studio",
+          "note": "",
+          "venue": "Total Refreshment Centre",
+          "coverage": "partial",
+          "city": "London",
+          "studio": "Recorded at",
+          "id": "thread-c1e4171b10e5"
+        }
+      ],
+      "unlocated_artists": [
+        "Makaya McCraven"
+      ]
+    },
+    "14270021": {
+      "kind": "recording",
+      "relation": "Recorded at",
+      "subject": "Midnight Marauders",
+      "label": "New York",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "precision": "city",
+      "source": "https://studios.sonymusic.com/studios/battery-studios-400",
+      "location_source": "https://studios.sonymusic.com/studios/battery-studios-400",
+      "note": "",
+      "venue": "Battery Studios, New York",
+      "coverage": "Sourced cultural threads",
+      "city": "New York",
+      "studio": "Recorded at",
+      "id": "thread-1b6c6fee8907",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Midnight Marauders",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://studios.sonymusic.com/studios/battery-studios-400",
+          "location_source": "https://studios.sonymusic.com/studios/battery-studios-400",
+          "note": "",
+          "venue": "Battery Studios, New York",
+          "coverage": "partial",
+          "city": "New York",
+          "studio": "Recorded at",
+          "id": "thread-1b6c6fee8907"
+        }
+      ],
+      "primary_thread_id": "thread-1b6c6fee8907",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Midnight Marauders",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://studios.sonymusic.com/studios/battery-studios-400",
+          "location_source": "https://studios.sonymusic.com/studios/battery-studios-400",
+          "note": "",
+          "venue": "Battery Studios, New York",
+          "coverage": "partial",
+          "city": "New York",
+          "studio": "Recorded at",
+          "id": "thread-1b6c6fee8907"
+        }
+      ],
+      "unlocated_artists": [
+        "A Tribe Called Quest"
+      ]
+    },
+    "11758168": {
+      "kind": "artist",
+      "relation": "Band based in",
+      "subject": "Altın Gün",
+      "label": "Amsterdam",
+      "lon": 4.9041,
+      "lat": 52.3676,
+      "precision": "city",
+      "source": "https://atorecords.com/releases/on/",
+      "note": "The album notes identify the band with Amsterdam. This is its musical base, not a recording-location claim.",
+      "city": "Amsterdam",
+      "studio": "Band based in",
+      "id": "thread-758ff8404bee",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Band based in",
+          "subject": "Altın Gün",
+          "label": "Amsterdam",
+          "lon": 4.9041,
+          "lat": 52.3676,
+          "precision": "city",
+          "source": "https://atorecords.com/releases/on/",
+          "note": "The album notes identify the band with Amsterdam. This is its musical base, not a recording-location claim.",
+          "city": "Amsterdam",
+          "studio": "Band based in",
+          "id": "thread-758ff8404bee"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Interprets folk repertoire from",
+          "subject": "On",
+          "label": "Turkey",
+          "lon": 35,
+          "lat": 39,
+          "precision": "country",
+          "source": "https://atorecords.com/releases/on/",
+          "note": "The label describes interpretations of traditional Turkish folk songs. The country marker represents a repertoire connection, not one exact place of origin for every song.",
+          "city": "Turkey",
+          "studio": "Interprets folk repertoire from",
+          "id": "thread-8bce0e32437a"
+        }
+      ],
+      "primary_thread_id": "thread-758ff8404bee",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Band based in",
+          "subject": "Altın Gün",
+          "label": "Amsterdam",
+          "lon": 4.9041,
+          "lat": 52.3676,
+          "precision": "city",
+          "source": "https://atorecords.com/releases/on/",
+          "note": "The album notes identify the band with Amsterdam. This is its musical base, not a recording-location claim.",
+          "city": "Amsterdam",
+          "studio": "Band based in",
+          "id": "thread-758ff8404bee"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
     }
-  }
+  },
+  "thread_count": 137
 }
