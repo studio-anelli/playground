@@ -13,6 +13,16 @@ export type Experiment = {
 
 const experimentCatalog: Experiment[] = [
   {
+    id: "REC-12",
+    slug: "music-that-travels",
+    title: "MUSIC THAT TRAVELS",
+    kind: "study",
+    status: "test",
+    year: "2026",
+    tags: ["music", "geography", "colour"],
+    summary: "Explore a personal record collection through two studies: chromatic artwork and the journey from musical origins to release markets.",
+  },
+  {
     id: "REC-11",
     slug: "durf-dots",
     title: "DURF / DOT SYSTEM",

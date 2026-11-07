@@ -1,0 +1,2837 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-07T16:17:48.906932+00:00",
+  "ids": [
+    7548627,
+    27478812,
+    20923105,
+    30112238,
+    7555330,
+    10883955,
+    11780074,
+    110,
+    1614712,
+    2230011,
+    8539380,
+    12083950,
+    11888376,
+    12298829,
+    1028298,
+    1042849,
+    212060,
+    9153158,
+    3842748,
+    8036642,
+    36972,
+    10496968,
+    12863875,
+    13402018,
+    14877491,
+    13657670,
+    11813901,
+    8610636,
+    8268802,
+    14480820,
+    1218134,
+    985747,
+    25308625,
+    1358351,
+    3880099,
+    1244858,
+    11009929,
+    14207369,
+    14457597,
+    11573136,
+    8872804,
+    8888357,
+    9698138,
+    24896429,
+    24882914,
+    6127229,
+    13986179,
+    9034937,
+    12965221,
+    4330903,
+    3558397,
+    9185698,
+    3146173,
+    1363509,
+    18007090,
+    11534317,
+    19378,
+    12097296,
+    11636825,
+    1704802,
+    5156837,
+    11740322,
+    2936028,
+    9359985,
+    21993661,
+    18064021,
+    2578052,
+    981136,
+    21926020,
+    944,
+    12101577,
+    2543335,
+    2214344,
+    10708678,
+    9369950,
+    8800233,
+    9992673,
+    11795,
+    8630272,
+    7938017,
+    13433334,
+    9425519,
+    567634,
+    8121481,
+    14837376,
+    114068,
+    61693,
+    95045,
+    805316,
+    7704301,
+    8807880,
+    7269434,
+    1027491,
+    165894,
+    18497,
+    7568442,
+    10559651,
+    32063,
+    2045030,
+    322096
+  ],
+  "copy_count": 102,
+  "distinct_editions": 100,
+  "artist_count": 34,
+  "compilation_count": 9,
+  "records": {
+    "7548627": {
+      "label": "Australia",
+      "lon": 134,
+      "lat": -25,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Mall Grab",
+      "city": "Australia",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Australia",
+          "lon": 134,
+          "lat": -25,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Mall Grab",
+          "city": "Australia",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "27478812": {
+      "label": "Bristol",
+      "lon": -2.5879,
+      "lat": 51.4545,
+      "relation": "Artist based in",
+      "precision": "city",
+      "source": "https://www.createdefinerelease.com/producers/om-unit",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Om Unit",
+      "city": "Bristol",
+      "studio": "Artist based in",
+      "locations": [
+        {
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "relation": "Artist based in",
+          "precision": "city",
+          "source": "https://www.createdefinerelease.com/producers/om-unit",
+          "note": "Artistic base, not a claim about birthplace or recording studio.",
+          "subject": "Om Unit",
+          "city": "Bristol",
+          "studio": "Artist based in"
+        },
+        {
+          "label": "Sweden",
+          "lon": 15,
+          "lat": 62,
+          "relation": "Artist associated area",
+          "precision": "country",
+          "source": "https://inkonst.com/en/artists/andreas-tilliander-tm404-mokira",
+          "note": "TM404 is Andreas Tilliander’s project.",
+          "subject": "TM404",
+          "city": "Sweden",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "20923105": {
+      "label": "Ghana",
+      "lon": -2,
+      "lat": 8,
+      "relation": "Compilation documents",
+      "precision": "country",
+      "source": "https://analogafrica.bandcamp.com/track/egye-tu-gbe",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Compilation",
+      "city": "Ghana",
+      "studio": "Compilation documents",
+      "locations": [
+        {
+          "label": "Ghana",
+          "lon": -2,
+          "lat": 8,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://analogafrica.bandcamp.com/track/egye-tu-gbe",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Ghana",
+          "studio": "Compilation documents"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "30112238": {
+      "label": "Kinshasa",
+      "lon": 15.2667,
+      "lat": -4.325,
+      "relation": "Compilation documents",
+      "precision": "city",
+      "source": "https://analogafrica.bandcamp.com/album/congo-funk-sound-madness-from-the-shores-of-the-mighty-congo-river-kinshasa-brazzaville-1969-1982-analog-africa-nr-38?from=footer-cc-a1289343264",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Compilation",
+      "city": "Kinshasa",
+      "studio": "Compilation documents",
+      "locations": [
+        {
+          "label": "Kinshasa",
+          "lon": 15.2667,
+          "lat": -4.325,
+          "relation": "Compilation documents",
+          "precision": "city",
+          "source": "https://analogafrica.bandcamp.com/album/congo-funk-sound-madness-from-the-shores-of-the-mighty-congo-river-kinshasa-brazzaville-1969-1982-analog-africa-nr-38?from=footer-cc-a1289343264",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Kinshasa",
+          "studio": "Compilation documents"
+        },
+        {
+          "label": "Brazzaville",
+          "lon": 15.2833,
+          "lat": -4.2667,
+          "relation": "Compilation documents",
+          "precision": "city",
+          "source": "https://analogafrica.bandcamp.com/album/congo-funk-sound-madness-from-the-shores-of-the-mighty-congo-river-kinshasa-brazzaville-1969-1982-analog-africa-nr-38?from=footer-cc-a1289343264",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Brazzaville",
+          "studio": "Compilation documents"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "7555330": {
+      "label": "Rome",
+      "lon": 12.4964,
+      "lat": 41.9028,
+      "relation": "Band formed in",
+      "source": "https://www.allmusic.com/artist/darcangelo-mn0000139093",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "D'Arcangelo",
+      "city": "Rome",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Rome",
+          "lon": 12.4964,
+          "lat": 41.9028,
+          "relation": "Band formed in",
+          "source": "https://www.allmusic.com/artist/darcangelo-mn0000139093",
+          "precision": "city",
+          "note": "",
+          "subject": "D'Arcangelo",
+          "city": "Rome",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "10883955": {
+      "label": "Netherlands",
+      "lon": 5,
+      "lat": 52,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/071cb80d-a198-4f88-b41e-f4dd9a65ec80",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Kettel",
+      "city": "Netherlands",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Netherlands",
+          "lon": 5,
+          "lat": 52,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/071cb80d-a198-4f88-b41e-f4dd9a65ec80",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Kettel",
+          "city": "Netherlands",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "11780074": {
+      "label": "Chicago",
+      "lon": -87.6298,
+      "lat": 41.8781,
+      "relation": "Band formed in",
+      "source": "https://musicbrainz.org/artist/d9733f21-71d7-4fa7-813d-67eca0f0eaaf/relationships",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "The Sun Ra Arkestra",
+      "city": "Chicago",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/d9733f21-71d7-4fa7-813d-67eca0f0eaaf/relationships",
+          "precision": "city",
+          "note": "",
+          "subject": "The Sun Ra Arkestra",
+          "city": "Chicago",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "110": {
+      "label": "Detroit",
+      "lon": -83.0458,
+      "lat": 42.3314,
+      "relation": "Musical roots",
+      "source": "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Jeff Mills",
+      "city": "Detroit",
+      "studio": "Musical roots",
+      "locations": [
+        {
+          "label": "Detroit",
+          "lon": -83.0458,
+          "lat": 42.3314,
+          "relation": "Musical roots",
+          "source": "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+          "precision": "city",
+          "note": "",
+          "subject": "Jeff Mills",
+          "city": "Detroit",
+          "studio": "Musical roots"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "1614712": {
+      "label": "Louisiana",
+      "lon": -92,
+      "lat": 31,
+      "relation": "Compilation documents",
+      "precision": "region",
+      "source": "https://www.acerecords.co.uk/southern-funkin-louisiana-funk-and-soul-1967-1979",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Compilation",
+      "city": "Louisiana",
+      "studio": "Compilation documents",
+      "locations": [
+        {
+          "label": "Louisiana",
+          "lon": -92,
+          "lat": 31,
+          "relation": "Compilation documents",
+          "precision": "region",
+          "source": "https://www.acerecords.co.uk/southern-funkin-louisiana-funk-and-soul-1967-1979",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Louisiana",
+          "studio": "Compilation documents"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "2230011": {
+      "label": "Italy",
+      "lon": 12,
+      "lat": 43,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Fabrizio De André",
+      "city": "Italy",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "8539380": {
+      "label": "Italy",
+      "lon": 12,
+      "lat": 43,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Fabrizio De André",
+      "city": "Italy",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "12083950": {
+      "label": "France",
+      "lon": 2,
+      "lat": 47,
+      "relation": "Compilation documents",
+      "precision": "country",
+      "source": "https://www.bornbadrecords.net/releases/",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Compilation",
+      "city": "France",
+      "studio": "Compilation documents",
+      "locations": [
+        {
+          "label": "France",
+          "lon": 2,
+          "lat": 47,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://www.bornbadrecords.net/releases/",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "France",
+          "studio": "Compilation documents"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "11888376": {
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Ross From Friends",
+      "city": "United Kingdom",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Ross From Friends",
+          "city": "United Kingdom",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "12298829": {
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Ross From Friends",
+      "city": "United Kingdom",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Ross From Friends",
+          "city": "United Kingdom",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "1028298": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "George Clinton",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "George Clinton",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "1042849": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "George Clinton",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "George Clinton",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "212060": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "George Clinton",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "George Clinton",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "9153158": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/561d854a-6a28-4aa7-8c99-323e6ce46c2a",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Miles Davis",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/561d854a-6a28-4aa7-8c99-323e6ce46c2a",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Miles Davis",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "3842748": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/561d854a-6a28-4aa7-8c99-323e6ce46c2a",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Miles Davis",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/561d854a-6a28-4aa7-8c99-323e6ce46c2a",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Miles Davis",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "8036642": {
+      "label": "Australia",
+      "lon": 134,
+      "lat": -25,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Mall Grab",
+      "city": "Australia",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Australia",
+          "lon": 134,
+          "lat": -25,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Mall Grab",
+          "city": "Australia",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "36972": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Herbie Hancock",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Herbie Hancock",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "10496968": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Herbie Hancock",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Herbie Hancock",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "12863875": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Herbie Hancock",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Herbie Hancock",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "13402018": {
+      "label": "Miami",
+      "lon": -80.1918,
+      "lat": 25.7617,
+      "relation": "Band associated with",
+      "source": "https://psychicmirrors.bandcamp.com/community",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Psychic Mirrors",
+      "city": "Miami",
+      "studio": "Band associated with",
+      "locations": [
+        {
+          "label": "Miami",
+          "lon": -80.1918,
+          "lat": 25.7617,
+          "relation": "Band associated with",
+          "source": "https://psychicmirrors.bandcamp.com/community",
+          "precision": "city",
+          "note": "",
+          "subject": "Psychic Mirrors",
+          "city": "Miami",
+          "studio": "Band associated with"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "14877491": {
+      "label": "Miami",
+      "lon": -80.1918,
+      "lat": 25.7617,
+      "relation": "Band associated with",
+      "source": "https://psychicmirrors.bandcamp.com/community",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Psychic Mirrors",
+      "city": "Miami",
+      "studio": "Band associated with",
+      "locations": [
+        {
+          "label": "Miami",
+          "lon": -80.1918,
+          "lat": 25.7617,
+          "relation": "Band associated with",
+          "source": "https://psychicmirrors.bandcamp.com/community",
+          "precision": "city",
+          "note": "",
+          "subject": "Psychic Mirrors",
+          "city": "Miami",
+          "studio": "Band associated with"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "13657670": {
+      "label": "Manchester",
+      "lon": -2.2426,
+      "lat": 53.4808,
+      "relation": "Early musical base",
+      "source": "https://nextupthrowback.wordpress.com/2016/02/19/manchester-rising-no-moon/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "No Moon",
+      "city": "Manchester",
+      "studio": "Early musical base",
+      "locations": [
+        {
+          "label": "Manchester",
+          "lon": -2.2426,
+          "lat": 53.4808,
+          "relation": "Early musical base",
+          "source": "https://nextupthrowback.wordpress.com/2016/02/19/manchester-rising-no-moon/",
+          "precision": "city",
+          "note": "2016 artist feature; not the artist’s later German base.",
+          "subject": "No Moon",
+          "city": "Manchester",
+          "studio": "Early musical base"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "11813901": {
+      "label": "Manchester",
+      "lon": -2.2426,
+      "lat": 53.4808,
+      "relation": "Early musical base",
+      "source": "https://nextupthrowback.wordpress.com/2016/02/19/manchester-rising-no-moon/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "No Moon",
+      "city": "Manchester",
+      "studio": "Early musical base",
+      "locations": [
+        {
+          "label": "Manchester",
+          "lon": -2.2426,
+          "lat": 53.4808,
+          "relation": "Early musical base",
+          "source": "https://nextupthrowback.wordpress.com/2016/02/19/manchester-rising-no-moon/",
+          "precision": "city",
+          "note": "2016 artist feature; not the artist’s later German base.",
+          "subject": "No Moon",
+          "city": "Manchester",
+          "studio": "Early musical base"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "8610636": {
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Ross From Friends",
+      "city": "United Kingdom",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Ross From Friends",
+          "city": "United Kingdom",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "8268802": {
+      "label": "Netherlands",
+      "lon": 5,
+      "lat": 52,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/071cb80d-a198-4f88-b41e-f4dd9a65ec80",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Kettel",
+      "city": "Netherlands",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Netherlands",
+          "lon": 5,
+          "lat": 52,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/071cb80d-a198-4f88-b41e-f4dd9a65ec80",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Kettel",
+          "city": "Netherlands",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "14480820": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/561d854a-6a28-4aa7-8c99-323e6ce46c2a",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Miles Davis",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/561d854a-6a28-4aa7-8c99-323e6ce46c2a",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Miles Davis",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "1218134": {
+      "label": "Italy",
+      "lon": 12,
+      "lat": 43,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Franco Battiato",
+      "city": "Italy",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Franco Battiato",
+          "city": "Italy",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "985747": {
+      "label": "Italy",
+      "lon": 12,
+      "lat": 43,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Franco Battiato",
+      "city": "Italy",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Franco Battiato",
+          "city": "Italy",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "25308625": {
+      "label": "Italy",
+      "lon": 12,
+      "lat": 43,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Franco Battiato",
+      "city": "Italy",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Franco Battiato",
+          "city": "Italy",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "1358351": {
+      "label": "Italy",
+      "lon": 12,
+      "lat": 43,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Franco Battiato",
+      "city": "Italy",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Franco Battiato",
+          "city": "Italy",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "3880099": {
+      "label": "Naples",
+      "lon": 14.2681,
+      "lat": 40.8518,
+      "relation": "Musical scene",
+      "source": "https://www.pinodaniele.com/about/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Pino Daniele",
+      "city": "Naples",
+      "studio": "Musical scene",
+      "locations": [
+        {
+          "label": "Naples",
+          "lon": 14.2681,
+          "lat": 40.8518,
+          "relation": "Musical scene",
+          "source": "https://www.pinodaniele.com/about/",
+          "precision": "city",
+          "note": "",
+          "subject": "Pino Daniele",
+          "city": "Naples",
+          "studio": "Musical scene"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "1244858": {
+      "label": "Naples",
+      "lon": 14.2681,
+      "lat": 40.8518,
+      "relation": "Musical scene",
+      "source": "https://www.pinodaniele.com/about/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Pino Daniele",
+      "city": "Naples",
+      "studio": "Musical scene",
+      "locations": [
+        {
+          "label": "Naples",
+          "lon": 14.2681,
+          "lat": 40.8518,
+          "relation": "Musical scene",
+          "source": "https://www.pinodaniele.com/about/",
+          "precision": "city",
+          "note": "",
+          "subject": "Pino Daniele",
+          "city": "Naples",
+          "studio": "Musical scene"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "11009929": {
+      "label": "Berlin",
+      "lon": 13.405,
+      "lat": 52.52,
+      "relation": "Artist based in",
+      "source": "https://ra.co/dj/evageist/biography",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Eva Geist",
+      "city": "Berlin",
+      "studio": "Artist based in",
+      "locations": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist based in",
+          "source": "https://ra.co/dj/evageist/biography",
+          "precision": "city",
+          "note": "Biography includes the Dniheb and Blumareciano releases in this collection.",
+          "subject": "Eva Geist",
+          "city": "Berlin",
+          "studio": "Artist based in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "14207369": {
+      "label": "Italy",
+      "lon": 12,
+      "lat": 43,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Fabrizio De André",
+      "city": "Italy",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "14457597": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Herbie Hancock",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Herbie Hancock",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "11573136": {
+      "label": "Rome",
+      "lon": 12.4964,
+      "lat": 41.9028,
+      "relation": "Band formed in",
+      "source": "https://www.allmusic.com/artist/darcangelo-mn0000139093",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "D'Arcangelo",
+      "city": "Rome",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Rome",
+          "lon": 12.4964,
+          "lat": 41.9028,
+          "relation": "Band formed in",
+          "source": "https://www.allmusic.com/artist/darcangelo-mn0000139093",
+          "precision": "city",
+          "note": "",
+          "subject": "D'Arcangelo",
+          "city": "Rome",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "8872804": {
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "relation": "Band formed in",
+      "source": "https://musicbrainz.org/artist/83d91898-7763-47d7-b03b-b92132375c47",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Pink Floyd",
+      "city": "London",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/83d91898-7763-47d7-b03b-b92132375c47",
+          "precision": "city",
+          "note": "",
+          "subject": "Pink Floyd",
+          "city": "London",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "8888357": {
+      "label": "Australia",
+      "lon": 134,
+      "lat": -25,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Mall Grab",
+      "city": "Australia",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Australia",
+          "lon": 134,
+          "lat": -25,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Mall Grab",
+          "city": "Australia",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "9698138": {
+      "label": "Australia",
+      "lon": 134,
+      "lat": -25,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Mall Grab",
+      "city": "Australia",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Australia",
+          "lon": 134,
+          "lat": -25,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Mall Grab",
+          "city": "Australia",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "24896429": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Kendrick Lamar",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Kendrick Lamar",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "24882914": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Kendrick Lamar",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Kendrick Lamar",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "6127229": {
+      "label": "Boston",
+      "lon": -71.0589,
+      "lat": 42.3601,
+      "relation": "Band formed in",
+      "source": "https://www.mmone.org/ultimate-spinach-2/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Ultimate Spinach",
+      "city": "Boston",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Boston",
+          "lon": -71.0589,
+          "lat": 42.3601,
+          "relation": "Band formed in",
+          "source": "https://www.mmone.org/ultimate-spinach-2/",
+          "precision": "city",
+          "note": "",
+          "subject": "Ultimate Spinach",
+          "city": "Boston",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "13986179": {
+      "label": "Paris",
+      "lon": 2.3522,
+      "lat": 48.8566,
+      "relation": "Band formed in",
+      "source": "https://836m.org/artist/limperatrice/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "L’impératrice",
+      "city": "Paris",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Paris",
+          "lon": 2.3522,
+          "lat": 48.8566,
+          "relation": "Band formed in",
+          "source": "https://836m.org/artist/limperatrice/",
+          "precision": "city",
+          "note": "",
+          "subject": "L’impératrice",
+          "city": "Paris",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "9034937": {
+      "label": "Berlin",
+      "lon": 13.405,
+      "lat": 52.52,
+      "relation": "Artist based in",
+      "source": "https://ra.co/dj/evageist/biography",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Eva Geist",
+      "city": "Berlin",
+      "studio": "Artist based in",
+      "locations": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist based in",
+          "source": "https://ra.co/dj/evageist/biography",
+          "precision": "city",
+          "note": "Biography includes the Dniheb and Blumareciano releases in this collection.",
+          "subject": "Eva Geist",
+          "city": "Berlin",
+          "studio": "Artist based in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "12965221": {
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Ross From Friends",
+      "city": "United Kingdom",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Ross From Friends",
+          "city": "United Kingdom",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "4330903": {
+      "label": "Dayton",
+      "lon": -84.1916,
+      "lat": 39.7589,
+      "relation": "Band formed in",
+      "source": "https://musicbrainz.org/artist/81e07550-d0e2-467e-bc71-44b5d52de8f4",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Ohio Players",
+      "city": "Dayton",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Dayton",
+          "lon": -84.1916,
+          "lat": 39.7589,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/81e07550-d0e2-467e-bc71-44b5d52de8f4",
+          "precision": "city",
+          "note": "",
+          "subject": "Ohio Players",
+          "city": "Dayton",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "3558397": {
+      "label": "Dayton",
+      "lon": -84.1916,
+      "lat": 39.7589,
+      "relation": "Band formed in",
+      "source": "https://musicbrainz.org/artist/81e07550-d0e2-467e-bc71-44b5d52de8f4",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Ohio Players",
+      "city": "Dayton",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Dayton",
+          "lon": -84.1916,
+          "lat": 39.7589,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/81e07550-d0e2-467e-bc71-44b5d52de8f4",
+          "precision": "city",
+          "note": "",
+          "subject": "Ohio Players",
+          "city": "Dayton",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "9185698": {
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/3e95edd2-5af6-47d4-aac4-c27e58fb08f8",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Dom & Roland",
+      "city": "United Kingdom",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/3e95edd2-5af6-47d4-aac4-c27e58fb08f8",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Dom & Roland",
+          "city": "United Kingdom",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "3146173": {
+      "label": "Boston",
+      "lon": -71.0589,
+      "lat": 42.3601,
+      "relation": "Band formed in",
+      "source": "https://www.mmone.org/ultimate-spinach-2/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Ultimate Spinach",
+      "city": "Boston",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Boston",
+          "lon": -71.0589,
+          "lat": 42.3601,
+          "relation": "Band formed in",
+          "source": "https://www.mmone.org/ultimate-spinach-2/",
+          "precision": "city",
+          "note": "",
+          "subject": "Ultimate Spinach",
+          "city": "Boston",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "1363509": {
+      "label": "Boston",
+      "lon": -71.0589,
+      "lat": 42.3601,
+      "relation": "Band formed in",
+      "source": "https://www.mmone.org/ultimate-spinach-2/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Ultimate Spinach",
+      "city": "Boston",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Boston",
+          "lon": -71.0589,
+          "lat": 42.3601,
+          "relation": "Band formed in",
+          "source": "https://www.mmone.org/ultimate-spinach-2/",
+          "precision": "city",
+          "note": "",
+          "subject": "Ultimate Spinach",
+          "city": "Boston",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "18007090": {
+      "label": "Paris",
+      "lon": 2.3522,
+      "lat": 48.8566,
+      "relation": "Band formed in",
+      "source": "https://836m.org/artist/limperatrice/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "L’impératrice",
+      "city": "Paris",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Paris",
+          "lon": 2.3522,
+          "lat": 48.8566,
+          "relation": "Band formed in",
+          "source": "https://836m.org/artist/limperatrice/",
+          "precision": "city",
+          "note": "",
+          "subject": "L’impératrice",
+          "city": "Paris",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "11534317": {
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Ross From Friends",
+      "city": "United Kingdom",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Ross From Friends",
+          "city": "United Kingdom",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "19378": {
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/3e95edd2-5af6-47d4-aac4-c27e58fb08f8",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Dom & Roland",
+      "city": "United Kingdom",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/3e95edd2-5af6-47d4-aac4-c27e58fb08f8",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Dom & Roland",
+          "city": "United Kingdom",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "12097296": {
+      "label": "Naples",
+      "lon": 14.2681,
+      "lat": 40.8518,
+      "relation": "Band formed in",
+      "source": "https://italiana.esteri.it/italiana/en/eventi/nu-guinea-in-paris/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Nu Guinea",
+      "city": "Naples",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Naples",
+          "lon": 14.2681,
+          "lat": 40.8518,
+          "relation": "Band formed in",
+          "source": "https://italiana.esteri.it/italiana/en/eventi/nu-guinea-in-paris/",
+          "precision": "city",
+          "note": "",
+          "subject": "Nu Guinea",
+          "city": "Naples",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "11636825": {
+      "label": "Berlin",
+      "lon": 13.405,
+      "lat": 52.52,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/4c41d78d-9dd5-430d-81ea-286052158293",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Peggy Gou",
+      "city": "Berlin",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/4c41d78d-9dd5-430d-81ea-286052158293",
+          "precision": "city",
+          "note": "Berlin-based artistic association, not South Korean birthplace or an album-specific recording location.",
+          "subject": "Peggy Gou",
+          "city": "Berlin",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "1704802": {
+      "label": "District of Columbia / Maryland / Virginia",
+      "lon": -77,
+      "lat": 38,
+      "relation": "Compilation documents",
+      "precision": "region",
+      "source": "https://ppudc.bandcamp.com/album/dmv-district-maryland-virginia-vol-1",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Compilation",
+      "city": "District of Columbia / Maryland / Virginia",
+      "studio": "Compilation documents",
+      "locations": [
+        {
+          "label": "District of Columbia / Maryland / Virginia",
+          "lon": -77,
+          "lat": 38,
+          "relation": "Compilation documents",
+          "precision": "region",
+          "source": "https://ppudc.bandcamp.com/album/dmv-district-maryland-virginia-vol-1",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "District of Columbia / Maryland / Virginia",
+          "studio": "Compilation documents"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "5156837": {
+      "label": "Miami",
+      "lon": -80.1918,
+      "lat": 25.7617,
+      "relation": "Band associated with",
+      "source": "https://psychicmirrors.bandcamp.com/community",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Psychic Mirrors",
+      "city": "Miami",
+      "studio": "Band associated with",
+      "locations": [
+        {
+          "label": "Miami",
+          "lon": -80.1918,
+          "lat": 25.7617,
+          "relation": "Band associated with",
+          "source": "https://psychicmirrors.bandcamp.com/community",
+          "precision": "city",
+          "note": "",
+          "subject": "Psychic Mirrors",
+          "city": "Miami",
+          "studio": "Band associated with"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "11740322": {
+      "label": "Berlin",
+      "lon": 13.405,
+      "lat": 52.52,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/4c41d78d-9dd5-430d-81ea-286052158293",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Peggy Gou",
+      "city": "Berlin",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/4c41d78d-9dd5-430d-81ea-286052158293",
+          "precision": "city",
+          "note": "Berlin-based artistic association, not South Korean birthplace or an album-specific recording location.",
+          "subject": "Peggy Gou",
+          "city": "Berlin",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "2936028": {
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Photek",
+      "city": "United Kingdom",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Photek",
+          "city": "United Kingdom",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "9359985": {
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "relation": "Band formed in",
+      "source": "https://musicbrainz.org/artist/83d91898-7763-47d7-b03b-b92132375c47",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Pink Floyd",
+      "city": "London",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/83d91898-7763-47d7-b03b-b92132375c47",
+          "precision": "city",
+          "note": "",
+          "subject": "Pink Floyd",
+          "city": "London",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "21993661": {
+      "label": "New York",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "relation": "Early musical development",
+      "source": "https://ra.co/dj/fredp/biography",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Fred P.",
+      "city": "New York",
+      "studio": "Early musical development",
+      "locations": [
+        {
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "relation": "Early musical development",
+          "source": "https://ra.co/dj/fredp/biography",
+          "precision": "city",
+          "note": "New York underground formative years. This is not the artist’s later Berlin base.",
+          "subject": "Fred P.",
+          "city": "New York",
+          "studio": "Early musical development"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "18064021": {
+      "label": "New York",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "relation": "Early musical development",
+      "source": "https://ra.co/dj/fredp/biography",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Fred P.",
+      "city": "New York",
+      "studio": "Early musical development",
+      "locations": [
+        {
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "relation": "Early musical development",
+          "source": "https://ra.co/dj/fredp/biography",
+          "precision": "city",
+          "note": "New York underground formative years. This is not the artist’s later Berlin base.",
+          "subject": "Fred P.",
+          "city": "New York",
+          "studio": "Early musical development"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "2578052": {
+      "label": "Italy",
+      "lon": 12,
+      "lat": 43,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Fabrizio De André",
+      "city": "Italy",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "981136": {
+      "label": "Italy",
+      "lon": 12,
+      "lat": 43,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Fabrizio De André",
+      "city": "Italy",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "21926020": {
+      "label": "Detroit",
+      "lon": -83.0458,
+      "lat": 42.3314,
+      "relation": "Musical roots",
+      "source": "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Jeff Mills",
+      "city": "Detroit",
+      "studio": "Musical roots",
+      "locations": [
+        {
+          "label": "Detroit",
+          "lon": -83.0458,
+          "lat": 42.3314,
+          "relation": "Musical roots",
+          "source": "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+          "precision": "city",
+          "note": "",
+          "subject": "Jeff Mills",
+          "city": "Detroit",
+          "studio": "Musical roots"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "944": {
+      "label": "Detroit",
+      "lon": -83.0458,
+      "lat": 42.3314,
+      "relation": "Musical roots",
+      "source": "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Jeff Mills",
+      "city": "Detroit",
+      "studio": "Musical roots",
+      "locations": [
+        {
+          "label": "Detroit",
+          "lon": -83.0458,
+          "lat": 42.3314,
+          "relation": "Musical roots",
+          "source": "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+          "precision": "city",
+          "note": "",
+          "subject": "Jeff Mills",
+          "city": "Detroit",
+          "studio": "Musical roots"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "12101577": {
+      "label": "Italy",
+      "lon": 12,
+      "lat": 43,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Franco Battiato",
+      "city": "Italy",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Franco Battiato",
+          "city": "Italy",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "2543335": {
+      "label": "Italy",
+      "lon": 12,
+      "lat": 43,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Fabrizio De André",
+      "city": "Italy",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "2214344": {
+      "label": "Italy",
+      "lon": 12,
+      "lat": 43,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Fabrizio De André",
+      "city": "Italy",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "10708678": {
+      "label": "Italy",
+      "lon": 12,
+      "lat": 43,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Fabrizio De André",
+      "city": "Italy",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Fabrizio De André",
+          "city": "Italy",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "9369950": {
+      "label": "Mali",
+      "lon": -4,
+      "lat": 17,
+      "relation": "Compilation documents",
+      "precision": "country",
+      "source": "https://worldmusic.net/products/lost-in-mali",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Compilation",
+      "city": "Mali",
+      "studio": "Compilation documents",
+      "locations": [
+        {
+          "label": "Mali",
+          "lon": -4,
+          "lat": 17,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://worldmusic.net/products/lost-in-mali",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Mali",
+          "studio": "Compilation documents"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "8800233": {
+      "label": "Suriname",
+      "lon": -56,
+      "lat": 4,
+      "relation": "Compilation documents",
+      "precision": "country",
+      "source": "https://rushhourmusic.bandcamp.com/album/surinam-funk-force",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Compilation",
+      "city": "Suriname",
+      "studio": "Compilation documents",
+      "locations": [
+        {
+          "label": "Suriname",
+          "lon": -56,
+          "lat": 4,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://rushhourmusic.bandcamp.com/album/surinam-funk-force",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Suriname",
+          "studio": "Compilation documents"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "9992673": {
+      "label": "Italy",
+      "lon": 12,
+      "lat": 43,
+      "relation": "Compilation documents",
+      "precision": "country",
+      "source": "https://www.discogs.com/release/9992673",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Compilation",
+      "city": "Italy",
+      "studio": "Compilation documents",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://www.discogs.com/release/9992673",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Italy",
+          "studio": "Compilation documents"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "11795": {
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Photek",
+      "city": "United Kingdom",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Photek",
+          "city": "United Kingdom",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "8630272": {
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "relation": "Early musical development",
+      "source": "https://mixmag.net/feature/dan-shake-mixmag-cover-interview-dj",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Dan Shake",
+      "city": "London",
+      "studio": "Early musical development",
+      "locations": [
+        {
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "relation": "Early musical development",
+          "source": "https://mixmag.net/feature/dan-shake-mixmag-cover-interview-dj",
+          "precision": "city",
+          "note": "First-person interview describes early music production in Wood Green.",
+          "subject": "Dan Shake",
+          "city": "London",
+          "studio": "Early musical development"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "7938017": {
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "relation": "Early musical development",
+      "source": "https://mixmag.net/feature/dan-shake-mixmag-cover-interview-dj",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Dan Shake",
+      "city": "London",
+      "studio": "Early musical development",
+      "locations": [
+        {
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "relation": "Early musical development",
+          "source": "https://mixmag.net/feature/dan-shake-mixmag-cover-interview-dj",
+          "precision": "city",
+          "note": "First-person interview describes early music production in Wood Green.",
+          "subject": "Dan Shake",
+          "city": "London",
+          "studio": "Early musical development"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "13433334": {
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "relation": "Early musical development",
+      "source": "https://mixmag.net/feature/dan-shake-mixmag-cover-interview-dj",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Dan Shake",
+      "city": "London",
+      "studio": "Early musical development",
+      "locations": [
+        {
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "relation": "Early musical development",
+          "source": "https://mixmag.net/feature/dan-shake-mixmag-cover-interview-dj",
+          "precision": "city",
+          "note": "First-person interview describes early music production in Wood Green.",
+          "subject": "Dan Shake",
+          "city": "London",
+          "studio": "Early musical development"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "9425519": {
+      "label": "Nigeria",
+      "lon": 8,
+      "lat": 9,
+      "relation": "Compilation documents",
+      "precision": "country",
+      "source": "https://soundwayrecords.bandcamp.com/album/doing-it-in-lagos?from=footer-cc-a841407783",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Compilation",
+      "city": "Nigeria",
+      "studio": "Compilation documents",
+      "locations": [
+        {
+          "label": "Nigeria",
+          "lon": 8,
+          "lat": 9,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://soundwayrecords.bandcamp.com/album/doing-it-in-lagos?from=footer-cc-a841407783",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session.",
+          "subject": "Compilation",
+          "city": "Nigeria",
+          "studio": "Compilation documents"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "567634": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/7e092d19-6726-4b9a-a879-157065833481",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Timmy Thomas",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/7e092d19-6726-4b9a-a879-157065833481",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Timmy Thomas",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "8121481": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/7e092d19-6726-4b9a-a879-157065833481",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Timmy Thomas",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/7e092d19-6726-4b9a-a879-157065833481",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Timmy Thomas",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "14837376": {
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "relation": "Musical scene",
+      "source": "https://courtney-pine.com/biography",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Courtney Pine",
+      "city": "United Kingdom",
+      "studio": "Musical scene",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Musical scene",
+          "source": "https://courtney-pine.com/biography",
+          "precision": "country",
+          "note": "",
+          "subject": "Courtney Pine",
+          "city": "United Kingdom",
+          "studio": "Musical scene"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "114068": {
+      "label": "Bristol",
+      "lon": -2.5879,
+      "lat": 51.4545,
+      "relation": "Band formed in",
+      "source": "https://www.allmusic.com/artist/reprazent-mn0000459997",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Roni Size / Reprazent",
+      "city": "Bristol",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "relation": "Band formed in",
+          "source": "https://www.allmusic.com/artist/reprazent-mn0000459997",
+          "precision": "city",
+          "note": "",
+          "subject": "Roni Size / Reprazent",
+          "city": "Bristol",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "61693": {
+      "label": "Bristol",
+      "lon": -2.5879,
+      "lat": 51.4545,
+      "relation": "Band formed in",
+      "source": "https://www.allmusic.com/artist/reprazent-mn0000459997",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Roni Size / Reprazent",
+      "city": "Bristol",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "relation": "Band formed in",
+          "source": "https://www.allmusic.com/artist/reprazent-mn0000459997",
+          "precision": "city",
+          "note": "",
+          "subject": "Roni Size / Reprazent",
+          "city": "Bristol",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "95045": {
+      "label": "Bristol",
+      "lon": -2.5879,
+      "lat": 51.4545,
+      "relation": "Band formed in",
+      "source": "https://www.allmusic.com/artist/reprazent-mn0000459997",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Roni Size / Reprazent",
+      "city": "Bristol",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "relation": "Band formed in",
+          "source": "https://www.allmusic.com/artist/reprazent-mn0000459997",
+          "precision": "city",
+          "note": "",
+          "subject": "Roni Size / Reprazent",
+          "city": "Bristol",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "805316": {
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "relation": "Musical scene",
+      "source": "https://courtney-pine.com/biography",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Courtney Pine",
+      "city": "United Kingdom",
+      "studio": "Musical scene",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Musical scene",
+          "source": "https://courtney-pine.com/biography",
+          "precision": "country",
+          "note": "",
+          "subject": "Courtney Pine",
+          "city": "United Kingdom",
+          "studio": "Musical scene"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "7704301": {
+      "label": "Naples",
+      "lon": 14.2681,
+      "lat": 40.8518,
+      "relation": "Band formed in",
+      "source": "https://italiana.esteri.it/italiana/en/eventi/nu-guinea-in-paris/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Nu Guinea",
+      "city": "Naples",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Naples",
+          "lon": 14.2681,
+          "lat": 40.8518,
+          "relation": "Band formed in",
+          "source": "https://italiana.esteri.it/italiana/en/eventi/nu-guinea-in-paris/",
+          "precision": "city",
+          "note": "",
+          "subject": "Nu Guinea",
+          "city": "Naples",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "8807880": {
+      "label": "Berlin",
+      "lon": 13.405,
+      "lat": 52.52,
+      "relation": "Artist based in",
+      "source": "https://discoscapablanca.bandcamp.com/album/about-u",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Florian Kupfer",
+      "city": "Berlin",
+      "studio": "Artist based in",
+      "locations": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist based in",
+          "source": "https://discoscapablanca.bandcamp.com/album/about-u",
+          "precision": "city",
+          "note": "Artist base documented in 2023; not a claim about where earlier releases were made.",
+          "subject": "Florian Kupfer",
+          "city": "Berlin",
+          "studio": "Artist based in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "7269434": {
+      "label": "Berlin",
+      "lon": 13.405,
+      "lat": 52.52,
+      "relation": "Artist based in",
+      "source": "https://discoscapablanca.bandcamp.com/album/about-u",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Florian Kupfer",
+      "city": "Berlin",
+      "studio": "Artist based in",
+      "locations": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist based in",
+          "source": "https://discoscapablanca.bandcamp.com/album/about-u",
+          "precision": "city",
+          "note": "Artist base documented in 2023; not a claim about where earlier releases were made.",
+          "subject": "Florian Kupfer",
+          "city": "Berlin",
+          "studio": "Artist based in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "1027491": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/76325a9d-6c25-4649-96b1-84e9b99d6b4b",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "John Cage",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/76325a9d-6c25-4649-96b1-84e9b99d6b4b",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "John Cage",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "165894": {
+      "label": "Amityville",
+      "lon": -73.4171,
+      "lat": 40.6787,
+      "relation": "Band formed in",
+      "source": "https://musicbrainz.org/artist/a8ebde98-7e91-46c7-992c-90039ba42017?all=0&page=3&va=1",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "De La Soul",
+      "city": "Amityville",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Amityville",
+          "lon": -73.4171,
+          "lat": 40.6787,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/a8ebde98-7e91-46c7-992c-90039ba42017?all=0&page=3&va=1",
+          "precision": "city",
+          "note": "",
+          "subject": "De La Soul",
+          "city": "Amityville",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "18497": {
+      "label": "Amityville",
+      "lon": -73.4171,
+      "lat": 40.6787,
+      "relation": "Band formed in",
+      "source": "https://musicbrainz.org/artist/a8ebde98-7e91-46c7-992c-90039ba42017?all=0&page=3&va=1",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "De La Soul",
+      "city": "Amityville",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Amityville",
+          "lon": -73.4171,
+          "lat": 40.6787,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/a8ebde98-7e91-46c7-992c-90039ba42017?all=0&page=3&va=1",
+          "precision": "city",
+          "note": "",
+          "subject": "De La Soul",
+          "city": "Amityville",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "7568442": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Kendrick Lamar",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Kendrick Lamar",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "10559651": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Kendrick Lamar",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "Kendrick Lamar",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "32063": {
+      "label": "Detroit",
+      "lon": -83.0458,
+      "lat": 42.3314,
+      "relation": "Musical roots",
+      "source": "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "Jeff Mills",
+      "city": "Detroit",
+      "studio": "Musical roots",
+      "locations": [
+        {
+          "label": "Detroit",
+          "lon": -83.0458,
+          "lat": 42.3314,
+          "relation": "Musical roots",
+          "source": "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+          "precision": "city",
+          "note": "",
+          "subject": "Jeff Mills",
+          "city": "Detroit",
+          "studio": "Musical roots"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "2045030": {
+      "label": "Chicago",
+      "lon": -87.6298,
+      "lat": 41.8781,
+      "relation": "Band formed in",
+      "source": "https://musicbrainz.org/artist/d9733f21-71d7-4fa7-813d-67eca0f0eaaf/relationships",
+      "precision": "city",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "The Sun Ra Arkestra",
+      "city": "Chicago",
+      "studio": "Band formed in",
+      "locations": [
+        {
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/d9733f21-71d7-4fa7-813d-67eca0f0eaaf/relationships",
+          "precision": "city",
+          "note": "",
+          "subject": "The Sun Ra Arkestra",
+          "city": "Chicago",
+          "studio": "Band formed in"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    },
+    "322096": {
+      "label": "United States",
+      "lon": -98,
+      "lat": 39,
+      "relation": "Artist associated area",
+      "source": "https://musicbrainz.org/artist/76325a9d-6c25-4649-96b1-84e9b99d6b4b",
+      "precision": "country",
+      "note": "This lens maps artist associations and compilation focus, not recording sessions. Country-level data remains country-level.",
+      "subject": "John Cage",
+      "city": "United States",
+      "studio": "Artist associated area",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/76325a9d-6c25-4649-96b1-84e9b99d6b4b",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date.",
+          "subject": "John Cage",
+          "city": "United States",
+          "studio": "Artist associated area"
+        }
+      ],
+      "coverage": "Musical association pilot"
+    }
+  },
+  "criteria": "Musical association, group formation and documented scene. Never substitute studio or edition country. Associated areas and later bases are labelled explicitly, not presented as release-date origins."
+}

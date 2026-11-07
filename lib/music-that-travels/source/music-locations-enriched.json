@@ -1,0 +1,584 @@
+{
+  "14480820": {
+    "city": "New York",
+    "country": "US",
+    "lon": -73.97,
+    "lat": 40.75,
+    "studio": "Columbia 30th Street Studio",
+    "note": "Recorded in New York in 1959.",
+    "source": "https://www.milesdavis.com/news/60-years-ago-miles-davis-completes-kind-of-blue/",
+    "locations": [
+      {
+        "city": "New York",
+        "country": "US",
+        "lon": -73.97,
+        "lat": 40.75,
+        "studio": "Columbia 30th Street Studio",
+        "note": "Recorded in New York in 1959.",
+        "source": "https://www.milesdavis.com/news/60-years-ago-miles-davis-completes-kind-of-blue/",
+        "precision": "city",
+        "credit_source": "https://www.milesdavis.com/news/60-years-ago-miles-davis-completes-kind-of-blue/",
+        "location_source": "https://www.milesdavis.com/news/60-years-ago-miles-davis-completes-kind-of-blue/"
+      }
+    ],
+    "coverage": "documented recording location"
+  },
+  "3842748": {
+    "city": "New York",
+    "country": "US",
+    "lon": -73.97,
+    "lat": 40.75,
+    "studio": "Columbia 30th Street Studio",
+    "note": "The sessions for Sketches of Spain took place in New York; the title is not its recording location.",
+    "source": "https://www.milesdavis.com/track/will-o-the-wisp-mono-version/",
+    "locations": [
+      {
+        "city": "New York",
+        "country": "US",
+        "lon": -73.97,
+        "lat": 40.75,
+        "studio": "Columbia 30th Street Studio",
+        "note": "The sessions for Sketches of Spain took place in New York; the title is not its recording location.",
+        "source": "https://www.milesdavis.com/track/will-o-the-wisp-mono-version/",
+        "precision": "city",
+        "credit_source": "https://www.milesdavis.com/track/will-o-the-wisp-mono-version/",
+        "location_source": "https://www.milesdavis.com/track/will-o-the-wisp-mono-version/"
+      }
+    ],
+    "coverage": "documented recording location"
+  },
+  "9153158": {
+    "city": "New York",
+    "country": "US",
+    "lon": -73.97,
+    "lat": 40.75,
+    "studio": "Capitol recording sessions, New York",
+    "note": "The original Birth of the Cool sessions were recorded in New York in 1949 and 1950.",
+    "source": "https://www.juilliard.edu/event/187791/juilliard-apollo-birth-cool?start_date_from=03%2F29%2F23",
+    "locations": [
+      {
+        "city": "New York",
+        "country": "US",
+        "lon": -73.97,
+        "lat": 40.75,
+        "studio": "Capitol recording sessions, New York",
+        "note": "The original Birth of the Cool sessions were recorded in New York in 1949 and 1950.",
+        "source": "https://www.juilliard.edu/event/187791/juilliard-apollo-birth-cool?start_date_from=03%2F29%2F23",
+        "precision": "city",
+        "credit_source": "https://www.juilliard.edu/event/187791/juilliard-apollo-birth-cool?start_date_from=03%2F29%2F23",
+        "location_source": "https://www.juilliard.edu/event/187791/juilliard-apollo-birth-cool?start_date_from=03%2F29%2F23"
+      }
+    ],
+    "coverage": "documented recording location"
+  },
+  "14457597": {
+    "city": "Tokyo",
+    "country": "Japan",
+    "lon": 139.69,
+    "lat": 35.68,
+    "studio": "CBS/Sony Studios",
+    "note": "Recorded in Tokyo in October 1978, using direct-to-disc recording.",
+    "source": "https://www.herbiehancock.com/music/discography/album/directstep/",
+    "locations": [
+      {
+        "city": "Tokyo",
+        "country": "Japan",
+        "lon": 139.69,
+        "lat": 35.68,
+        "studio": "CBS/Sony Studios",
+        "note": "Recorded in Tokyo in October 1978, using direct-to-disc recording.",
+        "source": "https://www.herbiehancock.com/music/discography/album/directstep/",
+        "precision": "city",
+        "credit_source": "https://www.herbiehancock.com/music/discography/album/directstep/",
+        "location_source": "https://www.herbiehancock.com/music/discography/album/directstep/"
+      }
+    ],
+    "coverage": "documented recording location"
+  },
+  "9359985": {
+    "city": "London",
+    "country": "UK",
+    "lon": -0.12,
+    "lat": 51.51,
+    "studio": "Britannia Row Studios",
+    "note": "Animals was recorded at Pink Floyd’s studio in North London in 1976.",
+    "source": "https://archive.pinkfloyd.com/history/timeline_1976",
+    "locations": [
+      {
+        "city": "London",
+        "country": "UK",
+        "lon": -0.12,
+        "lat": 51.51,
+        "studio": "Britannia Row Studios",
+        "note": "Animals was recorded at Pink Floyd’s studio in North London in 1976.",
+        "source": "https://archive.pinkfloyd.com/history/timeline_1976",
+        "precision": "city",
+        "credit_source": "https://archive.pinkfloyd.com/history/timeline_1976",
+        "location_source": "https://archive.pinkfloyd.com/history/timeline_1976"
+      }
+    ],
+    "coverage": "documented recording location"
+  },
+  "8872804": {
+    "city": "London",
+    "country": "UK",
+    "lon": -0.17,
+    "lat": 51.53,
+    "studio": "Abbey Road Studios",
+    "note": "Atom Heart Mother was recorded at Abbey Road Studios in London.",
+    "source": "https://store.pinkfloyd.com/products/atom-heart-mother-lp",
+    "locations": [
+      {
+        "city": "London",
+        "country": "UK",
+        "lon": -0.17,
+        "lat": 51.53,
+        "studio": "Abbey Road Studios",
+        "note": "Atom Heart Mother was recorded at Abbey Road Studios in London.",
+        "source": "https://store.pinkfloyd.com/products/atom-heart-mother-lp",
+        "precision": "city",
+        "credit_source": "https://store.pinkfloyd.com/products/atom-heart-mother-lp",
+        "location_source": "https://store.pinkfloyd.com/products/atom-heart-mother-lp"
+      }
+    ],
+    "coverage": "documented recording location"
+  },
+  "18007090": {
+    "city": "Paris",
+    "lon": 2.3522,
+    "lat": 48.8566,
+    "studio": "Studios Ferber",
+    "source": "https://studios-ferber.com/contact/",
+    "credit_source": "https://www.discogs.com/release/18007090",
+    "location_source": "https://studios-ferber.com/contact/",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "Paris",
+        "lon": 2.3522,
+        "lat": 48.8566,
+        "studio": "Studios Ferber",
+        "source": "https://studios-ferber.com/contact/",
+        "credit_source": "https://www.discogs.com/release/18007090",
+        "location_source": "https://studios-ferber.com/contact/",
+        "precision": "city"
+      }
+    ],
+    "coverage": "partial",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "212060": {
+    "city": "Detroit",
+    "lon": -83.0458,
+    "lat": 42.3314,
+    "studio": "United Sound Systems",
+    "source": "https://content.govdelivery.com/accounts/MIDOT/bulletins/2279917",
+    "credit_source": "https://www.discogs.com/release/212060",
+    "location_source": "https://content.govdelivery.com/accounts/MIDOT/bulletins/2279917",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "Detroit",
+        "lon": -83.0458,
+        "lat": 42.3314,
+        "studio": "United Sound Systems",
+        "source": "https://content.govdelivery.com/accounts/MIDOT/bulletins/2279917",
+        "credit_source": "https://www.discogs.com/release/212060",
+        "location_source": "https://content.govdelivery.com/accounts/MIDOT/bulletins/2279917",
+        "precision": "city"
+      },
+      {
+        "city": "Miami",
+        "lon": -80.1918,
+        "lat": 25.7617,
+        "studio": "Criteria Recording Studios",
+        "source": "https://www.criteriastudios.com/history",
+        "credit_source": "https://www.discogs.com/release/212060",
+        "location_source": "https://www.criteriastudios.com/history",
+        "precision": "city"
+      }
+    ],
+    "coverage": "partial",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "3835570": {
+    "city": "London",
+    "lon": -0.1276,
+    "lat": 51.5072,
+    "studio": "Basing Street Studios",
+    "source": "https://www.rbkc.gov.uk/wamdocs/Appendix%20E%20Kensington%20Record%20Labels.pdf",
+    "credit_source": "https://www.discogs.com/release/3835570",
+    "location_source": "https://www.rbkc.gov.uk/wamdocs/Appendix%20E%20Kensington%20Record%20Labels.pdf",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "studio": "Basing Street Studios",
+        "source": "https://www.rbkc.gov.uk/wamdocs/Appendix%20E%20Kensington%20Record%20Labels.pdf",
+        "credit_source": "https://www.discogs.com/release/3835570",
+        "location_source": "https://www.rbkc.gov.uk/wamdocs/Appendix%20E%20Kensington%20Record%20Labels.pdf",
+        "precision": "city"
+      }
+    ],
+    "coverage": "credited recording locations",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "5035765": {
+    "city": "New York",
+    "lon": -74.006,
+    "lat": 40.7128,
+    "studio": "Power Station",
+    "source": "https://powerstation.nyc/contact",
+    "credit_source": "https://www.discogs.com/release/5035765",
+    "location_source": "https://powerstation.nyc/contact",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "New York",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "studio": "Power Station",
+        "source": "https://powerstation.nyc/contact",
+        "credit_source": "https://www.discogs.com/release/5035765",
+        "location_source": "https://powerstation.nyc/contact",
+        "precision": "city"
+      }
+    ],
+    "coverage": "credited recording locations",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "962321": {
+    "city": "New York",
+    "lon": -74.006,
+    "lat": 40.7128,
+    "studio": "Power Station",
+    "source": "https://powerstation.nyc/contact",
+    "credit_source": "https://www.discogs.com/release/962321",
+    "location_source": "https://powerstation.nyc/contact",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "New York",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "studio": "Power Station",
+        "source": "https://powerstation.nyc/contact",
+        "credit_source": "https://www.discogs.com/release/962321",
+        "location_source": "https://powerstation.nyc/contact",
+        "precision": "city"
+      }
+    ],
+    "coverage": "credited recording locations",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "2071439": {
+    "city": "Los Angeles",
+    "lon": -118.2437,
+    "lat": 34.0522,
+    "studio": "The Sound Factory",
+    "source": "https://soundfactoryhollywood.com/sound-factory-studio-b/",
+    "credit_source": "https://www.discogs.com/release/2071439",
+    "location_source": "https://soundfactoryhollywood.com/sound-factory-studio-b/",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "Los Angeles",
+        "lon": -118.2437,
+        "lat": 34.0522,
+        "studio": "The Sound Factory",
+        "source": "https://soundfactoryhollywood.com/sound-factory-studio-b/",
+        "credit_source": "https://www.discogs.com/release/2071439",
+        "location_source": "https://soundfactoryhollywood.com/sound-factory-studio-b/",
+        "precision": "city"
+      }
+    ],
+    "coverage": "credited recording locations",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "10676369": {
+    "city": "New York",
+    "lon": -74.006,
+    "lat": 40.7128,
+    "studio": "Unique Recording",
+    "source": "https://uniquerecording.com/studio/",
+    "credit_source": "https://www.discogs.com/release/10676369",
+    "location_source": "https://uniquerecording.com/studio/",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "New York",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "studio": "Unique Recording",
+        "source": "https://uniquerecording.com/studio/",
+        "credit_source": "https://www.discogs.com/release/10676369",
+        "location_source": "https://uniquerecording.com/studio/",
+        "precision": "city"
+      },
+      {
+        "city": "New York",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "studio": "Battery Studios, New York",
+        "source": "https://studios.sonymusic.com/studios/battery-studios-400",
+        "credit_source": "https://www.discogs.com/release/10676369",
+        "location_source": "https://studios.sonymusic.com/studios/battery-studios-400",
+        "precision": "city"
+      }
+    ],
+    "coverage": "partial",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "10395690": {
+    "city": "Budapest",
+    "lon": 19.0402,
+    "lat": 47.4979,
+    "studio": "Szemlőhegy, Budapest, Hungary",
+    "source": "https://www.discogs.com/label/1258397",
+    "credit_source": "https://www.discogs.com/release/10395690",
+    "location_source": "https://www.discogs.com/label/1258397",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "Budapest",
+        "lon": 19.0402,
+        "lat": 47.4979,
+        "studio": "Szemlőhegy, Budapest, Hungary",
+        "source": "https://www.discogs.com/label/1258397",
+        "credit_source": "https://www.discogs.com/release/10395690",
+        "location_source": "https://www.discogs.com/label/1258397",
+        "precision": "city"
+      }
+    ],
+    "coverage": "credited recording locations",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "13710933": {
+    "city": "New York",
+    "lon": -74.006,
+    "lat": 40.7128,
+    "studio": "The Kitchen, New York City",
+    "source": "https://thekitchen.org/about/",
+    "credit_source": "https://www.discogs.com/release/13710933",
+    "location_source": "https://thekitchen.org/about/",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "New York",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "studio": "The Kitchen, New York City",
+        "source": "https://thekitchen.org/about/",
+        "credit_source": "https://www.discogs.com/release/13710933",
+        "location_source": "https://thekitchen.org/about/",
+        "precision": "city"
+      }
+    ],
+    "coverage": "partial",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "1218134": {
+    "city": "Milan",
+    "lon": 9.19,
+    "lat": 45.4642,
+    "studio": "Studio Radius",
+    "source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+    "credit_source": "https://www.discogs.com/release/1218134",
+    "location_source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "Milan",
+        "lon": 9.19,
+        "lat": 45.4642,
+        "studio": "Studio Radius",
+        "source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+        "credit_source": "https://www.discogs.com/release/1218134",
+        "location_source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+        "precision": "city"
+      }
+    ],
+    "coverage": "credited recording locations",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "25308625": {
+    "city": "Milan",
+    "lon": 9.19,
+    "lat": 45.4642,
+    "studio": "Studio Radius",
+    "source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+    "credit_source": "https://www.discogs.com/release/25308625",
+    "location_source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "Milan",
+        "lon": 9.19,
+        "lat": 45.4642,
+        "studio": "Studio Radius",
+        "source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+        "credit_source": "https://www.discogs.com/release/25308625",
+        "location_source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+        "precision": "city"
+      }
+    ],
+    "coverage": "credited recording locations",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "985747": {
+    "city": "Milan",
+    "lon": 9.19,
+    "lat": 45.4642,
+    "studio": "Studio Radius",
+    "source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+    "credit_source": "https://www.discogs.com/release/985747",
+    "location_source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "Milan",
+        "lon": 9.19,
+        "lat": 45.4642,
+        "studio": "Studio Radius",
+        "source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+        "credit_source": "https://www.discogs.com/release/985747",
+        "location_source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+        "precision": "city"
+      }
+    ],
+    "coverage": "credited recording locations",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "1358351": {
+    "city": "Milan",
+    "lon": 9.19,
+    "lat": 45.4642,
+    "studio": "Studio Radius",
+    "source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+    "credit_source": "https://www.discogs.com/release/1358351",
+    "location_source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "Milan",
+        "lon": 9.19,
+        "lat": 45.4642,
+        "studio": "Studio Radius",
+        "source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+        "credit_source": "https://www.discogs.com/release/1358351",
+        "location_source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+        "precision": "city"
+      }
+    ],
+    "coverage": "credited recording locations",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "14207369": {
+    "city": "Milan",
+    "lon": 9.19,
+    "lat": 45.4642,
+    "studio": "Metropolis Recording Studio, Milano",
+    "source": "https://www.metropolis-studio.it/en/studio_en/",
+    "credit_source": "https://www.discogs.com/release/14207369",
+    "location_source": "https://www.metropolis-studio.it/en/studio_en/",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "Milan",
+        "lon": 9.19,
+        "lat": 45.4642,
+        "studio": "Metropolis Recording Studio, Milano",
+        "source": "https://www.metropolis-studio.it/en/studio_en/",
+        "credit_source": "https://www.discogs.com/release/14207369",
+        "location_source": "https://www.metropolis-studio.it/en/studio_en/",
+        "precision": "city"
+      }
+    ],
+    "coverage": "credited recording locations",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "8786827": {
+    "city": "Kingston",
+    "lon": -76.7936,
+    "lat": 17.9712,
+    "studio": "Randy's Studio",
+    "source": "https://www.vprecords.com/studio-17-with-silent-addy-and-yaadcore-launches/",
+    "credit_source": "https://www.discogs.com/release/8786827",
+    "location_source": "https://www.vprecords.com/studio-17-with-silent-addy-and-yaadcore-launches/",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "Kingston",
+        "lon": -76.7936,
+        "lat": 17.9712,
+        "studio": "Randy's Studio",
+        "source": "https://www.vprecords.com/studio-17-with-silent-addy-and-yaadcore-launches/",
+        "credit_source": "https://www.discogs.com/release/8786827",
+        "location_source": "https://www.vprecords.com/studio-17-with-silent-addy-and-yaadcore-launches/",
+        "precision": "city"
+      }
+    ],
+    "coverage": "credited recording locations",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "12716187": {
+    "city": "London",
+    "lon": -0.1276,
+    "lat": 51.5072,
+    "studio": "Total Refreshment Centre",
+    "source": "https://www.sydkemp.com/studio",
+    "credit_source": "https://www.discogs.com/release/12716187",
+    "location_source": "https://www.sydkemp.com/studio",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "studio": "Total Refreshment Centre",
+        "source": "https://www.sydkemp.com/studio",
+        "credit_source": "https://www.discogs.com/release/12716187",
+        "location_source": "https://www.sydkemp.com/studio",
+        "precision": "city"
+      },
+      {
+        "city": "Chicago",
+        "lon": -87.6298,
+        "lat": 41.8781,
+        "studio": "Co-Prosperity Sphere",
+        "source": "https://coprosperity.org/about",
+        "credit_source": "https://www.discogs.com/release/12716187",
+        "location_source": "https://coprosperity.org/about",
+        "precision": "city"
+      }
+    ],
+    "coverage": "partial",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  },
+  "14270021": {
+    "city": "New York",
+    "lon": -74.006,
+    "lat": 40.7128,
+    "studio": "Battery Studios, New York",
+    "source": "https://studios.sonymusic.com/studios/battery-studios-400",
+    "credit_source": "https://www.discogs.com/release/14270021",
+    "location_source": "https://studios.sonymusic.com/studios/battery-studios-400",
+    "precision": "city",
+    "locations": [
+      {
+        "city": "New York",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "studio": "Battery Studios, New York",
+        "source": "https://studios.sonymusic.com/studios/battery-studios-400",
+        "credit_source": "https://www.discogs.com/release/14270021",
+        "location_source": "https://studios.sonymusic.com/studios/battery-studios-400",
+        "precision": "city"
+      }
+    ],
+    "coverage": "partial",
+    "note": "City-level locations derived from explicit Recorded At credits and reviewed studio location sources. Other sessions may be undocumented."
+  }
+}
