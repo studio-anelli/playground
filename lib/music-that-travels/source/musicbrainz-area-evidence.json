@@ -1,0 +1,2277 @@
+{
+  "checked_at": "2026-11-07",
+  "matching": "Exact Discogs artist ID → Wikidata P1953 → MusicBrainz P434; published Artist Area field only.",
+  "records": [
+    {
+      "discogs_artist_id": "3773",
+      "name": "Aphrodite",
+      "mbid": "84800c46-2211-43e0-8a87-bdcbecf91932",
+      "wikidata": "http://www.wikidata.org/entity/Q618515",
+      "source": "https://musicbrainz.org/artist/84800c46-2211-43e0-8a87-bdcbecf91932",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "774761",
+      "name": "Uomini Di Mare",
+      "mbid": "0c574bf8-2bd9-4431-ae78-5ad915cf0ded",
+      "wikidata": "http://www.wikidata.org/entity/Q4006131",
+      "source": "https://musicbrainz.org/artist/0c574bf8-2bd9-4431-ae78-5ad915cf0ded",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "9081",
+      "name": "Chic",
+      "mbid": "a4ed036b-5f18-439c-b1e1-96d205bab255",
+      "wikidata": "http://www.wikidata.org/entity/Q516712",
+      "source": "https://musicbrainz.org/artist/a4ed036b-5f18-439c-b1e1-96d205bab255",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "851878",
+      "name": "Henryk Debich",
+      "mbid": "c8b85092-6db8-43be-95a7-99642bf29cbe",
+      "wikidata": "http://www.wikidata.org/entity/Q9288047",
+      "source": "https://musicbrainz.org/artist/c8b85092-6db8-43be-95a7-99642bf29cbe",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "2053",
+      "name": "DJ Pierre",
+      "mbid": "0cd8b3d5-8d5e-4757-8873-4f4ac5752dd3",
+      "wikidata": "http://www.wikidata.org/entity/Q1154222",
+      "source": "https://musicbrainz.org/artist/0cd8b3d5-8d5e-4757-8873-4f4ac5752dd3",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "148",
+      "name": "Larry Heard",
+      "mbid": "4346875a-2bba-4566-8dc1-680c38ba44c6",
+      "wikidata": "http://www.wikidata.org/entity/Q1375814",
+      "source": "https://musicbrainz.org/artist/4346875a-2bba-4566-8dc1-680c38ba44c6",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "13531",
+      "name": "Colourbox",
+      "mbid": "6746c384-b67b-4eb7-a986-e2b6f4140cee",
+      "wikidata": "http://www.wikidata.org/entity/Q4921470",
+      "source": "https://musicbrainz.org/artist/6746c384-b67b-4eb7-a986-e2b6f4140cee",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "56487",
+      "name": "Skipworth & Turner",
+      "mbid": "a6c4d1b0-d27f-4ee4-b5d1-6444c85ea496",
+      "wikidata": "http://www.wikidata.org/entity/Q7535877",
+      "source": "https://musicbrainz.org/artist/a6c4d1b0-d27f-4ee4-b5d1-6444c85ea496",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "5260145",
+      "name": "Moor Mother",
+      "mbid": "16610cf1-5ed5-4770-89b4-bf7e7aca7ebf",
+      "wikidata": "http://www.wikidata.org/entity/Q28450408",
+      "source": "https://musicbrainz.org/artist/16610cf1-5ed5-4770-89b4-bf7e7aca7ebf",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "94504",
+      "name": "Prince Jazzbo",
+      "mbid": "1751fa84-9e85-4c71-8330-2c7075dff06e",
+      "wikidata": "http://www.wikidata.org/entity/Q2371197",
+      "source": "https://musicbrainz.org/artist/1751fa84-9e85-4c71-8330-2c7075dff06e",
+      "area_labels": [
+        "Jamaica"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "341770",
+      "name": "Ras G",
+      "mbid": "53218007-07c1-4634-a4ad-57cdbe18bc17",
+      "wikidata": "http://www.wikidata.org/entity/Q7294657",
+      "source": "https://musicbrainz.org/artist/53218007-07c1-4634-a4ad-57cdbe18bc17",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "1181868",
+      "name": "Bottin",
+      "mbid": "f587dda0-e306-42e4-af07-11e0509a3d1b",
+      "wikidata": "http://www.wikidata.org/entity/Q4019941",
+      "source": "https://musicbrainz.org/artist/f587dda0-e306-42e4-af07-11e0509a3d1b",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "21260",
+      "name": "Breakwater",
+      "mbid": "cbf1e36c-5f6f-4825-9527-d875e06bcfdc",
+      "wikidata": "http://www.wikidata.org/entity/Q4959697",
+      "source": "https://musicbrainz.org/artist/cbf1e36c-5f6f-4825-9527-d875e06bcfdc",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "4267093",
+      "name": "NHK yx Koyxen",
+      "mbid": "bc12bcac-4a2e-4ce1-9b7b-11d4cc9afa25",
+      "wikidata": "http://www.wikidata.org/entity/Q6434507",
+      "source": "https://musicbrainz.org/artist/bc12bcac-4a2e-4ce1-9b7b-11d4cc9afa25",
+      "area_labels": [
+        "Japan"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "17546",
+      "name": "Quincy Jones",
+      "mbid": "5803c81e-739a-4057-9a5c-cf84e55db630",
+      "wikidata": "http://www.wikidata.org/entity/Q193645",
+      "source": "https://musicbrainz.org/artist/5803c81e-739a-4057-9a5c-cf84e55db630",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "202236",
+      "name": "Dolette McDonald",
+      "mbid": "2bb1e98b-9c83-411c-9a89-17e7cba983f3",
+      "wikidata": "http://www.wikidata.org/entity/Q99675533",
+      "source": "https://musicbrainz.org/artist/2bb1e98b-9c83-411c-9a89-17e7cba983f3",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "22217",
+      "name": "Matthew Herbert",
+      "mbid": "20587005-7a2a-4b96-8f34-bc643bc4b60a",
+      "wikidata": "http://www.wikidata.org/entity/Q290270",
+      "source": "https://musicbrainz.org/artist/20587005-7a2a-4b96-8f34-bc643bc4b60a",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "269714",
+      "name": "M.F.O.S.",
+      "mbid": "7b593455-d207-482c-8c6f-19ce22c94679",
+      "wikidata": "http://www.wikidata.org/entity/Q3487201",
+      "source": "https://musicbrainz.org/artist/7b593455-d207-482c-8c6f-19ce22c94679",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "51229",
+      "name": "Amanda Lear",
+      "mbid": "2f2608ed-ff2b-400e-b614-8c648bfaae7b",
+      "wikidata": "http://www.wikidata.org/entity/Q454010",
+      "source": "https://musicbrainz.org/artist/2f2608ed-ff2b-400e-b614-8c648bfaae7b",
+      "area_labels": [
+        "France"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "9966",
+      "name": "DJ Format",
+      "mbid": "65323ae4-1a49-497f-8f58-ae42b6c05eb6",
+      "wikidata": "http://www.wikidata.org/entity/Q3011360",
+      "source": "https://musicbrainz.org/artist/65323ae4-1a49-497f-8f58-ae42b6c05eb6",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "177651",
+      "name": "Gwen McCrae",
+      "mbid": "bd518350-09ad-4ecc-934e-11168e84227c",
+      "wikidata": "http://www.wikidata.org/entity/Q519755",
+      "source": "https://musicbrainz.org/artist/bd518350-09ad-4ecc-934e-11168e84227c",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "30786",
+      "name": "Suzy Q",
+      "mbid": "c2806372-d10e-432b-b358-80dc110f38c2",
+      "wikidata": "http://www.wikidata.org/entity/Q7651444",
+      "source": "https://musicbrainz.org/artist/c2806372-d10e-432b-b358-80dc110f38c2",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "863075",
+      "name": "Jun Fukamachi",
+      "mbid": "5b92cd77-e05c-4c6c-a0e2-1fd3caf032de",
+      "wikidata": "http://www.wikidata.org/entity/Q11560243",
+      "source": "https://musicbrainz.org/artist/5b92cd77-e05c-4c6c-a0e2-1fd3caf032de",
+      "area_labels": [
+        "Japan"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "2458445",
+      "name": "The Gramophone Allstars",
+      "mbid": "7f909c69-07dd-4c17-8743-9afb58da3f60",
+      "wikidata": "http://www.wikidata.org/entity/Q21086274",
+      "source": "https://musicbrainz.org/artist/7f909c69-07dd-4c17-8743-9afb58da3f60",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "5870",
+      "name": "Sneaker Pimps",
+      "mbid": "696d8523-39a0-44e2-9add-afaa183a2f46",
+      "wikidata": "http://www.wikidata.org/entity/Q1754009",
+      "source": "https://musicbrainz.org/artist/696d8523-39a0-44e2-9add-afaa183a2f46",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "45360",
+      "name": "Ultra Living",
+      "mbid": "7f7b2b54-f498-4273-b79a-d66fd14f0828",
+      "wikidata": "http://www.wikidata.org/entity/Q11289305",
+      "source": "https://musicbrainz.org/artist/7f7b2b54-f498-4273-b79a-d66fd14f0828",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "1600030",
+      "name": "Morphology",
+      "mbid": "543a21fc-75e7-4283-b1d0-9f00a3c4d576",
+      "wikidata": "http://www.wikidata.org/entity/Q100254879",
+      "source": "https://musicbrainz.org/artist/543a21fc-75e7-4283-b1d0-9f00a3c4d576",
+      "area_labels": [
+        "Finland"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "85889",
+      "name": "System Of A Down",
+      "mbid": "cc0b7089-c08d-4c10-b6b0-873582c17fd6",
+      "wikidata": "http://www.wikidata.org/entity/Q45165",
+      "source": "https://musicbrainz.org/artist/cc0b7089-c08d-4c10-b6b0-873582c17fd6",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "50406",
+      "name": "Apparat",
+      "mbid": "dc3dbfc1-f1f1-49c6-9d7c-425fabf3ae12",
+      "wikidata": "http://www.wikidata.org/entity/Q620679",
+      "source": "https://musicbrainz.org/artist/dc3dbfc1-f1f1-49c6-9d7c-425fabf3ae12",
+      "area_labels": [
+        "Germany"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "11213",
+      "name": "Wu-Tang Clan",
+      "mbid": "0febdcf7-4e1f-4661-9493-b40427de2c13",
+      "wikidata": "http://www.wikidata.org/entity/Q52463",
+      "source": "https://musicbrainz.org/artist/0febdcf7-4e1f-4661-9493-b40427de2c13",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "50997",
+      "name": "Nas",
+      "mbid": "cfbc0924-0035-4d6c-8197-f024653af823",
+      "wikidata": "http://www.wikidata.org/entity/Q194220",
+      "source": "https://musicbrainz.org/artist/cfbc0924-0035-4d6c-8197-f024653af823",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "17743",
+      "name": "Paul Hardcastle",
+      "mbid": "58e2800d-991d-4fe9-860b-1d27931ae8de",
+      "wikidata": "http://www.wikidata.org/entity/Q938029",
+      "source": "https://musicbrainz.org/artist/58e2800d-991d-4fe9-860b-1d27931ae8de",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "17900",
+      "name": "Mobb Deep",
+      "mbid": "d75d1f08-bbb8-4eae-9877-399ca9121197",
+      "wikidata": "http://www.wikidata.org/entity/Q727115",
+      "source": "https://musicbrainz.org/artist/d75d1f08-bbb8-4eae-9877-399ca9121197",
+      "area_labels": [
+        "Queensbridge",
+        "New York",
+        "New York",
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "118760",
+      "name": "No Artist",
+      "mbid": "eec63d3c-3b81-4ad4-b1e4-7c147d4d2b61",
+      "wikidata": "http://www.wikidata.org/entity/Q122463916",
+      "source": "https://musicbrainz.org/artist/eec63d3c-3b81-4ad4-b1e4-7c147d4d2b61",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "234",
+      "name": "Beanfield",
+      "mbid": "ad0811ea-e213-451d-b22f-fa1a7f9e0226",
+      "wikidata": "http://www.wikidata.org/entity/Q4876279",
+      "source": "https://musicbrainz.org/artist/ad0811ea-e213-451d-b22f-fa1a7f9e0226",
+      "area_labels": [
+        "Germany"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "26641",
+      "name": "Lipps, Inc.",
+      "mbid": "9f47e427-c31c-49fe-90d6-92ab6029d405",
+      "wikidata": "http://www.wikidata.org/entity/Q863090",
+      "source": "https://musicbrainz.org/artist/9f47e427-c31c-49fe-90d6-92ab6029d405",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "4281",
+      "name": "Ellen Allien",
+      "mbid": "2ff63f00-0954-4b14-9007-e19b822fc8b2",
+      "wikidata": "http://www.wikidata.org/entity/Q60760",
+      "source": "https://musicbrainz.org/artist/2ff63f00-0954-4b14-9007-e19b822fc8b2",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "120240",
+      "name": "Vaughan Mason & Crew",
+      "mbid": "bfb35d28-432c-42d5-993e-68e1b8999b43",
+      "wikidata": "http://www.wikidata.org/entity/Q7917301",
+      "source": "https://musicbrainz.org/artist/bfb35d28-432c-42d5-993e-68e1b8999b43",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "3812",
+      "name": "Seiji",
+      "mbid": "f3d9beb7-d3a9-444b-8c9d-e1b2e6f76767",
+      "wikidata": "http://www.wikidata.org/entity/Q113275338",
+      "source": "https://musicbrainz.org/artist/f3d9beb7-d3a9-444b-8c9d-e1b2e6f76767",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "37704",
+      "name": "Lexx",
+      "mbid": "5cfbc6c9-3573-465a-a425-d7335f864344",
+      "wikidata": "http://www.wikidata.org/entity/Q1822342",
+      "source": "https://musicbrainz.org/artist/5cfbc6c9-3573-465a-a425-d7335f864344",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "20956",
+      "name": "Donald Byrd",
+      "mbid": "69f95e5c-4b34-4c8b-b8fe-c59f9296195a",
+      "wikidata": "http://www.wikidata.org/entity/Q362764",
+      "source": "https://musicbrainz.org/artist/69f95e5c-4b34-4c8b-b8fe-c59f9296195a",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "5269272",
+      "name": "Yussef Kamaal",
+      "mbid": "72fd7688-8394-43b6-8f41-278657648a45",
+      "wikidata": "http://www.wikidata.org/entity/Q123475427",
+      "source": "https://musicbrainz.org/artist/72fd7688-8394-43b6-8f41-278657648a45",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "38207",
+      "name": "Maynard Ferguson",
+      "mbid": "625f1d57-8bac-4a3a-97af-f407f2967755",
+      "wikidata": "http://www.wikidata.org/entity/Q353822",
+      "source": "https://musicbrainz.org/artist/625f1d57-8bac-4a3a-97af-f407f2967755",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "1665",
+      "name": "DJ Deeon",
+      "mbid": "b73e51c1-cf7e-450e-ab10-a8a24e5b8993",
+      "wikidata": "http://www.wikidata.org/entity/Q3011279",
+      "source": "https://musicbrainz.org/artist/b73e51c1-cf7e-450e-ab10-a8a24e5b8993",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "16743",
+      "name": "Dinosaur L",
+      "mbid": "8642a086-5eb7-4c61-88a9-77ae1d135491",
+      "wikidata": "http://www.wikidata.org/entity/Q118846536",
+      "source": "https://musicbrainz.org/artist/8642a086-5eb7-4c61-88a9-77ae1d135491",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "253",
+      "name": "Luke Vibert",
+      "mbid": "2205a991-1ddf-4ad5-a409-c1f8ef4ecc60",
+      "wikidata": "http://www.wikidata.org/entity/Q1352724",
+      "source": "https://musicbrainz.org/artist/2205a991-1ddf-4ad5-a409-c1f8ef4ecc60",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "29923",
+      "name": "Funkadelic",
+      "mbid": "cf042013-3edd-46c4-9b0e-a62faac98d0b",
+      "wikidata": "http://www.wikidata.org/entity/Q523957",
+      "source": "https://musicbrainz.org/artist/cf042013-3edd-46c4-9b0e-a62faac98d0b",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "154377",
+      "name": "Heróis Do Mar",
+      "mbid": "52d01397-4ca0-4208-81dc-d776b0fc5d84",
+      "wikidata": "http://www.wikidata.org/entity/Q1355554",
+      "source": "https://musicbrainz.org/artist/52d01397-4ca0-4208-81dc-d776b0fc5d84",
+      "area_labels": [
+        "Portugal"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "386260",
+      "name": "The Parliaments",
+      "mbid": "25cb36c7-a4a3-4a88-864f-76876737e488",
+      "wikidata": "http://www.wikidata.org/entity/Q2265651",
+      "source": "https://musicbrainz.org/artist/25cb36c7-a4a3-4a88-864f-76876737e488",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "35289",
+      "name": "The Ritchie Family",
+      "mbid": "aa711144-4173-4e4a-80c7-fcc867186f5d",
+      "wikidata": "http://www.wikidata.org/entity/Q1125637",
+      "source": "https://musicbrainz.org/artist/aa711144-4173-4e4a-80c7-fcc867186f5d",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "30017",
+      "name": "Pete Rock & C.L. Smooth",
+      "mbid": "cff77480-7ba4-4206-b1a8-e1b98b38f07c",
+      "wikidata": "http://www.wikidata.org/entity/Q1851859",
+      "source": "https://musicbrainz.org/artist/cff77480-7ba4-4206-b1a8-e1b98b38f07c",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "10622",
+      "name": "Antibalas",
+      "mbid": "33c2a158-a788-44e5-81ab-142d544a165b",
+      "wikidata": "http://www.wikidata.org/entity/Q2853143",
+      "source": "https://musicbrainz.org/artist/33c2a158-a788-44e5-81ab-142d544a165b",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "46727",
+      "name": "Wild Cherry",
+      "mbid": "da5ff827-174b-48d1-9a39-9fa290bb2925",
+      "wikidata": "http://www.wikidata.org/entity/Q1951576",
+      "source": "https://musicbrainz.org/artist/da5ff827-174b-48d1-9a39-9fa290bb2925",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "1564482",
+      "name": "Joy Orbison",
+      "mbid": "8542f9a4-bd91-4066-91cf-359d2d9950db",
+      "wikidata": "http://www.wikidata.org/entity/Q14159313",
+      "source": "https://musicbrainz.org/artist/8542f9a4-bd91-4066-91cf-359d2d9950db",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "786",
+      "name": "Aux 88",
+      "mbid": "92317e0b-181b-4119-aba1-77261515daf8",
+      "wikidata": "http://www.wikidata.org/entity/Q300119",
+      "source": "https://musicbrainz.org/artist/92317e0b-181b-4119-aba1-77261515daf8",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "9462",
+      "name": "Orchestral Manoeuvres In The Dark",
+      "mbid": "6d072aa8-c851-49c5-92f9-cbca05f4bed9",
+      "wikidata": "http://www.wikidata.org/entity/Q956500",
+      "source": "https://musicbrainz.org/artist/6d072aa8-c851-49c5-92f9-cbca05f4bed9",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "79156",
+      "name": "Fox The Fox",
+      "mbid": "55adb776-6ee1-496c-bcc7-8caaa4909982",
+      "wikidata": "http://www.wikidata.org/entity/Q1440195",
+      "source": "https://musicbrainz.org/artist/55adb776-6ee1-496c-bcc7-8caaa4909982",
+      "area_labels": [
+        "Netherlands",
+        "Kingdom of the Netherlands"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "750",
+      "name": "Laurent Garnier",
+      "mbid": "ec477866-bfaa-48e0-affd-1c151ef61b7b",
+      "wikidata": "http://www.wikidata.org/entity/Q919069",
+      "source": "https://musicbrainz.org/artist/ec477866-bfaa-48e0-affd-1c151ef61b7b",
+      "area_labels": [
+        "France"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "347795",
+      "name": "Tobias Bernstrup",
+      "mbid": "280f1688-981f-45b9-8eac-d3e47cdab630",
+      "wikidata": "http://www.wikidata.org/entity/Q5574103",
+      "source": "https://musicbrainz.org/artist/280f1688-981f-45b9-8eac-d3e47cdab630",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "693",
+      "name": "Ron Trent",
+      "mbid": "3af43a8a-f0b0-4dda-8cd8-ff4941c05316",
+      "wikidata": "http://www.wikidata.org/entity/Q1670319",
+      "source": "https://musicbrainz.org/artist/3af43a8a-f0b0-4dda-8cd8-ff4941c05316",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "2120212",
+      "name": "Recondite",
+      "mbid": "54152285-386d-4681-8054-fb9c02cecbad",
+      "wikidata": "http://www.wikidata.org/entity/Q18155080",
+      "source": "https://musicbrainz.org/artist/54152285-386d-4681-8054-fb9c02cecbad",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "24056",
+      "name": "Jon Hopkins",
+      "mbid": "0b0c25f4-f31c-46a5-a4fb-ccbf53d663bd",
+      "wikidata": "http://www.wikidata.org/entity/Q903592",
+      "source": "https://musicbrainz.org/artist/0b0c25f4-f31c-46a5-a4fb-ccbf53d663bd",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "15885",
+      "name": "Michael Jackson",
+      "mbid": "f27ec8db-af05-4f36-916e-3d57f91ecf5e",
+      "wikidata": "http://www.wikidata.org/entity/Q2831",
+      "source": "https://musicbrainz.org/artist/f27ec8db-af05-4f36-916e-3d57f91ecf5e",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "782",
+      "name": "Norma Jean Bell",
+      "mbid": "1ffac84b-c989-4439-9a9f-b679a8ca1617",
+      "wikidata": "http://www.wikidata.org/entity/Q108528333",
+      "source": "https://musicbrainz.org/artist/1ffac84b-c989-4439-9a9f-b679a8ca1617",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "2480495",
+      "name": "Powell (9)",
+      "mbid": "ca0f8c4f-7af6-4ffe-a0d0-4716090d8baf",
+      "wikidata": "http://www.wikidata.org/entity/Q66425332",
+      "source": "https://musicbrainz.org/artist/ca0f8c4f-7af6-4ffe-a0d0-4716090d8baf",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "1040998",
+      "name": "Jimetta Rose",
+      "mbid": "66883d1c-3502-4fa5-86fb-e0f7a8723d42",
+      "wikidata": "http://www.wikidata.org/entity/Q141613586",
+      "source": "https://musicbrainz.org/artist/66883d1c-3502-4fa5-86fb-e0f7a8723d42",
+      "area_labels": [
+        "Los Angeles",
+        "California",
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "978",
+      "name": "Fluxion",
+      "mbid": "0d9a2bfe-abb8-4ceb-a947-c4fbef03973b",
+      "wikidata": "http://www.wikidata.org/entity/Q3074553",
+      "source": "https://musicbrainz.org/artist/0d9a2bfe-abb8-4ceb-a947-c4fbef03973b",
+      "area_labels": [
+        "Greece"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "48385",
+      "name": "Xploding Plastix",
+      "mbid": "b1fedd29-577d-45b1-95a7-d477f0fb6bd5",
+      "wikidata": "http://www.wikidata.org/entity/Q2658762",
+      "source": "https://musicbrainz.org/artist/b1fedd29-577d-45b1-95a7-d477f0fb6bd5",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "6153831",
+      "name": "Attarazat Addahabia",
+      "mbid": "97ad92a4-5f07-4c0d-afc1-63480c2db4c3",
+      "wikidata": "http://www.wikidata.org/entity/Q97358397",
+      "source": "https://musicbrainz.org/artist/97ad92a4-5f07-4c0d-afc1-63480c2db4c3",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "321",
+      "name": "LTJ Bukem",
+      "mbid": "2bf0b744-b122-4823-8877-ae9296635f7f",
+      "wikidata": "http://www.wikidata.org/entity/Q921236",
+      "source": "https://musicbrainz.org/artist/2bf0b744-b122-4823-8877-ae9296635f7f",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "8531",
+      "name": "Rude Bwoy Monty",
+      "mbid": "c8e529d3-7b92-497a-9256-6daafe087c10",
+      "wikidata": "http://www.wikidata.org/entity/Q106635995",
+      "source": "https://musicbrainz.org/artist/c8e529d3-7b92-497a-9256-6daafe087c10",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "2345",
+      "name": "Ultrahigh",
+      "mbid": "1b8b5ee3-5c5d-409c-a574-bb196781ed36",
+      "wikidata": "http://www.wikidata.org/entity/Q1681322",
+      "source": "https://musicbrainz.org/artist/1b8b5ee3-5c5d-409c-a574-bb196781ed36",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "226945",
+      "name": "Leron Thomas",
+      "mbid": "0ac257a6-b1ba-45bc-a3ba-515c53e5bcaf",
+      "wikidata": "http://www.wikidata.org/entity/Q16218865",
+      "source": "https://musicbrainz.org/artist/0ac257a6-b1ba-45bc-a3ba-515c53e5bcaf",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "13411",
+      "name": "Yasuaki Shimizu",
+      "mbid": "217d2250-cc74-479b-91be-847d3393917c",
+      "wikidata": "http://www.wikidata.org/entity/Q8049939",
+      "source": "https://musicbrainz.org/artist/217d2250-cc74-479b-91be-847d3393917c",
+      "area_labels": [
+        "Japan"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "3860005",
+      "name": "Ahmed Malek",
+      "mbid": "b67690b2-a6e9-456f-b847-1d9bfbc13fbf",
+      "wikidata": "http://www.wikidata.org/entity/Q2827616",
+      "source": "https://musicbrainz.org/artist/b67690b2-a6e9-456f-b847-1d9bfbc13fbf",
+      "area_labels": [
+        "Algeria"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "1216832",
+      "name": "Alhaji K. Frimpong",
+      "mbid": "0b11004f-3b38-45c1-9ccb-7a69666d2fd3",
+      "wikidata": "http://www.wikidata.org/entity/Q6323333",
+      "source": "https://musicbrainz.org/artist/0b11004f-3b38-45c1-9ccb-7a69666d2fd3",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "5393",
+      "name": "Gabrielle",
+      "mbid": "d55fe7ec-3c7f-44e7-b9cc-b025c4351f70",
+      "wikidata": "http://www.wikidata.org/entity/Q242685",
+      "source": "https://musicbrainz.org/artist/d55fe7ec-3c7f-44e7-b9cc-b025c4351f70",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "2323",
+      "name": "DJ Hype",
+      "mbid": "315a3523-c8ef-4445-83d7-2d9acd38d1ff",
+      "wikidata": "http://www.wikidata.org/entity/Q1154114",
+      "source": "https://musicbrainz.org/artist/315a3523-c8ef-4445-83d7-2d9acd38d1ff",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "4628",
+      "name": "London Elektricity",
+      "mbid": "0356daee-ec48-4495-bc3e-460b8a5eacad",
+      "wikidata": "http://www.wikidata.org/entity/Q1858715",
+      "source": "https://musicbrainz.org/artist/0356daee-ec48-4495-bc3e-460b8a5eacad",
+      "area_labels": [
+        "London",
+        "England",
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "426847",
+      "name": "Cookin' On 3 Burners",
+      "mbid": "5c55bacc-dce2-493d-95ea-937c2e96373c",
+      "wikidata": "http://www.wikidata.org/entity/Q24951401",
+      "source": "https://musicbrainz.org/artist/5c55bacc-dce2-493d-95ea-937c2e96373c",
+      "area_labels": [
+        "Australia"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "3091513",
+      "name": "المصريين",
+      "mbid": "eaa129ee-73a8-4edc-a7de-41348a4ac860",
+      "wikidata": "http://www.wikidata.org/entity/Q6824615",
+      "source": "https://musicbrainz.org/artist/eaa129ee-73a8-4edc-a7de-41348a4ac860",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "9912",
+      "name": "DJ Rap",
+      "mbid": "2f2fbcfc-4631-4024-8105-289aeadfdf1f",
+      "wikidata": "http://www.wikidata.org/entity/Q5205416",
+      "source": "https://musicbrainz.org/artist/2f2fbcfc-4631-4024-8105-289aeadfdf1f",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "9786",
+      "name": "Tony Allen",
+      "mbid": "ea524cc6-191a-4c05-ab88-3bb5c0880ca5",
+      "wikidata": "http://www.wikidata.org/entity/Q1371393",
+      "source": "https://musicbrainz.org/artist/ea524cc6-191a-4c05-ab88-3bb5c0880ca5",
+      "area_labels": [
+        "Nigeria"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "1718",
+      "name": "DJ Die",
+      "mbid": "85f36e66-a6c2-40f3-99d8-5f3e0721039c",
+      "wikidata": "http://www.wikidata.org/entity/Q5205295",
+      "source": "https://musicbrainz.org/artist/85f36e66-a6c2-40f3-99d8-5f3e0721039c",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "1755506",
+      "name": "Addison Groove",
+      "mbid": "0b32db28-1a2a-4b4e-b9f2-ce0524987d4c",
+      "wikidata": "http://www.wikidata.org/entity/Q71332471",
+      "source": "https://musicbrainz.org/artist/0b32db28-1a2a-4b4e-b9f2-ce0524987d4c",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "2406747",
+      "name": "Octo Octa",
+      "mbid": "3fa65334-e3c4-4e83-b24f-5af5535ba462",
+      "wikidata": "http://www.wikidata.org/entity/Q29452434",
+      "source": "https://musicbrainz.org/artist/3fa65334-e3c4-4e83-b24f-5af5535ba462",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "2542",
+      "name": "MC Conrad",
+      "mbid": "278bda0a-9019-4321-b296-d5af329cb6e8",
+      "wikidata": "http://www.wikidata.org/entity/Q99672917",
+      "source": "https://musicbrainz.org/artist/278bda0a-9019-4321-b296-d5af329cb6e8",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "6152",
+      "name": "Danny Byrd",
+      "mbid": "1b002a6c-0f6c-4335-aab6-36a74058250f",
+      "wikidata": "http://www.wikidata.org/entity/Q506026",
+      "source": "https://musicbrainz.org/artist/1b002a6c-0f6c-4335-aab6-36a74058250f",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "7213",
+      "name": "Freddy Fresh",
+      "mbid": "c9faadad-85be-4ae3-808e-8e8d4f2ac900",
+      "wikidata": "http://www.wikidata.org/entity/Q5496859",
+      "source": "https://musicbrainz.org/artist/c9faadad-85be-4ae3-808e-8e8d4f2ac900",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "2187",
+      "name": "Robert Owens",
+      "mbid": "0698b547-b992-4edf-a244-18eed7cdba98",
+      "wikidata": "http://www.wikidata.org/entity/Q3436023",
+      "source": "https://musicbrainz.org/artist/0698b547-b992-4edf-a244-18eed7cdba98",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "16508",
+      "name": "Madlib",
+      "mbid": "ea9078ef-20ca-4506-81ea-2ae5fe3a42e8",
+      "wikidata": "http://www.wikidata.org/entity/Q503031",
+      "source": "https://musicbrainz.org/artist/ea9078ef-20ca-4506-81ea-2ae5fe3a42e8",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "838",
+      "name": "Move D",
+      "mbid": "8b146091-2d4c-4a97-a353-03703d8afaa7",
+      "wikidata": "http://www.wikidata.org/entity/Q1951118",
+      "source": "https://musicbrainz.org/artist/8b146091-2d4c-4a97-a353-03703d8afaa7",
+      "area_labels": [
+        "Germany"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "1749",
+      "name": "King Britt",
+      "mbid": "a6b6fbf2-fa4d-4a93-82e0-2551e361899a",
+      "wikidata": "http://www.wikidata.org/entity/Q3332596",
+      "source": "https://musicbrainz.org/artist/a6b6fbf2-fa4d-4a93-82e0-2551e361899a",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "3745639",
+      "name": "Ivan Ave",
+      "mbid": "716ec250-83b9-464c-8321-31bd565ef989",
+      "wikidata": "http://www.wikidata.org/entity/Q50014573",
+      "source": "https://musicbrainz.org/artist/716ec250-83b9-464c-8321-31bd565ef989",
+      "area_labels": [
+        "Norway"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "13932",
+      "name": "Grace Jones",
+      "mbid": "b1c124b3-cf60-41a6-8699-92728c8a3fe0",
+      "wikidata": "http://www.wikidata.org/entity/Q450429",
+      "source": "https://musicbrainz.org/artist/b1c124b3-cf60-41a6-8699-92728c8a3fe0",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "1841800",
+      "name": "Fredfades",
+      "mbid": "85c622ca-2899-41ed-a1a9-5a25cd3a6ce0",
+      "wikidata": "http://www.wikidata.org/entity/Q106450219",
+      "source": "https://musicbrainz.org/artist/85c622ca-2899-41ed-a1a9-5a25cd3a6ce0",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "1854177",
+      "name": "Pamela Prati",
+      "mbid": "0f085a55-8848-4cb2-9c4c-02bddda50d2d",
+      "wikidata": "http://www.wikidata.org/entity/Q3892891",
+      "source": "https://musicbrainz.org/artist/0f085a55-8848-4cb2-9c4c-02bddda50d2d",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "5",
+      "name": "Heiko Laux",
+      "mbid": "75a282a9-c483-4d8e-86c6-1cb029068ca8",
+      "wikidata": "http://www.wikidata.org/entity/Q110341",
+      "source": "https://musicbrainz.org/artist/75a282a9-c483-4d8e-86c6-1cb029068ca8",
+      "area_labels": [
+        "Berlin",
+        "Germany"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "60453",
+      "name": "Wilton Felder",
+      "mbid": "2825f90d-7c3b-467b-9a98-d66a5dc8ddca",
+      "wikidata": "http://www.wikidata.org/entity/Q331075",
+      "source": "https://musicbrainz.org/artist/2825f90d-7c3b-467b-9a98-d66a5dc8ddca",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "21991",
+      "name": "Sia",
+      "mbid": "2f548675-008d-4332-876c-108b0c7ab9c5",
+      "wikidata": "http://www.wikidata.org/entity/Q181484",
+      "source": "https://musicbrainz.org/artist/2f548675-008d-4332-876c-108b0c7ab9c5",
+      "area_labels": [
+        "Australia"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "340803",
+      "name": "Makaya McCraven",
+      "mbid": "59476fae-d0c9-4ebd-b03c-c38b19b30dff",
+      "wikidata": "http://www.wikidata.org/entity/Q59942387",
+      "source": "https://musicbrainz.org/artist/59476fae-d0c9-4ebd-b03c-c38b19b30dff",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "2264",
+      "name": "Jocelyn Brown",
+      "mbid": "6a628a50-1c5c-4d29-a13a-79a73eb012d9",
+      "wikidata": "http://www.wikidata.org/entity/Q447915",
+      "source": "https://musicbrainz.org/artist/6a628a50-1c5c-4d29-a13a-79a73eb012d9",
+      "area_labels": [
+        "London",
+        "England",
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "250149",
+      "name": "Rino Gaetano",
+      "mbid": "5a78419b-a191-4423-adc9-95caebba6c1f",
+      "wikidata": "http://www.wikidata.org/entity/Q469078",
+      "source": "https://musicbrainz.org/artist/5a78419b-a191-4423-adc9-95caebba6c1f",
+      "area_labels": [
+        "Italy"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "970905",
+      "name": "Motor City Drum Ensemble",
+      "mbid": "0323f501-4b5e-4682-a062-e60f6212f9c3",
+      "wikidata": "http://www.wikidata.org/entity/Q106664389",
+      "source": "https://musicbrainz.org/artist/0323f501-4b5e-4682-a062-e60f6212f9c3",
+      "area_labels": [
+        "Germany"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "1094",
+      "name": "Moodymann",
+      "mbid": "a703b91d-aadc-4021-8b61-05cfc134614f",
+      "wikidata": "http://www.wikidata.org/entity/Q369822",
+      "source": "https://musicbrainz.org/artist/a703b91d-aadc-4021-8b61-05cfc134614f",
+      "area_labels": [
+        "Detroit",
+        "Michigan",
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "65950",
+      "name": "Serafin",
+      "mbid": "8bdc6810-3cc0-401d-a590-e97b4771c60a",
+      "wikidata": "http://www.wikidata.org/entity/Q42403388",
+      "source": "https://musicbrainz.org/artist/8bdc6810-3cc0-401d-a590-e97b4771c60a",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "7278",
+      "name": "Crystal Waters",
+      "mbid": "8f4c7ad3-c95c-4d62-a554-3416fb5204f4",
+      "wikidata": "http://www.wikidata.org/entity/Q249141",
+      "source": "https://musicbrainz.org/artist/8f4c7ad3-c95c-4d62-a554-3416fb5204f4",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "251517",
+      "name": "Supertramp",
+      "mbid": "d2ff6b6b-fc30-48dc-8952-06f9d8fc64f8",
+      "wikidata": "http://www.wikidata.org/entity/Q176457",
+      "source": "https://musicbrainz.org/artist/d2ff6b6b-fc30-48dc-8952-06f9d8fc64f8",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "3268",
+      "name": "A Tribe Called Quest",
+      "mbid": "9689aa5a-4471-4fb4-9721-07cecda0fa9f",
+      "wikidata": "http://www.wikidata.org/entity/Q300602",
+      "source": "https://musicbrainz.org/artist/9689aa5a-4471-4fb4-9721-07cecda0fa9f",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "58355",
+      "name": "Quincy Jones And His Orchestra",
+      "mbid": "c49d862f-6b82-464a-a39f-b031533df784",
+      "wikidata": "http://www.wikidata.org/entity/Q130262567",
+      "source": "https://musicbrainz.org/artist/c49d862f-6b82-464a-a39f-b031533df784",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "10429",
+      "name": "Koto",
+      "mbid": "b991e4ea-5c8e-4e92-98a9-d55ce5a9a59c",
+      "wikidata": "http://www.wikidata.org/entity/Q1785406",
+      "source": "https://musicbrainz.org/artist/b991e4ea-5c8e-4e92-98a9-d55ce5a9a59c",
+      "area_labels": [
+        "Italy"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "4567",
+      "name": "Whirlpool Productions",
+      "mbid": "31610cea-5863-4439-9dad-b2826624107d",
+      "wikidata": "http://www.wikidata.org/entity/Q461384",
+      "source": "https://musicbrainz.org/artist/31610cea-5863-4439-9dad-b2826624107d",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "189430",
+      "name": "L.T.D.",
+      "mbid": "d099c7ff-d795-4ddf-83b3-2ee23678f7e2",
+      "wikidata": "http://www.wikidata.org/entity/Q6456314",
+      "source": "https://musicbrainz.org/artist/d099c7ff-d795-4ddf-83b3-2ee23678f7e2",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "43151",
+      "name": "Alpha & Omega",
+      "mbid": "0ac81a92-b119-40be-875d-e091071588f8",
+      "wikidata": "http://www.wikidata.org/entity/Q2839521",
+      "source": "https://musicbrainz.org/artist/0ac81a92-b119-40be-875d-e091071588f8",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "53993",
+      "name": "The Wailers Band",
+      "mbid": "1e46801d-c27b-4f07-a50d-51597a26df60",
+      "wikidata": "http://www.wikidata.org/entity/Q2406165",
+      "source": "https://musicbrainz.org/artist/1e46801d-c27b-4f07-a50d-51597a26df60",
+      "area_labels": [
+        "Jamaica"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "8602",
+      "name": "Atmosfear",
+      "mbid": "0ce1ea9e-d09e-4962-bc65-994ed005f74c",
+      "wikidata": "http://www.wikidata.org/entity/Q4817085",
+      "source": "https://musicbrainz.org/artist/0ce1ea9e-d09e-4962-bc65-994ed005f74c",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "10398",
+      "name": "Morcheeba",
+      "mbid": "067102ea-9519-4622-9077-57ca4164cfbb",
+      "wikidata": "http://www.wikidata.org/entity/Q749019",
+      "source": "https://musicbrainz.org/artist/067102ea-9519-4622-9077-57ca4164cfbb",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "145611",
+      "name": "The Creatures (2)",
+      "mbid": "0ffa72a5-83cc-4b56-998d-768dab451ced",
+      "wikidata": "http://www.wikidata.org/entity/Q48838138",
+      "source": "https://musicbrainz.org/artist/0ffa72a5-83cc-4b56-998d-768dab451ced",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "12596",
+      "name": "James Brown",
+      "mbid": "20ff3303-4fe2-4a47-a1b6-291e26aa3438",
+      "wikidata": "http://www.wikidata.org/entity/Q5950",
+      "source": "https://musicbrainz.org/artist/20ff3303-4fe2-4a47-a1b6-291e26aa3438",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "10053688",
+      "name": "Nu Genea",
+      "mbid": "0ff4cd5b-3153-45ad-b965-79196c0b165b",
+      "wikidata": "http://www.wikidata.org/entity/Q110464571",
+      "source": "https://musicbrainz.org/artist/0ff4cd5b-3153-45ad-b965-79196c0b165b",
+      "area_labels": [
+        "Napoli",
+        "Napoli",
+        "Campania",
+        "Italy"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "518518",
+      "name": "René & Angela",
+      "mbid": "0ede392f-1c70-454b-9aea-d62bec4c5b6e",
+      "wikidata": "http://www.wikidata.org/entity/Q7313654",
+      "source": "https://musicbrainz.org/artist/0ede392f-1c70-454b-9aea-d62bec4c5b6e",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "250902",
+      "name": "Lucio Battisti",
+      "mbid": "c0c0de23-d9c1-4776-97e0-0c2529402622",
+      "wikidata": "http://www.wikidata.org/entity/Q469154",
+      "source": "https://musicbrainz.org/artist/c0c0de23-d9c1-4776-97e0-0c2529402622",
+      "area_labels": [
+        "Italy"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "240814",
+      "name": "Jan Steele",
+      "mbid": "95a5d60e-5a5e-410f-84c3-8d7c10e542a0",
+      "wikidata": "http://www.wikidata.org/entity/Q136756970",
+      "source": "https://musicbrainz.org/artist/95a5d60e-5a5e-410f-84c3-8d7c10e542a0",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "89693",
+      "name": "Sahib Shihab",
+      "mbid": "5f741d12-4aa0-46fc-8e49-e2424455a108",
+      "wikidata": "http://www.wikidata.org/entity/Q968887",
+      "source": "https://musicbrainz.org/artist/5f741d12-4aa0-46fc-8e49-e2424455a108",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "2662253",
+      "name": "Romare",
+      "mbid": "b014d579-b549-4b21-b90d-5264e0433988",
+      "wikidata": "http://www.wikidata.org/entity/Q99672261",
+      "source": "https://musicbrainz.org/artist/b014d579-b549-4b21-b90d-5264e0433988",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "391",
+      "name": "David Toop",
+      "mbid": "b58efc5d-66cc-4baa-8bc6-6fcb6b84af24",
+      "wikidata": "http://www.wikidata.org/entity/Q1176873",
+      "source": "https://musicbrainz.org/artist/b58efc5d-66cc-4baa-8bc6-6fcb6b84af24",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "2725",
+      "name": "Depeche Mode",
+      "mbid": "8538e728-ca0b-4321-b7e5-cff6565dd4c0",
+      "wikidata": "http://www.wikidata.org/entity/Q482964",
+      "source": "https://musicbrainz.org/artist/8538e728-ca0b-4321-b7e5-cff6565dd4c0",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "4742",
+      "name": "Calibre",
+      "mbid": "afa502e0-fb84-4cf4-b3c0-21ed0c695939",
+      "wikidata": "http://www.wikidata.org/entity/Q1844152",
+      "source": "https://musicbrainz.org/artist/afa502e0-fb84-4cf4-b3c0-21ed0c695939",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "4478",
+      "name": "DJ Shadow",
+      "mbid": "efa2c11a-1a35-4b60-bc1b-66d37de88511",
+      "wikidata": "http://www.wikidata.org/entity/Q217716",
+      "source": "https://musicbrainz.org/artist/efa2c11a-1a35-4b60-bc1b-66d37de88511",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "31759",
+      "name": "Tullio De Piscopo",
+      "mbid": "f5a2a32e-3fbb-46c9-b34d-dca87250aa47",
+      "wikidata": "http://www.wikidata.org/entity/Q1682114",
+      "source": "https://musicbrainz.org/artist/f5a2a32e-3fbb-46c9-b34d-dca87250aa47",
+      "area_labels": [
+        "Italy"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "576683",
+      "name": "The Heliocentrics",
+      "mbid": "f221328f-bc6b-40f1-a750-ce11a1321489",
+      "wikidata": "http://www.wikidata.org/entity/Q10381461",
+      "source": "https://musicbrainz.org/artist/f221328f-bc6b-40f1-a750-ce11a1321489",
+      "area_labels": [
+        "London",
+        "England",
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "26918",
+      "name": "Missy Elliott",
+      "mbid": "a0b8cb9e-7532-45fe-a74c-30e7c4009a39",
+      "wikidata": "http://www.wikidata.org/entity/Q155079",
+      "source": "https://musicbrainz.org/artist/a0b8cb9e-7532-45fe-a74c-30e7c4009a39",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "226946",
+      "name": "Tiombe Lockhart",
+      "mbid": "eaa417ad-414a-4436-a301-727f0e7f0150",
+      "wikidata": "http://www.wikidata.org/entity/Q7808719",
+      "source": "https://musicbrainz.org/artist/eaa417ad-414a-4436-a301-727f0e7f0150",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "281",
+      "name": "Matrix",
+      "mbid": "2e1ff73b-3605-44d2-b851-dd4e4a16e080",
+      "wikidata": "http://www.wikidata.org/entity/Q6787845",
+      "source": "https://musicbrainz.org/artist/2e1ff73b-3605-44d2-b851-dd4e4a16e080",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "2471633",
+      "name": "Andrea Lombardini",
+      "mbid": "a562f46b-c1a8-44b3-8c6d-5e3745f1548a",
+      "wikidata": "http://www.wikidata.org/entity/Q130639944",
+      "source": "https://musicbrainz.org/artist/a562f46b-c1a8-44b3-8c6d-5e3745f1548a",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "136140",
+      "name": "Ryo Kawasaki",
+      "mbid": "549eb410-56c5-45ff-b3de-a1f4144ef740",
+      "wikidata": "http://www.wikidata.org/entity/Q948561",
+      "source": "https://musicbrainz.org/artist/549eb410-56c5-45ff-b3de-a1f4144ef740",
+      "area_labels": [
+        "Japan"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "65145",
+      "name": "Max Eastley",
+      "mbid": "32827f04-c74c-4889-a270-04d54225836f",
+      "wikidata": "http://www.wikidata.org/entity/Q6794714",
+      "source": "https://musicbrainz.org/artist/32827f04-c74c-4889-a270-04d54225836f",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "5087",
+      "name": "Ryuichi Sakamoto",
+      "mbid": "a7f7df4a-77d8-4f12-8acd-5c60c93f4de8",
+      "wikidata": "http://www.wikidata.org/entity/Q345494",
+      "source": "https://musicbrainz.org/artist/a7f7df4a-77d8-4f12-8acd-5c60c93f4de8",
+      "area_labels": [
+        "Japan"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "49758",
+      "name": "Nile Rodgers",
+      "mbid": "c6d571dd-c0ae-4ac8-9500-780b1b9b25e5",
+      "wikidata": "http://www.wikidata.org/entity/Q497759",
+      "source": "https://musicbrainz.org/artist/c6d571dd-c0ae-4ac8-9500-780b1b9b25e5",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "368",
+      "name": "Susumu Yokota",
+      "mbid": "7b05d6fe-91e8-4cb9-a401-2a13b1578716",
+      "wikidata": "http://www.wikidata.org/entity/Q3099802",
+      "source": "https://musicbrainz.org/artist/7b05d6fe-91e8-4cb9-a401-2a13b1578716",
+      "area_labels": [
+        "Japan"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "34453",
+      "name": "Malente",
+      "mbid": "bf0a6807-2db1-4fc1-b7d3-f6799cb5d675",
+      "wikidata": "http://www.wikidata.org/entity/Q96419",
+      "source": "https://musicbrainz.org/artist/bf0a6807-2db1-4fc1-b7d3-f6799cb5d675",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "2712259",
+      "name": "Helena Hauff",
+      "mbid": "de6e9f8f-56ef-4697-9090-20a63c2b4d7b",
+      "wikidata": "http://www.wikidata.org/entity/Q28312805",
+      "source": "https://musicbrainz.org/artist/de6e9f8f-56ef-4697-9090-20a63c2b4d7b",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "73715",
+      "name": "Nebraska",
+      "mbid": "d45541cd-e6cc-4c93-95b0-2ed536120ad8",
+      "wikidata": "http://www.wikidata.org/entity/Q12328483",
+      "source": "https://musicbrainz.org/artist/d45541cd-e6cc-4c93-95b0-2ed536120ad8",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "1694",
+      "name": "Mark de Clive-Lowe",
+      "mbid": "80a0ab61-c33d-4a59-a950-aaf3b69d3251",
+      "wikidata": "http://www.wikidata.org/entity/Q6770505",
+      "source": "https://musicbrainz.org/artist/80a0ab61-c33d-4a59-a950-aaf3b69d3251",
+      "area_labels": [
+        "Los Angeles",
+        "California",
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "111502",
+      "name": "Sean Paul",
+      "mbid": "c3da3346-2643-48a7-93cd-011f6834b3d7",
+      "wikidata": "http://www.wikidata.org/entity/Q200577",
+      "source": "https://musicbrainz.org/artist/c3da3346-2643-48a7-93cd-011f6834b3d7",
+      "area_labels": [
+        "Jamaica"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "6584747",
+      "name": "Yousuke Yukimatsu",
+      "mbid": "317ddb49-97db-4382-86e9-5c51519f23ac",
+      "wikidata": "http://www.wikidata.org/entity/Q125789914",
+      "source": "https://musicbrainz.org/artist/317ddb49-97db-4382-86e9-5c51519f23ac",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "30645",
+      "name": "Icons",
+      "mbid": "24ef0fe6-0bf1-45d5-b2a1-a34a5430d9b4",
+      "wikidata": "http://www.wikidata.org/entity/Q7741314",
+      "source": "https://musicbrainz.org/artist/24ef0fe6-0bf1-45d5-b2a1-a34a5430d9b4",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "75985",
+      "name": "Lakeside",
+      "mbid": "4e2dc6e4-1808-4850-8e97-df7ea8007f39",
+      "wikidata": "http://www.wikidata.org/entity/Q3110146",
+      "source": "https://musicbrainz.org/artist/4e2dc6e4-1808-4850-8e97-df7ea8007f39",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "4117",
+      "name": "Olive",
+      "mbid": "39e82ca1-733e-4203-a00f-c6a70a371625",
+      "wikidata": "http://www.wikidata.org/entity/Q2019953",
+      "source": "https://musicbrainz.org/artist/39e82ca1-733e-4203-a00f-c6a70a371625",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "1141",
+      "name": "Model 500",
+      "mbid": "a110acfe-212d-44b2-b729-18f0f94ce47e",
+      "wikidata": "http://www.wikidata.org/entity/Q366714",
+      "source": "https://musicbrainz.org/artist/a110acfe-212d-44b2-b729-18f0f94ce47e",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "8260",
+      "name": "DJ Koze",
+      "mbid": "3cec91e6-6c45-4c47-843b-0a516be96a91",
+      "wikidata": "http://www.wikidata.org/entity/Q1154144",
+      "source": "https://musicbrainz.org/artist/3cec91e6-6c45-4c47-843b-0a516be96a91",
+      "area_labels": [
+        "Germany"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "22856",
+      "name": "Barrabas",
+      "mbid": "87d0c089-3641-436e-bceb-737b9f506f65",
+      "wikidata": "http://www.wikidata.org/entity/Q808794",
+      "source": "https://musicbrainz.org/artist/87d0c089-3641-436e-bceb-737b9f506f65",
+      "area_labels": [
+        "Spain"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "6021",
+      "name": "Odyssey (2)",
+      "mbid": "6efbfc07-3346-4d30-af85-0abe646b97ba",
+      "wikidata": "http://www.wikidata.org/entity/Q7078416",
+      "source": "https://musicbrainz.org/artist/6efbfc07-3346-4d30-af85-0abe646b97ba",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "622704",
+      "name": "Salena Jones",
+      "mbid": "2340f89c-3ce0-4e49-a4a2-99b68ac42b0d",
+      "wikidata": "http://www.wikidata.org/entity/Q7404278",
+      "source": "https://musicbrainz.org/artist/2340f89c-3ce0-4e49-a4a2-99b68ac42b0d",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "2623061",
+      "name": "Marlon Hoffstadt",
+      "mbid": "7377ee25-9240-4b50-a824-20c202e96da9",
+      "wikidata": "http://www.wikidata.org/entity/Q136433410",
+      "source": "https://musicbrainz.org/artist/7377ee25-9240-4b50-a824-20c202e96da9",
+      "area_labels": [
+        "Berlin",
+        "Germany"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "5648",
+      "name": "Mos Def",
+      "mbid": "9f4551c6-1324-4ac5-b3fe-a5c5cfacd54d",
+      "wikidata": "http://www.wikidata.org/entity/Q38875",
+      "source": "https://musicbrainz.org/artist/9f4551c6-1324-4ac5-b3fe-a5c5cfacd54d",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "94316",
+      "name": "Greg Wilson",
+      "mbid": "b7b6125c-1e77-4738-8e81-36affa0adc18",
+      "wikidata": "http://www.wikidata.org/entity/Q5606441",
+      "source": "https://musicbrainz.org/artist/b7b6125c-1e77-4738-8e81-36affa0adc18",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "545378",
+      "name": "José Afonso",
+      "mbid": "d06e7e71-0178-4e66-8150-044ff6047d64",
+      "wikidata": "http://www.wikidata.org/entity/Q559269",
+      "source": "https://musicbrainz.org/artist/d06e7e71-0178-4e66-8150-044ff6047d64",
+      "area_labels": [
+        "Portugal"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "83770",
+      "name": "Gal Costa",
+      "mbid": "fc63a914-272d-4b95-9221-61adcce6f793",
+      "wikidata": "http://www.wikidata.org/entity/Q236361",
+      "source": "https://musicbrainz.org/artist/fc63a914-272d-4b95-9221-61adcce6f793",
+      "area_labels": [
+        "Brazil"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "91058",
+      "name": "Shitmat",
+      "mbid": "fc394492-1c5c-4af0-bd6f-c3b9430ae7b0",
+      "wikidata": "http://www.wikidata.org/entity/Q3482391",
+      "source": "https://musicbrainz.org/artist/fc394492-1c5c-4af0-bd6f-c3b9430ae7b0",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "180281",
+      "name": "Giovanni Venosta",
+      "mbid": "8c4df4ee-c87f-4e45-9380-24b3da4851a6",
+      "wikidata": "http://www.wikidata.org/entity/Q57303425",
+      "source": "https://musicbrainz.org/artist/8c4df4ee-c87f-4e45-9380-24b3da4851a6",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "950",
+      "name": "The Sabres Of Paradise",
+      "mbid": "3acb627b-787c-4276-bafe-516a5806aeb8",
+      "wikidata": "http://www.wikidata.org/entity/Q4051270",
+      "source": "https://musicbrainz.org/artist/3acb627b-787c-4276-bafe-516a5806aeb8",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "21574",
+      "name": "Trouble Funk",
+      "mbid": "138aaf2c-77b6-451e-ade2-ce18894eeaa7",
+      "wikidata": "http://www.wikidata.org/entity/Q281888",
+      "source": "https://musicbrainz.org/artist/138aaf2c-77b6-451e-ade2-ce18894eeaa7",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "51979",
+      "name": "The Whispers",
+      "mbid": "2e7afe0c-ec52-4c1d-9413-5d40f77922c7",
+      "wikidata": "http://www.wikidata.org/entity/Q1527931",
+      "source": "https://musicbrainz.org/artist/2e7afe0c-ec52-4c1d-9413-5d40f77922c7",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "5733576",
+      "name": "The Mauskovic Dance Band",
+      "mbid": "cf6633d5-fb76-4a4d-b1a0-1a6477925a9a",
+      "wikidata": "http://www.wikidata.org/entity/Q115386957",
+      "source": "https://musicbrainz.org/artist/cf6633d5-fb76-4a4d-b1a0-1a6477925a9a",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "76089",
+      "name": "Mort Garson",
+      "mbid": "c47028fa-0086-426d-a7b8-ed20eba3ed61",
+      "wikidata": "http://www.wikidata.org/entity/Q3324460",
+      "source": "https://musicbrainz.org/artist/c47028fa-0086-426d-a7b8-ed20eba3ed61",
+      "area_labels": [
+        "Canada"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "3456696",
+      "name": "Steve Monite",
+      "mbid": "53c7987c-25f8-4d1a-9c64-248355de1bcc",
+      "wikidata": "http://www.wikidata.org/entity/Q38460825",
+      "source": "https://musicbrainz.org/artist/53c7987c-25f8-4d1a-9c64-248355de1bcc",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "18200",
+      "name": "West Street Mob",
+      "mbid": "1d1d3fbc-1788-4725-8f0b-0a319f3e4de5",
+      "wikidata": "http://www.wikidata.org/entity/Q7986599",
+      "source": "https://musicbrainz.org/artist/1d1d3fbc-1788-4725-8f0b-0a319f3e4de5",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "298930",
+      "name": "B.B. Seaton",
+      "mbid": "ce60b741-1f97-42ff-953b-63f85580175f",
+      "wikidata": "http://www.wikidata.org/entity/Q2876622",
+      "source": "https://musicbrainz.org/artist/ce60b741-1f97-42ff-953b-63f85580175f",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "53036",
+      "name": "Vivien Goldman",
+      "mbid": "cc74f82a-5771-4b05-8387-5f85131546df",
+      "wikidata": "http://www.wikidata.org/entity/Q3561603",
+      "source": "https://musicbrainz.org/artist/cc74f82a-5771-4b05-8387-5f85131546df",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "11733",
+      "name": "Kenny Ken",
+      "mbid": "8e5fd838-497e-4404-b87d-ceb0005cfc7f",
+      "wikidata": "http://www.wikidata.org/entity/Q16980001",
+      "source": "https://musicbrainz.org/artist/8e5fd838-497e-4404-b87d-ceb0005cfc7f",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "1152098",
+      "name": "Senyaka",
+      "mbid": "3a351781-cad2-43b3-9fb9-cb44a9960719",
+      "wikidata": "http://www.wikidata.org/entity/Q21065015",
+      "source": "https://musicbrainz.org/artist/3a351781-cad2-43b3-9fb9-cb44a9960719",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "5455",
+      "name": "Cut Chemist",
+      "mbid": "e0975164-e68b-45d6-9854-d5d0ce84e671",
+      "wikidata": "http://www.wikidata.org/entity/Q2658111",
+      "source": "https://musicbrainz.org/artist/e0975164-e68b-45d6-9854-d5d0ce84e671",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "2149274",
+      "name": "Murat Ertel",
+      "mbid": "83d230d4-1424-4adf-afd9-9c292b2de942",
+      "wikidata": "http://www.wikidata.org/entity/Q6003407",
+      "source": "https://musicbrainz.org/artist/83d230d4-1424-4adf-afd9-9c292b2de942",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "1613326",
+      "name": "Dabeull",
+      "mbid": "f543ad5c-f165-47bf-bd68-744989828314",
+      "wikidata": "http://www.wikidata.org/entity/Q126672606",
+      "source": "https://musicbrainz.org/artist/f543ad5c-f165-47bf-bd68-744989828314",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "180280",
+      "name": "Roberto Musci",
+      "mbid": "de618039-2f6d-40cc-a110-8ab029933e83",
+      "wikidata": "http://www.wikidata.org/entity/Q7351819",
+      "source": "https://musicbrainz.org/artist/de618039-2f6d-40cc-a110-8ab029933e83",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "61269",
+      "name": "Carrie Lucas",
+      "mbid": "0ec56df8-abd0-4e07-b5de-5caff7e42746",
+      "wikidata": "http://www.wikidata.org/entity/Q5046263",
+      "source": "https://musicbrainz.org/artist/0ec56df8-abd0-4e07-b5de-5caff7e42746",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "340525",
+      "name": "Tapper Zukie",
+      "mbid": "862c35ad-044f-42fd-9855-8a918d955e69",
+      "wikidata": "http://www.wikidata.org/entity/Q3515531",
+      "source": "https://musicbrainz.org/artist/862c35ad-044f-42fd-9855-8a918d955e69",
+      "area_labels": [
+        "Jamaica"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "104180",
+      "name": "Teri Moïse",
+      "mbid": "f2340fa1-9cc8-4d5d-b10c-cca57045048e",
+      "wikidata": "http://www.wikidata.org/entity/Q2097963",
+      "source": "https://musicbrainz.org/artist/f2340fa1-9cc8-4d5d-b10c-cca57045048e",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "7331",
+      "name": "Zion Train",
+      "mbid": "3010655f-9ff2-4753-b4f7-803c4118f450",
+      "wikidata": "http://www.wikidata.org/entity/Q2393241",
+      "source": "https://musicbrainz.org/artist/3010655f-9ff2-4753-b4f7-803c4118f450",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "27319",
+      "name": "Smooth Touch",
+      "mbid": "3d47175f-2ab3-4eb9-b66e-2d10e5b468b6",
+      "wikidata": "http://www.wikidata.org/entity/Q7546407",
+      "source": "https://musicbrainz.org/artist/3d47175f-2ab3-4eb9-b66e-2d10e5b468b6",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "97071",
+      "name": "Ronnie Hudson & The Street People",
+      "mbid": "4d9851f5-0c75-4e60-a7ac-5a9970e770f2",
+      "wikidata": "http://www.wikidata.org/entity/Q74052379",
+      "source": "https://musicbrainz.org/artist/4d9851f5-0c75-4e60-a7ac-5a9970e770f2",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "20590",
+      "name": "Grandmaster Flash & The Furious Five",
+      "mbid": "1390d663-2f56-4b41-9f75-f45ba489250b",
+      "wikidata": "http://www.wikidata.org/entity/Q765409",
+      "source": "https://musicbrainz.org/artist/1390d663-2f56-4b41-9f75-f45ba489250b",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "1239155",
+      "name": "Sangue Misto",
+      "mbid": "308b64a2-7dcd-4fae-bd5b-fa13d8c63942",
+      "wikidata": "http://www.wikidata.org/entity/Q617607",
+      "source": "https://musicbrainz.org/artist/308b64a2-7dcd-4fae-bd5b-fa13d8c63942",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "17550",
+      "name": "Sugarhill Gang",
+      "mbid": "336f2e14-b064-45c8-8b2a-01663a0bee64",
+      "wikidata": "http://www.wikidata.org/entity/Q1413494",
+      "source": "https://musicbrainz.org/artist/336f2e14-b064-45c8-8b2a-01663a0bee64",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "61402",
+      "name": "The J.B.'s",
+      "mbid": "cb6a2948-7b9b-4a15-8c71-2b79cc76408e",
+      "wikidata": "http://www.wikidata.org/entity/Q362677",
+      "source": "https://musicbrainz.org/artist/cb6a2948-7b9b-4a15-8c71-2b79cc76408e",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "66385",
+      "name": "Foxy",
+      "mbid": "3199d132-4ba1-4dc4-bef6-f024d0e2443b",
+      "wikidata": "http://www.wikidata.org/entity/Q1440236",
+      "source": "https://musicbrainz.org/artist/3199d132-4ba1-4dc4-bef6-f024d0e2443b",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "2320",
+      "name": "Total Science",
+      "mbid": "344c7977-1c4b-4010-a0f7-27d9506301ec",
+      "wikidata": "http://www.wikidata.org/entity/Q2012126",
+      "source": "https://musicbrainz.org/artist/344c7977-1c4b-4010-a0f7-27d9506301ec",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "17957",
+      "name": "T-Connection",
+      "mbid": "e509b240-7d64-43ec-8d0e-c09090393c82",
+      "wikidata": "http://www.wikidata.org/entity/Q2383024",
+      "source": "https://musicbrainz.org/artist/e509b240-7d64-43ec-8d0e-c09090393c82",
+      "area_labels": [
+        "Bahamas"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "8403",
+      "name": "Ripple",
+      "mbid": "ffa1f971-31d1-4191-84e7-2642affed079",
+      "wikidata": "http://www.wikidata.org/entity/Q7335713",
+      "source": "https://musicbrainz.org/artist/ffa1f971-31d1-4191-84e7-2642affed079",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "200815",
+      "name": "Charles Mingus",
+      "mbid": "f3b8e107-abe8-4743-b6a3-4a4ee995e71f",
+      "wikidata": "http://www.wikidata.org/entity/Q107432",
+      "source": "https://musicbrainz.org/artist/f3b8e107-abe8-4743-b6a3-4a4ee995e71f",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "29224",
+      "name": "Positive Force",
+      "mbid": "d40925df-080e-4ac4-bcad-325c95a1642b",
+      "wikidata": "http://www.wikidata.org/entity/Q7233222",
+      "source": "https://musicbrainz.org/artist/d40925df-080e-4ac4-bcad-325c95a1642b",
+      "area_labels": [
+        "Pennsylvania",
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "229498",
+      "name": "Max Roach",
+      "mbid": "0b6aea55-d855-4a33-ae08-b0280dd28684",
+      "wikidata": "http://www.wikidata.org/entity/Q175899",
+      "source": "https://musicbrainz.org/artist/0b6aea55-d855-4a33-ae08-b0280dd28684",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "1720",
+      "name": "Sonz Of A Loop Da Loop Era",
+      "mbid": "2ab2c317-3988-4d08-852d-b7805dc7b342",
+      "wikidata": "http://www.wikidata.org/entity/Q5220177",
+      "source": "https://musicbrainz.org/artist/2ab2c317-3988-4d08-852d-b7805dc7b342",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "87814",
+      "name": "George McCrae",
+      "mbid": "bd013a43-a262-4658-a372-b75ddba236b4",
+      "wikidata": "http://www.wikidata.org/entity/Q1353762",
+      "source": "https://musicbrainz.org/artist/bd013a43-a262-4658-a372-b75ddba236b4",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "12832",
+      "name": "Venetian Snares",
+      "mbid": "56abaa47-0101-463b-b37e-e961136fec39",
+      "wikidata": "http://www.wikidata.org/entity/Q120204",
+      "source": "https://musicbrainz.org/artist/56abaa47-0101-463b-b37e-e961136fec39",
+      "area_labels": [
+        "Canada"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "160033",
+      "name": "Drop The Lime",
+      "mbid": "f9739c2f-d386-4b87-9258-03cd77e0ac55",
+      "wikidata": "http://www.wikidata.org/entity/Q5308434",
+      "source": "https://musicbrainz.org/artist/f9739c2f-d386-4b87-9258-03cd77e0ac55",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "1559",
+      "name": "Nicolette",
+      "mbid": "2c489c94-e9d0-4adf-a67f-73cc025cee69",
+      "wikidata": "http://www.wikidata.org/entity/Q7030266",
+      "source": "https://musicbrainz.org/artist/2c489c94-e9d0-4adf-a67f-73cc025cee69",
+      "area_labels": [
+        "London",
+        "England",
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "75922",
+      "name": "Gino Soccio",
+      "mbid": "222d2ac7-08e7-47be-8df5-49098b79caee",
+      "wikidata": "http://www.wikidata.org/entity/Q556728",
+      "source": "https://musicbrainz.org/artist/222d2ac7-08e7-47be-8df5-49098b79caee",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "145257",
+      "name": "Duke Ellington",
+      "mbid": "3af06bc4-68ad-4cae-bb7a-7eeeb45e411f",
+      "wikidata": "http://www.wikidata.org/entity/Q4030",
+      "source": "https://musicbrainz.org/artist/3af06bc4-68ad-4cae-bb7a-7eeeb45e411f",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "23423",
+      "name": "Unexist",
+      "mbid": "599123c4-4286-40a9-8846-66565fbac303",
+      "wikidata": "http://www.wikidata.org/entity/Q3096459",
+      "source": "https://musicbrainz.org/artist/599123c4-4286-40a9-8846-66565fbac303",
+      "area_labels": [
+        "Italy"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "20593",
+      "name": "Grandmaster Flash & Melle Mel",
+      "mbid": "faaf4f84-7751-4613-9903-32c9d6a49741",
+      "wikidata": "http://www.wikidata.org/entity/Q64549",
+      "source": "https://musicbrainz.org/artist/faaf4f84-7751-4613-9903-32c9d6a49741",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "110283",
+      "name": "Kim Carnes",
+      "mbid": "600c5212-a8e6-458e-bd3f-78b6fbfe329a",
+      "wikidata": "http://www.wikidata.org/entity/Q4070",
+      "source": "https://musicbrainz.org/artist/600c5212-a8e6-458e-bd3f-78b6fbfe329a",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "16483",
+      "name": "Alex Neri",
+      "mbid": "b7784610-7f2f-4ffa-acfc-b8ca24167b34",
+      "wikidata": "http://www.wikidata.org/entity/Q4317478",
+      "source": "https://musicbrainz.org/artist/b7784610-7f2f-4ffa-acfc-b8ca24167b34",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "1460",
+      "name": "I-f",
+      "mbid": "53b98d3b-aa25-40f8-84a2-36a17a341fb7",
+      "wikidata": "http://www.wikidata.org/entity/Q1343680",
+      "source": "https://musicbrainz.org/artist/53b98d3b-aa25-40f8-84a2-36a17a341fb7",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "1932807",
+      "name": "Cygnus (5)",
+      "mbid": "26eddb99-75be-4186-b3cd-d6095cc3d93a",
+      "wikidata": "http://www.wikidata.org/entity/Q72346266",
+      "source": "https://musicbrainz.org/artist/26eddb99-75be-4186-b3cd-d6095cc3d93a",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "9706",
+      "name": "Culture Club",
+      "mbid": "81435053-e1a2-48a4-adfd-e89f310c7b38",
+      "wikidata": "http://www.wikidata.org/entity/Q50037",
+      "source": "https://musicbrainz.org/artist/81435053-e1a2-48a4-adfd-e89f310c7b38",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "5821",
+      "name": "Africanism",
+      "mbid": "f711ef00-b1a2-4697-bc38-55528f2d6aec",
+      "wikidata": "http://www.wikidata.org/entity/Q2254953",
+      "source": "https://musicbrainz.org/artist/f711ef00-b1a2-4697-bc38-55528f2d6aec",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "3868",
+      "name": "Inner City",
+      "mbid": "65a8e571-8a08-433f-a5bf-ead38c269ea6",
+      "wikidata": "http://www.wikidata.org/entity/Q1663959",
+      "source": "https://musicbrainz.org/artist/65a8e571-8a08-433f-a5bf-ead38c269ea6",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "1403",
+      "name": "Jonny L",
+      "mbid": "67d05bc4-a7e8-4ac3-a51c-0348a2a704e5",
+      "wikidata": "http://www.wikidata.org/entity/Q1993190",
+      "source": "https://musicbrainz.org/artist/67d05bc4-a7e8-4ac3-a51c-0348a2a704e5",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "200304",
+      "name": "Caparezza",
+      "mbid": "82462e70-bc00-43ba-8d96-734efa6e72ac",
+      "wikidata": "http://www.wikidata.org/entity/Q25159",
+      "source": "https://musicbrainz.org/artist/82462e70-bc00-43ba-8d96-734efa6e72ac",
+      "area_labels": [
+        "Italy"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "87016",
+      "name": "Tool (2)",
+      "mbid": "66fc5bf8-daa4-4241-b378-9bc9077939d2",
+      "wikidata": "http://www.wikidata.org/entity/Q184827",
+      "source": "https://musicbrainz.org/artist/66fc5bf8-daa4-4241-b378-9bc9077939d2",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "338",
+      "name": "Roni Size",
+      "mbid": "70bea6dd-2727-47a4-96f1-b0e589465b90",
+      "wikidata": "http://www.wikidata.org/entity/Q964002",
+      "source": "https://musicbrainz.org/artist/70bea6dd-2727-47a4-96f1-b0e589465b90",
+      "area_labels": [],
+      "status": "rate_limited"
+    },
+    {
+      "discogs_artist_id": "142",
+      "name": "Masters At Work",
+      "mbid": "11293854-fc44-43e2-bb37-c48e5063bb55",
+      "wikidata": "http://www.wikidata.org/entity/Q1758822",
+      "source": "https://musicbrainz.org/artist/11293854-fc44-43e2-bb37-c48e5063bb55",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "434957",
+      "name": "Władysław Jagiełło",
+      "mbid": "fd001be9-7a13-4acf-a39b-d9d3d92a371a",
+      "wikidata": "http://www.wikidata.org/entity/Q7944956",
+      "source": "https://musicbrainz.org/artist/fd001be9-7a13-4acf-a39b-d9d3d92a371a",
+      "area_labels": [],
+      "status": "area_unavailable"
+    },
+    {
+      "discogs_artist_id": "5102",
+      "name": "Leila",
+      "mbid": "14039c7d-b67e-46cd-9cf3-f252d0e83879",
+      "wikidata": "http://www.wikidata.org/entity/Q3229172",
+      "source": "https://musicbrainz.org/artist/14039c7d-b67e-46cd-9cf3-f252d0e83879",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "588664",
+      "name": "Ziad Rahbani",
+      "mbid": "854d133d-771b-4776-ad66-6768f4f848e9",
+      "wikidata": "http://www.wikidata.org/entity/Q3575465",
+      "source": "https://musicbrainz.org/artist/854d133d-771b-4776-ad66-6768f4f848e9",
+      "area_labels": [
+        "Lebanon"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "21848",
+      "name": "Danny Howells & Dick Trevor",
+      "mbid": "83c616dd-9588-4663-83c4-13a7253b6733",
+      "wikidata": "http://www.wikidata.org/entity/Q1164647",
+      "source": "https://musicbrainz.org/artist/83c616dd-9588-4663-83c4-13a7253b6733",
+      "area_labels": [
+        "United Kingdom"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "29981",
+      "name": "Jimmy Smith",
+      "mbid": "4f8a0d9b-5777-40da-b29a-e9753d5ae693",
+      "wikidata": "http://www.wikidata.org/entity/Q318948",
+      "source": "https://musicbrainz.org/artist/4f8a0d9b-5777-40da-b29a-e9753d5ae693",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "129805",
+      "name": "Wes Montgomery",
+      "mbid": "663f8232-8c46-4851-803f-a91d31593b14",
+      "wikidata": "http://www.wikidata.org/entity/Q298601",
+      "source": "https://musicbrainz.org/artist/663f8232-8c46-4851-803f-a91d31593b14",
+      "area_labels": [
+        "United States"
+      ],
+      "status": "area_found"
+    },
+    {
+      "discogs_artist_id": "71171",
+      "name": "Michael Gray",
+      "mbid": "cbb81bc6-fc8f-4d90-8a56-b5e0b357de3a",
+      "wikidata": "http://www.wikidata.org/entity/Q1209698",
+      "source": "https://musicbrainz.org/artist/cbb81bc6-fc8f-4d90-8a56-b5e0b357de3a",
+      "area_labels": [],
+      "status": "rate_limited"
+    }
+  ]
+}

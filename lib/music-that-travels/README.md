@@ -3,7 +3,7 @@
 Two independent HTML experiences served through a namespaced Next/Vinext route.
 
 - `/experiments/music-that-travels`: entry screen
-- `/experiments/music-that-travels/geography`: full saved collection: 610 entries / 608 editions; 600 entries have edition markets, 118 have sourced cultural connections
+- `/experiments/music-that-travels/geography`: full saved collection: 610 entries / 608 editions; 600 entries have edition markets, 254 have sourced cultural connections
 - `/experiments/music-that-travels/chromatic`: original 100-record artwork colour trial
 - `/experiments/music-that-travels/dataset`: coverage and criteria
 
@@ -31,6 +31,16 @@ While moving a world-level view with more than 180 eligible entries, reuse the l
 
 Each collection entry has one overview anchor. Its sourced relationships live in `origin-collection.json.records[id].threads`: stable id, kind (`artist`, `repertoire`, `recording`), relation verb, subject, place/coordinates/precision, source, optional period and note. Legacy artist/compilation associations and reviewed recording evidence are converted by `prepare-origins.py`. `cultural-threads.json` supplies explicitly reviewed artist and release-specific claims. Country repertoire links stay country-level; no nationality or genre inference runs.
 
-The first version contains 137 threads across 116 editions / 118 entries. One selected cover reveals typed map endpoints and matching source cards. Selecting a thread highlights and frames it; Show all restores the set. Artist, repertoire, recording and edition-market edges keep different meanings, colours and labels; these are relationships, not a literal travel itinerary. Edition markets retain their separate lens. Query `?record=<Discogs release ID>&scale=music` opens a selected record for review.
+The expanded version contains 408 threads across 252 editions / 254 entries. One selected cover reveals typed map endpoints and matching source cards. Selecting a thread highlights and frames it; Show all restores the set. Artist, repertoire, recording and edition-market edges keep different meanings, colours and labels; these are relationships, not a literal travel itinerary. Edition markets retain their separate lens. The map always opens with nothing selected, including links that previously carried a record query. Clicking a cover activates focus and fades the context.
 
 Validation: `tests/cultural-threads.mjs` verifies provenance, kinds, one overview cover per entry, separation of Altın Gün’s Amsterdam base / Turkish repertoire / Swiss edition market, Sun Ra’s ensemble association / Milan performance, and avoidance of title-based artist inheritance. Artist-ID matching keeps Sun Ra and The Sun Ra Arkestra distinct identities with explicit sourced connections.
+
+## Collection-wide research pass
+
+`research-wikidata.py` requests exact P1953 identity cross-links for all 570 named artist IDs (Various and Unknown Artist are excluded from artist-identity inference). `wikidata-collection-evidence.json` retains the returned identity and geographic statements. `musicbrainz-area-evidence.json` records the 221 additional published artist pages checked through those exact P434 cross-links, including unsuccessful and rate-limited outcomes. It contains 129 explicit Area fields, not guessed locations from biography or nationality.
+
+`prepare-collection-research.py` accepts sourced group-formation (P740), work-location (P937), non-human project-origin (P495) and MusicBrainz Artist Area fields, with identity checks and conservative place precision. Birthplaces/citizenship are excluded. `prepare-origins.py` applies these claims across the full collection, alongside the existing reviewed evidence; no remote research happens in the browser.
+
+This pass checks 570 artist IDs, finds 251 identity cross-links, and accepts 244 source-property threads for 160 artists. Combined with the existing evidence, 408 threads place 254 entries / 252 editions. The remaining 356 entries have explicit research reasons in `origin-collection.json.research`: 259 identities need review, 65 linked artists have unverified geography, 30 compilations need curation, and two entries have unidentified artists. Missing evidence does not imply absence of cultural connections. The dataset coverage page displays this audit.
+
+Startup geography includes only display claims, not the research ledger or duplicate legacy metadata (about 623 KB before compression). The full provenance remains in the repository and the audit endpoint.

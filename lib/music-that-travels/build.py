@@ -13,7 +13,11 @@ def project(match):
 land=re.sub(r'(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)',project,land)
 # Geography only needs display fields and location evidence, not the full audit/credits.
 geo_entries=[{k:n[k] for k in ['instance_id','id','title','year','artists','labels']} for n in data['entries']]
-geo_data={'entries':geo_entries,'release_details':{k:{'country':v.get('country')} for k,v in data['release_details'].items()},'music_locations':json.loads((root/'source/music-locations-enriched.json').read_text()),'origins':json.loads((root/'source/origin-collection.json').read_text()),'countries':json.loads((root/'source/countries.json').read_text()),'thumbnail_atlas':json.loads((root/'source/thumbnail-atlas.json').read_text())['records']}
+origins=json.loads((root/'source/origin-collection.json').read_text())
+# The map needs display claims, not the research ledger or duplicated legacy rows.
+thread_fields=['id','kind','relation','subject','label','lon','lat','precision','source','period','note','venue','location_source']
+geo_origins={'schema_version':origins['schema_version'],'records':{key:{'lon':value['lon'],'lat':value['lat'],'city':value['city'],'precision':value['precision'],'locations':[{k:l[k] for k in ['lon','lat','city','precision'] if k in l} for l in value.get('locations',[])],'threads':[{k:t[k] for k in thread_fields if k in t} for t in value['threads']],'unlocated_artists':value.get('unlocated_artists',[])} for key,value in origins['records'].items()}}
+geo_data={'entries':geo_entries,'release_details':{k:{'country':v.get('country')} for k,v in data['release_details'].items()},'origins':geo_origins,'countries':json.loads((root/'source/countries.json').read_text()),'thumbnail_atlas':json.loads((root/'source/thumbnail-atlas.json').read_text())['records']}
 geo_json=json.dumps(geo_data,ensure_ascii=False,separators=(',',':'))
 geo_version=hashlib.sha256(geo_json.encode()).hexdigest()[:16]
 geo_html=(root/'source/geography.html').read_text().replace('__GEOGRAPHY_VERSION__',geo_version)
