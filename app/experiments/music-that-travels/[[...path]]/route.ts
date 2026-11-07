@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     (_match, page) => `href="${PREFIX}${page ? "/" + page : ""}"`);
   if (url.pathname === "/") {
     html = html.replace('<span class="mono">A personal atlas of records</span>',
-      '<a href="/" style="color:inherit;text-decoration:none" class="mono">← Playground / REC-12</a>');
+      '<a href="/" style="color:inherit;text-decoration:none" class="mono">Playground / REC-12</a>');
   }
   return new Response(html, {status: response.status, headers: response.headers});
 }
