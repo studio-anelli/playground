@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "criteria": "Cultural threads are typed, sourced relationships. They are not a physical itinerary. A broad territory is not promoted to a city. No birthplace, nationality, title or genre is inferred as musical heritage.",
+  "artists": {
+    "5793123": [
+      {
+        "kind": "artist",
+        "relation": "Band based in",
+        "subject": "Altın Gün",
+        "label": "Amsterdam",
+        "lon": 4.9041,
+        "lat": 52.3676,
+        "precision": "city",
+        "source": "https://atorecords.com/releases/on/",
+        "note": "The album notes identify the band with Amsterdam. This is its musical base, not a recording-location claim."
+      }
+    ],
+    "35328": [
+      {
+        "kind": "artist",
+        "relation": "Founded the Arkestra in",
+        "subject": "Sun Ra",
+        "label": "Chicago",
+        "lon": -87.6298,
+        "lat": 41.8781,
+        "precision": "city",
+        "period": "Mid-1950s",
+        "source": "https://tickets.citywinery.com/event/sun-ra-arkestra-quwhex",
+        "note": "A connection through the ensemble Sun Ra founded. It does not identify where this particular record was made."
+      }
+    ]
+  },
+  "releases": {
+    "11758168": [
+      {
+        "kind": "repertoire",
+        "relation": "Interprets folk repertoire from",
+        "subject": "On",
+        "label": "Turkey",
+        "lon": 35,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://atorecords.com/releases/on/",
+        "note": "The label describes interpretations of traditional Turkish folk songs. The country marker represents a repertoire connection, not one exact place of origin for every song."
+      }
+    ],
+    "12343877": [
+      {
+        "kind": "recording",
+        "relation": "Recorded live in",
+        "subject": "Disco 3000",
+        "label": "Milan",
+        "lon": 9.19,
+        "lat": 45.4642,
+        "precision": "city",
+        "period": "January 1978",
+        "source": "https://artyardrecords.co.uk/sun-ra-disco-3000-complete-milan-concert-1978/",
+        "note": "Art Yard documents the Milan concert recording. This session location remains separate from Sun Ra’s Chicago ensemble connection."
+      }
+    ]
+  }
+}

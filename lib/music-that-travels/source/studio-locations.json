@@ -1,0 +1,160 @@
+[
+  {
+    "name": "Power Station",
+    "city": "New York",
+    "lon": -74.006,
+    "lat": 40.7128,
+    "location_source": "https://powerstation.nyc/contact",
+    "company_id": 266840,
+    "release_ids": [],
+    "precision": "city"
+  },
+  {
+    "name": "Unique Recording",
+    "city": "New York",
+    "lon": -74.006,
+    "lat": 40.7128,
+    "location_source": "https://uniquerecording.com/studio/",
+    "company_id": 265881,
+    "release_ids": [],
+    "precision": "city"
+  },
+  {
+    "name": "Battery Studios, New York",
+    "city": "New York",
+    "lon": -74.006,
+    "lat": 40.7128,
+    "location_source": "https://studios.sonymusic.com/studios/battery-studios-400",
+    "company_id": 279879,
+    "release_ids": [],
+    "precision": "city"
+  },
+  {
+    "name": "The Kitchen, New York City",
+    "city": "New York",
+    "lon": -74.006,
+    "lat": 40.7128,
+    "location_source": "https://thekitchen.org/about/",
+    "company_id": 271181,
+    "release_ids": [],
+    "precision": "city"
+  },
+  {
+    "name": "The Sound Factory",
+    "city": "Los Angeles",
+    "lon": -118.2437,
+    "lat": 34.0522,
+    "location_source": "https://soundfactoryhollywood.com/sound-factory-studio-b/",
+    "company_id": 266876,
+    "release_ids": [],
+    "precision": "city"
+  },
+  {
+    "name": "Studios Ferber",
+    "city": "Paris",
+    "lon": 2.3522,
+    "lat": 48.8566,
+    "location_source": "https://studios-ferber.com/contact/",
+    "company_id": null,
+    "release_ids": [
+      18007090
+    ],
+    "precision": "city"
+  },
+  {
+    "name": "United Sound Systems",
+    "city": "Detroit",
+    "lon": -83.0458,
+    "lat": 42.3314,
+    "location_source": "https://content.govdelivery.com/accounts/MIDOT/bulletins/2279917",
+    "company_id": null,
+    "release_ids": [
+      212060
+    ],
+    "precision": "city"
+  },
+  {
+    "name": "Criteria Recording Studios",
+    "city": "Miami",
+    "lon": -80.1918,
+    "lat": 25.7617,
+    "location_source": "https://www.criteriastudios.com/history",
+    "company_id": null,
+    "release_ids": [
+      212060
+    ],
+    "precision": "city"
+  },
+  {
+    "name": "Basing Street Studios",
+    "city": "London",
+    "lon": -0.1276,
+    "lat": 51.5072,
+    "location_source": "https://www.rbkc.gov.uk/wamdocs/Appendix%20E%20Kensington%20Record%20Labels.pdf",
+    "company_id": null,
+    "release_ids": [
+      3835570
+    ],
+    "precision": "city"
+  },
+  {
+    "name": "Szemlőhegy, Budapest, Hungary",
+    "city": "Budapest",
+    "lon": 19.0402,
+    "lat": 47.4979,
+    "location_source": "https://www.discogs.com/label/1258397",
+    "company_id": 1258397,
+    "release_ids": [],
+    "precision": "city"
+  },
+  {
+    "name": "Total Refreshment Centre",
+    "city": "London",
+    "lon": -0.1276,
+    "lat": 51.5072,
+    "location_source": "https://www.sydkemp.com/studio",
+    "company_id": 755637,
+    "release_ids": [],
+    "precision": "city"
+  },
+  {
+    "name": "Co-Prosperity Sphere",
+    "city": "Chicago",
+    "lon": -87.6298,
+    "lat": 41.8781,
+    "location_source": "https://coprosperity.org/about",
+    "company_id": 1982799,
+    "release_ids": [],
+    "precision": "city"
+  },
+  {
+    "name": "Metropolis Recording Studio, Milano",
+    "city": "Milan",
+    "lon": 9.19,
+    "lat": 45.4642,
+    "location_source": "https://www.metropolis-studio.it/en/studio_en/",
+    "company_id": 474475,
+    "release_ids": [],
+    "precision": "city"
+  },
+  {
+    "name": "Randy's Studio",
+    "city": "Kingston",
+    "lon": -76.7936,
+    "lat": 17.9712,
+    "location_source": "https://www.vprecords.com/studio-17-with-silent-addy-and-yaadcore-launches/",
+    "company_id": 268419,
+    "release_ids": [],
+    "precision": "city"
+  },
+  {
+    "name": "Studio Radius",
+    "city": "Milan",
+    "lon": 9.19,
+    "lat": 45.4642,
+    "location_source": "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416",
+    "company_id": 278195,
+    "release_ids": [],
+    "precision": "city"
+  }
+]

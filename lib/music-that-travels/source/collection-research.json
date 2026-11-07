@@ -1,0 +1,3766 @@
+{
+  "schema_version": 1,
+  "criteria": "Exact external IDs; typed source properties; no birthplaces, citizenship, artist-name fuzzy matches or genre-based place inference. Region precision is retained unless the source entity is clearly city/country.",
+  "artists": {
+    "774761": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Uomini Di Mare",
+        "label": "Italy",
+        "lon": 12.5,
+        "lat": 42.5,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q4006131#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q4006131#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "9081": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Chic",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q516712#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q516712#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Chic",
+        "label": "New York City",
+        "lon": -74.006111111,
+        "lat": 40.712777777,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q516712#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q516712#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Chic",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/a4ed036b-5f18-439c-b1e1-96d205bab255",
+        "identity_source": "https://www.wikidata.org/wiki/Q516712#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "2240": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "D'Arcangelo",
+        "label": "Italy",
+        "lon": 12.5,
+        "lat": 42.5,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q126372744#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q126372744#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "13531": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Colourbox",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q4921470#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q4921470#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Colourbox",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/6746c384-b67b-4eb7-a986-e2b6f4140cee",
+        "identity_source": "https://www.wikidata.org/wiki/Q4921470#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "56487": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Skipworth & Turner",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q7535877#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q7535877#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Skipworth & Turner",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/a6c4d1b0-d27f-4ee4-b5d1-6444c85ea496",
+        "identity_source": "https://www.wikidata.org/wiki/Q7535877#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "21260": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Breakwater",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q4959697#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q4959697#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Breakwater",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/cbf1e36c-5f6f-4825-9527-d875e06bcfdc",
+        "identity_source": "https://www.wikidata.org/wiki/Q4959697#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "17546": [
+      {
+        "kind": "artist",
+        "relation": "Artist worked in",
+        "subject": "Quincy Jones",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q193645#P937",
+        "identity_source": "https://www.wikidata.org/wiki/Q193645#P1953",
+        "evidence_property": "P937",
+        "note": "A documented work location from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Quincy Jones",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/5803c81e-739a-4057-9a5c-cf84e55db630",
+        "identity_source": "https://www.wikidata.org/wiki/Q193645#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "2219395": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "The Sun Ra Arkestra",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q65548769#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q65548769#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "2458445": [
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "The Gramophone Allstars",
+        "label": "La Bisbal d'Empordà",
+        "lon": 3.037783,
+        "lat": 41.959012,
+        "precision": "region",
+        "source": "https://www.wikidata.org/wiki/Q21086274#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q21086274#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "5870": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Sneaker Pimps",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1754009#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1754009#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Sneaker Pimps",
+        "label": "Hartlepool",
+        "lon": -1.216666666,
+        "lat": 54.683333333,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q1754009#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q1754009#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Sneaker Pimps",
+        "label": "England",
+        "lon": -1.0,
+        "lat": 53.0,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1754009#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1754009#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "45360": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Ultra Living",
+        "label": "Japan",
+        "lon": 136.0,
+        "lat": 35.0,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q11289305#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q11289305#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "1600030": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Morphology",
+        "label": "Finland",
+        "lon": 27.0,
+        "lat": 65.0,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q100254879#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q100254879#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Morphology",
+        "label": "Finland",
+        "lon": 26,
+        "lat": 64,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/543a21fc-75e7-4283-b1d0-9f00a3c4d576",
+        "identity_source": "https://www.wikidata.org/wiki/Q100254879#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "85889": [
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "System Of A Down",
+        "label": "Glendale",
+        "lon": -118.25,
+        "lat": 34.170833333,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q45165#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q45165#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date.",
+        "reference_url": "https://www.latimes.com/entertainment/arts/la-ca-cm-serj-tankian-snap-20161101-story.html"
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "System Of A Down",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q45165#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q45165#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date.",
+        "reference_url": "https://musicbrainz.org/artist/cc0b7089-c08d-4c10-b6b0-873582c17fd6"
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "System Of A Down",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/cc0b7089-c08d-4c10-b6b0-873582c17fd6",
+        "identity_source": "https://www.wikidata.org/wiki/Q45165#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "11213": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Wu-Tang Clan",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q52463#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q52463#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Wu-Tang Clan",
+        "label": "New York City",
+        "lon": -74.006111111,
+        "lat": 40.712777777,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q52463#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q52463#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Wu-Tang Clan",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/0febdcf7-4e1f-4661-9493-b40427de2c13",
+        "identity_source": "https://www.wikidata.org/wiki/Q52463#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "17900": [
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Mobb Deep",
+        "label": "Queens",
+        "lon": -73.828055555,
+        "lat": 40.713611111,
+        "precision": "region",
+        "source": "https://www.wikidata.org/wiki/Q727115#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q727115#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Mobb Deep",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q727115#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q727115#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "234": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Beanfield",
+        "label": "Germany",
+        "lon": 10.0,
+        "lat": 51.0,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q4876279#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q4876279#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Beanfield",
+        "label": "Germany",
+        "lon": 10,
+        "lat": 51,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/ad0811ea-e213-451d-b22f-fa1a7f9e0226",
+        "identity_source": "https://www.wikidata.org/wiki/Q4876279#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "26641": [
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Lipps, Inc.",
+        "label": "Minneapolis",
+        "lon": -93.269166666,
+        "lat": 44.981944444,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q863090#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q863090#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Lipps, Inc.",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q863090#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q863090#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Lipps, Inc.",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/9f47e427-c31c-49fe-90d6-92ab6029d405",
+        "identity_source": "https://www.wikidata.org/wiki/Q863090#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "120240": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Vaughan Mason & Crew",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q7917301#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q7917301#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Vaughan Mason & Crew",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q7917301#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q7917301#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "16743": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Dinosaur L",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q118846536#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q118846536#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "15976": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Mr. Flagio",
+        "label": "Italy",
+        "lon": 12.5,
+        "lat": 42.5,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q100989583#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q100989583#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "29923": [
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Funkadelic",
+        "label": "Plainfield",
+        "lon": -74.416111111,
+        "lat": 40.615277777,
+        "precision": "region",
+        "source": "https://www.wikidata.org/wiki/Q523957#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q523957#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Funkadelic",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q523957#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q523957#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Funkadelic",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/cf042013-3edd-46c4-9b0e-a62faac98d0b",
+        "identity_source": "https://www.wikidata.org/wiki/Q523957#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "154377": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Heróis Do Mar",
+        "label": "Portugal",
+        "lon": -9.183333333,
+        "lat": 38.7,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1355554#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1355554#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Heróis Do Mar",
+        "label": "Portugal",
+        "lon": -8,
+        "lat": 40,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/52d01397-4ca0-4208-81dc-d776b0fc5d84",
+        "identity_source": "https://www.wikidata.org/wiki/Q1355554#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "386260": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "The Parliaments",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q2265651#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q2265651#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "The Parliaments",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/25cb36c7-a4a3-4a88-864f-76876737e488",
+        "identity_source": "https://www.wikidata.org/wiki/Q2265651#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "35289": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "The Ritchie Family",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1125637#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1125637#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "The Ritchie Family",
+        "label": "Philadelphia",
+        "lon": -75.163611111,
+        "lat": 39.952777777,
+        "precision": "region",
+        "source": "https://www.wikidata.org/wiki/Q1125637#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q1125637#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "30017": [
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Pete Rock & C.L. Smooth",
+        "label": "Mount Vernon",
+        "lon": -73.830555555,
+        "lat": 40.914166666,
+        "precision": "region",
+        "source": "https://www.wikidata.org/wiki/Q1851859#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q1851859#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Pete Rock & C.L. Smooth",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1851859#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1851859#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "10622": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Antibalas",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q2853143#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q2853143#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Antibalas",
+        "label": "New York City",
+        "lon": -74.006111111,
+        "lat": 40.712777777,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q2853143#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q2853143#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Antibalas",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/33c2a158-a788-44e5-81ab-142d544a165b",
+        "identity_source": "https://www.wikidata.org/wiki/Q2853143#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "46727": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Wild Cherry",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1951576#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1951576#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Wild Cherry",
+        "label": "Mingo Junction",
+        "lon": -80.61222,
+        "lat": 40.31972,
+        "precision": "region",
+        "source": "https://www.wikidata.org/wiki/Q1951576#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q1951576#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Wild Cherry",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/da5ff827-174b-48d1-9a39-9fa290bb2925",
+        "identity_source": "https://www.wikidata.org/wiki/Q1951576#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "786": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Aux 88",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q300119#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q300119#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Aux 88",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/92317e0b-181b-4119-aba1-77261515daf8",
+        "identity_source": "https://www.wikidata.org/wiki/Q300119#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "9462": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Orchestral Manoeuvres In The Dark",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q956500#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q956500#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Orchestral Manoeuvres In The Dark",
+        "label": "Meols",
+        "lon": -3.1553,
+        "lat": 53.4014,
+        "precision": "region",
+        "source": "https://www.wikidata.org/wiki/Q956500#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q956500#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "79156": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Fox The Fox",
+        "label": "Netherlands",
+        "lon": 5.55,
+        "lat": 52.316666666,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1440195#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1440195#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "48385": [
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Xploding Plastix",
+        "label": "Oslo",
+        "lon": 10.738888888,
+        "lat": 59.913333333,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q2658762#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q2658762#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Xploding Plastix",
+        "label": "Norway",
+        "lon": 10.683333333,
+        "lat": 59.933333333,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q2658762#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q2658762#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "45467": [
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Pink Floyd",
+        "label": "London",
+        "lon": -0.1275,
+        "lat": 51.507222222,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q2306#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q2306#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Pink Floyd",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q2306#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q2306#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "6153831": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Attarazat Addahabia",
+        "label": "Morocco",
+        "lon": -6.0,
+        "lat": 32.0,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q97358397#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q97358397#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date.",
+        "reference_url": "https://pan-african-music.com/en/attarazat-addahabia-faradjallah-al-hadaoui/"
+      }
+    ],
+    "2345": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Ultrahigh",
+        "label": "Germany",
+        "lon": 10.0,
+        "lat": 51.0,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1681322#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1681322#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "4628": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "London Elektricity",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1858715#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1858715#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "London Elektricity",
+        "label": "London",
+        "lon": -0.1275,
+        "lat": 51.507222222,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q1858715#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q1858715#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "426847": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Cookin' On 3 Burners",
+        "label": "Australia",
+        "lon": 133.0,
+        "lat": -25.0,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q24951401#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q24951401#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Cookin' On 3 Burners",
+        "label": "Australia",
+        "lon": 134,
+        "lat": -25,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/5c55bacc-dce2-493d-95ea-937c2e96373c",
+        "identity_source": "https://www.wikidata.org/wiki/Q24951401#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "3091513": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "المصريين",
+        "label": "Egypt",
+        "lon": 29.0,
+        "lat": 27.0,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q6824615#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q6824615#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "340803": [
+      {
+        "kind": "artist",
+        "relation": "Artist worked in",
+        "subject": "Makaya McCraven",
+        "label": "Chicago",
+        "lon": -87.627777777,
+        "lat": 41.881944444,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q59942387#P937",
+        "identity_source": "https://www.wikidata.org/wiki/Q59942387#P1953",
+        "evidence_property": "P937",
+        "note": "A documented work location from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date.",
+        "reference_url": "https://pitchfork.com/reviews/albums/makaya-mccraven-universal-beings/"
+      }
+    ],
+    "251517": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Supertramp",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q176457#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q176457#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Supertramp",
+        "label": "London",
+        "lon": -0.1275,
+        "lat": 51.507222222,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q176457#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q176457#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Supertramp",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/d2ff6b6b-fc30-48dc-8952-06f9d8fc64f8",
+        "identity_source": "https://www.wikidata.org/wiki/Q176457#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "3093621": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "L'impératrice",
+        "label": "France",
+        "lon": 2.0,
+        "lat": 47.0,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q48754425#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q48754425#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "L'impératrice",
+        "label": "Paris",
+        "lon": 2.352222222,
+        "lat": 48.856666666,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q48754425#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q48754425#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "407733": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Ultimate Spinach",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q4003181#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q4003181#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "3268": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "A Tribe Called Quest",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q300602#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q300602#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "A Tribe Called Quest",
+        "label": "New York City",
+        "lon": -74.006111111,
+        "lat": 40.712777777,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q300602#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q300602#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "58355": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Quincy Jones And His Orchestra",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q130262567#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q130262567#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "10429": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Koto",
+        "label": "Italy",
+        "lon": 12.5,
+        "lat": 42.5,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1785406#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1785406#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Koto",
+        "label": "Netherlands",
+        "lon": 5.55,
+        "lat": 52.316666666,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1785406#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1785406#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Koto",
+        "label": "Italy",
+        "lon": 12,
+        "lat": 43,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/b991e4ea-5c8e-4e92-98a9-d55ce5a9a59c",
+        "identity_source": "https://www.wikidata.org/wiki/Q1785406#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "48413": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Ohio Players",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1291507#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1291507#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Ohio Players",
+        "label": "Dayton",
+        "lon": -84.2,
+        "lat": 39.766666666,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q1291507#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q1291507#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "4567": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Whirlpool Productions",
+        "label": "Germany",
+        "lon": 10.0,
+        "lat": 51.0,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q461384#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q461384#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "5793123": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Altın Gün",
+        "label": "Netherlands",
+        "lon": 5.55,
+        "lat": 52.316666666,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q59459512#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q59459512#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Altın Gün",
+        "label": "Amsterdam",
+        "lon": 4.883333333,
+        "lat": 52.366666666,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q59459512#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q59459512#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Altın Gün",
+        "label": "Turkey",
+        "lon": 36.0,
+        "lat": 39.0,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q59459512#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q59459512#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "189430": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "L.T.D.",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q6456314#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q6456314#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "L.T.D.",
+        "label": "Greensboro",
+        "lon": -79.790277777,
+        "lat": 36.0725,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q6456314#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q6456314#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "L.T.D.",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/d099c7ff-d795-4ddf-83b3-2ee23678f7e2",
+        "identity_source": "https://www.wikidata.org/wiki/Q6456314#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "43151": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Alpha & Omega",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q2839521#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q2839521#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "53993": [
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "The Wailers Band",
+        "label": "Kingston",
+        "lon": -76.793055555,
+        "lat": 17.971388888,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q2406165#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q2406165#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "The Wailers Band",
+        "label": "Jamaica",
+        "lon": -77.4,
+        "lat": 18.18,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q2406165#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q2406165#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "The Wailers Band",
+        "label": "Jamaica",
+        "lon": -77,
+        "lat": 18,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/1e46801d-c27b-4f07-a50d-51597a26df60",
+        "identity_source": "https://www.wikidata.org/wiki/Q2406165#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "8602": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Atmosfear",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q4817085#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q4817085#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Atmosfear",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/0ce1ea9e-d09e-4962-bc65-994ed005f74c",
+        "identity_source": "https://www.wikidata.org/wiki/Q4817085#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "26955": [
+      {
+        "kind": "artist",
+        "relation": "Artist worked in",
+        "subject": "John Cage",
+        "label": "Europe",
+        "lon": 15.5,
+        "lat": 53.5,
+        "precision": "region",
+        "source": "https://www.wikidata.org/wiki/Q180727#P937",
+        "identity_source": "https://www.wikidata.org/wiki/Q180727#P1953",
+        "evidence_property": "P937",
+        "note": "A documented work location from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date.",
+        "period": "1930–1931"
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist worked in",
+        "subject": "John Cage",
+        "label": "New York City",
+        "lon": -74.006111111,
+        "lat": 40.712777777,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q180727#P937",
+        "identity_source": "https://www.wikidata.org/wiki/Q180727#P1953",
+        "evidence_property": "P937",
+        "note": "A documented work location from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "10398": [
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Morcheeba",
+        "label": "London",
+        "lon": -0.1275,
+        "lat": 51.507222222,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q749019#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q749019#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Morcheeba",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q749019#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q749019#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Morcheeba",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/067102ea-9519-4622-9077-57ca4164cfbb",
+        "identity_source": "https://www.wikidata.org/wiki/Q749019#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "145611": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "The Creatures (2)",
+        "label": "Italy",
+        "lon": 12.5,
+        "lat": 42.5,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q48838138#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q48838138#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "10053688": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Nu Genea",
+        "label": "Italy",
+        "lon": 12.5,
+        "lat": 42.5,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q110464571#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q110464571#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "518518": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "René & Angela",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q7313654#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q7313654#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "René & Angela",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q7313654#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q7313654#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "René & Angela",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/0ede392f-1c70-454b-9aea-d62bec4c5b6e",
+        "identity_source": "https://www.wikidata.org/wiki/Q7313654#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "2725": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Depeche Mode",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q482964#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q482964#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Depeche Mode",
+        "label": "Basildon",
+        "lon": 0.4886,
+        "lat": 51.5761,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q482964#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q482964#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Depeche Mode",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/8538e728-ca0b-4321-b7e5-cff6565dd4c0",
+        "identity_source": "https://www.wikidata.org/wiki/Q482964#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "576683": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "The Heliocentrics",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q10381461#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q10381461#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "75985": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Lakeside",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q3110146#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q3110146#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Lakeside",
+        "label": "Dayton",
+        "lon": -84.2,
+        "lat": 39.766666666,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q3110146#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q3110146#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "4117": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Olive",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q2019953#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q2019953#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Olive",
+        "label": "London",
+        "lon": -0.1275,
+        "lat": 51.507222222,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q2019953#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q2019953#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Olive",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/39e82ca1-733e-4203-a00f-c6a70a371625",
+        "identity_source": "https://www.wikidata.org/wiki/Q2019953#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "22856": [
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Barrabas",
+        "label": "Madrid",
+        "lon": -3.703333333,
+        "lat": 40.416944444,
+        "precision": "region",
+        "source": "https://www.wikidata.org/wiki/Q808794#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q808794#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Barrabas",
+        "label": "Spain",
+        "lon": -3.5,
+        "lat": 40.2,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q808794#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q808794#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Barrabas",
+        "label": "Spain",
+        "lon": -4,
+        "lat": 40,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/87d0c089-3641-436e-bceb-737b9f506f65",
+        "identity_source": "https://www.wikidata.org/wiki/Q808794#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "6021": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Odyssey (2)",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q7078416#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q7078416#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Odyssey (2)",
+        "label": "New York City",
+        "lon": -74.006111111,
+        "lat": 40.712777777,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q7078416#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q7078416#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Odyssey (2)",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/6efbfc07-3346-4d30-af85-0abe646b97ba",
+        "identity_source": "https://www.wikidata.org/wiki/Q7078416#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "950": [
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "The Sabres Of Paradise",
+        "label": "London",
+        "lon": -0.1275,
+        "lat": 51.507222222,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q4051270#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q4051270#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "The Sabres Of Paradise",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q4051270#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q4051270#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "The Sabres Of Paradise",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/3acb627b-787c-4276-bafe-516a5806aeb8",
+        "identity_source": "https://www.wikidata.org/wiki/Q4051270#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "21574": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Trouble Funk",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q281888#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q281888#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Trouble Funk",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/138aaf2c-77b6-451e-ade2-ce18894eeaa7",
+        "identity_source": "https://www.wikidata.org/wiki/Q281888#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "51979": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "The Whispers",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1527931#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1527931#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "The Whispers",
+        "label": "Los Angeles",
+        "lon": -118.24368,
+        "lat": 34.05223,
+        "precision": "region",
+        "source": "https://www.wikidata.org/wiki/Q1527931#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q1527931#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "The Whispers",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/2e7afe0c-ec52-4c1d-9413-5d40f77922c7",
+        "identity_source": "https://www.wikidata.org/wiki/Q1527931#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "18200": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "West Street Mob",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q7986599#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q7986599#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "7331": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Zion Train",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q2393241#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q2393241#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Zion Train",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/3010655f-9ff2-4753-b4f7-803c4118f450",
+        "identity_source": "https://www.wikidata.org/wiki/Q2393241#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "27319": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Smooth Touch",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q7546407#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q7546407#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "97071": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Ronnie Hudson & The Street People",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q74052379#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q74052379#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "20590": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Grandmaster Flash & The Furious Five",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q765409#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q765409#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Grandmaster Flash & The Furious Five",
+        "label": "New York City",
+        "lon": -74.006111111,
+        "lat": 40.712777777,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q765409#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q765409#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Grandmaster Flash & The Furious Five",
+        "label": "The Bronx",
+        "lon": -73.873333333,
+        "lat": 40.846666666,
+        "precision": "region",
+        "source": "https://www.wikidata.org/wiki/Q765409#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q765409#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Grandmaster Flash & The Furious Five",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/1390d663-2f56-4b41-9f75-f45ba489250b",
+        "identity_source": "https://www.wikidata.org/wiki/Q765409#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "1239155": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Sangue Misto",
+        "label": "Italy",
+        "lon": 12.5,
+        "lat": 42.5,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q617607#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q617607#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "17550": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Sugarhill Gang",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1413494#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1413494#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Sugarhill Gang",
+        "label": "New Jersey",
+        "lon": -74.5,
+        "lat": 40.0,
+        "precision": "region",
+        "source": "https://www.wikidata.org/wiki/Q1413494#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q1413494#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "61402": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "The J.B.'s",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q362677#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q362677#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "The J.B.'s",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/cb6a2948-7b9b-4a15-8c71-2b79cc76408e",
+        "identity_source": "https://www.wikidata.org/wiki/Q362677#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "66385": [
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Foxy",
+        "label": "Hialeah",
+        "lon": -80.293888888,
+        "lat": 25.860555555,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q1440236#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q1440236#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Foxy",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1440236#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1440236#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Foxy",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/3199d132-4ba1-4dc4-bef6-f024d0e2443b",
+        "identity_source": "https://www.wikidata.org/wiki/Q1440236#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "4091": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "De La Soul",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q685595#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q685595#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "De La Soul",
+        "label": "Long Island",
+        "lon": -73.23349,
+        "lat": 40.78886,
+        "precision": "region",
+        "source": "https://www.wikidata.org/wiki/Q685595#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q685595#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "2320": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Total Science",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q2012126#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q2012126#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "17957": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "T-Connection",
+        "label": "The Bahamas",
+        "lon": -77.4,
+        "lat": 25.0,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q2383024#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q2383024#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "T-Connection",
+        "label": "Bahamas",
+        "lon": -77.4,
+        "lat": 25.0,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/e509b240-7d64-43ec-8d0e-c09090393c82",
+        "identity_source": "https://www.wikidata.org/wiki/Q2383024#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "8403": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Ripple",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q7335713#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q7335713#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Ripple",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/ffa1f971-31d1-4191-84e7-2642affed079",
+        "identity_source": "https://www.wikidata.org/wiki/Q7335713#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "124108": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Roni Size / Reprazent",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q7314192#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q7314192#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "9706": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Culture Club",
+        "label": "United Kingdom",
+        "lon": -2.0,
+        "lat": 54.6,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q50037#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q50037#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Culture Club",
+        "label": "London",
+        "lon": -0.1275,
+        "lat": 51.507222222,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q50037#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q50037#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "5821": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Africanism",
+        "label": "France",
+        "lon": 2.0,
+        "lat": 47.0,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q2254953#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q2254953#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      }
+    ],
+    "3868": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Inner City",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1663959#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1663959#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Inner City",
+        "label": "Detroit",
+        "lon": -83.0475,
+        "lat": 42.331666666,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q1663959#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q1663959#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Inner City",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/65a8e571-8a08-433f-a5bf-ead38c269ea6",
+        "identity_source": "https://www.wikidata.org/wiki/Q1663959#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "87016": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Tool (2)",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q184827#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q184827#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Group formed in",
+        "subject": "Tool (2)",
+        "label": "Los Angeles",
+        "lon": -118.24368,
+        "lat": 34.05223,
+        "precision": "region",
+        "source": "https://www.wikidata.org/wiki/Q184827#P740",
+        "identity_source": "https://www.wikidata.org/wiki/Q184827#P1953",
+        "evidence_property": "P740",
+        "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Tool (2)",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/66fc5bf8-daa4-4241-b378-9bc9077939d2",
+        "identity_source": "https://www.wikidata.org/wiki/Q184827#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "142": [
+      {
+        "kind": "artist",
+        "relation": "Project originates from",
+        "subject": "Masters At Work",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.828175,
+        "precision": "country",
+        "source": "https://www.wikidata.org/wiki/Q1758822#P495",
+        "identity_source": "https://www.wikidata.org/wiki/Q1758822#P1953",
+        "evidence_property": "P495",
+        "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Masters At Work",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/11293854-fc44-43e2-bb37-c48e5063bb55",
+        "identity_source": "https://www.wikidata.org/wiki/Q1758822#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "3773": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Aphrodite",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/84800c46-2211-43e0-8a87-bdcbecf91932",
+        "identity_source": "https://www.wikidata.org/wiki/Q618515#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "148": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Larry Heard",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/4346875a-2bba-4566-8dc1-680c38ba44c6",
+        "identity_source": "https://www.wikidata.org/wiki/Q1375814#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "94504": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Prince Jazzbo",
+        "label": "Jamaica",
+        "lon": -77,
+        "lat": 18,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/1751fa84-9e85-4c71-8330-2c7075dff06e",
+        "identity_source": "https://www.wikidata.org/wiki/Q2371197#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "341770": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Ras G",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/53218007-07c1-4634-a4ad-57cdbe18bc17",
+        "identity_source": "https://www.wikidata.org/wiki/Q7294657#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "4267093": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "NHK yx Koyxen",
+        "label": "Japan",
+        "lon": 138,
+        "lat": 37,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/bc12bcac-4a2e-4ce1-9b7b-11d4cc9afa25",
+        "identity_source": "https://www.wikidata.org/wiki/Q6434507#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "22217": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Matthew Herbert",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/20587005-7a2a-4b96-8f34-bc643bc4b60a",
+        "identity_source": "https://www.wikidata.org/wiki/Q290270#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "51229": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Amanda Lear",
+        "label": "France",
+        "lon": 2,
+        "lat": 47,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/2f2608ed-ff2b-400e-b614-8c648bfaae7b",
+        "identity_source": "https://www.wikidata.org/wiki/Q454010#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "9966": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "DJ Format",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/65323ae4-1a49-497f-8f58-ae42b6c05eb6",
+        "identity_source": "https://www.wikidata.org/wiki/Q3011360#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "177651": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Gwen McCrae",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/bd518350-09ad-4ecc-934e-11168e84227c",
+        "identity_source": "https://www.wikidata.org/wiki/Q519755#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "863075": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Jun Fukamachi",
+        "label": "Japan",
+        "lon": 138,
+        "lat": 37,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/5b92cd77-e05c-4c6c-a0e2-1fd3caf032de",
+        "identity_source": "https://www.wikidata.org/wiki/Q11560243#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "50406": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Apparat",
+        "label": "Germany",
+        "lon": 10,
+        "lat": 51,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/dc3dbfc1-f1f1-49c6-9d7c-425fabf3ae12",
+        "identity_source": "https://www.wikidata.org/wiki/Q620679#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "50997": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Nas",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/cfbc0924-0035-4d6c-8197-f024653af823",
+        "identity_source": "https://www.wikidata.org/wiki/Q194220#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "17743": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Paul Hardcastle",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/58e2800d-991d-4fe9-860b-1d27931ae8de",
+        "identity_source": "https://www.wikidata.org/wiki/Q938029#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "3812": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Seiji",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/f3d9beb7-d3a9-444b-8c9d-e1b2e6f76767",
+        "identity_source": "https://www.wikidata.org/wiki/Q113275338#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "20956": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Donald Byrd",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/69f95e5c-4b34-4c8b-b8fe-c59f9296195a",
+        "identity_source": "https://www.wikidata.org/wiki/Q362764#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "1564482": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Joy Orbison",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/8542f9a4-bd91-4066-91cf-359d2d9950db",
+        "identity_source": "https://www.wikidata.org/wiki/Q14159313#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "750": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Laurent Garnier",
+        "label": "France",
+        "lon": 2,
+        "lat": 47,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/ec477866-bfaa-48e0-affd-1c151ef61b7b",
+        "identity_source": "https://www.wikidata.org/wiki/Q919069#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "693": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Ron Trent",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/3af43a8a-f0b0-4dda-8cd8-ff4941c05316",
+        "identity_source": "https://www.wikidata.org/wiki/Q1670319#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "24056": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Jon Hopkins",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/0b0c25f4-f31c-46a5-a4fb-ccbf53d663bd",
+        "identity_source": "https://www.wikidata.org/wiki/Q903592#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "978": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Fluxion",
+        "label": "Greece",
+        "lon": 23,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/0d9a2bfe-abb8-4ceb-a947-c4fbef03973b",
+        "identity_source": "https://www.wikidata.org/wiki/Q3074553#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "321": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "LTJ Bukem",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/2bf0b744-b122-4823-8877-ae9296635f7f",
+        "identity_source": "https://www.wikidata.org/wiki/Q921236#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "226945": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Leron Thomas",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/0ac257a6-b1ba-45bc-a3ba-515c53e5bcaf",
+        "identity_source": "https://www.wikidata.org/wiki/Q16218865#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "13411": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Yasuaki Shimizu",
+        "label": "Japan",
+        "lon": 138,
+        "lat": 37,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/217d2250-cc74-479b-91be-847d3393917c",
+        "identity_source": "https://www.wikidata.org/wiki/Q8049939#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "3860005": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Ahmed Malek",
+        "label": "Algeria",
+        "lon": 3,
+        "lat": 28,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/b67690b2-a6e9-456f-b847-1d9bfbc13fbf",
+        "identity_source": "https://www.wikidata.org/wiki/Q2827616#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "5393": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Gabrielle",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/d55fe7ec-3c7f-44e7-b9cc-b025c4351f70",
+        "identity_source": "https://www.wikidata.org/wiki/Q242685#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "2323": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "DJ Hype",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/315a3523-c8ef-4445-83d7-2d9acd38d1ff",
+        "identity_source": "https://www.wikidata.org/wiki/Q1154114#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "9912": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "DJ Rap",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/2f2fbcfc-4631-4024-8105-289aeadfdf1f",
+        "identity_source": "https://www.wikidata.org/wiki/Q5205416#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "9786": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Tony Allen",
+        "label": "Nigeria",
+        "lon": 8,
+        "lat": 9,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/ea524cc6-191a-4c05-ab88-3bb5c0880ca5",
+        "identity_source": "https://www.wikidata.org/wiki/Q1371393#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "1755506": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Addison Groove",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/0b32db28-1a2a-4b4e-b9f2-ce0524987d4c",
+        "identity_source": "https://www.wikidata.org/wiki/Q71332471#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "2542": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "MC Conrad",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/278bda0a-9019-4321-b296-d5af329cb6e8",
+        "identity_source": "https://www.wikidata.org/wiki/Q99672917#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "6152": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Danny Byrd",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/1b002a6c-0f6c-4335-aab6-36a74058250f",
+        "identity_source": "https://www.wikidata.org/wiki/Q506026#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "7213": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Freddy Fresh",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/c9faadad-85be-4ae3-808e-8e8d4f2ac900",
+        "identity_source": "https://www.wikidata.org/wiki/Q5496859#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "2187": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Robert Owens",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/0698b547-b992-4edf-a244-18eed7cdba98",
+        "identity_source": "https://www.wikidata.org/wiki/Q3436023#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "16508": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Madlib",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/ea9078ef-20ca-4506-81ea-2ae5fe3a42e8",
+        "identity_source": "https://www.wikidata.org/wiki/Q503031#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "838": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Move D",
+        "label": "Germany",
+        "lon": 10,
+        "lat": 51,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/8b146091-2d4c-4a97-a353-03703d8afaa7",
+        "identity_source": "https://www.wikidata.org/wiki/Q1951118#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "3745639": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Ivan Ave",
+        "label": "Norway",
+        "lon": 8,
+        "lat": 62,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/716ec250-83b9-464c-8321-31bd565ef989",
+        "identity_source": "https://www.wikidata.org/wiki/Q50014573#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "13932": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Grace Jones",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/b1c124b3-cf60-41a6-8699-92728c8a3fe0",
+        "identity_source": "https://www.wikidata.org/wiki/Q450429#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "60453": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Wilton Felder",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/2825f90d-7c3b-467b-9a98-d66a5dc8ddca",
+        "identity_source": "https://www.wikidata.org/wiki/Q331075#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "21991": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Sia",
+        "label": "Australia",
+        "lon": 134,
+        "lat": -25,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/2f548675-008d-4332-876c-108b0c7ab9c5",
+        "identity_source": "https://www.wikidata.org/wiki/Q181484#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "250149": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Rino Gaetano",
+        "label": "Italy",
+        "lon": 12,
+        "lat": 43,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/5a78419b-a191-4423-adc9-95caebba6c1f",
+        "identity_source": "https://www.wikidata.org/wiki/Q469078#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "970905": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Motor City Drum Ensemble",
+        "label": "Germany",
+        "lon": 10,
+        "lat": 51,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/0323f501-4b5e-4682-a062-e60f6212f9c3",
+        "identity_source": "https://www.wikidata.org/wiki/Q106664389#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "12596": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "James Brown",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/20ff3303-4fe2-4a47-a1b6-291e26aa3438",
+        "identity_source": "https://www.wikidata.org/wiki/Q5950#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "250902": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Lucio Battisti",
+        "label": "Italy",
+        "lon": 12,
+        "lat": 43,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/c0c0de23-d9c1-4776-97e0-0c2529402622",
+        "identity_source": "https://www.wikidata.org/wiki/Q469154#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "2662253": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Romare",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/b014d579-b549-4b21-b90d-5264e0433988",
+        "identity_source": "https://www.wikidata.org/wiki/Q99672261#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "4742": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Calibre",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/afa502e0-fb84-4cf4-b3c0-21ed0c695939",
+        "identity_source": "https://www.wikidata.org/wiki/Q1844152#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "4478": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "DJ Shadow",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/efa2c11a-1a35-4b60-bc1b-66d37de88511",
+        "identity_source": "https://www.wikidata.org/wiki/Q217716#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "31759": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Tullio De Piscopo",
+        "label": "Italy",
+        "lon": 12,
+        "lat": 43,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/f5a2a32e-3fbb-46c9-b34d-dca87250aa47",
+        "identity_source": "https://www.wikidata.org/wiki/Q1682114#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "281": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Matrix",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/2e1ff73b-3605-44d2-b851-dd4e4a16e080",
+        "identity_source": "https://www.wikidata.org/wiki/Q6787845#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "136140": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Ryo Kawasaki",
+        "label": "Japan",
+        "lon": 138,
+        "lat": 37,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/549eb410-56c5-45ff-b3de-a1f4144ef740",
+        "identity_source": "https://www.wikidata.org/wiki/Q948561#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "5087": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Ryuichi Sakamoto",
+        "label": "Japan",
+        "lon": 138,
+        "lat": 37,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/a7f7df4a-77d8-4f12-8acd-5c60c93f4de8",
+        "identity_source": "https://www.wikidata.org/wiki/Q345494#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "368": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Susumu Yokota",
+        "label": "Japan",
+        "lon": 138,
+        "lat": 37,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/7b05d6fe-91e8-4cb9-a401-2a13b1578716",
+        "identity_source": "https://www.wikidata.org/wiki/Q3099802#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "111502": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Sean Paul",
+        "label": "Jamaica",
+        "lon": -77,
+        "lat": 18,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/c3da3346-2643-48a7-93cd-011f6834b3d7",
+        "identity_source": "https://www.wikidata.org/wiki/Q200577#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "1141": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Model 500",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/a110acfe-212d-44b2-b729-18f0f94ce47e",
+        "identity_source": "https://www.wikidata.org/wiki/Q366714#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "8260": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "DJ Koze",
+        "label": "Germany",
+        "lon": 10,
+        "lat": 51,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/3cec91e6-6c45-4c47-843b-0a516be96a91",
+        "identity_source": "https://www.wikidata.org/wiki/Q1154144#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "622704": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Salena Jones",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/2340f89c-3ce0-4e49-a4a2-99b68ac42b0d",
+        "identity_source": "https://www.wikidata.org/wiki/Q7404278#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "94316": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Greg Wilson",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/b7b6125c-1e77-4738-8e81-36affa0adc18",
+        "identity_source": "https://www.wikidata.org/wiki/Q5606441#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "545378": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "José Afonso",
+        "label": "Portugal",
+        "lon": -8,
+        "lat": 40,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/d06e7e71-0178-4e66-8150-044ff6047d64",
+        "identity_source": "https://www.wikidata.org/wiki/Q559269#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "83770": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Gal Costa",
+        "label": "Brazil",
+        "lon": -52,
+        "lat": -14,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/fc63a914-272d-4b95-9221-61adcce6f793",
+        "identity_source": "https://www.wikidata.org/wiki/Q236361#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "76089": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Mort Garson",
+        "label": "Canada",
+        "lon": -106,
+        "lat": 56,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/c47028fa-0086-426d-a7b8-ed20eba3ed61",
+        "identity_source": "https://www.wikidata.org/wiki/Q3324460#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "11733": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Kenny Ken",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/8e5fd838-497e-4404-b87d-ceb0005cfc7f",
+        "identity_source": "https://www.wikidata.org/wiki/Q16980001#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "5455": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Cut Chemist",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/e0975164-e68b-45d6-9854-d5d0ce84e671",
+        "identity_source": "https://www.wikidata.org/wiki/Q2658111#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "61269": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Carrie Lucas",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/0ec56df8-abd0-4e07-b5de-5caff7e42746",
+        "identity_source": "https://www.wikidata.org/wiki/Q5046263#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "340525": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Tapper Zukie",
+        "label": "Jamaica",
+        "lon": -77,
+        "lat": 18,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/862c35ad-044f-42fd-9855-8a918d955e69",
+        "identity_source": "https://www.wikidata.org/wiki/Q3515531#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "104180": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Teri Moïse",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/f2340fa1-9cc8-4d5d-b10c-cca57045048e",
+        "identity_source": "https://www.wikidata.org/wiki/Q2097963#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "1720": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Sonz Of A Loop Da Loop Era",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/2ab2c317-3988-4d08-852d-b7805dc7b342",
+        "identity_source": "https://www.wikidata.org/wiki/Q5220177#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "12832": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Venetian Snares",
+        "label": "Canada",
+        "lon": -106,
+        "lat": 56,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/56abaa47-0101-463b-b37e-e961136fec39",
+        "identity_source": "https://www.wikidata.org/wiki/Q120204#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "145257": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Duke Ellington",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/3af06bc4-68ad-4cae-bb7a-7eeeb45e411f",
+        "identity_source": "https://www.wikidata.org/wiki/Q4030#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "23423": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Unexist",
+        "label": "Italy",
+        "lon": 12,
+        "lat": 43,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/599123c4-4286-40a9-8846-66565fbac303",
+        "identity_source": "https://www.wikidata.org/wiki/Q3096459#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "20593": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Grandmaster Flash & Melle Mel",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/faaf4f84-7751-4613-9903-32c9d6a49741",
+        "identity_source": "https://www.wikidata.org/wiki/Q64549#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "110283": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Kim Carnes",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/600c5212-a8e6-458e-bd3f-78b6fbfe329a",
+        "identity_source": "https://www.wikidata.org/wiki/Q4070#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "200304": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Caparezza",
+        "label": "Italy",
+        "lon": 12,
+        "lat": 43,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/82462e70-bc00-43ba-8d96-734efa6e72ac",
+        "identity_source": "https://www.wikidata.org/wiki/Q25159#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "5102": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Leila",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/14039c7d-b67e-46cd-9cf3-f252d0e83879",
+        "identity_source": "https://www.wikidata.org/wiki/Q3229172#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "588664": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Ziad Rahbani",
+        "label": "Lebanon",
+        "lon": 36,
+        "lat": 34,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/854d133d-771b-4776-ad66-6768f4f848e9",
+        "identity_source": "https://www.wikidata.org/wiki/Q3575465#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "21848": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Danny Howells & Dick Trevor",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/83c616dd-9588-4663-83c4-13a7253b6733",
+        "identity_source": "https://www.wikidata.org/wiki/Q1164647#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "29981": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Jimmy Smith",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/4f8a0d9b-5777-40da-b29a-e9753d5ae693",
+        "identity_source": "https://www.wikidata.org/wiki/Q318948#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "129805": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated area",
+        "subject": "Wes Montgomery",
+        "label": "United States",
+        "lon": -98,
+        "lat": 39,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/663f8232-8c46-4851-803f-a91d31593b14",
+        "identity_source": "https://www.wikidata.org/wiki/Q298601#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ]
+  },
+  "matched_artist_ids": [
+    "3773",
+    "774761",
+    "1473889",
+    "9081",
+    "851878",
+    "2053",
+    "4289895",
+    "148",
+    "2240",
+    "13531",
+    "56487",
+    "5260145",
+    "94504",
+    "341770",
+    "1181868",
+    "21260",
+    "4267093",
+    "17546",
+    "202236",
+    "2219395",
+    "2396",
+    "22217",
+    "205",
+    "269714",
+    "51229",
+    "9966",
+    "177651",
+    "30786",
+    "35328",
+    "863075",
+    "2458445",
+    "5870",
+    "45360",
+    "1600030",
+    "85889",
+    "50406",
+    "11213",
+    "50997",
+    "17743",
+    "17900",
+    "118760",
+    "234",
+    "26641",
+    "4281",
+    "120240",
+    "3812",
+    "4251618",
+    "23755",
+    "37704",
+    "29262",
+    "20956",
+    "5269272",
+    "38207",
+    "3865",
+    "1665",
+    "660740",
+    "16743",
+    "114390",
+    "253",
+    "15976",
+    "29923",
+    "154377",
+    "386260",
+    "35289",
+    "30017",
+    "10622",
+    "46727",
+    "1564482",
+    "786",
+    "9462",
+    "79156",
+    "750",
+    "347795",
+    "693",
+    "2120212",
+    "24056",
+    "15885",
+    "782",
+    "2480495",
+    "1040998",
+    "152754",
+    "978",
+    "48385",
+    "45467",
+    "6153831",
+    "321",
+    "8531",
+    "2345",
+    "226945",
+    "13411",
+    "3860005",
+    "1216832",
+    "5393",
+    "2323",
+    "4628",
+    "426847",
+    "3091513",
+    "9912",
+    "9786",
+    "1718",
+    "1755506",
+    "2406747",
+    "2542",
+    "6152",
+    "7213",
+    "2187",
+    "16508",
+    "838",
+    "1749",
+    "3745639",
+    "1778977",
+    "13932",
+    "1841800",
+    "1854177",
+    "5",
+    "60453",
+    "21991",
+    "340803",
+    "2264",
+    "250149",
+    "3298939",
+    "970905",
+    "1094",
+    "65950",
+    "7278",
+    "251517",
+    "3093621",
+    "407733",
+    "3268",
+    "58355",
+    "10429",
+    "48413",
+    "4567",
+    "5793123",
+    "189430",
+    "43151",
+    "53993",
+    "8602",
+    "26955",
+    "10398",
+    "145611",
+    "12596",
+    "10053688",
+    "518518",
+    "250902",
+    "4838162",
+    "240814",
+    "89693",
+    "2662253",
+    "391",
+    "2725",
+    "4742",
+    "4478",
+    "31759",
+    "289",
+    "576683",
+    "26918",
+    "226946",
+    "281",
+    "2471633",
+    "136140",
+    "65145",
+    "5087",
+    "49758",
+    "368",
+    "34453",
+    "2712259",
+    "73715",
+    "1694",
+    "111502",
+    "6584747",
+    "30645",
+    "75985",
+    "4117",
+    "1141",
+    "8260",
+    "22856",
+    "6021",
+    "417",
+    "622704",
+    "2623061",
+    "5648",
+    "94316",
+    "545378",
+    "83770",
+    "91058",
+    "180281",
+    "950",
+    "21574",
+    "51979",
+    "5733576",
+    "76089",
+    "3456696",
+    "18200",
+    "298930",
+    "53036",
+    "11733",
+    "1152098",
+    "5455",
+    "2149274",
+    "1613326",
+    "180280",
+    "61269",
+    "340525",
+    "104180",
+    "7331",
+    "27319",
+    "97071",
+    "20590",
+    "1239155",
+    "17550",
+    "61402",
+    "66385",
+    "4091",
+    "2320",
+    "17957",
+    "8403",
+    "124108",
+    "200815",
+    "29224",
+    "32166",
+    "229498",
+    "1720",
+    "27805",
+    "87814",
+    "12832",
+    "160033",
+    "1559",
+    "75922",
+    "145257",
+    "23423",
+    "20593",
+    "110283",
+    "16483",
+    "1460",
+    "1932807",
+    "9706",
+    "5821",
+    "3868",
+    "1403",
+    "200304",
+    "87016",
+    "338",
+    "142",
+    "434957",
+    "5102",
+    "588664",
+    "21848",
+    "29981",
+    "129805",
+    "71171"
+  ],
+  "report": {
+    "artist_ids_checked": 570,
+    "identity_matches": 251,
+    "ambiguous_artist_ids": [],
+    "musicbrainz_pages_checked": 221,
+    "accepted_artists": 160,
+    "accepted_threads": 244,
+    "skipped": [],
+    "failed_batches": 0
+  }
+}

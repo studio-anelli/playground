@@ -1,0 +1,15 @@
+from pathlib import Path
+import urllib.request,urllib.parse,json,time,concurrent.futures,datetime
+r=Path(__file__).resolve().parent;source=r/'source';entries=json.loads((source/'collection.json').read_text())['entries'];artists={str(a['id']):a['name'] for n in entries for a in n['artists'] if a['id'] not in [194,355]};ids=list(artists);cache=Path('/tmp/mtt-wikidata-batches');cache.mkdir(exist_ok=True)
+prefix='PREFIX wdt:<http://www.wikidata.org/prop/direct/> PREFIX p:<http://www.wikidata.org/prop/> PREFIX ps:<http://www.wikidata.org/prop/statement/> PREFIX pq:<http://www.wikidata.org/prop/qualifier/> PREFIX pr:<http://www.wikidata.org/prop/reference/> PREFIX prov:<http://www.w3.org/ns/prov#> PREFIX wikibase:<http://wikiba.se/ontology#> PREFIX bd:<http://www.bigdata.com/rdf#> PREFIX wd:<http://www.wikidata.org/entity/>'
+def batch(pair):
+ ix,values=pair;path=cache/(str(ix)+'.json')
+ if path.exists():return json.loads(path.read_text())
+ q=prefix+''' SELECT DISTINCT ?discogs ?artist ?artistLabel ?human ?mbid ?property ?place ?placeLabel ?coordinate ?class ?start ?end ?reference WHERE { VALUES ?discogs { '''+' '.join('"'+x+'"' for x in values)+''' } ?artist wdt:P1953 ?discogs . BIND(EXISTS{?artist wdt:P31 wd:Q5} AS ?human) OPTIONAL {?artist wdt:P434 ?mbid} OPTIONAL { VALUES (?property ?claim ?value) { (wd:P740 p:P740 ps:P740) (wd:P937 p:P937 ps:P937) (wd:P495 p:P495 ps:P495) } ?artist ?claim ?statement . ?statement ?value ?place . FILTER NOT EXISTS {?statement wikibase:rank wikibase:DeprecatedRank} ?place wdt:P625 ?coordinate . OPTIONAL {?place wdt:P31 ?class} OPTIONAL {?statement pq:P580 ?start} OPTIONAL {?statement pq:P582 ?end} OPTIONAL {?statement prov:wasDerivedFrom ?ref . ?ref pr:P854 ?reference} } SERVICE wikibase:label { bd:serviceParam wikibase:language "en". } }'''
+ url='https://query.wikidata.org/sparql?format=json&query='+urllib.parse.quote(q)
+ try:
+  req=urllib.request.Request(url,headers={'User-Agent':'MusicThatTravelsResearch/0.6 (personal collection geography)','Accept':'application/sparql-results+json'});d=json.load(urllib.request.urlopen(req,timeout=60));path.write_text(json.dumps(d));print('Batch',ix,'rows',len(d['results']['bindings']),flush=True);return d
+ except Exception as e:print('Batch',ix,'ERROR',str(e),flush=True);return {'error':str(e),'results':{'bindings':[]},'ids':values}
+batches=[(i//60,ids[i:i+60]) for i in range(0,len(ids),60)]
+with concurrent.futures.ThreadPoolExecutor(max_workers=2)as pool:results=list(pool.map(batch,batches))
+rows=[{k:v['value'] for k,v in row.items()} for d in results for row in d['results']['bindings']];out={'fetched_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'source':'https://query.wikidata.org/','identity_property':'P1953','requested_artist_ids':artists,'rows':rows,'failed_batches':[d for d in results if 'error'in d]};(source/'wikidata-collection-evidence.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n');print('DONE',len(artists),'artists attempted;',len(set(row['discogs'] for row in rows)),'matched;',sum('place'in row for row in rows),'place rows',flush=True)

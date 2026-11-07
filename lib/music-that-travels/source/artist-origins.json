@@ -1,0 +1,644 @@
+{
+  "schema_version": 1,
+  "criteria": "Musical association, group formation and documented scene. Never substitute studio or edition country. Associated areas and later bases are labelled explicitly, not presented as release-date origins.",
+  "artists": {
+    "660740": {
+      "discogs_artist_id": 660740,
+      "name": "Fabrizio De André",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date."
+        }
+      ]
+    },
+    "4251618": {
+      "discogs_artist_id": 4251618,
+      "name": "Ross From Friends",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date."
+        }
+      ]
+    },
+    "114390": {
+      "discogs_artist_id": 114390,
+      "name": "Franco Battiato",
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date."
+        }
+      ]
+    },
+    "4289895": {
+      "discogs_artist_id": 4289895,
+      "name": "Mall Grab",
+      "locations": [
+        {
+          "label": "Australia",
+          "lon": 134,
+          "lat": -25,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date."
+        }
+      ]
+    },
+    "205": {
+      "discogs_artist_id": 205,
+      "name": "Jeff Mills",
+      "locations": [
+        {
+          "label": "Detroit",
+          "lon": -83.0458,
+          "lat": 42.3314,
+          "relation": "Musical roots",
+          "source": "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+          "precision": "city",
+          "note": ""
+        }
+      ]
+    },
+    "3865": {
+      "discogs_artist_id": 3865,
+      "name": "Herbie Hancock",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date."
+        }
+      ]
+    },
+    "2736664": {
+      "discogs_artist_id": 2736664,
+      "name": "Psychic Mirrors",
+      "locations": [
+        {
+          "label": "Miami",
+          "lon": -80.1918,
+          "lat": 25.7617,
+          "relation": "Band associated with",
+          "source": "https://psychicmirrors.bandcamp.com/community",
+          "precision": "city",
+          "note": ""
+        }
+      ]
+    },
+    "1778977": {
+      "discogs_artist_id": 1778977,
+      "name": "Kendrick Lamar",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date."
+        }
+      ]
+    },
+    "2219395": {
+      "discogs_artist_id": 2219395,
+      "name": "The Sun Ra Arkestra",
+      "locations": [
+        {
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/d9733f21-71d7-4fa7-813d-67eca0f0eaaf/relationships",
+          "precision": "city",
+          "note": ""
+        }
+      ]
+    },
+    "29262": {
+      "discogs_artist_id": 29262,
+      "name": "George Clinton",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date."
+        }
+      ]
+    },
+    "23755": {
+      "discogs_artist_id": 23755,
+      "name": "Miles Davis",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/561d854a-6a28-4aa7-8c99-323e6ce46c2a",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date."
+        }
+      ]
+    },
+    "407733": {
+      "discogs_artist_id": 407733,
+      "name": "Ultimate Spinach",
+      "locations": [
+        {
+          "label": "Boston",
+          "lon": -71.0589,
+          "lat": 42.3601,
+          "relation": "Band formed in",
+          "source": "https://www.mmone.org/ultimate-spinach-2/",
+          "precision": "city",
+          "note": ""
+        }
+      ]
+    },
+    "3688697": {
+      "discogs_artist_id": 3688697,
+      "name": "Dan Shake",
+      "locations": [
+        {
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "relation": "Early musical development",
+          "source": "https://mixmag.net/feature/dan-shake-mixmag-cover-interview-dj",
+          "precision": "city",
+          "note": "First-person interview describes early music production in Wood Green."
+        }
+      ]
+    },
+    "124108": {
+      "discogs_artist_id": 124108,
+      "name": "Roni Size / Reprazent",
+      "locations": [
+        {
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "relation": "Band formed in",
+          "source": "https://www.allmusic.com/artist/reprazent-mn0000459997",
+          "precision": "city",
+          "note": ""
+        }
+      ]
+    },
+    "2396": {
+      "discogs_artist_id": 2396,
+      "name": "Kettel",
+      "locations": [
+        {
+          "label": "Netherlands",
+          "lon": 5,
+          "lat": 52,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/071cb80d-a198-4f88-b41e-f4dd9a65ec80",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date."
+        }
+      ]
+    },
+    "45467": {
+      "discogs_artist_id": 45467,
+      "name": "Pink Floyd",
+      "locations": [
+        {
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/83d91898-7763-47d7-b03b-b92132375c47",
+          "precision": "city",
+          "note": ""
+        }
+      ]
+    },
+    "48413": {
+      "discogs_artist_id": 48413,
+      "name": "Ohio Players",
+      "locations": [
+        {
+          "label": "Dayton",
+          "lon": -84.1916,
+          "lat": 39.7589,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/81e07550-d0e2-467e-bc71-44b5d52de8f4",
+          "precision": "city",
+          "note": ""
+        }
+      ]
+    },
+    "4091": {
+      "discogs_artist_id": 4091,
+      "name": "De La Soul",
+      "locations": [
+        {
+          "label": "Amityville",
+          "lon": -73.4171,
+          "lat": 40.6787,
+          "relation": "Band formed in",
+          "source": "https://musicbrainz.org/artist/a8ebde98-7e91-46c7-992c-90039ba42017?all=0&page=3&va=1",
+          "precision": "city",
+          "note": ""
+        }
+      ]
+    },
+    "2240": {
+      "discogs_artist_id": 2240,
+      "name": "D'Arcangelo",
+      "locations": [
+        {
+          "label": "Rome",
+          "lon": 12.4964,
+          "lat": 41.9028,
+          "relation": "Band formed in",
+          "source": "https://www.allmusic.com/artist/darcangelo-mn0000139093",
+          "precision": "city",
+          "note": ""
+        }
+      ]
+    },
+    "152754": {
+      "discogs_artist_id": 152754,
+      "name": "Pino Daniele",
+      "locations": [
+        {
+          "label": "Naples",
+          "lon": 14.2681,
+          "lat": 40.8518,
+          "relation": "Musical scene",
+          "source": "https://www.pinodaniele.com/about/",
+          "precision": "city",
+          "note": ""
+        }
+      ]
+    },
+    "3093621": {
+      "discogs_artist_id": 3093621,
+      "name": "L’impératrice",
+      "locations": [
+        {
+          "label": "Paris",
+          "lon": 2.3522,
+          "lat": 48.8566,
+          "relation": "Band formed in",
+          "source": "https://836m.org/artist/limperatrice/",
+          "precision": "city",
+          "note": ""
+        }
+      ]
+    },
+    "4007020": {
+      "discogs_artist_id": 4007020,
+      "name": "Nu Guinea",
+      "locations": [
+        {
+          "label": "Naples",
+          "lon": 14.2681,
+          "lat": 40.8518,
+          "relation": "Band formed in",
+          "source": "https://italiana.esteri.it/italiana/en/eventi/nu-guinea-in-paris/",
+          "precision": "city",
+          "note": ""
+        }
+      ]
+    },
+    "4838162": {
+      "discogs_artist_id": 4838162,
+      "name": "Peggy Gou",
+      "locations": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/4c41d78d-9dd5-430d-81ea-286052158293",
+          "precision": "city",
+          "note": "Berlin-based artistic association, not South Korean birthplace or an album-specific recording location."
+        }
+      ]
+    },
+    "417": {
+      "discogs_artist_id": 417,
+      "name": "Photek",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date."
+        }
+      ]
+    },
+    "27805": {
+      "discogs_artist_id": 27805,
+      "name": "Courtney Pine",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Musical scene",
+          "source": "https://courtney-pine.com/biography",
+          "precision": "country",
+          "note": ""
+        }
+      ]
+    },
+    "936665": {
+      "discogs_artist_id": 936665,
+      "name": "Fred P.",
+      "locations": [
+        {
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "relation": "Early musical development",
+          "source": "https://ra.co/dj/fredp/biography",
+          "precision": "city",
+          "note": "New York underground formative years. This is not the artist’s later Berlin base."
+        }
+      ]
+    },
+    "3207569": {
+      "discogs_artist_id": 3207569,
+      "name": "Florian Kupfer",
+      "locations": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist based in",
+          "source": "https://discoscapablanca.bandcamp.com/album/about-u",
+          "precision": "city",
+          "note": "Artist base documented in 2023; not a claim about where earlier releases were made."
+        }
+      ]
+    },
+    "26955": {
+      "discogs_artist_id": 26955,
+      "name": "John Cage",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/76325a9d-6c25-4649-96b1-84e9b99d6b4b",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date."
+        }
+      ]
+    },
+    "5255136": {
+      "discogs_artist_id": 5255136,
+      "name": "Eva Geist",
+      "locations": [
+        {
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "relation": "Artist based in",
+          "source": "https://ra.co/dj/evageist/biography",
+          "precision": "city",
+          "note": "Biography includes the Dniheb and Blumareciano releases in this collection."
+        }
+      ]
+    },
+    "4601576": {
+      "discogs_artist_id": 4601576,
+      "name": "No Moon",
+      "locations": [
+        {
+          "label": "Manchester",
+          "lon": -2.2426,
+          "lat": 53.4808,
+          "relation": "Early musical base",
+          "source": "https://nextupthrowback.wordpress.com/2016/02/19/manchester-rising-no-moon/",
+          "precision": "city",
+          "note": "2016 artist feature; not the artist’s later German base."
+        }
+      ]
+    },
+    "289": {
+      "discogs_artist_id": 289,
+      "name": "Dom & Roland",
+      "locations": [
+        {
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/3e95edd2-5af6-47d4-aac4-c27e58fb08f8",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date."
+        }
+      ]
+    },
+    "32166": {
+      "discogs_artist_id": 32166,
+      "name": "Timmy Thomas",
+      "locations": [
+        {
+          "label": "United States",
+          "lon": -98,
+          "lat": 39,
+          "relation": "Artist associated area",
+          "source": "https://musicbrainz.org/artist/7e092d19-6726-4b9a-a879-157065833481",
+          "precision": "country",
+          "note": "MusicBrainz associated area; not a claim about recording location, birthplace or the artist’s location at this release date."
+        }
+      ]
+    },
+    "1473889": {
+      "discogs_artist_id": 1473889,
+      "name": "Om Unit",
+      "locations": [
+        {
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "relation": "Artist based in",
+          "precision": "city",
+          "source": "https://www.createdefinerelease.com/producers/om-unit",
+          "note": "Artistic base, not a claim about birthplace or recording studio."
+        }
+      ]
+    },
+    "3039332": {
+      "discogs_artist_id": 3039332,
+      "name": "TM404",
+      "locations": [
+        {
+          "label": "Sweden",
+          "lon": 15,
+          "lat": 62,
+          "relation": "Artist associated area",
+          "precision": "country",
+          "source": "https://inkonst.com/en/artists/andreas-tilliander-tm404-mokira",
+          "note": "TM404 is Andreas Tilliander’s project."
+        }
+      ]
+    }
+  },
+  "compilations": {
+    "20923105": {
+      "locations": [
+        {
+          "label": "Ghana",
+          "lon": -2,
+          "lat": 8,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://analogafrica.bandcamp.com/track/egye-tu-gbe",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session."
+        }
+      ]
+    },
+    "30112238": {
+      "locations": [
+        {
+          "label": "Kinshasa",
+          "lon": 15.2667,
+          "lat": -4.325,
+          "relation": "Compilation documents",
+          "precision": "city",
+          "source": "https://analogafrica.bandcamp.com/album/congo-funk-sound-madness-from-the-shores-of-the-mighty-congo-river-kinshasa-brazzaville-1969-1982-analog-africa-nr-38?from=footer-cc-a1289343264",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session."
+        },
+        {
+          "label": "Brazzaville",
+          "lon": 15.2833,
+          "lat": -4.2667,
+          "relation": "Compilation documents",
+          "precision": "city",
+          "source": "https://analogafrica.bandcamp.com/album/congo-funk-sound-madness-from-the-shores-of-the-mighty-congo-river-kinshasa-brazzaville-1969-1982-analog-africa-nr-38?from=footer-cc-a1289343264",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session."
+        }
+      ]
+    },
+    "9369950": {
+      "locations": [
+        {
+          "label": "Mali",
+          "lon": -4,
+          "lat": 17,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://worldmusic.net/products/lost-in-mali",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session."
+        }
+      ]
+    },
+    "8800233": {
+      "locations": [
+        {
+          "label": "Suriname",
+          "lon": -56,
+          "lat": 4,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://rushhourmusic.bandcamp.com/album/surinam-funk-force",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session."
+        }
+      ]
+    },
+    "1614712": {
+      "locations": [
+        {
+          "label": "Louisiana",
+          "lon": -92,
+          "lat": 31,
+          "relation": "Compilation documents",
+          "precision": "region",
+          "source": "https://www.acerecords.co.uk/southern-funkin-louisiana-funk-and-soul-1967-1979",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session."
+        }
+      ]
+    },
+    "12083950": {
+      "locations": [
+        {
+          "label": "France",
+          "lon": 2,
+          "lat": 47,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://www.bornbadrecords.net/releases/",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session."
+        }
+      ]
+    },
+    "9425519": {
+      "locations": [
+        {
+          "label": "Nigeria",
+          "lon": 8,
+          "lat": 9,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://soundwayrecords.bandcamp.com/album/doing-it-in-lagos?from=footer-cc-a841407783",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session."
+        }
+      ]
+    },
+    "9992673": {
+      "locations": [
+        {
+          "label": "Italy",
+          "lon": 12,
+          "lat": 43,
+          "relation": "Compilation documents",
+          "precision": "country",
+          "source": "https://www.discogs.com/release/9992673",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session."
+        }
+      ]
+    },
+    "1704802": {
+      "locations": [
+        {
+          "label": "District of Columbia / Maryland / Virginia",
+          "lon": -77,
+          "lat": 38,
+          "relation": "Compilation documents",
+          "precision": "region",
+          "source": "https://ppudc.bandcamp.com/album/dmv-district-maryland-virginia-vol-1",
+          "note": "Geographic focus of the compilation, not the location of its label or every recording session."
+        }
+      ]
+    }
+  }
+}
