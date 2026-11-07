@@ -1,5 +1,5 @@
 from pathlib import Path
-import json,re,hashlib
+import json,re,hashlib,runpy
 root=Path(__file__).resolve().parent
 html=(root/'source/app.html').read_text();data=json.loads((root/'source/collection.json').read_text());enrich=root/'source/enrichment.json'
 if enrich.exists():
@@ -14,9 +14,20 @@ land=re.sub(r'(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)',project,land)
 # Geography only needs display fields and location evidence, not the full audit/credits.
 geo_entries=[{k:n[k] for k in ['instance_id','id','title','year','artists','labels']} for n in data['entries']]
 origins=json.loads((root/'source/origin-collection.json').read_text())
+# Group redundant display places while retaining all original source claims.
+group_threads=runpy.run_path(str(root/'group-threads.py'))['group_threads']
+country_data=json.loads((root/'source/countries.json').read_text())
+display_threads={key:group_threads(row['threads'],country_data,row.get('primary_thread_id')) for key,row in origins['records'].items()}
 # The map needs display claims, not the research ledger or duplicated legacy rows.
-thread_fields=['id','kind','relation','subject','label','lon','lat','precision','source','period','note','venue','location_source']
-geo_origins={'schema_version':origins['schema_version'],'records':{key:{'lon':value['lon'],'lat':value['lat'],'city':value['city'],'precision':value['precision'],'locations':[{k:l[k] for k in ['lon','lat','city','precision'] if k in l} for l in value.get('locations',[])],'threads':[{k:t[k] for k in thread_fields if k in t} for t in value['threads']],'unlocated_artists':value.get('unlocated_artists',[])} for key,value in origins['records'].items()}}
+thread_fields=['id','kind','relation','subject','label','lon','lat','precision','source','period','note','venue','location_source','supporting_claims']
+def geography_record(key,value):
+ threads=display_threads[key]
+ primary=next((t for t in threads if t['id']==value.get('primary_thread_id') or any(c['id']==value.get('primary_thread_id') for c in t.get('supporting_claims',[]))),threads[0])
+ return {'lon':primary['lon'],'lat':primary['lat'],'city':primary['label'],'precision':primary['precision'],
+  'locations':[{k:l[k] for k in ['lon','lat','city','precision'] if k in l} for l in value.get('locations',[])],
+  'threads':[{k:t[k] for k in thread_fields if k in t} for t in threads],
+  'unlocated_artists':value.get('unlocated_artists',[])}
+geo_origins={'schema_version':origins['schema_version'],'records':{key:geography_record(key,value) for key,value in origins['records'].items()}}
 geo_data={'entries':geo_entries,'release_details':{k:{'country':v.get('country')} for k,v in data['release_details'].items()},'origins':geo_origins,'countries':json.loads((root/'source/countries.json').read_text()),'thumbnail_atlas':json.loads((root/'source/thumbnail-atlas.json').read_text())['records']}
 geo_json=json.dumps(geo_data,ensure_ascii=False,separators=(',',':'))
 geo_version=hashlib.sha256(geo_json.encode()).hexdigest()[:16]

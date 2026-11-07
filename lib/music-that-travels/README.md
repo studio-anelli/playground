@@ -48,3 +48,9 @@ Startup geography includes only display claims, not the research ledger or dupli
 ## Redraw reuse
 
 Overview geographic relationships are resolved once per saved snapshot, then drawn with persistent SVG paths and endpoint circles. Repaints reuse these nodes; layout-only animation frames also skip unchanged route geometry. Selection replaces the overview with interactive thread endpoints and safely restores the persistent overview when cleared. Toolbar descriptions/counts update only when perspective or coverage changes. Cover sizing uses an x-sorted, bounded nearest-neighbour search that produces the same sizes as exhaustive comparisons without scanning every pair. `tests/render-reuse.mjs` checks cache invalidation, selection restoration, constant SVG allocations across 61 redraws, and exact sizes across four zoom scales.
+
+## Redundant place summaries
+
+`group-threads.py` runs during the snapshot build, not during browser interaction. It groups repeat locations for the same subject and thread kind, retaining the most specific display anchor. A country summary can join an existing city/region only when the saved country polygon contains that location. Distinct cities/states/countries remain separate, as do collaborators and the artist/repertoire/recording layers. Unknown containment stays unmerged; country membership is never used to infer state membership. UK constituent countries remain distinct.
+
+The source dataset still contains all 408 original claims. The map presents 303 connections, with the remaining claims available under expandable supporting details that retain their original place, precision, relationship, period, venue and source. A broad US claim is not relabelled as evidence for Chicago. Tests cover Chicago + New York versus a redundant US summary, independent collaborators and cultural layers, and exact preservation of every claim ID.
