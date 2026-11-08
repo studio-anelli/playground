@@ -1,7 +1,7 @@
 """Resume a rate-limited, collection-wide Discogs linked-video snapshot."""
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
-import datetime,json,threading,time,urllib.request,urllib.error,os
+import datetime,json,threading,time,urllib.request,urllib.error
 ROOT=Path(__file__).resolve().parent
 SOURCE=ROOT/'source'
 entries=json.loads((SOURCE/'collection.json').read_text())['entries']
@@ -32,7 +32,7 @@ def fetch(url):
    if attempt==2:raise
    time.sleep(3)
 def videos(d):
- return [{k:v[k] for k in ('uri','title','embed') if k in v} for v in d.get('videos',[]) if v.get('embed') is not False and 'youtube' in v.get('uri','').lower() or v.get('embed') is not False and 'youtu.be/' in v.get('uri','').lower()]
+ return [{k:v[k] for k in ('uri','title','embed') if k in v} for v in d.get('videos',[]) if v.get('embed') is not False and any(host in v.get('uri','').lower() for host in ('youtube','youtu.be/'))]
 def collect(n):
  global completed
  key=str(n['id'])
