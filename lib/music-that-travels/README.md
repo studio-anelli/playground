@@ -94,3 +94,6 @@ Playback modes sit beside the speaker icon: Normal keeps random cover-selected t
 
 
 Crackle now starts before the outgoing 280 ms music fade, then overlaps the incoming track for a 1.2 second release. Closing details (including Escape) hides metadata and retains the selected cover, mounted player and active playback mode. Automatic geographic advances and perspective changes preserve the closed panel; manual cover clicks reopen it. Hovered/focused covers return to full opacity with a small brightness lift, while the rest of the selected map stays dim. This uses CSS on the hovered cover rather than a map repaint.
+
+
+Compatibility follow-up: covers remain fully opaque; hover/focus uses a brightness lift and yellow border instead of dimming other covers. Cover hover no longer detaches/reinserts the SVG button. Map pointer-down returns before cancelling defaults for record/thread controls, and pointer-up renders only after an actual map drag. This keeps native mouse/touch activation separate from map panning. Browser playback still depends on autoplay permission and YouTube availability; fades currently use animation frames and need a separate background-tab fallback.
