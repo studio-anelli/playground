@@ -64,3 +64,11 @@ All, Travelling, Same place and Origin unknown are mutually exclusive collection
 ## Perspective transitions
 
 Switching The music / Your edition snapshots visible cover positions and interpolates to the new layout over 900 ms with cubic easing. Country containment applies to settled layouts, not the intermediate travel path. Newly placeable records fade in; records without a destination fade out rather than being assigned a guessed origin. Selected artwork and its locator guide share the same transition clock. A rapid reversal begins at the current rendered positions. Filters/reset clear transition state, and reduced-motion preferences settle immediately. Dense overview compositing is temporarily paused during the finite transition and resumes for ordinary camera gestures.
+
+## Listening trial
+
+Sound defaults off. Enabling it for a selected cover loads a visible YouTube player in the floating record sheet. Changing covers replaces playback; clearing selection, closing the panel or disabling sound stops it. Thread and perspective changes preserve the mounted player. A linked-video selector, native player controls, blocked-autoplay guidance and YouTube links remain visible.
+
+`/api/listen/:id` accepts collection release IDs only, keeps validated YouTube IDs, ignores explicitly non-embeddable videos and caches results for six hours. Edition-linked videos take priority; a master-release fallback is labelled as a release-family link rather than the owned pressing. `source/listening-trial.json` saves a small initial set of Discogs links to make the trial usable when the preview server is rate-limited; other records load on demand and can show a retry message. Videos can become unavailable and may contain a full record rather than an individual track. No media is downloaded or proxied.
+
+Validation: `node lib/music-that-travels/tests/listening.mjs` checks link validation, disabled/duplicate videos, exact and family matching, empty records, collection membership and cache reuse.
