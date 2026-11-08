@@ -76,3 +76,7 @@ Selection fetches the next track link while the current record keeps playing. Af
 Validation: `tests/listening.mjs`, `tests/listening-transitions.mjs` and `tests/listening-lifecycle.mjs` cover sources, URL validation, cache reuse, fade endpoints/cancellation, persistent player reuse, fetching before fading, state-triggered fade-in, rapid cover replacement and unavailable tracks.
 
 The completed snapshot checks all 608 editions / 610 copies: 587 editions have 2,916 validated linked-video candidates (up to twelve per edition); 21 have no linked video. Four linked editions use a release-family fallback. Every edition lookup is served from the saved catalog without a Discogs request. Run `tests/listening-catalog.mjs` after rebuilding to verify coverage and offline serving. Playback availability remains subject to YouTube.
+
+## Selected-view rendering
+
+The Sound switch sits beside the +/− map controls. Dense world-level camera gestures composite the background markers even when a record is selected, while routes and the selected cover remain exact overlays with fixed screen size. The selected artwork retains one SVG image node across camera and record changes; cached attributes and image URLs avoid reparsing/loading the same cover on every frame. Identical thread paints are reused. Volume ramps send distinct integer changes at no more than roughly 30 updates per second. `tests/selected-rendering.mjs` checks image identity, one build across 61 paints, current record handlers, fixed cover size and two background layer writes during a selected gesture.
