@@ -1,5 +1,5 @@
 from pathlib import Path
-import json,re,hashlib,runpy
+import json,re,hashlib,runpy,html as html_tools
 root=Path(__file__).resolve().parent
 html=(root/'source/app.html').read_text();data=json.loads((root/'source/collection.json').read_text());enrich=root/'source/enrichment.json'
 if enrich.exists():
@@ -31,7 +31,10 @@ geo_origins={'schema_version':origins['schema_version'],'records':{key:geography
 geo_data={'entries':geo_entries,'release_details':{k:{'country':v.get('country')} for k,v in data['release_details'].items()},'origins':geo_origins,'countries':json.loads((root/'source/countries.json').read_text()),'thumbnail_atlas':json.loads((root/'source/thumbnail-atlas.json').read_text())['records']}
 geo_json=json.dumps(geo_data,ensure_ascii=False,separators=(',',':'))
 geo_version=hashlib.sha256(geo_json.encode()).hexdigest()[:16]
-geo_html=(root/'source/geography.html').read_text().replace('__GEOGRAPHY_VERSION__',geo_version)
+trial=json.loads((root/'source/listening-trial.json').read_text())
+samples={str(n['id']):n for n in data['entries'] if str(n['id']) in trial}
+options=''.join('<option value="'+str(n['instance_id'])+'">'+html_tools.escape(' / '.join(a['name'] for a in n['artists'])+' — '+n['title'])+'</option>' for n in sorted(samples.values(),key=lambda n:(n['artists'][0]['name'].lower(),n['title'].lower())))
+geo_html=(root/'source/geography.html').read_text().replace('__GEOGRAPHY_VERSION__',geo_version).replace('__LISTENING_OPTIONS__',options)
 worker='const COUNTRIES='+json.dumps(json.loads((root/'source/countries.json').read_text()))+';\nconst ORIGIN_PILOT='+json.dumps(json.loads((root/'source/origin-collection.json').read_text()),ensure_ascii=False)+';\nconst COVERAGE='+json.dumps((root/'source/coverage.html').read_text())+';\nconst ARTWORK='+json.dumps(json.loads((root/'source/artwork-analysis.json').read_text()),ensure_ascii=False)+';\nconst GEOGRAPHY='+json.dumps(geo_html)+';\nconst HUB='+json.dumps((root/'source/experiments.html').read_text())+';\nconst AUDIT='+json.dumps(json.loads((root/'source/dataset-audit.json').read_text()),ensure_ascii=False)+';\nconst HTML='+json.dumps(html)+';\nconst BOOTSTRAP='+json.dumps(data,ensure_ascii=False)+';\nconst LAND='+json.dumps(land)+';\nconst MUSIC_LOCATIONS='+json.dumps(json.loads((root/'source/music-locations-enriched.json').read_text()))+';\nconst TEST_SET='+json.dumps(json.loads((root/'source/color-experiment.json').read_text()),ensure_ascii=False)+';\n'+(root/'source/worker-runtime.js').read_text()
 worker='const LISTENING_TRIAL='+json.dumps(json.loads((root/'source/listening-trial.json').read_text()),ensure_ascii=False)+';\n'+worker
 worker='const GEOGRAPHY_DATA_JSON='+json.dumps(geo_json)+';\nconst GEOGRAPHY_VERSION='+json.dumps(geo_version)+';\n'+worker
