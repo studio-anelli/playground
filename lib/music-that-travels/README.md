@@ -91,3 +91,6 @@ Playback modes sit beside the speaker icon: Normal keeps random cover-selected t
 `tests/ordered-record.mjs` checks ordering, matching, omissions and full-album handling. `tests/playback-modes.mjs` covers mode progression, final stop, normal behavior, geographic selection, missing links and stopped-player events. `tests/radio-tuning.mjs` now verifies vinyl crackle rather than the removed frequency sweep.
 
 `tests/ordered-loading.mjs` verifies identical client/server matching, direct loading, the network/CORS fallback, a one-minute 429 cooldown and request cancellation.
+
+
+Crackle now starts before the outgoing 280 ms music fade, then overlaps the incoming track for a 1.2 second release. Closing details (including Escape) hides metadata and retains the selected cover, mounted player and active playback mode. Automatic geographic advances and perspective changes preserve the closed panel; manual cover clicks reopen it. Hovered/focused covers return to full opacity with a small brightness lift, while the rest of the selected map stays dim. This uses CSS on the hovered cover rather than a map repaint.
