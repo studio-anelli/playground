@@ -197,6 +197,19 @@
         "note": "BPitch documents Allien's Berlin techno career and scene-building. This is an artist association, not the recording location of Turn Off Your Mind."
       }
     ],
+    "5465": [
+      {
+        "kind": "artist",
+        "relation": "Drum-and-bass producer currently based in",
+        "subject": "Big Bud / Robin O'Reilly",
+        "label": "Southampton",
+        "lon": -1.4044,
+        "lat": 50.9097,
+        "precision": "city",
+        "source": "https://bigbud1.bandcamp.com/album/free-beats",
+        "note": "Artist's own Bandcamp identifies Southampton and explicitly describes the Fear of Flying album as recorded mostly in Belize. Current artist base does not locate the original 2005 sessions; sampler track-specific Belize sessions are not inferred."
+      }
+    ],
     "13398": [
       {
         "kind": "artist",
@@ -809,6 +822,19 @@
         "note": "Producer self-profile gives Turin location and release history under Mana; RA verifies exact Seven Steps Behind is Daniele Mana's Hyperdub album. Residence/production base, not recording studio."
       }
     ],
+    "1462144": [
+      {
+        "kind": "artist",
+        "relation": "Clarinet and traditional music career rooted in",
+        "subject": "Tassos Chalkias",
+        "label": "Epirus",
+        "lon": 20.9,
+        "lat": 39.6,
+        "precision": "region",
+        "source": "https://www.avopolis.gr/albums/greek-albums/72592-tasos-xalkias-divine-reeds-obscure-recordings-from-special-music-record-company-athens-1966-1967-review",
+        "note": "Greek music journal identifies Chalkias as Epirus traditional clarinet figure and reviews the exact Divine Reeds 1966–67 archival recordings. Epirus is repertoire/performance tradition, not recording city; Athens subtitle not promoted to studio credit."
+      }
+    ],
     "1488101": [
       {
         "kind": "artist",
@@ -1291,6 +1317,32 @@
         "precision": "city",
         "source": "https://acidjazz.co.uk/products/totally-wired",
         "note": "First-party label history dates the original 1988 compilation and identifies its curators Eddie Piller and Gilles Peterson and club-scene context. This is compilation curation geography, not a blanket London origin for all eleven contributing recordings."
+      }
+    ],
+    "972054": [
+      {
+        "kind": "recording",
+        "relation": "Instrumental of the title track produced in a studio in",
+        "subject": "What Makes You Go For It — Murat Tepeli (instrumental)",
+        "label": "Cologne",
+        "lon": 6.9603,
+        "lat": 50.9375,
+        "precision": "city",
+        "coverage": "partial",
+        "source": "https://www.berghain.berlin/en/shop/releases/prosumer-murat-tepeli-what-makes-you-go-for-it/",
+        "note": "Ostgut Ton first-party notes explicitly place the title track instrumental in Murat's Cologne studio; other B-side tracks have no confirmed shared recording locale."
+      },
+      {
+        "kind": "recording",
+        "relation": "Title-track vocals added in",
+        "subject": "What Makes You Go For It — Prosumer (vocals)",
+        "label": "Berlin",
+        "lon": 13.405,
+        "lat": 52.52,
+        "precision": "city",
+        "coverage": "partial",
+        "source": "https://www.berghain.berlin/en/shop/releases/prosumer-murat-tepeli-what-makes-you-go-for-it/",
+        "note": "Ostgut Ton independently specifies Prosumer's lyrics and vocals later added in Berlin. Separate track phase from Murat's Cologne instrumental, without placing other tracks."
       }
     ],
     "5081661": [
