@@ -1614,6 +1614,19 @@
         "note": "The same original label credits recording/mixing in NYC and LA, with no track-by-city breakdown. The separate German mastering/cutting location is not represented as music origin."
       }
     ],
+    "11265395": [
+      {
+        "kind": "recording",
+        "relation": "Recorded and mixed at Alpha International Recording Studios in",
+        "subject": "Q — The Voice of Q (1982 original recording)",
+        "label": "Philadelphia",
+        "lon": -75.1652,
+        "lat": 39.9526,
+        "precision": "city",
+        "source": "https://rectangletriangle.com/products/the-voice-of-q-q-10",
+        "note": "The exact Philly World PWR-2007 record listing transcribes the original sleeve's Recorded & mixed for Greater Sound Reproduction at Alpha International Recording Studios, Inc. Philadelphia credit. This is the original recording/mix, distinct from label headquarters and mastering."
+      }
+    ],
     "11405284": [
       {
         "kind": "recording",
