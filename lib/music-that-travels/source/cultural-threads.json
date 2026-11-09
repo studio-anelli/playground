@@ -119,6 +119,45 @@
         "note": "BPitch documents Allien's Berlin techno career and scene-building. This is an artist association, not the recording location of Turn Off Your Mind."
       }
     ],
+    "13398": [
+      {
+        "kind": "artist",
+        "relation": "Estonian underground electronic music scene in",
+        "subject": "Ajukaja",
+        "label": "Tallinn",
+        "lon": 24.7536,
+        "lat": 59.437,
+        "precision": "city",
+        "source": "https://ra.co/dj/ajukajaandats/biography",
+        "note": "Resident Advisor calls Ajukaja and Ats part of Tallinn's electronic underground, documenting their label and studio work. This is the matching Ajukaja participant's scene association, not an assertion that Benga Benga was recorded in Tallinn."
+      }
+    ],
+    "14109": [
+      {
+        "kind": "artist",
+        "relation": "Jungle producer based in",
+        "subject": "Potential Bad Boy",
+        "label": "United Kingdom",
+        "lon": -2.5,
+        "lat": 54.5,
+        "precision": "country",
+        "source": "https://ra.co/dj/potentialbadboy",
+        "note": "Resident Advisor lists this jungle producer in the UK; London gigs are not evidence of a London production base."
+      }
+    ],
+    "14886": [
+      {
+        "kind": "artist",
+        "relation": "Electronic producer based in",
+        "subject": "Cosmic Force",
+        "label": "Netherlands",
+        "lon": 5.2913,
+        "lat": 52.1326,
+        "precision": "country",
+        "source": "https://ra.co/dj/cosmicforce",
+        "note": "Resident Advisor identifies Ben Spaander/Cosmic Force, describes his early mixtape making and lists the Netherlands as location. Broad artist base only; no studio or city inferred."
+      }
+    ],
     "16483": [
       {
         "kind": "artist",
@@ -302,6 +341,19 @@
         "note": "RA identifies Sebastián Hoyos as producer from Medellín, now resident in Barcelona. Medellín is artist's scene association, not Latino Body Music recording site."
       }
     ],
+    "691770": [
+      {
+        "kind": "artist",
+        "relation": "Techno producer based in",
+        "subject": "André Kronert",
+        "label": "Germany",
+        "lon": 10.4515,
+        "lat": 51.1657,
+        "precision": "country",
+        "source": "https://ra.co/dj/andrekronert",
+        "note": "Resident Advisor documents the exact Ain't No Funny Music release and lists Germany as location. Only national precision; festival appearances do not establish hometown."
+      }
+    ],
     "734504": [
       {
         "kind": "artist",
@@ -393,6 +445,32 @@
         "note": "Artist's own website describes the producer as from Moss and the Sex Tags label projects. It does not locate the Red Scorpions collaboration recording or DJ Speckgürtel."
       }
     ],
+    "1767407": [
+      {
+        "kind": "artist",
+        "relation": "Electronic duo based in",
+        "subject": "Psychemagik",
+        "label": "United Kingdom",
+        "lon": -2.5,
+        "lat": 54.5,
+        "precision": "country",
+        "source": "https://ra.co/dj/psychemagik",
+        "note": "Resident Advisor locates the production/remix duo in the UK. No city or location for individual re-edited tracks is inferred."
+      }
+    ],
+    "1932807": [
+      {
+        "kind": "artist",
+        "relation": "Electronic producer based in",
+        "subject": "Cygnus",
+        "label": "United States",
+        "lon": -98.5795,
+        "lat": 39.8283,
+        "precision": "country",
+        "source": "https://ra.co/dj/cygnus",
+        "note": "Resident Advisor identifies Phillip Washington as Cygnus and lists US location. Dallas/Fort Worth gigging is not proof of his recording studio."
+      }
+    ],
     "2406747": [
       {
         "kind": "artist",
@@ -458,6 +536,19 @@
         "note": "AllMusic documents London-based Alessio Natalizia forming the Not Waving project following Walls; Italian origin is not used as a substitute for musical base."
       }
     ],
+    "4447121": [
+      {
+        "kind": "artist",
+        "relation": "Electronic musician based in",
+        "subject": "Yoshinori Hayashi",
+        "label": "Japan",
+        "lon": 138.2529,
+        "lat": 36.2048,
+        "precision": "country",
+        "source": "https://ra.co/dj/yoshinorihayashi",
+        "note": "Resident Advisor identifies the electronic artist's Japanese location and work. Tokyo gigs are not interpreted as residence or recording."
+      }
+    ],
     "5793123": [
       {
         "kind": "artist",
@@ -495,6 +586,19 @@
         "precision": "city",
         "source": "https://mixmag.net/feature/impact-yousuke-yukimatsu-japan-experimental-dj-producer-gabber-techno",
         "note": "Mixmag's artist interview documents his early Osaka and nearby Kobe DJ work. Osaka is the artist's formative musical scene, not the mix compilation's recording site or a current permanent base."
+      }
+    ],
+    "7212008": [
+      {
+        "kind": "artist",
+        "relation": "Drum-and-bass solo project based in",
+        "subject": "Workforce",
+        "label": "United Kingdom",
+        "lon": -2.5,
+        "lat": 54.5,
+        "precision": "country",
+        "source": "https://ra.co/dj/workforce",
+        "note": "Resident Advisor identifies Workforce as Jack Stevens, previously SpectraSoul, and locates him in the UK. No city inferred from gigs."
       }
     ]
   },
