@@ -289,6 +289,19 @@
         "note": "RA identifies Alex Storrer's Zurich residency and directly lists the 2006 Sirocco/Slow Burning EP; a music base rather than a recording address."
       }
     ],
+    "43484": [
+      {
+        "kind": "artist",
+        "relation": "Hip-hop group formed in",
+        "subject": "K-9 Posse",
+        "label": "Teaneck",
+        "lon": -74.0159,
+        "lat": 40.8976,
+        "precision": "city",
+        "source": "https://www.allmusic.com/artist/k-9-posse-mn0000839282",
+        "note": "AllMusic documents Vernon Lynch and Wardell Mahone forming this exact late-1980s rap group at Fairleigh Dickinson University, Teaneck. Formation location, not Ain't Nothing To It studio."
+      }
+    ],
     "53036": [
       {
         "kind": "artist",
@@ -313,6 +326,19 @@
         "precision": "city",
         "source": "https://ra.co/reviews/19242",
         "note": "Contemporaneous Resident Advisor review identifies Nebraska as Londoner Ali Gibbs on the exact Look What You've Done To Me EP; artist base, not recording address."
+      }
+    ],
+    "74653": [
+      {
+        "kind": "artist",
+        "relation": "House production and DJ career established in",
+        "subject": "DJ Kent",
+        "label": "Johannesburg",
+        "lon": 28.0473,
+        "lat": -26.2041,
+        "precision": "city",
+        "source": "https://www.afrisson.com/in-the-bush/",
+        "note": "Afrisson identifies Khensani Mabaso as DJ Kent and the exact In The Bush 2003 release. Independent DJ profile locates his house career in Johannesburg; not a specific recording address."
       }
     ],
     "91058": [
