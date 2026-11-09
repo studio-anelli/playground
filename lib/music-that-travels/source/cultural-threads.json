@@ -250,6 +250,19 @@
         "note": "A connection through the ensemble Sun Ra founded. It does not identify where this particular record was made."
       }
     ],
+    "37704": [
+      {
+        "kind": "artist",
+        "relation": "Producer and club DJ based in",
+        "subject": "Lexx",
+        "label": "Zürich",
+        "lon": 8.5417,
+        "lat": 47.3769,
+        "precision": "city",
+        "source": "https://ra.co/dj/lexx/biography",
+        "note": "RA identifies Alex Storrer's Zurich residency and directly lists the 2006 Sirocco/Slow Burning EP; a music base rather than a recording address."
+      }
+    ],
     "53036": [
       {
         "kind": "artist",
@@ -692,6 +705,19 @@
         "note": "Artist biography explicitly lists Alien Rebellion and documents Berlin residence and work with 3TH Records. Italo-Brazilian heritage is not represented as recording geography."
       }
     ],
+    "3876503": [
+      {
+        "kind": "artist",
+        "relation": "Modern-funk musician and producer based in",
+        "subject": "Solar Shield",
+        "label": "Austin",
+        "lon": -97.7431,
+        "lat": 30.2672,
+        "precision": "city",
+        "source": "https://austinboogiecrewrecords.bandcamp.com/album/solar-shield",
+        "note": "Original label's exact Solar Shield album page identifies Chris McDowell and describes him as homegrown in Austin. Austin is musical scene, not specific studio location."
+      }
+    ],
     "4447121": [
       {
         "kind": "artist",
@@ -770,6 +796,19 @@
         "note": "Mixmag's artist interview documents his early Osaka and nearby Kobe DJ work. Osaka is the artist's formative musical scene, not the mix compilation's recording site or a current permanent base."
       }
     ],
+    "6648399": [
+      {
+        "kind": "artist",
+        "relation": "Punk, theatre and sound poetry practice from",
+        "subject": "NU NO",
+        "label": "Portugal",
+        "lon": -8.2245,
+        "lat": 39.3999,
+        "precision": "country",
+        "source": "https://8mmrecords.bandcamp.com/album/turva-lingua",
+        "note": "Label's exact Turva Lingua release notes identify Nuno Marques Pinto and his longstanding work in the Portuguese punk scene and sound poetry. Country cultural association only; no locality implied."
+      }
+    ],
     "7212008": [
       {
         "kind": "artist",
@@ -794,6 +833,19 @@
         "precision": "city",
         "source": "https://listenfestival.be/our-scene/visiting-molenbeat-finest-cheb-runner",
         "note": "2022 artist interview identifies Reda Senhaji as a Brussels-based Moroccan producer. His Tagnawit EP also engages Gnawa traditions with Brussels-based musicians; separate repertoire geography is included on the exact release."
+      }
+    ],
+    "7827847": [
+      {
+        "kind": "artist",
+        "relation": "Electronic production collaboration formed in",
+        "subject": "Data Memory Access",
+        "label": "Berlin",
+        "lon": 13.405,
+        "lat": 52.52,
+        "precision": "city",
+        "source": "https://trommelmusic.com/featured/rising-stars-data-memory-access/",
+        "note": "Interview with Giammarco Orsini and Jacopo Latini says they first worked together in the studio after Jacopo moved to Berlin in 2019. This is formation geography, not necessarily Hi-Tee EP recording."
       }
     ]
   },
