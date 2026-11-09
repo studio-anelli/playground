@@ -1,23 +1,19 @@
-# Remaining musical geography — 9 November 2026
+# Final musical geography pass — 9 November 2026
 
-Latest `main` (`5b4bcf2`) regenerated to **462 mapped / 148 unplaced copies**, rather than the 167 gaps in the request. All 148 remaining identities were searched in this pass.
+Started from current `main` (`2e1144c`). Used the existing review register and source structures; PR #92 was inspected for leads and not reused.
 
 | Result | Copies |
 | --- | ---: |
-| Investigated | 148 |
-| Newly mapped | 76 |
-| Still unresolved | 72 |
-| Music geography after regeneration | 538 / 610 (88.2%) |
+| Remaining records investigated | 72 / 72 |
+| Newly located | 45 |
+| Final musical geography | 583 / 610 (95.6%) |
+| Remaining unknown | 27 |
 | Edition-market geography | 600 / 610 |
 
-Added 75 reviewed relationships to the existing cultural source data; Bill Riley's evidence applies to two matching records. Artist bases, formative scenes, musical training, contributor associations and recording locations retain distinct labels. Compilation and remix findings name the relevant contributor; they do not assign that place to every musician. Later bases are identified as such.
+Added 45 sourced associations: artist bases, formative musical scenes, contributor careers, original repertoire and recording locations remain separately labelled. Matching artist identities reuse reliable evidence; compilations and remixes identify the particular contributor rather than inventing a common origin. Country and island/state precision are retained where appropriate. Sources include artist/label Bandcamp pages, MusicBrainz, archival label notes, interviews, specialist music archives and exact saved Discogs credits.
 
-Sources include Discogs profiles, MusicBrainz, first-party Bandcamp and label pages, artist interviews, the Museum of Canadian Music, Northwest Music Archives and Oklahoma Historical Society. The existing review register contains the record-level outcomes and URLs. The 72 residuals comprise 57 with no usable geography established, 12 unresolved compilation scopes and 3 unresolved/anonymous identities. Discogs API access became rate-limited after 26 artist profiles; external search and other sources continued. These outcomes describe a bounded, source-limited investigation, not proof that no documentation exists anywhere.
+The 27 unknowns comprise 23 artist identities without usable geographic evidence, two unresolved compilation scopes and two anonymous records. Specific reasons and source checks remain in the existing register. Examples include anonymous Armitage and Wilson releases, namesake ambiguity for Chris Energy and DJ Shy, Short Circuit and Ibiza studios without verified locations, and the distinct Paul Wittley compilation. Label addresses, mastering sites, pressing countries and genre were not used as substitutes.
 
-Examples include Enaune's 1995/96 Tallinn recordings; Music People's Vancouver sessions; Gold In The Shade's North West London scene; Bonfim's Porto collaboration; and Hipnotic's Philadelphia recording, separately from its New York mixing and Canadian release.
+Regenerated the map without changing its interface or interaction code. All 610 physical-copy identities and 608 distinct editions remain accessible, including the 27 unknowns. Essential geography, cultural-thread, full-collection, dataset, Worker, journey, rendering/payload performance, relationship and research-validation tests pass; production build passes. Geography payload: 872,095 bytes, within the existing 900 kB limit.
 
-Regenerated `origin-collection.json` and the Worker payload. All 610 copy identities and 608 editions remain present. Primary anchors cover 337 city, 23 region and 176 country-level editions.
-
-Validation: production build; geography completion, cultural threads, geography/pilot, dataset, collection research, full collection, geographic journey, Worker, rendering performance, payload performance, thread grouping and relationship-discovery tests pass. Existing playback test fixtures were missing current playback state/statistics stubs; these were supplied. The obsolete 700 kB payload ceiling already failed on main's 791,338-byte payload; the explicit ceiling is now 900 kB. The improved payload is 839,186 bytes (+6.0%); layout takes about 90 ms locally and cached layout reuse is preserved.
-
-Preview and PR status are recorded in the pull request. No automatic merge.
+The foundational geographic pass is complete. Further musical discoveries are left for selective, experience-driven exploration. The PR provides the working preview; no automatic merge.

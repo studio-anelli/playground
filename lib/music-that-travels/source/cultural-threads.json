@@ -2207,6 +2207,283 @@
         "note": "AllMusic identifies Ben Addison as a member of London-formed Corduroy. Ben Human alias corroborated at https://www.allmusic.com/artist/ben-addison-mn0001248491 . Early musical career association, not The Addison Tapes recording location.",
         "reviewed_at": "2026-11-09"
       }
+    ],
+    "2423839": [
+      {
+        "kind": "artist",
+        "relation": "Band and carnival scene in",
+        "subject": "Mandingo Brass",
+        "label": "St. Thomas",
+        "lon": -64.93,
+        "lat": 18.34,
+        "precision": "region",
+        "source": "https://viconsortium.com/mobile/vi-carnival/virgin-islands-mandingo-brass-founders-celebrated-as-carnival-village-opens-with-tribute-to-pinney-family-legacy",
+        "note": "Local reporting documents the Pinney brothers and Mandingo Brass in the St. Thomas carnival scene. Island precision; no origin assigned to the other side’s Infinite Love Experience.",
+        "reviewed_at": "2026-11-09"
+      }
+    ],
+    "1307268": [
+      {
+        "kind": "artist",
+        "relation": "Producer based in",
+        "subject": "Busy",
+        "label": "Maryland",
+        "lon": -76.7,
+        "lat": 39,
+        "precision": "region",
+        "source": "https://busymusic.bandcamp.com/",
+        "note": "Artist-operated page lists Busy in Maryland and includes the exact M0ths release in its discography. State precision, not pressing country.",
+        "reviewed_at": "2026-11-09"
+      }
+    ],
+    "106748": [
+      {
+        "kind": "artist",
+        "relation": "Members’ formative musical scene in",
+        "subject": "Force Of Nature / Nebula II members",
+        "label": "Nottingham",
+        "lon": -1.149,
+        "lat": 52.9548,
+        "precision": "city",
+        "source": "https://zone-magazine.eu/2026/03/08/feature-interview-nebula-ii/",
+        "note": "Interview names Joachim Shotter and Richard McCormack, their Nottingham performance scene and later Force Of Nature output. Exact Force Of Nature (2) members include both, Mark Shotter and Tony Thomas. Member scene, not The Ho’ Mixes studio.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://www.discogs.com/artist/106748"
+      }
+    ],
+    "31772": [
+      {
+        "kind": "artist",
+        "relation": "Musical project from",
+        "subject": "Tronikgatan / Don and Roel Funcken",
+        "label": "The Hague",
+        "lon": 4.3007,
+        "lat": 52.0705,
+        "precision": "city",
+        "source": "https://n5md.com/artist/Funckarma",
+        "note": "Label biography identifies the Funcken brothers’ Hague musical background and explicitly names Tronikgatan as their alias. Does not assign the same origin to D’Enborage.",
+        "reviewed_at": "2026-11-09"
+      }
+    ],
+    "187521": [
+      {
+        "kind": "artist",
+        "relation": "Band career associated with",
+        "subject": "Canute / Canute Edwards",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://jazzrocksoul.com/artists/linx/",
+        "note": "Archive identifies Canute Edwards as guitarist in London-formed Linx. Exact Canute identity is Canute Edwards. Band career association, not Amazing Mind’s studio.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://www.discogs.com/artist/187521"
+      }
+    ],
+    "48898": [
+      {
+        "kind": "artist",
+        "relation": "Member’s formative DJ and production scene in",
+        "subject": "Obscure FM — Mark van Dale / Marc Pols",
+        "label": "Rotterdam",
+        "lon": 4.4777,
+        "lat": 51.9244,
+        "precision": "city",
+        "source": "https://www.beatport.com/artist/mark-van-dale/30707",
+        "note": "Artist biography documents local clubs and radio in the Rotterdam area and explicitly identifies Michael Jackson Is In Heaven Now as his Obscure FM work. Not the other member’s origin.",
+        "reviewed_at": "2026-11-09"
+      }
+    ],
+    "8531": [
+      {
+        "kind": "artist",
+        "relation": "DJ associated with",
+        "subject": "Rude Bwoy Monty",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://leftlion.co.uk/legacy-content/2014/10/pick-of-the-week-halloween-special-2014-7055/",
+        "note": "Specialist local event reporting explicitly identifies the jungle DJ as a London artist. Not inferred from Frontline’s address or an NTS broadcast location.",
+        "reviewed_at": "2026-11-09"
+      }
+    ],
+    "24578": [
+      {
+        "kind": "artist",
+        "relation": "Producer’s working area",
+        "subject": "Argonic / Danny Casseau",
+        "label": "Belgium",
+        "lon": 4.5,
+        "lat": 50.8,
+        "precision": "country",
+        "source": "https://ra.co/dj/dannycasseau",
+        "note": "Artist profile identifies Argonic among Danny Casseau’s aliases and Belgium as his location. Country precision; not nationality or label address.",
+        "reviewed_at": "2026-11-09"
+      }
+    ],
+    "622368": [
+      {
+        "kind": "artist",
+        "relation": "Member’s working area",
+        "subject": "Heavy Disco — Ashley Beedle",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://ra.co/dj/ashleybeedle",
+        "note": "RA lists Ashley Beedle’s working location as United Kingdom; exact Super Jock release description identifies Heavy Disco as his project. Country precision; no London studio inferred.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://lighthouserecords.jp/?pid=63119148"
+      }
+    ],
+    "64486": [
+      {
+        "kind": "artist",
+        "relation": "Vocalist’s later musical activity in",
+        "subject": "Chemise / Rickie Byars",
+        "label": "Los Angeles",
+        "lon": -118.2437,
+        "lat": 34.0522,
+        "precision": "city",
+        "source": "https://rickiebyars.org/biography/",
+        "note": "AllMusic identifies Chemise with Rickie Byars. Her later career includes over thirty years directing Agape’s choir and ongoing Los Angeles devotional music. Later career connection, not the 1982 single’s recording location.",
+        "reviewed_at": "2026-11-09",
+        "reference_url": "https://lasentinel.net/rickie-byars-hosts-first-spiritual-retreat.html",
+        "identity_source": "https://www.allmusic.com/artist/chemise-mn0000106896"
+      }
+    ],
+    "6871014": [
+      {
+        "kind": "artist",
+        "relation": "Formative disco and house community in",
+        "subject": "Balearic Skip / Alex Olson",
+        "label": "New York City",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "precision": "city",
+        "source": "https://www.monsterchildren.com/articles/alex-olson-is-breathing-easy",
+        "note": "Olson describes discovering disco and house through Andy Brown after moving to New York. Exact release identifies Balearic Skip as Olson. Formative listening and DJ scene, not each edit’s studio.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://barracuda.oye-records.com/releases/balearic-skip-balearic-skip"
+      }
+    ],
+    "1854177": [
+      {
+        "kind": "artist",
+        "relation": "Performing career based in",
+        "subject": "Pamela Prati",
+        "label": "Rome",
+        "lon": 12.4964,
+        "lat": 41.9028,
+        "precision": "city",
+        "source": "https://vocalsound.it/artists/pamela-prati/",
+        "note": "Music-label biography documents her move to Rome and subsequent Bagaglino and television performance career, including recorded television themes. Career base, not birthplace or Mare’s studio.",
+        "reviewed_at": "2026-11-09"
+      }
+    ],
+    "50613": [
+      {
+        "kind": "artist",
+        "relation": "Producer based in",
+        "subject": "Knowledge & Wisdom / Terry T",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://knowledgeandwisdom.bandcamp.com/album/tales-from-the-jungle-album",
+        "note": "Artist-operated page credits production to Terry T, identifies his Knowledge and Wisdom project and lists London. Exact alias corroborated by NTS. Not simply a label-address inference.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://www.nts.live/artists/244600-terry-tee"
+      }
+    ],
+    "35404": [
+      {
+        "kind": "artist",
+        "relation": "Member’s musical scene in",
+        "subject": "Einzelgänger — Kabuki / Jan Hennig",
+        "label": "Frankfurt",
+        "lon": 8.6821,
+        "lat": 50.1109,
+        "precision": "city",
+        "source": "https://ra.co/events/128359",
+        "note": "Promoter biography describes Kabuki’s Frankfurt musical education and the Rhine-Main production community. Contemporary Precision artist biography names Einzelgänger among his units. Member scene, not the single’s recording studio.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://www.livegigs.de/events/precision-labelnight-777"
+      }
+    ],
+    "90091": [
+      {
+        "kind": "artist",
+        "relation": "Local musical activity in",
+        "subject": "Comtron",
+        "label": "Amsterdam",
+        "lon": 4.9041,
+        "lat": 52.3676,
+        "precision": "city",
+        "source": "https://www.paradiso.nl/programma/the-set-full-crate-x-mar-my-baby-video-release-party/131628",
+        "note": "Venue’s own event archive identifies Comtron as Bas Bron and Rimer London and includes them among local talents at its Amsterdam programme. Documented local musical activity, not an album recording location.",
+        "reviewed_at": "2026-11-09"
+      }
+    ],
+    "73566": [
+      {
+        "kind": "artist",
+        "relation": "Producer based in",
+        "subject": "Spirit Attack / Emmanuel Wilfert",
+        "label": "Belgium",
+        "lon": 4.5,
+        "lat": 50.8,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/75a17c29-7679-412d-b33c-e5d5a235aa08",
+        "note": "MusicBrainz identifies Spirit Attack as Emmanuel Wilfert’s performance name and explicitly describes the DJ/producer as Belgium-based. Country precision, not French birthplace or pressing market.",
+        "reviewed_at": "2026-11-09"
+      }
+    ],
+    "19848": [
+      {
+        "kind": "artist",
+        "relation": "Member’s rave and garage scene in",
+        "subject": "New Jack Pimps — Jason Kaye",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://ukf.com/read/a-tribute-to-jason-kaye/",
+        "note": "Tribute documents Kaye’s musical work in London’s rave and garage scenes. DJ Mag identifies him as half of New Jack Pimps. Member’s scene, not a specific Water Jelly session.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://djmag.com/news/jason-kaye-influential-uk-hardcore-and-garage-dj-has-died"
+      }
+    ],
+    "137201": [
+      {
+        "kind": "artist",
+        "relation": "Member’s DJ residency and musical scene in",
+        "subject": "S.L.M. — Darren Jay",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://www.lastnightadjsavedmylife.org/darrenjay/",
+        "note": "Artist partner biography documents London’s Asylum, Rage and AWOL residencies. Exact S.L.M. membership identifies Darren Jay and DJ Yomi. Member’s scene, not necessarily both members’ origins.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://www.dnbhq.com/artist/137201"
+      }
+    ],
+    "28885": [
+      {
+        "kind": "artist",
+        "relation": "Producer based in",
+        "subject": "Fun Boy Flynn / DJ Q / Paul Flynn",
+        "label": "Glasgow",
+        "lon": -4.2518,
+        "lat": 55.8642,
+        "precision": "city",
+        "source": "https://musicbase.net/dj-q",
+        "note": "Artist profile identifies DJ Q / Paul Flynn as a Glasgow DJ and producer and Fun Boy Flynn as his alias. Under The Counter’s distributor also explicitly links the alias to DJ Q. Not the unrelated Huddersfield DJ Q.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://www.forcedexposure.com/Labels/UNDER.THE.COUNTER.UK.html"
+      }
     ]
   },
   "releases": {
@@ -2834,6 +3111,399 @@
         "source": "https://www.soundonsound.com/people/squarepusher",
         "note": "Interview documents Jenkinson’s early cassette and sound experiments in Chelmsford. Exact Vogon & I contribution verified at https://www.cpvinyl.com/items/64608857 . Participant’s musical development only, not the whole compilation or studio location.",
         "reviewed_at": "2026-11-09"
+      }
+    ],
+    "240699": [
+      {
+        "kind": "artist",
+        "relation": "Sound-system scene in",
+        "subject": "Ackie / Chesse Roots",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://www.serendeepity.net/product/ackie-chesse-roots-call-me-rambo/",
+        "note": "Reissue notes connect Ackie and Chester/Chesse Roots to Heavyweight sound system in Wood Green and Tottenham, North London. Scene association, not a recording address or reissue market.",
+        "reviewed_at": "2026-11-09"
+      }
+    ],
+    "22284061": [
+      {
+        "kind": "recording",
+        "relation": "Original recordings made in",
+        "subject": "Nadie La Fond / Embryo — original repertoire",
+        "label": "Port of Spain",
+        "lon": -61.5189,
+        "lat": 10.6603,
+        "precision": "city",
+        "source": "https://www.bear-family.com/dealer_pdf/ccd1209_e.pdf",
+        "note": "Cree’s archival notes locate the 1975–1981 originals in Port of Spain. The owned EP includes 3 Way Situation, Wanna Believe In Love, Wajang Woman and Easy Breezy from this repertoire. Source recordings, not the later edit sessions.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://www.merchbar.com/albums/lafond-nadie-embryo/nappy-music-man-edits"
+      }
+    ],
+    "20336797": [
+      {
+        "kind": "artist",
+        "relation": "Contributing editor based in",
+        "subject": "Disco Hamam 7 — Tushen Raï",
+        "label": "Lyon",
+        "lon": 4.8357,
+        "lat": 45.764,
+        "precision": "city",
+        "source": "https://le-sucre.eu/artists/tushen-rai/",
+        "note": "Venue biography places Tushen Raï in Lyon. Exact compilation credits him on Balü; only this contributor is located, not every edit or the source songs.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://wordandsound.net/release/128451-discohamam07-Various-Artists-Disco-Hamam-7"
+      }
+    ],
+    "554183": [
+      {
+        "kind": "artist",
+        "relation": "Contributor’s early DJ and radio scene in",
+        "subject": "Black Edition — Erik Ypma / E-Noid",
+        "label": "Lelystad",
+        "lon": 5.4714,
+        "lat": 52.5185,
+        "precision": "city",
+        "source": "https://www.djguide.nl/djinfo.p?djid=5828",
+        "note": "Saved exact-release credits name composer Erik Ypma. Biography identifies his Dione / E-Noid alias and early parties and local radio work in Lelystad. Contributor’s formative activity, not common compilation origin.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://www.discogs.com/release/554183"
+      }
+    ],
+    "9919633": [
+      {
+        "kind": "artist",
+        "relation": "Contributing producer based in",
+        "subject": "Freedom Is Rising — Mézigue",
+        "label": "Paris",
+        "lon": 2.3522,
+        "lat": 48.8566,
+        "precision": "city",
+        "source": "https://le-sucre.eu/artists/mezigue/",
+        "note": "Artist profile locates Mézigue in Paris. His contribution is Il Faudra Remercier Pierre; other contributors are not assigned a common origin.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://music.amazon.in/albums/B0GQ1LZLV3"
+      }
+    ],
+    "201255": [
+      {
+        "kind": "artist",
+        "relation": "Remixer based in",
+        "subject": "Gwarn — Tek 9 / Dego",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://tek9.bandcamp.com/",
+        "note": "Reuses the artist’s verified London base. Owned Flex remix pairs Dynamite Mix with Tek 9 Remix. Remixer’s base, not necessarily Three Disciples or the studio.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://junglemaniarecords.com/product/three-disciples-%E2%80%8E-gwarn-remix-10-flex-records/"
+      }
+    ],
+    "25199035": [
+      {
+        "kind": "recording",
+        "relation": "Recorded at",
+        "subject": "T. J. Johnson Band — I Can Make It",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://www.discogs.com/release/25199035",
+        "note": "Saved exact-release Discogs credits name Lansdowne Studios. Planning-history documentation locates the studio at Lansdowne House, Holland Park, London. City precision, not a precise building coordinate.",
+        "reviewed_at": "2026-11-09",
+        "venue": "Lansdowne Studios",
+        "location_source": "https://www.minutes.haringey.gov.uk/documents/s27760/2012_0929%20PC%20Report.pdf"
+      }
+    ],
+    "254459": [
+      {
+        "kind": "artist",
+        "relation": "Remixer’s musical scene in",
+        "subject": "Jeopardy — Audio / Gareth Greenall",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://esp-agency.com/audio",
+        "note": "Booking biography identifies Gareth Greenall as the South London producer Audio. Applies to the explicitly titled Audio Remix, not Nightwalker’s birthplace or original sessions.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://www.discogs.com/release/254459"
+      }
+    ],
+    "910642": [
+      {
+        "kind": "artist",
+        "relation": "Featured ensemble based in",
+        "subject": "Beyond The Valley Of The Superbeats — Archie Whitewater",
+        "label": "New York City",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "precision": "city",
+        "source": "https://www.lpcdreissues.com/item/archie-whitewater-2",
+        "note": "Archival reissue notes identify Archie Whitewater as a New York ensemble. Exact PP102 compilation includes Cross Country at A5. Participant association only.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://ticro.com/products/v00007408"
+      }
+    ],
+    "313021": [
+      {
+        "kind": "repertoire",
+        "relation": "Source band formed in",
+        "subject": "Barefoot Boogie — T-Connection source repertoire",
+        "label": "Nassau",
+        "lon": -77.3554,
+        "lat": 25.0443,
+        "precision": "city",
+        "source": "https://www.allmusic.com/artist/t-connection-mn0000004553",
+        "note": "Dante’s Do Whatcha Wanna is documented as a reworking of T-Connection’s Do What You Wanna Do. Locates the original band’s formation, not the editor or edit studio.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://glocalrecords.com/?keyword=DAVID+MANCUSO&page=4"
+      }
+    ],
+    "51304": [
+      {
+        "kind": "artist",
+        "relation": "Featured group formed in",
+        "subject": "Let The Breaks Roll — A Tribe Called Quest",
+        "label": "New York City",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "precision": "city",
+        "source": "https://www.wikidata.org/wiki/Q300602#P740",
+        "note": "Reuses formation evidence for Discogs artist 3268, already mapped for Midnight Marauders. Exact 01241-42578-1 includes 1nce Again and I Left My Wallet In El Segundo. Contributor association, not common compilation or remix origin.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://www.jungle-exotica.com/products/detail/9622"
+      }
+    ],
+    "55665": [
+      {
+        "kind": "artist",
+        "relation": "Featured band’s formative scene in",
+        "subject": "Bag Of Goodies — Mickey & The Soul Generation",
+        "label": "San Antonio",
+        "lon": -98.4936,
+        "lat": 29.4241,
+        "precision": "city",
+        "source": "https://numerogroup.com/products/give-everybody-some",
+        "note": "Archival label notes document the band in San Antonio and their Iron Leg recording. Iron Leg appears on original and reissue LHLP001 tracklists. Contributor scope, not all compilation artists.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://ticro.com/en/products/v00001913"
+      }
+    ],
+    "10579142": [
+      {
+        "kind": "artist",
+        "relation": "Remixer’s working area",
+        "subject": "Chimicalissimo — Black Spuma / Lauer",
+        "label": "Germany",
+        "lon": 10.4515,
+        "lat": 51.1657,
+        "precision": "country",
+        "source": "https://ra.co/dj/lauer",
+        "note": "Label’s exact PERMVAC159-1 tracklist identifies Black Spuma Remix. RA identifies Lauer’s Black Spuma alias and Germany location. Country precision, one remixer member, not Argoman’s origin.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://perm-vac.bandcamp.com/album/chimicalissimo"
+      }
+    ],
+    "62559": [
+      {
+        "kind": "artist",
+        "relation": "Contributing writer based in",
+        "subject": "Space 3001 — CJ Bolland",
+        "label": "Antwerp",
+        "lon": 4.4025,
+        "lat": 51.2194,
+        "precision": "city",
+        "source": "https://musicbrainz.org/artist/8ab9a62f-b8e6-4719-8e0a-0f9ea94b1955",
+        "note": "MusicBrainz explicitly identifies CJ Bolland as Antwerp-based. Exact owned remix release credits him as writer. Applies to this contributor, not every Space Opera member or all remix sessions.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://www.discogs.com/release/62559"
+      }
+    ],
+    "13479375": [
+      {
+        "kind": "artist",
+        "relation": "Producer’s formative professional scene in",
+        "subject": "I Wanna Feel Your Love — Reggie Lucas",
+        "label": "New York City",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "precision": "city",
+        "source": "https://reggielucas.com/index.php/bio",
+        "note": "Lucas’s own biography documents his early professional guitar work in NYC clubs before Philadelphia and later production career. Saved exact-release credits identify him as producer. Musical-career association, not Candy Bowman’s origin or studio.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://www.discogs.com/release/13479375"
+      }
+    ],
+    "1537500": [
+      {
+        "kind": "recording",
+        "relation": "Recorded at",
+        "subject": "Plush — Allen Zentz sessions",
+        "label": "Los Angeles",
+        "lon": -118.2437,
+        "lat": 34.0522,
+        "precision": "city",
+        "source": "https://www.discogs.com/release/1537500",
+        "note": "Saved exact-release Discogs recording-company credits name Allen Zentz Recording, distinct from mastering. Mix’s studio history locates it in Hollywood. This covers the Allen Zentz sessions; Media West sessions remain unlocated.",
+        "reviewed_at": "2026-11-09",
+        "venue": "Allen Zentz Recording",
+        "location_source": "https://www.mixonline.com/recording/la-grapevine-june-2009-367426"
+      }
+    ],
+    "283733": [
+      {
+        "kind": "artist",
+        "relation": "Featured producer’s associated area",
+        "subject": "Renegade Selector — Studio Pressure / Photek",
+        "label": "United Kingdom",
+        "lon": -2,
+        "lat": 54,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0",
+        "note": "Reuses verified Photek area and MusicBrainz alias link to Studio Pressure. Exact ANIMATE1LP includes Jump MKII. Country precision; not common compilation origin.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://musicbase.net/renegade-selector-series-1"
+      }
+    ],
+    "10912777": [
+      {
+        "kind": "artist",
+        "relation": "Contributing producer’s working area",
+        "subject": "VA Electro — Luke Eargoggle",
+        "label": "Sweden",
+        "lon": 15,
+        "lat": 62,
+        "precision": "country",
+        "source": "https://ra.co/dj/lukeeargoggle",
+        "note": "RA identifies the artist’s Sweden location. Exact RDE001 tracklist names Luke Eargoggle and Johan Inkinen on I Program. Contributor area, not the label’s Icelandic address or all tracks.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://wordandsound.net/release/126564-RDE001-Various-Artists-VA-Electro"
+      }
+    ],
+    "10887542": [
+      {
+        "kind": "artist",
+        "relation": "Editor’s underground scene in",
+        "subject": "Fallen Heroes Vol.1 — Gay Marvine edits",
+        "label": "Detroit",
+        "lon": -83.0458,
+        "lat": 42.3314,
+        "precision": "city",
+        "source": "https://www.newtone-records.com/category/PRINCE",
+        "note": "Exact FIX18 description identifies the edits with Gay Marvine and Detroit’s underground. Boomkat independently credits Gay Marvine for the same EP. Editor’s scene, not Prince’s source-recording geography.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://boomkat.com/products/fallen-heroes-vol-1"
+      }
+    ],
+    "533275": [
+      {
+        "kind": "artist",
+        "relation": "Remixer’s working area",
+        "subject": "Blackmailing — D-Passion",
+        "label": "Netherlands",
+        "lon": 5.2913,
+        "lat": 52.1326,
+        "precision": "country",
+        "source": "https://musicbrainz.org/artist/0d202011-2095-497a-adc8-42e2d7bad392",
+        "note": "MusicBrainz records D-Passion’s Netherlands associated area. Exact single includes his Blackmailing remix, also documented by the label’s archive. Country precision, not Hectic Fence’s origin.",
+        "reviewed_at": "2026-11-09",
+        "reference_url": "https://thirdmovement.bandcamp.com/track/blackmailing-d-passion-remix-2",
+        "identity_source": "https://www.beatport.com/nl/release/blackmailing/220998"
+      }
+    ],
+    "14460113": [
+      {
+        "kind": "artist",
+        "relation": "Contributing musician’s musical activity in",
+        "subject": "Free Rythms Dance — Keno Speller",
+        "label": "Paris",
+        "lon": 2.3522,
+        "lat": 48.8566,
+        "precision": "city",
+        "source": "https://www.selmer.fr/blogs/artistes/byard-lancaster",
+        "note": "Saved exact-release credits identify percussionist Keno Speller. Selmer’s musician biography documents his collaboration with Byard Lancaster in Paris in the 1970s. Contributor scope; does not assume that this record and a similarly named dance school are identical.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://www.discogs.com/release/14460113"
+      }
+    ],
+    "11705722": [
+      {
+        "kind": "recording",
+        "relation": "Recorded at",
+        "subject": "Cynthia Bhikharie — original sessions",
+        "label": "Paramaribo",
+        "lon": -55.2038,
+        "lat": 5.852,
+        "precision": "city",
+        "source": "https://www.discogs.com/release/11705722",
+        "note": "Saved exact-release recording-company credit explicitly names Ventu Studio Paramaribo Suriname. The archival label also lists Cynthia in Paramaribo. Original recordings, not the Netherlands reissue’s cutting or remastering.",
+        "reviewed_at": "2026-11-09",
+        "venue": "Ventu Studio Paramaribo Suriname",
+        "location_source": "https://vintagevoudou.bandcamp.com/"
+      }
+    ],
+    "258314": [
+      {
+        "kind": "artist",
+        "relation": "Contributing programmer based in",
+        "subject": "Tell Her — Dego",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://tek9.bandcamp.com/",
+        "note": "Reuses verified Dego / Tek 9 London base. Exact Tell Her description credits drum programming to Dego and Domu. Applies to programmer Dego only, not a claim about Cosmosis’s origin or the label’s address.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://mole-music.com/?cbid=2285890&csid=0&mode=cate&page=8&sort=n"
+      }
+    ],
+    "1623945": [
+      {
+        "kind": "artist",
+        "relation": "Featured musician’s cultural connection to",
+        "subject": "Stereo Test — Al Hirt excerpt",
+        "label": "New Orleans",
+        "lon": -90.0715,
+        "lat": 29.9511,
+        "precision": "city",
+        "source": "https://musicrising.tulane.edu/discover/people/al-hirt/",
+        "note": "Tulane’s music archive documents Hirt’s New Orleans jazz career and hometown significance. Exact Capri test LP includes his Saints at B2. Contributor connection only; sound effects and other excerpts remain unlocated.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://akerrecords.nl/product/no-artist-stereo-test-sound-effects-stereo-demonstratie-geluids-effecten-lp-3/"
+      }
+    ],
+    "331602": [
+      {
+        "kind": "artist",
+        "relation": "Featured vocal duo formed in",
+        "subject": "Just Us — Two Tons o’ Fun",
+        "label": "San Francisco",
+        "lon": -122.4194,
+        "lat": 37.7749,
+        "precision": "city",
+        "source": "https://www.allmusic.com/artist/two-tons-o-fun-mn0000201946",
+        "note": "Biography documents San Francisco vocal duo Two Tons o’ Fun and their Just Us recording. Exact BD-902 catalogue listing attributes the lead track to Two Tons. Participant only; no common origin assigned to the other sides or an uncredited editor.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://megamix.ocnk.net/"
+      }
+    ],
+    "2309936": [
+      {
+        "kind": "artist",
+        "relation": "Featured vocal ensemble formed in",
+        "subject": "Wanted Dead Or Alive / Little People — The Voices Of East Harlem",
+        "label": "New York City",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "precision": "city",
+        "source": "https://www.allmusic.com/artist/the-voices-of-east-harlem-mn0000228071",
+        "note": "Archive documents New York formation. The first two compilation tracks match the Voices recordings and the exact saved Eugene Dixon / James Thompson writing credits. Only this ensemble is located; Ann Alford and the Vibrettes are not assigned the same origin.",
+        "reviewed_at": "2026-11-09",
+        "identity_source": "https://www.allmusic.com/album/the-voices-of-east-harlem-mw0000845376"
       }
     ]
   }
