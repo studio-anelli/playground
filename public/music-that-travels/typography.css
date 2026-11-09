@@ -1,0 +1,48 @@
+/* Match the Playground shell: Era for editorial/UI, Alpina for technical data. */
+@font-face {
+  font-family: "GT Era Text";
+  src: url("https://anelli.studio/wp-content/uploads/2026/09/GT-Era-Text-Light.woff") format("woff");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "GT Alpina Typewriter";
+  src: url("https://anelli.studio/wp-content/uploads/2022/08/GT-Alpina-Typewriter-Regular.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+:root {
+  --ui-sans: "GT Era Text", Arial, Helvetica, sans-serif;
+  --ui-mono: "GT Alpina Typewriter", "Courier New", Courier, monospace;
+}
+body, button, input, select, textarea, svg text {
+  font-family: var(--ui-sans);
+  font-weight: 300;
+  font-synthesis: none;
+}
+h1, h2, h3, h4, strong, b, .brand, .panel-title, .shelf-grid strong,
+.thread-focus strong, .supporting-claim strong {
+  font-family: var(--ui-sans);
+  font-weight: 300;
+}
+/* Explicit families replace SVG and legacy font shorthand declarations. */
+.country-label, .city-label, .cluster-label, .thread-map-label, .selected-cover-title {
+  font-family: var(--ui-sans);
+  font-weight: 300;
+}
+.mono, code, pre, .number, .thread-card .thread-kind, .thread-period, .regional-label,
+.footer, footer, #collectionCount, #levelNote, #filterNote, #shelfPage,
+.coverage-detail, .coverage-detail small, .audio-mode-note {
+  font-family: var(--ui-mono);
+  font-weight: 400;
+}
+
+/* Keep the map masthead compact as the viewport narrows. */
+.header-brand {
+  min-width: 0;
+}
+.header-brand .brand {
+  font-size: clamp(18px, 1.6vw, 22px);
+}
