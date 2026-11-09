@@ -48,7 +48,7 @@ jobs:
           python lib/music-that-travels/research/pipeline.py validate
           python lib/music-that-travels/tests/research-method.py
           node lib/music-that-travels/tests/geography-completion.mjs
-          find lib/music-that-travels/tests -maxdepth 1 -name '*.mjs' ! -name 'geography-completion.mjs' -print0 | sort -z | xargs -0 -r -n1 node
+          (cd lib/music-that-travels && find tests -maxdepth 1 -name '*.mjs' ! -name 'geography-completion.mjs' -print0 | sort -z | xargs -0 -r -n1 node)
           node lib/music-that-travels/audit-geographic-coverage.mjs > /tmp/music-geography-audit.json
           python - <<'PY'
           import json
