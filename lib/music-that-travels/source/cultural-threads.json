@@ -491,14 +491,14 @@
     "74653": [
       {
         "kind": "artist",
-        "relation": "House production and DJ career established in",
+        "relation": "House producer active in",
         "subject": "DJ Kent",
-        "label": "Johannesburg",
-        "lon": 28.0473,
-        "lat": -26.2041,
-        "precision": "city",
+        "label": "South Africa",
+        "lon": 22.9375,
+        "lat": -30.5595,
+        "precision": "country",
         "source": "https://www.afrisson.com/in-the-bush/",
-        "note": "Afrisson identifies Khensani Mabaso as DJ Kent and the exact In The Bush 2003 release. Independent DJ profile locates his house career in Johannesburg; not a specific recording address."
+        "note": "Afrisson documents the exact In The Bush release and identifies DJ Kent as South African, from Pimville, Soweto. Place of birth alone does not prove musical formation or recording in Johannesburg. The source establishes South African house work, so the geographic association is retained at country precision; the recording site is unknown."
       }
     ],
     "91058": [
