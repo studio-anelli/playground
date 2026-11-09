@@ -114,6 +114,91 @@
       ],
       "identity_reviewed": false,
       "scope_reviewed": false
+    },
+    {
+      "id": "scan01-shabaka-jazz",
+      "relation": "shared_contributor",
+      "status": "candidate",
+      "endpoints": [
+        {
+          "kind": "owned_release",
+          "release_id": "9072898",
+          "role": "performer"
+        },
+        {
+          "kind": "owned_release",
+          "release_id": "12716187",
+          "role": "performer"
+        }
+      ],
+      "track_scope": "Shabaka Hutchings: tenor saxophone on Black Focus; B1–B5 on Universal Beings. Confirm editions and tracks.",
+      "question": "Verify the exact credited saxophone parts on both editions, and investigate any broader creative network without implying a shared session.",
+      "source_ids": [
+        "discogs-releases-9072898",
+        "p2-discogs-releases-12716187"
+      ],
+      "source_urls": [
+        "https://www.allmusic.com/artist/shabaka-mn0001092571"
+      ],
+      "identity_reviewed": false,
+      "scope_reviewed": false
+    },
+    {
+      "id": "scan01-nkono-afrofunk",
+      "relation": "shared_contributor",
+      "status": "candidate",
+      "endpoints": [
+        {
+          "kind": "owned_release",
+          "release_id": "25267285",
+          "role": "arranger"
+        },
+        {
+          "kind": "owned_release",
+          "release_id": "26572889",
+          "role": "producer"
+        }
+      ],
+      "track_scope": "Only You: instrumental arrangement and instruments; Love Vibration: producer/writer (confirm version matching).",
+      "question": "Check original recording credits for the two editions and distinguish original recording history from 2023 reissue mastering.",
+      "source_ids": [
+        "discogs-releases-25267285",
+        "discogs-releases-26572889"
+      ],
+      "source_urls": [
+        "https://nkonoteles.bandcamp.com/album/love-vibration"
+      ],
+      "identity_reviewed": false,
+      "scope_reviewed": false
+    },
+    {
+      "id": "scan01-pino-stopbajon",
+      "relation": "shared_contributor",
+      "status": "candidate",
+      "endpoints": [
+        {
+          "kind": "owned_release",
+          "release_id": "1244858",
+          "role": "performer"
+        },
+        {
+          "kind": "owned_release",
+          "release_id": "5030835",
+          "role": "composer"
+        }
+      ],
+      "track_scope": "Pino Daniele: guitar/songwriting/production on Nero A Metà; writing/arrangement for Stop Bajon.",
+      "question": "Verify both pressing credits and separate Pino's Stop Bajon composition/performance from Willy David's production credit; no shared studio inferred.",
+      "source_ids": [
+        "discogs-releases-1244858",
+        "p2-discogs-releases-5030835"
+      ],
+      "source_urls": [
+        "https://www.pinodaniele.com/miscellaneous/1983-2/",
+        "https://napoli.corriere.it/notizie/spettacoli/24_maggio_15/tullio-de-piscopo-40-anni-di-stop-bajon-ff3a4987-4956-4758-b8d8-4323948d2xlk.shtml"
+      ],
+      "identity_reviewed": false,
+      "scope_reviewed": false
     }
   ]
 }
