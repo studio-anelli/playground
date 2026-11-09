@@ -21,7 +21,7 @@ class RelationshipTests(unittest.TestCase):
 
     def test_existing_queue_is_valid_and_not_published(self):
         self.assertEqual(validate_queue(self.queue, self.coll, self.ledger), [])
-        self.assertEqual(len(self.queue['leads']), 4)
+        self.assertGreaterEqual(len(self.queue['leads']), 7)
         self.assertTrue(all(x['status'] == 'candidate' for x in self.queue['leads']))
         self.assertEqual(summary(self.queue, self.coll, self.ledger)['by_status']['verified'], 0)
 
