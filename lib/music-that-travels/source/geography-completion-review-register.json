@@ -6,14 +6,14 @@
   "copy_count": 610,
   "queue_count": 257,
   "outcome_counts": {
-    "accepted_geography": 90,
-    "verification_pending": 167,
+    "accepted_geography": 98,
+    "verification_pending": 159,
     "reviewed_no_evidence": 0,
     "identity_unresolved": 0,
     "compilation_scope_unresolved": 0,
     "conflicting_evidence": 0
   },
-  "method_note": "No evidence-based location is inferred from artist nationality, titles, edition country, labels or genre. Unadjudicated pending, not absence established.",
+  "method_note": "All 257 records tracked, source-backed geographic claims accepted and other cases still not exhausted. Generated map and preview require independent CI verification.",
   "records": [
     {
       "release_id": 25466773,
@@ -33,7 +33,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -68,7 +68,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -89,7 +89,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -124,7 +124,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -135,8 +135,10 @@
           "lon": 5.2913,
           "lat": 52.1326,
           "precision": "country",
-          "source": "https://clone.nl/instock/label/4lux",
-          "note": "Clone record-store credits for the exact Machine Shop Naked Lunch attribute all five tracks to producer Gerd; RA identifies Gerd/Gert-Jan Bijl as Netherlands-based. Country-level producer association, not 4Lux label address or recording studio.",
+          "source": "https://www.newtone-records.com/label/4%2BLux",
+          "note": "The specialist label discography explicitly identifies Machine Shop's exact Naked Lunch as a project of 4Lux founder Gerd. Resident Advisor separately places Gerd in the Netherlands. The artist alias-to-person and national musical base therefore require BOTH cited sources; neither the Rotterdam label office nor a recording studio is inferred.",
+          "identity_source": "https://www.newtone-records.com/label/4%2BLux",
+          "location_source": "https://ra.co/dj/gerd",
           "artist_id": 115967
         }
       ]
@@ -159,7 +161,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -194,7 +196,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -228,7 +230,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -263,7 +265,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -284,7 +286,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "existing review did not substantiate a place",
+      "reason": "Earlier review lacked accepted place evidence; not exhausted",
       "last_checked": null
     },
     {
@@ -305,7 +307,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -340,7 +342,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -375,7 +377,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -410,7 +412,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -431,7 +433,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -466,7 +468,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -492,7 +494,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -513,7 +515,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -539,7 +541,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -560,7 +562,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -581,7 +583,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -616,7 +618,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -651,7 +653,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -686,7 +688,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -707,7 +709,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -742,7 +744,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -777,7 +779,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -812,7 +814,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -833,7 +835,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "unidentified musical creator",
+      "reason": "Creator unresolved",
       "last_checked": null
     },
     {
@@ -854,7 +856,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -875,7 +877,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -910,7 +912,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -931,7 +933,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -952,7 +954,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -973,7 +975,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1008,7 +1010,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -1029,7 +1031,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -1055,7 +1057,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1090,7 +1092,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1130,7 +1132,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1165,7 +1167,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1205,7 +1207,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1245,7 +1247,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -1266,7 +1268,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1301,7 +1303,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1336,7 +1338,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1371,7 +1373,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -1392,7 +1394,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1438,7 +1440,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1473,7 +1475,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -1494,7 +1496,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1529,7 +1531,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1564,7 +1566,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "existing review did not substantiate a place",
+      "reason": "Earlier review lacked accepted place evidence; not exhausted",
       "last_checked": null
     },
     {
@@ -1585,7 +1587,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1620,7 +1622,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1655,7 +1657,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -1676,7 +1678,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1710,7 +1712,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1745,7 +1747,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -1766,7 +1768,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -1787,7 +1789,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -1808,7 +1810,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1842,7 +1844,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -1863,7 +1865,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1898,7 +1900,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -1919,7 +1921,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1954,7 +1956,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1994,7 +1996,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2015,7 +2017,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -2036,7 +2038,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2057,7 +2059,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2078,7 +2080,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2113,7 +2115,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2148,7 +2150,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2169,7 +2171,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2190,7 +2192,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2225,7 +2227,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -2246,7 +2248,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2267,7 +2269,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -2288,7 +2290,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2309,7 +2311,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -2330,7 +2332,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2370,7 +2372,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2417,7 +2419,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2436,10 +2438,26 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "L Double / Lee Johnson",
+          "relation": "Early jungle DJ and producer scene in",
+          "label": "Huddersfield",
+          "lon": -1.7833,
+          "lat": 53.6458,
+          "precision": "city",
+          "source": "https://www.generatormagazine.com/95_09s.pdf",
+          "note": "DNBHQ identifies L Double as Lee Johnson and indexes Music for the 90's; a contemporary 1995 jungle directory calls the same producer Huddersfield-based. Formation/work location, not studio. Both identity and geographic source are required.",
+          "identity_source": "https://www.dnbhq.com/artist/7731",
+          "location_source": "https://www.generatormagazine.com/95_09s.pdf",
+          "artist_id": 7731
+        }
+      ]
     },
     {
       "release_id": 9292116,
@@ -2459,7 +2477,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2494,7 +2512,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2515,7 +2533,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2536,7 +2554,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2557,7 +2575,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2578,7 +2596,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2599,7 +2617,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2620,7 +2638,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2641,7 +2659,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2676,7 +2694,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2710,7 +2728,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2731,7 +2749,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2766,7 +2784,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -2787,7 +2805,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2808,7 +2826,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2829,7 +2847,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2850,7 +2868,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -2871,7 +2889,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2906,7 +2924,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2941,7 +2959,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2976,7 +2994,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3011,7 +3029,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3037,7 +3055,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3084,7 +3102,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3105,7 +3123,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3139,7 +3157,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3160,7 +3178,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3181,7 +3199,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3202,7 +3220,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3248,7 +3266,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -3269,7 +3287,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3290,7 +3308,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3311,7 +3329,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3332,7 +3350,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3353,7 +3371,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3379,7 +3397,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3414,7 +3432,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3435,7 +3453,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3456,7 +3474,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "existing review did not substantiate a place",
+      "reason": "Earlier review lacked accepted place evidence; not exhausted",
       "last_checked": null
     },
     {
@@ -3477,7 +3495,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3498,7 +3516,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3519,7 +3537,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "existing review did not substantiate a place",
+      "reason": "Earlier review lacked accepted place evidence; not exhausted",
       "last_checked": null
     },
     {
@@ -3540,7 +3558,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -3561,7 +3579,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3582,7 +3600,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3617,7 +3635,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3652,7 +3670,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3673,7 +3691,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3708,7 +3726,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3743,7 +3761,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3778,7 +3796,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3799,7 +3817,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "existing review did not substantiate a place",
+      "reason": "Earlier review lacked accepted place evidence; not exhausted",
       "last_checked": null
     },
     {
@@ -3820,7 +3838,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3855,7 +3873,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -3876,7 +3894,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -3897,7 +3915,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3932,7 +3950,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "existing review did not substantiate a place",
+      "reason": "Earlier review lacked accepted place evidence; not exhausted",
       "last_checked": null
     },
     {
@@ -3953,7 +3971,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4004,7 +4022,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4023,10 +4041,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "Lata Ramasar",
+          "relation": "Hindustani musical tradition and early recordings in",
+          "label": "Trinidad and Tobago",
+          "lon": -61.2225,
+          "lat": 10.6918,
+          "precision": "country",
+          "source": "https://www.thevinylfactory.com/news/invisible-city-defy-bootleggers-to-give-super-rare-electronic-12-an-official-vinyl-release",
+          "note": "Vinyl Factory identifies Lata Ramasar as a Trinidad and Tobago Hindustani singer and the exact The Greatest Name That Lives record, citing the artist family's reissue; early family recordings reportedly occurred there, but this record's specific studio is not established.",
+          "artist_id": 3496975
+        }
+      ]
     },
     {
       "release_id": 15146925,
@@ -4046,7 +4078,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "unidentified musical creator",
+      "reason": "Creator unresolved",
       "last_checked": null
     },
     {
@@ -4067,7 +4099,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -4088,7 +4120,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4109,7 +4141,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4144,7 +4176,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -4170,7 +4202,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4205,7 +4237,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4231,7 +4263,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "existing review did not substantiate a place",
+      "reason": "Earlier review lacked accepted place evidence; not exhausted",
       "last_checked": null
     },
     {
@@ -4252,7 +4284,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4271,10 +4303,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "Makala Jazz Funk Band",
+          "relation": "Jazz-funk live group formed in",
+          "label": "Zarautz",
+          "lon": -2.169,
+          "lat": 43.284,
+          "precision": "city",
+          "source": "https://djmakala.wordpress.com/mjfb/",
+          "note": "Founder's account explicitly states Makala Jazz Funk Band comes from Zarautz, lists founding local musicians and names the 2015 Xake! debut. Group formation and scene, not an album studio assertion.",
+          "artist_id": 4153841
+        }
+      ]
     },
     {
       "release_id": 972054,
@@ -4294,7 +4340,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4341,7 +4387,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4362,7 +4408,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4383,7 +4429,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -4404,7 +4450,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4425,7 +4471,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -4444,10 +4490,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "Moon B / Wes Gray",
+          "relation": "Synth-funk production established in",
+          "label": "Atlanta",
+          "lon": -84.388,
+          "lat": 33.749,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/moon-b-mn0003033888",
+          "note": "AllMusic explicitly identifies Moon B as Wes Gray, a producer based in Atlanta during his early releases. Historical music base, not the recording location of III or a claim about current residence.",
+          "artist_id": 3056472
+        }
+      ]
     },
     {
       "release_id": 9872263,
@@ -4472,7 +4532,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4493,7 +4553,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4514,7 +4574,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4533,10 +4593,36 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "recording",
+          "relation": "Recorded and mixed partly in",
+          "subject": "Conga Square — Secada Mondatta",
+          "label": "New York City",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://paltoflats.com/release/conga-square-secada-mondatta/",
+          "coverage": "partial",
+          "note": "Original label explicitly credits recording and mixing by Davey Jewell in both NYC and Los Angeles. It does not allocate individual tracks to one of these two cities; both are retained."
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded and mixed partly in",
+          "subject": "Conga Square — Secada Mondatta",
+          "label": "Los Angeles",
+          "lon": -118.2437,
+          "lat": 34.0522,
+          "precision": "city",
+          "source": "https://paltoflats.com/release/conga-square-secada-mondatta/",
+          "coverage": "partial",
+          "note": "The same original label credits recording/mixing in NYC and LA, with no track-by-city breakdown. The separate German mastering/cutting location is not represented as music origin."
+        }
+      ]
     },
     {
       "release_id": 6774,
@@ -4556,7 +4642,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4591,7 +4677,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4612,7 +4698,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4633,7 +4719,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4654,7 +4740,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4689,7 +4775,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4724,7 +4810,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4750,7 +4836,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4771,7 +4857,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -4792,7 +4878,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4813,7 +4899,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4834,7 +4920,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4855,7 +4941,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4876,7 +4962,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4911,7 +4997,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4944,10 +5030,25 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "Electro and synth production career developed in",
+          "subject": "Quadratschulz / Carsten Schulz",
+          "label": "Hamburg",
+          "lon": 9.9937,
+          "lat": 53.5511,
+          "precision": "city",
+          "source": "https://ra.co/dj/quadratschulz-de/biography",
+          "identity_source": "https://quadratschulz.bandcamp.com/",
+          "note": "Resident Advisor gives both Hamburg musical base and Pudel Produkte 34: Remixes (the original queue's record); the producer's own Bandcamp lists that exact EP. No recording location inferred for the remixes.",
+          "artist_id": 99397
+        }
+      ]
     },
     {
       "release_id": 62559,
@@ -4967,7 +5068,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -4988,7 +5089,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5023,7 +5124,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5044,7 +5145,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5065,7 +5166,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5086,7 +5187,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5107,7 +5208,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -5128,7 +5229,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5174,7 +5275,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5195,7 +5296,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5216,7 +5317,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -5235,10 +5336,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "Detroit dance-label and production community in",
+          "subject": "Moonlighter / Rocksteady Disco",
+          "label": "Detroit",
+          "lon": -83.0458,
+          "lat": 42.3314,
+          "precision": "city",
+          "source": "https://rocksteadydisco.bandcamp.com/album/rsd009-moonlighter-ep",
+          "note": "The label's own page names Moonlighter as co-founder of Rocksteady Disco in Detroit and as the producer of this exact 2018 EP. Detroit is musical label/project association, not studio or proof of birthplace. Pressing at Archer in Detroit is NOT used for geography.",
+          "artist_id": 6429183
+        }
+      ]
     },
     {
       "release_id": 9288000,
@@ -5258,7 +5373,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5279,7 +5394,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5319,7 +5434,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5354,7 +5469,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5389,7 +5504,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5410,7 +5525,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5431,7 +5546,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5466,7 +5581,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5487,7 +5602,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5522,7 +5637,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5543,7 +5658,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5564,7 +5679,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5585,7 +5700,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5606,7 +5721,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5641,7 +5756,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5667,7 +5782,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5730,7 +5845,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "existing review did not substantiate a place",
+      "reason": "Earlier review lacked accepted place evidence; not exhausted",
       "last_checked": null
     },
     {
@@ -5751,7 +5866,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5772,7 +5887,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5793,7 +5908,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5833,7 +5948,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5868,7 +5983,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5889,7 +6004,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5910,7 +6025,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5931,7 +6046,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5957,7 +6072,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -5978,7 +6093,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "existing review did not substantiate a place",
+      "reason": "Earlier review lacked accepted place evidence; not exhausted",
       "last_checked": null
     },
     {
@@ -6004,7 +6119,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6030,7 +6145,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6056,7 +6171,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6077,7 +6192,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6098,7 +6213,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6119,7 +6234,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6140,7 +6255,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6161,7 +6276,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -6182,7 +6297,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6217,7 +6332,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -6238,7 +6353,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6259,7 +6374,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6280,7 +6395,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6301,7 +6416,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -6322,7 +6437,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6343,7 +6458,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6364,7 +6479,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6399,7 +6514,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "existing review did not substantiate a place",
+      "reason": "Earlier review lacked accepted place evidence; not exhausted",
       "last_checked": null
     },
     {
@@ -6420,7 +6535,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6441,7 +6556,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6462,7 +6577,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6502,7 +6617,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6523,7 +6638,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6558,7 +6673,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "existing review did not substantiate a place",
+      "reason": "Earlier review lacked accepted place evidence; not exhausted",
       "last_checked": null
     },
     {
@@ -6579,7 +6694,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -6600,7 +6715,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6621,7 +6736,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6642,7 +6757,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6661,10 +6776,26 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "Shirley Lites",
+          "relation": "Professional soul and dance-music career connected to",
+          "label": "Philadelphia",
+          "lon": -75.1652,
+          "lat": 39.9526,
+          "precision": "city",
+          "source": "https://www.nabfeme.org/philadelphia/",
+          "note": "The music industry organization identifies Shirley Lites and explicitly names Heat You Up/Melt You Down as her early record while documenting her long professional activity and leadership in Philadelphia. This is career geography, not a recording studio.",
+          "identity_source": "https://www.nabfeme.org/philadelphia/",
+          "location_source": "https://www.nabfeme.org/philadelphia/",
+          "artist_id": 31927
+        }
+      ]
     },
     {
       "release_id": 18579,
@@ -6684,7 +6815,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6719,7 +6850,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "unidentified musical creator",
+      "reason": "Creator unresolved",
       "last_checked": null
     },
     {
@@ -6740,7 +6871,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6775,7 +6906,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6810,7 +6941,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     },
     {
@@ -6831,7 +6962,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "reason": "At least one scoped musical geographic association is source-backed, other identities or tracks may remain unknown",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6866,7 +6997,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
+      "reason": "Identity/location source requires verification",
       "last_checked": null
     },
     {
@@ -6887,7 +7018,7 @@
       ],
       "outcome": "verification_pending",
       "evidence_state": "not_adjudicated",
-      "reason": "compilation requires track or concept sources",
+      "reason": "Compilation requires track-level origin or documented curation",
       "last_checked": null
     }
   ]
