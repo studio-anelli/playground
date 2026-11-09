@@ -90,3 +90,22 @@ node tests/research-display.mjs
 ```
 
 Next test a wholly independent collection using the same identity, role and scope contracts. Instrument source-reading intervals separately from implementation from the start, and retain unresolved cases rather than stretching facts to achieve full placement.
+
+## Typed relationship discovery (candidate queue)
+
+The separate `source/relationship-leads.json` queue stores **research questions**, not accepted musical facts. It currently seeds four leads from AUDIT-02: a Nuova Napoli cover and lyric-text adaptation, and sample leads for Moodymann and Kendrick Lamar. A candidate can refer to an external recording or work outside the owned collection; its exact source work or recording may still need confirmation.
+
+The `relationships.py` helper validates endpoint identity, HTTPS source leads, relation type, and track/side/version scope for samples, covers, lyric-text use and identical recordings. It deliberately **cannot** write to the accepted research ledger, publish geography or imply that similar titles, styles, label countries or common artists prove a sample or shared session. A status of `verified` in the candidate queue means a later human review must have matched scoped identities and dated read evidence; even then, a separate ledger acceptance review is required.
+
+From the repository root:
+
+```sh
+python lib/music-that-travels/research/relationships.py validate
+python lib/music-that-travels/research/relationships.py summary
+python lib/music-that-travels/research/relationships.py artist-leads --output /tmp/music-artist-leads.json
+python lib/music-that-travels/tests/research-relationships.py
+```
+
+`artist-leads` compares exact billed artist IDs across owned editions and suppresses known accepted/rejected endpoint pairs, unknown/various artists and release-specific identity exclusions. These are low-confidence **review prompts**, not accepted contributor connections. In particular, a common billed artist is not evidence that two records used the same recording, producer, session or sample. Track-specific guest contributors need separate structured-credit research; the current identity pass cannot claim to discover them exhaustively.
+
+A future evidence adjudication pass should write explicit accepted `sample`, `cover`, `lyric_text`, `shared_contributor`, `influence` and `same_recording` relationships with source independence, exact-version/track matching and appropriate external-work identifiers. The current code is intentionally offline and deterministic; it does not independently search music databases or validate a musical link by listening.
