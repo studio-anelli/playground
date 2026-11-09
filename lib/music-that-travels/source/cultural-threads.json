@@ -887,6 +887,19 @@
         "note": "Artist biography explicitly lists Alien Rebellion and documents Berlin residence and work with 3TH Records. Italo-Brazilian heritage is not represented as recording geography."
       }
     ],
+    "3315264": [
+      {
+        "kind": "artist",
+        "relation": "DJ and re-edit production career based in",
+        "subject": "Mori Ra",
+        "label": "Osaka",
+        "lon": 135.5023,
+        "lat": 34.6937,
+        "precision": "city",
+        "source": "https://ra.co/dj/morira/biography",
+        "note": "Resident Advisor biography explicitly identifies Mori Ra as an Osaka-based edit producer and lists the exact Oriental Forest (2016) release. Location applies to the producer, not sampled tracks."
+      }
+    ],
     "3320913": [
       {
         "kind": "artist",
@@ -1095,6 +1108,19 @@
         "precision": "city",
         "source": "https://acidjazz.co.uk/products/totally-wired",
         "note": "First-party label history dates the original 1988 compilation and identifies its curators Eddie Piller and Gilles Peterson and club-scene context. This is compilation curation geography, not a blanket London origin for all eleven contributing recordings."
+      }
+    ],
+    "11405284": [
+      {
+        "kind": "recording",
+        "relation": "Recorded in",
+        "subject": "Urban and Tribal Portraits — Roberto Musci and Giovanni Venosta",
+        "label": "Milan",
+        "lon": 9.19,
+        "lat": 45.4642,
+        "precision": "city",
+        "source": "https://www.squidco.com/miva/merchant.mvc?Category_Code=&Product_Code=01193&Screen=PROD&Store_Code=S",
+        "note": "ReR Megacorp combined-reissue documentation attributes tracks 10–18, specifically from the original Urban and Tribal Portraits album, to winter 1987–88 FX Studio sessions in Milan with Marco Vecchi. Does not transfer the separate Water Messages sessions to this album."
       }
     ],
     "11758168": [
