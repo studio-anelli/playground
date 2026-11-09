@@ -410,6 +410,19 @@
         "note": "RA identifies Alex Storrer's Zurich residency and directly lists the 2006 Sirocco/Slow Burning EP; a music base rather than a recording address."
       }
     ],
+    "40810": [
+      {
+        "kind": "artist",
+        "subject": "The Dream Team / Bizzy B and Pugwash",
+        "relation": "Jungle production duo formed and active in",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://www.capicherecords.co.uk/products/records/the-dream-team-like-dat-east-coast/",
+        "note": "Specialist discography identifies exact Dream Team London jungle duo (Bizzy B and Pugwash), matching Discogs artist identity. London is group scene, not a release-specific studio."
+      }
+    ],
     "43484": [
       {
         "kind": "artist",
@@ -541,6 +554,19 @@
         "precision": "city",
         "source": "https://www.somarecords.com/artists/octogen/",
         "note": "Soma Records biography under Bernardi's Octogen alias documents his Glasgow early music work and links him by real name. Not the recording place of Mystery Of Nazerus remixes."
+      }
+    ],
+    "153541": [
+      {
+        "kind": "artist",
+        "subject": "STL / Stephan Laubner",
+        "relation": "Underground house and electronic production based in",
+        "label": "Harz Mountains",
+        "lon": 10.5,
+        "lat": 51.75,
+        "precision": "region",
+        "source": "https://ra.co/dj/stl",
+        "note": "Resident Advisor directly identifies STL as Stephan Laubner and links its 2010 interview describing him as Harz-based. Harz is a region, not a precise studio or a city inferred from Berlin gigs."
       }
     ],
     "156256": [
@@ -866,6 +892,19 @@
         "precision": "city",
         "source": "https://www.soundbetter.com/profiles/132604-daniele-mana",
         "note": "Producer self-profile gives Turin location and release history under Mana; RA verifies exact Seven Steps Behind is Daniele Mana's Hyperdub album. Residence/production base, not recording studio."
+      }
+    ],
+    "1384616": [
+      {
+        "kind": "artist",
+        "subject": "First Touch",
+        "relation": "Boogie and disco production project based in",
+        "label": "Germany",
+        "lon": 10.4515,
+        "lat": 51.1657,
+        "precision": "country",
+        "source": "https://firsttouch.bandcamp.com/",
+        "note": "First-party artist Bandcamp lists Germany and exact Sofea release. No reliable narrower city or recording address was provided."
       }
     ],
     "1462144": [
@@ -1230,6 +1269,19 @@
         "precision": "city",
         "source": "https://www.toytonics.de/2021/05/28/delfonic-kapote-illegal-jazz-vol-4-ijr004/",
         "note": "First-party Toy Tonics documents Kapote / Mathias Modica's Illegal Jazz partnership as part of its Berlin-based production culture. Collaborative re-edit scene not a studio location."
+      }
+    ],
+    "4563518": [
+      {
+        "kind": "artist",
+        "subject": "John Bence",
+        "relation": "Early composition and electronic-music practice developed in",
+        "label": "Bristol",
+        "lon": -2.5879,
+        "lat": 51.4545,
+        "precision": "city",
+        "source": "https://www.cafeoto.co.uk/artists/john-bence/",
+        "note": "Cafe OTO's presenter biography explicitly connects the composer with Bristol's electronic music culture and names Disquiet. Not a source for the studio of the recorded EP."
       }
     ],
     "5080597": [
@@ -1638,6 +1690,19 @@
         "precision": "city",
         "source": "https://acabine.pt/2020/07/luar-domatrix-baia-stamina/",
         "note": "Portuguese music journalism and label material identify Luar Domatrix as Rudi Brito and explicitly state the record was composed/produced in Glasgow, after later return to Lisbon. This is exact-release production geography."
+      }
+    ],
+    "20311276": [
+      {
+        "kind": "recording",
+        "relation": "Original 1960 West Side Story album session recorded in",
+        "subject": "Cal Tjader with Clare Fischer and orchestra",
+        "label": "Los Angeles",
+        "lon": -118.2437,
+        "lat": 34.0522,
+        "precision": "city",
+        "source": "https://www.jazzdisco.org/fantasy-records/discography-1959-1960/",
+        "note": "Jazz session discography directly identifies Fantasy LP 3310/8054 West Side Story session with Clare Fischer and ensemble in Los Angeles in November 1960. This pertains to the underlying album recorded for Fantasy, not a reissue manufacturing country; source chronology differs slightly from other October dates."
       }
     ]
   }
