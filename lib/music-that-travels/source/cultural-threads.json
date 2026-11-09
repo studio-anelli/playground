@@ -67,6 +67,32 @@
         "note": "AllMusic directly identifies Bell's mid-1990s Detroit house work with Moodymann and her own Pandamonium label. Does not assert location of the owned mix recording."
       }
     ],
+    "1403": [
+      {
+        "kind": "artist",
+        "relation": "Jungle and drum-and-bass production career from",
+        "subject": "Jonny L",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://dropthebass.co/artists/jonny-l",
+        "note": "Specialist drum-and-bass profile identifies Jonny Lisners as London producer and describes his 1990s breakthrough; not recording location of This Time EP Sampler."
+      }
+    ],
+    "1460": [
+      {
+        "kind": "artist",
+        "relation": "Electro and Italo DJ/producer career developed in",
+        "subject": "I-f",
+        "label": "The Hague",
+        "lon": 4.3007,
+        "lat": 52.0705,
+        "precision": "city",
+        "source": "https://www.festivalinfo.nl/artist/91594/I-F/",
+        "note": "Dutch concert archive identifies Ferenc van der Sluijs as a Hague producer/DJ and founder of intergalactic.fm; not studio of Space Invaders Revenge."
+      }
+    ],
     "1665": [
       {
         "kind": "artist",
@@ -119,6 +145,19 @@
         "note": "DJ Mag identifies Ray Keith as an Essex jungle pioneer recording under the Renegade alias. The same Renegade's Dark Soldier Part 1 & 2 release is independently indexed at DNBHQ; an Essex scene association, not this record's studio."
       }
     ],
+    "3221": [
+      {
+        "kind": "artist",
+        "relation": "House and techno production career based in",
+        "subject": "Gerd",
+        "label": "Netherlands",
+        "lon": 5.2913,
+        "lat": 52.1326,
+        "precision": "country",
+        "source": "https://ra.co/dj/gerd",
+        "note": "Resident Advisor identifies Gert-Jan Bijl as Gerd and lists Netherlands location; recording studio of Planet F.M.D.X. is not established."
+      }
+    ],
     "4281": [
       {
         "kind": "artist",
@@ -169,6 +208,19 @@
         "precision": "country",
         "source": "https://ra.co/dj/cosmicforce",
         "note": "Resident Advisor identifies Ben Spaander/Cosmic Force, describes his early mixtape making and lists the Netherlands as location. Broad artist base only; no studio or city inferred."
+      }
+    ],
+    "15142": [
+      {
+        "kind": "artist",
+        "relation": "Hardcore and artcore DJ/production career based in",
+        "subject": "DJ Ruffneck",
+        "label": "Netherlands",
+        "lon": 5.2913,
+        "lat": 52.1326,
+        "precision": "country",
+        "source": "https://ra.co/dj/djruffneck",
+        "note": "Resident Advisor identifies Patrick van Kerckhoven by artist alias, Netherlands location, and his role in founding the artcore sound; no unsupported city inferred."
       }
     ],
     "16483": [
