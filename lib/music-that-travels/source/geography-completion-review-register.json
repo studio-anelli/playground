@@ -6,8 +6,8 @@
   "copy_count": 610,
   "queue_count": 257,
   "outcome_counts": {
-    "accepted_geography": 104,
-    "verification_pending": 149,
+    "accepted_geography": 109,
+    "verification_pending": 144,
     "reviewed_no_evidence": 0,
     "identity_unresolved": 1,
     "compilation_scope_unresolved": 3,
@@ -623,14 +623,14 @@
       "accepted_geography": [
         {
           "kind": "artist",
-          "relation": "House production and DJ career established in",
+          "relation": "House producer active in",
           "subject": "DJ Kent",
-          "label": "Johannesburg",
-          "lon": 28.0473,
-          "lat": -26.2041,
-          "precision": "city",
+          "label": "South Africa",
+          "lon": 22.9375,
+          "lat": -30.5595,
+          "precision": "country",
           "source": "https://www.afrisson.com/in-the-bush/",
-          "note": "Afrisson identifies Khensani Mabaso as DJ Kent and the exact In The Bush 2003 release. Independent DJ profile locates his house career in Johannesburg; not a specific recording address.",
+          "note": "Afrisson documents the exact In The Bush release and identifies DJ Kent as South African, from Pimville, Soweto. Place of birth alone does not prove musical formation or recording in Johannesburg. The source establishes South African house work, so the geographic association is retained at country precision; the recording site is unknown.",
           "artist_id": 74653
         }
       ]
@@ -1454,14 +1454,15 @@
       "accepted_geography": [
         {
           "kind": "artist",
-          "relation": "Electronic music and performance-art practice in",
+          "relation": "Early music and performance career associated with",
           "subject": "Tobias Bernstrup",
           "label": "Stockholm",
           "lon": 18.0686,
           "lat": 59.3293,
           "precision": "city",
-          "source": "https://www.bernstrup.com/pagecv",
-          "note": "Artist CV documents fine-art training in Stockholm and musical live-performance/CD presentations there. Stockholm is a documented part of artistic formation, not the location of the recording 27.",
+          "source": "https://fargfabriken.se/en/pa-gang/tobias-bernstrup/",
+          "note": "The Stockholm art institution's 2002 release announcement documents Bernstrup's own musical compositions/performance since 1997 and his work in Stockholm before moving to Berlin in 2000. Swedish music interview also confirms his later return to Stockholm. The Stockholm connection is historical music/performance practice, not proof that the 27 EP was recorded there.",
+          "location_source": "https://hymn.se/2021/11/23/tobias-bernstrup-jag-tanker-alltid-visuellt-kring-musik/",
           "artist_id": 347795
         }
       ]
@@ -2054,10 +2055,25 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
       "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "Experimental turntable work and Durian Brothers practice developed in",
+          "subject": "Don't DJ / Florian Meyer",
+          "label": "Düsseldorf",
+          "lon": 6.7735,
+          "lat": 51.2277,
+          "precision": "city",
+          "source": "https://emotional-response.bandcamp.com/album/ausgewahtle-durian-stucke",
+          "identity_source": "https://ra.co/dj/dontdj",
+          "note": "First-party label's Durian Brothers retrospective names Florian Meyer as Don't DJ and documents their development and rehearsals at Düsseldorf's Salon des Amateurs; RA confirms artist identity. This is the artist's documented formative musical context, not a claim that Hyperspace Is The Place was recorded there.",
+          "artist_id": 3395560
+        }
+      ]
     },
     {
       "release_id": 255511,
@@ -3194,10 +3210,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
       "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "Acid-jazz and bossa nova group formed in",
+          "subject": "Soul Bossa Trio",
+          "label": "Tokyo",
+          "lon": 139.6917,
+          "lat": 35.6895,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/soul-bossa-trio-mn0000034010",
+          "note": "AllMusic gives 1993 Tokyo formation by Gonzalez Suzuki and specifically discusses Dolphins (2003), matching the owned Dolphins / Words Of Love; Tokyo is formation geography, not its session studio.",
+          "artist_id": 9867
+        }
+      ]
     },
     {
       "release_id": 11265395,
@@ -3215,10 +3245,23 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
       "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "recording",
+          "relation": "Recorded and mixed at Alpha International Recording Studios in",
+          "subject": "Q — The Voice of Q (1982 original recording)",
+          "label": "Philadelphia",
+          "lon": -75.1652,
+          "lat": 39.9526,
+          "precision": "city",
+          "source": "https://rectangletriangle.com/products/the-voice-of-q-q-10",
+          "note": "The exact Philly World PWR-2007 record listing transcribes the original sleeve's Recorded & mixed for Greater Sound Reproduction at Alpha International Recording Studios, Inc. Philadelphia credit. This is the original recording/mix, distinct from label headquarters and mastering."
+        }
+      ]
     },
     {
       "release_id": 12125066,
@@ -5836,10 +5879,25 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
       "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "Jungle production and early hardcore scene in",
+          "subject": "DJ Red Alert & Mike Slammer",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://ra.co/news/81471",
+          "location_source": "https://artisanvinyl.co.uk/dj-red-alert-mike-slammer-don-t-need-your-love-in-effect-slammin-vinyl-disc24739n8.html",
+          "note": "Resident Advisor documents duo in East London's Brain Records scene, and the original 1993 Don't Need Your Love / In Effect pressing explicitly says written and produced at Slammer Studios, London. Artist musical production scene only; this does not establish the studio for owned Feel So Real / Walking On Sunshine.",
+          "artist_id": 17390
+        }
+      ]
     },
     {
       "release_id": 11405284,
@@ -6447,10 +6505,24 @@
           "status": "area_unavailable"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
       "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "Breakcore and bass-music career developed in",
+          "subject": "Drop the Lime / Luca Venezia",
+          "label": "New York City",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://www.factmag.com/2009/01/01/interview-drop-the-lime/",
+          "note": "Contemporaneous interview names Luca Venezia and directly describes the New York Trouble & Bass collective and his own music work. This is the artist's formative musical scene, not a recording claim for Killy 123 EP.",
+          "artist_id": 160033
+        }
+      ]
     },
     {
       "release_id": 27576126,
