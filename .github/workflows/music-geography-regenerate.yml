@@ -3,7 +3,7 @@ name: Music geography source regeneration
 on:
   push:
     branches:
-      - research/music-geography-completion-02
+      - research/music-geography-remaining-full-20261109
     paths:
       - 'lib/music-that-travels/prepare-collection-research.py'
       - 'lib/music-that-travels/source/cultural-threads.json'
