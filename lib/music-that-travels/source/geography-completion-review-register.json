@@ -1,0 +1,5536 @@
+{
+  "schema_version": 1,
+  "scope": "Complete frozen input inventory: 257/257 entries tracked, NOT a completed geographic research pass",
+  "source_queue": "geography-completion-queue.json",
+  "date": "2026-11-09",
+  "copy_count": 610,
+  "queue_count": 257,
+  "outcome_counts": {
+    "verification_pending": 257,
+    "accepted_geography": 0,
+    "reviewed_no_evidence": 0,
+    "identity_unresolved": 0,
+    "compilation_scope_unresolved": 0,
+    "conflicting_evidence": 0
+  },
+  "method_note": "Statuses are intentionally pending. A not_checked source field is not evidence of no geography. No fresh external music-history evidence or end-to-end build tests were performed.",
+  "records": [
+    {
+      "release_id": 25466773,
+      "instance_id": 1751111132,
+      "artist_ids": [
+        6302438
+      ],
+      "artist": "Bejenec",
+      "title": "Slavic Breus EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "6302438",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 258314,
+      "instance_id": 1773838150,
+      "artist_ids": [
+        202134
+      ],
+      "artist": "Cosmosis (2)",
+      "title": "Tell Her",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "202134",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 7798224,
+      "instance_id": 1751093489,
+      "artist_ids": [
+        3265924
+      ],
+      "artist": "Lucindo",
+      "title": "Alien Rebellion",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3265924",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 154166,
+      "instance_id": 1773909364,
+      "artist_ids": [
+        115967
+      ],
+      "artist": "Machine Shop",
+      "title": "Naked Lunch",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "115967",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 13099166,
+      "instance_id": 1751092643,
+      "artist_ids": [
+        6648399
+      ],
+      "artist": "Nu No",
+      "title": "Turva Lingua",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "6648399",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 39348,
+      "instance_id": 1750766087,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Totally Wired (A Collection From Acid Jazz Records)",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 13487844,
+      "instance_id": 1751113163,
+      "artist_ids": [
+        2053
+      ],
+      "artist": "DJ Pierre",
+      "title": "Acid 88 Volume III",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2053",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 108283,
+      "instance_id": 1751197445,
+      "artist_ids": [
+        80318
+      ],
+      "artist": "Skin Divers",
+      "title": "Enclosed Spaces (Aquasky Remix)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "80318",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 8030996,
+      "instance_id": 1368372306,
+      "artist_ids": [
+        4845228
+      ],
+      "artist": "Diamond Jackson",
+      "title": "Stars",
+      "classification": "reviewed_no_place",
+      "prior_release_review": true,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "4845228",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "prior review lacks acceptable place evidence; recheck alternative sources",
+      "last_checked": null
+    },
+    {
+      "release_id": 512650,
+      "instance_id": 1751140298,
+      "artist_ids": [
+        43484
+      ],
+      "artist": "K-9 Posse",
+      "title": "Ain't Nothing To It",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "43484",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 252518,
+      "instance_id": 1750818029,
+      "artist_ids": [
+        30786
+      ],
+      "artist": "Suzy Q",
+      "title": "Get On Up Do It Again",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "30786",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11421995,
+      "instance_id": 1750801079,
+      "artist_ids": [
+        3876503
+      ],
+      "artist": "Solar Shield",
+      "title": "Solar Shield",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3876503",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 1406478,
+      "instance_id": 1751189918,
+      "artist_ids": [
+        224215
+      ],
+      "artist": "Meta4",
+      "title": "Pizguh / Tripguh",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "224215",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 21461563,
+      "instance_id": 1750868795,
+      "artist_ids": [
+        202236
+      ],
+      "artist": "Dolette McDonald",
+      "title": "(Xtra) Special",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "202236",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 77058,
+      "instance_id": 1773881491,
+      "artist_ids": [
+        5469
+      ],
+      "artist": "Subject 13",
+      "title": "Spirit Breakdown / Can't Wait Tonight",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "5469",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 240699,
+      "instance_id": 1751182010,
+      "artist_ids": [
+        178620,
+        178621
+      ],
+      "artist": "Ackie / Chesse Roots",
+      "title": "Call Me Rambo / Rambo Gun Salute",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "178620",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "178621",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 14472273,
+      "instance_id": 1773890590,
+      "artist_ids": [
+        5588337
+      ],
+      "artist": "The Goods (9)",
+      "title": "Peach",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "5588337",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 12362927,
+      "instance_id": 1750819895,
+      "artist_ids": [
+        2423839,
+        1860157
+      ],
+      "artist": "MANDINGO BRASS / Infinite Love Experience",
+      "title": "Everything Looks Better From A Distance / Thank You Lord",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2423839",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "1860157",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 331602,
+      "instance_id": 1750804676,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Just Us / I Don't Want To Lose Your Love / Everybody Here Must Party",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 302197,
+      "instance_id": 1750836104,
+      "artist_ids": [
+        3383
+      ],
+      "artist": "Fuzz Against Junk",
+      "title": "Country Clonk",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3383",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 162975,
+      "instance_id": 1750914383,
+      "artist_ids": [
+        74653
+      ],
+      "artist": "DJ Kent",
+      "title": "In The Bush",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "74653",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 777916,
+      "instance_id": 1750847804,
+      "artist_ids": [
+        37704
+      ],
+      "artist": "Lexx",
+      "title": "Sirocco",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "37704",
+          "status": "rate_limited"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 13072057,
+      "instance_id": 1750773146,
+      "artist_ids": [
+        154398
+      ],
+      "artist": "Fabrizio Fattori",
+      "title": "Mediterranean Africa",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "154398",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 14192193,
+      "instance_id": 1751132132,
+      "artist_ids": [
+        5602556
+      ],
+      "artist": "KUSO GVKI",
+      "title": "Culture",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "5602556",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 193558,
+      "instance_id": 1751186570,
+      "artist_ids": [
+        479
+      ],
+      "artist": "Force Of Angels",
+      "title": "Methods To My Madness E.P.",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "479",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 8901124,
+      "instance_id": 1751105039,
+      "artist_ids": [
+        2924778
+      ],
+      "artist": "Robert Bergman",
+      "title": "B02",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2924778",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 15792075,
+      "instance_id": 1751039066,
+      "artist_ids": [
+        2650500
+      ],
+      "artist": "Enaune",
+      "title": "Cycle du Petit Prince de Saint​-​Exupéry",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2650500",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 1623945,
+      "instance_id": 1773936499,
+      "artist_ids": [
+        118760
+      ],
+      "artist": "No Artist",
+      "title": "Stereo Test Sound Effects / Stereo Demonstratie & Geluids Effecten",
+      "classification": "anonymous",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "118760",
+          "status": "rate_limited"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist identity not established",
+      "last_checked": null
+    },
+    {
+      "release_id": 9905508,
+      "instance_id": 1770109651,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Black Gold",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 194086,
+      "instance_id": 1751176748,
+      "artist_ids": [
+        19902
+      ],
+      "artist": "Echo Minott",
+      "title": "Murder Weapen Jungle",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "19902",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 14125997,
+      "instance_id": 1750866488,
+      "artist_ids": [
+        6083856
+      ],
+      "artist": "Pépe (2)",
+      "title": "Life Signs EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "6083856",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 2236823,
+      "instance_id": 1751135027,
+      "artist_ids": [
+        1307268
+      ],
+      "artist": "Busy (3)",
+      "title": "M0ths",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1307268",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 211757,
+      "instance_id": 1750979627,
+      "artist_ids": [
+        160727
+      ],
+      "artist": "Clockwork (3)",
+      "title": "Feela-La-La",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "160727",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 1697742,
+      "instance_id": 1751078132,
+      "artist_ids": [
+        144934
+      ],
+      "artist": "Marco Bernardi",
+      "title": "Mystery Of Nazerus (Remixes)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "144934",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 193283,
+      "instance_id": 1751149415,
+      "artist_ids": [
+        106748
+      ],
+      "artist": "Force Of Nature (2)",
+      "title": "The Ho' Mixes",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "106748",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 26121944,
+      "instance_id": 1770103168,
+      "artist_ids": [
+        12542684
+      ],
+      "artist": "VTL One",
+      "title": "Language Machine EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "12542684",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 97331,
+      "instance_id": 1751185169,
+      "artist_ids": [
+        44423,
+        9521
+      ],
+      "artist": "Tribe Of Issachar / Peter Bouncer",
+      "title": "Junglist (Remixes)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "44423",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "9521",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 358586,
+      "instance_id": 1751185973,
+      "artist_ids": [
+        72134
+      ],
+      "artist": "Blackstar (2)",
+      "title": "Radical (DJ Kane Remixes)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "72134",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 135052,
+      "instance_id": 1751183870,
+      "artist_ids": [
+        44423,
+        7137
+      ],
+      "artist": "Tribe Of Issachar / Top Cat",
+      "title": "Champion Natty",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "44423",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "7137",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 27313062,
+      "instance_id": 1770101254,
+      "artist_ids": [
+        7827847
+      ],
+      "artist": "Data Memory Access",
+      "title": "Hi-Tee EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "7827847",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 501628,
+      "instance_id": 1750794479,
+      "artist_ids": [
+        35143,
+        90739
+      ],
+      "artist": "Kenny Carvajal / Carla Prather",
+      "title": "First Time",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "35143",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "90739",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 22284061,
+      "instance_id": 1751142062,
+      "artist_ids": [
+        1223727,
+        1423020
+      ],
+      "artist": "Nadie La Fond / Embryo (11)",
+      "title": "Al Kent & Frankie Francis Sofrito Edits",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1223727",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "1423020",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 1497696,
+      "instance_id": 1751045654,
+      "artist_ids": [
+        14886
+      ],
+      "artist": "Cosmic Force",
+      "title": "Uncompromised",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "14886",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 16086639,
+      "instance_id": 1750928210,
+      "artist_ids": [
+        1488101
+      ],
+      "artist": "Coco Bryce",
+      "title": "Hold The Line EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1488101",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 17111145,
+      "instance_id": 1751174786,
+      "artist_ids": [
+        7212008
+      ],
+      "artist": "Workforce (5)",
+      "title": "Moods EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "7212008",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 10307172,
+      "instance_id": 1313192471,
+      "artist_ids": [
+        5100464
+      ],
+      "artist": "Rag Dabons",
+      "title": "T'es Plus Le Même Depuis Que T'as Changé EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "5100464",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 10511020,
+      "instance_id": 1750774649,
+      "artist_ids": [
+        156256
+      ],
+      "artist": "Codek",
+      "title": "Closer / Tam Tam",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "156256",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 10505637,
+      "instance_id": 1750807106,
+      "artist_ids": [
+        347795
+      ],
+      "artist": "Tobias Bernstrup",
+      "title": "27",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "347795",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11685775,
+      "instance_id": 1751077568,
+      "artist_ids": [
+        6355289
+      ],
+      "artist": "Octachoron",
+      "title": "Land Of Meta",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "6355289",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 4304708,
+      "instance_id": 1750778657,
+      "artist_ids": [
+        2480495
+      ],
+      "artist": "Powell (9)",
+      "title": "Body Music EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2480495",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11517554,
+      "instance_id": 1751000210,
+      "artist_ids": [
+        3192367
+      ],
+      "artist": "Not Waving",
+      "title": "Good Luck",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3192367",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 29125525,
+      "instance_id": 1751081186,
+      "artist_ids": [
+        8081563
+      ],
+      "artist": "QphoriQ",
+      "title": "Wonch Like Woo",
+      "classification": "reviewed_no_place",
+      "prior_release_review": true,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "8081563",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "prior review lacks acceptable place evidence; recheck alternative sources",
+      "last_checked": null
+    },
+    {
+      "release_id": 10816361,
+      "instance_id": 1751075531,
+      "artist_ids": [
+        5080597
+      ],
+      "artist": "London Modular Alliance",
+      "title": "Hands & Brains EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "5080597",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11373857,
+      "instance_id": 1751034401,
+      "artist_ids": [
+        4447121
+      ],
+      "artist": "Yoshinori Hayashi (2)",
+      "title": "Uncountable Set",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "4447121",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 20336797,
+      "instance_id": 1313173160,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Disco Hamam - 7",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 15501102,
+      "instance_id": 1751110115,
+      "artist_ids": [
+        5521052
+      ],
+      "artist": "Luar Domatrix",
+      "title": "Baía Stamina",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "5521052",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 974746,
+      "instance_id": 1590274933,
+      "artist_ids": [
+        859232
+      ],
+      "artist": "Guadeloupe Reflexions",
+      "title": "Un Jeudi A L'Arawak",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "859232",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 554183,
+      "instance_id": 1751148737,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Black Edition",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 14334743,
+      "instance_id": 1750926962,
+      "artist_ids": [
+        4980033
+      ],
+      "artist": "SHKN",
+      "title": "domesticated003",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "4980033",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 52735,
+      "instance_id": 1750805576,
+      "artist_ids": [
+        3933
+      ],
+      "artist": "A.P.E.",
+      "title": "Striplight",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3933",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 24685,
+      "instance_id": 1751125772,
+      "artist_ids": [
+        4626
+      ],
+      "artist": "DJ Slip",
+      "title": "No Satellites Please",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "4626",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 24784,
+      "instance_id": 1751151692,
+      "artist_ids": [
+        20908
+      ],
+      "artist": "Safari Sounds",
+      "title": "Droppin' Science Volume 07",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "20908",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 6213392,
+      "instance_id": 1751028017,
+      "artist_ids": [
+        4060065
+      ],
+      "artist": "Distant Echoes",
+      "title": "Fury Road EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "4060065",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 7488481,
+      "instance_id": 1751026436,
+      "artist_ids": [
+        468536
+      ],
+      "artist": "Armitage",
+      "title": "They Live EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "468536",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 8395702,
+      "instance_id": 1751025164,
+      "artist_ids": [
+        3350258
+      ],
+      "artist": "Alex.Do",
+      "title": "Beyond The Black Rainbow EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3350258",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 10531324,
+      "instance_id": 1751028482,
+      "artist_ids": [
+        2120212
+      ],
+      "artist": "Recondite",
+      "title": "Theater II",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2120212",
+          "status": "rate_limited"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 41585,
+      "instance_id": 1773913381,
+      "artist_ids": [
+        422983,
+        31772
+      ],
+      "artist": "D'Enborage / Tronikgatan",
+      "title": "Kaihoisa Pt.1",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "422983",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "31772",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 3693330,
+      "instance_id": 921775318,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Editorial #4",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 10377344,
+      "instance_id": 1751077190,
+      "artist_ids": [
+        3395560
+      ],
+      "artist": "Don't DJ",
+      "title": "Hyperspace Is The Place / Hyperspace Is No Place",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3395560",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 255511,
+      "instance_id": 387846342,
+      "artist_ids": [
+        187521
+      ],
+      "artist": "Canute",
+      "title": "Amazing Mind",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "187521",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 9025846,
+      "instance_id": 1591047043,
+      "artist_ids": [
+        3320913
+      ],
+      "artist": "Omnibus (7)",
+      "title": "Israels / Rhythmus (1980-1985)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3320913",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11819264,
+      "instance_id": 424832005,
+      "artist_ids": [
+        945565
+      ],
+      "artist": "Goya (7)",
+      "title": "House At The Sea / Mandy",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "945565",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 971558,
+      "instance_id": 1773922330,
+      "artist_ids": [
+        48898
+      ],
+      "artist": "Obscure FM",
+      "title": "Michael Jackson Is In Heaven Now!",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "48898",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 8722978,
+      "instance_id": 1773891037,
+      "artist_ids": [
+        1278195
+      ],
+      "artist": "The Charisma Band",
+      "title": "Ain't Nothing Like Your Love / Bless The Day",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1278195",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 1566213,
+      "instance_id": 1750939679,
+      "artist_ids": [
+        782
+      ],
+      "artist": "Norma Jean Bell",
+      "title": "I'm The Baddest Bitch (The Moodymann Mixes)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "782",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 2309936,
+      "instance_id": 1750795550,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Wanted Dead Or Alive / Little People / Got To Get Me A Job / Humpty Dump",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 4163662,
+      "instance_id": 1750938986,
+      "artist_ids": [
+        151151
+      ],
+      "artist": "Shock (3)",
+      "title": "Shock Waves",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "151151",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 9919633,
+      "instance_id": 1751058827,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Freedom Is Rising",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 5624549,
+      "instance_id": 1751015135,
+      "artist_ids": [
+        3710217
+      ],
+      "artist": "Alis (6)",
+      "title": "Apache",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3710217",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 1015874,
+      "instance_id": 1773907051,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Firecracker EP 3",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 6554726,
+      "instance_id": 646472455,
+      "artist_ids": [
+        6235154
+      ],
+      "artist": "FIT Siegel",
+      "title": "Carmine",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "6235154",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 13172138,
+      "instance_id": 1751078663,
+      "artist_ids": [
+        6235154,
+        575604
+      ],
+      "artist": "FIT Siegel / Kassem Mosse",
+      "title": "Saboten",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "6235154",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "575604",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 201255,
+      "instance_id": 1773901717,
+      "artist_ids": [
+        50636
+      ],
+      "artist": "Three Disciples",
+      "title": "Gwarn (Remix)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "50636",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 200739,
+      "instance_id": 1773849178,
+      "artist_ids": [
+        7731
+      ],
+      "artist": "L Double",
+      "title": "Music For The 90's / The Mad Phunk",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "7731",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 9292116,
+      "instance_id": 1751145293,
+      "artist_ids": [
+        3315264
+      ],
+      "artist": "Mori-Ra",
+      "title": "Oriental Forest",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3315264",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 10330769,
+      "instance_id": 1750927652,
+      "artist_ids": [
+        5775913
+      ],
+      "artist": "SJ Tequilla",
+      "title": "Conditionel",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "5775913",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 25199035,
+      "instance_id": 1750815734,
+      "artist_ids": [
+        1451006
+      ],
+      "artist": "T. J. Johnson Band",
+      "title": "I Can Make It (Good For You)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1451006",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 76971,
+      "instance_id": 1773864277,
+      "artist_ids": [
+        8531
+      ],
+      "artist": "Rude Bwoy Monty",
+      "title": "Jungle Man / Out In Da Streets",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "8531",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 3408361,
+      "instance_id": 1773823648,
+      "artist_ids": [
+        15301
+      ],
+      "artist": "Mathematics",
+      "title": "Funhouse / Brass Knuckles",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "15301",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 14477,
+      "instance_id": 1773868786,
+      "artist_ids": [
+        3279
+      ],
+      "artist": "Bill Riley",
+      "title": "The Chill / Future Funk",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3279",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 5954869,
+      "instance_id": 1396225749,
+      "artist_ids": [
+        2144749
+      ],
+      "artist": "The Funky Drive Band",
+      "title": "Funky Drive'z Me Crazy / Love Guarantee",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2144749",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 35118,
+      "instance_id": 1751124593,
+      "artist_ids": [
+        24578
+      ],
+      "artist": "Argonic",
+      "title": "Future Frontier 002",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "24578",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 2573057,
+      "instance_id": 1750961825,
+      "artist_ids": [
+        1138698
+      ],
+      "artist": "Slava (2)",
+      "title": "Dreaming Tiger",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1138698",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11768093,
+      "instance_id": 1235118847,
+      "artist_ids": [
+        4968425
+      ],
+      "artist": "Will DiMaggio",
+      "title": "At Ease",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "4968425",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 254459,
+      "instance_id": 1751155592,
+      "artist_ids": [
+        140735
+      ],
+      "artist": "Nightwalker",
+      "title": "Jeopardy (Audio Remix) / Crazy Head (VIP)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "140735",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 5437927,
+      "instance_id": 1751104733,
+      "artist_ids": [
+        3148324
+      ],
+      "artist": "Africaine 808",
+      "title": "Lagos, New York // Zombie Jamboree",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3148324",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 910642,
+      "instance_id": 1750800380,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Beyond The Valley Of The Superbeats",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 6176026,
+      "instance_id": 1770099922,
+      "artist_ids": [
+        1319656
+      ],
+      "artist": "Deo & Z-Man",
+      "title": "No Bullshit Remixes EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1319656",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 4858498,
+      "instance_id": 1750886924,
+      "artist_ids": [
+        622368
+      ],
+      "artist": "Heavy Disco",
+      "title": "Super Jock",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "622368",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 24368522,
+      "instance_id": 1750810775,
+      "artist_ids": [
+        831479
+      ],
+      "artist": "Gold In The Shade",
+      "title": "Over You / Shining Through",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "831479",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 110736,
+      "instance_id": 1751041379,
+      "artist_ids": [
+        64486
+      ],
+      "artist": "Chemise",
+      "title": "She Can't Love You",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "64486",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 10752055,
+      "instance_id": 1751044043,
+      "artist_ids": [
+        2406747
+      ],
+      "artist": "Octo Octa",
+      "title": "Adrift",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2406747",
+          "status": "rate_limited"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 14273207,
+      "instance_id": 1750818494,
+      "artist_ids": [
+        6194004
+      ],
+      "artist": "LTJ Edits",
+      "title": "Hot Groovy Edits 3",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "6194004",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 13534190,
+      "instance_id": 1751033387,
+      "artist_ids": [
+        2551800
+      ],
+      "artist": "Gary Gritness",
+      "title": "The Legend Of Cherenkov Blue ",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2551800",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 13619980,
+      "instance_id": 1751134613,
+      "artist_ids": [
+        1374815
+      ],
+      "artist": "Daniele Mana",
+      "title": "Seven Steps Behind",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1374815",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 84360,
+      "instance_id": 1751125343,
+      "artist_ids": [
+        55822
+      ],
+      "artist": "C.M.C.",
+      "title": "Pump It Up / Let Loose",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "55822",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 22309528,
+      "instance_id": 1750814144,
+      "artist_ids": [
+        4113842,
+        4527714
+      ],
+      "artist": "Delfonic / Kapote",
+      "title": "Illegal Jazz Vol. 1",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "4113842",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "4527714",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 313021,
+      "instance_id": 1750878572,
+      "artist_ids": [
+        1108792
+      ],
+      "artist": "Dante (11)",
+      "title": "Barefoot Boogie Volume One",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1108792",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 5081661,
+      "instance_id": 1750945979,
+      "artist_ids": [
+        1764227
+      ],
+      "artist": "Stephen Encinas",
+      "title": "Disco Illusion",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1764227",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 2099185,
+      "instance_id": 1773905857,
+      "artist_ids": [
+        1082380
+      ],
+      "artist": "Jah Seal",
+      "title": "Jah Soldier",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1082380",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 246845,
+      "instance_id": 1751059490,
+      "artist_ids": [
+        9867
+      ],
+      "artist": "Soul Bossa Trio",
+      "title": "Dolphins / Words Of Love",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "9867",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11265395,
+      "instance_id": 1750958321,
+      "artist_ids": [
+        258082
+      ],
+      "artist": "Q (10)",
+      "title": "The Voice Of Q",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "258082",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 12125066,
+      "instance_id": 1773911494,
+      "artist_ids": [
+        1198484
+      ],
+      "artist": "DJ Marcelle/Another Nice Mess",
+      "title": "For",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1198484",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 51304,
+      "instance_id": 1773847501,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Old School Vs. New School:  Let The Breaks Roll",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 254916,
+      "instance_id": 1773831121,
+      "artist_ids": [
+        40810
+      ],
+      "artist": "The Dream Team",
+      "title": "The MENACE / Drugs And Money",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "40810",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 12941656,
+      "instance_id": 1750990061,
+      "artist_ids": [
+        6871014
+      ],
+      "artist": "Balearic Skip",
+      "title": "Balearic Skip",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "6871014",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 51412,
+      "instance_id": 1750846727,
+      "artist_ids": [
+        92542
+      ],
+      "artist": "The Two G's",
+      "title": "Energy / The Reno",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "92542",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 6997484,
+      "instance_id": 1750980374,
+      "artist_ids": [
+        1854177
+      ],
+      "artist": "Pamela Prati",
+      "title": "Mare / Un Nodo All'Anima",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1854177",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 12142239,
+      "instance_id": 1770103630,
+      "artist_ids": [
+        1449063
+      ],
+      "artist": "Giovanni Damico",
+      "title": "Afro Stomp EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1449063",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 1782030,
+      "instance_id": 1751068796,
+      "artist_ids": [
+        1749,
+        76172
+      ],
+      "artist": "King Britt / Oba Funke",
+      "title": "Bush Workout",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1749",
+          "status": "rate_limited"
+        },
+        {
+          "artist_id": "76172",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 1082139,
+      "instance_id": 1773902116,
+      "artist_ids": [
+        49613
+      ],
+      "artist": "Noodles & Wonder",
+      "title": "Dub Soup EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "49613",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 10579183,
+      "instance_id": 1750926200,
+      "artist_ids": [
+        3710553
+      ],
+      "artist": "Makoto Murakami",
+      "title": "Mountain Skins EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3710553",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 163351,
+      "instance_id": 1751193761,
+      "artist_ids": [
+        50613
+      ],
+      "artist": "Knowledge & Wisdom",
+      "title": "Neguastnegus",
+      "classification": "reviewed_no_place",
+      "prior_release_review": true,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "50613",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "prior review lacks acceptable place evidence; recheck alternative sources",
+      "last_checked": null
+    },
+    {
+      "release_id": 12796262,
+      "instance_id": 1750797821,
+      "artist_ids": [
+        88572
+      ],
+      "artist": "Shift (3)",
+      "title": "Roller Rink Funk",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "88572",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 5664657,
+      "instance_id": 428714138,
+      "artist_ids": [
+        2946648
+      ],
+      "artist": "KingCats",
+      "title": "Down In California",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2946648",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 20707,
+      "instance_id": 1751179643,
+      "artist_ids": [
+        8410
+      ],
+      "artist": "Tonic",
+      "title": "The Mack (Remix) / Hip To The Hoppa",
+      "classification": "reviewed_no_place",
+      "prior_release_review": true,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "8410",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "prior review lacks acceptable place evidence; recheck alternative sources",
+      "last_checked": null
+    },
+    {
+      "release_id": 55665,
+      "instance_id": 1750922972,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Bag Of Goodies",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 5066132,
+      "instance_id": 1750913354,
+      "artist_ids": [
+        3060604
+      ],
+      "artist": "Joe's Bakery",
+      "title": "Blue Tuesday",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3060604",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 12842013,
+      "instance_id": 1751003939,
+      "artist_ids": [
+        247674
+      ],
+      "artist": "Fatima Yamaha",
+      "title": "Imaginary Lines",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "247674",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 37985,
+      "instance_id": 1750824335,
+      "artist_ids": [
+        7278
+      ],
+      "artist": "Crystal Waters",
+      "title": "Gypsy Woman (She's Homeless)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "7278",
+          "status": "rate_limited"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 745165,
+      "instance_id": 1773919003,
+      "artist_ids": [
+        75876
+      ],
+      "artist": "Moleculez",
+      "title": "Mekanikal Mayhem",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "75876",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11498568,
+      "instance_id": 1750961261,
+      "artist_ids": [
+        1209519
+      ],
+      "artist": "Eamon Harkin",
+      "title": "Weaker Moments ",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1209519",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11826621,
+      "instance_id": 1751065256,
+      "artist_ids": [
+        846548
+      ],
+      "artist": "Olsen (2)",
+      "title": "No One Belongs Here More Than You EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "846548",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 8509913,
+      "instance_id": 1751050358,
+      "artist_ids": [
+        73715
+      ],
+      "artist": "Nebraska",
+      "title": " Look What You've Done To Me EP  ",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "73715",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 262652,
+      "instance_id": 1751180516,
+      "artist_ids": [
+        5433
+      ],
+      "artist": "Minx",
+      "title": "Dreamtime",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "5433",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 9148392,
+      "instance_id": 1750795151,
+      "artist_ids": [
+        5361803
+      ],
+      "artist": "Music People (2)",
+      "title": "Always On",
+      "classification": "reviewed_no_place",
+      "prior_release_review": true,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "5361803",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "prior review lacks acceptable place evidence; recheck alternative sources",
+      "last_checked": null
+    },
+    {
+      "release_id": 5164913,
+      "instance_id": 1751093159,
+      "artist_ids": [
+        869854
+      ],
+      "artist": "Madteo",
+      "title": "Insider",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "869854",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 14689821,
+      "instance_id": 1750920890,
+      "artist_ids": [
+        1384616
+      ],
+      "artist": "First Touch",
+      "title": "Sofea",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1384616",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 19289326,
+      "instance_id": 1750871003,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Madre Lingua",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 1894057,
+      "instance_id": 1750788599,
+      "artist_ids": [
+        1045249
+      ],
+      "artist": "Mr Raoul K",
+      "title": "Wind Of Goree",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1045249",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 8108409,
+      "instance_id": 1751106407,
+      "artist_ids": [
+        2001956
+      ],
+      "artist": "Bxentric",
+      "title": "Patch Valley ",
+      "classification": "reviewed_no_place",
+      "prior_release_review": true,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2001956",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "prior review lacks acceptable place evidence; recheck alternative sources",
+      "last_checked": null
+    },
+    {
+      "release_id": 11047607,
+      "instance_id": 1751112443,
+      "artist_ids": [
+        2712259
+      ],
+      "artist": "Helena Hauff",
+      "title": "Have You Been There, Have You Seen It",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2712259",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 861479,
+      "instance_id": 1750983644,
+      "artist_ids": [
+        17891,
+        239379
+      ],
+      "artist": "Rudoulpho / Blood (3)",
+      "title": "Sunday Afternoon / Peace In The Nation",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "17891",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "239379",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 8188592,
+      "instance_id": 1751048561,
+      "artist_ids": [
+        3496975
+      ],
+      "artist": "Lata Ramasar",
+      "title": "The Greatest Name That Lives",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3496975",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 15146925,
+      "instance_id": 1773910153,
+      "artist_ids": [
+        355
+      ],
+      "artist": "Unknown Artist",
+      "title": "Sissy's Hot Summer A Go-Go ! / Mrs.Peel We're Needed !!!",
+      "classification": "anonymous",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "355",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist identity not established",
+      "last_checked": null
+    },
+    {
+      "release_id": 2197760,
+      "instance_id": 1396226322,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Rekutts Vol. 1",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 16011980,
+      "instance_id": 1751022020,
+      "artist_ids": [
+        8184122
+      ],
+      "artist": "Bonfim",
+      "title": "«An extended​-​play record of assembled sounds for different kinds of moods»",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "8184122",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 9684455,
+      "instance_id": 1751121746,
+      "artist_ids": [
+        466022
+      ],
+      "artist": "Jamal Moss",
+      "title": "Ginger Snaps EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "466022",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 28522651,
+      "instance_id": 1585185958,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Eccentric Boogie",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 80037,
+      "instance_id": 1773937843,
+      "artist_ids": [
+        391,
+        65145
+      ],
+      "artist": "David Toop / Max Eastley",
+      "title": "New And Rediscovered Musical Instruments",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "391",
+          "status": "rate_limited"
+        },
+        {
+          "artist_id": "65145",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 654319,
+      "instance_id": 1751150093,
+      "artist_ids": [
+        103238
+      ],
+      "artist": "Sileni",
+      "title": "Twitchy Droid Leg Remixes Part One",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "103238",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 695304,
+      "instance_id": 1750838018,
+      "artist_ids": [
+        522541,
+        522542
+      ],
+      "artist": "Burton Inc. / Firebolts",
+      "title": "L.A. Will Make You Pay / Everybody Party (Kon 12\" Re-edit)",
+      "classification": "reviewed_no_place",
+      "prior_release_review": true,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "522541",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "522542",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "prior review lacks acceptable place evidence; recheck alternative sources",
+      "last_checked": null
+    },
+    {
+      "release_id": 10771522,
+      "instance_id": 1751038715,
+      "artist_ids": [
+        270981
+      ],
+      "artist": "Enrico Serotti",
+      "title": "Homemade Music Vol. II (1983-1999)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "270981",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 6785873,
+      "instance_id": 1770142570,
+      "artist_ids": [
+        4153841
+      ],
+      "artist": "Makala Jazz Funk Band",
+      "title": "Xake!",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "4153841",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 972054,
+      "instance_id": 1751080739,
+      "artist_ids": [
+        1161420
+      ],
+      "artist": "Prosumer & Murat Tepeli",
+      "title": "What Makes You Go For It",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1161420",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 7367418,
+      "instance_id": 1751082335,
+      "artist_ids": [
+        4563518
+      ],
+      "artist": "John Bence",
+      "title": "Disquiet",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "4563518",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 7917513,
+      "instance_id": 1750864409,
+      "artist_ids": [
+        77000
+      ],
+      "artist": "Marta Acuna",
+      "title": "Dance, Dance, Dance",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "77000",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 9131093,
+      "instance_id": 1751070194,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Rhythms Of The Pacific Volume 3.",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 1008363,
+      "instance_id": 1750938032,
+      "artist_ids": [
+        843554
+      ],
+      "artist": "Greyship Daviz",
+      "title": "Traffic (Cheek To Cheek Bumper To Bumper)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "843554",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 1099353,
+      "instance_id": 1750764641,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Super Disco Brakes' Vol. 8",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 6419810,
+      "instance_id": 1751064692,
+      "artist_ids": [
+        3056472
+      ],
+      "artist": "Moon B",
+      "title": "III",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3056472",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 9872263,
+      "instance_id": 1770097645,
+      "artist_ids": [
+        2120767,
+        5348018
+      ],
+      "artist": "Leroy Ace Miller / Aceloveace",
+      "title": "Teacher  / The Teacher",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2120767",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "5348018",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 10796993,
+      "instance_id": 1750869218,
+      "artist_ids": [
+        3928842
+      ],
+      "artist": "Circuitry",
+      "title": "She's Just That Type Of Girl",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3928842",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 10579142,
+      "instance_id": 1750839704,
+      "artist_ids": [
+        5885224
+      ],
+      "artist": "Argoman",
+      "title": "Chimicalissimo",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "5885224",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11072824,
+      "instance_id": 1751011388,
+      "artist_ids": [
+        6097188
+      ],
+      "artist": "Conga Square",
+      "title": "Secada Mondatta",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "6097188",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 6774,
+      "instance_id": 1773825304,
+      "artist_ids": [
+        651
+      ],
+      "artist": "Digital",
+      "title": "One Ton",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "651",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 16084646,
+      "instance_id": 1313184869,
+      "artist_ids": [
+        8191844
+      ],
+      "artist": "Matteo Coffetti",
+      "title": "Hypnotecho'O",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "8191844",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 373,
+      "instance_id": 1773837250,
+      "artist_ids": [
+        652
+      ],
+      "artist": "Special Forces",
+      "title": "Special Forces / Propaganda",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "652",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11762293,
+      "instance_id": 1773895801,
+      "artist_ids": [
+        587594
+      ],
+      "artist": "Clive Matthews",
+      "title": "They Will Never Find Jah / Jah Soon Come  ",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "587594",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 309825,
+      "instance_id": 1773837820,
+      "artist_ids": [
+        91058
+      ],
+      "artist": "Shitmat",
+      "title": "Full English Breakfest Volume 4",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "91058",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 4288392,
+      "instance_id": 1750785992,
+      "artist_ids": [
+        13398
+      ],
+      "artist": "Ajukaja",
+      "title": "Benga Benga",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "13398",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 558217,
+      "instance_id": 1770208825,
+      "artist_ids": [
+        368391
+      ],
+      "artist": "Life Boogie",
+      "title": "Bobby's Job / Nina Cares",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "368391",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 527300,
+      "instance_id": 1750883309,
+      "artist_ids": [
+        368392,
+        368391
+      ],
+      "artist": "DJ Catalist / Life Boogie",
+      "title": "Vol. 4",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "368392",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "368391",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 21945322,
+      "instance_id": 1590278245,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Pre-​Delay /​/​/ 04",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 41275,
+      "instance_id": 1773851008,
+      "artist_ids": [
+        30645
+      ],
+      "artist": "Icons",
+      "title": "Icons II",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "30645",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11806,
+      "instance_id": 1751154443,
+      "artist_ids": [
+        35404
+      ],
+      "artist": "Einzelgänger",
+      "title": "Inside Straight / Troublefunk",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "35404",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 12575458,
+      "instance_id": 1770194566,
+      "artist_ids": [
+        1842762
+      ],
+      "artist": "California Flight Project",
+      "title": "California Flight Project",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1842762",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 2255206,
+      "instance_id": 1773879076,
+      "artist_ids": [
+        3279
+      ],
+      "artist": "Bill Riley",
+      "title": "In At The Deep End / Wake Up",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3279",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 14028131,
+      "instance_id": 1750843628,
+      "artist_ids": [
+        1767407
+      ],
+      "artist": "Psychemagik",
+      "title": "Undercover Lovers Vol 1",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1767407",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11019692,
+      "instance_id": 1751143010,
+      "artist_ids": [
+        663348
+      ],
+      "artist": "sano",
+      "title": "Latino Body Music Vol. II",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "663348",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 16222272,
+      "instance_id": 1751043497,
+      "artist_ids": [
+        99397
+      ],
+      "artist": "Quadratschulz",
+      "title": "Pudel Produkte 34: quadratschulz Remixes",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "99397",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 62559,
+      "instance_id": 1751119994,
+      "artist_ids": [
+        7434
+      ],
+      "artist": "Space Opera",
+      "title": "Space 3001 (The Remixes)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "7434",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 16406805,
+      "instance_id": 1770194920,
+      "artist_ids": [
+        1462144
+      ],
+      "artist": "Τάσος Χαλκιάς",
+      "title": "Divine Reeds: Obscure Recordings From Special Music Record Company (Athens 1966-1967)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1462144",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 25055,
+      "instance_id": 1754107463,
+      "artist_ids": [
+        21066
+      ],
+      "artist": "Galera Da Cidade",
+      "title": "Goal Brazil / Interlagos",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "21066",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 3148982,
+      "instance_id": 1773915016,
+      "artist_ids": [
+        1863773
+      ],
+      "artist": "Teeth (8)",
+      "title": "Swarm / Shift / Sequence / Spawn (Part One)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1863773",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 13479375,
+      "instance_id": 1750816736,
+      "artist_ids": [
+        148262
+      ],
+      "artist": "Candy Bowman",
+      "title": "I Wanna Feel Your Love",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "148262",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 1537500,
+      "instance_id": 1770117562,
+      "artist_ids": [
+        236144
+      ],
+      "artist": "Plush",
+      "title": "Plush",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "236144",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 283733,
+      "instance_id": 1773836380,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Renegade Selector (Series 1)",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 14922154,
+      "instance_id": 1750996607,
+      "artist_ids": [
+        7698701
+      ],
+      "artist": "Cheb Runner",
+      "title": "Tagnawit EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "7698701",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 235251,
+      "instance_id": 1773885289,
+      "artist_ids": [
+        1724
+      ],
+      "artist": "Tek 9",
+      "title": "Killing Time (Remixed)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1724",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 17881,
+      "instance_id": 1751187938,
+      "artist_ids": [
+        5234
+      ],
+      "artist": "Chris Energy",
+      "title": "Drum Percpectives EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "5234",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 10912777,
+      "instance_id": 1751114525,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "VA Electro",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 11873515,
+      "instance_id": 1773922933,
+      "artist_ids": [
+        6429183
+      ],
+      "artist": "Moonlighter (2)",
+      "title": "Moonlighter EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "6429183",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 9288000,
+      "instance_id": 1751016032,
+      "artist_ids": [
+        5349776
+      ],
+      "artist": "Hylas",
+      "title": "Hylas EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "5349776",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 8479529,
+      "instance_id": 1750929257,
+      "artist_ids": [
+        3221
+      ],
+      "artist": "Gerd",
+      "title": "Planet F.M.D.X. Pt. 1",
+      "classification": "reviewed_no_place",
+      "prior_release_review": true,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3221",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "prior review lacks acceptable place evidence; recheck alternative sources",
+      "last_checked": null
+    },
+    {
+      "release_id": 13742611,
+      "instance_id": 1770154111,
+      "artist_ids": [
+        1658423,
+        3488202
+      ],
+      "artist": "DJ Fett Burger / DJ Speckgürtel",
+      "title": "Red Scorpions",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1658423",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "3488202",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 33967,
+      "instance_id": 1773832015,
+      "artist_ids": [
+        15142
+      ],
+      "artist": "DJ Ruffneck",
+      "title": "Responze Tezt / I Am The One",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "15142",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 209945,
+      "instance_id": 1751199455,
+      "artist_ids": [
+        52897
+      ],
+      "artist": "Substance (2)",
+      "title": "Fly / Prisoner",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "52897",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 1204689,
+      "instance_id": 1751105996,
+      "artist_ids": [
+        90091
+      ],
+      "artist": "Comtron",
+      "title": "Special Consumer Series Part 2",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "90091",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 10518041,
+      "instance_id": 1750759466,
+      "artist_ids": [
+        1152098
+      ],
+      "artist": "Senyaka",
+      "title": "Bayanyonyoba",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1152098",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 4913304,
+      "instance_id": 1751069471,
+      "artist_ids": [
+        2941294
+      ],
+      "artist": "Boogie Nite",
+      "title": "It's Real",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2941294",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 12698071,
+      "instance_id": 1750893326,
+      "artist_ids": [
+        5421141
+      ],
+      "artist": "Masalo",
+      "title": "New Dance / Cycles",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "5421141",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 12049177,
+      "instance_id": 1751075996,
+      "artist_ids": [
+        6503296
+      ],
+      "artist": "Artis (10)",
+      "title": "Caecilia",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "6503296",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 10887542,
+      "instance_id": 1750850270,
+      "artist_ids": [
+        6017767
+      ],
+      "artist": "Secret Mixes Fixes",
+      "title": "Fallen Heroes Vol.1",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "6017767",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 17033907,
+      "instance_id": 1750916063,
+      "artist_ids": [
+        2569376
+      ],
+      "artist": "Andrew Kitchen (2)",
+      "title": "Attack Of The Boogie",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2569376",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11446709,
+      "instance_id": 1751119517,
+      "artist_ids": [
+        3675
+      ],
+      "artist": "Sugar Experiment Station",
+      "title": "Kaptagon",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3675",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 5606046,
+      "instance_id": 1751116955,
+      "artist_ids": [
+        16776
+      ],
+      "artist": "Mono Junk",
+      "title": "Untitled",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "16776",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 30001,
+      "instance_id": 1773843631,
+      "artist_ids": [
+        17390
+      ],
+      "artist": "DJ Red Alert & Mike Slammer",
+      "title": "Feel So Real / Walking On Sunshine",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "17390",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11405284,
+      "instance_id": 1751074961,
+      "artist_ids": [
+        180280,
+        180281
+      ],
+      "artist": "Roberto Musci / Giovanni Venosta",
+      "title": "Urban And Tribal Portraits",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "180280",
+          "status": "area_unavailable"
+        },
+        {
+          "artist_id": "180281",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 2811130,
+      "instance_id": 1773835138,
+      "artist_ids": [
+        20,
+        49831
+      ],
+      "artist": "Percy X / Blood Sugar",
+      "title": "-3",
+      "classification": "reviewed_no_place",
+      "prior_release_review": true,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "20",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "49831",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "prior review lacks acceptable place evidence; recheck alternative sources",
+      "last_checked": null
+    },
+    {
+      "release_id": 1621146,
+      "instance_id": 1751079278,
+      "artist_ids": [
+        153541
+      ],
+      "artist": "STL",
+      "title": "Nocturnal Mixdowns",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "153541",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 339118,
+      "instance_id": 1750794875,
+      "artist_ids": [
+        8912
+      ],
+      "artist": "Slope",
+      "title": "Remixed",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "8912",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 479518,
+      "instance_id": 1773898879,
+      "artist_ids": [
+        5465
+      ],
+      "artist": "Big Bud",
+      "title": "Fear Of Flying (Album Sampler No.1)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "5465",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 8227117,
+      "instance_id": 1750847300,
+      "artist_ids": [
+        2986991,
+        97260
+      ],
+      "artist": "Moplen / DJ Rocca",
+      "title": "Space Disco Ep Vol.1",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "2986991",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "97260",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 16498374,
+      "instance_id": 1754104355,
+      "artist_ids": [
+        73566
+      ],
+      "artist": "Spirit Attack",
+      "title": "Spirit Attack",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "73566",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 8649345,
+      "instance_id": 1750769282,
+      "artist_ids": [
+        3779784
+      ],
+      "artist": "Man Power (2)",
+      "title": "Thnk U / Ablett",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "3779784",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 316639,
+      "instance_id": 1012213709,
+      "artist_ids": [
+        19848
+      ],
+      "artist": "New Jack Pimps",
+      "title": "Water Jelly",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "19848",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 13479515,
+      "instance_id": 1750985198,
+      "artist_ids": [
+        111507
+      ],
+      "artist": "Hipnotic (2)",
+      "title": "Are You Lonely?",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "111507",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 9933928,
+      "instance_id": 1751053199,
+      "artist_ids": [
+        7266,
+        37850
+      ],
+      "artist": "Photon Inc. / Paula Brion",
+      "title": "Generate Power",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "7266",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "37850",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 453412,
+      "instance_id": 1751111825,
+      "artist_ids": [
+        314586
+      ],
+      "artist": "A.M.E.N.",
+      "title": "Elephant",
+      "classification": "reviewed_no_place",
+      "prior_release_review": true,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "314586",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "prior review lacks acceptable place evidence; recheck alternative sources",
+      "last_checked": null
+    },
+    {
+      "release_id": 148233,
+      "instance_id": 1773904813,
+      "artist_ids": [
+        151058,
+        35317
+      ],
+      "artist": "Dr. Suess / Midst of Tumult",
+      "title": "Jacuzzi Weekend",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "151058",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "35317",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 9855853,
+      "instance_id": 1770112390,
+      "artist_ids": [
+        466449,
+        1495463
+      ],
+      "artist": "Carl Marshall / The S.D.'S",
+      "title": "I'll Give My Heart To You",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "466449",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "1495463",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 1413532,
+      "instance_id": 1773842449,
+      "artist_ids": [
+        482500,
+        406686
+      ],
+      "artist": "NNM Productions / Rick Wayne",
+      "title": "Bad Behaviour",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "482500",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "406686",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 487157,
+      "instance_id": 1773904366,
+      "artist_ids": [
+        337412
+      ],
+      "artist": "Johnny One-Drop",
+      "title": "Travelings",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "337412",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 324162,
+      "instance_id": 1773862171,
+      "artist_ids": [
+        29130
+      ],
+      "artist": "TDK",
+      "title": "Untitled",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "29130",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 533275,
+      "instance_id": 1751147045,
+      "artist_ids": [
+        300684
+      ],
+      "artist": "Hectic Fence",
+      "title": "Blackmailing",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "300684",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 548314,
+      "instance_id": 1751126504,
+      "artist_ids": [
+        7191365
+      ],
+      "artist": "DJ Shy (5)",
+      "title": "Joint / The Spirit",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "7191365",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 14499190,
+      "instance_id": 1750832921,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Eastern European Cut-Outs",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 538235,
+      "instance_id": 1773884857,
+      "artist_ids": [
+        14109
+      ],
+      "artist": "Potential Bad Boy",
+      "title": "Take Me Home / Do U Feel Me?",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "14109",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 1267143,
+      "instance_id": 443961188,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Old School Volume 1",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 250924,
+      "instance_id": 1773928660,
+      "artist_ids": [
+        160033
+      ],
+      "artist": "Drop The Lime",
+      "title": "Killy 123 EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "160033",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 27576126,
+      "instance_id": 1750931198,
+      "artist_ids": [
+        7259815
+      ],
+      "artist": "Yosh (20)",
+      "title": "Show Me EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "7259815",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 340579,
+      "instance_id": 1773829480,
+      "artist_ids": [
+        137201
+      ],
+      "artist": "S.L.M.",
+      "title": "Now I'm Finished (The Bells) / Nice 'n' Slow",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "137201",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 797825,
+      "instance_id": 1751008547,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Acid Trax Vol. 2",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 193290,
+      "instance_id": 1773921625,
+      "artist_ids": [
+        92699
+      ],
+      "artist": "T-Move Experience",
+      "title": "Running In Real Time (The Unreleased Dub)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "92699",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 37171,
+      "instance_id": 1750925567,
+      "artist_ids": [
+        28885
+      ],
+      "artist": "Fun Boy Flynn",
+      "title": "The Fountain Dancer  EP",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "28885",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 14446701,
+      "instance_id": 1750917725,
+      "artist_ids": [
+        328543
+      ],
+      "artist": "Jus-Ed",
+      "title": "Where Has The Romance Gone?",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "328543",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 14460113,
+      "instance_id": 1770202078,
+      "artist_ids": [
+        1629592
+      ],
+      "artist": "Free Dance Song",
+      "title": "Free Rythms Dance",
+      "classification": "reviewed_no_place",
+      "prior_release_review": true,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1629592",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "prior review lacks acceptable place evidence; recheck alternative sources",
+      "last_checked": null
+    },
+    {
+      "release_id": 13461710,
+      "instance_id": 1751195153,
+      "artist_ids": [
+        40714
+      ],
+      "artist": "Ben Human",
+      "title": "The Addison Tapes",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "40714",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 20311276,
+      "instance_id": 1770195349,
+      "artist_ids": [
+        4256836
+      ],
+      "artist": "Cal Tjader And Orchestra",
+      "title": "West Side Story",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "4256836",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 27471945,
+      "instance_id": 1770115819,
+      "artist_ids": [
+        1937785
+      ],
+      "artist": "Steel Band Shell De Port-Louis",
+      "title": "Ban Moin On Ti Bo",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1937785",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 7546119,
+      "instance_id": 1770158101,
+      "artist_ids": [
+        4640604,
+        434957
+      ],
+      "artist": "Bruce Powell (3) / Władysław Jagiełło",
+      "title": "The Reality",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "4640604",
+          "status": "not_checked"
+        },
+        {
+          "artist_id": "434957",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 13360264,
+      "instance_id": 1751118473,
+      "artist_ids": [
+        1460
+      ],
+      "artist": "I-f",
+      "title": "Space Invaders' Revenge",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1460",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 11705722,
+      "instance_id": 1770104038,
+      "artist_ids": [
+        1900915
+      ],
+      "artist": "Cynthia Bhikharie",
+      "title": "Let's Dance With Cynthia / Once Again",
+      "classification": "reviewed_no_place",
+      "prior_release_review": true,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1900915",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "prior review lacks acceptable place evidence; recheck alternative sources",
+      "last_checked": null
+    },
+    {
+      "release_id": 15417065,
+      "instance_id": 1750842839,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "African Rare Groove (Rare Funky Songs From Africa)",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 375740,
+      "instance_id": 1773934171,
+      "artist_ids": [
+        35647
+      ],
+      "artist": "Harmonic 33",
+      "title": "Music For Film, Television & Radio Volume One",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "35647",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 14218890,
+      "instance_id": 1313187827,
+      "artist_ids": [
+        71171
+      ],
+      "artist": "Michael Gray",
+      "title": "Michael Gray Reworks",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "71171",
+          "status": "rate_limited"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 98807,
+      "instance_id": 1750876154,
+      "artist_ids": [
+        48727
+      ],
+      "artist": "Bombers",
+      "title": "(Everybody) Get Dancin'",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "48727",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 152824,
+      "instance_id": 1750877420,
+      "artist_ids": [
+        31927
+      ],
+      "artist": "Shirley Lites",
+      "title": "Heat You Up (Melt You Down)",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "31927",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 18579,
+      "instance_id": 1750959536,
+      "artist_ids": [
+        16483
+      ],
+      "artist": "Alex Neri",
+      "title": "Planet Funk 2",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "16483",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 8528587,
+      "instance_id": 1751010182,
+      "artist_ids": [
+        355
+      ],
+      "artist": "Unknown Artist",
+      "title": "WLSLTD03",
+      "classification": "anonymous",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "355",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist identity not established",
+      "last_checked": null
+    },
+    {
+      "release_id": 8426622,
+      "instance_id": 1751096534,
+      "artist_ids": [
+        691770
+      ],
+      "artist": "André Kronert",
+      "title": "Ain't No Funny Music / Dirty Old Man",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "691770",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 15507007,
+      "instance_id": 1751037311,
+      "artist_ids": [
+        1932807
+      ],
+      "artist": "Cygnus (5)",
+      "title": "Neon Flux",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1932807",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 385,
+      "instance_id": 1773838948,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "Alt.frequencies - The Single",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    },
+    {
+      "release_id": 680278,
+      "instance_id": 1773871849,
+      "artist_ids": [
+        1403
+      ],
+      "artist": "Jonny L",
+      "title": "This Time EP Sampler",
+      "classification": "reviewed_no_place",
+      "prior_release_review": true,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "1403",
+          "status": "area_unavailable"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "prior review lacks acceptable place evidence; recheck alternative sources",
+      "last_checked": null
+    },
+    {
+      "release_id": 2866332,
+      "instance_id": 1751071400,
+      "artist_ids": [
+        156169
+      ],
+      "artist": "Dead Beats",
+      "title": "All I Can Give",
+      "classification": "individual_artist_source_needed",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "156169",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "artist musical geography requires independent source verification",
+      "last_checked": null
+    },
+    {
+      "release_id": 20490646,
+      "instance_id": 1770096193,
+      "artist_ids": [
+        194
+      ],
+      "artist": "Various",
+      "title": "The Dark Side Of Italo Disco",
+      "classification": "compilation",
+      "prior_release_review": false,
+      "existing_artist_source_checks": [
+        {
+          "artist_id": "194",
+          "status": "not_checked"
+        }
+      ],
+      "outcome": "verification_pending",
+      "evidence_state": "not_adjudicated",
+      "reason": "requires release-specific concept or track-level origins",
+      "last_checked": null
+    }
+  ]
+}
