@@ -1,0 +1,79 @@
+name: Music geography source regeneration
+
+on:
+  push:
+    branches:
+      - research/music-geography-completion-02
+    paths:
+      - 'lib/music-that-travels/prepare-collection-research.py'
+      - 'lib/music-that-travels/source/cultural-threads.json'
+      - 'lib/music-that-travels/source/geography-completion-review-register.json'
+      - 'lib/music-that-travels/tests/geography-completion.mjs'
+      - '.github/workflows/music-geography-regenerate.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'lib/music-that-travels/**'
+      - '.github/workflows/music-geography-regenerate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          ref: ${{ github.head_ref || github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - name: Regenerate all origin and Worker data from reviewed sources
+        run: |
+          python lib/music-that-travels/prepare-origins.py
+          python lib/music-that-travels/build.py
+      - name: Validate research and map integration
+        run: |
+          python lib/music-that-travels/research/pipeline.py validate
+          python lib/music-that-travels/tests/research-method.py
+          node lib/music-that-travels/tests/geography-completion.mjs
+          (cd lib/music-that-travels && node tests/cultural-threads.mjs)
+          node lib/music-that-travels/audit-geographic-coverage.mjs > /tmp/music-geography-audit.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path("lib/music-that-travels/source")
+          d=json.loads((root/"origin-collection.json").read_text())
+          collection=json.loads((root/"collection.json").read_text())
+          ids=[x["instance_id"] for x in collection["entries"]]
+          releases=[x["id"] for x in collection["entries"]]
+          assert len(ids)==610 and len(set(ids))==610,(len(ids),len(set(ids)))
+          assert len(set(releases))==608,len(set(releases))
+          assert all(str(k) in set(map(str,releases)) for k in d["records"])
+          print("Collection instances:",len(ids),"unique editions:",len(set(releases)))
+          print("Mapped copies:",d["copy_count"],"unplaced:",610-d["copy_count"])
+          PY
+      - name: Verify full project build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+      - name: Commit regenerated geographic datasets on successful checks
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/music-that-travels/source/origin-collection.json lib/music-that-travels/worker.js
+          if ! git diff --cached --quiet; then
+            git commit -m "Regenerate Music That Travels geography from reviewed source associations [skip ci]"
+            git push
+          fi

@@ -23,7 +23,7 @@ group_threads=runpy.run_path(str(root/'group-threads.py'))['group_threads']
 country_data=json.loads((root/'source/countries.json').read_text())
 display_threads={key:group_threads(row['threads'],country_data,row.get('primary_thread_id')) for key,row in origins['records'].items()}
 # The map needs display claims, not the research ledger or duplicated legacy rows.
-thread_fields=['id','kind','relation','subject','label','lon','lat','precision','source','period','note','venue','coverage','track_positions','location_source','supporting_claims']
+thread_fields=['id','kind','relation','subject','label','lon','lat','precision','source','identity_source','location_source','reference_url','period','note','venue','coverage','track_positions','location_source','supporting_claims']
 def display_claim(thread):
  claim={k:thread[k] for k in thread_fields if k in thread and thread[k] not in ('',None,[])}
  if claim.get('location_source')==claim.get('source'):claim.pop('location_source')
