@@ -133,3 +133,11 @@ The updated four-set pass is documented in [CREDIT-DISCOVERY-02.md](CREDIT-DISCO
 Important improvements: exclude hyphenated executive-producer roles and suppress only the **specific contributor** already documented by an accepted link, rather than suppressing all people on the same pair of albums. This reveals seven further credited contributors on the Battiato pair and seven on the Nu Genea pair, while preserving the previously accepted Giusto Pio and two-musician Nu Genea bridges.
 
 Next intake is **coverage expansion**, especially the 465 editions without structured release observations in these four research files. The count is a missing-source-inventory number, not a count of undocumented musical histories. Output remains a review queue; there is no automatic map publication.
+
+## Next targeted credit-intake batch (04)
+
+A frozen selection of **30 owned, previously unobserved editions** is recorded in `source/research-credit-intake-04.json`, with scope questions and an intake guide in [CREDIT-INTAKE-04.md](CREDIT-INTAKE-04.md). The selection deliberately covers jazz/funk, hip-hop, jungle, electronic and experimental music, historical recordings and two track-level compilations. It is not an unbiased benchmark.
+
+This work also discovered a source-backed three-record network linking Steve Monite's `Only You` reissue, the owned `Doing It In Lagos` anthology and Nkono Teles' `Love Vibration`. Two new candidate leads are in `relationship-leads.json`, bringing the candidate queue to nine. Same-recording identity remains explicitly unresolved pending precise mix/take comparison.
+
+The thirty source observations **have not been fetched**: this environment cannot reach the Discogs API. Run the collector commands in CREDIT-INTAKE-04.md from a network-enabled checkout. Do not count this batch as added structured-credit coverage until successful release observations have actually been saved and validated.
