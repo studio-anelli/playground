@@ -1039,6 +1039,19 @@
         "note": "Artist's own NYC venue biography documents the Mister Saturday Night / Nowadays DJ and production scene. Born in Derry but birth location is not substituted for his musical base."
       }
     ],
+    "1307268": [
+      {
+        "kind": "artist",
+        "subject": "Busy / M0ths",
+        "relation": "Instrumental hip-hop producer based in",
+        "label": "Maryland",
+        "lon": -76.7,
+        "lat": 39,
+        "precision": "region",
+        "source": "https://busymusic.bandcamp.com/",
+        "note": "Producer's own Bandcamp location is Maryland and their discography lists exact M0ths. State-level artist base, not a city or studio inferred."
+      }
+    ],
     "1374815": [
       {
         "kind": "artist",
@@ -1467,6 +1480,20 @@
         "precision": "city",
         "source": "https://www.cafeoto.co.uk/artists/john-bence/",
         "note": "Cafe OTO's presenter biography explicitly connects the composer with Bristol's electronic music culture and names Disquiet. Not a source for the studio of the recorded EP."
+      }
+    ],
+    "4980033": [
+      {
+        "kind": "artist",
+        "subject": "SHKN / Marc Ashken",
+        "relation": "Electronic producer based in",
+        "label": "United Kingdom",
+        "lon": -2.5,
+        "lat": 54.5,
+        "precision": "country",
+        "source": "https://ra.co/dj/marcashken",
+        "identity_source": "https://yoyaku.io/artist/shkn/",
+        "note": "Record store directly identifies SHKN as Marc Ashken and indexes exact Domesticated 003. Resident Advisor locates Marc Ashken in the UK. Not a London studio assertion."
       }
     ],
     "5080597": [
@@ -1992,6 +2019,20 @@
         "precision": "city",
         "source": "https://pre-delay.bandcamp.com/album/pre-delay-04",
         "note": "First-party PRE-DELAY /// sound magazine describes the exact 2017 double-vinyl compilation as developed within the NABA Sound Design programme in Milan, art-directed by Igor Muroni. Editorial/project provenance only, not the geographical origin or studio of all 15 separately credited tracks."
+      }
+    ],
+    "22284061": [
+      {
+        "kind": "repertoire",
+        "subject": "Nadie La Fond and Embryo — Sofrito/Al Kent edits",
+        "relation": "Edits original 1970s soul/disco recordings created around",
+        "label": "Port of Spain",
+        "lon": -61.5166,
+        "lat": 10.6549,
+        "precision": "city",
+        "source": "https://www.bear-family.com/dealer_pdf/ccd1209_e.pdf",
+        "identity_source": "https://www.merchbar.com/albums/lafond-nadie-embryo/nappy-music-man-edits",
+        "note": "Cree/Bear Family archival Nappy Music Man project specifies tracks recorded in Port of Spain, Trinidad between 1975–81 by Richard Nappy Mayers/Embryo and Nadie La Fond. Identifies original source recordings re-edited on exact owned Sofrito 12; location not Al Kent's studio or modern pressing."
       }
     ]
   }
