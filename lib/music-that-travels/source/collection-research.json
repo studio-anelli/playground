@@ -957,6 +957,19 @@
         "identity_source": "https://www.wikidata.org/wiki/Q1858715#P1953",
         "evidence_property": "P740",
         "note": "A documented group formation place from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "MusicBrainz artist associated area",
+        "subject": "London Elektricity",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://musicbrainz.org/artist/0356daee-ec48-4495-bc3e-460b8a5eacad",
+        "identity_source": "https://www.wikidata.org/wiki/Q1858715#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "An exact identity-linked associated-area field, sometimes accompanied by a wider geographic hierarchy. It is not a recording place, birthplace, artist formation place, or a statement about location at release date."
       }
     ],
     "426847": [
@@ -1590,6 +1603,19 @@
         "identity_source": "https://www.wikidata.org/wiki/Q10381461#P1953",
         "evidence_property": "P495",
         "note": "A documented musical-project origin country from Wikidata. This relationship is not a recording-location claim or a claim about the artist’s location at this release date."
+      },
+      {
+        "kind": "artist",
+        "relation": "MusicBrainz artist associated area",
+        "subject": "The Heliocentrics",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://musicbrainz.org/artist/f221328f-bc6b-40f1-a750-ce11a1321489",
+        "identity_source": "https://www.wikidata.org/wiki/Q10381461#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "An exact identity-linked associated-area field, sometimes accompanied by a wider geographic hierarchy. It is not a recording place, birthplace, artist formation place, or a statement about location at release date."
       }
     ],
     "75985": [
@@ -2644,6 +2670,21 @@
         "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
       }
     ],
+    "1040998": [
+      {
+        "kind": "artist",
+        "relation": "MusicBrainz artist associated area",
+        "subject": "Jimetta Rose",
+        "label": "Los Angeles",
+        "lon": -118.2437,
+        "lat": 34.0522,
+        "precision": "city",
+        "source": "https://musicbrainz.org/artist/66883d1c-3502-4fa5-86fb-e0f7a8723d42",
+        "identity_source": "https://www.wikidata.org/wiki/Q141613586#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "An exact identity-linked associated-area field, sometimes accompanied by a wider geographic hierarchy. It is not a recording place, birthplace, artist formation place, or a statement about location at release date."
+      }
+    ],
     "978": [
       {
         "kind": "artist",
@@ -2914,6 +2955,21 @@
         "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
       }
     ],
+    "5": [
+      {
+        "kind": "artist",
+        "relation": "MusicBrainz artist associated area",
+        "subject": "Heiko Laux",
+        "label": "Berlin",
+        "lon": 13.405,
+        "lat": 52.52,
+        "precision": "city",
+        "source": "https://musicbrainz.org/artist/75a282a9-c483-4d8e-86c6-1cb029068ca8",
+        "identity_source": "https://www.wikidata.org/wiki/Q110341#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "An exact identity-linked associated-area field, sometimes accompanied by a wider geographic hierarchy. It is not a recording place, birthplace, artist formation place, or a statement about location at release date."
+      }
+    ],
     "60453": [
       {
         "kind": "artist",
@@ -2942,6 +2998,21 @@
         "identity_source": "https://www.wikidata.org/wiki/Q181484#P1953",
         "evidence_property": "MusicBrainz Artist Area",
         "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "2264": [
+      {
+        "kind": "artist",
+        "relation": "MusicBrainz artist associated area",
+        "subject": "Jocelyn Brown",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://musicbrainz.org/artist/6a628a50-1c5c-4d29-a13a-79a73eb012d9",
+        "identity_source": "https://www.wikidata.org/wiki/Q447915#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "An exact identity-linked associated-area field, sometimes accompanied by a wider geographic hierarchy. It is not a recording place, birthplace, artist formation place, or a statement about location at release date."
       }
     ],
     "250149": [
@@ -3124,6 +3195,21 @@
         "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
       }
     ],
+    "1694": [
+      {
+        "kind": "artist",
+        "relation": "MusicBrainz artist associated area",
+        "subject": "Mark de Clive-Lowe",
+        "label": "Los Angeles",
+        "lon": -118.2437,
+        "lat": 34.0522,
+        "precision": "city",
+        "source": "https://musicbrainz.org/artist/80a0ab61-c33d-4a59-a950-aaf3b69d3251",
+        "identity_source": "https://www.wikidata.org/wiki/Q6770505#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "An exact identity-linked associated-area field, sometimes accompanied by a wider geographic hierarchy. It is not a recording place, birthplace, artist formation place, or a statement about location at release date."
+      }
+    ],
     "111502": [
       {
         "kind": "artist",
@@ -3182,6 +3268,21 @@
         "identity_source": "https://www.wikidata.org/wiki/Q7404278#P1953",
         "evidence_property": "MusicBrainz Artist Area",
         "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "2623061": [
+      {
+        "kind": "artist",
+        "relation": "MusicBrainz artist associated area",
+        "subject": "Marlon Hoffstadt",
+        "label": "Berlin",
+        "lon": 13.405,
+        "lat": 52.52,
+        "precision": "city",
+        "source": "https://musicbrainz.org/artist/7377ee25-9240-4b50-a824-20c202e96da9",
+        "identity_source": "https://www.wikidata.org/wiki/Q136433410#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "An exact identity-linked associated-area field, sometimes accompanied by a wider geographic hierarchy. It is not a recording place, birthplace, artist formation place, or a statement about location at release date."
       }
     ],
     "94316": [
@@ -3319,6 +3420,21 @@
         "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
       }
     ],
+    "29224": [
+      {
+        "kind": "artist",
+        "relation": "MusicBrainz artist associated area",
+        "subject": "Positive Force",
+        "label": "Pennsylvania",
+        "lon": -77.1945,
+        "lat": 41.2033,
+        "precision": "region",
+        "source": "https://musicbrainz.org/artist/d40925df-080e-4ac4-bcad-325c95a1642b",
+        "identity_source": "https://www.wikidata.org/wiki/Q7233222#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "An exact identity-linked associated-area field, sometimes accompanied by a wider geographic hierarchy. It is not a recording place, birthplace, artist formation place, or a statement about location at release date."
+      }
+    ],
     "1720": [
       {
         "kind": "artist",
@@ -3347,6 +3463,21 @@
         "identity_source": "https://www.wikidata.org/wiki/Q120204#P1953",
         "evidence_property": "MusicBrainz Artist Area",
         "note": "MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date."
+      }
+    ],
+    "1559": [
+      {
+        "kind": "artist",
+        "relation": "MusicBrainz artist associated area",
+        "subject": "Nicolette",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://musicbrainz.org/artist/2c489c94-e9d0-4adf-a67f-73cc025cee69",
+        "identity_source": "https://www.wikidata.org/wiki/Q7030266#P1953",
+        "evidence_property": "MusicBrainz Artist Area",
+        "note": "An exact identity-linked associated-area field, sometimes accompanied by a wider geographic hierarchy. It is not a recording place, birthplace, artist formation place, or a statement about location at release date."
       }
     ],
     "145257": [
@@ -3758,9 +3889,47 @@
     "identity_matches": 251,
     "ambiguous_artist_ids": [],
     "musicbrainz_pages_checked": 221,
-    "accepted_artists": 160,
-    "accepted_threads": 244,
-    "skipped": [],
+    "accepted_artists": 167,
+    "accepted_threads": 253,
+    "skipped": [
+      {
+        "artist": "17900",
+        "reason": "hierarchical_area_needs_anchor_review",
+        "areas": [
+          "Queensbridge",
+          "New York",
+          "New York",
+          "United States"
+        ]
+      },
+      {
+        "artist": "79156",
+        "reason": "hierarchical_area_needs_anchor_review",
+        "areas": [
+          "Netherlands",
+          "Kingdom of the Netherlands"
+        ]
+      },
+      {
+        "artist": "1094",
+        "reason": "hierarchical_area_needs_anchor_review",
+        "areas": [
+          "Detroit",
+          "Michigan",
+          "United States"
+        ]
+      },
+      {
+        "artist": "10053688",
+        "reason": "hierarchical_area_needs_anchor_review",
+        "areas": [
+          "Napoli",
+          "Napoli",
+          "Campania",
+          "Italy"
+        ]
+      }
+    ],
     "failed_batches": 0
   }
 }

@@ -3,6 +3,8 @@
   "criteria": "Cultural threads are typed, sourced relationships. They are not a physical itinerary. A broad territory is not promoted to a city. No birthplace, nationality, title or genre is inferred as musical heritage.",
   "ids": [
     110,
+    373,
+    385,
     944,
     984,
     4312,
@@ -12,10 +14,12 @@
     9522,
     11375,
     11795,
+    14477,
     16189,
     18497,
     18579,
     19378,
+    20707,
     24611,
     24685,
     24896,
@@ -29,11 +33,14 @@
     37985,
     39348,
     40656,
+    41275,
     44822,
     44900,
     45229,
     46231,
     49017,
+    51412,
+    52735,
     58340,
     60897,
     61487,
@@ -42,6 +49,7 @@
     66506,
     66965,
     73719,
+    77058,
     80037,
     83311,
     84274,
@@ -49,8 +57,10 @@
     95045,
     97331,
     97579,
+    98807,
     103007,
     103819,
+    108283,
     109301,
     111915,
     114068,
@@ -70,6 +80,7 @@
     165894,
     168868,
     184868,
+    193290,
     193558,
     194086,
     197500,
@@ -80,7 +91,10 @@
     208447,
     208460,
     208813,
+    209945,
+    211757,
     212060,
+    235251,
     239890,
     246845,
     250924,
@@ -89,9 +103,11 @@
     302197,
     309825,
     322096,
+    339118,
     346778,
     358586,
     366413,
+    375740,
     387809,
     401373,
     408832,
@@ -111,14 +127,18 @@
     617339,
     645638,
     646323,
+    654319,
     658776,
     666200,
     668230,
     680278,
+    695304,
     697572,
+    745165,
     746165,
     761161,
     777916,
+    797825,
     805316,
     806687,
     839372,
@@ -132,6 +152,8 @@
     974835,
     981136,
     985747,
+    1008363,
+    1015874,
     1021651,
     1027491,
     1028298,
@@ -146,6 +168,7 @@
     1243093,
     1244858,
     1261891,
+    1267143,
     1276204,
     1303011,
     1352263,
@@ -174,11 +197,14 @@
     1948927,
     2045030,
     2071439,
+    2099185,
     2148724,
+    2197760,
     2214344,
     2227309,
     2230011,
     2231053,
+    2255206,
     2331649,
     2507931,
     2543335,
@@ -186,20 +212,25 @@
     2578052,
     2628223,
     2720604,
+    2811130,
     2936028,
     2981774,
     3103098,
     3146173,
+    3148982,
+    3408361,
     3480952,
     3554620,
     3558397,
     3668574,
+    3693330,
     3705359,
     3803673,
     3835570,
     3842748,
     3851838,
     3880099,
+    4163662,
     4215038,
     4253186,
     4268620,
@@ -210,8 +241,10 @@
     4619033,
     4619489,
     4635217,
+    4913304,
     5030835,
     5035765,
+    5066132,
     5081661,
     5141048,
     5151626,
@@ -221,15 +254,19 @@
     5437927,
     5530223,
     5606046,
+    5624549,
     5652780,
+    5664657,
     5666067,
     5723089,
     5803138,
+    5954869,
     5956460,
     6022847,
     6034801,
     6127229,
     6141873,
+    6176026,
     6213392,
     6245802,
     6419810,
@@ -241,6 +278,7 @@
     7367418,
     7454586,
     7516023,
+    7546119,
     7548627,
     7555330,
     7568442,
@@ -248,10 +286,13 @@
     7770150,
     7770151,
     7798224,
+    7917513,
     7938017,
     7972280,
     8008359,
+    8030996,
     8036642,
+    8108409,
     8121481,
     8124474,
     8137189,
@@ -271,6 +312,7 @@
     8610636,
     8630272,
     8636562,
+    8649345,
     8653318,
     8707425,
     8786827,
@@ -286,17 +328,25 @@
     9059108,
     9072898,
     9118974,
+    9131093,
+    9148392,
     9153158,
     9185698,
+    9288000,
     9292116,
     9359985,
     9369950,
     9425519,
     9684455,
     9698138,
+    9855853,
+    9872263,
     9907114,
+    9933928,
     9992673,
     10179708,
+    10307172,
+    10330769,
     10346704,
     10377344,
     10395690,
@@ -306,9 +356,11 @@
     10518041,
     10531324,
     10559651,
+    10579183,
     10676369,
     10708678,
     10752055,
+    10771522,
     10816361,
     10883955,
     11005652,
@@ -327,6 +379,7 @@
     11405284,
     11421995,
     11437823,
+    11446709,
     11498568,
     11517554,
     11534317,
@@ -334,9 +387,11 @@
     11636825,
     11664305,
     11679290,
+    11685775,
     11717510,
     11740322,
     11758168,
+    11762293,
     11768093,
     11780074,
     11813901,
@@ -350,11 +405,13 @@
     12101577,
     12125066,
     12126044,
+    12142239,
     12298829,
     12343877,
     12424634,
     12447146,
     12574351,
+    12575458,
     12698071,
     12705870,
     12716187,
@@ -366,6 +423,7 @@
     13047516,
     13051777,
     13056907,
+    13072057,
     13099166,
     13132255,
     13172138,
@@ -376,6 +434,8 @@
     13390804,
     13402018,
     13433334,
+    13461710,
+    13479515,
     13483159,
     13487844,
     13534190,
@@ -390,16 +450,21 @@
     13867844,
     13986179,
     14028131,
+    14125997,
     14192193,
     14207369,
+    14218890,
     14222949,
     14248741,
     14270021,
     14273207,
+    14334743,
     14446701,
     14457597,
+    14472273,
     14480820,
     14488444,
+    14499190,
     14516902,
     14689821,
     14791220,
@@ -408,11 +473,15 @@
     14919928,
     14922154,
     15268960,
+    15417065,
     15499420,
     15501102,
     15507007,
     15656885,
     15729017,
+    15792075,
+    16011980,
+    16084646,
     16086639,
     16125100,
     16222272,
@@ -421,6 +490,7 @@
     16691670,
     16868718,
     17030529,
+    17033907,
     17111145,
     17614633,
     17970382,
@@ -428,11 +498,13 @@
     18064021,
     18710329,
     18720775,
+    19289326,
     19316317,
     19561852,
     20152732,
     20311276,
     20431393,
+    20490646,
     20923105,
     21016180,
     21087580,
@@ -445,6 +517,7 @@
     23156297,
     23192537,
     23783198,
+    24368522,
     24882914,
     24896429,
     25267285,
@@ -458,13 +531,16 @@
     27313062,
     27471945,
     27478812,
+    27576126,
+    28522651,
+    29125525,
     30112238,
     30227756,
     30307487,
     30831717
   ],
-  "distinct_editions": 460,
-  "copy_count": 462,
+  "distinct_editions": 536,
+  "copy_count": 538,
   "collection_entries": 610,
   "records": {
     "7548627": {
@@ -7872,6 +7948,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "108283": {
+      "kind": "artist",
+      "relation": "Musical project associated with",
+      "subject": "Skin Divers",
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "precision": "country",
+      "source": "https://www.discogs.com/artist/80318",
+      "note": "Exact Discogs profile identifies this as a UK drum-and-bass project. Country precision only; not inferred from the edition market.",
+      "reviewed_at": "2026-11-09",
+      "city": "United Kingdom",
+      "studio": "Musical project associated with",
+      "id": "thread-2e9ea171b9b3",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Musical project associated with",
+          "subject": "Skin Divers",
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "precision": "country",
+          "source": "https://www.discogs.com/artist/80318",
+          "note": "Exact Discogs profile identifies this as a UK drum-and-bass project. Country precision only; not inferred from the edition market.",
+          "reviewed_at": "2026-11-09",
+          "city": "United Kingdom",
+          "studio": "Musical project associated with",
+          "id": "thread-2e9ea171b9b3"
+        }
+      ],
+      "primary_thread_id": "thread-2e9ea171b9b3",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Musical project associated with",
+          "subject": "Skin Divers",
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "precision": "country",
+          "source": "https://www.discogs.com/artist/80318",
+          "note": "Exact Discogs profile identifies this as a UK drum-and-bass project. Country precision only; not inferred from the edition market.",
+          "reviewed_at": "2026-11-09",
+          "city": "United Kingdom",
+          "studio": "Musical project associated with",
+          "id": "thread-2e9ea171b9b3"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "4253186": {
       "kind": "artist",
       "relation": "Musical development and house scene",
@@ -8396,6 +8524,58 @@
           "city": "São Paulo",
           "studio": "Live project formed in",
           "id": "thread-7a21af948990"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "8030996": {
+      "kind": "artist",
+      "relation": "Producer based in",
+      "subject": "Diamond Jackson / Tom Noble",
+      "label": "New York",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "precision": "city",
+      "source": "https://ra.co/dj/tomnoble/biography",
+      "note": "Biography documents Noble’s New York base since 2014. Alias identified at https://nl.ra.co/dj/tomnoble and exact Stars production credit at https://clone.nl/item38746.html . Artist base, not the label address.",
+      "reviewed_at": "2026-11-09",
+      "city": "New York",
+      "studio": "Producer based in",
+      "id": "thread-ac6e18a84042",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Diamond Jackson / Tom Noble",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://ra.co/dj/tomnoble/biography",
+          "note": "Biography documents Noble’s New York base since 2014. Alias identified at https://nl.ra.co/dj/tomnoble and exact Stars production credit at https://clone.nl/item38746.html . Artist base, not the label address.",
+          "reviewed_at": "2026-11-09",
+          "city": "New York",
+          "studio": "Producer based in",
+          "id": "thread-ac6e18a84042"
+        }
+      ],
+      "primary_thread_id": "thread-ac6e18a84042",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Diamond Jackson / Tom Noble",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://ra.co/dj/tomnoble/biography",
+          "note": "Biography documents Noble’s New York base since 2014. Alias identified at https://nl.ra.co/dj/tomnoble and exact Stars production credit at https://clone.nl/item38746.html . Artist base, not the label address.",
+          "reviewed_at": "2026-11-09",
+          "city": "New York",
+          "studio": "Producer based in",
+          "id": "thread-ac6e18a84042"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -9185,6 +9365,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "77058": {
+      "kind": "artist",
+      "relation": "Early musical career in",
+      "subject": "Subject 13",
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "precision": "city",
+      "source": "https://www.allmusic.com/artist/subject-13-mn0000488827",
+      "note": "AllMusic documents the duo's formation in Hackney, London. Artist career association, not this record's recording location.",
+      "reviewed_at": "2026-11-09",
+      "city": "London",
+      "studio": "Early musical career in",
+      "id": "thread-0dded7eab501",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Early musical career in",
+          "subject": "Subject 13",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/subject-13-mn0000488827",
+          "note": "AllMusic documents the duo's formation in Hackney, London. Artist career association, not this record's recording location.",
+          "reviewed_at": "2026-11-09",
+          "city": "London",
+          "studio": "Early musical career in",
+          "id": "thread-0dded7eab501"
+        }
+      ],
+      "primary_thread_id": "thread-0dded7eab501",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Early musical career in",
+          "subject": "Subject 13",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/subject-13-mn0000488827",
+          "note": "AllMusic documents the duo's formation in Hackney, London. Artist career association, not this record's recording location.",
+          "reviewed_at": "2026-11-09",
+          "city": "London",
+          "studio": "Early musical career in",
+          "id": "thread-0dded7eab501"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "1142878": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -9235,6 +9467,58 @@
           "city": "Jamaica",
           "studio": "Artist associated area",
           "id": "thread-797d42c4fb2a"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "14472273": {
+      "kind": "artist",
+      "relation": "Group based in",
+      "subject": "The Goods",
+      "label": "Sydney",
+      "lon": 151.2093,
+      "lat": -33.8688,
+      "precision": "city",
+      "source": "https://thegoodsinyou.bandcamp.com/album/ii",
+      "note": "Artist's own album biography identifies the Sydney trio and includes Peach. Artist base, not a studio claim.",
+      "reviewed_at": "2026-11-09",
+      "city": "Sydney",
+      "studio": "Group based in",
+      "id": "thread-ef3589bed127",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Group based in",
+          "subject": "The Goods",
+          "label": "Sydney",
+          "lon": 151.2093,
+          "lat": -33.8688,
+          "precision": "city",
+          "source": "https://thegoodsinyou.bandcamp.com/album/ii",
+          "note": "Artist's own album biography identifies the Sydney trio and includes Peach. Artist base, not a studio claim.",
+          "reviewed_at": "2026-11-09",
+          "city": "Sydney",
+          "studio": "Group based in",
+          "id": "thread-ef3589bed127"
+        }
+      ],
+      "primary_thread_id": "thread-ef3589bed127",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Group based in",
+          "subject": "The Goods",
+          "label": "Sydney",
+          "lon": 151.2093,
+          "lat": -33.8688,
+          "precision": "city",
+          "source": "https://thegoodsinyou.bandcamp.com/album/ii",
+          "note": "Artist's own album biography identifies the Sydney trio and includes Peach. Artist base, not a studio claim.",
+          "reviewed_at": "2026-11-09",
+          "city": "Sydney",
+          "studio": "Group based in",
+          "id": "thread-ef3589bed127"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -9602,6 +9886,58 @@
           "city": "Zürich",
           "studio": "Producer and club DJ based in",
           "id": "thread-98aef03e0265"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "13072057": {
+      "kind": "artist",
+      "relation": "Formative DJ residency in",
+      "subject": "Fabrizio Fattori",
+      "label": "Calcinelli",
+      "lon": 12.919,
+      "lat": 43.752,
+      "precision": "city",
+      "source": "https://www.fabriziofattori.com/Bio.html",
+      "note": "Official biography documents the 1991–1998 Verve Club residency in Calcinelli and its influence on his musical style and subsequent productions. Career association, not African recording inferred from the album title.",
+      "reviewed_at": "2026-11-09",
+      "city": "Calcinelli",
+      "studio": "Formative DJ residency in",
+      "id": "thread-92713fd7a22c",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Formative DJ residency in",
+          "subject": "Fabrizio Fattori",
+          "label": "Calcinelli",
+          "lon": 12.919,
+          "lat": 43.752,
+          "precision": "city",
+          "source": "https://www.fabriziofattori.com/Bio.html",
+          "note": "Official biography documents the 1991–1998 Verve Club residency in Calcinelli and its influence on his musical style and subsequent productions. Career association, not African recording inferred from the album title.",
+          "reviewed_at": "2026-11-09",
+          "city": "Calcinelli",
+          "studio": "Formative DJ residency in",
+          "id": "thread-92713fd7a22c"
+        }
+      ],
+      "primary_thread_id": "thread-92713fd7a22c",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Formative DJ residency in",
+          "subject": "Fabrizio Fattori",
+          "label": "Calcinelli",
+          "lon": 12.919,
+          "lat": 43.752,
+          "precision": "city",
+          "source": "https://www.fabriziofattori.com/Bio.html",
+          "note": "Official biography documents the 1991–1998 Verve Club residency in Calcinelli and its influence on his musical style and subsequent productions. Career association, not African recording inferred from the album title.",
+          "reviewed_at": "2026-11-09",
+          "city": "Calcinelli",
+          "studio": "Formative DJ residency in",
+          "id": "thread-92713fd7a22c"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -10315,6 +10651,60 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "15792075": {
+      "kind": "recording",
+      "relation": "Recorded in",
+      "subject": "Enaune — Cycle du Petit Prince",
+      "label": "Tallinn",
+      "lon": 24.7536,
+      "lat": 59.437,
+      "precision": "city",
+      "source": "https://clingingvine.bandcamp.com/album/cycle-du-petit-prince-de-saint-exup-ry-bruta-lp-02",
+      "note": "Label credits identify Jaak Põder and Tõiv Velliste and explicitly date the Tallinn recordings to 1995/96. Release-scoped recording geography.",
+      "reviewed_at": "2026-11-09",
+      "city": "Tallinn",
+      "studio": "Recorded in",
+      "id": "thread-4c7d1843a77c",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded in",
+          "subject": "Enaune — Cycle du Petit Prince",
+          "label": "Tallinn",
+          "lon": 24.7536,
+          "lat": 59.437,
+          "precision": "city",
+          "source": "https://clingingvine.bandcamp.com/album/cycle-du-petit-prince-de-saint-exup-ry-bruta-lp-02",
+          "note": "Label credits identify Jaak Põder and Tõiv Velliste and explicitly date the Tallinn recordings to 1995/96. Release-scoped recording geography.",
+          "reviewed_at": "2026-11-09",
+          "city": "Tallinn",
+          "studio": "Recorded in",
+          "id": "thread-4c7d1843a77c"
+        }
+      ],
+      "primary_thread_id": "thread-4c7d1843a77c",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded in",
+          "subject": "Enaune — Cycle du Petit Prince",
+          "label": "Tallinn",
+          "lon": 24.7536,
+          "lat": 59.437,
+          "precision": "city",
+          "source": "https://clingingvine.bandcamp.com/album/cycle-du-petit-prince-de-saint-exup-ry-bruta-lp-02",
+          "note": "Label credits identify Jaak Põder and Tõiv Velliste and explicitly date the Tallinn recordings to 1995/96. Release-scoped recording geography.",
+          "reviewed_at": "2026-11-09",
+          "city": "Tallinn",
+          "studio": "Recorded in",
+          "id": "thread-4c7d1843a77c"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Enaune"
+      ]
+    },
     "208813": {
       "kind": "artist",
       "relation": "Group formed in",
@@ -10500,6 +10890,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "14125997": {
+      "kind": "artist",
+      "relation": "Producer based in",
+      "subject": "Pépe",
+      "label": "Valencia",
+      "lon": -0.3763,
+      "lat": 39.4699,
+      "precision": "city",
+      "source": "https://inverted-audio.com/feature/in-perspective-pepe/",
+      "note": "In interview Jose Bernat describes moving back to Valencia from Brighton. This is the documented artist base at interview time.",
+      "reviewed_at": "2026-11-09",
+      "city": "Valencia",
+      "studio": "Producer based in",
+      "id": "thread-433a0dafa242",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Pépe",
+          "label": "Valencia",
+          "lon": -0.3763,
+          "lat": 39.4699,
+          "precision": "city",
+          "source": "https://inverted-audio.com/feature/in-perspective-pepe/",
+          "note": "In interview Jose Bernat describes moving back to Valencia from Brighton. This is the documented artist base at interview time.",
+          "reviewed_at": "2026-11-09",
+          "city": "Valencia",
+          "studio": "Producer based in",
+          "id": "thread-433a0dafa242"
+        }
+      ],
+      "primary_thread_id": "thread-433a0dafa242",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Pépe",
+          "label": "Valencia",
+          "lon": -0.3763,
+          "lat": 39.4699,
+          "precision": "city",
+          "source": "https://inverted-audio.com/feature/in-perspective-pepe/",
+          "note": "In interview Jose Bernat describes moving back to Valencia from Brighton. This is the documented artist base at interview time.",
+          "reviewed_at": "2026-11-09",
+          "city": "Valencia",
+          "studio": "Producer based in",
+          "id": "thread-433a0dafa242"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "13339013": {
       "kind": "artist",
       "relation": "Project originates from",
@@ -10570,6 +11012,60 @@
       ],
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
+    },
+    "211757": {
+      "kind": "artist",
+      "relation": "Member’s formative house scene in",
+      "subject": "Clockwork / Adonis",
+      "label": "Chicago",
+      "lon": -87.6298,
+      "lat": 41.8781,
+      "precision": "city",
+      "source": "https://ra.co/dj/adonis",
+      "note": "Adonis’s role in Chicago house is documented by RA. Exact Clockwork membership is in Discogs artist 160727; Feela-La-La mixes by Adonis are listed at https://musicbase.net/feela-la-la . Participant scene only, not the whole band’s recording site.",
+      "reviewed_at": "2026-11-09",
+      "city": "Chicago",
+      "studio": "Member’s formative house scene in",
+      "id": "thread-f9c979ce72f8",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Member’s formative house scene in",
+          "subject": "Clockwork / Adonis",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "source": "https://ra.co/dj/adonis",
+          "note": "Adonis’s role in Chicago house is documented by RA. Exact Clockwork membership is in Discogs artist 160727; Feela-La-La mixes by Adonis are listed at https://musicbase.net/feela-la-la . Participant scene only, not the whole band’s recording site.",
+          "reviewed_at": "2026-11-09",
+          "city": "Chicago",
+          "studio": "Member’s formative house scene in",
+          "id": "thread-f9c979ce72f8"
+        }
+      ],
+      "primary_thread_id": "thread-f9c979ce72f8",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Member’s formative house scene in",
+          "subject": "Clockwork / Adonis",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "source": "https://ra.co/dj/adonis",
+          "note": "Adonis’s role in Chicago house is documented by RA. Exact Clockwork membership is in Discogs artist 160727; Feela-La-La mixes by Adonis are listed at https://musicbase.net/feela-la-la . Participant scene only, not the whole band’s recording site.",
+          "reviewed_at": "2026-11-09",
+          "city": "Chicago",
+          "studio": "Member’s formative house scene in",
+          "id": "thread-f9c979ce72f8"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Clockwork (3)"
+      ]
     },
     "30831717": {
       "kind": "artist",
@@ -11768,6 +12264,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "10307172": {
+      "kind": "artist",
+      "relation": "Emerging production scene in",
+      "subject": "Rag Dabons",
+      "label": "Paris",
+      "lon": 2.3522,
+      "lat": 48.8566,
+      "precision": "city",
+      "source": "https://cmro.oye-records.com/releases/mezigue-mangez-moi-ep",
+      "note": "D.KO label text identifies Rag Dabons Gabriel among the new generation from Paris. Artist scene, not this EP's recording site.",
+      "reviewed_at": "2026-11-09",
+      "city": "Paris",
+      "studio": "Emerging production scene in",
+      "id": "thread-28ccc61495bf",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Emerging production scene in",
+          "subject": "Rag Dabons",
+          "label": "Paris",
+          "lon": 2.3522,
+          "lat": 48.8566,
+          "precision": "city",
+          "source": "https://cmro.oye-records.com/releases/mezigue-mangez-moi-ep",
+          "note": "D.KO label text identifies Rag Dabons Gabriel among the new generation from Paris. Artist scene, not this EP's recording site.",
+          "reviewed_at": "2026-11-09",
+          "city": "Paris",
+          "studio": "Emerging production scene in",
+          "id": "thread-28ccc61495bf"
+        }
+      ],
+      "primary_thread_id": "thread-28ccc61495bf",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Emerging production scene in",
+          "subject": "Rag Dabons",
+          "label": "Paris",
+          "lon": 2.3522,
+          "lat": 48.8566,
+          "precision": "city",
+          "source": "https://cmro.oye-records.com/releases/mezigue-mangez-moi-ep",
+          "note": "D.KO label text identifies Rag Dabons Gabriel among the new generation from Paris. Artist scene, not this EP's recording site.",
+          "reviewed_at": "2026-11-09",
+          "city": "Paris",
+          "studio": "Emerging production scene in",
+          "id": "thread-28ccc61495bf"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "10395690": {
       "kind": "recording",
       "relation": "Recorded at",
@@ -12241,6 +12789,60 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "11685775": {
+      "kind": "artist",
+      "relation": "Member's formative electronic scene in",
+      "subject": "Octachoron / Sandro Kozmanishvili",
+      "label": "Tbilisi",
+      "lon": 44.8271,
+      "lat": 41.7151,
+      "precision": "city",
+      "source": "https://fr.ra.co/dj/kozmana/biography",
+      "note": "Biography identifies Octachoron as Kozmanishvili's project and his emergence in Tbilisi's club scene. Participant association only, not both members' origin or a recording credit.",
+      "reviewed_at": "2026-11-09",
+      "city": "Tbilisi",
+      "studio": "Member's formative electronic scene in",
+      "id": "thread-6db5fa3df42f",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Member's formative electronic scene in",
+          "subject": "Octachoron / Sandro Kozmanishvili",
+          "label": "Tbilisi",
+          "lon": 44.8271,
+          "lat": 41.7151,
+          "precision": "city",
+          "source": "https://fr.ra.co/dj/kozmana/biography",
+          "note": "Biography identifies Octachoron as Kozmanishvili's project and his emergence in Tbilisi's club scene. Participant association only, not both members' origin or a recording credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Tbilisi",
+          "studio": "Member's formative electronic scene in",
+          "id": "thread-6db5fa3df42f"
+        }
+      ],
+      "primary_thread_id": "thread-6db5fa3df42f",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Member's formative electronic scene in",
+          "subject": "Octachoron / Sandro Kozmanishvili",
+          "label": "Tbilisi",
+          "lon": 44.8271,
+          "lat": 41.7151,
+          "precision": "city",
+          "source": "https://fr.ra.co/dj/kozmana/biography",
+          "note": "Biography identifies Octachoron as Kozmanishvili's project and his emergence in Tbilisi's club scene. Participant association only, not both members' origin or a recording credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Tbilisi",
+          "studio": "Member's formative electronic scene in",
+          "id": "thread-6db5fa3df42f"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Octachoron"
+      ]
+    },
     "11664305": {
       "kind": "artist",
       "relation": "Early electronic music developed in",
@@ -12510,6 +13112,58 @@
           "city": "London",
           "studio": "Electronic solo project based in",
           "id": "thread-0c7a44c10e63"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "29125525": {
+      "kind": "artist",
+      "relation": "Producer based in",
+      "subject": "QphoriQ",
+      "label": "Tel Aviv",
+      "lon": 34.7818,
+      "lat": 32.0853,
+      "precision": "city",
+      "source": "https://www.discogs.com/artist/8081563",
+      "note": "Exact artist profile identifies a producer from Tel Aviv. Artist association, not a recording location.",
+      "reviewed_at": "2026-11-09",
+      "city": "Tel Aviv",
+      "studio": "Producer based in",
+      "id": "thread-30a680283851",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "QphoriQ",
+          "label": "Tel Aviv",
+          "lon": 34.7818,
+          "lat": 32.0853,
+          "precision": "city",
+          "source": "https://www.discogs.com/artist/8081563",
+          "note": "Exact artist profile identifies a producer from Tel Aviv. Artist association, not a recording location.",
+          "reviewed_at": "2026-11-09",
+          "city": "Tel Aviv",
+          "studio": "Producer based in",
+          "id": "thread-30a680283851"
+        }
+      ],
+      "primary_thread_id": "thread-30a680283851",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "QphoriQ",
+          "label": "Tel Aviv",
+          "lon": 34.7818,
+          "lat": 32.0853,
+          "precision": "city",
+          "source": "https://www.discogs.com/artist/8081563",
+          "note": "Exact artist profile identifies a producer from Tel Aviv. Artist association, not a recording location.",
+          "reviewed_at": "2026-11-09",
+          "city": "Tel Aviv",
+          "studio": "Producer based in",
+          "id": "thread-30a680283851"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -12912,6 +13566,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "14334743": {
+      "kind": "artist",
+      "relation": "Artist’s documented working area",
+      "subject": "SHKN / Marc Ashken",
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "precision": "country",
+      "source": "https://ra.co/dj/marcashken",
+      "note": "RA profile gives United Kingdom as artist location. Alias and exact domesticated003 release verified by XLR8R at https://xlr8r.com/page/187/?author=0 . Country precision only.",
+      "reviewed_at": "2026-11-09",
+      "city": "United Kingdom",
+      "studio": "Artist’s documented working area",
+      "id": "thread-e7b4356d0541",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Artist’s documented working area",
+          "subject": "SHKN / Marc Ashken",
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "precision": "country",
+          "source": "https://ra.co/dj/marcashken",
+          "note": "RA profile gives United Kingdom as artist location. Alias and exact domesticated003 release verified by XLR8R at https://xlr8r.com/page/187/?author=0 . Country precision only.",
+          "reviewed_at": "2026-11-09",
+          "city": "United Kingdom",
+          "studio": "Artist’s documented working area",
+          "id": "thread-e7b4356d0541"
+        }
+      ],
+      "primary_thread_id": "thread-e7b4356d0541",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Artist’s documented working area",
+          "subject": "SHKN / Marc Ashken",
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "precision": "country",
+          "source": "https://ra.co/dj/marcashken",
+          "note": "RA profile gives United Kingdom as artist location. Alias and exact domesticated003 release verified by XLR8R at https://xlr8r.com/page/187/?author=0 . Country precision only.",
+          "reviewed_at": "2026-11-09",
+          "city": "United Kingdom",
+          "studio": "Artist’s documented working area",
+          "id": "thread-e7b4356d0541"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "4619033": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -12981,6 +13687,58 @@
           "city": "United Kingdom",
           "studio": "Artist associated area",
           "id": "thread-c1fbca8a6e0f"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "52735": {
+      "kind": "artist",
+      "relation": "Members’ composition and production base in",
+      "subject": "A.P.E. / Adrian Corker and Paul Conboy",
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "precision": "city",
+      "source": "https://sabotage-films.de/download/3GKpressenglish.pdf",
+      "note": "Film production press kit explicitly identifies both composers living and working in London. Exact Discogs artist 3933 lists Corker and Conboy as members. Later professional base, not necessarily Striplight’s recording site.",
+      "reviewed_at": "2026-11-09",
+      "city": "London",
+      "studio": "Members’ composition and production base in",
+      "id": "thread-fea128faff8a",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Members’ composition and production base in",
+          "subject": "A.P.E. / Adrian Corker and Paul Conboy",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://sabotage-films.de/download/3GKpressenglish.pdf",
+          "note": "Film production press kit explicitly identifies both composers living and working in London. Exact Discogs artist 3933 lists Corker and Conboy as members. Later professional base, not necessarily Striplight’s recording site.",
+          "reviewed_at": "2026-11-09",
+          "city": "London",
+          "studio": "Members’ composition and production base in",
+          "id": "thread-fea128faff8a"
+        }
+      ],
+      "primary_thread_id": "thread-fea128faff8a",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Members’ composition and production base in",
+          "subject": "A.P.E. / Adrian Corker and Paul Conboy",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://sabotage-films.de/download/3GKpressenglish.pdf",
+          "note": "Film production press kit explicitly identifies both composers living and working in London. Exact Discogs artist 3933 lists Corker and Conboy as members. Later professional base, not necessarily Striplight’s recording site.",
+          "reviewed_at": "2026-11-09",
+          "city": "London",
+          "studio": "Members’ composition and production base in",
+          "id": "thread-fea128faff8a"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -13667,6 +14425,58 @@
       "unlocated_artists": [
         "Innode"
       ]
+    },
+    "3693330": {
+      "kind": "artist",
+      "relation": "Featured editor based in",
+      "subject": "Editorial #4 / The Noodleman",
+      "label": "Toronto",
+      "lon": -79.3832,
+      "lat": 43.6532,
+      "precision": "city",
+      "source": "https://m.soundcloud.com/thenoodleman/theo-vaness-love-me-now-the-noodleman-dub",
+      "note": "Artist page gives Toronto base. Exact compilation credit Goin Down is listed at https://www.deejay.de/m_House/sm_News/substyles_130/tips_1/perpage_160/page_1 . Editor association only, not the source recording or all compilation contributors.",
+      "reviewed_at": "2026-11-09",
+      "city": "Toronto",
+      "studio": "Featured editor based in",
+      "id": "thread-892f171278f0",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Featured editor based in",
+          "subject": "Editorial #4 / The Noodleman",
+          "label": "Toronto",
+          "lon": -79.3832,
+          "lat": 43.6532,
+          "precision": "city",
+          "source": "https://m.soundcloud.com/thenoodleman/theo-vaness-love-me-now-the-noodleman-dub",
+          "note": "Artist page gives Toronto base. Exact compilation credit Goin Down is listed at https://www.deejay.de/m_House/sm_News/substyles_130/tips_1/perpage_160/page_1 . Editor association only, not the source recording or all compilation contributors.",
+          "reviewed_at": "2026-11-09",
+          "city": "Toronto",
+          "studio": "Featured editor based in",
+          "id": "thread-892f171278f0"
+        }
+      ],
+      "primary_thread_id": "thread-892f171278f0",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Featured editor based in",
+          "subject": "Editorial #4 / The Noodleman",
+          "label": "Toronto",
+          "lon": -79.3832,
+          "lat": 43.6532,
+          "precision": "city",
+          "source": "https://m.soundcloud.com/thenoodleman/theo-vaness-love-me-now-the-noodleman-dub",
+          "note": "Artist page gives Toronto base. Exact compilation credit Goin Down is listed at https://www.deejay.de/m_House/sm_News/substyles_130/tips_1/perpage_160/page_1 . Editor association only, not the source recording or all compilation contributors.",
+          "reviewed_at": "2026-11-09",
+          "city": "Toronto",
+          "studio": "Featured editor based in",
+          "id": "thread-892f171278f0"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
     },
     "13541780": {
       "kind": "repertoire",
@@ -14464,6 +15274,162 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "4163662": {
+      "kind": "artist",
+      "relation": "Band formed and performed in",
+      "subject": "Shock",
+      "label": "Portland",
+      "lon": -122.6765,
+      "lat": 45.5231,
+      "precision": "city",
+      "source": "https://nwmusicarchives.com/artist/shock/",
+      "note": "Northwest Music Archives preserves a contemporary 1979 account of the Portland group formation and performances. Identified by members Sause, Bradford and Plass, separately corroborated in the Portland Observer 20 April 1983. Artist formation, not reissue location.",
+      "reviewed_at": "2026-11-09",
+      "city": "Portland",
+      "studio": "Band formed and performed in",
+      "id": "thread-1247adab2d95",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Band formed and performed in",
+          "subject": "Shock",
+          "label": "Portland",
+          "lon": -122.6765,
+          "lat": 45.5231,
+          "precision": "city",
+          "source": "https://nwmusicarchives.com/artist/shock/",
+          "note": "Northwest Music Archives preserves a contemporary 1979 account of the Portland group formation and performances. Identified by members Sause, Bradford and Plass, separately corroborated in the Portland Observer 20 April 1983. Artist formation, not reissue location.",
+          "reviewed_at": "2026-11-09",
+          "city": "Portland",
+          "studio": "Band formed and performed in",
+          "id": "thread-1247adab2d95"
+        }
+      ],
+      "primary_thread_id": "thread-1247adab2d95",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Band formed and performed in",
+          "subject": "Shock",
+          "label": "Portland",
+          "lon": -122.6765,
+          "lat": 45.5231,
+          "precision": "city",
+          "source": "https://nwmusicarchives.com/artist/shock/",
+          "note": "Northwest Music Archives preserves a contemporary 1979 account of the Portland group formation and performances. Identified by members Sause, Bradford and Plass, separately corroborated in the Portland Observer 20 April 1983. Artist formation, not reissue location.",
+          "reviewed_at": "2026-11-09",
+          "city": "Portland",
+          "studio": "Band formed and performed in",
+          "id": "thread-1247adab2d95"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "5624549": {
+      "kind": "artist",
+      "relation": "Producer based in",
+      "subject": "Alis / Sabina Plamenova",
+      "label": "Berlin",
+      "lon": 13.405,
+      "lat": 52.52,
+      "precision": "city",
+      "source": "https://www.barracuda.oye-records.com/releases/alis-apache",
+      "note": "Release-specific label text identifies Alis as Berlin-via-London. Base at publication, not birthplace or studio.",
+      "reviewed_at": "2026-11-09",
+      "city": "Berlin",
+      "studio": "Producer based in",
+      "id": "thread-a577bdb3e81b",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Alis / Sabina Plamenova",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://www.barracuda.oye-records.com/releases/alis-apache",
+          "note": "Release-specific label text identifies Alis as Berlin-via-London. Base at publication, not birthplace or studio.",
+          "reviewed_at": "2026-11-09",
+          "city": "Berlin",
+          "studio": "Producer based in",
+          "id": "thread-a577bdb3e81b"
+        }
+      ],
+      "primary_thread_id": "thread-a577bdb3e81b",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Alis / Sabina Plamenova",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://www.barracuda.oye-records.com/releases/alis-apache",
+          "note": "Release-specific label text identifies Alis as Berlin-via-London. Base at publication, not birthplace or studio.",
+          "reviewed_at": "2026-11-09",
+          "city": "Berlin",
+          "studio": "Producer based in",
+          "id": "thread-a577bdb3e81b"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "1015874": {
+      "kind": "artist",
+      "relation": "Featured musician based in",
+      "subject": "Firecracker EP 3 / Fudge Fingas",
+      "label": "Edinburgh",
+      "lon": -3.1883,
+      "lat": 55.9533,
+      "precision": "city",
+      "source": "https://www.fatcityrecordings.com/site/release.php?rid=223",
+      "note": "Label biography documents Gavin Sutherland’s Edinburgh base. The compilation lists Fudge Fingas & His Fidgety Friends — Aksman at https://betinos.com/disque/5733 . Participant geography, not all contributors or a studio credit.",
+      "reviewed_at": "2026-11-09",
+      "city": "Edinburgh",
+      "studio": "Featured musician based in",
+      "id": "thread-7c247ffa0768",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Featured musician based in",
+          "subject": "Firecracker EP 3 / Fudge Fingas",
+          "label": "Edinburgh",
+          "lon": -3.1883,
+          "lat": 55.9533,
+          "precision": "city",
+          "source": "https://www.fatcityrecordings.com/site/release.php?rid=223",
+          "note": "Label biography documents Gavin Sutherland’s Edinburgh base. The compilation lists Fudge Fingas & His Fidgety Friends — Aksman at https://betinos.com/disque/5733 . Participant geography, not all contributors or a studio credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Edinburgh",
+          "studio": "Featured musician based in",
+          "id": "thread-7c247ffa0768"
+        }
+      ],
+      "primary_thread_id": "thread-7c247ffa0768",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Featured musician based in",
+          "subject": "Firecracker EP 3 / Fudge Fingas",
+          "label": "Edinburgh",
+          "lon": -3.1883,
+          "lat": 55.9533,
+          "precision": "city",
+          "source": "https://www.fatcityrecordings.com/site/release.php?rid=223",
+          "note": "Label biography documents Gavin Sutherland’s Edinburgh base. The compilation lists Fudge Fingas & His Fidgety Friends — Aksman at https://betinos.com/disque/5733 . Participant geography, not all contributors or a studio credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Edinburgh",
+          "studio": "Featured musician based in",
+          "id": "thread-7c247ffa0768"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "6554726": {
       "kind": "artist",
       "relation": "Production training and underground house scene in",
@@ -14735,6 +15701,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "10330769": {
+      "kind": "artist",
+      "relation": "Producer based in",
+      "subject": "SJ Tequilla",
+      "label": "Berlin",
+      "lon": 13.405,
+      "lat": 52.52,
+      "precision": "city",
+      "source": "https://yoyaku.io/release/md008/",
+      "note": "Label release text documents Naota Matsuda living in Berlin and his Teknobuskers project. Later artist base, not a claim that Conditionel was recorded there.",
+      "reviewed_at": "2026-11-09",
+      "city": "Berlin",
+      "studio": "Producer based in",
+      "id": "thread-41c6e3ec6679",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "SJ Tequilla",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://yoyaku.io/release/md008/",
+          "note": "Label release text documents Naota Matsuda living in Berlin and his Teknobuskers project. Later artist base, not a claim that Conditionel was recorded there.",
+          "reviewed_at": "2026-11-09",
+          "city": "Berlin",
+          "studio": "Producer based in",
+          "id": "thread-41c6e3ec6679"
+        }
+      ],
+      "primary_thread_id": "thread-41c6e3ec6679",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "SJ Tequilla",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://yoyaku.io/release/md008/",
+          "note": "Label release text documents Naota Matsuda living in Berlin and his Teknobuskers project. Later artist base, not a claim that Conditionel was recorded there.",
+          "reviewed_at": "2026-11-09",
+          "city": "Berlin",
+          "studio": "Producer based in",
+          "id": "thread-41c6e3ec6679"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "1859405": {
       "kind": "artist",
       "relation": "Project originates from",
@@ -14986,6 +16004,110 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "3408361": {
+      "kind": "artist",
+      "relation": "Production collective based in",
+      "subject": "Mathematics",
+      "label": "New York",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "precision": "city",
+      "source": "https://www.dogsonacid.com/threads/mathematics-information.87565/",
+      "note": "Booking agency announcement identifies James Blueline, Roy Dank and Mike Genato as a Brooklyn collective. Not Wu-Tang producer Allah Mathematics.",
+      "reviewed_at": "2026-11-09",
+      "city": "New York",
+      "studio": "Production collective based in",
+      "id": "thread-52c339239870",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Production collective based in",
+          "subject": "Mathematics",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://www.dogsonacid.com/threads/mathematics-information.87565/",
+          "note": "Booking agency announcement identifies James Blueline, Roy Dank and Mike Genato as a Brooklyn collective. Not Wu-Tang producer Allah Mathematics.",
+          "reviewed_at": "2026-11-09",
+          "city": "New York",
+          "studio": "Production collective based in",
+          "id": "thread-52c339239870"
+        }
+      ],
+      "primary_thread_id": "thread-52c339239870",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Production collective based in",
+          "subject": "Mathematics",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://www.dogsonacid.com/threads/mathematics-information.87565/",
+          "note": "Booking agency announcement identifies James Blueline, Roy Dank and Mike Genato as a Brooklyn collective. Not Wu-Tang producer Allah Mathematics.",
+          "reviewed_at": "2026-11-09",
+          "city": "New York",
+          "studio": "Production collective based in",
+          "id": "thread-52c339239870"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "14477": {
+      "kind": "artist",
+      "relation": "Production career and scene in",
+      "subject": "Bill Riley",
+      "label": "Bristol",
+      "lon": -2.5879,
+      "lat": 51.4545,
+      "precision": "city",
+      "source": "https://dnb365.wordpress.com/2023/12/28/bill-riley-in-at-the-deep-end/",
+      "note": "Specialist retrospective identifies Bristol base, DJ Die collaboration and both owned releases. Not a recording-location credit.",
+      "reviewed_at": "2026-11-09",
+      "city": "Bristol",
+      "studio": "Production career and scene in",
+      "id": "thread-b64f76bbb252",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Production career and scene in",
+          "subject": "Bill Riley",
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "precision": "city",
+          "source": "https://dnb365.wordpress.com/2023/12/28/bill-riley-in-at-the-deep-end/",
+          "note": "Specialist retrospective identifies Bristol base, DJ Die collaboration and both owned releases. Not a recording-location credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Bristol",
+          "studio": "Production career and scene in",
+          "id": "thread-b64f76bbb252"
+        }
+      ],
+      "primary_thread_id": "thread-b64f76bbb252",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Production career and scene in",
+          "subject": "Bill Riley",
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "precision": "city",
+          "source": "https://dnb365.wordpress.com/2023/12/28/bill-riley-in-at-the-deep-end/",
+          "note": "Specialist retrospective identifies Bristol base, DJ Die collaboration and both owned releases. Not a recording-location credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Bristol",
+          "studio": "Production career and scene in",
+          "id": "thread-b64f76bbb252"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "4312": {
       "kind": "artist",
       "relation": "Musical roots and scene",
@@ -15042,6 +16164,58 @@
           "city": "Bristol",
           "studio": "Musical roots and scene",
           "id": "thread-a3863bcad303"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "5954869": {
+      "kind": "artist",
+      "relation": "Group formed in the funk scene of",
+      "subject": "The Funky Drive Band",
+      "label": "Lyon",
+      "lon": 4.8357,
+      "lat": 45.764,
+      "precision": "city",
+      "source": "https://www.le-brise-glace.com/evenement/atomik-boogie-knights-2026/",
+      "note": "Venue biography dates formation to 2008 in the Lyon underground funk scene. Artist formation, not a studio claim.",
+      "reviewed_at": "2026-11-09",
+      "city": "Lyon",
+      "studio": "Group formed in the funk scene of",
+      "id": "thread-1ca3983ea9fb",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Group formed in the funk scene of",
+          "subject": "The Funky Drive Band",
+          "label": "Lyon",
+          "lon": 4.8357,
+          "lat": 45.764,
+          "precision": "city",
+          "source": "https://www.le-brise-glace.com/evenement/atomik-boogie-knights-2026/",
+          "note": "Venue biography dates formation to 2008 in the Lyon underground funk scene. Artist formation, not a studio claim.",
+          "reviewed_at": "2026-11-09",
+          "city": "Lyon",
+          "studio": "Group formed in the funk scene of",
+          "id": "thread-1ca3983ea9fb"
+        }
+      ],
+      "primary_thread_id": "thread-1ca3983ea9fb",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Group formed in the funk scene of",
+          "subject": "The Funky Drive Band",
+          "label": "Lyon",
+          "lon": 4.8357,
+          "lat": 45.764,
+          "precision": "city",
+          "source": "https://www.le-brise-glace.com/evenement/atomik-boogie-knights-2026/",
+          "note": "Venue biography dates formation to 2008 in the Lyon underground funk scene. Artist formation, not a studio claim.",
+          "reviewed_at": "2026-11-09",
+          "city": "Lyon",
+          "studio": "Group formed in the funk scene of",
+          "id": "thread-1ca3983ea9fb"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -16261,6 +17435,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "6176026": {
+      "kind": "artist",
+      "relation": "Formative musical scene in",
+      "subject": "Deo & Z-Man",
+      "label": "Hamburg",
+      "lon": 9.9937,
+      "lat": 53.5511,
+      "precision": "city",
+      "source": "https://www.hfn-music.com/hafendisko/artists/deo-z-man",
+      "note": "Label biography documents the brothers growing up around Hamburg music venues and starting their own production there.",
+      "reviewed_at": "2026-11-09",
+      "city": "Hamburg",
+      "studio": "Formative musical scene in",
+      "id": "thread-d26e535c6c1e",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Formative musical scene in",
+          "subject": "Deo & Z-Man",
+          "label": "Hamburg",
+          "lon": 9.9937,
+          "lat": 53.5511,
+          "precision": "city",
+          "source": "https://www.hfn-music.com/hafendisko/artists/deo-z-man",
+          "note": "Label biography documents the brothers growing up around Hamburg music venues and starting their own production there.",
+          "reviewed_at": "2026-11-09",
+          "city": "Hamburg",
+          "studio": "Formative musical scene in",
+          "id": "thread-d26e535c6c1e"
+        }
+      ],
+      "primary_thread_id": "thread-d26e535c6c1e",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Formative musical scene in",
+          "subject": "Deo & Z-Man",
+          "label": "Hamburg",
+          "lon": 9.9937,
+          "lat": 53.5511,
+          "precision": "city",
+          "source": "https://www.hfn-music.com/hafendisko/artists/deo-z-man",
+          "note": "Label biography documents the brothers growing up around Hamburg music venues and starting their own production there.",
+          "reviewed_at": "2026-11-09",
+          "city": "Hamburg",
+          "studio": "Formative musical scene in",
+          "id": "thread-d26e535c6c1e"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "7516023": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -16311,6 +17537,58 @@
           "city": "United States",
           "studio": "Artist associated area",
           "id": "thread-5b2ecc0a1eb7"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "24368522": {
+      "kind": "artist",
+      "relation": "Street-soul production scene in",
+      "subject": "Gold In The Shade",
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "precision": "city",
+      "source": "https://heelsandsouls.bandcamp.com/album/over-you-shining-through-hsrec004",
+      "note": "Reissue label describes Robert Roper, Arletta Davis and Sonia Johnson and the North West London scene of these recordings.",
+      "reviewed_at": "2026-11-09",
+      "city": "London",
+      "studio": "Street-soul production scene in",
+      "id": "thread-5f7b96acc0ff",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Street-soul production scene in",
+          "subject": "Gold In The Shade",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://heelsandsouls.bandcamp.com/album/over-you-shining-through-hsrec004",
+          "note": "Reissue label describes Robert Roper, Arletta Davis and Sonia Johnson and the North West London scene of these recordings.",
+          "reviewed_at": "2026-11-09",
+          "city": "London",
+          "studio": "Street-soul production scene in",
+          "id": "thread-5f7b96acc0ff"
+        }
+      ],
+      "primary_thread_id": "thread-5f7b96acc0ff",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Street-soul production scene in",
+          "subject": "Gold In The Shade",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://heelsandsouls.bandcamp.com/album/over-you-shining-through-hsrec004",
+          "note": "Reissue label describes Robert Roper, Arletta Davis and Sonia Johnson and the North West London scene of these recordings.",
+          "reviewed_at": "2026-11-09",
+          "city": "London",
+          "studio": "Street-soul production scene in",
+          "id": "thread-5f7b96acc0ff"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -17541,6 +18819,58 @@
         "Stephen Encinas"
       ]
     },
+    "2099185": {
+      "kind": "artist",
+      "relation": "Sound-system and production career in",
+      "subject": "Jah Seal",
+      "label": "Berlin",
+      "lon": 13.405,
+      "lat": 52.52,
+      "precision": "city",
+      "source": "https://hanfjournal.de/2009/01/20/s11_0109_jah-seal/",
+      "note": "Contemporary review documents Kreuzberg residence, Berlin digital roots production and Jah Soldier. Artist base and scene, not Irish birthplace.",
+      "reviewed_at": "2026-11-09",
+      "city": "Berlin",
+      "studio": "Sound-system and production career in",
+      "id": "thread-f9df763cf203",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Sound-system and production career in",
+          "subject": "Jah Seal",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://hanfjournal.de/2009/01/20/s11_0109_jah-seal/",
+          "note": "Contemporary review documents Kreuzberg residence, Berlin digital roots production and Jah Soldier. Artist base and scene, not Irish birthplace.",
+          "reviewed_at": "2026-11-09",
+          "city": "Berlin",
+          "studio": "Sound-system and production career in",
+          "id": "thread-f9df763cf203"
+        }
+      ],
+      "primary_thread_id": "thread-f9df763cf203",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Sound-system and production career in",
+          "subject": "Jah Seal",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://hanfjournal.de/2009/01/20/s11_0109_jah-seal/",
+          "note": "Contemporary review documents Kreuzberg residence, Berlin digital roots production and Jah Soldier. Artist base and scene, not Irish birthplace.",
+          "reviewed_at": "2026-11-09",
+          "city": "Berlin",
+          "studio": "Sound-system and production career in",
+          "id": "thread-f9df763cf203"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "246845": {
       "kind": "artist",
       "relation": "Acid-jazz and bossa nova group formed in",
@@ -18264,6 +19594,112 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "51412": {
+      "kind": "recording",
+      "relation": "Recorded at Machine Room Studios in",
+      "subject": "The Two G’s — Energy / The Reno",
+      "label": "Manchester",
+      "lon": -2.2426,
+      "lat": 53.4808,
+      "precision": "city",
+      "source": "https://homepages.force9.net/king1/Discographies/Gerald/Energy.html",
+      "note": "Gerald discography preserves the original press release identifying Goldie and A Guy Called Gerald recording together at Ducie House, Manchester. Release-scoped recording location.",
+      "reviewed_at": "2026-11-09",
+      "city": "Manchester",
+      "studio": "Recorded at Machine Room Studios in",
+      "id": "thread-e82e5c0ee622",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at Machine Room Studios in",
+          "subject": "The Two G’s — Energy / The Reno",
+          "label": "Manchester",
+          "lon": -2.2426,
+          "lat": 53.4808,
+          "precision": "city",
+          "source": "https://homepages.force9.net/king1/Discographies/Gerald/Energy.html",
+          "note": "Gerald discography preserves the original press release identifying Goldie and A Guy Called Gerald recording together at Ducie House, Manchester. Release-scoped recording location.",
+          "reviewed_at": "2026-11-09",
+          "city": "Manchester",
+          "studio": "Recorded at Machine Room Studios in",
+          "id": "thread-e82e5c0ee622"
+        }
+      ],
+      "primary_thread_id": "thread-e82e5c0ee622",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at Machine Room Studios in",
+          "subject": "The Two G’s — Energy / The Reno",
+          "label": "Manchester",
+          "lon": -2.2426,
+          "lat": 53.4808,
+          "precision": "city",
+          "source": "https://homepages.force9.net/king1/Discographies/Gerald/Energy.html",
+          "note": "Gerald discography preserves the original press release identifying Goldie and A Guy Called Gerald recording together at Ducie House, Manchester. Release-scoped recording location.",
+          "reviewed_at": "2026-11-09",
+          "city": "Manchester",
+          "studio": "Recorded at Machine Room Studios in",
+          "id": "thread-e82e5c0ee622"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "The Two G's"
+      ]
+    },
+    "12142239": {
+      "kind": "artist",
+      "relation": "Producer based in",
+      "subject": "Giovanni Damico",
+      "label": "Salerno",
+      "lon": 14.7681,
+      "lat": 40.6824,
+      "precision": "city",
+      "source": "https://www.theransomnote.com/music/mixes/the-ransom-note-mix-giovanni-damico/",
+      "note": "In interview Damico identifies himself as a musician and producer based in Salerno. Base at interview time, not a recording credit.",
+      "reviewed_at": "2026-11-09",
+      "city": "Salerno",
+      "studio": "Producer based in",
+      "id": "thread-715607d5ca15",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Giovanni Damico",
+          "label": "Salerno",
+          "lon": 14.7681,
+          "lat": 40.6824,
+          "precision": "city",
+          "source": "https://www.theransomnote.com/music/mixes/the-ransom-note-mix-giovanni-damico/",
+          "note": "In interview Damico identifies himself as a musician and producer based in Salerno. Base at interview time, not a recording credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Salerno",
+          "studio": "Producer based in",
+          "id": "thread-715607d5ca15"
+        }
+      ],
+      "primary_thread_id": "thread-715607d5ca15",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Giovanni Damico",
+          "label": "Salerno",
+          "lon": 14.7681,
+          "lat": 40.6824,
+          "precision": "city",
+          "source": "https://www.theransomnote.com/music/mixes/the-ransom-note-mix-giovanni-damico/",
+          "note": "In interview Damico identifies himself as a musician and producer based in Salerno. Base at interview time, not a recording credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Salerno",
+          "studio": "Producer based in",
+          "id": "thread-715607d5ca15"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "1782030": {
       "kind": "artist",
       "relation": "Formative music community in",
@@ -18378,6 +19814,60 @@
       ],
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
+    },
+    "10579183": {
+      "kind": "artist",
+      "relation": "Remixer’s later musical base in",
+      "subject": "Mountain Skins EP / SJ Tequilla",
+      "label": "Berlin",
+      "lon": 13.405,
+      "lat": 52.52,
+      "precision": "city",
+      "source": "https://yoyaku.io/release/md008/",
+      "note": "Artist biography documents SJ Tequilla’s Berlin base. The label credits the exact EP’s B2 remix at https://klassewrecks.bandcamp.com/album/mountain-skins-ep . Remixer only; Makoto Murakami’s origin remains unestablished.",
+      "reviewed_at": "2026-11-09",
+      "city": "Berlin",
+      "studio": "Remixer’s later musical base in",
+      "id": "thread-d9b4a7fff5b2",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Remixer’s later musical base in",
+          "subject": "Mountain Skins EP / SJ Tequilla",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://yoyaku.io/release/md008/",
+          "note": "Artist biography documents SJ Tequilla’s Berlin base. The label credits the exact EP’s B2 remix at https://klassewrecks.bandcamp.com/album/mountain-skins-ep . Remixer only; Makoto Murakami’s origin remains unestablished.",
+          "reviewed_at": "2026-11-09",
+          "city": "Berlin",
+          "studio": "Remixer’s later musical base in",
+          "id": "thread-d9b4a7fff5b2"
+        }
+      ],
+      "primary_thread_id": "thread-d9b4a7fff5b2",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Remixer’s later musical base in",
+          "subject": "Mountain Skins EP / SJ Tequilla",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://yoyaku.io/release/md008/",
+          "note": "Artist biography documents SJ Tequilla’s Berlin base. The label credits the exact EP’s B2 remix at https://klassewrecks.bandcamp.com/album/mountain-skins-ep . Remixer only; Makoto Murakami’s origin remains unestablished.",
+          "reviewed_at": "2026-11-09",
+          "city": "Berlin",
+          "studio": "Remixer’s later musical base in",
+          "id": "thread-d9b4a7fff5b2"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Makoto Murakami"
+      ]
     },
     "8008359": {
       "kind": "artist",
@@ -18704,6 +20194,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "5664657": {
+      "kind": "artist",
+      "relation": "Band formed in",
+      "subject": "KingCats",
+      "label": "Germany",
+      "lon": 10.4,
+      "lat": 51.1,
+      "precision": "country",
+      "source": "https://wordandsound.net/release/156218-OM67042-24-KingCats-KingCats",
+      "note": "Label distributor documents the West German band formed as AristoCats in 1972, renamed in 1976. Does not infer California from the song title. Country precision.",
+      "reviewed_at": "2026-11-09",
+      "city": "Germany",
+      "studio": "Band formed in",
+      "id": "thread-913d6a41d430",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Band formed in",
+          "subject": "KingCats",
+          "label": "Germany",
+          "lon": 10.4,
+          "lat": 51.1,
+          "precision": "country",
+          "source": "https://wordandsound.net/release/156218-OM67042-24-KingCats-KingCats",
+          "note": "Label distributor documents the West German band formed as AristoCats in 1972, renamed in 1976. Does not infer California from the song title. Country precision.",
+          "reviewed_at": "2026-11-09",
+          "city": "Germany",
+          "studio": "Band formed in",
+          "id": "thread-913d6a41d430"
+        }
+      ],
+      "primary_thread_id": "thread-913d6a41d430",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Band formed in",
+          "subject": "KingCats",
+          "label": "Germany",
+          "lon": 10.4,
+          "lat": 51.1,
+          "precision": "country",
+          "source": "https://wordandsound.net/release/156218-OM67042-24-KingCats-KingCats",
+          "note": "Label distributor documents the West German band formed as AristoCats in 1972, renamed in 1976. Does not infer California from the song title. Country precision.",
+          "reviewed_at": "2026-11-09",
+          "city": "Germany",
+          "studio": "Band formed in",
+          "id": "thread-913d6a41d430"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "11758168": {
       "kind": "artist",
       "relation": "Group formed in",
@@ -18926,6 +20468,110 @@
           "city": "Australia",
           "studio": "Artist associated area",
           "id": "thread-a8e7019e774e"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "20707": {
+      "kind": "artist",
+      "relation": "Producer based in",
+      "subject": "Tonic / Rory Doherty",
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "precision": "country",
+      "source": "https://musicbase.net/tonic",
+      "note": "Artist profile explicitly identifies UK base and Tonic/The Mack aliases. Identity corroborated by MusicBrainz at https://musicbrainz.org/release/fc674be8-ffa5-46fc-81ef-3fb1e4b736cf . No city or studio inferred.",
+      "reviewed_at": "2026-11-09",
+      "city": "United Kingdom",
+      "studio": "Producer based in",
+      "id": "thread-5fe62a307ada",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Tonic / Rory Doherty",
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "precision": "country",
+          "source": "https://musicbase.net/tonic",
+          "note": "Artist profile explicitly identifies UK base and Tonic/The Mack aliases. Identity corroborated by MusicBrainz at https://musicbrainz.org/release/fc674be8-ffa5-46fc-81ef-3fb1e4b736cf . No city or studio inferred.",
+          "reviewed_at": "2026-11-09",
+          "city": "United Kingdom",
+          "studio": "Producer based in",
+          "id": "thread-5fe62a307ada"
+        }
+      ],
+      "primary_thread_id": "thread-5fe62a307ada",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Tonic / Rory Doherty",
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "precision": "country",
+          "source": "https://musicbase.net/tonic",
+          "note": "Artist profile explicitly identifies UK base and Tonic/The Mack aliases. Identity corroborated by MusicBrainz at https://musicbrainz.org/release/fc674be8-ffa5-46fc-81ef-3fb1e4b736cf . No city or studio inferred.",
+          "reviewed_at": "2026-11-09",
+          "city": "United Kingdom",
+          "studio": "Producer based in",
+          "id": "thread-5fe62a307ada"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "5066132": {
+      "kind": "artist",
+      "relation": "Duo based in",
+      "subject": "Joe’s Bakery / Craig Christon and Joe Gill",
+      "label": "Leeds",
+      "lon": -1.5491,
+      "lat": 53.8008,
+      "precision": "city",
+      "source": "https://www.testpressing.org/magazine/20-questions-029joe-gill-craig-christonoutlaws-yacht-clubjoe-s-bakery",
+      "note": "Both musicians identify Leeds as their base in interview discussing Blue Tuesday. Not the label location.",
+      "reviewed_at": "2026-11-09",
+      "city": "Leeds",
+      "studio": "Duo based in",
+      "id": "thread-7236738d8ac7",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Duo based in",
+          "subject": "Joe’s Bakery / Craig Christon and Joe Gill",
+          "label": "Leeds",
+          "lon": -1.5491,
+          "lat": 53.8008,
+          "precision": "city",
+          "source": "https://www.testpressing.org/magazine/20-questions-029joe-gill-craig-christonoutlaws-yacht-clubjoe-s-bakery",
+          "note": "Both musicians identify Leeds as their base in interview discussing Blue Tuesday. Not the label location.",
+          "reviewed_at": "2026-11-09",
+          "city": "Leeds",
+          "studio": "Duo based in",
+          "id": "thread-7236738d8ac7"
+        }
+      ],
+      "primary_thread_id": "thread-7236738d8ac7",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Duo based in",
+          "subject": "Joe’s Bakery / Craig Christon and Joe Gill",
+          "label": "Leeds",
+          "lon": -1.5491,
+          "lat": 53.8008,
+          "precision": "city",
+          "source": "https://www.testpressing.org/magazine/20-questions-029joe-gill-craig-christonoutlaws-yacht-clubjoe-s-bakery",
+          "note": "Both musicians identify Leeds as their base in interview discussing Blue Tuesday. Not the label location.",
+          "reviewed_at": "2026-11-09",
+          "city": "Leeds",
+          "studio": "Duo based in",
+          "id": "thread-7236738d8ac7"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -19461,6 +21107,58 @@
       "unlocated_artists": [
         "Crystal Waters"
       ]
+    },
+    "745165": {
+      "kind": "artist",
+      "relation": "Producer based in",
+      "subject": "Moleculez",
+      "label": "Hamburg",
+      "lon": 9.9937,
+      "lat": 53.5511,
+      "precision": "city",
+      "source": "https://de.ra.co/events/775633",
+      "note": "Promoter biography identifies Hamburg producer Moleculez and his industrial/doomcore career since 2001. Artist base at publication, not a recording credit.",
+      "reviewed_at": "2026-11-09",
+      "city": "Hamburg",
+      "studio": "Producer based in",
+      "id": "thread-6399d6da39fc",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Moleculez",
+          "label": "Hamburg",
+          "lon": 9.9937,
+          "lat": 53.5511,
+          "precision": "city",
+          "source": "https://de.ra.co/events/775633",
+          "note": "Promoter biography identifies Hamburg producer Moleculez and his industrial/doomcore career since 2001. Artist base at publication, not a recording credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Hamburg",
+          "studio": "Producer based in",
+          "id": "thread-6399d6da39fc"
+        }
+      ],
+      "primary_thread_id": "thread-6399d6da39fc",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Moleculez",
+          "label": "Hamburg",
+          "lon": 9.9937,
+          "lat": 53.5511,
+          "precision": "city",
+          "source": "https://de.ra.co/events/775633",
+          "note": "Promoter biography identifies Hamburg producer Moleculez and his industrial/doomcore career since 2001. Artist base at publication, not a recording credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Hamburg",
+          "studio": "Producer based in",
+          "id": "thread-6399d6da39fc"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
     },
     "12126044": {
       "kind": "artist",
@@ -20152,6 +21850,60 @@
         "Max Graef Band"
       ]
     },
+    "9148392": {
+      "kind": "recording",
+      "relation": "Collaborative recording sessions in",
+      "subject": "Music People — Always On",
+      "label": "Vancouver",
+      "lon": -123.1207,
+      "lat": 49.2827,
+      "precision": "city",
+      "source": "https://ra.co/news/35925",
+      "note": "Contemporary report explicitly documents Max D travelling to Vancouver in spring 2015 and the week of collaborative studio sessions yielding Always On. Does not transfer Vancouver origin to every participant.",
+      "reviewed_at": "2026-11-09",
+      "city": "Vancouver",
+      "studio": "Collaborative recording sessions in",
+      "id": "thread-32319d8f4919",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Collaborative recording sessions in",
+          "subject": "Music People — Always On",
+          "label": "Vancouver",
+          "lon": -123.1207,
+          "lat": 49.2827,
+          "precision": "city",
+          "source": "https://ra.co/news/35925",
+          "note": "Contemporary report explicitly documents Max D travelling to Vancouver in spring 2015 and the week of collaborative studio sessions yielding Always On. Does not transfer Vancouver origin to every participant.",
+          "reviewed_at": "2026-11-09",
+          "city": "Vancouver",
+          "studio": "Collaborative recording sessions in",
+          "id": "thread-32319d8f4919"
+        }
+      ],
+      "primary_thread_id": "thread-32319d8f4919",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Collaborative recording sessions in",
+          "subject": "Music People — Always On",
+          "label": "Vancouver",
+          "lon": -123.1207,
+          "lat": 49.2827,
+          "precision": "city",
+          "source": "https://ra.co/news/35925",
+          "note": "Contemporary report explicitly documents Max D travelling to Vancouver in spring 2015 and the week of collaborative studio sessions yielding Always On. Does not transfer Vancouver origin to every participant.",
+          "reviewed_at": "2026-11-09",
+          "city": "Vancouver",
+          "studio": "Collaborative recording sessions in",
+          "id": "thread-32319d8f4919"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Music People (2)"
+      ]
+    },
     "951387": {
       "kind": "artist",
       "relation": "DJ and musical roots in",
@@ -20588,6 +22340,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "19289326": {
+      "kind": "artist",
+      "relation": "Featured musician’s associated area",
+      "subject": "Madre Lingua / Mark de Clive-Lowe",
+      "label": "Los Angeles",
+      "lon": -118.2437,
+      "lat": 34.0522,
+      "precision": "city",
+      "source": "https://musicbrainz.org/artist/80a0ab61-c33d-4a59-a950-aaf3b69d3251",
+      "note": "Reuses the accepted identity-linked MusicBrainz area on main. Exact Apollo 3000 contributor is documented at https://mothertonguerecords.bandcamp.com/album/madre-lingua-lp . Does not make Los Angeles the origin of the full compilation.",
+      "reviewed_at": "2026-11-09",
+      "city": "Los Angeles",
+      "studio": "Featured musician’s associated area",
+      "id": "thread-527ff582bbd2",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Featured musician’s associated area",
+          "subject": "Madre Lingua / Mark de Clive-Lowe",
+          "label": "Los Angeles",
+          "lon": -118.2437,
+          "lat": 34.0522,
+          "precision": "city",
+          "source": "https://musicbrainz.org/artist/80a0ab61-c33d-4a59-a950-aaf3b69d3251",
+          "note": "Reuses the accepted identity-linked MusicBrainz area on main. Exact Apollo 3000 contributor is documented at https://mothertonguerecords.bandcamp.com/album/madre-lingua-lp . Does not make Los Angeles the origin of the full compilation.",
+          "reviewed_at": "2026-11-09",
+          "city": "Los Angeles",
+          "studio": "Featured musician’s associated area",
+          "id": "thread-527ff582bbd2"
+        }
+      ],
+      "primary_thread_id": "thread-527ff582bbd2",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Featured musician’s associated area",
+          "subject": "Madre Lingua / Mark de Clive-Lowe",
+          "label": "Los Angeles",
+          "lon": -118.2437,
+          "lat": 34.0522,
+          "precision": "city",
+          "source": "https://musicbrainz.org/artist/80a0ab61-c33d-4a59-a950-aaf3b69d3251",
+          "note": "Reuses the accepted identity-linked MusicBrainz area on main. Exact Apollo 3000 contributor is documented at https://mothertonguerecords.bandcamp.com/album/madre-lingua-lp . Does not make Los Angeles the origin of the full compilation.",
+          "reviewed_at": "2026-11-09",
+          "city": "Los Angeles",
+          "studio": "Featured musician’s associated area",
+          "id": "thread-527ff582bbd2"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "111915": {
       "kind": "artist",
       "relation": "Musical development and record-shop scene",
@@ -20933,6 +22737,58 @@
           "city": "Central Islip",
           "studio": "Hip-hop musical scene",
           "id": "thread-a058a1215d89"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "8108409": {
+      "kind": "artist",
+      "relation": "Producer based in",
+      "subject": "Bxentric",
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "precision": "city",
+      "source": "https://musicbrainz.org/artist/037ed0db-021b-4bab-a7c0-ad0c8eabb52f/releases?va=1",
+      "note": "MusicBrainz associated area is London, corroborated by Soundspace’s Chrome premiere. Artist association, not recording geography.",
+      "reviewed_at": "2026-11-09",
+      "city": "London",
+      "studio": "Producer based in",
+      "id": "thread-de39a5ec3ac3",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Bxentric",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://musicbrainz.org/artist/037ed0db-021b-4bab-a7c0-ad0c8eabb52f/releases?va=1",
+          "note": "MusicBrainz associated area is London, corroborated by Soundspace’s Chrome premiere. Artist association, not recording geography.",
+          "reviewed_at": "2026-11-09",
+          "city": "London",
+          "studio": "Producer based in",
+          "id": "thread-de39a5ec3ac3"
+        }
+      ],
+      "primary_thread_id": "thread-de39a5ec3ac3",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Bxentric",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://musicbrainz.org/artist/037ed0db-021b-4bab-a7c0-ad0c8eabb52f/releases?va=1",
+          "note": "MusicBrainz associated area is London, corroborated by Soundspace’s Chrome premiere. Artist association, not recording geography.",
+          "reviewed_at": "2026-11-09",
+          "city": "London",
+          "studio": "Producer based in",
+          "id": "thread-de39a5ec3ac3"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -21489,6 +23345,110 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "2197760": {
+      "kind": "artist",
+      "relation": "Featured editor’s musical base in",
+      "subject": "Rekutts Vol. 1 / Todd Terje",
+      "label": "Oslo",
+      "lon": 10.7522,
+      "lat": 59.9139,
+      "precision": "city",
+      "source": "https://ra.co/features/850?comments=2",
+      "note": "Interview documents Terje’s move to Oslo and local musical collaborators. Exact TODD001 edit credits are listed at https://glocalrecords.com/?label=NOT+ON+LABEL+&page=32 . Editor base, not original recordings’ geography.",
+      "reviewed_at": "2026-11-09",
+      "city": "Oslo",
+      "studio": "Featured editor’s musical base in",
+      "id": "thread-cc0fc5107538",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Featured editor’s musical base in",
+          "subject": "Rekutts Vol. 1 / Todd Terje",
+          "label": "Oslo",
+          "lon": 10.7522,
+          "lat": 59.9139,
+          "precision": "city",
+          "source": "https://ra.co/features/850?comments=2",
+          "note": "Interview documents Terje’s move to Oslo and local musical collaborators. Exact TODD001 edit credits are listed at https://glocalrecords.com/?label=NOT+ON+LABEL+&page=32 . Editor base, not original recordings’ geography.",
+          "reviewed_at": "2026-11-09",
+          "city": "Oslo",
+          "studio": "Featured editor’s musical base in",
+          "id": "thread-cc0fc5107538"
+        }
+      ],
+      "primary_thread_id": "thread-cc0fc5107538",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Featured editor’s musical base in",
+          "subject": "Rekutts Vol. 1 / Todd Terje",
+          "label": "Oslo",
+          "lon": 10.7522,
+          "lat": 59.9139,
+          "precision": "city",
+          "source": "https://ra.co/features/850?comments=2",
+          "note": "Interview documents Terje’s move to Oslo and local musical collaborators. Exact TODD001 edit credits are listed at https://glocalrecords.com/?label=NOT+ON+LABEL+&page=32 . Editor base, not original recordings’ geography.",
+          "reviewed_at": "2026-11-09",
+          "city": "Oslo",
+          "studio": "Featured editor’s musical base in",
+          "id": "thread-cc0fc5107538"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "16011980": {
+      "kind": "artist",
+      "relation": "Duo formed in the musical scene of",
+      "subject": "Bonfim",
+      "label": "Porto",
+      "lon": -8.6291,
+      "lat": 41.1579,
+      "precision": "city",
+      "source": "https://bonfimbeats.bandcamp.com/album/an-extended-play-record-of-assembled-sounds-for-different-kinds-of-moods",
+      "note": "Artist text documents Pedro Tenreiro and Hugo Passos collaborating in Porto and their local musical histories. Does not infer studio coordinates from room names.",
+      "reviewed_at": "2026-11-09",
+      "city": "Porto",
+      "studio": "Duo formed in the musical scene of",
+      "id": "thread-ea5a03a53cd2",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Duo formed in the musical scene of",
+          "subject": "Bonfim",
+          "label": "Porto",
+          "lon": -8.6291,
+          "lat": 41.1579,
+          "precision": "city",
+          "source": "https://bonfimbeats.bandcamp.com/album/an-extended-play-record-of-assembled-sounds-for-different-kinds-of-moods",
+          "note": "Artist text documents Pedro Tenreiro and Hugo Passos collaborating in Porto and their local musical histories. Does not infer studio coordinates from room names.",
+          "reviewed_at": "2026-11-09",
+          "city": "Porto",
+          "studio": "Duo formed in the musical scene of",
+          "id": "thread-ea5a03a53cd2"
+        }
+      ],
+      "primary_thread_id": "thread-ea5a03a53cd2",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Duo formed in the musical scene of",
+          "subject": "Bonfim",
+          "label": "Porto",
+          "lon": -8.6291,
+          "lat": 41.1579,
+          "precision": "city",
+          "source": "https://bonfimbeats.bandcamp.com/album/an-extended-play-record-of-assembled-sounds-for-different-kinds-of-moods",
+          "note": "Artist text documents Pedro Tenreiro and Hugo Passos collaborating in Porto and their local musical histories. Does not infer studio coordinates from room names.",
+          "reviewed_at": "2026-11-09",
+          "city": "Porto",
+          "studio": "Duo formed in the musical scene of",
+          "id": "thread-ea5a03a53cd2"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "9684455": {
       "kind": "artist",
       "relation": "House and experimental techno career developed in",
@@ -21859,6 +23819,58 @@
         "Danny Hibrid"
       ]
     },
+    "28522651": {
+      "kind": "recording",
+      "relation": "Featured track recorded at Paragon Studios in",
+      "subject": "Eccentric Boogie / Donnell Pitman — Burning Up",
+      "label": "Chicago",
+      "lon": -87.6298,
+      "lat": 41.8781,
+      "precision": "city",
+      "source": "https://numerogroup.com/products/donnell-pitman-burning-up-bw-the-taste-of-honey",
+      "note": "Numero explicitly documents the original Burning Up recording at Chicago’s Paragon Studios. Same recording named on https://numerogroup.com/products/eccentric-boogie . Scope is this track only, not the entire compilation.",
+      "reviewed_at": "2026-11-09",
+      "city": "Chicago",
+      "studio": "Featured track recorded at Paragon Studios in",
+      "id": "thread-1785b85ac7f6",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Featured track recorded at Paragon Studios in",
+          "subject": "Eccentric Boogie / Donnell Pitman — Burning Up",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "source": "https://numerogroup.com/products/donnell-pitman-burning-up-bw-the-taste-of-honey",
+          "note": "Numero explicitly documents the original Burning Up recording at Chicago’s Paragon Studios. Same recording named on https://numerogroup.com/products/eccentric-boogie . Scope is this track only, not the entire compilation.",
+          "reviewed_at": "2026-11-09",
+          "city": "Chicago",
+          "studio": "Featured track recorded at Paragon Studios in",
+          "id": "thread-1785b85ac7f6"
+        }
+      ],
+      "primary_thread_id": "thread-1785b85ac7f6",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Featured track recorded at Paragon Studios in",
+          "subject": "Eccentric Boogie / Donnell Pitman — Burning Up",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "source": "https://numerogroup.com/products/donnell-pitman-burning-up-bw-the-taste-of-honey",
+          "note": "Numero explicitly documents the original Burning Up recording at Chicago’s Paragon Studios. Same recording named on https://numerogroup.com/products/eccentric-boogie . Scope is this track only, not the entire compilation.",
+          "reviewed_at": "2026-11-09",
+          "city": "Chicago",
+          "studio": "Featured track recorded at Paragon Studios in",
+          "id": "thread-1785b85ac7f6"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "902597": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -22097,6 +24109,164 @@
         "Max Eastley"
       ]
     },
+    "654319": {
+      "kind": "artist",
+      "relation": "Early DJ and production scene in",
+      "subject": "Sileni / Chris Leamy",
+      "label": "Boston",
+      "lon": -71.0589,
+      "lat": 42.3601,
+      "precision": "city",
+      "source": "https://opposide.bandcamp.com/album/oppop21-gifts-from-the-grid-ep",
+      "note": "Label biography identifies Sileni as Chris Leamy, a longtime Boston-area producer who began DJing in 1998. City-area association, not a recording credit.",
+      "reviewed_at": "2026-11-09",
+      "city": "Boston",
+      "studio": "Early DJ and production scene in",
+      "id": "thread-8d993527f042",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Early DJ and production scene in",
+          "subject": "Sileni / Chris Leamy",
+          "label": "Boston",
+          "lon": -71.0589,
+          "lat": 42.3601,
+          "precision": "city",
+          "source": "https://opposide.bandcamp.com/album/oppop21-gifts-from-the-grid-ep",
+          "note": "Label biography identifies Sileni as Chris Leamy, a longtime Boston-area producer who began DJing in 1998. City-area association, not a recording credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Boston",
+          "studio": "Early DJ and production scene in",
+          "id": "thread-8d993527f042"
+        }
+      ],
+      "primary_thread_id": "thread-8d993527f042",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Early DJ and production scene in",
+          "subject": "Sileni / Chris Leamy",
+          "label": "Boston",
+          "lon": -71.0589,
+          "lat": 42.3601,
+          "precision": "city",
+          "source": "https://opposide.bandcamp.com/album/oppop21-gifts-from-the-grid-ep",
+          "note": "Label biography identifies Sileni as Chris Leamy, a longtime Boston-area producer who began DJing in 1998. City-area association, not a recording credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Boston",
+          "studio": "Early DJ and production scene in",
+          "id": "thread-8d993527f042"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "695304": {
+      "kind": "artist",
+      "relation": "Band’s musical scene in",
+      "subject": "Burton Inc.",
+      "label": "Oklahoma",
+      "lon": -97.3,
+      "lat": 35.5,
+      "precision": "region",
+      "source": "https://www.oye-records.com/releases/burton-inc-la-will-make-you-pay-2",
+      "note": "Jazzman reissue text documents Charles and Barbara Burton’s Oklahoma groups and exact LA Will Make You Pay recording. State precision; Los Angeles is not inferred from the title.",
+      "reviewed_at": "2026-11-09",
+      "city": "Oklahoma",
+      "studio": "Band’s musical scene in",
+      "id": "thread-cc19204eb88b",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Band’s musical scene in",
+          "subject": "Burton Inc.",
+          "label": "Oklahoma",
+          "lon": -97.3,
+          "lat": 35.5,
+          "precision": "region",
+          "source": "https://www.oye-records.com/releases/burton-inc-la-will-make-you-pay-2",
+          "note": "Jazzman reissue text documents Charles and Barbara Burton’s Oklahoma groups and exact LA Will Make You Pay recording. State precision; Los Angeles is not inferred from the title.",
+          "reviewed_at": "2026-11-09",
+          "city": "Oklahoma",
+          "studio": "Band’s musical scene in",
+          "id": "thread-cc19204eb88b"
+        }
+      ],
+      "primary_thread_id": "thread-cc19204eb88b",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Band’s musical scene in",
+          "subject": "Burton Inc.",
+          "label": "Oklahoma",
+          "lon": -97.3,
+          "lat": 35.5,
+          "precision": "region",
+          "source": "https://www.oye-records.com/releases/burton-inc-la-will-make-you-pay-2",
+          "note": "Jazzman reissue text documents Charles and Barbara Burton’s Oklahoma groups and exact LA Will Make You Pay recording. State precision; Los Angeles is not inferred from the title.",
+          "reviewed_at": "2026-11-09",
+          "city": "Oklahoma",
+          "studio": "Band’s musical scene in",
+          "id": "thread-cc19204eb88b"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Firebolts"
+      ]
+    },
+    "10771522": {
+      "kind": "artist",
+      "relation": "Studied jazz in",
+      "subject": "Enrico Serotti",
+      "label": "Parma",
+      "lon": 10.3279,
+      "lat": 44.8015,
+      "precision": "city",
+      "source": "https://www.francesconetti.com/enrico-serotti",
+      "note": "Professional biography explicitly documents jazz study in Parma. Musical training association, not birthplace or recording location.",
+      "reviewed_at": "2026-11-09",
+      "city": "Parma",
+      "studio": "Studied jazz in",
+      "id": "thread-7dcfa9c83443",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Studied jazz in",
+          "subject": "Enrico Serotti",
+          "label": "Parma",
+          "lon": 10.3279,
+          "lat": 44.8015,
+          "precision": "city",
+          "source": "https://www.francesconetti.com/enrico-serotti",
+          "note": "Professional biography explicitly documents jazz study in Parma. Musical training association, not birthplace or recording location.",
+          "reviewed_at": "2026-11-09",
+          "city": "Parma",
+          "studio": "Studied jazz in",
+          "id": "thread-7dcfa9c83443"
+        }
+      ],
+      "primary_thread_id": "thread-7dcfa9c83443",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Studied jazz in",
+          "subject": "Enrico Serotti",
+          "label": "Parma",
+          "lon": 10.3279,
+          "lat": 44.8015,
+          "precision": "city",
+          "source": "https://www.francesconetti.com/enrico-serotti",
+          "note": "Professional biography explicitly documents jazz study in Parma. Musical training association, not birthplace or recording location.",
+          "reviewed_at": "2026-11-09",
+          "city": "Parma",
+          "studio": "Studied jazz in",
+          "id": "thread-7dcfa9c83443"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "6785873": {
       "kind": "artist",
       "subject": "Makala Jazz Funk Band",
@@ -22327,6 +24497,112 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "7917513": {
+      "kind": "artist",
+      "relation": "Disco production scene associated with",
+      "subject": "Marta Acuna — Dance, Dance, Dance",
+      "label": "New York",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "precision": "city",
+      "source": "https://www.betinos.com/auteur/marta-acuna",
+      "note": "Reissue description explicitly situates Patrick Adams’s production as a New York disco classic. Release/scene association, not Marta Acuna’s personal origin or a studio credit.",
+      "reviewed_at": "2026-11-09",
+      "city": "New York",
+      "studio": "Disco production scene associated with",
+      "id": "thread-50f894eccce3",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Disco production scene associated with",
+          "subject": "Marta Acuna — Dance, Dance, Dance",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://www.betinos.com/auteur/marta-acuna",
+          "note": "Reissue description explicitly situates Patrick Adams’s production as a New York disco classic. Release/scene association, not Marta Acuna’s personal origin or a studio credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "New York",
+          "studio": "Disco production scene associated with",
+          "id": "thread-50f894eccce3"
+        }
+      ],
+      "primary_thread_id": "thread-50f894eccce3",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Disco production scene associated with",
+          "subject": "Marta Acuna — Dance, Dance, Dance",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://www.betinos.com/auteur/marta-acuna",
+          "note": "Reissue description explicitly situates Patrick Adams’s production as a New York disco classic. Release/scene association, not Marta Acuna’s personal origin or a studio credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "New York",
+          "studio": "Disco production scene associated with",
+          "id": "thread-50f894eccce3"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Marta Acuna"
+      ]
+    },
+    "9131093": {
+      "kind": "repertoire",
+      "relation": "Compilation documents the musical scene of",
+      "subject": "Rhythms Of The Pacific Volume 3",
+      "label": "Vancouver",
+      "lon": -123.1207,
+      "lat": 49.2827,
+      "precision": "city",
+      "source": "https://www.digdeeprecords.co.uk/product/various-rhythms-of-the-pacific-volume-3/",
+      "note": "Release text explicitly describes this Slim Media Player, ESB and Khotin compilation as a sample of the Vancouver sound. Scene relationship, not inferred solely from the label address.",
+      "reviewed_at": "2026-11-09",
+      "city": "Vancouver",
+      "studio": "Compilation documents the musical scene of",
+      "id": "thread-0af58014e044",
+      "threads": [
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents the musical scene of",
+          "subject": "Rhythms Of The Pacific Volume 3",
+          "label": "Vancouver",
+          "lon": -123.1207,
+          "lat": 49.2827,
+          "precision": "city",
+          "source": "https://www.digdeeprecords.co.uk/product/various-rhythms-of-the-pacific-volume-3/",
+          "note": "Release text explicitly describes this Slim Media Player, ESB and Khotin compilation as a sample of the Vancouver sound. Scene relationship, not inferred solely from the label address.",
+          "reviewed_at": "2026-11-09",
+          "city": "Vancouver",
+          "studio": "Compilation documents the musical scene of",
+          "id": "thread-0af58014e044"
+        }
+      ],
+      "primary_thread_id": "thread-0af58014e044",
+      "locations": [
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents the musical scene of",
+          "subject": "Rhythms Of The Pacific Volume 3",
+          "label": "Vancouver",
+          "lon": -123.1207,
+          "lat": 49.2827,
+          "precision": "city",
+          "source": "https://www.digdeeprecords.co.uk/product/various-rhythms-of-the-pacific-volume-3/",
+          "note": "Release text explicitly describes this Slim Media Player, ESB and Khotin compilation as a sample of the Vancouver sound. Scene relationship, not inferred solely from the label address.",
+          "reviewed_at": "2026-11-09",
+          "city": "Vancouver",
+          "studio": "Compilation documents the musical scene of",
+          "id": "thread-0af58014e044"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "11854219": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -22377,6 +24653,58 @@
           "city": "Germany",
           "studio": "Artist associated area",
           "id": "thread-396d162e549b"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "1008363": {
+      "kind": "artist",
+      "relation": "Band developed in",
+      "subject": "Greyship Daviz",
+      "label": "Westerville",
+      "lon": -82.9291,
+      "lat": 40.1262,
+      "precision": "city",
+      "source": "https://www.traxsource.com/title/1321328/this-groove-is-on-the-loose",
+      "note": "Past Due label biography documents the Westerville group’s change from rock to funk in the 1970s. Artist career association; not Traffic recording geography.",
+      "reviewed_at": "2026-11-09",
+      "city": "Westerville",
+      "studio": "Band developed in",
+      "id": "thread-e3a417ebd89d",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Band developed in",
+          "subject": "Greyship Daviz",
+          "label": "Westerville",
+          "lon": -82.9291,
+          "lat": 40.1262,
+          "precision": "city",
+          "source": "https://www.traxsource.com/title/1321328/this-groove-is-on-the-loose",
+          "note": "Past Due label biography documents the Westerville group’s change from rock to funk in the 1970s. Artist career association; not Traffic recording geography.",
+          "reviewed_at": "2026-11-09",
+          "city": "Westerville",
+          "studio": "Band developed in",
+          "id": "thread-e3a417ebd89d"
+        }
+      ],
+      "primary_thread_id": "thread-e3a417ebd89d",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Band developed in",
+          "subject": "Greyship Daviz",
+          "label": "Westerville",
+          "lon": -82.9291,
+          "lat": 40.1262,
+          "precision": "city",
+          "source": "https://www.traxsource.com/title/1321328/this-groove-is-on-the-loose",
+          "note": "Past Due label biography documents the Westerville group’s change from rock to funk in the 1970s. Artist career association; not Traffic recording geography.",
+          "reviewed_at": "2026-11-09",
+          "city": "Westerville",
+          "studio": "Band developed in",
+          "id": "thread-e3a417ebd89d"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -22494,6 +24822,61 @@
       ],
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
+    },
+    "9872263": {
+      "kind": "recording",
+      "relation": "Written and recorded in",
+      "subject": "Leroy Ace Miller / Aceloveace — Teacher",
+      "label": "Macon",
+      "lon": -83.6324,
+      "lat": 32.8407,
+      "precision": "city",
+      "source": "https://ppudc.bandcamp.com/album/teacher",
+      "note": "Reissue label explicitly documents Macon, Georgia writing and recording for Teacher. Both original and alternate versions are identified on the same release; no label-headquarters inference.",
+      "reviewed_at": "2026-11-09",
+      "city": "Macon",
+      "studio": "Written and recorded in",
+      "id": "thread-de8ba8054b60",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Written and recorded in",
+          "subject": "Leroy Ace Miller / Aceloveace — Teacher",
+          "label": "Macon",
+          "lon": -83.6324,
+          "lat": 32.8407,
+          "precision": "city",
+          "source": "https://ppudc.bandcamp.com/album/teacher",
+          "note": "Reissue label explicitly documents Macon, Georgia writing and recording for Teacher. Both original and alternate versions are identified on the same release; no label-headquarters inference.",
+          "reviewed_at": "2026-11-09",
+          "city": "Macon",
+          "studio": "Written and recorded in",
+          "id": "thread-de8ba8054b60"
+        }
+      ],
+      "primary_thread_id": "thread-de8ba8054b60",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Written and recorded in",
+          "subject": "Leroy Ace Miller / Aceloveace — Teacher",
+          "label": "Macon",
+          "lon": -83.6324,
+          "lat": 32.8407,
+          "precision": "city",
+          "source": "https://ppudc.bandcamp.com/album/teacher",
+          "note": "Reissue label explicitly documents Macon, Georgia writing and recording for Teacher. Both original and alternate versions are identified on the same release; no label-headquarters inference.",
+          "reviewed_at": "2026-11-09",
+          "city": "Macon",
+          "studio": "Written and recorded in",
+          "id": "thread-de8ba8054b60"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Leroy Ace Miller",
+        "Aceloveace"
+      ]
     },
     "22988753": {
       "kind": "artist",
@@ -22745,6 +25128,162 @@
           "city": "Brazil",
           "studio": "Artist associated area",
           "id": "thread-f9f9230f9de8"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "16084646": {
+      "kind": "artist",
+      "relation": "Early DJ scene in",
+      "subject": "Matteo Coffetti",
+      "label": "Bergamo",
+      "lon": 9.6773,
+      "lat": 45.6983,
+      "precision": "city",
+      "source": "https://www.cheventi.it/eventi/2023-cardine-w-big-sea-matteo-coffetti-pho-bho/",
+      "note": "Artist event biography identifies his start with Upstairs in the Bergamo scene. Not inferred from the later Turin label address.",
+      "reviewed_at": "2026-11-09",
+      "city": "Bergamo",
+      "studio": "Early DJ scene in",
+      "id": "thread-afda0ba9b4ee",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Early DJ scene in",
+          "subject": "Matteo Coffetti",
+          "label": "Bergamo",
+          "lon": 9.6773,
+          "lat": 45.6983,
+          "precision": "city",
+          "source": "https://www.cheventi.it/eventi/2023-cardine-w-big-sea-matteo-coffetti-pho-bho/",
+          "note": "Artist event biography identifies his start with Upstairs in the Bergamo scene. Not inferred from the later Turin label address.",
+          "reviewed_at": "2026-11-09",
+          "city": "Bergamo",
+          "studio": "Early DJ scene in",
+          "id": "thread-afda0ba9b4ee"
+        }
+      ],
+      "primary_thread_id": "thread-afda0ba9b4ee",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Early DJ scene in",
+          "subject": "Matteo Coffetti",
+          "label": "Bergamo",
+          "lon": 9.6773,
+          "lat": 45.6983,
+          "precision": "city",
+          "source": "https://www.cheventi.it/eventi/2023-cardine-w-big-sea-matteo-coffetti-pho-bho/",
+          "note": "Artist event biography identifies his start with Upstairs in the Bergamo scene. Not inferred from the later Turin label address.",
+          "reviewed_at": "2026-11-09",
+          "city": "Bergamo",
+          "studio": "Early DJ scene in",
+          "id": "thread-afda0ba9b4ee"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "373": {
+      "kind": "artist",
+      "relation": "Musical project associated with",
+      "subject": "Special Forces / Rupert Parkes",
+      "label": "United Kingdom",
+      "lon": -2,
+      "lat": 54,
+      "precision": "country",
+      "source": "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0",
+      "note": "MusicBrainz identifies Special Forces as the UK drum-and-bass project of Rupert Parkes. Country precision only; not recording geography.",
+      "reviewed_at": "2026-11-09",
+      "city": "United Kingdom",
+      "studio": "Musical project associated with",
+      "id": "thread-74333c120c62",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Musical project associated with",
+          "subject": "Special Forces / Rupert Parkes",
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "precision": "country",
+          "source": "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0",
+          "note": "MusicBrainz identifies Special Forces as the UK drum-and-bass project of Rupert Parkes. Country precision only; not recording geography.",
+          "reviewed_at": "2026-11-09",
+          "city": "United Kingdom",
+          "studio": "Musical project associated with",
+          "id": "thread-74333c120c62"
+        }
+      ],
+      "primary_thread_id": "thread-74333c120c62",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Musical project associated with",
+          "subject": "Special Forces / Rupert Parkes",
+          "label": "United Kingdom",
+          "lon": -2,
+          "lat": 54,
+          "precision": "country",
+          "source": "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0",
+          "note": "MusicBrainz identifies Special Forces as the UK drum-and-bass project of Rupert Parkes. Country precision only; not recording geography.",
+          "reviewed_at": "2026-11-09",
+          "city": "United Kingdom",
+          "studio": "Musical project associated with",
+          "id": "thread-74333c120c62"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "11762293": {
+      "kind": "artist",
+      "relation": "Formative musical scene in",
+      "subject": "Clive Matthews",
+      "label": "Kingston",
+      "lon": -76.7936,
+      "lat": 17.9712,
+      "precision": "city",
+      "source": "https://alonereggaeshop.bandcamp.com/album/clive-matthews-jah-live-lp",
+      "note": "Label biography documents musical development around Jonestown and Trench Town and relationships with The Cables, The Abyssinians and Errol Dunkley. Not a recording claim for this single.",
+      "reviewed_at": "2026-11-09",
+      "city": "Kingston",
+      "studio": "Formative musical scene in",
+      "id": "thread-0f72f1775f75",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Formative musical scene in",
+          "subject": "Clive Matthews",
+          "label": "Kingston",
+          "lon": -76.7936,
+          "lat": 17.9712,
+          "precision": "city",
+          "source": "https://alonereggaeshop.bandcamp.com/album/clive-matthews-jah-live-lp",
+          "note": "Label biography documents musical development around Jonestown and Trench Town and relationships with The Cables, The Abyssinians and Errol Dunkley. Not a recording claim for this single.",
+          "reviewed_at": "2026-11-09",
+          "city": "Kingston",
+          "studio": "Formative musical scene in",
+          "id": "thread-0f72f1775f75"
+        }
+      ],
+      "primary_thread_id": "thread-0f72f1775f75",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Formative musical scene in",
+          "subject": "Clive Matthews",
+          "label": "Kingston",
+          "lon": -76.7936,
+          "lat": 17.9712,
+          "precision": "city",
+          "source": "https://alonereggaeshop.bandcamp.com/album/clive-matthews-jah-live-lp",
+          "note": "Label biography documents musical development around Jonestown and Trench Town and relationships with The Cables, The Abyssinians and Errol Dunkley. Not a recording claim for this single.",
+          "reviewed_at": "2026-11-09",
+          "city": "Kingston",
+          "studio": "Formative musical scene in",
+          "id": "thread-0f72f1775f75"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -23009,6 +25548,162 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "41275": {
+      "kind": "artist",
+      "relation": "Members’ early production scene in",
+      "subject": "Icons / Justice and Blame",
+      "label": "Luton",
+      "lon": -0.4176,
+      "lat": 51.8787,
+      "precision": "city",
+      "source": "https://www.allmusic.com/artist/justice-mn0000309146",
+      "note": "Biography documents Justice’s Luton upbringing and early production with Blame, explicitly identifying their Icons collaboration. City-area musical development; not a claim that Icons II was recorded there.",
+      "reviewed_at": "2026-11-09",
+      "city": "Luton",
+      "studio": "Members’ early production scene in",
+      "id": "thread-e079f682aa1c",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Members’ early production scene in",
+          "subject": "Icons / Justice and Blame",
+          "label": "Luton",
+          "lon": -0.4176,
+          "lat": 51.8787,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/justice-mn0000309146",
+          "note": "Biography documents Justice’s Luton upbringing and early production with Blame, explicitly identifying their Icons collaboration. City-area musical development; not a claim that Icons II was recorded there.",
+          "reviewed_at": "2026-11-09",
+          "city": "Luton",
+          "studio": "Members’ early production scene in",
+          "id": "thread-e079f682aa1c"
+        }
+      ],
+      "primary_thread_id": "thread-e079f682aa1c",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Members’ early production scene in",
+          "subject": "Icons / Justice and Blame",
+          "label": "Luton",
+          "lon": -0.4176,
+          "lat": 51.8787,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/justice-mn0000309146",
+          "note": "Biography documents Justice’s Luton upbringing and early production with Blame, explicitly identifying their Icons collaboration. City-area musical development; not a claim that Icons II was recorded there.",
+          "reviewed_at": "2026-11-09",
+          "city": "Luton",
+          "studio": "Members’ early production scene in",
+          "id": "thread-e079f682aa1c"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "12575458": {
+      "kind": "recording",
+      "relation": "Performing and recording group based in",
+      "subject": "California Flight Project",
+      "label": "Berkeley",
+      "lon": -122.2727,
+      "lat": 37.8715,
+      "precision": "city",
+      "source": "https://www.oye-records.com/releases/california-flight-project-cali",
+      "note": "PPU release text identifies Jerry J Johnson’s group as from Berkeley, California, active recording and performing since the 1970s. Artist base, not the record title as evidence.",
+      "reviewed_at": "2026-11-09",
+      "city": "Berkeley",
+      "studio": "Performing and recording group based in",
+      "id": "thread-286744ca86f9",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Performing and recording group based in",
+          "subject": "California Flight Project",
+          "label": "Berkeley",
+          "lon": -122.2727,
+          "lat": 37.8715,
+          "precision": "city",
+          "source": "https://www.oye-records.com/releases/california-flight-project-cali",
+          "note": "PPU release text identifies Jerry J Johnson’s group as from Berkeley, California, active recording and performing since the 1970s. Artist base, not the record title as evidence.",
+          "reviewed_at": "2026-11-09",
+          "city": "Berkeley",
+          "studio": "Performing and recording group based in",
+          "id": "thread-286744ca86f9"
+        }
+      ],
+      "primary_thread_id": "thread-286744ca86f9",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Performing and recording group based in",
+          "subject": "California Flight Project",
+          "label": "Berkeley",
+          "lon": -122.2727,
+          "lat": 37.8715,
+          "precision": "city",
+          "source": "https://www.oye-records.com/releases/california-flight-project-cali",
+          "note": "PPU release text identifies Jerry J Johnson’s group as from Berkeley, California, active recording and performing since the 1970s. Artist base, not the record title as evidence.",
+          "reviewed_at": "2026-11-09",
+          "city": "Berkeley",
+          "studio": "Performing and recording group based in",
+          "id": "thread-286744ca86f9"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "2255206": {
+      "kind": "artist",
+      "relation": "Production career and scene in",
+      "subject": "Bill Riley",
+      "label": "Bristol",
+      "lon": -2.5879,
+      "lat": 51.4545,
+      "precision": "city",
+      "source": "https://dnb365.wordpress.com/2023/12/28/bill-riley-in-at-the-deep-end/",
+      "note": "Specialist retrospective identifies Bristol base, DJ Die collaboration and both owned releases. Not a recording-location credit.",
+      "reviewed_at": "2026-11-09",
+      "city": "Bristol",
+      "studio": "Production career and scene in",
+      "id": "thread-b64f76bbb252",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Production career and scene in",
+          "subject": "Bill Riley",
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "precision": "city",
+          "source": "https://dnb365.wordpress.com/2023/12/28/bill-riley-in-at-the-deep-end/",
+          "note": "Specialist retrospective identifies Bristol base, DJ Die collaboration and both owned releases. Not a recording-location credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Bristol",
+          "studio": "Production career and scene in",
+          "id": "thread-b64f76bbb252"
+        }
+      ],
+      "primary_thread_id": "thread-b64f76bbb252",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Production career and scene in",
+          "subject": "Bill Riley",
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "precision": "city",
+          "source": "https://dnb365.wordpress.com/2023/12/28/bill-riley-in-at-the-deep-end/",
+          "note": "Specialist retrospective identifies Bristol base, DJ Die collaboration and both owned releases. Not a recording-location credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Bristol",
+          "studio": "Production career and scene in",
+          "id": "thread-b64f76bbb252"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "14028131": {
       "kind": "artist",
       "relation": "Electronic duo based in",
@@ -23258,6 +25953,58 @@
           "city": "Epirus",
           "studio": "Clarinet and traditional music career rooted in",
           "id": "thread-c8f234b105a9"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "3148982": {
+      "kind": "artist",
+      "relation": "Producer based in",
+      "subject": "Teeth / Matti Pentikäinen",
+      "label": "Helsinki",
+      "lon": 24.9384,
+      "lat": 60.1699,
+      "precision": "city",
+      "source": "https://ra.co/reviews/9827",
+      "note": "Contemporary review of the exact EP identifies Matti Pentikäinen as Helsinki-based and documents the Teeth alias.",
+      "reviewed_at": "2026-11-09",
+      "city": "Helsinki",
+      "studio": "Producer based in",
+      "id": "thread-e3ddbdd0f364",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Teeth / Matti Pentikäinen",
+          "label": "Helsinki",
+          "lon": 24.9384,
+          "lat": 60.1699,
+          "precision": "city",
+          "source": "https://ra.co/reviews/9827",
+          "note": "Contemporary review of the exact EP identifies Matti Pentikäinen as Helsinki-based and documents the Teeth alias.",
+          "reviewed_at": "2026-11-09",
+          "city": "Helsinki",
+          "studio": "Producer based in",
+          "id": "thread-e3ddbdd0f364"
+        }
+      ],
+      "primary_thread_id": "thread-e3ddbdd0f364",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Teeth / Matti Pentikäinen",
+          "label": "Helsinki",
+          "lon": 24.9384,
+          "lat": 60.1699,
+          "precision": "city",
+          "source": "https://ra.co/reviews/9827",
+          "note": "Contemporary review of the exact EP identifies Matti Pentikäinen as Helsinki-based and documents the Teeth alias.",
+          "reviewed_at": "2026-11-09",
+          "city": "Helsinki",
+          "studio": "Producer based in",
+          "id": "thread-e3ddbdd0f364"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -23776,6 +26523,58 @@
         "QPSM Unit"
       ]
     },
+    "235251": {
+      "kind": "artist",
+      "relation": "Producer based in",
+      "subject": "Tek 9 / Dego",
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "precision": "city",
+      "source": "https://tek9.bandcamp.com/",
+      "note": "Artist’s own page documents London base and identifies the 4hero connection. Not inferred from the track title.",
+      "reviewed_at": "2026-11-09",
+      "city": "London",
+      "studio": "Producer based in",
+      "id": "thread-697ced781fc6",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Tek 9 / Dego",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://tek9.bandcamp.com/",
+          "note": "Artist’s own page documents London base and identifies the 4hero connection. Not inferred from the track title.",
+          "reviewed_at": "2026-11-09",
+          "city": "London",
+          "studio": "Producer based in",
+          "id": "thread-697ced781fc6"
+        }
+      ],
+      "primary_thread_id": "thread-697ced781fc6",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Tek 9 / Dego",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://tek9.bandcamp.com/",
+          "note": "Artist’s own page documents London base and identifies the 4hero connection. Not inferred from the track title.",
+          "reviewed_at": "2026-11-09",
+          "city": "London",
+          "studio": "Producer based in",
+          "id": "thread-697ced781fc6"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "60897": {
       "kind": "artist",
       "relation": "Dollis Hill musical circle",
@@ -24002,6 +26801,58 @@
           "city": "Detroit",
           "studio": "Detroit dance-label and production community in",
           "id": "thread-d77dd6f37861"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "9288000": {
+      "kind": "artist",
+      "relation": "Musical project originates from",
+      "subject": "Hylas",
+      "label": "Belgium",
+      "lon": 4.5,
+      "lat": 50.8,
+      "precision": "country",
+      "source": "https://oye-records.com/releases/hylas-hylas-ep",
+      "note": "Release text explicitly identifies the anonymous Hylas project as coming from Belgium. Country precision only; no identity guessed.",
+      "reviewed_at": "2026-11-09",
+      "city": "Belgium",
+      "studio": "Musical project originates from",
+      "id": "thread-d7dc95da310e",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Musical project originates from",
+          "subject": "Hylas",
+          "label": "Belgium",
+          "lon": 4.5,
+          "lat": 50.8,
+          "precision": "country",
+          "source": "https://oye-records.com/releases/hylas-hylas-ep",
+          "note": "Release text explicitly identifies the anonymous Hylas project as coming from Belgium. Country precision only; no identity guessed.",
+          "reviewed_at": "2026-11-09",
+          "city": "Belgium",
+          "studio": "Musical project originates from",
+          "id": "thread-d7dc95da310e"
+        }
+      ],
+      "primary_thread_id": "thread-d7dc95da310e",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Musical project originates from",
+          "subject": "Hylas",
+          "label": "Belgium",
+          "lon": 4.5,
+          "lat": 50.8,
+          "precision": "country",
+          "source": "https://oye-records.com/releases/hylas-hylas-ep",
+          "note": "Release text explicitly identifies the anonymous Hylas project as coming from Belgium. Country precision only; no identity guessed.",
+          "reviewed_at": "2026-11-09",
+          "city": "Belgium",
+          "studio": "Musical project originates from",
+          "id": "thread-d7dc95da310e"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -24272,6 +27123,60 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "209945": {
+      "kind": "artist",
+      "relation": "Contributor’s DJ and production scene in",
+      "subject": "Substance / DJ Dazee",
+      "label": "Bristol",
+      "lon": -2.5879,
+      "lat": 51.4545,
+      "precision": "city",
+      "source": "https://ukf.com/read/in-conversation-with-dazee/",
+      "note": "UKF interview documents Dazee’s Bristol musical base. Fly / Prisoner contributor identity is documented at https://musicbase.net/fly-prisoner . Participant association only, not all Substance members or the studio location.",
+      "reviewed_at": "2026-11-09",
+      "city": "Bristol",
+      "studio": "Contributor’s DJ and production scene in",
+      "id": "thread-226723d6f4d5",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Contributor’s DJ and production scene in",
+          "subject": "Substance / DJ Dazee",
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "precision": "city",
+          "source": "https://ukf.com/read/in-conversation-with-dazee/",
+          "note": "UKF interview documents Dazee’s Bristol musical base. Fly / Prisoner contributor identity is documented at https://musicbase.net/fly-prisoner . Participant association only, not all Substance members or the studio location.",
+          "reviewed_at": "2026-11-09",
+          "city": "Bristol",
+          "studio": "Contributor’s DJ and production scene in",
+          "id": "thread-226723d6f4d5"
+        }
+      ],
+      "primary_thread_id": "thread-226723d6f4d5",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Contributor’s DJ and production scene in",
+          "subject": "Substance / DJ Dazee",
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "precision": "city",
+          "source": "https://ukf.com/read/in-conversation-with-dazee/",
+          "note": "UKF interview documents Dazee’s Bristol musical base. Fly / Prisoner contributor identity is documented at https://musicbase.net/fly-prisoner . Participant association only, not all Substance members or the studio location.",
+          "reviewed_at": "2026-11-09",
+          "city": "Bristol",
+          "studio": "Contributor’s DJ and production scene in",
+          "id": "thread-226723d6f4d5"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Substance (2)"
+      ]
+    },
     "109301": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -24422,6 +27327,58 @@
           "city": "South Africa",
           "studio": "South African kwaito and rap career in",
           "id": "thread-3443b06d90aa"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "4913304": {
+      "kind": "artist",
+      "relation": "DJ and production scene in",
+      "subject": "Boogie Nite",
+      "label": "Chicago",
+      "lon": -87.6298,
+      "lat": 41.8781,
+      "precision": "city",
+      "source": "https://5mag.net/features/boogie-nite-do-your-thang/",
+      "note": "Interview documents growing up as a Chicago DJ and production career including Lumberjacks in Hell. Not a recording credit.",
+      "reviewed_at": "2026-11-09",
+      "city": "Chicago",
+      "studio": "DJ and production scene in",
+      "id": "thread-654876a5d418",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "DJ and production scene in",
+          "subject": "Boogie Nite",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "source": "https://5mag.net/features/boogie-nite-do-your-thang/",
+          "note": "Interview documents growing up as a Chicago DJ and production career including Lumberjacks in Hell. Not a recording credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Chicago",
+          "studio": "DJ and production scene in",
+          "id": "thread-654876a5d418"
+        }
+      ],
+      "primary_thread_id": "thread-654876a5d418",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "DJ and production scene in",
+          "subject": "Boogie Nite",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "source": "https://5mag.net/features/boogie-nite-do-your-thang/",
+          "note": "Interview documents growing up as a Chicago DJ and production career including Lumberjacks in Hell. Not a recording credit.",
+          "reviewed_at": "2026-11-09",
+          "city": "Chicago",
+          "studio": "DJ and production scene in",
+          "id": "thread-654876a5d418"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -24942,6 +27899,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "17033907": {
+      "kind": "artist",
+      "relation": "Musical and television career in",
+      "subject": "Andrew Kitchen",
+      "label": "Chicago",
+      "lon": -87.6298,
+      "lat": 41.8781,
+      "precision": "city",
+      "source": "https://gobangmagazine.com/2021/04/01/event-tv-music-radio-andrew-kitchen-attack-of-the-boogie-tv-show-record-release/",
+      "note": "Chicago career, dance show and original 1984 theme are documented; exact title links the reissue to that musical work.",
+      "reviewed_at": "2026-11-09",
+      "city": "Chicago",
+      "studio": "Musical and television career in",
+      "id": "thread-83c09470818d",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Musical and television career in",
+          "subject": "Andrew Kitchen",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "source": "https://gobangmagazine.com/2021/04/01/event-tv-music-radio-andrew-kitchen-attack-of-the-boogie-tv-show-record-release/",
+          "note": "Chicago career, dance show and original 1984 theme are documented; exact title links the reissue to that musical work.",
+          "reviewed_at": "2026-11-09",
+          "city": "Chicago",
+          "studio": "Musical and television career in",
+          "id": "thread-83c09470818d"
+        }
+      ],
+      "primary_thread_id": "thread-83c09470818d",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Musical and television career in",
+          "subject": "Andrew Kitchen",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "source": "https://gobangmagazine.com/2021/04/01/event-tv-music-radio-andrew-kitchen-attack-of-the-boogie-tv-show-record-release/",
+          "note": "Chicago career, dance show and original 1984 theme are documented; exact title links the reissue to that musical work.",
+          "reviewed_at": "2026-11-09",
+          "city": "Chicago",
+          "studio": "Musical and television career in",
+          "id": "thread-83c09470818d"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "103007": {
       "kind": "artist",
       "relation": "Project originates from",
@@ -25144,6 +28153,60 @@
       ],
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
+    },
+    "11446709": {
+      "kind": "artist",
+      "relation": "Member’s formative techno scene in",
+      "subject": "Sugar Experiment Station / Tobias Schmidt",
+      "label": "Scotland",
+      "lon": -4,
+      "lat": 56.8,
+      "precision": "region",
+      "source": "https://ra.co/events/1306276",
+      "note": "Artist biography describes Schmidt’s production development in Scottish Sativae and Test club nights and collaboration with Neil Landstrumm as Sugar Experiment Station. Region only; no Glasgow recording claim.",
+      "reviewed_at": "2026-11-09",
+      "city": "Scotland",
+      "studio": "Member’s formative techno scene in",
+      "id": "thread-1308080e5ed8",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Member’s formative techno scene in",
+          "subject": "Sugar Experiment Station / Tobias Schmidt",
+          "label": "Scotland",
+          "lon": -4,
+          "lat": 56.8,
+          "precision": "region",
+          "source": "https://ra.co/events/1306276",
+          "note": "Artist biography describes Schmidt’s production development in Scottish Sativae and Test club nights and collaboration with Neil Landstrumm as Sugar Experiment Station. Region only; no Glasgow recording claim.",
+          "reviewed_at": "2026-11-09",
+          "city": "Scotland",
+          "studio": "Member’s formative techno scene in",
+          "id": "thread-1308080e5ed8"
+        }
+      ],
+      "primary_thread_id": "thread-1308080e5ed8",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Member’s formative techno scene in",
+          "subject": "Sugar Experiment Station / Tobias Schmidt",
+          "label": "Scotland",
+          "lon": -4,
+          "lat": 56.8,
+          "precision": "region",
+          "source": "https://ra.co/events/1306276",
+          "note": "Artist biography describes Schmidt’s production development in Scottish Sativae and Test club nights and collaboration with Neil Landstrumm as Sugar Experiment Station. Region only; no Glasgow recording claim.",
+          "reviewed_at": "2026-11-09",
+          "city": "Scotland",
+          "studio": "Member’s formative techno scene in",
+          "id": "thread-1308080e5ed8"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Sugar Experiment Station"
+      ]
     },
     "118630": {
       "kind": "artist",
@@ -25481,6 +28544,60 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "2811130": {
+      "kind": "artist",
+      "relation": "DJ and production career in",
+      "subject": "Percy X / Tony Scott",
+      "label": "Glasgow",
+      "lon": -4.2518,
+      "lat": 55.8642,
+      "precision": "city",
+      "source": "https://www.nts.live/artists/37583-percy-x",
+      "note": "Artist biography identifies Glasgow base, productions with Richard Miller and the owned Andrew Weatherall collaboration. This thread applies to Percy X alone.",
+      "reviewed_at": "2026-11-09",
+      "city": "Glasgow",
+      "studio": "DJ and production career in",
+      "id": "thread-fd28e205d084",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "DJ and production career in",
+          "subject": "Percy X / Tony Scott",
+          "label": "Glasgow",
+          "lon": -4.2518,
+          "lat": 55.8642,
+          "precision": "city",
+          "source": "https://www.nts.live/artists/37583-percy-x",
+          "note": "Artist biography identifies Glasgow base, productions with Richard Miller and the owned Andrew Weatherall collaboration. This thread applies to Percy X alone.",
+          "reviewed_at": "2026-11-09",
+          "city": "Glasgow",
+          "studio": "DJ and production career in",
+          "id": "thread-fd28e205d084"
+        }
+      ],
+      "primary_thread_id": "thread-fd28e205d084",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "DJ and production career in",
+          "subject": "Percy X / Tony Scott",
+          "label": "Glasgow",
+          "lon": -4.2518,
+          "lat": 55.8642,
+          "precision": "city",
+          "source": "https://www.nts.live/artists/37583-percy-x",
+          "note": "Artist biography identifies Glasgow base, productions with Richard Miller and the owned Andrew Weatherall collaboration. This thread applies to Percy X alone.",
+          "reviewed_at": "2026-11-09",
+          "city": "Glasgow",
+          "studio": "DJ and production career in",
+          "id": "thread-fd28e205d084"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Blood Sugar"
+      ]
+    },
     "1621146": {
       "kind": "artist",
       "subject": "STL / Stephan Laubner",
@@ -25525,6 +28642,58 @@
           "city": "Harz Mountains",
           "studio": "Underground house and electronic production based in",
           "id": "thread-32ac6f0b1f6b"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "339118": {
+      "kind": "artist",
+      "relation": "Duo based in",
+      "subject": "Slope",
+      "label": "Berlin",
+      "lon": 13.405,
+      "lat": 52.52,
+      "precision": "city",
+      "source": "https://slopemusic.bandcamp.com/album/slope-remixed",
+      "note": "Artist’s own page gives Berlin base. Discogs identity is Daniel Paul and Honesty, not another band named Slope.",
+      "reviewed_at": "2026-11-09",
+      "city": "Berlin",
+      "studio": "Duo based in",
+      "id": "thread-b1ed3e07bcc4",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Duo based in",
+          "subject": "Slope",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://slopemusic.bandcamp.com/album/slope-remixed",
+          "note": "Artist’s own page gives Berlin base. Discogs identity is Daniel Paul and Honesty, not another band named Slope.",
+          "reviewed_at": "2026-11-09",
+          "city": "Berlin",
+          "studio": "Duo based in",
+          "id": "thread-b1ed3e07bcc4"
+        }
+      ],
+      "primary_thread_id": "thread-b1ed3e07bcc4",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Duo based in",
+          "subject": "Slope",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://slopemusic.bandcamp.com/album/slope-remixed",
+          "note": "Artist’s own page gives Berlin base. Discogs identity is Daniel Paul and Honesty, not another band named Slope.",
+          "reviewed_at": "2026-11-09",
+          "city": "Berlin",
+          "studio": "Duo based in",
+          "id": "thread-b1ed3e07bcc4"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -26091,6 +29260,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "8649345": {
+      "kind": "artist",
+      "relation": "DJ and production community based in",
+      "subject": "Man Power / Geoff Kirkwood",
+      "label": "North Shields",
+      "lon": -1.4493,
+      "lat": 55.009,
+      "precision": "city",
+      "source": "https://mixmag.net/feature/the-mix-047-man-power-dj-producer-interview-newcastle-grassroots",
+      "note": "Interview documents the producer’s return to North Shields and community venue. Current musical base after Berlin and Mexico, not a recording claim for the owned 2016 record.",
+      "reviewed_at": "2026-11-09",
+      "city": "North Shields",
+      "studio": "DJ and production community based in",
+      "id": "thread-12565aa99484",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "DJ and production community based in",
+          "subject": "Man Power / Geoff Kirkwood",
+          "label": "North Shields",
+          "lon": -1.4493,
+          "lat": 55.009,
+          "precision": "city",
+          "source": "https://mixmag.net/feature/the-mix-047-man-power-dj-producer-interview-newcastle-grassroots",
+          "note": "Interview documents the producer’s return to North Shields and community venue. Current musical base after Berlin and Mexico, not a recording claim for the owned 2016 record.",
+          "reviewed_at": "2026-11-09",
+          "city": "North Shields",
+          "studio": "DJ and production community based in",
+          "id": "thread-12565aa99484"
+        }
+      ],
+      "primary_thread_id": "thread-12565aa99484",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "DJ and production community based in",
+          "subject": "Man Power / Geoff Kirkwood",
+          "label": "North Shields",
+          "lon": -1.4493,
+          "lat": 55.009,
+          "precision": "city",
+          "source": "https://mixmag.net/feature/the-mix-047-man-power-dj-producer-interview-newcastle-grassroots",
+          "note": "Interview documents the producer’s return to North Shields and community venue. Current musical base after Berlin and Mexico, not a recording claim for the owned 2016 record.",
+          "reviewed_at": "2026-11-09",
+          "city": "North Shields",
+          "studio": "DJ and production community based in",
+          "id": "thread-12565aa99484"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "6141873": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -26250,6 +29471,60 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "13479515": {
+      "kind": "recording",
+      "relation": "Recorded in",
+      "subject": "Hipnotic — Are You Lonely?",
+      "label": "Philadelphia",
+      "lon": -75.1652,
+      "lat": 39.9526,
+      "precision": "city",
+      "source": "https://www.soulandfunkmusic.com/artist/hipnotic/overview",
+      "note": "Release history explicitly distinguishes Philadelphia recording, New York mixing and Canadian release. Applies to the original 1983 recording reused on this reissue.",
+      "reviewed_at": "2026-11-09",
+      "city": "Philadelphia",
+      "studio": "Recorded in",
+      "id": "thread-7b9e42279b9f",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded in",
+          "subject": "Hipnotic — Are You Lonely?",
+          "label": "Philadelphia",
+          "lon": -75.1652,
+          "lat": 39.9526,
+          "precision": "city",
+          "source": "https://www.soulandfunkmusic.com/artist/hipnotic/overview",
+          "note": "Release history explicitly distinguishes Philadelphia recording, New York mixing and Canadian release. Applies to the original 1983 recording reused on this reissue.",
+          "reviewed_at": "2026-11-09",
+          "city": "Philadelphia",
+          "studio": "Recorded in",
+          "id": "thread-7b9e42279b9f"
+        }
+      ],
+      "primary_thread_id": "thread-7b9e42279b9f",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded in",
+          "subject": "Hipnotic — Are You Lonely?",
+          "label": "Philadelphia",
+          "lon": -75.1652,
+          "lat": 39.9526,
+          "precision": "city",
+          "source": "https://www.soulandfunkmusic.com/artist/hipnotic/overview",
+          "note": "Release history explicitly distinguishes Philadelphia recording, New York mixing and Canadian release. Applies to the original 1983 recording reused on this reissue.",
+          "reviewed_at": "2026-11-09",
+          "city": "Philadelphia",
+          "studio": "Recorded in",
+          "id": "thread-7b9e42279b9f"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Hipnotic (2)"
+      ]
+    },
     "592730": {
       "kind": "artist",
       "relation": "Project originates from",
@@ -26352,6 +29627,60 @@
       ],
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
+    },
+    "9933928": {
+      "kind": "artist",
+      "relation": "Production career in",
+      "subject": "Photon Inc. / DJ Pierre",
+      "label": "New York",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "precision": "city",
+      "source": "https://daily.redbullmusicacademy.com/2012/12/dj-pierre-interview/",
+      "note": "Interview introduction identifies the alias and connects Generate Power to Pierre’s New York Strictly Rhythm period after moving in 1990. Does not assign Paula Brion this origin.",
+      "reviewed_at": "2026-11-09",
+      "city": "New York",
+      "studio": "Production career in",
+      "id": "thread-06e8794efc36",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Production career in",
+          "subject": "Photon Inc. / DJ Pierre",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://daily.redbullmusicacademy.com/2012/12/dj-pierre-interview/",
+          "note": "Interview introduction identifies the alias and connects Generate Power to Pierre’s New York Strictly Rhythm period after moving in 1990. Does not assign Paula Brion this origin.",
+          "reviewed_at": "2026-11-09",
+          "city": "New York",
+          "studio": "Production career in",
+          "id": "thread-06e8794efc36"
+        }
+      ],
+      "primary_thread_id": "thread-06e8794efc36",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Production career in",
+          "subject": "Photon Inc. / DJ Pierre",
+          "label": "New York",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://daily.redbullmusicacademy.com/2012/12/dj-pierre-interview/",
+          "note": "Interview introduction identifies the alias and connects Generate Power to Pierre’s New York Strictly Rhythm period after moving in 1990. Does not assign Paula Brion this origin.",
+          "reviewed_at": "2026-11-09",
+          "city": "New York",
+          "studio": "Production career in",
+          "id": "thread-06e8794efc36"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Paula Brion"
+      ]
     },
     "45229": {
       "kind": "artist",
@@ -26852,6 +30181,60 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "9855853": {
+      "kind": "artist",
+      "relation": "Early performing career in",
+      "subject": "Carl Marshall",
+      "label": "New Orleans",
+      "lon": -90.0715,
+      "lat": 29.9511,
+      "precision": "city",
+      "source": "https://soulbluesmusic.com/carlmarshallpage.htm",
+      "note": "Soul/blues archive documents seven years with Sam & the Soul Machine in New Orleans and connects the Soul Dogs alias with the owned album title. Artist career association, not album recording location.",
+      "reviewed_at": "2026-11-09",
+      "city": "New Orleans",
+      "studio": "Early performing career in",
+      "id": "thread-93e09cc80189",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Early performing career in",
+          "subject": "Carl Marshall",
+          "label": "New Orleans",
+          "lon": -90.0715,
+          "lat": 29.9511,
+          "precision": "city",
+          "source": "https://soulbluesmusic.com/carlmarshallpage.htm",
+          "note": "Soul/blues archive documents seven years with Sam & the Soul Machine in New Orleans and connects the Soul Dogs alias with the owned album title. Artist career association, not album recording location.",
+          "reviewed_at": "2026-11-09",
+          "city": "New Orleans",
+          "studio": "Early performing career in",
+          "id": "thread-93e09cc80189"
+        }
+      ],
+      "primary_thread_id": "thread-93e09cc80189",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Early performing career in",
+          "subject": "Carl Marshall",
+          "label": "New Orleans",
+          "lon": -90.0715,
+          "lat": 29.9511,
+          "precision": "city",
+          "source": "https://soulbluesmusic.com/carlmarshallpage.htm",
+          "note": "Soul/blues archive documents seven years with Sam & the Soul Machine in New Orleans and connects the Soul Dogs alias with the owned album title. Artist career association, not album recording location.",
+          "reviewed_at": "2026-11-09",
+          "city": "New Orleans",
+          "studio": "Early performing career in",
+          "id": "thread-93e09cc80189"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "The S.D.'S"
+      ]
+    },
     "645638": {
       "kind": "artist",
       "relation": "Artist based in",
@@ -27297,6 +30680,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "14499190": {
+      "kind": "repertoire",
+      "relation": "Compilation draws repertoire from",
+      "subject": "Eastern European Cut-Outs",
+      "label": "Eastern Europe",
+      "lon": 25,
+      "lat": 52,
+      "precision": "region",
+      "source": "https://wordandsound.net/presales/2041/-1099",
+      "note": "Label text explicitly documents reworked source tracks from Czechoslovakia, Yugoslavia and the USSR, including Czech, Serbian, Russian and Estonian material. Broad regional repertoire only; the overview coordinate is not any track’s recording site.",
+      "reviewed_at": "2026-11-09",
+      "city": "Eastern Europe",
+      "studio": "Compilation draws repertoire from",
+      "id": "thread-c1029483b511",
+      "threads": [
+        {
+          "kind": "repertoire",
+          "relation": "Compilation draws repertoire from",
+          "subject": "Eastern European Cut-Outs",
+          "label": "Eastern Europe",
+          "lon": 25,
+          "lat": 52,
+          "precision": "region",
+          "source": "https://wordandsound.net/presales/2041/-1099",
+          "note": "Label text explicitly documents reworked source tracks from Czechoslovakia, Yugoslavia and the USSR, including Czech, Serbian, Russian and Estonian material. Broad regional repertoire only; the overview coordinate is not any track’s recording site.",
+          "reviewed_at": "2026-11-09",
+          "city": "Eastern Europe",
+          "studio": "Compilation draws repertoire from",
+          "id": "thread-c1029483b511"
+        }
+      ],
+      "primary_thread_id": "thread-c1029483b511",
+      "locations": [
+        {
+          "kind": "repertoire",
+          "relation": "Compilation draws repertoire from",
+          "subject": "Eastern European Cut-Outs",
+          "label": "Eastern Europe",
+          "lon": 25,
+          "lat": 52,
+          "precision": "region",
+          "source": "https://wordandsound.net/presales/2041/-1099",
+          "note": "Label text explicitly documents reworked source tracks from Czechoslovakia, Yugoslavia and the USSR, including Czech, Serbian, Russian and Estonian material. Broad regional repertoire only; the overview coordinate is not any track’s recording site.",
+          "reviewed_at": "2026-11-09",
+          "city": "Eastern Europe",
+          "studio": "Compilation draws repertoire from",
+          "id": "thread-c1029483b511"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "538235": {
       "kind": "artist",
       "relation": "Jungle producer based in",
@@ -27346,6 +30781,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "1267143": {
+      "kind": "artist",
+      "relation": "Featured group formed in",
+      "subject": "Old School Volume 1 / The Gap Band",
+      "label": "Tulsa",
+      "lon": -95.9928,
+      "lat": 36.154,
+      "precision": "city",
+      "source": "https://www.okhistory.org/publications/enc/entry?entry=GA009",
+      "note": "Oklahoma Historical Society documents the band’s Tulsa formation and early music making. Exact You Dropped The Bomb contribution is confirmed at https://thumprecords.com/product/old-school-vol-1-cd/ and the owned TH 4010 tracklist. Group formation only, not this song’s recording city.",
+      "reviewed_at": "2026-11-09",
+      "city": "Tulsa",
+      "studio": "Featured group formed in",
+      "id": "thread-cc6afc57010b",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Featured group formed in",
+          "subject": "Old School Volume 1 / The Gap Band",
+          "label": "Tulsa",
+          "lon": -95.9928,
+          "lat": 36.154,
+          "precision": "city",
+          "source": "https://www.okhistory.org/publications/enc/entry?entry=GA009",
+          "note": "Oklahoma Historical Society documents the band’s Tulsa formation and early music making. Exact You Dropped The Bomb contribution is confirmed at https://thumprecords.com/product/old-school-vol-1-cd/ and the owned TH 4010 tracklist. Group formation only, not this song’s recording city.",
+          "reviewed_at": "2026-11-09",
+          "city": "Tulsa",
+          "studio": "Featured group formed in",
+          "id": "thread-cc6afc57010b"
+        }
+      ],
+      "primary_thread_id": "thread-cc6afc57010b",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Featured group formed in",
+          "subject": "Old School Volume 1 / The Gap Band",
+          "label": "Tulsa",
+          "lon": -95.9928,
+          "lat": 36.154,
+          "precision": "city",
+          "source": "https://www.okhistory.org/publications/enc/entry?entry=GA009",
+          "note": "Oklahoma Historical Society documents the band’s Tulsa formation and early music making. Exact You Dropped The Bomb contribution is confirmed at https://thumprecords.com/product/old-school-vol-1-cd/ and the owned TH 4010 tracklist. Group formation only, not this song’s recording city.",
+          "reviewed_at": "2026-11-09",
+          "city": "Tulsa",
+          "studio": "Featured group formed in",
+          "id": "thread-cc6afc57010b"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "250924": {
       "kind": "artist",
       "relation": "Breakcore and bass-music career developed in",
@@ -27390,6 +30877,58 @@
           "city": "New York City",
           "studio": "Breakcore and bass-music career developed in",
           "id": "thread-79cc843c724b"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "27576126": {
+      "kind": "artist",
+      "relation": "Producer based in",
+      "subject": "Yosh / Mark Ramsey",
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "precision": "city",
+      "source": "https://shallnotfade.bandcamp.com/album/one-more-time-ep",
+      "note": "Time Is Now label explicitly identifies Yosh as London-based. Same label/artist series as the owned TIN046 Show Me EP; not a genre-derived location.",
+      "reviewed_at": "2026-11-09",
+      "city": "London",
+      "studio": "Producer based in",
+      "id": "thread-3d40bfbdcb6f",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Yosh / Mark Ramsey",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://shallnotfade.bandcamp.com/album/one-more-time-ep",
+          "note": "Time Is Now label explicitly identifies Yosh as London-based. Same label/artist series as the owned TIN046 Show Me EP; not a genre-derived location.",
+          "reviewed_at": "2026-11-09",
+          "city": "London",
+          "studio": "Producer based in",
+          "id": "thread-3d40bfbdcb6f"
+        }
+      ],
+      "primary_thread_id": "thread-3d40bfbdcb6f",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Producer based in",
+          "subject": "Yosh / Mark Ramsey",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://shallnotfade.bandcamp.com/album/one-more-time-ep",
+          "note": "Time Is Now label explicitly identifies Yosh as London-based. Same label/artist series as the owned TIN046 Show Me EP; not a genre-derived location.",
+          "reviewed_at": "2026-11-09",
+          "city": "London",
+          "studio": "Producer based in",
+          "id": "thread-3d40bfbdcb6f"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -27624,6 +31163,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "797825": {
+      "kind": "artist",
+      "relation": "Featured producer’s formative scene in",
+      "subject": "Acid Trax Vol. 2 / DJ Pierre",
+      "label": "Chicago",
+      "lon": -87.6298,
+      "lat": 41.8781,
+      "precision": "city",
+      "source": "https://daily.redbullmusicacademy.com/2012/12/dj-pierre-interview/",
+      "note": "DJ Pierre interview documents Chicago acid-house development. Box Energy credit is confirmed on the compilation tracklist at https://house-of-chicago.de/acid-trax-vol-1-2/ . Participant association, not genre-based inference for every track.",
+      "reviewed_at": "2026-11-09",
+      "city": "Chicago",
+      "studio": "Featured producer’s formative scene in",
+      "id": "thread-a6367b6235c7",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Featured producer’s formative scene in",
+          "subject": "Acid Trax Vol. 2 / DJ Pierre",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "source": "https://daily.redbullmusicacademy.com/2012/12/dj-pierre-interview/",
+          "note": "DJ Pierre interview documents Chicago acid-house development. Box Energy credit is confirmed on the compilation tracklist at https://house-of-chicago.de/acid-trax-vol-1-2/ . Participant association, not genre-based inference for every track.",
+          "reviewed_at": "2026-11-09",
+          "city": "Chicago",
+          "studio": "Featured producer’s formative scene in",
+          "id": "thread-a6367b6235c7"
+        }
+      ],
+      "primary_thread_id": "thread-a6367b6235c7",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Featured producer’s formative scene in",
+          "subject": "Acid Trax Vol. 2 / DJ Pierre",
+          "label": "Chicago",
+          "lon": -87.6298,
+          "lat": 41.8781,
+          "precision": "city",
+          "source": "https://daily.redbullmusicacademy.com/2012/12/dj-pierre-interview/",
+          "note": "DJ Pierre interview documents Chicago acid-house development. Box Energy credit is confirmed on the compilation tracklist at https://house-of-chicago.de/acid-trax-vol-1-2/ . Participant association, not genre-based inference for every track.",
+          "reviewed_at": "2026-11-09",
+          "city": "Chicago",
+          "studio": "Featured producer’s formative scene in",
+          "id": "thread-a6367b6235c7"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "19316317": {
       "kind": "artist",
       "relation": "Formative DJ and record culture in",
@@ -27674,6 +31265,58 @@
       "unlocated_artists": [
         "LNS (2)"
       ]
+    },
+    "193290": {
+      "kind": "artist",
+      "relation": "Production project developed in",
+      "subject": "T-Move Experience",
+      "label": "Pontedera",
+      "lon": 10.6371,
+      "lat": 43.6643,
+      "precision": "city",
+      "source": "https://decadancebook.wordpress.com/2016/05/06/t-move-experience-running-in-real-time-tuscania-movement/",
+      "note": "Paolino Bova’s interview documents the project forming from collaborators at his Pontedera shop and upstairs studio. Artist/project development; not automatic recording scope for every mix.",
+      "reviewed_at": "2026-11-09",
+      "city": "Pontedera",
+      "studio": "Production project developed in",
+      "id": "thread-539223b5c94d",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Production project developed in",
+          "subject": "T-Move Experience",
+          "label": "Pontedera",
+          "lon": 10.6371,
+          "lat": 43.6643,
+          "precision": "city",
+          "source": "https://decadancebook.wordpress.com/2016/05/06/t-move-experience-running-in-real-time-tuscania-movement/",
+          "note": "Paolino Bova’s interview documents the project forming from collaborators at his Pontedera shop and upstairs studio. Artist/project development; not automatic recording scope for every mix.",
+          "reviewed_at": "2026-11-09",
+          "city": "Pontedera",
+          "studio": "Production project developed in",
+          "id": "thread-539223b5c94d"
+        }
+      ],
+      "primary_thread_id": "thread-539223b5c94d",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Production project developed in",
+          "subject": "T-Move Experience",
+          "label": "Pontedera",
+          "lon": 10.6371,
+          "lat": 43.6643,
+          "precision": "city",
+          "source": "https://decadancebook.wordpress.com/2016/05/06/t-move-experience-running-in-real-time-tuscania-movement/",
+          "note": "Paolino Bova’s interview documents the project forming from collaborators at his Pontedera shop and upstairs studio. Artist/project development; not automatic recording scope for every mix.",
+          "reviewed_at": "2026-11-09",
+          "city": "Pontedera",
+          "studio": "Production project developed in",
+          "id": "thread-539223b5c94d"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
     },
     "14446701": {
       "kind": "artist",
@@ -27847,6 +31490,58 @@
           "city": "Paris",
           "studio": "Producer’s professional musical base in",
           "id": "thread-ec22f605271e"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "13461710": {
+      "kind": "artist",
+      "relation": "Early band career in",
+      "subject": "Ben Human / Ben Addison",
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "precision": "city",
+      "source": "https://www.allmusic.com/artist/corduroy-mn0000116932/biography",
+      "note": "AllMusic identifies Ben Addison as a member of London-formed Corduroy. Ben Human alias corroborated at https://www.allmusic.com/artist/ben-addison-mn0001248491 . Early musical career association, not The Addison Tapes recording location.",
+      "reviewed_at": "2026-11-09",
+      "city": "London",
+      "studio": "Early band career in",
+      "id": "thread-eea480365268",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Early band career in",
+          "subject": "Ben Human / Ben Addison",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/corduroy-mn0000116932/biography",
+          "note": "AllMusic identifies Ben Addison as a member of London-formed Corduroy. Ben Human alias corroborated at https://www.allmusic.com/artist/ben-addison-mn0001248491 . Early musical career association, not The Addison Tapes recording location.",
+          "reviewed_at": "2026-11-09",
+          "city": "London",
+          "studio": "Early band career in",
+          "id": "thread-eea480365268"
+        }
+      ],
+      "primary_thread_id": "thread-eea480365268",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Early band career in",
+          "subject": "Ben Human / Ben Addison",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/corduroy-mn0000116932/biography",
+          "note": "AllMusic identifies Ben Addison as a member of London-formed Corduroy. Ben Human alias corroborated at https://www.allmusic.com/artist/ben-addison-mn0001248491 . Early musical career association, not The Addison Tapes recording location.",
+          "reviewed_at": "2026-11-09",
+          "city": "London",
+          "studio": "Early band career in",
+          "id": "thread-eea480365268"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -28368,6 +32063,61 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "7546119": {
+      "kind": "recording",
+      "relation": "Recorded in",
+      "subject": "Bruce Powell and Władysław Jagiełło — The Reality",
+      "label": "Sweden",
+      "lon": 15,
+      "lat": 62,
+      "precision": "country",
+      "source": "https://vampisoul.bandcamp.com/album/the-reality",
+      "note": "Reissue label explicitly documents the duo meeting and recording this album in Sweden in 1969. Country precision retained because no exact studio is established.",
+      "reviewed_at": "2026-11-09",
+      "city": "Sweden",
+      "studio": "Recorded in",
+      "id": "thread-bf4daa040602",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded in",
+          "subject": "Bruce Powell and Władysław Jagiełło — The Reality",
+          "label": "Sweden",
+          "lon": 15,
+          "lat": 62,
+          "precision": "country",
+          "source": "https://vampisoul.bandcamp.com/album/the-reality",
+          "note": "Reissue label explicitly documents the duo meeting and recording this album in Sweden in 1969. Country precision retained because no exact studio is established.",
+          "reviewed_at": "2026-11-09",
+          "city": "Sweden",
+          "studio": "Recorded in",
+          "id": "thread-bf4daa040602"
+        }
+      ],
+      "primary_thread_id": "thread-bf4daa040602",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded in",
+          "subject": "Bruce Powell and Władysław Jagiełło — The Reality",
+          "label": "Sweden",
+          "lon": 15,
+          "lat": 62,
+          "precision": "country",
+          "source": "https://vampisoul.bandcamp.com/album/the-reality",
+          "note": "Reissue label explicitly documents the duo meeting and recording this album in Sweden in 1969. Country precision retained because no exact studio is established.",
+          "reviewed_at": "2026-11-09",
+          "city": "Sweden",
+          "studio": "Recorded in",
+          "id": "thread-bf4daa040602"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Bruce Powell (3)",
+        "Władysław Jagiełło"
+      ]
+    },
     "4268620": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -28733,6 +32483,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "15417065": {
+      "kind": "artist",
+      "relation": "Featured musician’s formative national scene in",
+      "subject": "African Rare Groove / Ebo Taylor",
+      "label": "Ghana",
+      "lon": -1.2,
+      "lat": 7.9,
+      "precision": "country",
+      "source": "https://www.mrbongo.com/collections/ebo-taylor",
+      "note": "Label biography documents Taylor’s decades in Ghana’s musical scene. Exact compilation track Amponsah is listed at https://soundsoftheuniverse.com/sjr/product/various-african-rare-groove . Applies to Ebo Taylor only, not all compilation artists.",
+      "reviewed_at": "2026-11-09",
+      "city": "Ghana",
+      "studio": "Featured musician’s formative national scene in",
+      "id": "thread-57c6fe56952f",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Featured musician’s formative national scene in",
+          "subject": "African Rare Groove / Ebo Taylor",
+          "label": "Ghana",
+          "lon": -1.2,
+          "lat": 7.9,
+          "precision": "country",
+          "source": "https://www.mrbongo.com/collections/ebo-taylor",
+          "note": "Label biography documents Taylor’s decades in Ghana’s musical scene. Exact compilation track Amponsah is listed at https://soundsoftheuniverse.com/sjr/product/various-african-rare-groove . Applies to Ebo Taylor only, not all compilation artists.",
+          "reviewed_at": "2026-11-09",
+          "city": "Ghana",
+          "studio": "Featured musician’s formative national scene in",
+          "id": "thread-57c6fe56952f"
+        }
+      ],
+      "primary_thread_id": "thread-57c6fe56952f",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Featured musician’s formative national scene in",
+          "subject": "African Rare Groove / Ebo Taylor",
+          "label": "Ghana",
+          "lon": -1.2,
+          "lat": 7.9,
+          "precision": "country",
+          "source": "https://www.mrbongo.com/collections/ebo-taylor",
+          "note": "Label biography documents Taylor’s decades in Ghana’s musical scene. Exact compilation track Amponsah is listed at https://soundsoftheuniverse.com/sjr/product/various-african-rare-groove . Applies to Ebo Taylor only, not all compilation artists.",
+          "reviewed_at": "2026-11-09",
+          "city": "Ghana",
+          "studio": "Featured musician’s formative national scene in",
+          "id": "thread-57c6fe56952f"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "418688": {
       "kind": "artist",
       "relation": "Artist origin documented as",
@@ -28793,6 +32595,60 @@
       ],
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
+    },
+    "375740": {
+      "kind": "artist",
+      "relation": "Member’s later musical base in",
+      "subject": "Harmonic 33 / Mark Pritchard",
+      "label": "Sydney",
+      "lon": 151.2093,
+      "lat": -33.8688,
+      "precision": "city",
+      "source": "https://www.gaga.com.au/news/new-release-mark-pritchard/",
+      "note": "Publisher documents Pritchard’s long-standing Sydney musical base. Harmonic 33 identity with Dave Brinkworth is documented at https://www.nts.live/artists/16196-harmonic-33 . This is a later participant base, not the 2004 recording site or Brinkworth’s origin.",
+      "reviewed_at": "2026-11-09",
+      "city": "Sydney",
+      "studio": "Member’s later musical base in",
+      "id": "thread-cc54cc010dde",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Member’s later musical base in",
+          "subject": "Harmonic 33 / Mark Pritchard",
+          "label": "Sydney",
+          "lon": 151.2093,
+          "lat": -33.8688,
+          "precision": "city",
+          "source": "https://www.gaga.com.au/news/new-release-mark-pritchard/",
+          "note": "Publisher documents Pritchard’s long-standing Sydney musical base. Harmonic 33 identity with Dave Brinkworth is documented at https://www.nts.live/artists/16196-harmonic-33 . This is a later participant base, not the 2004 recording site or Brinkworth’s origin.",
+          "reviewed_at": "2026-11-09",
+          "city": "Sydney",
+          "studio": "Member’s later musical base in",
+          "id": "thread-cc54cc010dde"
+        }
+      ],
+      "primary_thread_id": "thread-cc54cc010dde",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Member’s later musical base in",
+          "subject": "Harmonic 33 / Mark Pritchard",
+          "label": "Sydney",
+          "lon": 151.2093,
+          "lat": -33.8688,
+          "precision": "city",
+          "source": "https://www.gaga.com.au/news/new-release-mark-pritchard/",
+          "note": "Publisher documents Pritchard’s long-standing Sydney musical base. Harmonic 33 identity with Dave Brinkworth is documented at https://www.nts.live/artists/16196-harmonic-33 . This is a later participant base, not the 2004 recording site or Brinkworth’s origin.",
+          "reviewed_at": "2026-11-09",
+          "city": "Sydney",
+          "studio": "Member’s later musical base in",
+          "id": "thread-cc54cc010dde"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Harmonic 33"
+      ]
     },
     "1387022": {
       "kind": "artist",
@@ -28913,6 +32769,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "14218890": {
+      "kind": "artist",
+      "relation": "Producer’s studio base in",
+      "subject": "Michael Gray",
+      "label": "Headcorn",
+      "lon": 0.6225,
+      "lat": 51.1696,
+      "precision": "city",
+      "source": "https://www.dmcworld.net/features/question-and-answer/michael-gray-724/",
+      "note": "In interview Gray identifies Headcorn village and his new barn studio. Historical production base at interview time, not the recording location of every rework.",
+      "reviewed_at": "2026-11-09",
+      "city": "Headcorn",
+      "studio": "Producer’s studio base in",
+      "id": "thread-c21340528bae",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Producer’s studio base in",
+          "subject": "Michael Gray",
+          "label": "Headcorn",
+          "lon": 0.6225,
+          "lat": 51.1696,
+          "precision": "city",
+          "source": "https://www.dmcworld.net/features/question-and-answer/michael-gray-724/",
+          "note": "In interview Gray identifies Headcorn village and his new barn studio. Historical production base at interview time, not the recording location of every rework.",
+          "reviewed_at": "2026-11-09",
+          "city": "Headcorn",
+          "studio": "Producer’s studio base in",
+          "id": "thread-c21340528bae"
+        }
+      ],
+      "primary_thread_id": "thread-c21340528bae",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Producer’s studio base in",
+          "subject": "Michael Gray",
+          "label": "Headcorn",
+          "lon": 0.6225,
+          "lat": 51.1696,
+          "precision": "city",
+          "source": "https://www.dmcworld.net/features/question-and-answer/michael-gray-724/",
+          "note": "In interview Gray identifies Headcorn village and his new barn studio. Historical production base at interview time, not the recording location of every rework.",
+          "reviewed_at": "2026-11-09",
+          "city": "Headcorn",
+          "studio": "Producer’s studio base in",
+          "id": "thread-c21340528bae"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "58340": {
       "kind": "artist",
       "relation": "Project originates from",
@@ -28985,6 +32893,58 @@
       "unlocated_artists": [
         "Loose Joints"
       ]
+    },
+    "98807": {
+      "kind": "artist",
+      "relation": "Studio group originates from",
+      "subject": "Bombers",
+      "label": "Montréal",
+      "lon": -73.5673,
+      "lat": 45.5017,
+      "precision": "city",
+      "source": "https://citizenfreak.com/artists/91759-bombers",
+      "note": "Museum of Canadian Music identifies Montréal origin and the exact song among the group’s recordings. Artist origin, not edition market.",
+      "reviewed_at": "2026-11-09",
+      "city": "Montréal",
+      "studio": "Studio group originates from",
+      "id": "thread-a584c5f355f3",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Studio group originates from",
+          "subject": "Bombers",
+          "label": "Montréal",
+          "lon": -73.5673,
+          "lat": 45.5017,
+          "precision": "city",
+          "source": "https://citizenfreak.com/artists/91759-bombers",
+          "note": "Museum of Canadian Music identifies Montréal origin and the exact song among the group’s recordings. Artist origin, not edition market.",
+          "reviewed_at": "2026-11-09",
+          "city": "Montréal",
+          "studio": "Studio group originates from",
+          "id": "thread-a584c5f355f3"
+        }
+      ],
+      "primary_thread_id": "thread-a584c5f355f3",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Studio group originates from",
+          "subject": "Bombers",
+          "label": "Montréal",
+          "lon": -73.5673,
+          "lat": 45.5017,
+          "precision": "city",
+          "source": "https://citizenfreak.com/artists/91759-bombers",
+          "note": "Museum of Canadian Music identifies Montréal origin and the exact song among the group’s recordings. Artist origin, not edition market.",
+          "reviewed_at": "2026-11-09",
+          "city": "Montréal",
+          "studio": "Studio group originates from",
+          "id": "thread-a584c5f355f3"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
     },
     "152824": {
       "kind": "artist",
@@ -29304,6 +33264,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "385": {
+      "kind": "artist",
+      "relation": "Featured musician’s early sound experimentation in",
+      "subject": "Alt.frequencies — The Single / Tom Jenkinson",
+      "label": "Chelmsford",
+      "lon": 0.4685,
+      "lat": 51.7356,
+      "precision": "city",
+      "source": "https://www.soundonsound.com/people/squarepusher",
+      "note": "Interview documents Jenkinson’s early cassette and sound experiments in Chelmsford. Exact Vogon & I contribution verified at https://www.cpvinyl.com/items/64608857 . Participant’s musical development only, not the whole compilation or studio location.",
+      "reviewed_at": "2026-11-09",
+      "city": "Chelmsford",
+      "studio": "Featured musician’s early sound experimentation in",
+      "id": "thread-435fe98289d6",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Featured musician’s early sound experimentation in",
+          "subject": "Alt.frequencies — The Single / Tom Jenkinson",
+          "label": "Chelmsford",
+          "lon": 0.4685,
+          "lat": 51.7356,
+          "precision": "city",
+          "source": "https://www.soundonsound.com/people/squarepusher",
+          "note": "Interview documents Jenkinson’s early cassette and sound experiments in Chelmsford. Exact Vogon & I contribution verified at https://www.cpvinyl.com/items/64608857 . Participant’s musical development only, not the whole compilation or studio location.",
+          "reviewed_at": "2026-11-09",
+          "city": "Chelmsford",
+          "studio": "Featured musician’s early sound experimentation in",
+          "id": "thread-435fe98289d6"
+        }
+      ],
+      "primary_thread_id": "thread-435fe98289d6",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Featured musician’s early sound experimentation in",
+          "subject": "Alt.frequencies — The Single / Tom Jenkinson",
+          "label": "Chelmsford",
+          "lon": 0.4685,
+          "lat": 51.7356,
+          "precision": "city",
+          "source": "https://www.soundonsound.com/people/squarepusher",
+          "note": "Interview documents Jenkinson’s early cassette and sound experiments in Chelmsford. Exact Vogon & I contribution verified at https://www.cpvinyl.com/items/64608857 . Participant’s musical development only, not the whole compilation or studio location.",
+          "reviewed_at": "2026-11-09",
+          "city": "Chelmsford",
+          "studio": "Featured musician’s early sound experimentation in",
+          "id": "thread-435fe98289d6"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "680278": {
       "kind": "artist",
       "relation": "Jungle and drum-and-bass production career from",
@@ -29519,9 +33531,61 @@
       ],
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
+    },
+    "20490646": {
+      "kind": "artist",
+      "relation": "Featured group’s formative scene in",
+      "subject": "The Dark Side Of Italo Disco / Fockewulf 190",
+      "label": "Milan",
+      "lon": 9.19,
+      "lat": 45.4642,
+      "precision": "city",
+      "source": "https://magicwavesradio.blogspot.com/2008/08/interview-victor-life-of-fockewulf-190.html",
+      "note": "Victor Life’s interview documents formation and early club performances in Milan. Exact Body Heat contribution on ZYX 55928-1 is confirmed at https://interrecords.net/various-the-dark-side-of-italo-disco-zyx-music-disc20490646n2.html . Applies only to Fockewulf 190, not all artists.",
+      "reviewed_at": "2026-11-09",
+      "city": "Milan",
+      "studio": "Featured group’s formative scene in",
+      "id": "thread-4d892b2eb683",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Featured group’s formative scene in",
+          "subject": "The Dark Side Of Italo Disco / Fockewulf 190",
+          "label": "Milan",
+          "lon": 9.19,
+          "lat": 45.4642,
+          "precision": "city",
+          "source": "https://magicwavesradio.blogspot.com/2008/08/interview-victor-life-of-fockewulf-190.html",
+          "note": "Victor Life’s interview documents formation and early club performances in Milan. Exact Body Heat contribution on ZYX 55928-1 is confirmed at https://interrecords.net/various-the-dark-side-of-italo-disco-zyx-music-disc20490646n2.html . Applies only to Fockewulf 190, not all artists.",
+          "reviewed_at": "2026-11-09",
+          "city": "Milan",
+          "studio": "Featured group’s formative scene in",
+          "id": "thread-4d892b2eb683"
+        }
+      ],
+      "primary_thread_id": "thread-4d892b2eb683",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Featured group’s formative scene in",
+          "subject": "The Dark Side Of Italo Disco / Fockewulf 190",
+          "label": "Milan",
+          "lon": 9.19,
+          "lat": 45.4642,
+          "precision": "city",
+          "source": "https://magicwavesradio.blogspot.com/2008/08/interview-victor-life-of-fockewulf-190.html",
+          "note": "Victor Life’s interview documents formation and early club performances in Milan. Exact Body Heat contribution on ZYX 55928-1 is confirmed at https://interrecords.net/various-the-dark-side-of-italo-disco-zyx-music-disc20490646n2.html . Applies only to Fockewulf 190, not all artists.",
+          "reviewed_at": "2026-11-09",
+          "city": "Milan",
+          "studio": "Featured group’s formative scene in",
+          "id": "thread-4d892b2eb683"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
     }
   },
-  "thread_count": 726,
+  "thread_count": 802,
   "research": {
     "artist_ids_checked": 570,
     "identity_matches": 251,
@@ -29572,13 +33636,13 @@
     "method_version": "0.3",
     "reviewed_source_count": 520,
     "reviewed_claim_count": 135,
-    "located_entries": 462,
-    "located_editions": 460,
-    "unplaced_entries": 148,
+    "located_entries": 538,
+    "located_editions": 536,
+    "unplaced_entries": 72,
     "unplaced_reasons": {
-      "identity_requires_review": 116,
-      "compilation_requires_curation": 24,
-      "geographic_evidence_unverified": 6,
+      "identity_requires_review": 55,
+      "compilation_requires_curation": 12,
+      "geographic_evidence_unverified": 3,
       "unidentified_artist": 2
     }
   }
