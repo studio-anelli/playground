@@ -57,12 +57,19 @@ for key,n in by_release.items():
  for l in recordings.get(key,{}).get('locations',[]):
   threads.append(thread({'kind':'recording','relation':'Recorded at','subject':n['title'],'label':l['city'],'lon':l['lon'],'lat':l['lat'],'precision':l.get('precision','city'),'source':l.get('source') or l.get('credit_source') or l.get('location_source'),'location_source':l.get('location_source'),'note':l.get('note',''),'venue':l.get('studio',''),'coverage':recordings[key].get('coverage','')}))
  threads=list({t['id']:t for t in threads}.values())
+ # Corrections are reviewed, target one existing thread and retain a reason in the ledger.
+ for correction in ledger.get('corrections',[]):
+  if correction['release_id']==key:
+   for t in threads:
+    if t['id']==correction['thread_id']:t.update(correction['patch'])
  if not threads:continue
  # Existing first association remains the overview anchor; recording-only records are typed as such.
  artist_threads=[t for t in threads if t['kind']=='artist']
  def priority(t):
   rel=t['relation'].lower()
-  return 0 if t['precision']=='city' and any(k in rel for k in ['formed','founded','based','roots','scene','associated']) else 1 if any(k in rel for k in ['associated area','originates']) else 2
+  if t['precision']=='city' and any(k in rel for k in ['formed','founded','roots','scene','training','development','career','tradition']):return 0
+  if t['precision']=='city' and any(k in rel for k in ['based','professional','associated']):return 1
+  return 3 if any(k in rel for k in ['self-reported','self-described','associated area']) else 2
  primary=min(artist_threads,key=priority) if artist_threads else threads[0]
  row=dict(current or primary);row.update({k:primary[k] for k in ['lon','lat','label','city','precision','relation','source','subject']});row['threads']=threads;row['primary_thread_id']=primary['id'];row.setdefault('locations',[primary]);row['coverage']='Sourced cultural threads';row['unlocated_artists']=[a['name'] for a in n['artists'] if str(a['id']) not in reviewed['artists'] and str(a['id']) not in claims['artists'] and str(a['id']) not in research['artists'] and str(a['id']) not in expanded['artists'] and a['name']!='Various'];records[key]=row
 ids=sorted(int(k) for k in records)
@@ -74,6 +81,6 @@ for n in collection['entries']:
  ids=[str(a['id']) for a in n['artists']]
  reason='compilation_requires_curation' if '194' in ids else 'unidentified_artist' if all(i=='355' for i in ids) else 'geographic_evidence_unverified' if any(i in linked for i in ids) else 'identity_requires_review'
  missing[reason]=missing.get(reason,0)+1
-out['research']={**research['report'],'method_version':ledger.get('method_version'),'reviewed_source_count':len(ledger['sources']),'reviewed_claim_count':len(ledger['claims']),'located_entries':out['copy_count'],'located_editions':out['distinct_editions'],'unplaced_entries':len(collection['entries'])-out['copy_count'],'unplaced_reasons':missing}
+out['research']={**research['report'],'method_version':ledger.get('method_version'),'reviewed_source_count':sum(s.get('retrieval')=='read' for s in ledger['sources'].values()),'reviewed_claim_count':len(ledger['claims']),'located_entries':out['copy_count'],'located_editions':out['distinct_editions'],'unplaced_entries':len(collection['entries'])-out['copy_count'],'unplaced_reasons':missing}
 (root/'source/origin-collection.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
 print('Cultural threads:',out['thread_count'],'threads /',out['distinct_editions'],'editions /',out['copy_count'],'entries')

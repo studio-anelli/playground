@@ -1,0 +1,20 @@
+{
+  "version": "0.2",
+  "frozen_before_holdout_research": true,
+  "frozen_at": "2026-11-09T08:41:30.994470+00:00",
+  "minimum_questions": [
+    "Confirm edition and artist identities; classify original recording versus reissue/remix/compilation.",
+    "Find or reuse one explicit musically meaningful geographic relationship: formation, professional scene, recording or documented repertoire. Current profile location alone does not meet this goal.",
+    "Inspect available edition/master recording credits; keep partial, ambiguous and unmatched credits qualified.",
+    "Assess source coverage and contradictions; record why further research would or would not change a published claim."
+  ],
+  "source_routing": "Discogs for every edition; artist/label or an institutional/specialist source for context. Archive work is required for an unresolved historical claim, an identity conflict, vague reissue credits or a sample/heritage assertion. A decisive first-party source may close the archive route for a narrow question, with the cited reason recorded.",
+  "stop_rules": [
+    "Stop the core context search after explicit primary evidence answers its narrow question, while retaining independent session questions.",
+    "For an unresolved question inspect one relevant primary/archival lead and a targeted alternative. If both fail to establish the detail, stop as bounded_unresolved; do not invent a location.",
+    "One corroborated relationship does not establish complete musical history.",
+    "Reopen bounded cases when a new source, contradiction or edition creates a reason to do so."
+  ],
+  "timing": "Record source collection timestamps and elapsed HTTP operation time; measure overall batch wall time separately from unique requests. No extrapolation from coding time or parallel request durations to human review effort.",
+  "quality_goal": "A completed review can retain unresolved facts. Report review completion, evidence usefulness and remaining limits separately."
+}

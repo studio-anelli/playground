@@ -1,0 +1,2626 @@
+{
+  "schema_version": 1,
+  "collection_fingerprint": "dc871e82707e22184e35bda2c58fa76790ff4549fc31beec841e040c9564bf0f",
+  "counts": {
+    "copies": 50,
+    "editions": 50,
+    "artists": 57,
+    "masters": 36,
+    "editions_with_new_evidence": 37,
+    "editions_checks_complete": 49,
+    "bounded_reviews_complete": 50,
+    "accepted_claims": 108
+  },
+  "batch": {
+    "selected": 50,
+    "found": 50,
+    "documented": 37,
+    "checks_complete": 49,
+    "source_routes_accounted": 50,
+    "bounded_reviews_complete": 50,
+    "meaningful_context": 43,
+    "with_limits": 50
+  },
+  "records": [
+    {
+      "release_id": "1233959",
+      "title": "Many Faces Of Snowboy",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-7c1861d48cd8",
+        "research-b4740615fade"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "1233959",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Institutional catalogue supplies partial matching-track studio credits; the mobile session remains unplaced and CD track numbers are translated to the owned sequence.",
+        "source_ids": [
+          "p2-discogs-releases-1233959",
+          "p2-snowboy-catalogue"
+        ],
+        "meaningful_claim_ids": [
+          "research-7c1861d48cd8",
+          "research-b4740615fade"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Institutional catalogue supplies partial matching-track studio credits; the mobile session remains unplaced and CD track numbers are translated to the owned sequence."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "269714"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "4253186",
+      "title": "You Rock Me ",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-665596b9fa73"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "4253186",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Larry Heard’s Chicago musical development is supported; Chad White’s own geography and later session room are not inherited.",
+        "source_ids": [
+          "p2-discogs-releases-4253186",
+          "p2-larry"
+        ],
+        "meaningful_claim_ids": [
+          "research-665596b9fa73"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Larry Heard’s Chicago musical development is supported; Chad White’s own geography and later session room are not inherited."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "148",
+          "739771"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "11065335",
+      "title": "Indian Acid / Pee Pee",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-1e0015500ed6"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "11065335",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "First-party Bollywood/Indian source context is explicit; original artists and takes are unnamed. No Mumbai session or composer is guessed.",
+        "source_ids": [
+          "p2-discogs-releases-11065335",
+          "p2-indian"
+        ],
+        "meaningful_claim_ids": [
+          "research-1e0015500ed6"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "First-party Bollywood/Indian source context is explicit; original artists and takes are unnamed. No Mumbai session or composer is guessed."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "194"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "8030996",
+      "title": "Stars",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": false,
+      "review": {
+        "release_id": "8030996",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Exact Tom Noble identity is supported by metadata and indexed specialist descriptions. NYC is explicitly the label base; no artist/session location is accepted from that alone.",
+        "source_ids": [
+          "p2-discogs-releases-8030996",
+          "p2-diamond",
+          "p2-diamond-alt",
+          "p2-discogs-artists-4845228"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_thread_ids": [],
+        "limits": [
+          "Exact Tom Noble identity is supported by metadata and indexed specialist descriptions. NYC is explicitly the label base; no artist/session location is accepted from that alone."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Bounded unresolved: the reviewed leads do not meet the explicit musical-geography threshold. Keep existing legacy placement separate; accept no guessed city.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "4845228"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": [
+        "Exact Tom Noble identity is supported by metadata and indexed specialist descriptions. NYC is explicitly the label base; no artist/session location is accepted from that alone."
+      ]
+    },
+    {
+      "release_id": "5956460",
+      "title": "New Life / Follow Me",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-137ba41c860b"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "5956460",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Stefano Zito’s Rome DJ history is supported; another BWH record’s studio credit is not transferred.",
+        "source_ids": [
+          "p2-discogs-releases-5956460",
+          "p2-blackway"
+        ],
+        "meaningful_claim_ids": [
+          "research-137ba41c860b"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Stefano Zito’s Rome DJ history is supported; another BWH record’s studio credit is not transferred."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "227202"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "15729017",
+      "title": "No Limit / Do It Till The Fluid Gets Hot",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-e91e8b5f0646"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "15729017",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Philadelphia band history is supported; original recordings and later extended versions are not assumed to be one session.",
+        "source_ids": [
+          "p2-discogs-releases-15729017",
+          "p2-breakwater"
+        ],
+        "meaningful_claim_ids": [
+          "research-e91e8b5f0646"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Philadelphia band history is supported; original recordings and later extended versions are not assumed to be one session."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "21260"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "1614712",
+      "title": "Southern Funkin' - Louisiana Funk & Soul 1967-1975",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-dbd0ee272cd9",
+        "research-a212fc57ff28",
+        "research-d9b6ed070f7b"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "1614712",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Louisiana repertoire has track-scoped city connections. Owned title says 1967–1975 while the compiler/original CD says 1967–1979; no silent metadata rewrite.",
+        "source_ids": [
+          "p2-discogs-releases-1614712",
+          "p2-southern"
+        ],
+        "meaningful_claim_ids": [
+          "research-dbd0ee272cd9",
+          "research-a212fc57ff28",
+          "research-d9b6ed070f7b"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Louisiana repertoire has track-scoped city connections. Owned title says 1967–1975 while the compiler/original CD says 1967–1979; no silent metadata rewrite."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "194"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "1042849",
+      "title": "Do Fries Go With That Shake",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-aec285164602",
+        "research-f6fa5a5bfe1b"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "1042849",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Clinton’s Plainfield and Detroit musical history is documented; the single’s Thick Mix session location remains unknown.",
+        "source_ids": [
+          "p2-discogs-releases-1042849",
+          "p2-george-history"
+        ],
+        "meaningful_claim_ids": [
+          "research-aec285164602",
+          "research-f6fa5a5bfe1b"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Clinton’s Plainfield and Detroit musical history is documented; the single’s Thick Mix session location remains unknown."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "29262"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "30831717",
+      "title": "Bandido EP",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-f2cfde224759"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "30831717",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "London scene association is supported; Bandido session location not stated.",
+        "source_ids": [
+          "p2-discogs-releases-30831717",
+          "p2-ngynn"
+        ],
+        "meaningful_claim_ids": [
+          "research-f2cfde224759"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "London scene association is supported; Bandido session location not stated."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "6722070"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "29125525",
+      "title": "Wonch Like Woo",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": false,
+      "review": {
+        "release_id": "29125525",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "No explicit artist geography in label notes or specialist review. Barcelona is the label base, not QphoriQ’s origin; Bangladesh 8080 is a track title.",
+        "source_ids": [
+          "p2-discogs-releases-29125525",
+          "p2-qphoriq",
+          "p2-qphoriq-alt"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_thread_ids": [],
+        "limits": [
+          "No explicit artist geography in label notes or specialist review. Barcelona is the label base, not QphoriQ’s origin; Bangladesh 8080 is a track title."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Bounded unresolved: the reviewed leads do not meet the explicit musical-geography threshold. Keep existing legacy placement separate; accept no guessed city.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "8081563"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": [
+        "No explicit artist geography in label notes or specialist review. Barcelona is the label base, not QphoriQ’s origin; Bangladesh 8080 is a track title."
+      ]
+    },
+    {
+      "release_id": "14480820",
+      "title": "Kind Of Blue",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "14480820",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Original New York sessions are rechecked on the official Miles Davis site; the blue-vinyl edition’s packaging does not establish new sessions.",
+        "source_ids": [
+          "p2-discogs-releases-14480820",
+          "p2-miles"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_thread_ids": [
+          "thread-d94e14d64a7b"
+        ],
+        "limits": [
+          "Original New York sessions are rechecked on the official Miles Davis site; the blue-vinyl edition’s packaging does not establish new sessions."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [
+          {
+            "thread_id": "thread-d94e14d64a7b",
+            "source_ids": [
+              "p2-miles"
+            ],
+            "musical_value": "session",
+            "thread_sha256": "55ee29e1bfd3ffcb726d40f1e05ddf855aefe0edffa737f6e4e20c52ca9e5b3e",
+            "review_basis": "Exact existing relationship, subject and source scope rechecked against the cited source; no duplicate thread projected."
+          }
+        ],
+        "artist_ids": [
+          "23755"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "697572",
+      "title": "The Singles 1967 - 1971",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-aec285164602",
+        "research-f6fa5a5bfe1b",
+        "research-04beba3e18f5"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "697572",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Bootleg compilation: Parliaments history is documented; the later Funkadelic identity and individual recording/pressing provenance remain distinct.",
+        "source_ids": [
+          "p2-discogs-releases-697572",
+          "p2-george-history"
+        ],
+        "meaningful_claim_ids": [
+          "research-aec285164602",
+          "research-f6fa5a5bfe1b",
+          "research-04beba3e18f5"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Bootleg compilation: Parliaments history is documented; the later Funkadelic identity and individual recording/pressing provenance remain distinct."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "29262",
+          "386260",
+          "29923"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "4312",
+      "title": "Clear Skyz",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-ba08ddb4b24a"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "4312",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Bristol musical history is supported; a specific recording room is not documented.",
+        "source_ids": [
+          "p2-discogs-releases-4312",
+          "p2-djdie"
+        ],
+        "meaningful_claim_ids": [
+          "research-ba08ddb4b24a"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Bristol musical history is supported; a specific recording room is not documented."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "1718"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "387809",
+      "title": "Moondog And His Honking Geese Playing Moondog's Music",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-70c1e999541a"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "387809",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Composer’s New York activity is documented; Honking Geese session and ensemble history remain unverified.",
+        "source_ids": [
+          "p2-discogs-releases-387809",
+          "p2-moondog-archive"
+        ],
+        "meaningful_claim_ids": [
+          "research-70c1e999541a"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Composer’s New York activity is documented; Honking Geese session and ensemble history remain unverified."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "276887"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "23156297",
+      "title": "Versions",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-741009b92301"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "23156297",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Mark Grusane’s Chicago history is supported; source records behind these edits remain unidentified.",
+        "source_ids": [
+          "p2-discogs-releases-23156297",
+          "p2-mark"
+        ],
+        "meaningful_claim_ids": [
+          "research-741009b92301"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Mark Grusane’s Chicago history is supported; source records behind these edits remain unidentified."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "701641"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "8786827",
+      "title": "It Won't Come Easy / Batman",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": false,
+      "review": {
+        "release_id": "8786827",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Batman has conflicting performer/producer/studio attribution within the catalogue. The older blanket Randy’s claim is narrowed to A-side scope; no B-side session accepted.",
+        "source_ids": [
+          "p2-discogs-releases-8786827",
+          "p2-discogs-releases-1434809"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_thread_ids": [],
+        "limits": [
+          "Batman has conflicting performer/producer/studio attribution within the catalogue. The older blanket Randy’s claim is narrowed to A-side scope; no B-side session accepted."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Bounded unresolved: the reviewed leads do not meet the explicit musical-geography threshold. Keep existing legacy placement separate; accept no guessed city.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "1257448",
+          "53993",
+          "171290"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": [
+        "Batman has conflicting performer/producer/studio attribution within the catalogue. The older blanket Randy’s claim is narrowed to A-side scope; no B-side session accepted."
+      ]
+    },
+    {
+      "release_id": "12716187",
+      "title": "Universal Beings",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-3fd0b29393f5",
+        "research-76177b630780"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "12716187",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "All four side-level session credits are reviewed; only the missing New York and Altadena threads are newly added. No private street address is published.",
+        "source_ids": [
+          "p2-discogs-releases-12716187",
+          "p2-universal"
+        ],
+        "meaningful_claim_ids": [
+          "research-3fd0b29393f5",
+          "research-76177b630780"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "All four side-level session credits are reviewed; only the missing New York and Altadena threads are newly added. No private street address is published."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "340803"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "24882914",
+      "title": "Good Kid, M.A.A.D City",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-c2445395bbc2"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "24882914",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Compton musical and narrative context is explicit in the artist interview; this reissue’s manufacture and mastering places are not recording origins.",
+        "source_ids": [
+          "p2-discogs-releases-24882914",
+          "p2-kendrick"
+        ],
+        "meaningful_claim_ids": [
+          "research-c2445395bbc2"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Compton musical and narrative context is explicit in the artist interview; this reissue’s manufacture and mastering places are not recording origins."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "1778977"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "9059108",
+      "title": "It's Alright",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-1f57fa5be144"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "9059108",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "The Woodbridge/Sprosen London dub act is distinct from Colin Lindo; Nishka’s own history and unreleased dub session details remain unverified.",
+        "source_ids": [
+          "p2-discogs-releases-9059108",
+          "p2-alpha-dub"
+        ],
+        "meaningful_claim_ids": [
+          "research-1f57fa5be144"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "The Woodbridge/Sprosen London dub act is distinct from Colin Lindo; Nishka’s own history and unreleased dub session details remain unverified."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "43151",
+          "113822"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "6127229",
+      "title": "Live At The Unicorn, July 1967",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "6127229",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Boston formation is independently rechecked; the representative bootleg uses the earlier Underground Cinema name. Exact live-take equivalence is not asserted.",
+        "source_ids": [
+          "p2-discogs-releases-6127229",
+          "p2-ultimate"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_thread_ids": [
+          "thread-418b76b5f5d5",
+          "thread-9c750d1be7c5"
+        ],
+        "limits": [
+          "Boston formation is independently rechecked; the representative bootleg uses the earlier Underground Cinema name. Exact live-take equivalence is not asserted."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [
+          {
+            "thread_id": "thread-418b76b5f5d5",
+            "source_ids": [
+              "p2-ultimate"
+            ],
+            "musical_value": "formation",
+            "thread_sha256": "5d9f70995c2ed8e3d1a5f6fbfb40120faa2fc747da55cbe6ec96e62a522bd155",
+            "review_basis": "Exact existing relationship, subject and source scope rechecked against the cited source; no duplicate thread projected."
+          },
+          {
+            "thread_id": "thread-9c750d1be7c5",
+            "source_ids": [
+              "p2-ultimate"
+            ],
+            "musical_value": "career",
+            "thread_sha256": "9f15b56ee75b55c4b00c1ef195fec133a169fa8d72c54992a77e839b42714ab0",
+            "review_basis": "Exact existing relationship, subject and source scope rechecked against the cited source; no duplicate thread projected."
+          }
+        ],
+        "artist_ids": [
+          "407733"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "163351",
+      "title": "Neguastnegus",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": false,
+      "review": {
+        "release_id": "163351",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "The catalogue and artist profile mix label and performer descriptions. Terry Tee is a candidate alias; no geographic claim accepted until the identity role is independently established.",
+        "source_ids": [
+          "p2-discogs-releases-163351",
+          "p2-knowledge-alt",
+          "p2-discogs-artists-50613"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_thread_ids": [],
+        "limits": [
+          "The catalogue and artist profile mix label and performer descriptions. Terry Tee is a candidate alias; no geographic claim accepted until the identity role is independently established."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Bounded unresolved: the reviewed leads do not meet the explicit musical-geography threshold. Keep existing legacy placement separate; accept no guessed city.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "50613"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": [
+        "The catalogue and artist profile mix label and performer descriptions. Terry Tee is a candidate alias; no geographic claim accepted until the identity role is independently established."
+      ]
+    },
+    {
+      "release_id": "2720604",
+      "title": "Anne Will / Starship Discotheque",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": false,
+      "review": {
+        "release_id": "2720604",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Smallville’s accessible page provides tags but no historical text; an RA feature body is unavailable. Heidelberg remains a strong lead, not a new accepted city claim from copied retailer text.",
+        "source_ids": [
+          "p2-discogs-releases-2720604",
+          "p2-move-d-primary",
+          "p2-move-d-ra"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_thread_ids": [],
+        "limits": [
+          "Smallville’s accessible page provides tags but no historical text; an RA feature body is unavailable. Heidelberg remains a strong lead, not a new accepted city claim from copied retailer text."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Bounded unresolved: the reviewed leads do not meet the explicit musical-geography threshold. Keep existing legacy placement separate; accept no guessed city.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "838",
+          "65950"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": [
+        "Smallville’s accessible page provides tags but no historical text; an RA feature body is unavailable. Heidelberg remains a strong lead, not a new accepted city claim from copied retailer text."
+      ]
+    },
+    {
+      "release_id": "20707",
+      "title": "The Mack (Remix) / Hip To The Hoppa",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": false,
+      "review": {
+        "release_id": "20707",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Exact Rory Doherty alias is resolved. The radio archive and original Monroe studio credit do not establish an independently supported session geography for this remix.",
+        "source_ids": [
+          "p2-discogs-releases-20707",
+          "p2-tonic-archive",
+          "p2-discogs-releases-139335"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_thread_ids": [],
+        "limits": [
+          "Exact Rory Doherty alias is resolved. The radio archive and original Monroe studio credit do not establish an independently supported session geography for this remix."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Bounded unresolved: the reviewed leads do not meet the explicit musical-geography threshold. Keep existing legacy placement separate; accept no guessed city.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "8410"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": [
+        "Exact Rory Doherty alias is resolved. The radio archive and original Monroe studio credit do not establish an independently supported session geography for this remix."
+      ]
+    },
+    {
+      "release_id": "9034937",
+      "title": "Dniheb",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "9034937",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Berlin professional base explicitly includes Dniheb; another artist’s remix and current concert cities are not treated as original sessions.",
+        "source_ids": [
+          "p2-discogs-releases-9034937",
+          "p2-eva"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_thread_ids": [
+          "thread-cc95557c62dd"
+        ],
+        "limits": [
+          "Berlin professional base explicitly includes Dniheb; another artist’s remix and current concert cities are not treated as original sessions."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [
+          {
+            "thread_id": "thread-cc95557c62dd",
+            "source_ids": [
+              "p2-eva"
+            ],
+            "musical_value": "career",
+            "thread_sha256": "00cdf72b39fac2dc1138a8d2144082e0c6304a04e1df25752e95fe098f0225a6",
+            "review_basis": "Exact existing relationship, subject and source scope rechecked against the cited source; no duplicate thread projected."
+          }
+        ],
+        "artist_ids": [
+          "5255136"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "61487",
+      "title": "Tonite",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-592da3543d06"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "61487",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Production lineage is documented; every mix’s session room is not.",
+        "source_ids": [
+          "p2-discogs-releases-61487",
+          "p2-basement",
+          "p2-basement-tonite"
+        ],
+        "meaningful_claim_ids": [
+          "research-592da3543d06"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Production lineage is documented; every mix’s session room is not."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "14896"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "19378",
+      "title": "The Storm",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-e673c5922d70"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "19378",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "West London musical network is documented; the exact credited Dom & Roland studio address is not established.",
+        "source_ids": [
+          "p2-discogs-releases-19378",
+          "p2-dom-interview"
+        ],
+        "meaningful_claim_ids": [
+          "research-e673c5922d70"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "West London musical network is documented; the exact credited Dom & Roland studio address is not established."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "289"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "111915",
+      "title": "Snow / Jazzmin",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-33515d53ec40"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "111915",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Cloud 9 is Gavin Cheung, with London professional history. The record title and label’s geography do not locate its sessions.",
+        "source_ids": [
+          "p2-discogs-releases-111915",
+          "p2-nookie",
+          "p2-discogs-artists-2075"
+        ],
+        "meaningful_claim_ids": [
+          "research-33515d53ec40"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Cloud 9 is Gavin Cheung, with London professional history. The record title and label’s geography do not locate its sessions."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "2075"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "30307487",
+      "title": "The Creatures (Vol. 1)",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-128524dd25ed"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "30307487",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "The Rimini Mario Flores/Sangy project is identified; no session credit is inherited from other Creatures recordings.",
+        "source_ids": [
+          "p2-discogs-releases-30307487",
+          "p2-creatures-local"
+        ],
+        "meaningful_claim_ids": [
+          "research-128524dd25ed"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "The Rimini Mario Flores/Sangy project is identified; no session credit is inherited from other Creatures recordings."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "145611"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "412145",
+      "title": "Tremendous (DJ Krust Remixes)",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-d9e67a2eab4c",
+        "research-6f886fac8db4"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "412145",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Hip-hop scene and remixer scene are supported separately; the original vocal and remix session addresses remain unknown.",
+        "source_ids": [
+          "p2-discogs-releases-412145",
+          "p2-mama-history",
+          "p2-krust"
+        ],
+        "meaningful_claim_ids": [
+          "research-d9e67a2eab4c",
+          "research-6f886fac8db4"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Hip-hop scene and remixer scene are supported separately; the original vocal and remix session addresses remain unknown."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "10999"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "19561852",
+      "title": "Isilingo Sendoda / Let's Groove Tonight",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-c03b748465cb",
+        "research-372d8c1759f8"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "19561852",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Patience Africa’s Durban/Johannesburg career is documented; edit and original session locations are not.",
+        "source_ids": [
+          "p2-discogs-releases-19561852",
+          "p2-patience"
+        ],
+        "meaningful_claim_ids": [
+          "research-c03b748465cb",
+          "research-372d8c1759f8"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Patience Africa’s Durban/Johannesburg career is documented; edit and original session locations are not."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "3015943"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "201238",
+      "title": "Love Thing / Soul 80",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-4ca013a92462"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "201238",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Marcus Intalex’s Manchester context is supported; ST Files and Calibre retain separate identities and source-sample locations remain unverified.",
+        "source_ids": [
+          "p2-discogs-releases-201238",
+          "p2-marcus-venue"
+        ],
+        "meaningful_claim_ids": [
+          "research-4ca013a92462"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Marcus Intalex’s Manchester context is supported; ST Files and Calibre retain separate identities and source-sample locations remain unverified."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "1642",
+          "4742"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "5030835",
+      "title": "Stop Bajon",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-47bca2d4f93f"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "5030835",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Milan professional career is documented; Stop Bajon session location is not established by a Naples birthplace or Belgian edition market.",
+        "source_ids": [
+          "p2-discogs-releases-5030835",
+          "p2-tullio"
+        ],
+        "meaningful_claim_ids": [
+          "research-47bca2d4f93f"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Milan professional career is documented; Stop Bajon session location is not established by a Naples birthplace or Belgian edition market."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "31759"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "6715051",
+      "title": "Fire & Desire",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-75c79c7c2a51"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "6715051",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Kalamazoo group history is supported; rehearsal, demo and studio versions are not assigned one session room.",
+        "source_ids": [
+          "p2-discogs-releases-6715051",
+          "p2-jahari"
+        ],
+        "meaningful_claim_ids": [
+          "research-75c79c7c2a51"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Kalamazoo group history is supported; rehearsal, demo and studio versions are not assigned one session room."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "3654057"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "22988753",
+      "title": "Heaven Sent",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-3681afb7d0d1",
+        "research-f693e9b593e8"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "22988753",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Collaborators’ musical histories are separate; a shared recording location is not established.",
+        "source_ids": [
+          "p2-discogs-releases-22988753",
+          "p2-teddy-interview",
+          "p2-spaceghost"
+        ],
+        "meaningful_claim_ids": [
+          "research-3681afb7d0d1",
+          "research-f693e9b593e8"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Collaborators’ musical histories are separate; a shared recording location is not established."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "2077380",
+          "10170205"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "61932",
+      "title": "You're Not Alone",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "61932",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Historic London formation is corroborated by John Bush’s biography; Apple’s unrelated later catalogue entries are ignored. Multiple remixes are not assigned original-version studio credits.",
+        "source_ids": [
+          "p2-discogs-releases-61932",
+          "p2-olive"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_thread_ids": [
+          "thread-e8e9ae58b95c"
+        ],
+        "limits": [
+          "Historic London formation is corroborated by John Bush’s biography; Apple’s unrelated later catalogue entries are ignored. Multiple remixes are not assigned original-version studio credits."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [
+          {
+            "thread_id": "thread-e8e9ae58b95c",
+            "source_ids": [
+              "p2-olive"
+            ],
+            "musical_value": "formation",
+            "thread_sha256": "8ea17383cde7402985b6f2756d5543ad3cfb7fda8d547e4c2eb38e6a7a02316e",
+            "review_basis": "Exact existing relationship, subject and source scope rechecked against the cited source; no duplicate thread projected."
+          }
+        ],
+        "artist_ids": [
+          "4117"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "60897",
+      "title": "Jah Step / Realism 2000",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-72e992ae4139"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "60897",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Colin Lindo’s identity and Dollis Hill network are supported; exact owned sessions are not located.",
+        "source_ids": [
+          "p2-discogs-releases-60897",
+          "p2-nubian",
+          "p2-discogs-artists-2093"
+        ],
+        "meaningful_claim_ids": [
+          "research-72e992ae4139"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Colin Lindo’s identity and Dollis Hill network are supported; exact owned sessions are not located."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "2093"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "10708678",
+      "title": "Fabrizio De André In Concerto - Arrangiamenti PFM",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-2c9cba34539e",
+        "research-38ed3bfb6f6e",
+        "research-acb9d60b274a"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "10708678",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Live venues are documented; no track-by-concert assignment. London mobile-studio ownership is not the concert location.",
+        "source_ids": [
+          "p2-discogs-releases-10708678",
+          "p2-deandre",
+          "p2-discogs-releases-2525373"
+        ],
+        "meaningful_claim_ids": [
+          "research-2c9cba34539e",
+          "research-38ed3bfb6f6e",
+          "research-acb9d60b274a"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Live venues are documented; no track-by-concert assignment. London mobile-studio ownership is not the concert location."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "660740"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "8800233",
+      "title": "Surinam Funk Force",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "8800233",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "The compiler documents Surinamese musical repertoire; Surinamese diaspora geography and each original session are not collapsed into one country.",
+        "source_ids": [
+          "p2-discogs-releases-8800233",
+          "p2-surinam-album"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_thread_ids": [
+          "thread-d55bd70a0989"
+        ],
+        "limits": [
+          "The compiler documents Surinamese musical repertoire; Surinamese diaspora geography and each original session are not collapsed into one country."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [
+          {
+            "thread_id": "thread-d55bd70a0989",
+            "source_ids": [
+              "p2-surinam-album"
+            ],
+            "musical_value": "tradition",
+            "thread_sha256": "274db76901e1d780653a4595fbe519eba1e91c31efc98b2a0849546b1ab8fd31",
+            "review_basis": "Exact existing relationship, subject and source scope rechecked against the cited source; no duplicate thread projected."
+          }
+        ],
+        "artist_ids": [
+          "194"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "35247",
+      "title": "Theme",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-11b3fae4c984"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "35247",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "London trio history is independently corroborated; Underdog’s own background and remix-specific studio allocation remain separate.",
+        "source_ids": [
+          "p2-discogs-releases-35247",
+          "p2-sabres"
+        ],
+        "meaningful_claim_ids": [
+          "research-11b3fae4c984"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "London trio history is independently corroborated; Underdog’s own background and remix-specific studio allocation remain separate."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "1442",
+          "950"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "164362",
+      "title": "Dance With You / I Gotta Keep Dancin' (Keep Smiling)",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-1c5897cb7191"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "164362",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Los Angeles vocal career is documented; 1977 and 1979 tracks are not treated as one session.",
+        "source_ids": [
+          "p2-discogs-releases-164362",
+          "p2-carrie"
+        ],
+        "meaningful_claim_ids": [
+          "research-1c5897cb7191"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Los Angeles vocal career is documented; 1977 and 1979 tracks are not treated as one session."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "61269"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "4345030",
+      "title": "I Only Get That Feeling / We've Been In Love Too Long",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-a5b5d6eb533d"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "4345030",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Bob Meyer’s Charlotte career is supported; El Anthony’s separate identity/geography is not yet documented.",
+        "source_ids": [
+          "p2-discogs-releases-4345030",
+          "p2-bob-interview"
+        ],
+        "meaningful_claim_ids": [
+          "research-a5b5d6eb533d"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Bob Meyer’s Charlotte career is supported; El Anthony’s separate identity/geography is not yet documented."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "3952556",
+          "1401126"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "5141048",
+      "title": "SSOL 001",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-92008d6ab1d5"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "5141048",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Research attribution to Frank Timm is supported; the record itself has no printed producer. Sample geography is not inferred from Salsoul branding.",
+        "source_ids": [
+          "p2-discogs-releases-5141048",
+          "p2-ssol-radio",
+          "p2-soundstream-interview",
+          "p2-discogs-artists-3570261"
+        ],
+        "meaningful_claim_ids": [
+          "research-92008d6ab1d5"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Research attribution to Frank Timm is supported; the record itself has no printed producer. Sample geography is not inferred from Salsoul branding."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "3570261"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "45229",
+      "title": "House Of Love",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": false,
+      "review": {
+        "release_id": "45229",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Hard Wax calls this NYC house, but that classification and the New York label address are insufficient for a precise artist formation or recording claim.",
+        "source_ids": [
+          "p2-discogs-releases-45229",
+          "p2-smooth"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_thread_ids": [],
+        "limits": [
+          "Hard Wax calls this NYC house, but that classification and the New York label address are insufficient for a precise artist formation or recording claim."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Bounded unresolved: the reviewed leads do not meet the explicit musical-geography threshold. Keep existing legacy placement separate; accept no guessed city.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "27319"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": [
+        "Hard Wax calls this NYC house, but that classification and the New York label address are insufficient for a precise artist formation or recording claim."
+      ]
+    },
+    {
+      "release_id": "114068",
+      "title": "New Forms",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "114068",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Bristol formation is independently rechecked; Wide Screen Version session scope remains unverified.",
+        "source_ids": [
+          "p2-discogs-releases-114068",
+          "p2-reprazent"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_thread_ids": [
+          "thread-9bb42bcd53c3"
+        ],
+        "limits": [
+          "Bristol formation is independently rechecked; Wide Screen Version session scope remains unverified."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Bounded unresolved: the reviewed leads do not meet the explicit musical-geography threshold. Keep existing legacy placement separate; accept no guessed city.",
+        "all_facts_known": false,
+        "reused_evidence": [
+          {
+            "thread_id": "thread-9bb42bcd53c3",
+            "source_ids": [
+              "p2-reprazent"
+            ],
+            "musical_value": "formation",
+            "thread_sha256": "25c874fd20e17924daffa0cd563eaadd86b20da6ec73a3871453917d02ce4630",
+            "review_basis": "Exact existing relationship, subject and source scope rechecked against the cited source; no duplicate thread projected."
+          }
+        ],
+        "artist_ids": [
+          "124108"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "not_applicable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "6034801",
+      "title": "Our Mannequin",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-5ddc0faf70f8"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "6034801",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Los Angeles beat-scene history is supported; later Berlin album sessions are not transferred to Our Mannequin.",
+        "source_ids": [
+          "p2-discogs-releases-6034801",
+          "p2-kutmah"
+        ],
+        "meaningful_claim_ids": [
+          "research-5ddc0faf70f8"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Los Angeles beat-scene history is supported; later Berlin album sessions are not transferred to Our Mannequin."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "447033"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "15656885",
+      "title": "Uniile 1",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-8c08db53982c"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "15656885",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Uniile / Leo Pol identity and Paris work are supported. The 2020 London remaster is a separate production stage.",
+        "source_ids": [
+          "p2-discogs-releases-15656885",
+          "p2-uniile-venue",
+          "p2-uniile-event",
+          "p2-discogs-artists-6810895"
+        ],
+        "meaningful_claim_ids": [
+          "research-8c08db53982c"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Uniile / Leo Pol identity and Paris work are supported. The 2020 London remaster is a separate production stage."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "6810895"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "5666067",
+      "title": "Museica",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-e100a2b5e00f",
+        "research-5abdd5fce69b"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "5666067",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Recording and mixing cities are documented as separate stages; mastering is not an original-music origin.",
+        "source_ids": [
+          "p2-discogs-releases-5666067",
+          "p2-caparezza"
+        ],
+        "meaningful_claim_ids": [
+          "research-e100a2b5e00f",
+          "research-5abdd5fce69b"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Recording and mixing cities are documented as separate stages; mastering is not an original-music origin."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "200304"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "4215038",
+      "title": "Wheels In Motion Ep",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-351821985e4c"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "4215038",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Guiddo’s Berlin studio base is documented; Mavin’s own musical history and EP session address remain separate questions.",
+        "source_ids": [
+          "p2-discogs-releases-4215038",
+          "p2-guiddo",
+          "p2-manhooker"
+        ],
+        "meaningful_claim_ids": [
+          "research-351821985e4c"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Guiddo’s Berlin studio base is documented; Mavin’s own musical history and EP session address remain separate questions."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "3111445"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "5803138",
+      "title": "Praga De Urubu Só Pega Em Cavalo Magro",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-cdb69da345ec"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "5803138",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "The representative documents the Lisbon duo. LuxFrágil live credit is not expanded into a precise venue/session pin without an independent venue match.",
+        "source_ids": [
+          "p2-discogs-releases-5803138",
+          "p2-tropa"
+        ],
+        "meaningful_claim_ids": [
+          "research-cdb69da345ec"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "The representative documents the Lisbon duo. LuxFrágil live credit is not expanded into a precise venue/session pin without an independent venue match."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "978841"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "7454586",
+      "title": "I Know You Care EP",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-64c4e70fcac9"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "7454586",
+        "batch_id": "research-batch-02",
+        "method_version": "0.2",
+        "checked_at": "2026-11-09T09:07:26.489879+00:00",
+        "identity_basis": "Owned release ID, credited roles and exact artist IDs reviewed; aliases and named subjects checked against the cited source context.",
+        "scope_review": "Editor’s Amsterdam history is supported; underlying source recordings are unidentified.",
+        "source_ids": [
+          "p2-discogs-releases-7454586",
+          "p2-olivier"
+        ],
+        "meaningful_claim_ids": [
+          "research-64c4e70fcac9"
+        ],
+        "reused_thread_ids": [],
+        "limits": [
+          "Editor’s Amsterdam history is supported; underlying source recordings are unidentified."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at the directly supported relationship(s) listed in this review; retain the stated scope limits and reopen only when new evidence addresses them.",
+        "all_facts_known": false,
+        "reused_evidence": [],
+        "artist_ids": [
+          "3070384"
+        ]
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "not_applicable"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    }
+  ]
+}

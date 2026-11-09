@@ -1,5 +1,7 @@
 # Research batch 01: first-pass results
 
+Historical method-0.1 snapshot. Follow-up decisions, the frozen holdout and current coverage are in [REPORT-02.md](REPORT-02.md).
+
 40 selected editions now have reviewed connections. The method adds evidence for 41 editions across the collection through reusable artist identities. Map coverage increases from 254 to 293 copies (252 to 291 editions), with 471 source threads instead of 408. All 408 earlier claims remain unchanged.
 
 119 source records were read, including 82 Discogs editions/masters. 53 accepted claims produce the new connections. Artist sources are reused across matching editions; records outside the batch can benefit without being declared researched.

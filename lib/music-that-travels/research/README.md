@@ -1,4 +1,4 @@
-# Collection research method, version 0.1
+# Collection research method, version 0.2
 
 One collection intake produces a reusable evidence catalogue, geographic threads and an audit. The research is currently agent-assisted: these scripts organise source collection, validation and projection, but do not independently browse the web or adjudicate musical history. A new collection can be planned with the same interface; a fully unattended one-pass import has not been demonstrated.
 
@@ -15,15 +15,17 @@ One collection intake produces a reusable evidence catalogue, geographic threads
 2. **Official documentation:** artist and label sites, verified artist/label Bandcamp releases, bios, credits and interviews. Distinguish an artist account from a label account. A label address, manufacturing country, remastering credit or generic profile location does not identify the recording location. A reviewed artist's explicit self-description may support an artist association, with its date and limitations stated.
 3. **Archives and specialist sources:** choose the relevant collection, institution, oral history or discography for each question. Smithsonian Folkways, Cornell Hip Hop Collection, National Jazz Archive and Library of Congress are starting points, not universal data feeds. A general archive homepage does not substantiate an artist fact. Follow through to the relevant document or recording.
 4. **Adjudicate:** record the relationship, subject, place precision, period, claim scope and supporting source. Separate direct evidence from interpretation. Keep conflicting claims unpublished until resolved. Do not infer a birthplace, recording address or cultural lineage from nationality or genre.
-5. **Audit:** all prescribed source stages must have an explicit outcome. Missing and unavailable stages stay gaps even if some evidence exists. `no_relevant_evidence` means a source was inspected and did not answer the question; `not_applicable` requires a specific reason, never a generic shortcut. Finding one place does not complete research.
+5. **Audit:** record each source route and its outcome, with a question-specific stopping reason. A decisive first-party or institutional source can close a narrow route without visiting another archive; cite that evidence. A failed or unavailable lead stays visible. One corroborated relationship does not establish a complete musical history.
 
-Batch 01 remains `checked_with_gaps`: it documents all 40 selected editions, but archive stages and ten deeper release questions remain open. This is a first pass for testing the method, not a claim that the collection or these artists' histories are exhaustively researched.
+The frozen policy is `method-02.json`. `complete_with_limits` means a bounded review has stopped with recorded unknowns, not that all facts are known. Report source-route coverage, meaningful-context yield, reused evidence and unresolved scope separately. Generic profile place tags fail the stronger musical-context minimum.
+
+Batch 01's ten deeper questions were revisited: two closed at city-level context and eight retain explicit limits. The deterministic holdout selects 25 placed and 25 unplaced editions before research. It supports meaningful context for 43/50, places 21 previously unplaced editions, and leaves seven below the context threshold. See `REPORT-02.md` and `source/research-metrics-02.json` for measured results, every case and remaining limits. `REPORT-01.md` is the historical method-0.1 snapshot.
 
 ## Data contracts
 
-`source/research-ledger.json` is the reviewed, reusable catalogue. It keeps accepted, pending, rejected and conflicting decisions separate. Only accepted claims with reviewed identity, explicit geography, dated source reads and valid precision can be projected. `coverage: partial` and `track_positions` qualify narrow recording claims. Short notes remain visible on the map; the full ledger retains provenance.
+`source/research-ledger.json` is the reusable catalogue; each source distinguishes read, harvested, indexed-only and unavailable states. It also holds per-edition reviews, ten initial question outcomes, the bounded exception queue and one fingerprinted scope correction. It keeps accepted, pending, rejected and conflicting decisions separate. Only accepted claims with reviewed identity, explicit geography, dated source reads and valid precision can be projected. `coverage: partial` and `track_positions` qualify narrow recording claims. Short notes remain visible on the map; the full ledger retains provenance.
 
-`source/research-discogs.json` contains bounded source observations, structured credits and note fingerprints; full notes remain in the local response cache rather than being republished. Retrieval alone never accepts a geographic fact. `source/research-batch-01.json` freezes the selected cohort. `source/research-audit.json` reports every edition in the intake, separately counting evidence and completed source checks. Its evidence counts cover this new method's claims; legacy map coverage is reported separately in `origin-collection.json`.
+`source/research-discogs.json` and `source/research-discogs-02.json` contain bounded source observations, structured credits and note fingerprints; full notes remain in the local response cache rather than being republished. Retrieval alone never accepts a geographic fact. `source/research-batch-01.json` freezes the selected cohort. `source/research-audit.json` reports every edition in the intake, separately counting evidence and completed source checks. Its claim counts cover this method; individually rechecked existing threads are counted separately. `source/research-holdout-audit.json` exercises the fixed 50-entry standalone intake. Full map coverage is reported separately in `origin-collection.json`.
 
 The first batch deliberately includes a multi-artist split single, a white-label EP, an expanded reissue, two editions of a compilation, regional-only recording information, three different recording-studio cases and two already-placed blues records. These are regression cases for identity, transfer and precision.
 
@@ -36,7 +38,7 @@ From the repository root:
 python lib/music-that-travels/research/pipeline.py plan --collection /path/to/collection.json --output /path/to/plan.json
 
 # Explicit, bounded network collection for the chosen batch. Public API starts are spaced three seconds apart.
-python lib/music-that-travels/research/collect-discogs.py --collection /path/to/collection.json --batch /path/to/batch.json --output /path/to/discogs-observations.json
+python lib/music-that-travels/research/collect-discogs.py --collection /path/to/collection.json --batch /path/to/batch.json --artists --output /path/to/discogs-observations.json
 
 # Research and adjudicate the ledger, then validate and audit it.
 python lib/music-that-travels/research/pipeline.py validate
@@ -57,6 +59,6 @@ All pipeline commands accept `--collection` and `--ledger`; audit accepts `--bat
 - Research coverage: source-stage outcomes and unanswered questions, independent of placement counts.
 - Reuse: unique artist work versus the editions/copies benefiting from it; a second collection must reuse accepted identities without importing unrelated namesakes.
 - Cost: unique resources retrieved, cache reuse and collection timestamps. Batch 01 includes 82 unique Discogs observations; human review time was not instrumented and is not estimated.
-- Quality: every old claim preserved; no implicit sibling transfer; no invented city for a regional source; no bonus-track coverage inferred from an original album; unavailable sources and unresolved conflicts remain visible.
+- Quality: every old claim retained, with any reviewed scope correction preserving its original fingerprint and an explicit reason; no implicit sibling transfer; no invented city for a regional source; no bonus-track coverage inferred from an original album; unavailable sources and unresolved conflicts remain visible.
 
-Next iterations should complete the archive questions, instrument review time, add explicit sample/cover relationships between recordings, and exercise an independent collection end to end. These are development milestones, not guarantees already delivered by version 0.1.
+Next validate an independent collection and instrument active source-review time. Source collection took 499.086 seconds for the 164-resource holdout, but this is not a total research-time benchmark. The method remains agent-assisted; a fully unattended complete-collection pass has not been demonstrated. Explicit sample/cover links between recordings still need a dedicated evidence model. See `REPORT-02.md` for the rollout limits.

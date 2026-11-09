@@ -120,6 +120,54 @@ def validate(ledger):
             errors.append('attempt: reviewed source IDs required')
         if any(s not in sources for s in attempt.get('source_ids', [])):
             errors.append('attempt: source ID not found')
+        if ledger.get('method_version') == '0.2' and attempt.get('outcome') == 'not_applicable' and not attempt.get('source_ids'):
+            errors.append('attempt: a closed route needs cited evidence and a specific reason')
+    claims_by_id = {c['id']: c for c in ledger.get('claims', [])}
+    reviewed = set()
+    for review in ledger.get('reviews', []):
+        rid = str(review.get('release_id', ''))
+        if rid in reviewed or not rid.isdigit():
+            errors.append('review: unique stable release ID required')
+        reviewed.add(rid)
+        if review.get('decision') not in {'complete', 'complete_with_limits', 'needs_followup'}:
+            errors.append('review: invalid decision')
+        if not all(review.get(k) for k in ('identity_basis', 'scope_review', 'stop_reason', 'checked_at', 'source_ids')):
+            errors.append('review: identity, scope, sources, stop reason and date required')
+        if any(s not in sources for s in review.get('source_ids', [])):
+            errors.append('review: unknown source')
+        context = [claims_by_id.get(cid, {}) for cid in review.get('meaningful_claim_ids', [])]
+        if any(c.get('decision') != 'accepted' or c.get('musical_value') not in
+               {'formation', 'scene', 'training', 'career', 'session', 'tradition'} for c in context):
+            errors.append('review: meaningful context must reference accepted musical evidence, not a profile tag')
+        for claim in context:
+            entity = claim.get('entity', {})
+            if entity.get('type') == 'release' and rid not in [str(entity.get('id'))] + list(map(str, claim.get('reviewed_release_ids', []))):
+                errors.append('review: claim does not apply to this edition')
+            if entity.get('type') == 'artist' and str(entity.get('id')) not in review.get('artist_ids', []):
+                errors.append('review: artist claim does not match a credited main artist')
+        if review.get('decision') == 'complete' and review.get('limits'):
+            errors.append('review: unresolved limits cannot be marked complete')
+        checked_stages = {a['stage'] for a in ledger.get('attempts', []) if a.get('entity') == 'release:'+rid}
+        if review.get('decision') in {'complete', 'complete_with_limits'} and set(STAGES) - checked_stages:
+            errors.append('review: completed review needs an explicit outcome for every source route')
+        reuse = review.get('reused_evidence', [])
+        if set(review.get('reused_thread_ids', [])) != {r.get('thread_id') for r in reuse}:
+            errors.append('review: reused threads require individually reviewed evidence')
+        for reused in reuse:
+            refs = reused.get('source_ids', [])
+            if (not refs or any(sources.get(s, {}).get('retrieval') != 'read' for s in refs)
+                    or reused.get('musical_value') not in {'formation', 'scene', 'training', 'career', 'session', 'tradition'}
+                    or len(reused.get('thread_sha256', '')) != 64):
+                errors.append('review: reuse needs a source read, musical value and exact thread fingerprint')
+    for correction in ledger.get('corrections', []):
+        if not correction.get('reason') or not correction.get('thread_id') or not correction.get('source_ids'):
+            errors.append('correction: target, evidence and reason required')
+        if any(s not in sources for s in correction.get('source_ids', [])):
+            errors.append('correction: unknown source')
+        if set(correction.get('patch', {})) - {'note', 'coverage', 'track_positions'}:
+            errors.append('correction: only documented scope qualifications may patch an existing thread')
+        if not correction.get('prior_thread') or digest(correction['prior_thread']) != correction.get('prior_thread_sha256'):
+            errors.append('correction: original thread and exact fingerprint required')
     return errors
 
 
@@ -154,21 +202,34 @@ def report(collection, ledger, batch=None):
         gaps = [s for s, states in stages.items() if not ({'reviewed', 'no_relevant_evidence', 'not_applicable'} & set(states))]
         questions = [q['question'] for q in ledger.get('open_questions', []) if str(q['release_id']) == rid]
         claims = [c['id'] for c in accepted if applicable(c, release, rid)]
+        review = next((r for r in ledger.get('reviews', []) if str(r['release_id']) == rid), None)
+        status = 'checked_with_gaps' if gaps and checks else 'not_started' if not checks else 'checks_complete'
+        if review:
+            # A bounded review is a stopping decision, never an assertion that all facts are known.
+            status = review['decision']
+        elif questions and status == 'checks_complete':
+            status = 'checked_with_questions'
         rows.append({'release_id': rid, 'title': release['title'], 'copy_count': len(release['copies']),
                      'claim_ids': claims, 'evidence_status': 'documented' if claims else 'not_yet_documented',
-                     'research_status': 'checked_with_gaps' if gaps and checks else 'not_started' if not checks else 'checks_complete',
-                     'stages': stages, 'gaps': gaps, 'open_questions': questions})
+                     'research_status': status,
+                     'meaningful_context': bool(review and (review.get('meaningful_claim_ids') or review.get('reused_thread_ids'))),
+                     'review': review, 'stages': stages, 'gaps': gaps, 'open_questions': questions})
     selected = set(map(str, (batch or {}).get('release_ids', [])))
     batch_rows = [r for r in rows if r['release_id'] in selected]
     return {'schema_version': 1, 'collection_fingerprint': digest(collection['entries']),
             'counts': {'copies': len(collection['entries']), 'editions': len(releases),
                        'artists': len(artists), 'masters': len(masters),
                        'editions_with_new_evidence': sum(bool(r['claim_ids']) for r in rows),
-                       'editions_checks_complete': sum(r['research_status'] == 'checks_complete' for r in rows),
+                       'editions_checks_complete': sum(not r['gaps'] for r in rows),
+                       'bounded_reviews_complete': sum(r['research_status'] in {'complete', 'complete_with_limits'} for r in rows),
                        'accepted_claims': len(accepted)},
             'batch': {'selected': len(selected), 'found': len(batch_rows),
                       'documented': sum(bool(r['claim_ids']) for r in batch_rows),
-                      'checks_complete': sum(r['research_status'] == 'checks_complete' for r in batch_rows)},
+                      'checks_complete': sum(not r['gaps'] for r in batch_rows),
+                      'source_routes_accounted': sum(all('not_checked' not in states for states in r['stages'].values()) for r in batch_rows),
+                      'bounded_reviews_complete': sum(r['research_status'] in {'complete', 'complete_with_limits'} for r in batch_rows),
+                      'meaningful_context': sum(r['meaningful_context'] for r in batch_rows),
+                      'with_limits': sum(bool(r.get('review', {}).get('limits')) for r in batch_rows if r.get('review'))},
             'records': rows}
 
 

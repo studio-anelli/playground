@@ -1,0 +1,331 @@
+{
+  "schema_version": 2,
+  "method_version": "0.2",
+  "purpose": "Deterministic holdout selected before source inspection; 25 previously unplaced and 25 already placed editions, excluding batch 01. No artist-name curation.",
+  "selected_at": "2026-11-09T08:41:30.994470+00:00",
+  "selection_seed": "mtt-method-02-holdout-2026-11-09",
+  "selection_algorithm": "SHA-256(seed + colon + release_id) ascending within prior placed/unplaced strata",
+  "collection_fingerprint": "38ca374067855ce0434d22650f554aec1e04c99192fa1336592c9a1e28968086",
+  "release_ids": [
+    22988753,
+    387809,
+    5141048,
+    29125525,
+    412145,
+    61487,
+    30831717,
+    4215038,
+    7454586,
+    20707,
+    23156297,
+    19561852,
+    60897,
+    6715051,
+    6034801,
+    111915,
+    4345030,
+    11065335,
+    5956460,
+    4312,
+    1233959,
+    15656885,
+    8030996,
+    163351,
+    5803138,
+    10708678,
+    45229,
+    1042849,
+    30307487,
+    697572,
+    6127229,
+    8786827,
+    5030835,
+    35247,
+    19378,
+    5666067,
+    201238,
+    12716187,
+    164362,
+    9059108,
+    1614712,
+    15729017,
+    114068,
+    4253186,
+    61932,
+    24882914,
+    14480820,
+    2720604,
+    9034937,
+    8800233
+  ],
+  "baseline": {
+    "22988753": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "387809": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "5141048": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "29125525": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "412145": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "61487": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "30831717": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "4215038": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "7454586": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "20707": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "23156297": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "19561852": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "60897": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "6715051": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "6034801": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "111915": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "4345030": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "11065335": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "5956460": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "4312": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "1233959": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "15656885": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "8030996": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "163351": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "5803138": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "10708678": {
+      "placed": true,
+      "thread_ids": [
+        "thread-b389e6f565ec"
+      ]
+    },
+    "45229": {
+      "placed": true,
+      "thread_ids": [
+        "thread-c655f672cde8"
+      ]
+    },
+    "1042849": {
+      "placed": true,
+      "thread_ids": [
+        "thread-f789bac6ee9f"
+      ]
+    },
+    "30307487": {
+      "placed": true,
+      "thread_ids": [
+        "thread-bb69688d26ea"
+      ]
+    },
+    "697572": {
+      "placed": true,
+      "thread_ids": [
+        "thread-f789bac6ee9f",
+        "thread-0046be1d57c0",
+        "thread-e0345be358c4",
+        "thread-09252471a53d",
+        "thread-8cf7553ee1e9",
+        "thread-31e591262850"
+      ]
+    },
+    "6127229": {
+      "placed": true,
+      "thread_ids": [
+        "thread-418b76b5f5d5",
+        "thread-9c750d1be7c5"
+      ]
+    },
+    "8786827": {
+      "placed": true,
+      "thread_ids": [
+        "thread-2f679868c012",
+        "thread-0f5b39d1819e",
+        "thread-0e5091808c44",
+        "thread-4e1452f58fad"
+      ]
+    },
+    "5030835": {
+      "placed": true,
+      "thread_ids": [
+        "thread-73204984ba97"
+      ]
+    },
+    "35247": {
+      "placed": true,
+      "thread_ids": [
+        "thread-1567bdaafb23",
+        "thread-099ad3a32d67",
+        "thread-5d87a48207ec"
+      ]
+    },
+    "19378": {
+      "placed": true,
+      "thread_ids": [
+        "thread-34ce7af72475"
+      ]
+    },
+    "5666067": {
+      "placed": true,
+      "thread_ids": [
+        "thread-5accd7a1b557"
+      ]
+    },
+    "201238": {
+      "placed": true,
+      "thread_ids": [
+        "thread-43d0ba719226"
+      ]
+    },
+    "12716187": {
+      "placed": true,
+      "thread_ids": [
+        "thread-73af8ecf3a23",
+        "thread-c1e4171b10e5",
+        "thread-88cb48865c0e"
+      ]
+    },
+    "164362": {
+      "placed": true,
+      "thread_ids": [
+        "thread-5bf62222d6ab"
+      ]
+    },
+    "9059108": {
+      "placed": true,
+      "thread_ids": [
+        "thread-c7d07eb3c68e"
+      ]
+    },
+    "1614712": {
+      "placed": true,
+      "thread_ids": [
+        "thread-a5e8b67c4605"
+      ]
+    },
+    "15729017": {
+      "placed": true,
+      "thread_ids": [
+        "thread-0ab9d127c219",
+        "thread-a76c06cfc5ec"
+      ]
+    },
+    "114068": {
+      "placed": true,
+      "thread_ids": [
+        "thread-9bb42bcd53c3",
+        "thread-3340c401cbc2"
+      ]
+    },
+    "4253186": {
+      "placed": true,
+      "thread_ids": [
+        "thread-9ccc7ef996ee"
+      ]
+    },
+    "61932": {
+      "placed": true,
+      "thread_ids": [
+        "thread-27c675441e6c",
+        "thread-e8e9ae58b95c",
+        "thread-998acb0a6ce5"
+      ]
+    },
+    "24882914": {
+      "placed": true,
+      "thread_ids": [
+        "thread-7788ad8b02fe"
+      ]
+    },
+    "14480820": {
+      "placed": true,
+      "thread_ids": [
+        "thread-fa8759b8fbd4",
+        "thread-d94e14d64a7b"
+      ]
+    },
+    "2720604": {
+      "placed": true,
+      "thread_ids": [
+        "thread-fe10bae3d523"
+      ]
+    },
+    "9034937": {
+      "placed": true,
+      "thread_ids": [
+        "thread-cc95557c62dd"
+      ]
+    },
+    "8800233": {
+      "placed": true,
+      "thread_ids": [
+        "thread-d55bd70a0989"
+      ]
+    }
+  }
+}

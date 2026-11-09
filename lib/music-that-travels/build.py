@@ -19,13 +19,18 @@ group_threads=runpy.run_path(str(root/'group-threads.py'))['group_threads']
 country_data=json.loads((root/'source/countries.json').read_text())
 display_threads={key:group_threads(row['threads'],country_data,row.get('primary_thread_id')) for key,row in origins['records'].items()}
 # The map needs display claims, not the research ledger or duplicated legacy rows.
-thread_fields=['id','kind','relation','subject','label','lon','lat','precision','source','period','note','venue','location_source','supporting_claims']
+thread_fields=['id','kind','relation','subject','label','lon','lat','precision','source','period','note','venue','coverage','track_positions','location_source','supporting_claims']
+def display_claim(thread):
+ claim={k:thread[k] for k in thread_fields if k in thread and thread[k] not in ('',None,[])}
+ if claim.get('location_source')==claim.get('source'):claim.pop('location_source')
+ if 'supporting_claims' in claim:claim['supporting_claims']=[display_claim(c) for c in claim['supporting_claims']]
+ return claim
 def geography_record(key,value):
  threads=display_threads[key]
  primary=next((t for t in threads if t['id']==value.get('primary_thread_id') or any(c['id']==value.get('primary_thread_id') for c in t.get('supporting_claims',[]))),threads[0])
  return {'lon':primary['lon'],'lat':primary['lat'],'city':primary['label'],'precision':primary['precision'],
   'locations':[{k:l[k] for k in ['lon','lat','city','precision'] if k in l} for l in value.get('locations',[])],
-  'threads':[{k:t[k] for k in thread_fields if k in t} for t in threads],
+  'threads':[display_claim(t) for t in threads],
   'unlocated_artists':value.get('unlocated_artists',[])}
 geo_origins={'schema_version':origins['schema_version'],'records':{key:geography_record(key,value) for key,value in origins['records'].items()}}
 geo_data={'entries':geo_entries,'release_details':{k:{'country':v.get('country')} for k,v in data['release_details'].items()},'origins':geo_origins,'countries':json.loads((root/'source/countries.json').read_text()),'thumbnail_atlas':json.loads((root/'source/thumbnail-atlas.json').read_text())['records']}
