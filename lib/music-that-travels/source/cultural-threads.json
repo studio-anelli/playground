@@ -965,6 +965,19 @@
         "note": "Specialist Japanese retailer's original B02 entry explicitly describes this artist as Antwerp, Belgium-based. This is an artist association, not release-market Netherlands."
       }
     ],
+    "2986991": [
+      {
+        "kind": "artist",
+        "relation": "Disco remix and DJ career from",
+        "subject": "Moplen",
+        "label": "Bergamo",
+        "lon": 9.667,
+        "lat": 45.6983,
+        "precision": "city",
+        "source": "https://ra.co/dj/moplen",
+        "note": "Resident Advisor identifies Luca Moplen as a DJ and remixer from Bergamo, Italy. This pertains to Moplen only in collaboration with DJ Rocca."
+      }
+    ],
     "3148324": [
       {
         "kind": "artist",
@@ -1043,6 +1056,19 @@
         "note": "Original label's exact Solar Shield album page identifies Chris McDowell and describes him as homegrown in Austin. Austin is musical scene, not specific studio location."
       }
     ],
+    "4113842": [
+      {
+        "kind": "artist",
+        "relation": "Jazz-edit and record-store DJ career in",
+        "subject": "Delfonic",
+        "label": "Berlin",
+        "lon": 13.405,
+        "lat": 52.52,
+        "precision": "city",
+        "source": "https://www.toytonics.de/2021/05/28/delfonic-kapote-illegal-jazz-vol-4-ijr004/",
+        "note": "First-party Toy Tonics identifies Delfonic as the former OYE Records Berlin figure, explicitly connecting him to Illegal Jazz series. Artist scene; not original source recordings."
+      }
+    ],
     "4447121": [
       {
         "kind": "artist",
@@ -1056,6 +1082,19 @@
         "note": "Interview identifies Tokyo record-store work alongside track-making and DJing. Artist's work city, not Uncountable Set session."
       }
     ],
+    "4527714": [
+      {
+        "kind": "artist",
+        "relation": "DJ/producer and Toy Tonics jazz-edit activity in",
+        "subject": "Kapote",
+        "label": "Berlin",
+        "lon": 13.405,
+        "lat": 52.52,
+        "precision": "city",
+        "source": "https://www.toytonics.de/2021/05/28/delfonic-kapote-illegal-jazz-vol-4-ijr004/",
+        "note": "First-party Toy Tonics documents Kapote / Mathias Modica's Illegal Jazz partnership as part of its Berlin-based production culture. Collaborative re-edit scene not a studio location."
+      }
+    ],
     "5080597": [
       {
         "kind": "artist",
@@ -1067,6 +1106,19 @@
         "precision": "city",
         "source": "https://dimensionsrecordings.kudosrecords.co.uk/release/direc007/moons-delux-london-modular-alliance-material",
         "note": "Label profile explicitly references the group's Hands & Brains EP and calls the collective London-based, with a modular store in East London."
+      }
+    ],
+    "5421141": [
+      {
+        "kind": "artist",
+        "relation": "House production and nightlife community established in",
+        "subject": "Masalo",
+        "label": "Amsterdam",
+        "lon": 4.9041,
+        "lat": 52.3676,
+        "precision": "city",
+        "source": "https://dgtl-festival.com/en/artists/masalo-live",
+        "note": "Festival biography details formative years at Trouw and Paradiso and explicitly names the 2019 New Dance debut EP. Formative musical scene, not a release-specific recording address."
       }
     ],
     "5602556": [
