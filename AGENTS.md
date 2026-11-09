@@ -4,7 +4,7 @@ Read [MANUAL.md](./MANUAL.md) for repository workflow, branches, previews, safeg
 
 ## Music That Travels
 
-Before researching, changing datasets, designing interfaces, or implementing discovery logic for Music That Travels, read [docs/music-that-travels-principles.md](./docs/music-that-travels-principles.md).
+Before researching, changing datasets, designing interfaces, or implementing discovery logic for Music That Travels, read [docs/music-that-travels-principles.md](./docs/music-that-travels-principles.md) and [docs/music-that-travels-roadmap.md](./docs/music-that-travels-roadmap.md).
 
 **Priority:** build a fun, fascinating, exploratory experience; do not turn it into an academic encyclopedia. Basic geographic mapping should be broadly reliable, while historical context and deep relationship research should be selective and guided by meaningful discoveries. Preserve exact source identities and evidence quality, but optimise for curiosity, serendipity, and what users can experience.
 
