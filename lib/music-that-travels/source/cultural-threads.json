@@ -674,6 +674,19 @@
         "note": "Resident Advisor directly identifies STL as Stephan Laubner and links its 2010 interview describing him as Harz-based. Harz is a region, not a precise studio or a city inferred from Berlin gigs."
       }
     ],
+    "154398": [
+      {
+        "kind": "artist",
+        "subject": "Fabrizio Fattori",
+        "relation": "Afro-Balearic DJ and production scene in",
+        "label": "Italy",
+        "lon": 12.5674,
+        "lat": 41.8719,
+        "precision": "country",
+        "source": "https://bestrecord.bandcamp.com/album/mediterranean-africa-bst-x052",
+        "note": "First-party label identifies Fattori as representative of the Italian Afro-Balearic movement and original 1985 productions gathered on exact Mediterranean Africa collection. Country musical scene, not label's Rome address."
+      }
+    ],
     "156256": [
       {
         "kind": "artist",
@@ -1456,6 +1469,19 @@
         "note": "Festival biography details formative years at Trouw and Paradiso and explicitly names the 2019 New Dance debut EP. Formative musical scene, not a release-specific recording address."
       }
     ],
+    "5588337": [
+      {
+        "kind": "artist",
+        "subject": "The Goods / Badmandela, Rosario and Black Tree",
+        "relation": "Electronic soul band formed and active in",
+        "label": "Sydney",
+        "lon": 151.2093,
+        "lat": -33.8688,
+        "precision": "city",
+        "source": "https://thegoodsinyou.bandcamp.com/album/ii",
+        "note": "First-party band page explicitly documents Sydney's emerging electronic soul scene, group members and the song Peach, also named in the exact single. Sydney is project scene not recorded studio."
+      }
+    ],
     "5602556": [
       {
         "kind": "artist",
@@ -1519,6 +1545,19 @@
         "precision": "country",
         "source": "https://bejenec.bandcamp.com/album/slavic-breus-ep",
         "note": "Artist-operated Bandcamp page for the exact Slavic Breus EP lists Bejenec in Ukraine and credits Daniel Syenichkin with production. No specific city inferred from release country/tags."
+      }
+    ],
+    "6355289": [
+      {
+        "kind": "artist",
+        "subject": "Octachoron / Bakur Metreveli and Sandro Kozmanishvili",
+        "relation": "Electronic duo formed in",
+        "label": "Tbilisi",
+        "lon": 44.8271,
+        "lat": 41.7151,
+        "precision": "city",
+        "source": "https://ra.co/dj/octachoron",
+        "note": "Resident Advisor explicitly identifies members and calls project duo from Tbilisi. Exact Land of Meta release identifies same named duo. Does not infer album studio."
       }
     ],
     "6429183": [
@@ -1652,6 +1691,19 @@
         "precision": "city",
         "source": "https://discjockeymusicstore.com/products/bombers-everybody-get-dancin-lp-album",
         "note": "Exact album listing reproduces Discogs recording credit Studio Tempo, Montréal for 1979 album Everybody Get Dancin; this is a release/recording claim, not edition pressing France."
+      }
+    ],
+    "240699": [
+      {
+        "kind": "recording",
+        "subject": "Ackie / Chesse Roots — Call Me Rambo / Rambo Gun Salute",
+        "relation": "Original 1986 dancehall performance rooted in the Heavyweight soundsystem of",
+        "label": "North London",
+        "lon": -0.11,
+        "lat": 51.6,
+        "precision": "region",
+        "source": "https://www.forcedexposure.com/Artists/ACKIE.CHESSE.ROOTS.html",
+        "note": "Specialist distributor ties 1986 original recordings to Heavyweight soundsystem in Wood Green and Tottenham, North London. This is a scene/performer association, not a documented recording-studio address or the reissue market Germany."
       }
     ],
     "972054": [
