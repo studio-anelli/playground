@@ -21,7 +21,7 @@ MUSIC_ROLE = re.compile(
 NOT_MUSICAL_RECORDING = re.compile(
     r'lacquer|master(?:ed|ing)|remaster|cover art|artwork|photograph|layout|'
     r'design|illustrat|liner notes|transfer|restoration|product manager|'
-    r'legal|licens|booklet|proofread|printing|executive producer|'
+    r'legal|licens|booklet|proofread|printing|executive[- ]producer|'
     r'engineer \[vinyl digitalization', re.I)
 # Executive producer is excluded here because this pass looks for directly
 # credited creative work, not business oversight; those links can be reviewed
