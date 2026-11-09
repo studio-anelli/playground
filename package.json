@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "vinext dev",
-    "build": "vinext build",
+    "build": "python3 lib/music-that-travels/build.py && vinext build",
     "start": "wrangler dev",
     "deploy": "pnpm build && wrangler deploy",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
