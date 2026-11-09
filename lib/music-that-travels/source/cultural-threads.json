@@ -2,17 +2,30 @@
   "schema_version": 1,
   "criteria": "Cultural threads are typed, sourced relationships. They are not a physical itinerary. A broad territory is not promoted to a city. No birthplace, nationality, title or genre is inferred as musical heritage.",
   "artists": {
-    "5793123": [
+    "338": [
       {
         "kind": "artist",
-        "relation": "Band based in",
-        "subject": "Altın Gün",
-        "label": "Amsterdam",
-        "lon": 4.9041,
-        "lat": 52.3676,
+        "relation": "Musical roots and production scene in",
+        "subject": "Roni Size",
+        "label": "Bristol",
+        "lon": -2.5879,
+        "lat": 51.4545,
         "precision": "city",
-        "source": "https://atorecords.com/releases/on/",
-        "note": "The album notes identify the band with Amsterdam. This is its musical base, not a recording-location claim."
+        "source": "https://www.bucksmusicgroup.com/artists/166-roni-size",
+        "note": "Publisher biography documents the Bristol youth-club, sound-system and early production roots of Roni Size. This does not claim that Sing was recorded in Bristol or that Jocelyn Brown shares this origin."
+      }
+    ],
+    "4281": [
+      {
+        "kind": "artist",
+        "relation": "Musical career and scene in",
+        "subject": "Ellen Allien",
+        "label": "Berlin",
+        "lon": 13.405,
+        "lat": 52.52,
+        "precision": "city",
+        "source": "https://www.bpitch.de/en/artist/ellen-allien/",
+        "note": "BPitch documents Allien's Berlin techno career and scene-building. This is an artist association, not the recording location of Turn Off Your Mind."
       }
     ],
     "35328": [
@@ -27,6 +40,19 @@
         "period": "Mid-1950s",
         "source": "https://tickets.citywinery.com/event/sun-ra-arkestra-quwhex",
         "note": "A connection through the ensemble Sun Ra founded. It does not identify where this particular record was made."
+      }
+    ],
+    "5793123": [
+      {
+        "kind": "artist",
+        "relation": "Band based in",
+        "subject": "Altın Gün",
+        "label": "Amsterdam",
+        "lon": 4.9041,
+        "lat": 52.3676,
+        "precision": "city",
+        "source": "https://atorecords.com/releases/on/",
+        "note": "The album notes identify the band with Amsterdam. This is its musical base, not a recording-location claim."
       }
     ]
   },
