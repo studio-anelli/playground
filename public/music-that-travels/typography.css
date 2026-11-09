@@ -38,3 +38,11 @@ h1, h2, h3, h4, strong, b, .brand, .panel-title, .shelf-grid strong,
   font-family: var(--ui-mono);
   font-weight: 400;
 }
+
+/* Keep the map masthead compact as the viewport narrows. */
+.header-brand {
+  min-width: 0;
+}
+.header-brand .brand {
+  font-size: clamp(18px, 1.6vw, 22px);
+}
