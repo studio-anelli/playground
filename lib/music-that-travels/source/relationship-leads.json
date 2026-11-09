@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "policy": "Research leads only; independent evidence review required before promotion to ledger. Sources in audit are leads, not automatically verified relationships.",
+  "leads": [
+    {
+      "id": "a02-nuova-parev-cover",
+      "relation": "cover",
+      "status": "candidate",
+      "endpoints": [
+        {
+          "kind": "owned_release",
+          "release_id": "12097296",
+          "role": "performer"
+        },
+        {
+          "kind": "external_work",
+          "subject": "Mr.Business — Edition Speciale",
+          "identity_basis": "Artist-published Nuova Napoli Bandcamp credits explicitly name the original work and act.",
+          "role": "composer"
+        }
+      ],
+      "track_scope": "Parev' Ajere on owned Nuova Napoli edition; original Edition Speciale recording/version to establish",
+      "question": "Verify original composer/recording credits, compare the exact covered musical work, then determine whether any other owned edition contains the source.",
+      "source_ids": [
+        "p3-nuova"
+      ],
+      "source_urls": [
+        "https://nugenea.bandcamp.com/album/nuova-napoli"
+      ],
+      "identity_reviewed": false,
+      "scope_reviewed": false
+    },
+    {
+      "id": "a02-nuova-text",
+      "relation": "lyric_text",
+      "status": "candidate",
+      "endpoints": [
+        {
+          "kind": "owned_release",
+          "release_id": "12097296",
+          "role": "performer"
+        },
+        {
+          "kind": "external_work",
+          "subject": "Text attributed to Eduardo De Filippo",
+          "identity_basis": "Nuova Napoli official track credits identify the source author; exact literary work and scope still to resolve.",
+          "role": "other"
+        }
+      ],
+      "track_scope": "Je Vulesse on owned Nuova Napoli edition",
+      "question": "Identify the exact original text and the extent of its adaptation; do not conflate a literary quotation with sampling a recording.",
+      "source_ids": [
+        "p3-nuova"
+      ],
+      "source_urls": [
+        "https://nugenea.bandcamp.com/album/nuova-napoli"
+      ],
+      "identity_reviewed": false,
+      "scope_reviewed": false
+    },
+    {
+      "id": "a02-moodymann-massproduction",
+      "relation": "sample",
+      "status": "candidate",
+      "endpoints": [
+        {
+          "kind": "owned_release",
+          "release_id": "6576",
+          "role": "producer"
+        },
+        {
+          "kind": "external_recording",
+          "subject": "Mass Production source material in Music People",
+          "identity_basis": "Specialist track discussion attributes sampled material; exact master/version not independently verified.",
+          "role": "performer"
+        }
+      ],
+      "track_scope": "Music People, B-side of owned KDJ 6; do not substitute later album edit",
+      "question": "Identify exact Mass Production recording and sampled segment from original 12-inch; test whether source is present among owned records.",
+      "source_ids": [
+        "p3-discogs-releases-6576"
+      ],
+      "source_urls": [
+        "https://www.insomniac.com/music/moodymann-i-cant-kick-this-feeling-when-it-hits/",
+        "https://articles.roland.com/cant-kick-this-feeling-a-history-of-moodymann-and-kdj-records/"
+      ],
+      "identity_reviewed": false,
+      "scope_reviewed": false
+    },
+    {
+      "id": "a02-kendrick-gardiner",
+      "relation": "sample",
+      "status": "candidate",
+      "endpoints": [
+        {
+          "kind": "owned_release",
+          "release_id": "7568442",
+          "role": "performer"
+        },
+        {
+          "kind": "external_recording",
+          "subject": "Every Nigger Is A Star — Boris Gardiner",
+          "identity_basis": "Contemporary published track guide identifies recording as a sampled source; verify exact release master.",
+          "role": "performer"
+        }
+      ],
+      "track_scope": "Wesley's Theory (A1) on owned To Pimp A Butterfly edition",
+      "question": "Check the precise source take, sample placement and track credits; avoid inferring original recording geography from Kendrick's studio history.",
+      "source_ids": [
+        "p3-discogs-releases-7568442"
+      ],
+      "source_urls": [
+        "https://au.rollingstone.com/music/music-news/kendrick-lamars-to-pimp-a-butterfly-a-track-by-track-guide-609/"
+      ],
+      "identity_reviewed": false,
+      "scope_reviewed": false
+    }
+  ]
+}
