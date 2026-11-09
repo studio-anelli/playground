@@ -263,6 +263,19 @@
         "note": "Goldman's official biography identifies her as a Londoner, her role in the 1970s British music press and early-1980s post-punk recordings. London is a biographical and cultural association, not a proven recording location for Resolutionary's tracks."
       }
     ],
+    "91058": [
+      {
+        "kind": "artist",
+        "relation": "Breakcore and jungle production scene in",
+        "subject": "Shitmat",
+        "label": "Brighton",
+        "lon": -0.1372,
+        "lat": 50.8225,
+        "precision": "city",
+        "source": "https://www.allmusic.com/artist/shitmat-mn0000115041",
+        "note": "AllMusic identifies Henry Collins/Shitmat as Brighton-based and his breakcore output. The geographic claim concerns the artist's scene rather than the recording site of Full English Breakfest Vol. 4."
+      }
+    ],
     "144934": [
       {
         "kind": "artist",
@@ -287,6 +300,19 @@
         "precision": "city",
         "source": "https://sites.google.com/view/robertomusci/about",
         "note": "Musci's own biography describes his Milan base and global field-recording practice. Milan is an artist base; no claim about recordings on Urban And Tribal Portraits or collaborator Giovanni Venosta."
+      }
+    ],
+    "180281": [
+      {
+        "kind": "artist",
+        "relation": "Experimental music career based in",
+        "subject": "Giovanni Venosta",
+        "label": "Milan",
+        "lon": 9.19,
+        "lat": 45.4642,
+        "precision": "city",
+        "source": "https://musica.fondazionemilano.eu/docenti/giovanni-venosta",
+        "note": "Milan Conservatory faculty biography documents Milan residence and experimental records with Roberto Musci in the 1980s and 1990s. This is contributor-specific artist base, not a session site."
       }
     ],
     "202236": [
@@ -339,6 +365,19 @@
         "precision": "city",
         "source": "https://ra.co/dj/jused/biography",
         "note": "Resident Advisor DJ biography identifies Bridgeport, Connecticut as his home and describes his long-running underground house DJ career. Not a recording location."
+      }
+    ],
+    "347795": [
+      {
+        "kind": "artist",
+        "relation": "Electronic music and performance-art practice in",
+        "subject": "Tobias Bernstrup",
+        "label": "Stockholm",
+        "lon": 18.0686,
+        "lat": 59.3293,
+        "precision": "city",
+        "source": "https://www.bernstrup.com/pagecv",
+        "note": "Artist CV documents fine-art training in Stockholm and musical live-performance/CD presentations there. Stockholm is a documented part of artistic formation, not the location of the recording 27."
       }
     ],
     "417641": [
@@ -419,6 +458,19 @@
         "note": "Resident Advisor documents San Proper's sustained Amsterdam scene involvement, Rush Hour and Dekmantel releases. Artist association only; not a studio for either owned record."
       }
     ],
+    "846548": [
+      {
+        "kind": "artist",
+        "relation": "Electronic producer based in",
+        "subject": "Olsen",
+        "label": "New York City",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "precision": "city",
+        "source": "https://misterolsen.bandcamp.com/album/no-one-belongs-here-more-than-you-ep",
+        "note": "Artist Bandcamp on the exact No One Belongs Here More Than You EP identifies New York, New York as location. Artist base only, not a proven recording address."
+      }
+    ],
     "869854": [
       {
         "kind": "artist",
@@ -443,6 +495,19 @@
         "precision": "city",
         "source": "https://www.amsterdam-dance-event.nl/en/artists-speakers/mr-raoul-k/4581/",
         "note": "ADE biography documents moving from Ivory Coast to Hamburg in 1992, developing a house/techno interest there and later making a home studio in Lübeck. Hamburg is formative scene, not location of Wind Of Goree recording."
+      }
+    ],
+    "1152098": [
+      {
+        "kind": "artist",
+        "relation": "South African kwaito and rap career in",
+        "subject": "Senyaka",
+        "label": "South Africa",
+        "lon": 22.9375,
+        "lat": -30.5595,
+        "precision": "country",
+        "source": "https://musicismysanctuary.com/senkaya-bayanyonyoba-1987-1993-rush-hour",
+        "note": "Specialist discussion explicitly ties Senyaka's career, Fuquza, Ma-Gents and Bayanyonyoba to South African rap and kwaito history. No city precision claimed."
       }
     ],
     "1158290": [
@@ -575,6 +640,19 @@
         "note": "Artist representation documents hometown Hamburg and Golden Pudel residency, not where Have You Been There was recorded."
       }
     ],
+    "3148324": [
+      {
+        "kind": "artist",
+        "relation": "Electronic music project formed in",
+        "subject": "Africaine 808",
+        "label": "Berlin",
+        "lon": 13.405,
+        "lat": 52.52,
+        "precision": "city",
+        "source": "https://daily.redbullmusicacademy.com/2016/02/interview-africaine-808/",
+        "note": "Interview documents Hans Reuschl and Dirk Leyers meeting in Berlin's techno scene and later forming their duo. The title Lagos, New York does not determine the recording geography."
+      }
+    ],
     "3192367": [
       {
         "kind": "artist",
@@ -625,6 +703,19 @@
         "precision": "city",
         "source": "https://atorecords.com/releases/on/",
         "note": "The album notes identify the band with Amsterdam. This is its musical base, not a recording-location claim."
+      }
+    ],
+    "6194004": [
+      {
+        "kind": "artist",
+        "relation": "Disco edit producer based in",
+        "subject": "LTJ Edits",
+        "label": "Italy",
+        "lon": 12.5674,
+        "lat": 41.8719,
+        "precision": "country",
+        "source": "https://ra.co/dj/ltjedits",
+        "note": "Resident Advisor identifies LTJ Edits with Luca Trevisi and Italy as artist location. Rome appearances are not used to infer studio or residence."
       }
     ],
     "6235154": [
