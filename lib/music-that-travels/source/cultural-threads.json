@@ -28,6 +28,19 @@
         "note": "BPitch documents Allien's Berlin techno career and scene-building. This is an artist association, not the recording location of Turn Off Your Mind."
       }
     ],
+    "17217": [
+      {
+        "kind": "artist",
+        "relation": "Electronic artist based in",
+        "subject": "Shinichi Atobe",
+        "label": "Saitama",
+        "lon": 139.6489,
+        "lat": 35.8617,
+        "precision": "city",
+        "source": "https://music.spaceshower.jp/contents/1041416",
+        "note": "Japanese music distributor biography identifies Saitama as Atobe's base and explicitly lists World (2016). A musical base, not a specific recording studio."
+      }
+    ],
     "35328": [
       {
         "kind": "artist",
@@ -40,6 +53,45 @@
         "period": "Mid-1950s",
         "source": "https://tickets.citywinery.com/event/sun-ra-arkestra-quwhex",
         "note": "A connection through the ensemble Sun Ra founded. It does not identify where this particular record was made."
+      }
+    ],
+    "53036": [
+      {
+        "kind": "artist",
+        "relation": "Early post-punk musical career associated with",
+        "subject": "Vivien Goldman",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://www.viviengoldman.com/about",
+        "note": "Goldman's official biography identifies her as a Londoner, her role in the 1970s British music press and early-1980s post-punk recordings. London is a biographical and cultural association, not a proven recording location for Resolutionary's tracks."
+      }
+    ],
+    "298930": [
+      {
+        "kind": "artist",
+        "relation": "Early musical roots in",
+        "subject": "B.B. Seaton",
+        "label": "Kingston",
+        "lon": -76.792,
+        "lat": 17.9712,
+        "precision": "city",
+        "source": "https://thegaylads.bandcamp.com/album/soul-beat",
+        "note": "Studio One/The Gaylads biography documents Seaton as a Kingston-born singer and his early Kingston-area musical career. This is an artist musical association, not a recording location of this owned single."
+      }
+    ],
+    "2576696": [
+      {
+        "kind": "artist",
+        "relation": "Artist based in",
+        "subject": "Frits Wentink",
+        "label": "Amsterdam",
+        "lon": 4.9041,
+        "lat": 52.3676,
+        "precision": "city",
+        "source": "https://fritswentink.bandcamp.com/",
+        "note": "The artist's own Bandcamp profile identifies Amsterdam as his location. This is an artist base, not proof of where BODOMRGWLD01 was recorded."
       }
     ],
     "5793123": [
