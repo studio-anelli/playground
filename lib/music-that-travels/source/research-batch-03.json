@@ -1,0 +1,2341 @@
+{
+  "schema_version": 3,
+  "method_version": "0.3",
+  "selected_at": "2026-11-09T09:33:04.398120+00:00",
+  "selection_seed": "mtt-context-routes-03-2026-11-09",
+  "collection_fingerprint": "38ca374067855ce0434d22650f554aec1e04c99192fa1336592c9a1e28968086",
+  "excluded_release_ids": [
+    4312,
+    19378,
+    20707,
+    24896,
+    35247,
+    45229,
+    60897,
+    61487,
+    61932,
+    111915,
+    114068,
+    125920,
+    163351,
+    164362,
+    201238,
+    366413,
+    387809,
+    412145,
+    645638,
+    697572,
+    1042849,
+    1233959,
+    1244858,
+    1352263,
+    1601162,
+    1614712,
+    2720604,
+    3103098,
+    3480952,
+    3851838,
+    3880099,
+    4215038,
+    4253186,
+    4345030,
+    5030835,
+    5141048,
+    5652780,
+    5666067,
+    5803138,
+    5956460,
+    6022847,
+    6034801,
+    6127229,
+    6715051,
+    7454586,
+    7770150,
+    8030996,
+    8636562,
+    8786827,
+    8800233,
+    9034937,
+    9059108,
+    9072898,
+    10708678,
+    11065335,
+    11209038,
+    11298561,
+    11437823,
+    11717510,
+    12424634,
+    12716187,
+    12890235,
+    13132255,
+    13369708,
+    13852404,
+    14222949,
+    14480820,
+    15268960,
+    15499420,
+    15656885,
+    15729017,
+    16691670,
+    17030529,
+    19561852,
+    20152732,
+    20431393,
+    21016180,
+    21087580,
+    22988753,
+    23156297,
+    24882914,
+    25267285,
+    25269778,
+    26359139,
+    26438102,
+    26572889,
+    29125525,
+    30227756,
+    30307487,
+    30831717
+  ],
+  "candidate_pools": {
+    "established_album": [
+      14457597,
+      1358351,
+      12101577,
+      4619033,
+      8872804,
+      1027491,
+      2045030,
+      4330903,
+      3835570,
+      7568442,
+      10559651,
+      11780074,
+      8539380,
+      212060,
+      24896429,
+      10346704,
+      9153158,
+      962321,
+      3842748,
+      14207369,
+      2214344,
+      5723089,
+      118630,
+      12343877,
+      646323,
+      3558397,
+      14270021,
+      985747,
+      14516902,
+      9359985,
+      2230011,
+      1218134,
+      322096,
+      25308625,
+      1619565,
+      3803673,
+      668230,
+      2071439,
+      981136,
+      16279297,
+      4268620,
+      6912363,
+      2543335,
+      10676369,
+      2578052,
+      2628223
+    ],
+    "less_documented_album": [
+      12097296,
+      13724942,
+      87762,
+      14460113,
+      19316317,
+      3668574,
+      14791220,
+      23783198,
+      18710329,
+      13541780,
+      11421995,
+      1363509,
+      12575458,
+      9185698,
+      6785873,
+      902597,
+      6419810,
+      12574351,
+      15507007,
+      9025846,
+      11758168,
+      23192537,
+      11405284,
+      80037,
+      11517554,
+      13390804,
+      27471945,
+      666200,
+      14192193,
+      11768093,
+      346778,
+      4163662,
+      13072057,
+      10771522,
+      13099166,
+      13534190,
+      2148724,
+      974835,
+      8205159,
+      974746,
+      9855853,
+      20311276,
+      3146173,
+      9907114,
+      2227309,
+      13710933,
+      13056907,
+      8124474,
+      8707425,
+      1948927,
+      16011980,
+      13051777,
+      12298829,
+      5035765,
+      13619980,
+      40656,
+      3705359,
+      1537500,
+      489967,
+      375740,
+      8653318,
+      8137189,
+      10179708,
+      13867844,
+      11685775,
+      15792075,
+      7770151,
+      18007090,
+      417556,
+      14877491,
+      16868718,
+      12126044,
+      6245802,
+      12842013,
+      16406805,
+      617339,
+      16125100,
+      7546119,
+      27478812,
+      1387022,
+      8268802,
+      13742611
+    ],
+    "established_scene_short_release": [
+      13433334,
+      197500,
+      18497,
+      8630272,
+      6576,
+      110,
+      61693,
+      165894,
+      9118974,
+      205746,
+      32063,
+      49017,
+      95045,
+      944,
+      11005652,
+      11795,
+      10496968,
+      1924569,
+      103819,
+      1566213,
+      66506,
+      12863875,
+      5359677,
+      2507931,
+      9522,
+      31300,
+      21926020,
+      36972,
+      2936028,
+      7938017
+    ],
+    "underground_network": [
+      1303011,
+      1261891,
+      168868,
+      44900,
+      2811130,
+      13657670,
+      680278,
+      9148392,
+      3554620,
+      746165,
+      76971,
+      197500,
+      11134399,
+      235251,
+      200739,
+      44822,
+      385,
+      10579183,
+      209945,
+      4389,
+      109301,
+      17881,
+      1406478,
+      61693,
+      14477,
+      5151626,
+      309825,
+      654319,
+      162975,
+      340579,
+      11806,
+      13461710,
+      548314,
+      51304,
+      24611,
+      14837376,
+      17111145,
+      6774,
+      538235,
+      205746,
+      33967,
+      510441,
+      11112454,
+      49017,
+      95045,
+      193558,
+      316639,
+      1596994,
+      250924,
+      26118410,
+      11795,
+      1082139,
+      77058,
+      194086,
+      919525,
+      1169426,
+      254459,
+      84360,
+      10395690,
+      97331,
+      2255206,
+      30001,
+      148233,
+      14125997,
+      16189,
+      408832,
+      805316,
+      73719,
+      51412,
+      66506,
+      141705,
+      25466773,
+      3408361,
+      12125066,
+      66965,
+      108283,
+      254916,
+      487157,
+      373,
+      9522,
+      125359,
+      135052,
+      15146925,
+      1221315,
+      324162,
+      201255,
+      41275,
+      262652,
+      358586,
+      97579,
+      24784,
+      26121944,
+      1413532,
+      479518,
+      16086639,
+      129528,
+      984,
+      10307172
+    ],
+    "obscure_or_ambiguous": [
+      1072873,
+      453412,
+      695304,
+      8108409,
+      13588230,
+      746165,
+      11705722,
+      44822,
+      7972280,
+      8479529,
+      8926196,
+      5437927,
+      9684455,
+      10330769,
+      385,
+      10579183,
+      2573057,
+      17881,
+      52735,
+      11072824,
+      10518041,
+      331602,
+      2236823,
+      797825,
+      8227117,
+      14472273,
+      17614633,
+      309825,
+      51304,
+      5606046,
+      11762293,
+      17111145,
+      538235,
+      6176026,
+      2197760,
+      14273207,
+      35118,
+      4858498,
+      510441,
+      15501102,
+      4288392,
+      12362927,
+      11373857,
+      16498374,
+      2309936,
+      5954869,
+      861479,
+      12705870,
+      527300,
+      250924,
+      41585,
+      258314,
+      558217,
+      8649345,
+      919525,
+      14689821,
+      14499190,
+      84360,
+      3693330,
+      9131093,
+      16084646,
+      11873515,
+      14446701,
+      339118,
+      5164913,
+      148233,
+      9872263,
+      10752055,
+      11498568,
+      25466773,
+      12049177,
+      12125066,
+      13289860,
+      4913304,
+      8901124,
+      14334743,
+      10579142,
+      254916,
+      12142239,
+      20336797,
+      15146925,
+      324162,
+      8509913,
+      14028131,
+      5664657,
+      10887542,
+      8528587,
+      24368522,
+      313021,
+      7798224,
+      26121944,
+      11019692,
+      1621146,
+      1413532,
+      37171,
+      27576126,
+      10307172,
+      9919633
+    ]
+  },
+  "release_ids": [
+    7568442,
+    118630,
+    14457597,
+    2045030,
+    4330903,
+    1358351,
+    4619033,
+    8872804,
+    1027491,
+    8539380,
+    12097296,
+    13724942,
+    87762,
+    14460113,
+    19316317,
+    3668574,
+    14791220,
+    23783198,
+    18710329,
+    13541780,
+    13433334,
+    197500,
+    18497,
+    6576,
+    110,
+    61693,
+    9118974,
+    205746,
+    49017,
+    11005652,
+    1303011,
+    1261891,
+    168868,
+    44900,
+    2811130,
+    13657670,
+    680278,
+    9148392,
+    3554620,
+    746165,
+    1072873,
+    453412,
+    695304,
+    8108409,
+    13588230,
+    11705722,
+    44822,
+    7972280,
+    8479529,
+    8926196
+  ],
+  "assignments": {
+    "7568442": {
+      "research_context": "established_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "2",
+          "text": "Gatefold",
+          "descriptions": [
+            "LP",
+            "Album"
+          ]
+        }
+      ],
+      "title": "To Pimp A Butterfly",
+      "artists": [
+        {
+          "id": 1778977,
+          "name": "Kendrick Lamar"
+        }
+      ],
+      "genres": [
+        "Hip Hop",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Conscious",
+        "Jazzy Hip-Hop",
+        "G-Funk"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "240c7299d9001b7f200d04e86e01300a80b9e22114d23d59569ff8c79b01e400"
+    },
+    "118630": {
+      "research_context": "established_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "LP",
+            "Mixed",
+            "Unofficial Release"
+          ]
+        }
+      ],
+      "title": "Brainfreeze",
+      "artists": [
+        {
+          "id": 4478,
+          "name": "DJ Shadow"
+        },
+        {
+          "id": 5455,
+          "name": "Cut Chemist"
+        }
+      ],
+      "genres": [
+        "Hip Hop",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Cut-up/DJ",
+        "Funk"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "88fd79dc56aa61e70151f62ab8deba38c31bd55d6cb630ca7c49a08b08eede98"
+    },
+    "14457597": {
+      "research_context": "established_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "LP",
+            "Album",
+            "Record Store Day",
+            "Reissue",
+            "Stereo"
+          ]
+        }
+      ],
+      "title": "Directstep = ダイレクトステップ",
+      "artists": [
+        {
+          "id": 3865,
+          "name": "Herbie Hancock"
+        }
+      ],
+      "genres": [
+        "Jazz",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Jazz-Funk",
+        "Fusion",
+        "Disco"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "09d3117360230b486e3bba4c72b761cad6a8222a6f8559c88d560a107d9663e9"
+    },
+    "2045030": {
+      "research_context": "established_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "2",
+          "text": "180 gram",
+          "descriptions": [
+            "LP",
+            "Album",
+            "Reissue"
+          ]
+        }
+      ],
+      "title": "What Planet Is This?",
+      "artists": [
+        {
+          "id": 2219395,
+          "name": "The Sun Ra Arkestra"
+        }
+      ],
+      "genres": [
+        "Jazz"
+      ],
+      "styles": [
+        "Space-Age",
+        "Free Jazz"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "1ab2b140b5e4ccd3f0b6ad5c52f26014598053514d42f30eecd59e0f5123db61"
+    },
+    "4330903": {
+      "research_context": "established_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "text": "Gatefold",
+          "descriptions": [
+            "LP",
+            "Album"
+          ]
+        }
+      ],
+      "title": "Fire",
+      "artists": [
+        {
+          "id": 48413,
+          "name": "Ohio Players"
+        }
+      ],
+      "genres": [
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Funk"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "227c89c8d310d0e577451a695cc9de27cc4ff219f919a946e41df92f2181fe7e"
+    },
+    "1358351": {
+      "research_context": "established_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "text": "Grafica Centonze",
+          "descriptions": [
+            "LP",
+            "Album"
+          ]
+        }
+      ],
+      "title": "L'Arca Di Noè",
+      "artists": [
+        {
+          "id": 114390,
+          "name": "Franco Battiato"
+        }
+      ],
+      "genres": [
+        "Electronic",
+        "Rock",
+        "Pop"
+      ],
+      "styles": [
+        "New Wave"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "0c5f88205e0ad784939ccee39e4b49ab1c07b578af2b9eba4960b30bd7c9a685"
+    },
+    "4619033": {
+      "research_context": "established_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "2",
+          "descriptions": [
+            "LP",
+            "Album"
+          ]
+        }
+      ],
+      "title": "Immunity",
+      "artists": [
+        {
+          "id": 24056,
+          "name": "Jon Hopkins"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Electro",
+        "Tech House",
+        "Experimental",
+        "Downtempo"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "19014a0a46ccf98761104efb334eb947bee877b7f5418e76f2a6a0570a9ddacc"
+    },
+    "8872804": {
+      "research_context": "established_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "text": "Red",
+          "descriptions": [
+            "LP",
+            "Album",
+            "Unofficial Release"
+          ]
+        }
+      ],
+      "title": "Atom Heart Mother",
+      "artists": [
+        {
+          "id": 45467,
+          "name": "Pink Floyd"
+        }
+      ],
+      "genres": [
+        "Rock"
+      ],
+      "styles": [
+        "Psychedelic Rock",
+        "Prog Rock"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "19538072be9d1be4381dafd4a42b353d3a06095d9ef81044c17bb694c9df18bc"
+    },
+    "1027491": {
+      "research_context": "established_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "2",
+          "descriptions": [
+            "LP",
+            "Album"
+          ]
+        }
+      ],
+      "title": "Etudes Australes For Piano",
+      "artists": [
+        {
+          "id": 26955,
+          "name": "John Cage"
+        }
+      ],
+      "genres": [
+        "Classical"
+      ],
+      "styles": [
+        "Modern"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "1a745bf1e1824ec24178b9ca298d9c4f0cb24d4c734ae1009db4f40c0eb86307"
+    },
+    "8539380": {
+      "research_context": "established_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "LP",
+            "Album",
+            "Numbered",
+            "Repress"
+          ]
+        }
+      ],
+      "title": "Volume 3°",
+      "artists": [
+        {
+          "id": 660740,
+          "name": "Fabrizio De André"
+        }
+      ],
+      "genres": [
+        "Folk, World, & Country"
+      ],
+      "styles": [
+        "Ballad",
+        "Chanson",
+        "Medieval",
+        "Acoustic"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "4b92f4442004ecd9d83cbc634e446ef816d23500e7451a2429256f6900b6bde1"
+    },
+    "12097296": {
+      "research_context": "less_documented_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "LP",
+            "Album",
+            "Repress",
+            "Stereo"
+          ]
+        }
+      ],
+      "title": "Nuova Napoli",
+      "artists": [
+        {
+          "id": 4007020,
+          "name": "Nu Guinea"
+        }
+      ],
+      "genres": [
+        "Electronic",
+        "Jazz",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Disco",
+        "Funk",
+        "Fusion",
+        "Jazz-Funk",
+        "Boogie",
+        "Nu-Disco"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "019662e7f192ebe2961c4a130f0f18f502704662731cce715e2e2e5fbf5bd152"
+    },
+    "13724942": {
+      "research_context": "less_documented_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "2",
+          "descriptions": [
+            "LP",
+            "Compilation"
+          ]
+        }
+      ],
+      "title": "A Taste Of Chocolate: The Very Best Of Gary Davis",
+      "artists": [
+        {
+          "id": 263108,
+          "name": "Gary Davis"
+        }
+      ],
+      "genres": [
+        "Hip Hop",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Funk",
+        "Disco"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "03611a322c4b7725ab32caad94516a5082a93751c3b75a74b8b73fd69d80e524"
+    },
+    "87762": {
+      "research_context": "less_documented_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "2",
+          "descriptions": [
+            "LP",
+            "Album"
+          ]
+        }
+      ],
+      "title": "???",
+      "artists": [
+        {
+          "id": 4567,
+          "name": "Whirlpool Productions"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "House"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "0ccc53d5f2637858aa7ef11da2731181ef58b29173ef1a5b40fa50213e139df1"
+    },
+    "14460113": {
+      "research_context": "less_documented_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "LP",
+            "Album",
+            "Reissue"
+          ]
+        }
+      ],
+      "title": "Free Rythms Dance",
+      "artists": [
+        {
+          "id": 1629592,
+          "name": "Free Dance Song"
+        }
+      ],
+      "genres": [
+        "Jazz",
+        "Folk, World, & Country",
+        "Stage & Screen"
+      ],
+      "styles": [
+        "Free Jazz",
+        "Modal",
+        "Tribal"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "12dead2081ffd47f96dace157aae2054c331b3af17dd26cfc587e52b9ac1d8a6"
+    },
+    "19316317": {
+      "research_context": "less_documented_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "2",
+          "descriptions": [
+            "12\"",
+            "Album"
+          ]
+        }
+      ],
+      "title": "Sputters",
+      "artists": [
+        {
+          "id": 4813419,
+          "name": "LNS (2)"
+        },
+        {
+          "id": 1158290,
+          "name": "Dj Sotofett"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Techno",
+        "Electro"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "172ff2a5da6db0e5f1dd2672f06cfb842d8740d59e5e5317be3a66316beb7c0a"
+    },
+    "3668574": {
+      "research_context": "less_documented_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "LP",
+            "Album",
+            "Stereo"
+          ]
+        }
+      ],
+      "title": "Mancini And The Creepers",
+      "artists": [
+        {
+          "id": 82386,
+          "name": "Mancini"
+        },
+        {
+          "id": 3235079,
+          "name": "The Creepers (7)"
+        }
+      ],
+      "genres": [
+        "Hip Hop",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Neo Soul"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "17e90b3d406e05b29b477443d91a522342324954762b751b03766e8b9c7153b2"
+    },
+    "14791220": {
+      "research_context": "less_documented_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "LP",
+            "Album",
+            "Reissue"
+          ]
+        }
+      ],
+      "title": "Ahyewa Special",
+      "artists": [
+        {
+          "id": 1216832,
+          "name": "Alhaji K. Frimpong"
+        },
+        {
+          "id": 1850605,
+          "name": "The Super Complex Sounds"
+        }
+      ],
+      "genres": [
+        "Folk, World, & Country"
+      ],
+      "styles": [
+        "Highlife",
+        "African"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "1e44df911c9fa88bcb5a6e335d91ab1e867070f7912829a5bd6984dc2340e0c5"
+    },
+    "23783198": {
+      "research_context": "less_documented_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "2",
+          "descriptions": [
+            "LP",
+            "Album",
+            "Mixed"
+          ]
+        }
+      ],
+      "title": "Midnight is Comin'",
+      "artists": [
+        {
+          "id": 6584747,
+          "name": "Yousuke Yukimatsu"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Ambient",
+        "Dark Ambient",
+        "Dub"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "1e839f15cdbec303973a4ebc14d44b738218b3cde0cdc99b5753e7d03691bde1"
+    },
+    "18710329": {
+      "research_context": "less_documented_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "LP",
+            "Album"
+          ]
+        }
+      ],
+      "title": "Syn",
+      "artists": [
+        {
+          "id": 3356119,
+          "name": "Innode"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Experimental",
+        "Leftfield"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "21c2fef5b2160e7e8220f866ba90e9e8c249b02efbb21d802475a2309c00c1c9"
+    },
+    "13541780": {
+      "research_context": "less_documented_album",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "text": "180 g",
+          "descriptions": [
+            "12\"",
+            "33 ⅓ RPM",
+            "Album"
+          ]
+        }
+      ],
+      "title": "Fire Zone",
+      "artists": [
+        {
+          "id": 1928334,
+          "name": "SFV Acid"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Acid",
+        "Breakbeat"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "24e471b6e959a6031439be7933f0c9fe61542ecbb830558d516a17b042baf58f"
+    },
+    "13433334": {
+      "research_context": "established_scene_short_release",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\""
+          ]
+        }
+      ],
+      "title": "Freak / Can't Take It ",
+      "artists": [
+        {
+          "id": 3688697,
+          "name": "Dan Shake"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Disco",
+        "House",
+        "Nu-Disco",
+        "Acid"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "10372dbea6008a0b24205ce7e72611be535810d294304668857bdfee40978d14"
+    },
+    "197500": {
+      "research_context": "established_scene_short_release",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "33 ⅓ RPM"
+          ]
+        }
+      ],
+      "title": "Mission!",
+      "artists": [
+        {
+          "id": 3773,
+          "name": "Aphrodite"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Drum n Bass",
+        "Jungle"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "1af5bd36b29041c55ee0b22fb668be8d3f7c2efd6f5c9395989defedcff8ca5d"
+    },
+    "18497": {
+      "research_context": "established_scene_short_release",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "33 ⅓ RPM"
+          ]
+        }
+      ],
+      "title": "Me Myself And I",
+      "artists": [
+        {
+          "id": 4091,
+          "name": "De La Soul"
+        }
+      ],
+      "genres": [
+        "Hip Hop"
+      ],
+      "styles": [
+        "Conscious"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "215937fe45f6cea8643d408c4ce01ac7fbdaf7c40b0a3aa61bd63206ee1f38f7"
+    },
+    "6576": {
+      "research_context": "established_scene_short_release",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "33 ⅓ RPM"
+          ]
+        }
+      ],
+      "title": "I Can't Kick This Feelin When It Hits / Music People",
+      "artists": [
+        {
+          "id": 1094,
+          "name": "Moodymann"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "House",
+        "Deep House"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "2ea5c2573781eaf1a47ec72e9620c5e32e979f4f9c08cb2e17131f3c50e0ae1f"
+    },
+    "110": {
+      "research_context": "established_scene_short_release",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "EP",
+            "33 ⅓ RPM"
+          ]
+        }
+      ],
+      "title": "Very EP",
+      "artists": [
+        {
+          "id": 205,
+          "name": "Jeff Mills"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Techno",
+        "Ambient"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "404d936b548ba62e85bc55d7d7473283bfa6e97e696c6ca0b47e9c7362fca516"
+    },
+    "61693": {
+      "research_context": "established_scene_short_release",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "33 ⅓ RPM",
+            "Promo"
+          ]
+        }
+      ],
+      "title": "Heroes",
+      "artists": [
+        {
+          "id": 124108,
+          "name": "Roni Size / Reprazent"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "House",
+        "Drum n Bass"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "42dabc0cf193c514d4dacfdf5292b0267e84fbfb677f5ec23f92f926100f3be8"
+    },
+    "9118974": {
+      "research_context": "established_scene_short_release",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "33 ⅓ RPM"
+          ]
+        }
+      ],
+      "title": "Humans Drums & Machines",
+      "artists": [
+        {
+          "id": 693,
+          "name": "Ron Trent"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "House",
+        "Deep House"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "5b186d982c62285dd768d1fe9b2267e6f7b40359a5132dead1be01768ea6d543"
+    },
+    "205746": {
+      "research_context": "established_scene_short_release",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "Promo",
+            "33 ⅓ RPM"
+          ]
+        }
+      ],
+      "title": "Bad Girl (BT Remixes)",
+      "artists": [
+        {
+          "id": 9912,
+          "name": "DJ Rap"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Breaks"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "6024ac52b8729cf176bc0607be1b3ffef73291af93a0265f7bc4db4a2ac2dbe1"
+    },
+    "49017": {
+      "research_context": "established_scene_short_release",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "33 ⅓ RPM"
+          ]
+        }
+      ],
+      "title": "Volume Six",
+      "artists": [
+        {
+          "id": 2323,
+          "name": "DJ Hype"
+        },
+        {
+          "id": 71592,
+          "name": "Ganja Max"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Drum n Bass",
+        "Jungle"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "6d119dfacef55a252c8dd9795f4edd63478176247abf5a0813033607f2bfacff"
+    },
+    "11005652": {
+      "research_context": "established_scene_short_release",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "45 RPM"
+          ]
+        }
+      ],
+      "title": "White Lines / Scorpio",
+      "artists": [
+        {
+          "id": 20593,
+          "name": "Grandmaster Flash & Melle Mel"
+        },
+        {
+          "id": 20590,
+          "name": "Grandmaster Flash & The Furious Five"
+        }
+      ],
+      "genres": [
+        "Electronic",
+        "Hip Hop"
+      ],
+      "styles": [
+        "Electro"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "7a1a57469ec334d9c0087604f9c81ab0b1a8830a73fb576d84dcecaeed1cfe3f"
+    },
+    "1303011": {
+      "research_context": "underground_network",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "45 RPM",
+            "Promo"
+          ]
+        }
+      ],
+      "title": "Whistlestop / East To West",
+      "artists": [
+        {
+          "id": 272062,
+          "name": "Lynx (7)"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Drum n Bass"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "009af5c77cd145a449628c40ba64e0459d108192f534ef70581e22aa9805fcb7"
+    },
+    "1261891": {
+      "research_context": "underground_network",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "45 RPM"
+          ]
+        }
+      ],
+      "title": "Stranger",
+      "artists": [
+        {
+          "id": 14133,
+          "name": "Pressure Rise"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Drum n Bass"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "00aa64bee40fb1b97345a4187e4cf2895da9aa0693e8d95b2fcf3f64c135b8a9"
+    },
+    "168868": {
+      "research_context": "underground_network",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "Unofficial Release"
+          ]
+        }
+      ],
+      "title": "Infiltrate / Work It (Remixes)",
+      "artists": [
+        {
+          "id": 111502,
+          "name": "Sean Paul"
+        },
+        {
+          "id": 26918,
+          "name": "Missy Elliott"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Drum n Bass"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "02e12dac1e355f8e1c9e9b6cf189ee60ee34aa7577cc60ee344c5c3afbac2c66"
+    },
+    "44900": {
+      "research_context": "underground_network",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "45 RPM"
+          ]
+        }
+      ],
+      "title": "Dark Soldier Part 1 & 2",
+      "artists": [
+        {
+          "id": 2173,
+          "name": "Renegade"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Jungle"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "10729626107996166629f68cab96a596e487bebc402b6e3319bcd0f13763af03"
+    },
+    "2811130": {
+      "research_context": "underground_network",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "Single",
+            "White Label"
+          ]
+        }
+      ],
+      "title": "-3",
+      "artists": [
+        {
+          "id": 20,
+          "name": "Percy X"
+        },
+        {
+          "id": 49831,
+          "name": "Blood Sugar"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Breakbeat",
+        "Techno",
+        "Ambient"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "117e9247405c9cd03a4b129b64ce58361caf3c11c961cfdf22f56e59c9bd2e00"
+    },
+    "13657670": {
+      "research_context": "underground_network",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "45 RPM"
+          ]
+        }
+      ],
+      "title": "Where Do We Go From Here?",
+      "artists": [
+        {
+          "id": 4601576,
+          "name": "No Moon"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Electro",
+        "Breakbeat",
+        "Acid"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "1288f3c6e7278e77b5583a4dc3b887a58c1a6c817032eb0d0cbd1131c31fd147"
+    },
+    "680278": {
+      "research_context": "underground_network",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "text": "Stamped",
+          "descriptions": [
+            "12\"",
+            "EP",
+            "White Label",
+            "Promo"
+          ]
+        }
+      ],
+      "title": "This Time EP Sampler",
+      "artists": [
+        {
+          "id": 1403,
+          "name": "Jonny L"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Drum n Bass",
+        "Jungle"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "1315d14db8c22f4a0b0ef5010fd50fd54073d957faafffbbb88c41b3ed19a98b"
+    },
+    "9148392": {
+      "research_context": "underground_network",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "Single"
+          ]
+        }
+      ],
+      "title": "Always On",
+      "artists": [
+        {
+          "id": 5361803,
+          "name": "Music People (2)"
+        }
+      ],
+      "genres": [
+        "Electronic",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Deep House",
+        "House",
+        "Downtempo",
+        "Breakbeat",
+        "Nu-Disco"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "134a73135fd8a50d91d933ba735a2882edae23ed1cfd747a5340bdc72efc1c4a"
+    },
+    "3554620": {
+      "research_context": "underground_network",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "45 RPM",
+            "Limited Edition",
+            "Promo",
+            "White Label"
+          ]
+        }
+      ],
+      "title": "Outcry / Uncertain Thoughts",
+      "artists": [
+        {
+          "id": 2111,
+          "name": "B Key"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Drum n Bass",
+        "Jungle"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "140ea1e0f9a393de8fbefd60427fcb551d78d05892496594aae56a1f6980800e"
+    },
+    "746165": {
+      "research_context": "underground_network",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "33 ⅓ RPM"
+          ]
+        }
+      ],
+      "title": "Trunk 1",
+      "artists": [
+        {
+          "id": 4178,
+          "name": "Tranquil Elephantizer"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Jungle"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "15d3d7c605fd84ae52a26c45052c56e150205d56f1d296cafd3676d7f5ec15f4"
+    },
+    "1072873": {
+      "research_context": "obscure_or_ambiguous",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "Limited Edition",
+            "Single Sided",
+            "Etched",
+            "45 RPM"
+          ]
+        }
+      ],
+      "title": "Double Fisted Demo",
+      "artists": [
+        {
+          "id": 222667,
+          "name": "Scotty Coats"
+        },
+        {
+          "id": 914856,
+          "name": "Wes \"The\" Mes"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "House",
+        "Dub",
+        "Disco"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "06d2def9f9f975ac1e6620b6c95a3f69fed491bb3e4817a005a27b6c7ee08db6"
+    },
+    "453412": {
+      "research_context": "obscure_or_ambiguous",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\""
+          ]
+        }
+      ],
+      "title": "Elephant",
+      "artists": [
+        {
+          "id": 314586,
+          "name": "A.M.E.N."
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Progressive Trance"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "07aa205bc8733695a36701d8eda87fcbd275f2faa6c747d7e38bbd87d34cbed5"
+    },
+    "695304": {
+      "research_context": "obscure_or_ambiguous",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "33 ⅓ RPM",
+            "Unofficial Release"
+          ]
+        }
+      ],
+      "title": "L.A. Will Make You Pay / Everybody Party (Kon 12\" Re-edit)",
+      "artists": [
+        {
+          "id": 522541,
+          "name": "Burton Inc."
+        },
+        {
+          "id": 522542,
+          "name": "Firebolts"
+        }
+      ],
+      "genres": [
+        "Jazz",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Jazz-Funk",
+        "Disco"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "0ba0ef5b731c953c8809757af0c4c229f097476a132569afa6466f80d21ad4c1"
+    },
+    "8108409": {
+      "research_context": "obscure_or_ambiguous",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\""
+          ]
+        }
+      ],
+      "title": "Patch Valley ",
+      "artists": [
+        {
+          "id": 2001956,
+          "name": "Bxentric"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Deep House",
+        "House"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "0bd5f4fe953eef65d18ba87a78e10cff349513d6b2ffa2cc99e672c34e91ebaa"
+    },
+    "13588230": {
+      "research_context": "obscure_or_ambiguous",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "EP"
+          ]
+        }
+      ],
+      "title": "Apron EP",
+      "artists": [
+        {
+          "id": 6692907,
+          "name": "My Girlfriend"
+        }
+      ],
+      "genres": [
+        "Electronic",
+        "Jazz",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Electro",
+        "House"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "1568016192e1cbaa2e98f06cb8b61212645268aad3fb10175563751330b371a3"
+    },
+    "11705722": {
+      "research_context": "obscure_or_ambiguous",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "45 RPM",
+            "Limited Edition"
+          ]
+        }
+      ],
+      "title": "Let's Dance With Cynthia / Once Again",
+      "artists": [
+        {
+          "id": 1900915,
+          "name": "Cynthia Bhikharie"
+        }
+      ],
+      "genres": [
+        "Funk / Soul",
+        "Folk, World, & Country"
+      ],
+      "styles": [
+        "Hindustani",
+        "Disco"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "1d4adf978157684eaba91905233c42f7197a92c2b671b7839ad82d2bdbe8e2df"
+    },
+    "44822": {
+      "research_context": "obscure_or_ambiguous",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "45 RPM"
+          ]
+        }
+      ],
+      "title": "To Forgive But Not Forget",
+      "artists": [
+        {
+          "id": 2649,
+          "name": "Outside"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Drum n Bass",
+        "Jungle"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "20dbb9762d9c493665c5b75093721dde72de4f20d11c1c5f1720204e59278377"
+    },
+    "7972280": {
+      "research_context": "obscure_or_ambiguous",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "33 ⅓ RPM",
+            "Limited Edition"
+          ]
+        }
+      ],
+      "title": "Smile ",
+      "artists": [
+        {
+          "id": 2623061,
+          "name": "Marlon Hoffstadt"
+        },
+        {
+          "id": 28312,
+          "name": "Paris Brightledge"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "House",
+        "Deep House"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "24c48b859665c866ecff1712a0e2da263b9589abbdf4a2cea03e446a6acfe52f"
+    },
+    "8479529": {
+      "research_context": "obscure_or_ambiguous",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "EP"
+          ]
+        }
+      ],
+      "title": "Planet F.M.D.X. Pt. 1",
+      "artists": [
+        {
+          "id": 3221,
+          "name": "Gerd"
+        }
+      ],
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Techno",
+        "House"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "25433465c71ec47cf196530c479cc9d53d50f0c26f171d023bd25f26d1a502d1"
+    },
+    "8926196": {
+      "research_context": "obscure_or_ambiguous",
+      "snapshot_format": [
+        {
+          "name": "Vinyl",
+          "qty": "1",
+          "descriptions": [
+            "12\"",
+            "33 ⅓ RPM"
+          ]
+        }
+      ],
+      "title": "ABCF",
+      "artists": [
+        {
+          "id": 4641681,
+          "name": "A Band Called Flash"
+        }
+      ],
+      "genres": [
+        "Electronic",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Deep House",
+        "Boogie",
+        "Funk"
+      ],
+      "classification_status": "provisional_before_source_review",
+      "selection_score": "276326a2e37e9dd53adf5972741f367f1d4aeaa0e7df39a6dc857aa9885fb98d"
+    }
+  },
+  "baseline": {
+    "7568442": {
+      "placed": true,
+      "thread_ids": [
+        "thread-7788ad8b02fe",
+        "thread-b58b5e82e380"
+      ]
+    },
+    "118630": {
+      "placed": true,
+      "thread_ids": [
+        "thread-edefc0a4bdfb",
+        "thread-a5f584056d40"
+      ]
+    },
+    "14457597": {
+      "placed": true,
+      "thread_ids": [
+        "thread-b70b01c57445",
+        "thread-a935daeacec5"
+      ]
+    },
+    "2045030": {
+      "placed": true,
+      "thread_ids": [
+        "thread-0e80132901d3",
+        "thread-d024a8ba6776"
+      ]
+    },
+    "4330903": {
+      "placed": true,
+      "thread_ids": [
+        "thread-288f1e05a290",
+        "thread-6d1ce7699797",
+        "thread-450459095224"
+      ]
+    },
+    "1358351": {
+      "placed": true,
+      "thread_ids": [
+        "thread-f65d476c4ce3",
+        "thread-08010d3f3fa4"
+      ]
+    },
+    "4619033": {
+      "placed": true,
+      "thread_ids": [
+        "thread-c1fbca8a6e0f"
+      ]
+    },
+    "8872804": {
+      "placed": true,
+      "thread_ids": [
+        "thread-88091579aa12",
+        "thread-e45a69c1a306",
+        "thread-dc8009083c8c",
+        "thread-a4000cd053aa"
+      ]
+    },
+    "1027491": {
+      "placed": true,
+      "thread_ids": [
+        "thread-2680fd5fdac3",
+        "thread-e0db07bebde6",
+        "thread-2ca2218bcb71"
+      ]
+    },
+    "8539380": {
+      "placed": true,
+      "thread_ids": [
+        "thread-b389e6f565ec",
+        "thread-b049a26c79c4"
+      ]
+    },
+    "12097296": {
+      "placed": true,
+      "thread_ids": [
+        "thread-a1ab9fe16d49"
+      ]
+    },
+    "13724942": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "87762": {
+      "placed": true,
+      "thread_ids": [
+        "thread-fce07793621e"
+      ]
+    },
+    "14460113": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "19316317": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "3668574": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "14791220": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "23783198": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "18710329": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "13541780": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "13433334": {
+      "placed": true,
+      "thread_ids": [
+        "thread-8d35bf263d0e"
+      ]
+    },
+    "197500": {
+      "placed": true,
+      "thread_ids": [
+        "thread-94485253ddf5"
+      ]
+    },
+    "18497": {
+      "placed": true,
+      "thread_ids": [
+        "thread-c22eb5588fef",
+        "thread-cd255ff1c71b",
+        "thread-c69ac1758503"
+      ]
+    },
+    "6576": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "110": {
+      "placed": true,
+      "thread_ids": [
+        "thread-62c41333e86f"
+      ]
+    },
+    "61693": {
+      "placed": true,
+      "thread_ids": [
+        "thread-9bb42bcd53c3",
+        "thread-3340c401cbc2"
+      ]
+    },
+    "9118974": {
+      "placed": true,
+      "thread_ids": [
+        "thread-02d1432806c3"
+      ]
+    },
+    "205746": {
+      "placed": true,
+      "thread_ids": [
+        "thread-5ad8fa59cc2b"
+      ]
+    },
+    "49017": {
+      "placed": true,
+      "thread_ids": [
+        "thread-d9530a5b8172"
+      ]
+    },
+    "11005652": {
+      "placed": true,
+      "thread_ids": [
+        "thread-031ad4bb70b6",
+        "thread-0fb43ccf41f0",
+        "thread-105bd324397b",
+        "thread-dbe8705f1e1b",
+        "thread-59b04a487a6b"
+      ]
+    },
+    "1303011": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "1261891": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "168868": {
+      "placed": true,
+      "thread_ids": [
+        "thread-fd5da6262784"
+      ]
+    },
+    "44900": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "2811130": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "13657670": {
+      "placed": true,
+      "thread_ids": [
+        "thread-07817901cb2b"
+      ]
+    },
+    "680278": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "9148392": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "3554620": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "746165": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "1072873": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "453412": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "695304": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "8108409": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "13588230": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "11705722": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "44822": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "7972280": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "8479529": {
+      "placed": false,
+      "thread_ids": []
+    },
+    "8926196": {
+      "placed": false,
+      "thread_ids": []
+    }
+  }
+}

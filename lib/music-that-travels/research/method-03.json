@@ -1,0 +1,17 @@
+{
+  "method_version": "0.3",
+  "frozen_at": "2026-11-09T09:33:04.398120+00:00",
+  "selection_seed": "mtt-context-routes-03-2026-11-09",
+  "questions_frozen_before_source_collection": [
+    "Confirm exact identity, format, original/reissue/remix status and credited roles.",
+    "Find or reuse a meaningful musical context beyond generic profile geography.",
+    "Investigate this release: sessions, collaborators, versions and relevant scene or repertoire, retaining scope limits.",
+    "Look for an explicitly documented, musically useful connection with another owned release. No genre-only or city-only network inference.",
+    "Record source access gaps, active review intervals and a specific stopping decision; do not equate a completed bounded review with complete history."
+  ],
+  "context_is_not_popularity_rank": "Contexts are overlapping triage hypotheses, not an objective fame score or confidence score. Reassess them after research without replacing selected records. EP, single, 12-inch and album are kept separate in format metadata.",
+  "selection": "Ten per provisional context; frozen candidate pools, stable SHA-256 ranking, no repeated main artist within each context. Established albums first include two each from Hip Hop, Jazz and Funk / Soul where available; fill remaining slots by rank. Earlier batches excluded.",
+  "timing": "Measure dated source collection separately. Review intervals begin before source reading and stop after adjudication; report elapsed review wall time as an upper bound if tool latency is included. Never reconstruct reading time retrospectively.",
+  "stopping": "Keep method-0.2 evidence safeguards. Inspect a relevant primary/context lead and targeted alternative before bounded unresolved. A supported context is not permission to infer every session or contributor.",
+  "connections": "Accept only reviewed pairs of owned releases with explicit identities, roles, relationship type, scope and dated read sources. A common city or genre is not a documented connection."
+}

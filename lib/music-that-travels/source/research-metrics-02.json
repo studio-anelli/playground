@@ -1,0 +1,63 @@
+{
+  "method_version": "0.2",
+  "holdout": {
+    "selected": 50,
+    "found": 50,
+    "documented": 37,
+    "checks_complete": 49,
+    "source_routes_accounted": 50,
+    "bounded_reviews_complete": 50,
+    "meaningful_context": 43,
+    "with_limits": 50
+  },
+  "network_collection": {
+    "started_at": "2026-11-09T08:42:05.038976+00:00",
+    "finished_at": "2026-11-09T08:50:24.125082+00:00",
+    "wall_seconds": 499.086,
+    "unique_resources": 164,
+    "cache_hits": 0,
+    "retrieved": 164,
+    "unavailable": 0
+  },
+  "resource_types": {
+    "artists": 57,
+    "releases": 71,
+    "masters": 36
+  },
+  "source_catalogue": {
+    "read": 300,
+    "retrieved": 49,
+    "indexed_excerpt_read": 2,
+    "unavailable": 1
+  },
+  "claims": {
+    "previous_accepted": 53,
+    "new_accepted": 55,
+    "accepted_total": 108,
+    "revalidated_existing_holdout_editions": 6,
+    "outside_both_batches_benefiting_from_new_artist_facts": 14
+  },
+  "map": {
+    "before": {
+      "copies": 293,
+      "editions": 291,
+      "threads": 471
+    },
+    "after": {
+      "copies": 314,
+      "editions": 312,
+      "threads": 545
+    },
+    "holdout_previously_unplaced": 25,
+    "holdout_newly_placed": 21,
+    "holdout_still_unplaced": 4
+  },
+  "runtime_payload": {
+    "before_bytes": 682228,
+    "after_bytes": 694399,
+    "before_gzip_bytes": 146567,
+    "after_gzip_bytes": 154144
+  },
+  "review_time_seconds": null,
+  "review_time_note": "Human review time was not instrumented. Network collection duration is not a total research-time benchmark."
+}

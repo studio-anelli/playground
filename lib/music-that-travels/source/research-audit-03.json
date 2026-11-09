@@ -1,0 +1,3280 @@
+{
+  "schema_version": 1,
+  "collection_fingerprint": "1400f81c5a3bafd447bab178206b78ee99346a60bb6956aaa025f0adb1029626",
+  "contexts": {
+    "established_scene_short_release": {
+      "selected": 10,
+      "meaningful_context": 9,
+      "needs_followup": 1,
+      "reused_reviews": 1
+    },
+    "obscure_or_ambiguous": {
+      "selected": 10,
+      "meaningful_context": 8,
+      "needs_followup": 2,
+      "reused_reviews": 0
+    },
+    "underground_network": {
+      "selected": 10,
+      "meaningful_context": 8,
+      "needs_followup": 2,
+      "reused_reviews": 0
+    },
+    "established_album": {
+      "selected": 10,
+      "meaningful_context": 9,
+      "needs_followup": 1,
+      "reused_reviews": 3
+    },
+    "less_documented_album": {
+      "selected": 10,
+      "meaningful_context": 9,
+      "needs_followup": 1,
+      "reused_reviews": 0
+    }
+  },
+  "connections": [
+    {
+      "id": "p3-trent-flash",
+      "decision": "accepted",
+      "relation": "shared_contributor",
+      "subject": "Ron Trent / Discogs 693",
+      "endpoints": [
+        {
+          "release_id": "9118974",
+          "role": "Composer and producer",
+          "identity_basis": "Exact owned release ID and named artist/contributor role reviewed.",
+          "source_ids": [
+            "p3-discogs-releases-9118974"
+          ]
+        },
+        {
+          "release_id": "8926196",
+          "role": "Executive producer",
+          "identity_basis": "Exact owned release ID and named artist/contributor role reviewed.",
+          "source_ids": [
+            "p3-discogs-releases-8926196"
+          ]
+        }
+      ],
+      "summary": "Ron Trent writes/produces Humans Drums & Machines and is executive producer on ABCF; Jared Hines remains ABCF’s credited producer.",
+      "scope": "A documented contributor bridge, not identical recordings, a sample of the other owned record, or a shared session.",
+      "source_ids": [
+        "p3-discogs-releases-9118974",
+        "p3-discogs-releases-8926196"
+      ],
+      "checked_at": "2026-11-09T09:50:12.014991+00:00"
+    }
+  ],
+  "counts": {
+    "copies": 50,
+    "editions": 50,
+    "artists": 61,
+    "masters": 36,
+    "editions_with_new_evidence": 26,
+    "editions_checks_complete": 3,
+    "bounded_reviews_complete": 43,
+    "accepted_claims": 135
+  },
+  "batch": {
+    "selected": 50,
+    "found": 50,
+    "documented": 26,
+    "checks_complete": 3,
+    "source_routes_accounted": 50,
+    "bounded_reviews_complete": 43,
+    "meaningful_context": 43,
+    "with_limits": 50
+  },
+  "records": [
+    {
+      "release_id": "197500",
+      "title": "Mission!",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "197500",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "3773"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Community-documented sample references, not verified original master clearances.",
+        "source_ids": [
+          "p3-discogs-releases-197500",
+          "p3-discogs-artists-3773",
+          "p3-discogs-masters-1326773"
+        ],
+        "finding_ids": [
+          "p3-context-197500"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Official biography timed out. Exact sampled versions, permissions and session city remain open."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_scene_short_release",
+        "context_review": {
+          "initial_context": "established_scene_short_release",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "official",
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "13588230",
+      "title": "Apron EP",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-1510444e8f3c"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "13588230",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "6692907"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Brazilian duo and this six-track EP, not another act of the same name or a London identity derived from Apron.",
+        "source_ids": [
+          "p3-discogs-releases-13588230",
+          "p3-discogs-artists-6692907",
+          "p3-mygirlfriend"
+        ],
+        "finding_ids": [
+          "p3-context-13588230"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-1510444e8f3c"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Minas Gerais describes Zopelar’s roots and Corner Club reference, not the whole EP’s recording city."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "obscure_or_ambiguous",
+        "context_review": {
+          "initial_context": "obscure_or_ambiguous",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true,
+          "qualification": "Detailed artist-authored scene history: initially no-master/obscure proxy does not measure obscurity."
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "1261891",
+      "title": "Stranger",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-5bc1980c49a4"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "1261891",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "14133"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Optiv’s contributor history is scoped to this release; it is not the whole group’s formation city.",
+        "source_ids": [
+          "p3-discogs-releases-1261891",
+          "p3-discogs-artists-14133",
+          "p3-discogs-masters-46230",
+          "p3-discogs-releases-20448",
+          "p3-optiv-label"
+        ],
+        "finding_ids": [
+          "p3-context-1261891"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-5bc1980c49a4"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "The representative single names Earth Terminal but its city is not verified."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "underground_network",
+        "context_review": {
+          "initial_context": "underground_network",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "110",
+      "title": "Very EP",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-1faa699b6ba3"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "110",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "205"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Detroit musical career, not a claim that the Very EP was recorded at a particular Detroit studio.",
+        "source_ids": [
+          "p3-discogs-releases-110",
+          "p3-discogs-artists-205",
+          "p3-discogs-masters-5908",
+          "p3-mills-museum"
+        ],
+        "finding_ids": [
+          "p3-context-110"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-1faa699b6ba3"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Axis’s US identity and a Detroit career do not establish this EP’s session location."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_scene_short_release",
+        "context_review": {
+          "initial_context": "established_scene_short_release",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "8539380",
+      "title": "Volume 3°",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-2c9cba34539e"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "8539380",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "660740"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Owned repress’s actual titles; Il Gorilla is present, so a later Il Pescatore substitution is not assumed.",
+        "source_ids": [
+          "p3-discogs-releases-8539380",
+          "p3-discogs-artists-660740",
+          "p3-discogs-masters-240254",
+          "p3-discogs-releases-2086327",
+          "p2-deandre"
+        ],
+        "finding_ids": [
+          "p3-context-8539380"
+        ],
+        "meaningful_claim_ids": [
+          "research-2c9cba34539e"
+        ],
+        "reused_claim_ids": [
+          "research-2c9cba34539e"
+        ],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Exact session dates and studio remain unverified in this pass."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_album",
+        "context_review": {
+          "initial_context": "established_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "1303011",
+      "title": "Whistlestop / East To West",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-e0b5613f3a16"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "1303011",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "272062"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Lynx (7), Steve Nobes; artist career, not the unrelated rock group or a Hospital session claim for this single.",
+        "source_ids": [
+          "p3-discogs-releases-1303011",
+          "p3-discogs-artists-272062",
+          "p3-discogs-masters-9060",
+          "p3-discogs-releases-1376255",
+          "p3-lynx-interview"
+        ],
+        "finding_ids": [
+          "p3-context-1303011"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-e0b5613f3a16"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "No studio credit verified for Whistlestop/East To West."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "underground_network",
+        "context_review": {
+          "initial_context": "underground_network",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "13657670",
+      "title": "Where Do We Go From Here?",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-d481e2c9c10a"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "13657670",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "4601576"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "2019 release-era context; current Berlin profile is a separate period.",
+        "source_ids": [
+          "p3-discogs-releases-13657670",
+          "p3-discogs-artists-4601576",
+          "p3-discogs-masters-1853805",
+          "p3-nomoon-review"
+        ],
+        "finding_ids": [
+          "p3-context-13657670"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-d481e2c9c10a"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "No session address inferred from the label’s Glasgow/Perth descriptions."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "underground_network",
+        "context_review": {
+          "initial_context": "underground_network",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "4619033",
+      "title": "Immunity",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-4e83d8631c24"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "4619033",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "24056"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Original 2013 album; later expanded editions and extra tracks excluded.",
+        "source_ids": [
+          "p3-discogs-releases-4619033",
+          "p3-discogs-artists-24056",
+          "p3-discogs-masters-562454",
+          "p3-discogs-releases-4625843",
+          "p3-hopkins"
+        ],
+        "finding_ids": [
+          "p3-context-4619033"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-4e83d8631c24"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Conflicting neighbourhood descriptions are resolved only to London, not a precise address."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_album",
+        "context_review": {
+          "initial_context": "established_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "44822",
+      "title": "To Forgive But Not Forget",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-002c26a8df0e"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "44822",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "2649"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Cooper’s group and distinct A/B recordings; not both versions of the same composition.",
+        "source_ids": [
+          "p3-discogs-releases-44822",
+          "p3-discogs-artists-2649",
+          "p3-outside"
+        ],
+        "finding_ids": [
+          "p3-context-44822"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-002c26a8df0e"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "No blanket album studio credit applied to the Aquasky remix."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "obscure_or_ambiguous",
+        "context_review": {
+          "initial_context": "obscure_or_ambiguous",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "44900",
+      "title": "Dark Soldier Part 1 & 2",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "44900",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "2173"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Alias and repertoire link; later remixes on Dread are different versions.",
+        "source_ids": [
+          "p3-discogs-releases-44900",
+          "p3-discogs-artists-2173",
+          "p3-discogs-masters-138662",
+          "p3-renegade-label"
+        ],
+        "finding_ids": [
+          "p3-context-44900"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Lemon D engineering is uncredited community metadata and is not used to fabricate a collection edge."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "underground_network",
+        "context_review": {
+          "initial_context": "underground_network",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "18710329",
+      "title": "Syn",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-0de3721a7e3e",
+        "p3-geo-0d832a0a8b90"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "18710329",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "3356119"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Album recording in Vienna; Chicago applies only to additional drums on those two tracks.",
+        "source_ids": [
+          "p3-discogs-releases-18710329",
+          "p3-discogs-artists-3356119",
+          "p3-discogs-masters-2124976",
+          "p3-discogs-releases-17928349",
+          "p3-innode"
+        ],
+        "finding_ids": [
+          "p3-context-18710329"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-0de3721a7e3e",
+          "p3-geo-0d832a0a8b90"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Unspecified PTMKN drum location is not inferred from the other sessions; mastering and cutting cities are separate."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "less_documented_album",
+        "context_review": {
+          "initial_context": "less_documented_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true,
+          "qualification": "Strong artist-authored, track-scoped studio credits despite initial less-documented route."
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "13541780",
+      "title": "Fire Zone",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-58b26199714a"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "13541780",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "1928334"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Album’s explicit local references, not artist-name decoding or a Belgian recording assumption.",
+        "source_ids": [
+          "p3-discogs-releases-13541780",
+          "p3-discogs-artists-1928334",
+          "p3-sfv"
+        ],
+        "finding_ids": [
+          "p3-context-13541780"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-58b26199714a"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Metaphorical Miami comparisons are not itinerary claims; studio location unverified."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "less_documented_album",
+        "context_review": {
+          "initial_context": "less_documented_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "9118974",
+      "title": "Humans Drums & Machines",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-4d7b9d9fabbe"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "9118974",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "693"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Artist career; the interview’s newer album sessions are not transferred to Humans Drums & Machines.",
+        "source_ids": [
+          "p3-discogs-releases-9118974",
+          "p3-discogs-artists-693",
+          "p3-ron-interview"
+        ],
+        "finding_ids": [
+          "p3-context-9118974"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-4d7b9d9fabbe"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Exact EP studio remains unverified; contributor connection to A Band Called Flash is separately credited."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_scene_short_release",
+        "context_review": {
+          "initial_context": "established_scene_short_release",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "1358351",
+      "title": "L'Arca Di Noè",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-f9f5bdf26ec1"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "1358351",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "114390"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Owned album sessions and actual contributor roles.",
+        "source_ids": [
+          "p3-discogs-releases-1358351",
+          "p3-discogs-artists-114390",
+          "p3-discogs-masters-69197"
+        ],
+        "finding_ids": [
+          "p3-context-1358351"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-f9f5bdf26ec1"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "The older La Voce del Padrone article cannot independently document every L’Arca session."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_album",
+        "context_review": {
+          "initial_context": "established_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "official",
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "8926196",
+      "title": "ABCF",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-1afa1cbdbeae"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "8926196",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "4641681"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Jared Hines project; distinguish executive production from composition, performance or studio location.",
+        "source_ids": [
+          "p3-discogs-releases-8926196",
+          "p3-discogs-artists-4641681",
+          "p3-abcf-bio"
+        ],
+        "finding_ids": [
+          "p3-context-8926196"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-1afa1cbdbeae"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "New York profile and Chicago executive producer do not locate the ABCF sessions."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "obscure_or_ambiguous",
+        "context_review": {
+          "initial_context": "obscure_or_ambiguous",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true,
+          "qualification": "Artist identity and executive producer documented; missing master does not equal weak evidence."
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "49017",
+      "title": "Volume Six",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-1b7f12abf1f5"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "49017",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "2323",
+          "71592"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Hype’s musical formation, not an unsupported Ganja Max biography or a session address.",
+        "source_ids": [
+          "p3-discogs-releases-49017",
+          "p3-discogs-artists-2323",
+          "p3-discogs-artists-71592",
+          "p3-discogs-masters-5137",
+          "p3-hype-label"
+        ],
+        "finding_ids": [
+          "p3-context-49017"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-1b7f12abf1f5"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "An alternative pressing has a Volume Seven mislabel; this edition’s identity remains Volume Six."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_scene_short_release",
+        "context_review": {
+          "initial_context": "established_scene_short_release",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "14457597",
+      "title": "Directstep = ダイレクトステップ",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "14457597",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "3865"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Original three-track album sessions, not the 2019 reissue’s plating or pressing.",
+        "source_ids": [
+          "p3-discogs-releases-14457597",
+          "p3-discogs-artists-3865",
+          "p3-discogs-masters-261248",
+          "p3-discogs-releases-1161485",
+          "p3-herbie"
+        ],
+        "finding_ids": [
+          "p3-context-14457597"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [
+          "thread-a935daeacec5"
+        ],
+        "reused_evidence": [
+          {
+            "thread_id": "thread-a935daeacec5",
+            "source_ids": [
+              "p3-herbie"
+            ],
+            "musical_value": "session",
+            "thread_sha256": "87ccaacc763a06047c20dc61ddf3aed54967529b5f02dd2e0511967459202a0f",
+            "review_basis": "Existing fact individually rechecked against this source and exact owned recording scope; no duplicate display thread."
+          }
+        ],
+        "limits": [
+          "Replica sleeve manufacturing credits are historical and cannot establish the reissue’s pressing plant."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_album",
+        "context_review": {
+          "initial_context": "established_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "8872804",
+      "title": "Atom Heart Mother",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "needs_followup",
+      "meaningful_context": false,
+      "review": {
+        "release_id": "8872804",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "45467"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Original album repertoire; owned vinyl is flagged unofficial.",
+        "source_ids": [
+          "p3-discogs-releases-8872804",
+          "p3-discogs-artists-45467",
+          "p3-discogs-masters-12676",
+          "p3-discogs-releases-2644617",
+          "p3-pinkfloyd-archive"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Official shop redirects to a password page; existing Abbey Road evidence is preserved but is not counted as a newly verified studio claim."
+        ],
+        "decision": "needs_followup",
+        "stop_reason": "Version and identity checks completed, but this pass has not established a new meaningful musical context beyond the existing map or credited roles. Official shop redirects to a password page; existing Abbey Road evidence is preserved but is not counted as a newly verified studio claim.",
+        "all_facts_known": false,
+        "research_context": "established_album",
+        "context_review": {
+          "initial_context": "established_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true,
+          "qualification": "Unofficial pressing of a well-known album: familiarity does not certify pressing provenance."
+        },
+        "scope_finding_ids": [
+          "p3-context-8872804"
+        ],
+        "finding_ids": []
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": [
+        "Version and identity checks completed, but this pass has not established a new meaningful musical context beyond the existing map or credited roles. Official shop redirects to a password page; existing Abbey Road evidence is preserved but is not counted as a newly verified studio claim."
+      ]
+    },
+    {
+      "release_id": "205746",
+      "title": "Bad Girl (BT Remixes)",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "needs_followup",
+      "meaningful_context": false,
+      "review": {
+        "release_id": "205746",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "9912"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "BT mixes on the owned promo only; original single CD has other versions.",
+        "source_ids": [
+          "p3-discogs-releases-205746",
+          "p3-discogs-artists-9912",
+          "p3-discogs-masters-59719",
+          "p3-discogs-releases-1333192"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Official biography unavailable and no remix-session location verified; Singapore birthplace is not a musical-origin shortcut."
+        ],
+        "decision": "needs_followup",
+        "stop_reason": "Version and identity checks completed, but this pass has not established a new meaningful musical context beyond the existing map or credited roles. Official biography unavailable and no remix-session location verified; Singapore birthplace is not a musical-origin shortcut.",
+        "all_facts_known": false,
+        "research_context": "established_scene_short_release",
+        "context_review": {
+          "initial_context": "established_scene_short_release",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        },
+        "scope_finding_ids": [
+          "p3-context-205746"
+        ],
+        "finding_ids": []
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "official",
+        "archive"
+      ],
+      "open_questions": [
+        "Version and identity checks completed, but this pass has not established a new meaningful musical context beyond the existing map or credited roles. Official biography unavailable and no remix-session location verified; Singapore birthplace is not a musical-origin shortcut."
+      ]
+    },
+    {
+      "release_id": "14791220",
+      "title": "Ahyewa Special",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-776188c2ea17"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "14791220",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "1216832",
+          "1850605"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Original recording and repertoire, not later London remastering.",
+        "source_ids": [
+          "p3-discogs-releases-14791220",
+          "p3-discogs-artists-1216832",
+          "p3-discogs-artists-1850605",
+          "p3-discogs-masters-1683752",
+          "p3-discogs-releases-4711672",
+          "p3-frimpong"
+        ],
+        "finding_ids": [
+          "p3-context-14791220"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-776188c2ea17"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Ghana is explicit; Kumasi is the original label’s base, not evidence of the studio’s city."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "less_documented_album",
+        "context_review": {
+          "initial_context": "less_documented_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "3668574",
+      "title": "Mancini And The Creepers",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-d0773ab9048f",
+        "p3-geo-3a98d7687320"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "3668574",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "82386",
+          "3235079"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Release-scoped group context only; the linked Paris producer explicitly excludes this project from his discography.",
+        "source_ids": [
+          "p3-discogs-releases-3668574",
+          "p3-discogs-artists-82386",
+          "p3-discogs-artists-3235079",
+          "p3-discogs-masters-817950",
+          "p3-mancini-press",
+          "p3-mancini-release",
+          "p3-mancini"
+        ],
+        "finding_ids": [
+          "p3-context-3668574"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-d0773ab9048f",
+          "p3-geo-3a98d7687320"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Discogs artist 82386 is quarantined for this release; exact studio and a corrected vocalist ID remain unresolved."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "less_documented_album",
+        "context_review": {
+          "initial_context": "less_documented_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "6576",
+      "title": "I Can't Kick This Feelin When It Hits / Music People",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-d2af23c6cd66"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "6576",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "1094"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Artist practice and the two owned tracks; unrelated Music People collaboration excluded.",
+        "source_ids": [
+          "p3-discogs-releases-6576",
+          "p3-discogs-artists-1094",
+          "p3-discogs-masters-77702",
+          "p3-moodymann"
+        ],
+        "finding_ids": [
+          "p3-context-6576"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-d2af23c6cd66"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Community sample notes remain attributed; no exact session studio or shared master is inferred."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_scene_short_release",
+        "context_review": {
+          "initial_context": "established_scene_short_release",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "87762",
+      "title": "???",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-6c1b97545cb8"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "87762",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "4567"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Group formation and owned album contributors, not the Hamburg label address.",
+        "source_ids": [
+          "p3-discogs-releases-87762",
+          "p3-discogs-artists-4567",
+          "p3-discogs-masters-136475",
+          "p3-discogs-releases-511679",
+          "p3-whirlpool"
+        ],
+        "finding_ids": [
+          "p3-context-87762"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-6c1b97545cb8"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "No complete album session itinerary verified."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "less_documented_album",
+        "context_review": {
+          "initial_context": "less_documented_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "4330903",
+      "title": "Fire",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-0b4508d7c1cf"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "4330903",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "48413"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "This album’s recording credit, not its release market or mastering site.",
+        "source_ids": [
+          "p3-discogs-releases-4330903",
+          "p3-discogs-artists-48413",
+          "p3-discogs-masters-91544",
+          "p3-discogs-releases-635254"
+        ],
+        "finding_ids": [
+          "p3-context-4330903"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-0b4508d7c1cf"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Mastering credits vary between editions; the representative release’s Sterling credit is not transferred."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_album",
+        "context_review": {
+          "initial_context": "established_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "official",
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "23783198",
+      "title": "Midnight is Comin'",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "23783198",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "6584747"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Owned track positions matched to individual producers; the label’s narrative order differs from the vinyl order.",
+        "source_ids": [
+          "p3-discogs-releases-23783198",
+          "p3-discogs-artists-6584747",
+          "p3-discogs-masters-2697986",
+          "p3-yousuke"
+        ],
+        "finding_ids": [
+          "p3-context-23783198"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Artist city and individual contributor sessions remain unresolved; Singapore label location is excluded."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "less_documented_album",
+        "context_review": {
+          "initial_context": "less_documented_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true,
+          "qualification": "Curated producer compilation/mix, not solely an original Yukimatsu album."
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "9148392",
+      "title": "Always On",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "9148392",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "5361803"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Specific collaboration and credited roles, not Moodymann’s Music People track.",
+        "source_ids": [
+          "p3-discogs-releases-9148392",
+          "p3-discogs-artists-5361803",
+          "p3-discogs-masters-1330230",
+          "p3-musicpeople"
+        ],
+        "finding_ids": [
+          "p3-context-9148392"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "The chalet’s city is not explicitly stated here; Vancouver label location alone is insufficient for a session pin."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "underground_network",
+        "context_review": {
+          "initial_context": "underground_network",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "8108409",
+      "title": "Patch Valley ",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "8108409",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "2001956"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Remixer network and specific versions, not where either remix was recorded.",
+        "source_ids": [
+          "p3-discogs-releases-8108409",
+          "p3-discogs-artists-2001956",
+          "p3-bxentric"
+        ],
+        "finding_ids": [
+          "p3-context-8108409"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Current East London album biography is not backdated to this 2015 single."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "obscure_or_ambiguous",
+        "context_review": {
+          "initial_context": "obscure_or_ambiguous",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "12097296",
+      "title": "Nuova Napoli",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-2657c50e1814"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "12097296",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "4007020"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Exact album credits matched to the owned repress; city of musical reference and recording city kept distinct.",
+        "source_ids": [
+          "p3-discogs-releases-12097296",
+          "p3-discogs-artists-4007020",
+          "p3-discogs-masters-1334042",
+          "p3-discogs-releases-11600879",
+          "p3-nuova"
+        ],
+        "finding_ids": [
+          "p3-context-12097296"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-2657c50e1814"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Nu Guinea/Nu Genea name change requires stable alias review; not every collaborator’s birthplace is relevant."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "less_documented_album",
+        "context_review": {
+          "initial_context": "less_documented_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true,
+          "qualification": "Strong artist-authored album notes: documentation-rich despite initial less-documented route."
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "168868",
+      "title": "Infiltrate / Work It (Remixes)",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "needs_followup",
+      "meaningful_context": false,
+      "review": {
+        "release_id": "168868",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "111502",
+          "26918"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Vocals credited to Sean Paul/Missy Elliott; remix credit is Unknown Artist.",
+        "source_ids": [
+          "p3-discogs-releases-168868",
+          "p3-discogs-artists-111502",
+          "p3-discogs-artists-26918"
+        ],
+        "finding_ids": [],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "The drum-and-bass remixer remains unidentified. Neither Kingston nor Portsmouth Virginia can stand in for the bootleg producer’s working location."
+        ],
+        "decision": "needs_followup",
+        "stop_reason": "The drum-and-bass remixer remains unidentified. Neither Kingston nor Portsmouth Virginia can stand in for the bootleg producer’s working location.",
+        "all_facts_known": false,
+        "research_context": "underground_network",
+        "context_review": {
+          "initial_context": "underground_network",
+          "documentation": "below_context_threshold",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "official",
+        "archive"
+      ],
+      "open_questions": [
+        "The drum-and-bass remixer remains unidentified. Neither Kingston nor Portsmouth Virginia can stand in for the bootleg producer’s working location."
+      ]
+    },
+    {
+      "release_id": "695304",
+      "title": "L.A. Will Make You Pay / Everybody Party (Kon 12\" Re-edit)",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "695304",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "522541",
+          "522542"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "A side original versus B side edit; L.A. in a title is not a recording address.",
+        "source_ids": [
+          "p3-discogs-releases-695304",
+          "p3-discogs-artists-522541",
+          "p3-discogs-artists-522542",
+          "p3-burton-clone"
+        ],
+        "finding_ids": [
+          "p3-context-695304"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Original studio locations and edit-session location remain unverified."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "obscure_or_ambiguous",
+        "context_review": {
+          "initial_context": "obscure_or_ambiguous",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "3554620",
+      "title": "Outcry / Uncertain Thoughts",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-caaa67fcbf19"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "3554620",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "2111"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Justin Birch / B Key; career network, not a fabricated Scientific Wax release attribution.",
+        "source_ids": [
+          "p3-discogs-releases-3554620",
+          "p3-discogs-artists-2111",
+          "p3-discogs-masters-429607",
+          "p3-discogs-releases-130548",
+          "p3-bkey-history"
+        ],
+        "finding_ids": [
+          "p3-context-3554620"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-caaa67fcbf19"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Outcry is an Outbreak recording; exact session city unverified and the historical biography is secondary evidence."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "underground_network",
+        "context_review": {
+          "initial_context": "underground_network",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "7972280",
+      "title": "Smile ",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "needs_followup",
+      "meaningful_context": false,
+      "review": {
+        "release_id": "7972280",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "2623061",
+          "28312"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Exact RTGD002 versions matched to owned vinyl, separate from the later six-EP digital collection.",
+        "source_ids": [
+          "p3-discogs-releases-7972280",
+          "p3-discogs-artists-2623061",
+          "p3-discogs-artists-28312",
+          "p3-smile"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Berlin/Chicago artist profile locations do not establish a shared recording session."
+        ],
+        "decision": "needs_followup",
+        "stop_reason": "Version and identity checks completed, but this pass has not established a new meaningful musical context beyond the existing map or credited roles. Berlin/Chicago artist profile locations do not establish a shared recording session.",
+        "all_facts_known": false,
+        "research_context": "obscure_or_ambiguous",
+        "context_review": {
+          "initial_context": "obscure_or_ambiguous",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        },
+        "scope_finding_ids": [
+          "p3-context-7972280"
+        ],
+        "finding_ids": []
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": [
+        "Version and identity checks completed, but this pass has not established a new meaningful musical context beyond the existing map or credited roles. Berlin/Chicago artist profile locations do not establish a shared recording session."
+      ]
+    },
+    {
+      "release_id": "1072873",
+      "title": "Double Fisted Demo",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-90cafadd960c"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "1072873",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "222667",
+          "914856"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Underlying original track and party context; Prins Thomas remixes are not on the one-sided demo.",
+        "source_ids": [
+          "p3-discogs-releases-1072873",
+          "p3-discogs-artists-222667",
+          "p3-discogs-artists-914856",
+          "p3-coats-history"
+        ],
+        "finding_ids": [
+          "p3-context-1072873"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-90cafadd960c"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Original demo session location and personnel beyond the billed duo remain unverified."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "obscure_or_ambiguous",
+        "context_review": {
+          "initial_context": "obscure_or_ambiguous",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "8479529",
+      "title": "Planet F.M.D.X. Pt. 1",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "8479529",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "3221"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Exact Royal Oak four-track EP; artist identity Gert-Jan Bijl distinguished from unrelated Gerd names.",
+        "source_ids": [
+          "p3-discogs-releases-8479529",
+          "p3-discogs-artists-3221",
+          "p3-gerd"
+        ],
+        "finding_ids": [
+          "p3-context-8479529"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Rotterdam artist-page location is not accepted as the EP studio without session evidence."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "obscure_or_ambiguous",
+        "context_review": {
+          "initial_context": "obscure_or_ambiguous",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true,
+          "qualification": "Established producer with exact label documentation; no-master proxy does not imply unknown artist."
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "746165",
+      "title": "Trunk 1",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-209a6ea9d33b",
+        "p3-geo-0f980e2b6416"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "746165",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "4178"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Project’s transatlantic identity; contemporary biography does not date a relocation or locate Trunk 1 sessions.",
+        "source_ids": [
+          "p3-discogs-releases-746165",
+          "p3-discogs-artists-4178",
+          "p3-tranquil"
+        ],
+        "finding_ids": [
+          "p3-context-746165"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-209a6ea9d33b",
+          "p3-geo-0f980e2b6416"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "No invented journey date or implication that every track was recorded in both cities."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "underground_network",
+        "context_review": {
+          "initial_context": "underground_network",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "13433334",
+      "title": "Freak / Can't Take It ",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "13433334",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "3688697"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Artist’s musical development; Freak/Can’t Take It is on Shake, not Mahogani.",
+        "source_ids": [
+          "p3-discogs-releases-13433334",
+          "p3-discogs-artists-3688697",
+          "p3-discogs-masters-1810698",
+          "p3-dan-interview"
+        ],
+        "finding_ids": [
+          "p3-context-13433334"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [
+          "thread-8d35bf263d0e"
+        ],
+        "reused_evidence": [
+          {
+            "thread_id": "thread-8d35bf263d0e",
+            "source_ids": [
+              "p3-dan-interview"
+            ],
+            "musical_value": "training",
+            "thread_sha256": "7b020acfb0e84cb49cd3fab213a61d771fe1e4f534d793b34adb5b74b0e0de0d",
+            "review_basis": "Existing fact individually rechecked against this source and exact owned recording scope; no duplicate display thread."
+          }
+        ],
+        "limits": [
+          "A label connection to Moodymann does not imply this EP was made in Detroit."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_scene_short_release",
+        "context_review": {
+          "initial_context": "established_scene_short_release",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "118630",
+      "title": "Brainfreeze",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "118630",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "4478",
+          "5455"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "History of the underlying mix; the owned unofficial LP is not the original CD.",
+        "source_ids": [
+          "p3-discogs-releases-118630",
+          "p3-discogs-artists-4478",
+          "p3-discogs-artists-5455",
+          "p3-discogs-masters-115897",
+          "p3-discogs-releases-69218",
+          "p3-brainfreeze-artist"
+        ],
+        "finding_ids": [
+          "p3-context-118630"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "LP transfer and pressing provenance remain unverified; the account does not locate Shadow’s home."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_album",
+        "context_review": {
+          "initial_context": "established_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true,
+          "qualification": "Mixed unofficial LP, not an original studio album."
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "2811130",
+      "title": "-3",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "2811130",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "20",
+          "49831"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Percy X versus Blood Sugar; the white label has no printed detail, so track equivalence must be checked.",
+        "source_ids": [
+          "p3-discogs-releases-2811130",
+          "p3-discogs-artists-20",
+          "p3-discogs-artists-49831",
+          "p3-discogs-masters-37370",
+          "p3-discogs-releases-11512",
+          "p3-bloodsugar-archive"
+        ],
+        "finding_ids": [
+          "p3-context-2811130"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Do not substitute Jagz Kooner from another Weatherall project; Made in Scotland is a manufacturing statement."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "underground_network",
+        "context_review": {
+          "initial_context": "underground_network",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "453412",
+      "title": "Elephant",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "needs_followup",
+      "meaningful_context": false,
+      "review": {
+        "release_id": "453412",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "314586"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Credits identify Massimo Armeli, Alessandro Galloni, Enzo D’Ambrosio and Nico DJ; version names include Afrika and Burundy People.",
+        "source_ids": [
+          "p3-discogs-releases-453412",
+          "p3-discogs-artists-314586"
+        ],
+        "finding_ids": [],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "No directly documented scene/session context found beyond credits. Version names do not establish African origins or a Burundi recording."
+        ],
+        "decision": "needs_followup",
+        "stop_reason": "No directly documented scene/session context found beyond credits. Version names do not establish African origins or a Burundi recording.",
+        "all_facts_known": false,
+        "research_context": "obscure_or_ambiguous",
+        "context_review": {
+          "initial_context": "obscure_or_ambiguous",
+          "documentation": "below_context_threshold",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "official",
+        "archive"
+      ],
+      "open_questions": [
+        "No directly documented scene/session context found beyond credits. Version names do not establish African origins or a Burundi recording."
+      ]
+    },
+    {
+      "release_id": "11005652",
+      "title": "White Lines / Scorpio",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "11005652",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "20593",
+          "20590"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "White Lines repertoire context applies to side A only; stage billing does not prove Flash performed on that recording.",
+        "source_ids": [
+          "p3-discogs-releases-11005652",
+          "p3-discogs-artists-20593",
+          "p3-discogs-artists-20590",
+          "p3-discogs-masters-232054",
+          "p3-discogs-releases-125360",
+          "p3-mellemel-interview"
+        ],
+        "finding_ids": [
+          "p3-context-11005652"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Do not transfer the Liquid Liquid relationship to Scorpio or infer performance participation from composite artist names."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_scene_short_release",
+        "context_review": {
+          "initial_context": "established_scene_short_release",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "61693",
+      "title": "Heroes",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "61693",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "124108"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Bristol/Reprazent artist context; this owned promo contains Roni Size Live Mix, Album Version and Basement Jaxx Remix. The representative CD’s Origin Unknown mix and Electricks are absent.",
+        "source_ids": [
+          "p3-discogs-releases-61693",
+          "p3-discogs-artists-124108",
+          "p3-discogs-masters-89627",
+          "p3-discogs-releases-40362",
+          "p3-reprazent-skiddle"
+        ],
+        "finding_ids": [
+          "p3-context-61693"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "The representative CD’s Basement Jaxx/Origin Unknown programme cannot automatically describe the promo plates."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_scene_short_release",
+        "context_review": {
+          "initial_context": "established_scene_short_release",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "1027491",
+      "title": "Etudes Australes For Piano",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "1027491",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "26955"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Composition and pianist, with owned LP book scope checked against the complete Wergo issue.",
+        "source_ids": [
+          "p3-discogs-releases-1027491",
+          "p3-discogs-artists-26955",
+          "p3-discogs-masters-124492",
+          "p3-cage-label"
+        ],
+        "finding_ids": [
+          "p3-context-1027491"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Australia supplies the star-chart reference, not an inferred recording location; original LP sessions remain unverified."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_album",
+        "context_review": {
+          "initial_context": "established_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "18497",
+      "title": "Me Myself And I",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "18497",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "4091"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Single repertoire and artist context; the representative US single has extra material absent from this EU edition.",
+        "source_ids": [
+          "p3-discogs-releases-18497",
+          "p3-discogs-artists-4091",
+          "p3-discogs-masters-19554",
+          "p3-discogs-releases-353297",
+          "p3-delasoul-archive",
+          "p3-clinton-delainterview"
+        ],
+        "finding_ids": [
+          "p3-context-18497"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Do not transfer US parallel-groove or extra-track details to this owned pressing."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_scene_short_release",
+        "context_review": {
+          "initial_context": "established_scene_short_release",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "7568442",
+      "title": "To Pimp A Butterfly",
+      "copy_count": 1,
+      "claim_ids": [
+        "research-c2445395bbc2"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "7568442",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "1778977"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Album context and Wesley’s Theory contributors; inspiration is distinct from recording location.",
+        "source_ids": [
+          "p3-discogs-releases-7568442",
+          "p3-discogs-artists-1778977",
+          "p3-discogs-masters-810214",
+          "p3-discogs-releases-6781286",
+          "p3-kendrick-oral",
+          "p2-kendrick"
+        ],
+        "finding_ids": [
+          "p3-context-7568442"
+        ],
+        "meaningful_claim_ids": [
+          "research-c2445395bbc2"
+        ],
+        "reused_claim_ids": [
+          "research-c2445395bbc2"
+        ],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "The gatefold has documented Momma/Hood Politics credit transpositions; no exact studio city is inferred."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_album",
+        "context_review": {
+          "initial_context": "established_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "13724942",
+      "title": "A Taste Of Chocolate: The Very Best Of Gary Davis",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-6d483afb0c62"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "13724942",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "263108"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "The Chocolate Star producer, not the blues guitarist Reverend Gary Davis; anthology spans earlier recordings.",
+        "source_ids": [
+          "p3-discogs-releases-13724942",
+          "p3-discogs-artists-263108",
+          "p3-discogs-masters-191104",
+          "p3-discogs-releases-1191704",
+          "p3-gary"
+        ],
+        "finding_ids": [
+          "p3-context-13724942"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-6d483afb0c62"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Compilation-wide recording city is not established; artist history cannot date or locate every track."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "less_documented_album",
+        "context_review": {
+          "initial_context": "less_documented_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "19316317",
+      "title": "Sputters",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "19316317",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "4813419",
+          "1158290"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Album production and guest E-GZR; LNS Calgary description is not silently reconciled with the Vancouver Discogs profile.",
+        "source_ids": [
+          "p3-discogs-releases-19316317",
+          "p3-discogs-artists-4813419",
+          "p3-discogs-artists-1158290",
+          "p3-discogs-masters-2193205",
+          "p3-sputters"
+        ],
+        "finding_ids": [
+          "p3-context-19316317"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Recording between 2017–20 is documented; studio city is not. Tresor’s Berlin address is not session evidence."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "less_documented_album",
+        "context_review": {
+          "initial_context": "less_documented_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true,
+          "qualification": "Strong label-authored production account despite initial less-documented route."
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "14460113",
+      "title": "Free Rythms Dance",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "needs_followup",
+      "meaningful_context": false,
+      "review": {
+        "release_id": "14460113",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "1629592"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "The association documents a Paris improvisation laboratory, but its founders are not a sufficient match for the LP’s credited ensemble.",
+        "source_ids": [
+          "p3-discogs-releases-14460113",
+          "p3-discogs-artists-1629592",
+          "p3-discogs-masters-456419",
+          "p3-discogs-releases-7337170",
+          "p3-freedance"
+        ],
+        "finding_ids": [],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Need a sleeve or archive link between Annick Nozati/Christiane de Rougemont’s association and this specific instrumental ensemble before placing the record in Paris."
+        ],
+        "decision": "needs_followup",
+        "stop_reason": "Need a sleeve or archive link between Annick Nozati/Christiane de Rougemont’s association and this specific instrumental ensemble before placing the record in Paris.",
+        "all_facts_known": false,
+        "research_context": "less_documented_album",
+        "context_review": {
+          "initial_context": "less_documented_album",
+          "documentation": "below_context_threshold",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "archive"
+      ],
+      "open_questions": [
+        "Need a sleeve or archive link between Annick Nozati/Christiane de Rougemont’s association and this specific instrumental ensemble before placing the record in Paris."
+      ]
+    },
+    {
+      "release_id": "11705722",
+      "title": "Let's Dance With Cynthia / Once Again",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "11705722",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "1900915"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Selected historical repertoire, not the separate Rush Hour Cyntia/Astaria split or all music by an artist called Cynthia.",
+        "source_ids": [
+          "p3-discogs-releases-11705722",
+          "p3-discogs-artists-1900915",
+          "p3-cynthia-archive",
+          "p3-cynthia"
+        ],
+        "finding_ids": [
+          "p3-context-11705722"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Paramaribo is a profile/birth association; no specific studio evidence. Conflicting childhood-age arithmetic in Discogs is not propagated."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "obscure_or_ambiguous",
+        "context_review": {
+          "initial_context": "obscure_or_ambiguous",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "reviewed"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [],
+      "open_questions": []
+    },
+    {
+      "release_id": "2045030",
+      "title": "What Planet Is This?",
+      "copy_count": 1,
+      "claim_ids": [
+        "p3-geo-dee18385ee74"
+      ],
+      "evidence_status": "documented",
+      "research_status": "complete_with_limits",
+      "meaningful_context": true,
+      "review": {
+        "release_id": "2045030",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "2219395"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Selected and reordered material from the 1973 performance, not the entire two-CD programme.",
+        "source_ids": [
+          "p3-discogs-releases-2045030",
+          "p3-discogs-artists-2219395",
+          "p3-discogs-masters-414231",
+          "p3-discogs-releases-3230838",
+          "p3-sunra-planet"
+        ],
+        "finding_ids": [
+          "p3-context-2045030"
+        ],
+        "meaningful_claim_ids": [
+          "p3-geo-dee18385ee74"
+        ],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "Track order and edited selection differ; no claim of identical LP/CD programme or transfer chain."
+        ],
+        "decision": "complete_with_limits",
+        "stop_reason": "Stop at directly supported musical context with the stated version and identity limits; reopen on evidence addressing this specific gap.",
+        "all_facts_known": false,
+        "research_context": "established_album",
+        "context_review": {
+          "initial_context": "established_album",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        }
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "reviewed"
+        ]
+      },
+      "gaps": [
+        "official"
+      ],
+      "open_questions": []
+    },
+    {
+      "release_id": "680278",
+      "title": "This Time EP Sampler",
+      "copy_count": 1,
+      "claim_ids": [],
+      "evidence_status": "not_yet_documented",
+      "research_status": "needs_followup",
+      "meaningful_context": false,
+      "review": {
+        "release_id": "680278",
+        "batch_id": "research-batch-03",
+        "method_version": "0.3",
+        "checked_at": "2026-11-09T09:50:12.014991+00:00",
+        "artist_ids": [
+          "1403"
+        ],
+        "identity_basis": "Exact release, artist IDs, roles and version scope checked; representative master edition is not presumed original.",
+        "scope_review": "Only owned sampler tracks count as contained music; parent-release history does not mean the Carl Craig mix is on this plate.",
+        "source_ids": [
+          "p3-discogs-releases-680278",
+          "p3-discogs-artists-1403",
+          "p3-discogs-masters-177951",
+          "p3-discogs-releases-30564"
+        ],
+        "meaningful_claim_ids": [],
+        "reused_claim_ids": [],
+        "reused_thread_ids": [],
+        "reused_evidence": [],
+        "limits": [
+          "No recording location verified; producer biographies do not resolve mix-specific credits automatically."
+        ],
+        "decision": "needs_followup",
+        "stop_reason": "Version and identity checks completed, but this pass has not established a new meaningful musical context beyond the existing map or credited roles. No recording location verified; producer biographies do not resolve mix-specific credits automatically.",
+        "all_facts_known": false,
+        "research_context": "underground_network",
+        "context_review": {
+          "initial_context": "underground_network",
+          "documentation": "useful_context_found",
+          "classification_remains_provisional": true
+        },
+        "scope_finding_ids": [
+          "p3-context-680278"
+        ],
+        "finding_ids": []
+      },
+      "stages": {
+        "discogs": [
+          "reviewed"
+        ],
+        "official": [
+          "unavailable"
+        ],
+        "archive": [
+          "unavailable"
+        ]
+      },
+      "gaps": [
+        "official",
+        "archive"
+      ],
+      "open_questions": [
+        "Version and identity checks completed, but this pass has not established a new meaningful musical context beyond the existing map or credited roles. No recording location verified; producer biographies do not resolve mix-specific credits automatically."
+      ]
+    }
+  ]
+}

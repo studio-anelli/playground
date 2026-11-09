@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "measurement": "Partial directly timestamped wall-clock windows, not reconstructed human effort.",
+  "limitations": [
+    "Network/tool latency is included. The final cross-context interval also includes implementation, so it must not be treated as pure review cost.",
+    "Some follow-up reads fell outside timed windows; elapsed intervals are not total review time.",
+    "Prior batch did not instrument equivalent windows. No speedup or cost-per-record comparison is supported."
+  ],
+  "intervals": [
+    {
+      "context": "established_album",
+      "started_at": "2026-11-09T09:33:47.667586+00:00",
+      "activity": "Source reading and adjudication; includes source/tool latency; excludes the preceding selection and implementation work.",
+      "ended_at": "2026-11-09T09:35:33.924395+00:00",
+      "pause_reason": "First source pass complete; owned-edition collector still running. Further adjudication will be timed separately."
+    },
+    {
+      "context": "less_documented_album",
+      "started_at": "2026-11-09T09:35:33.924395+00:00",
+      "activity": "Source reading and case review, including tool latency.",
+      "ended_at": "2026-11-09T09:41:02.177672+00:00",
+      "pause_reason": "First source reading pass complete; continuing with short-release routes."
+    },
+    {
+      "context": "established_scene_short_release",
+      "started_at": "2026-11-09T09:41:02.177672+00:00",
+      "activity": "Source reading and adjudication including tool latency.",
+      "ended_at": "2026-11-09T09:41:59.878406+00:00",
+      "pause_reason": "Initial source pass complete; separating underground network checks."
+    },
+    {
+      "context": "underground_network",
+      "started_at": "2026-11-09T09:41:59.878406+00:00",
+      "activity": "Source reading and adjudication including tool latency.",
+      "ended_at": "2026-11-09T09:42:18.290941+00:00",
+      "pause_reason": "First underground source pass complete; ambiguous-release source checks begin."
+    },
+    {
+      "context": "obscure_or_ambiguous",
+      "started_at": "2026-11-09T09:42:18.290941+00:00",
+      "activity": "Source reading and adjudication including tool latency.",
+      "ended_at": "2026-11-09T09:44:51.370126+00:00",
+      "pause_reason": "Pause source review for implementation. Final adjudication will have separate timed intervals."
+    },
+    {
+      "context": "cross_context_adjudication",
+      "started_at": "2026-11-09T09:46:07.254266+00:00",
+      "activity": "Final source and identity adjudication across the frozen cohort; includes tool latency. Initial uninstrumented follow-up reads after the pause are excluded; these intervals are partial, not total review time.",
+      "ended_at": "2026-11-09T09:54:17.451300+00:00",
+      "pause_reason": "Curation complete; implementation and verification continue separately. This cross-context window also contains display implementation and cannot estimate pure review minutes."
+    }
+  ]
+}
