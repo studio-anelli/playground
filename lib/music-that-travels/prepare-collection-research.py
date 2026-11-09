@@ -39,5 +39,26 @@ for x in mb['records']:
  if not point:skipped.append({'artist':aid,'reason':'area_needs_geographic_review','area':label});continue
  precision=anchor['precision'] if anchor else ('region' if name in region else 'country')
  claims.setdefault(aid,[]).append({'kind':'artist','relation':'MusicBrainz artist associated area','subject':x['name'],'label':label,'lon':point[0],'lat':point[1],'precision':precision,'source':x['source'],'identity_source':x['wikidata'].replace('http:','https:').replace('/entity/','/wiki/')+'#P1953','evidence_property':'MusicBrainz Artist Area','note':'An exact identity-linked associated-area field, sometimes accompanied by a wider geographic hierarchy. It is not a recording place, birthplace, artist formation place, or a statement about location at release date.'})
+# Stable historical provenance: a refresh of the identity-linked source exporter
+# must not silently rename or rewrite an already accepted fact. The thread ID
+# and the regression fingerprint depend on relation/subject/source and the full
+# original record, respectively. Only inherit exact artist, property, source,
+# location and precision matches; a genuinely new fact remains a new claim.
+previous=(r/'source/collection-research.json')
+if previous.exists():
+ prior=json.loads(previous.read_text()).get('artists',{})
+ for aid,rows in claims.items():
+  historical=prior.get(aid,[])
+  for i,fact in enumerate(rows):
+   match=next((p for p in historical
+     if p.get('source')==fact.get('source')
+     and p.get('evidence_property')==fact.get('evidence_property')
+     and p.get('label')==fact.get('label')
+     and p.get('precision')==fact.get('precision')
+     and p.get('subject')==fact.get('subject')
+     and p.get('lon')==fact.get('lon')
+     and p.get('lat')==fact.get('lat')),None)
+   if match is not None:
+    rows[i]=match
 report={'artist_ids_checked':len(wd['requested_artist_ids']),'identity_matches':len(grouped),'ambiguous_artist_ids':ambiguous,'musicbrainz_pages_checked':len(mb['records']),'accepted_artists':len(claims),'accepted_threads':sum(map(len,claims.values())),'skipped':skipped,'failed_batches':len(wd['failed_batches'])}
 (r/'source/collection-research.json').write_text(json.dumps({'schema_version':1,'criteria':'Exact external IDs; typed source properties; no birthplaces, citizenship, artist-name fuzzy matches or genre-based place inference. Region precision is retained unless the source entity is clearly city/country.','artists':claims,'matched_artist_ids':list(grouped),'report':report},ensure_ascii=False,indent=2)+'\n');print(json.dumps(report))
