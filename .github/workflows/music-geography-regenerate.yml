@@ -10,6 +10,12 @@ on:
       - 'lib/music-that-travels/source/geography-completion-review-register.json'
       - 'lib/music-that-travels/tests/geography-completion.mjs'
       - '.github/workflows/music-geography-regenerate.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'lib/music-that-travels/**'
+      - '.github/workflows/music-geography-regenerate.yml'
   workflow_dispatch:
 
 permissions:
@@ -22,6 +28,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: true
+          ref: ${{ github.head_ref || github.ref_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
