@@ -355,6 +355,19 @@
         "note": "Resident Advisor identifies Patrick van Kerckhoven by artist alias, Netherlands location, and his role in founding the artcore sound; no unsupported city inferred."
       }
     ],
+    "15301": [
+      {
+        "kind": "artist",
+        "subject": "Mathematics (drum-and-bass producer)",
+        "relation": "Drum-and-bass producer associated with",
+        "label": "New York City",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "precision": "city",
+        "source": "https://musicbase.net/mathematics",
+        "note": "Artist discography identifies exact Funhouse / Brass Knuckles among same drum-and-bass artist's output and identifies New York City as location. This is an artist base, not proof of recorded studio; distinct from Wu-Tang producer Mathematics."
+      }
+    ],
     "16483": [
       {
         "kind": "artist",
@@ -881,6 +894,19 @@
         "precision": "city",
         "source": "https://ra.co/dj/sanproper/biography",
         "note": "Resident Advisor documents San Proper's sustained Amsterdam scene involvement, Rush Hour and Dekmantel releases. Artist association only; not a studio for either owned record."
+      }
+    ],
+    "831479": [
+      {
+        "kind": "artist",
+        "subject": "Gold In The Shade / Robert Roper, Arletta Davis and Sonia Johnson",
+        "relation": "Street-soul group and DIY production scene developed in",
+        "label": "North West London",
+        "lon": -0.205,
+        "lat": 51.56,
+        "precision": "region",
+        "source": "https://heelsandsouls.bandcamp.com/album/over-you-shining-through-hsrec004",
+        "note": "Licensing label identifies original 1990–91 recordings, performers and Robert Roper's production work as North West London DIY street soul. This is formative scene, not a confirmed specific studio for Over You."
       }
     ],
     "846548": [
