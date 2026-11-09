@@ -20,6 +20,7 @@
     24685,
     24896,
     27538,
+    30001,
     31300,
     32063,
     33967,
@@ -60,6 +61,7 @@
     135052,
     141705,
     146035,
+    152824,
     153782,
     154166,
     154670,
@@ -71,6 +73,7 @@
     193558,
     194086,
     197500,
+    200739,
     201238,
     205746,
     205935,
@@ -79,7 +82,10 @@
     208813,
     212060,
     239890,
+    246845,
+    250924,
     252518,
+    254916,
     302197,
     309825,
     322096,
@@ -156,6 +162,7 @@
     1607739,
     1614712,
     1619565,
+    1621146,
     1697742,
     1704802,
     1772452,
@@ -225,10 +232,13 @@
     6141873,
     6213392,
     6245802,
+    6419810,
     6554726,
     6715051,
+    6785873,
     6912363,
     7269434,
+    7367418,
     7454586,
     7516023,
     7548627,
@@ -245,6 +255,7 @@
     8121481,
     8124474,
     8137189,
+    8188592,
     8205159,
     8227117,
     8268802,
@@ -287,6 +298,7 @@
     9992673,
     10179708,
     10346704,
+    10377344,
     10395690,
     10496968,
     10505637,
@@ -304,9 +316,11 @@
     11019692,
     11047607,
     11065335,
+    11072824,
     11112454,
     11134399,
     11209038,
+    11265395,
     11298561,
     11373857,
     11393080,
@@ -329,6 +343,7 @@
     11819264,
     11826621,
     11854219,
+    11873515,
     11888376,
     12083950,
     12097296,
@@ -386,6 +401,7 @@
     14480820,
     14488444,
     14516902,
+    14689821,
     14791220,
     14837376,
     14877491,
@@ -399,6 +415,7 @@
     15729017,
     16086639,
     16125100,
+    16222272,
     16279297,
     16406805,
     16691670,
@@ -414,12 +431,14 @@
     19316317,
     19561852,
     20152732,
+    20311276,
     20431393,
     20923105,
     21016180,
     21087580,
     21461563,
     21926020,
+    21945322,
     21993661,
     22309528,
     22988753,
@@ -444,8 +463,8 @@
     30307487,
     30831717
   ],
-  "distinct_editions": 441,
-  "copy_count": 443,
+  "distinct_editions": 460,
+  "copy_count": 462,
   "collection_entries": 610,
   "records": {
     "7548627": {
@@ -7005,11 +7024,13 @@
       "lon": 5.2913,
       "lat": 52.1326,
       "precision": "country",
-      "source": "https://clone.nl/instock/label/4lux",
-      "note": "Clone record-store credits for the exact Machine Shop Naked Lunch attribute all five tracks to producer Gerd; RA identifies Gerd/Gert-Jan Bijl as Netherlands-based. Country-level producer association, not 4Lux label address or recording studio.",
+      "source": "https://www.newtone-records.com/label/4%2BLux",
+      "note": "The specialist label discography explicitly identifies Machine Shop's exact Naked Lunch as a project of 4Lux founder Gerd. Resident Advisor separately places Gerd in the Netherlands. The artist alias-to-person and national musical base therefore require BOTH cited sources; neither the Rotterdam label office nor a recording studio is inferred.",
+      "identity_source": "https://www.newtone-records.com/label/4%2BLux",
+      "location_source": "https://ra.co/dj/gerd",
       "city": "Netherlands",
       "studio": "House and downtempo project associated with",
-      "id": "thread-5df523f4ad0d",
+      "id": "thread-e8f5e9ea056b",
       "threads": [
         {
           "kind": "artist",
@@ -7019,14 +7040,16 @@
           "lon": 5.2913,
           "lat": 52.1326,
           "precision": "country",
-          "source": "https://clone.nl/instock/label/4lux",
-          "note": "Clone record-store credits for the exact Machine Shop Naked Lunch attribute all five tracks to producer Gerd; RA identifies Gerd/Gert-Jan Bijl as Netherlands-based. Country-level producer association, not 4Lux label address or recording studio.",
+          "source": "https://www.newtone-records.com/label/4%2BLux",
+          "note": "The specialist label discography explicitly identifies Machine Shop's exact Naked Lunch as a project of 4Lux founder Gerd. Resident Advisor separately places Gerd in the Netherlands. The artist alias-to-person and national musical base therefore require BOTH cited sources; neither the Rotterdam label office nor a recording studio is inferred.",
+          "identity_source": "https://www.newtone-records.com/label/4%2BLux",
+          "location_source": "https://ra.co/dj/gerd",
           "city": "Netherlands",
           "studio": "House and downtempo project associated with",
-          "id": "thread-5df523f4ad0d"
+          "id": "thread-e8f5e9ea056b"
         }
       ],
-      "primary_thread_id": "thread-5df523f4ad0d",
+      "primary_thread_id": "thread-e8f5e9ea056b",
       "locations": [
         {
           "kind": "artist",
@@ -7036,11 +7059,13 @@
           "lon": 5.2913,
           "lat": 52.1326,
           "precision": "country",
-          "source": "https://clone.nl/instock/label/4lux",
-          "note": "Clone record-store credits for the exact Machine Shop Naked Lunch attribute all five tracks to producer Gerd; RA identifies Gerd/Gert-Jan Bijl as Netherlands-based. Country-level producer association, not 4Lux label address or recording studio.",
+          "source": "https://www.newtone-records.com/label/4%2BLux",
+          "note": "The specialist label discography explicitly identifies Machine Shop's exact Naked Lunch as a project of 4Lux founder Gerd. Resident Advisor separately places Gerd in the Netherlands. The artist alias-to-person and national musical base therefore require BOTH cited sources; neither the Rotterdam label office nor a recording studio is inferred.",
+          "identity_source": "https://www.newtone-records.com/label/4%2BLux",
+          "location_source": "https://ra.co/dj/gerd",
           "city": "Netherlands",
           "studio": "House and downtempo project associated with",
-          "id": "thread-5df523f4ad0d"
+          "id": "thread-e8f5e9ea056b"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -9486,48 +9511,48 @@
     },
     "162975": {
       "kind": "artist",
-      "relation": "House production and DJ career established in",
+      "relation": "House producer active in",
       "subject": "DJ Kent",
-      "label": "Johannesburg",
-      "lon": 28.0473,
-      "lat": -26.2041,
-      "precision": "city",
+      "label": "South Africa",
+      "lon": 22.9375,
+      "lat": -30.5595,
+      "precision": "country",
       "source": "https://www.afrisson.com/in-the-bush/",
-      "note": "Afrisson identifies Khensani Mabaso as DJ Kent and the exact In The Bush 2003 release. Independent DJ profile locates his house career in Johannesburg; not a specific recording address.",
-      "city": "Johannesburg",
-      "studio": "House production and DJ career established in",
-      "id": "thread-a5fe0f51a05d",
+      "note": "Afrisson documents the exact In The Bush release and identifies DJ Kent as South African, from Pimville, Soweto. Place of birth alone does not prove musical formation or recording in Johannesburg. The source establishes South African house work, so the geographic association is retained at country precision; the recording site is unknown.",
+      "city": "South Africa",
+      "studio": "House producer active in",
+      "id": "thread-9aae6a290926",
       "threads": [
         {
           "kind": "artist",
-          "relation": "House production and DJ career established in",
+          "relation": "House producer active in",
           "subject": "DJ Kent",
-          "label": "Johannesburg",
-          "lon": 28.0473,
-          "lat": -26.2041,
-          "precision": "city",
+          "label": "South Africa",
+          "lon": 22.9375,
+          "lat": -30.5595,
+          "precision": "country",
           "source": "https://www.afrisson.com/in-the-bush/",
-          "note": "Afrisson identifies Khensani Mabaso as DJ Kent and the exact In The Bush 2003 release. Independent DJ profile locates his house career in Johannesburg; not a specific recording address.",
-          "city": "Johannesburg",
-          "studio": "House production and DJ career established in",
-          "id": "thread-a5fe0f51a05d"
+          "note": "Afrisson documents the exact In The Bush release and identifies DJ Kent as South African, from Pimville, Soweto. Place of birth alone does not prove musical formation or recording in Johannesburg. The source establishes South African house work, so the geographic association is retained at country precision; the recording site is unknown.",
+          "city": "South Africa",
+          "studio": "House producer active in",
+          "id": "thread-9aae6a290926"
         }
       ],
-      "primary_thread_id": "thread-a5fe0f51a05d",
+      "primary_thread_id": "thread-9aae6a290926",
       "locations": [
         {
           "kind": "artist",
-          "relation": "House production and DJ career established in",
+          "relation": "House producer active in",
           "subject": "DJ Kent",
-          "label": "Johannesburg",
-          "lon": 28.0473,
-          "lat": -26.2041,
-          "precision": "city",
+          "label": "South Africa",
+          "lon": 22.9375,
+          "lat": -30.5595,
+          "precision": "country",
           "source": "https://www.afrisson.com/in-the-bush/",
-          "note": "Afrisson identifies Khensani Mabaso as DJ Kent and the exact In The Bush 2003 release. Independent DJ profile locates his house career in Johannesburg; not a specific recording address.",
-          "city": "Johannesburg",
-          "studio": "House production and DJ career established in",
-          "id": "thread-a5fe0f51a05d"
+          "note": "Afrisson documents the exact In The Bush release and identifies DJ Kent as South African, from Pimville, Soweto. Place of birth alone does not prove musical formation or recording in Johannesburg. The source establishes South African house work, so the geographic association is retained at country precision; the recording site is unknown.",
+          "city": "South Africa",
+          "studio": "House producer active in",
+          "id": "thread-9aae6a290926"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -11954,48 +11979,51 @@
     },
     "10505637": {
       "kind": "artist",
-      "relation": "Electronic music and performance-art practice in",
+      "relation": "Early music and performance career associated with",
       "subject": "Tobias Bernstrup",
       "label": "Stockholm",
       "lon": 18.0686,
       "lat": 59.3293,
       "precision": "city",
-      "source": "https://www.bernstrup.com/pagecv",
-      "note": "Artist CV documents fine-art training in Stockholm and musical live-performance/CD presentations there. Stockholm is a documented part of artistic formation, not the location of the recording 27.",
+      "source": "https://fargfabriken.se/en/pa-gang/tobias-bernstrup/",
+      "note": "The Stockholm art institution's 2002 release announcement documents Bernstrup's own musical compositions/performance since 1997 and his work in Stockholm before moving to Berlin in 2000. Swedish music interview also confirms his later return to Stockholm. The Stockholm connection is historical music/performance practice, not proof that the 27 EP was recorded there.",
+      "location_source": "https://hymn.se/2021/11/23/tobias-bernstrup-jag-tanker-alltid-visuellt-kring-musik/",
       "city": "Stockholm",
-      "studio": "Electronic music and performance-art practice in",
-      "id": "thread-407966a52b42",
+      "studio": "Early music and performance career associated with",
+      "id": "thread-06032cc02c0b",
       "threads": [
         {
           "kind": "artist",
-          "relation": "Electronic music and performance-art practice in",
+          "relation": "Early music and performance career associated with",
           "subject": "Tobias Bernstrup",
           "label": "Stockholm",
           "lon": 18.0686,
           "lat": 59.3293,
           "precision": "city",
-          "source": "https://www.bernstrup.com/pagecv",
-          "note": "Artist CV documents fine-art training in Stockholm and musical live-performance/CD presentations there. Stockholm is a documented part of artistic formation, not the location of the recording 27.",
+          "source": "https://fargfabriken.se/en/pa-gang/tobias-bernstrup/",
+          "note": "The Stockholm art institution's 2002 release announcement documents Bernstrup's own musical compositions/performance since 1997 and his work in Stockholm before moving to Berlin in 2000. Swedish music interview also confirms his later return to Stockholm. The Stockholm connection is historical music/performance practice, not proof that the 27 EP was recorded there.",
+          "location_source": "https://hymn.se/2021/11/23/tobias-bernstrup-jag-tanker-alltid-visuellt-kring-musik/",
           "city": "Stockholm",
-          "studio": "Electronic music and performance-art practice in",
-          "id": "thread-407966a52b42"
+          "studio": "Early music and performance career associated with",
+          "id": "thread-06032cc02c0b"
         }
       ],
-      "primary_thread_id": "thread-407966a52b42",
+      "primary_thread_id": "thread-06032cc02c0b",
       "locations": [
         {
           "kind": "artist",
-          "relation": "Electronic music and performance-art practice in",
+          "relation": "Early music and performance career associated with",
           "subject": "Tobias Bernstrup",
           "label": "Stockholm",
           "lon": 18.0686,
           "lat": 59.3293,
           "precision": "city",
-          "source": "https://www.bernstrup.com/pagecv",
-          "note": "Artist CV documents fine-art training in Stockholm and musical live-performance/CD presentations there. Stockholm is a documented part of artistic formation, not the location of the recording 27.",
+          "source": "https://fargfabriken.se/en/pa-gang/tobias-bernstrup/",
+          "note": "The Stockholm art institution's 2002 release announcement documents Bernstrup's own musical compositions/performance since 1997 and his work in Stockholm before moving to Berlin in 2000. Swedish music interview also confirms his later return to Stockholm. The Stockholm connection is historical music/performance practice, not proof that the 27 EP was recorded there.",
+          "location_source": "https://hymn.se/2021/11/23/tobias-bernstrup-jag-tanker-alltid-visuellt-kring-musik/",
           "city": "Stockholm",
-          "studio": "Electronic music and performance-art practice in",
-          "id": "thread-407966a52b42"
+          "studio": "Early music and performance career associated with",
+          "id": "thread-06032cc02c0b"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -13857,6 +13885,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "10377344": {
+      "kind": "artist",
+      "relation": "Experimental turntable work and Durian Brothers practice developed in",
+      "subject": "Don't DJ / Florian Meyer",
+      "label": "Düsseldorf",
+      "lon": 6.7735,
+      "lat": 51.2277,
+      "precision": "city",
+      "source": "https://emotional-response.bandcamp.com/album/ausgewahtle-durian-stucke",
+      "identity_source": "https://ra.co/dj/dontdj",
+      "note": "First-party label's Durian Brothers retrospective names Florian Meyer as Don't DJ and documents their development and rehearsals at Düsseldorf's Salon des Amateurs; RA confirms artist identity. This is the artist's documented formative musical context, not a claim that Hyperspace Is The Place was recorded there.",
+      "city": "Düsseldorf",
+      "studio": "Experimental turntable work and Durian Brothers practice developed in",
+      "id": "thread-49c0c03a0324",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Experimental turntable work and Durian Brothers practice developed in",
+          "subject": "Don't DJ / Florian Meyer",
+          "label": "Düsseldorf",
+          "lon": 6.7735,
+          "lat": 51.2277,
+          "precision": "city",
+          "source": "https://emotional-response.bandcamp.com/album/ausgewahtle-durian-stucke",
+          "identity_source": "https://ra.co/dj/dontdj",
+          "note": "First-party label's Durian Brothers retrospective names Florian Meyer as Don't DJ and documents their development and rehearsals at Düsseldorf's Salon des Amateurs; RA confirms artist identity. This is the artist's documented formative musical context, not a claim that Hyperspace Is The Place was recorded there.",
+          "city": "Düsseldorf",
+          "studio": "Experimental turntable work and Durian Brothers practice developed in",
+          "id": "thread-49c0c03a0324"
+        }
+      ],
+      "primary_thread_id": "thread-49c0c03a0324",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Experimental turntable work and Durian Brothers practice developed in",
+          "subject": "Don't DJ / Florian Meyer",
+          "label": "Düsseldorf",
+          "lon": 6.7735,
+          "lat": 51.2277,
+          "precision": "city",
+          "source": "https://emotional-response.bandcamp.com/album/ausgewahtle-durian-stucke",
+          "identity_source": "https://ra.co/dj/dontdj",
+          "note": "First-party label's Durian Brothers retrospective names Florian Meyer as Don't DJ and documents their development and rehearsals at Düsseldorf's Salon des Amateurs; RA confirms artist identity. This is the artist's documented formative musical context, not a claim that Hyperspace Is The Place was recorded there.",
+          "city": "Düsseldorf",
+          "studio": "Experimental turntable work and Durian Brothers practice developed in",
+          "id": "thread-49c0c03a0324"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "9025846": {
       "kind": "artist",
       "relation": "Experimental electronics developed in",
@@ -14491,6 +14571,61 @@
           "city": "Detroit",
           "studio": "Production training and underground house scene in",
           "id": "thread-e35677ea1bbf"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "200739": {
+      "kind": "artist",
+      "subject": "L Double / Lee Johnson",
+      "relation": "Early jungle DJ and producer scene in",
+      "label": "Huddersfield",
+      "lon": -1.7833,
+      "lat": 53.6458,
+      "precision": "city",
+      "source": "https://www.generatormagazine.com/95_09s.pdf",
+      "note": "DNBHQ identifies L Double as Lee Johnson and indexes Music for the 90's; a contemporary 1995 jungle directory calls the same producer Huddersfield-based. Formation/work location, not studio. Both identity and geographic source are required.",
+      "identity_source": "https://www.dnbhq.com/artist/7731",
+      "location_source": "https://www.generatormagazine.com/95_09s.pdf",
+      "city": "Huddersfield",
+      "studio": "Early jungle DJ and producer scene in",
+      "id": "thread-2301db9fbe3e",
+      "threads": [
+        {
+          "kind": "artist",
+          "subject": "L Double / Lee Johnson",
+          "relation": "Early jungle DJ and producer scene in",
+          "label": "Huddersfield",
+          "lon": -1.7833,
+          "lat": 53.6458,
+          "precision": "city",
+          "source": "https://www.generatormagazine.com/95_09s.pdf",
+          "note": "DNBHQ identifies L Double as Lee Johnson and indexes Music for the 90's; a contemporary 1995 jungle directory calls the same producer Huddersfield-based. Formation/work location, not studio. Both identity and geographic source are required.",
+          "identity_source": "https://www.dnbhq.com/artist/7731",
+          "location_source": "https://www.generatormagazine.com/95_09s.pdf",
+          "city": "Huddersfield",
+          "studio": "Early jungle DJ and producer scene in",
+          "id": "thread-2301db9fbe3e"
+        }
+      ],
+      "primary_thread_id": "thread-2301db9fbe3e",
+      "locations": [
+        {
+          "kind": "artist",
+          "subject": "L Double / Lee Johnson",
+          "relation": "Early jungle DJ and producer scene in",
+          "label": "Huddersfield",
+          "lon": -1.7833,
+          "lat": 53.6458,
+          "precision": "city",
+          "source": "https://www.generatormagazine.com/95_09s.pdf",
+          "note": "DNBHQ identifies L Double as Lee Johnson and indexes Music for the 90's; a contemporary 1995 jungle directory calls the same producer Huddersfield-based. Formation/work location, not studio. Both identity and geographic source are required.",
+          "identity_source": "https://www.dnbhq.com/artist/7731",
+          "location_source": "https://www.generatormagazine.com/95_09s.pdf",
+          "city": "Huddersfield",
+          "studio": "Early jungle DJ and producer scene in",
+          "id": "thread-2301db9fbe3e"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -17406,6 +17541,106 @@
         "Stephen Encinas"
       ]
     },
+    "246845": {
+      "kind": "artist",
+      "relation": "Acid-jazz and bossa nova group formed in",
+      "subject": "Soul Bossa Trio",
+      "label": "Tokyo",
+      "lon": 139.6917,
+      "lat": 35.6895,
+      "precision": "city",
+      "source": "https://www.allmusic.com/artist/soul-bossa-trio-mn0000034010",
+      "note": "AllMusic gives 1993 Tokyo formation by Gonzalez Suzuki and specifically discusses Dolphins (2003), matching the owned Dolphins / Words Of Love; Tokyo is formation geography, not its session studio.",
+      "city": "Tokyo",
+      "studio": "Acid-jazz and bossa nova group formed in",
+      "id": "thread-9c0385c2e5b9",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Acid-jazz and bossa nova group formed in",
+          "subject": "Soul Bossa Trio",
+          "label": "Tokyo",
+          "lon": 139.6917,
+          "lat": 35.6895,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/soul-bossa-trio-mn0000034010",
+          "note": "AllMusic gives 1993 Tokyo formation by Gonzalez Suzuki and specifically discusses Dolphins (2003), matching the owned Dolphins / Words Of Love; Tokyo is formation geography, not its session studio.",
+          "city": "Tokyo",
+          "studio": "Acid-jazz and bossa nova group formed in",
+          "id": "thread-9c0385c2e5b9"
+        }
+      ],
+      "primary_thread_id": "thread-9c0385c2e5b9",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Acid-jazz and bossa nova group formed in",
+          "subject": "Soul Bossa Trio",
+          "label": "Tokyo",
+          "lon": 139.6917,
+          "lat": 35.6895,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/soul-bossa-trio-mn0000034010",
+          "note": "AllMusic gives 1993 Tokyo formation by Gonzalez Suzuki and specifically discusses Dolphins (2003), matching the owned Dolphins / Words Of Love; Tokyo is formation geography, not its session studio.",
+          "city": "Tokyo",
+          "studio": "Acid-jazz and bossa nova group formed in",
+          "id": "thread-9c0385c2e5b9"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "11265395": {
+      "kind": "recording",
+      "relation": "Recorded and mixed at Alpha International Recording Studios in",
+      "subject": "Q — The Voice of Q (1982 original recording)",
+      "label": "Philadelphia",
+      "lon": -75.1652,
+      "lat": 39.9526,
+      "precision": "city",
+      "source": "https://rectangletriangle.com/products/the-voice-of-q-q-10",
+      "note": "The exact Philly World PWR-2007 record listing transcribes the original sleeve's Recorded & mixed for Greater Sound Reproduction at Alpha International Recording Studios, Inc. Philadelphia credit. This is the original recording/mix, distinct from label headquarters and mastering.",
+      "city": "Philadelphia",
+      "studio": "Recorded and mixed at Alpha International Recording Studios in",
+      "id": "thread-dd054ccc6d55",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded and mixed at Alpha International Recording Studios in",
+          "subject": "Q — The Voice of Q (1982 original recording)",
+          "label": "Philadelphia",
+          "lon": -75.1652,
+          "lat": 39.9526,
+          "precision": "city",
+          "source": "https://rectangletriangle.com/products/the-voice-of-q-q-10",
+          "note": "The exact Philly World PWR-2007 record listing transcribes the original sleeve's Recorded & mixed for Greater Sound Reproduction at Alpha International Recording Studios, Inc. Philadelphia credit. This is the original recording/mix, distinct from label headquarters and mastering.",
+          "city": "Philadelphia",
+          "studio": "Recorded and mixed at Alpha International Recording Studios in",
+          "id": "thread-dd054ccc6d55"
+        }
+      ],
+      "primary_thread_id": "thread-dd054ccc6d55",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded and mixed at Alpha International Recording Studios in",
+          "subject": "Q — The Voice of Q (1982 original recording)",
+          "label": "Philadelphia",
+          "lon": -75.1652,
+          "lat": 39.9526,
+          "precision": "city",
+          "source": "https://rectangletriangle.com/products/the-voice-of-q-q-10",
+          "note": "The exact Philly World PWR-2007 record listing transcribes the original sleeve's Recorded & mixed for Greater Sound Reproduction at Alpha International Recording Studios, Inc. Philadelphia credit. This is the original recording/mix, distinct from label headquarters and mastering.",
+          "city": "Philadelphia",
+          "studio": "Recorded and mixed at Alpha International Recording Studios in",
+          "id": "thread-dd054ccc6d55"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Q (10)"
+      ]
+    },
     "2227309": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -17975,6 +18210,55 @@
           "city": "New York City",
           "studio": "Group formed in",
           "id": "thread-83a8d4a76190"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "254916": {
+      "kind": "artist",
+      "subject": "The Dream Team / Bizzy B and Pugwash",
+      "relation": "Jungle production duo formed and active in",
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "precision": "city",
+      "source": "https://www.capicherecords.co.uk/products/records/the-dream-team-like-dat-east-coast/",
+      "note": "Specialist discography identifies exact Dream Team London jungle duo (Bizzy B and Pugwash), matching Discogs artist identity. London is group scene, not a release-specific studio.",
+      "city": "London",
+      "studio": "Jungle production duo formed and active in",
+      "id": "thread-3ff9a540ebba",
+      "threads": [
+        {
+          "kind": "artist",
+          "subject": "The Dream Team / Bizzy B and Pugwash",
+          "relation": "Jungle production duo formed and active in",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://www.capicherecords.co.uk/products/records/the-dream-team-like-dat-east-coast/",
+          "note": "Specialist discography identifies exact Dream Team London jungle duo (Bizzy B and Pugwash), matching Discogs artist identity. London is group scene, not a release-specific studio.",
+          "city": "London",
+          "studio": "Jungle production duo formed and active in",
+          "id": "thread-3ff9a540ebba"
+        }
+      ],
+      "primary_thread_id": "thread-3ff9a540ebba",
+      "locations": [
+        {
+          "kind": "artist",
+          "subject": "The Dream Team / Bizzy B and Pugwash",
+          "relation": "Jungle production duo formed and active in",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://www.capicherecords.co.uk/products/records/the-dream-team-like-dat-east-coast/",
+          "note": "Specialist discography identifies exact Dream Team London jungle duo (Bizzy B and Pugwash), matching Discogs artist identity. London is group scene, not a release-specific studio.",
+          "city": "London",
+          "studio": "Jungle production duo formed and active in",
+          "id": "thread-3ff9a540ebba"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -20172,6 +20456,55 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "14689821": {
+      "kind": "artist",
+      "subject": "First Touch",
+      "relation": "Boogie and disco production project based in",
+      "label": "Germany",
+      "lon": 10.4515,
+      "lat": 51.1657,
+      "precision": "country",
+      "source": "https://firsttouch.bandcamp.com/",
+      "note": "First-party artist Bandcamp lists Germany and exact Sofea release. No reliable narrower city or recording address was provided.",
+      "city": "Germany",
+      "studio": "Boogie and disco production project based in",
+      "id": "thread-bd3075baacb4",
+      "threads": [
+        {
+          "kind": "artist",
+          "subject": "First Touch",
+          "relation": "Boogie and disco production project based in",
+          "label": "Germany",
+          "lon": 10.4515,
+          "lat": 51.1657,
+          "precision": "country",
+          "source": "https://firsttouch.bandcamp.com/",
+          "note": "First-party artist Bandcamp lists Germany and exact Sofea release. No reliable narrower city or recording address was provided.",
+          "city": "Germany",
+          "studio": "Boogie and disco production project based in",
+          "id": "thread-bd3075baacb4"
+        }
+      ],
+      "primary_thread_id": "thread-bd3075baacb4",
+      "locations": [
+        {
+          "kind": "artist",
+          "subject": "First Touch",
+          "relation": "Boogie and disco production project based in",
+          "label": "Germany",
+          "lon": 10.4515,
+          "lat": 51.1657,
+          "precision": "country",
+          "source": "https://firsttouch.bandcamp.com/",
+          "note": "First-party artist Bandcamp lists Germany and exact Sofea release. No reliable narrower city or recording address was provided.",
+          "city": "Germany",
+          "studio": "Boogie and disco production project based in",
+          "id": "thread-bd3075baacb4"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "15268960": {
       "kind": "artist",
       "relation": "Musical training and early career in",
@@ -20994,6 +21327,55 @@
         "Marcus Intalex & ST Files"
       ]
     },
+    "8188592": {
+      "kind": "artist",
+      "subject": "Lata Ramasar",
+      "relation": "Hindustani musical tradition and early recordings in",
+      "label": "Trinidad and Tobago",
+      "lon": -61.2225,
+      "lat": 10.6918,
+      "precision": "country",
+      "source": "https://www.thevinylfactory.com/news/invisible-city-defy-bootleggers-to-give-super-rare-electronic-12-an-official-vinyl-release",
+      "note": "Vinyl Factory identifies Lata Ramasar as a Trinidad and Tobago Hindustani singer and the exact The Greatest Name That Lives record, citing the artist family's reissue; early family recordings reportedly occurred there, but this record's specific studio is not established.",
+      "city": "Trinidad and Tobago",
+      "studio": "Hindustani musical tradition and early recordings in",
+      "id": "thread-15a2a19f6243",
+      "threads": [
+        {
+          "kind": "artist",
+          "subject": "Lata Ramasar",
+          "relation": "Hindustani musical tradition and early recordings in",
+          "label": "Trinidad and Tobago",
+          "lon": -61.2225,
+          "lat": 10.6918,
+          "precision": "country",
+          "source": "https://www.thevinylfactory.com/news/invisible-city-defy-bootleggers-to-give-super-rare-electronic-12-an-official-vinyl-release",
+          "note": "Vinyl Factory identifies Lata Ramasar as a Trinidad and Tobago Hindustani singer and the exact The Greatest Name That Lives record, citing the artist family's reissue; early family recordings reportedly occurred there, but this record's specific studio is not established.",
+          "city": "Trinidad and Tobago",
+          "studio": "Hindustani musical tradition and early recordings in",
+          "id": "thread-15a2a19f6243"
+        }
+      ],
+      "primary_thread_id": "thread-15a2a19f6243",
+      "locations": [
+        {
+          "kind": "artist",
+          "subject": "Lata Ramasar",
+          "relation": "Hindustani musical tradition and early recordings in",
+          "label": "Trinidad and Tobago",
+          "lon": -61.2225,
+          "lat": 10.6918,
+          "precision": "country",
+          "source": "https://www.thevinylfactory.com/news/invisible-city-defy-bootleggers-to-give-super-rare-electronic-12-an-official-vinyl-release",
+          "note": "Vinyl Factory identifies Lata Ramasar as a Trinidad and Tobago Hindustani singer and the exact The Greatest Name That Lives record, citing the artist family's reissue; early family recordings reportedly occurred there, but this record's specific studio is not established.",
+          "city": "Trinidad and Tobago",
+          "studio": "Hindustani musical tradition and early recordings in",
+          "id": "thread-15a2a19f6243"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "919525": {
       "kind": "artist",
       "relation": "Artist associated with",
@@ -21715,6 +22097,55 @@
         "Max Eastley"
       ]
     },
+    "6785873": {
+      "kind": "artist",
+      "subject": "Makala Jazz Funk Band",
+      "relation": "Jazz-funk live group formed in",
+      "label": "Zarautz",
+      "lon": -2.169,
+      "lat": 43.284,
+      "precision": "city",
+      "source": "https://djmakala.wordpress.com/mjfb/",
+      "note": "Founder's account explicitly states Makala Jazz Funk Band comes from Zarautz, lists founding local musicians and names the 2015 Xake! debut. Group formation and scene, not an album studio assertion.",
+      "city": "Zarautz",
+      "studio": "Jazz-funk live group formed in",
+      "id": "thread-c1a7e1f5db90",
+      "threads": [
+        {
+          "kind": "artist",
+          "subject": "Makala Jazz Funk Band",
+          "relation": "Jazz-funk live group formed in",
+          "label": "Zarautz",
+          "lon": -2.169,
+          "lat": 43.284,
+          "precision": "city",
+          "source": "https://djmakala.wordpress.com/mjfb/",
+          "note": "Founder's account explicitly states Makala Jazz Funk Band comes from Zarautz, lists founding local musicians and names the 2015 Xake! debut. Group formation and scene, not an album studio assertion.",
+          "city": "Zarautz",
+          "studio": "Jazz-funk live group formed in",
+          "id": "thread-c1a7e1f5db90"
+        }
+      ],
+      "primary_thread_id": "thread-c1a7e1f5db90",
+      "locations": [
+        {
+          "kind": "artist",
+          "subject": "Makala Jazz Funk Band",
+          "relation": "Jazz-funk live group formed in",
+          "label": "Zarautz",
+          "lon": -2.169,
+          "lat": 43.284,
+          "precision": "city",
+          "source": "https://djmakala.wordpress.com/mjfb/",
+          "note": "Founder's account explicitly states Makala Jazz Funk Band comes from Zarautz, lists founding local musicians and names the 2015 Xake! debut. Group formation and scene, not an album studio assertion.",
+          "city": "Zarautz",
+          "studio": "Jazz-funk live group formed in",
+          "id": "thread-c1a7e1f5db90"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "972054": {
       "kind": "recording",
       "relation": "Instrumental of the title track produced in a studio in",
@@ -21782,6 +22213,55 @@
       "unlocated_artists": [
         "Prosumer & Murat Tepeli"
       ]
+    },
+    "7367418": {
+      "kind": "artist",
+      "subject": "John Bence",
+      "relation": "Early composition and electronic-music practice developed in",
+      "label": "Bristol",
+      "lon": -2.5879,
+      "lat": 51.4545,
+      "precision": "city",
+      "source": "https://www.cafeoto.co.uk/artists/john-bence/",
+      "note": "Cafe OTO's presenter biography explicitly connects the composer with Bristol's electronic music culture and names Disquiet. Not a source for the studio of the recorded EP.",
+      "city": "Bristol",
+      "studio": "Early composition and electronic-music practice developed in",
+      "id": "thread-9695ab175347",
+      "threads": [
+        {
+          "kind": "artist",
+          "subject": "John Bence",
+          "relation": "Early composition and electronic-music practice developed in",
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "precision": "city",
+          "source": "https://www.cafeoto.co.uk/artists/john-bence/",
+          "note": "Cafe OTO's presenter biography explicitly connects the composer with Bristol's electronic music culture and names Disquiet. Not a source for the studio of the recorded EP.",
+          "city": "Bristol",
+          "studio": "Early composition and electronic-music practice developed in",
+          "id": "thread-9695ab175347"
+        }
+      ],
+      "primary_thread_id": "thread-9695ab175347",
+      "locations": [
+        {
+          "kind": "artist",
+          "subject": "John Bence",
+          "relation": "Early composition and electronic-music practice developed in",
+          "label": "Bristol",
+          "lon": -2.5879,
+          "lat": 51.4545,
+          "precision": "city",
+          "source": "https://www.cafeoto.co.uk/artists/john-bence/",
+          "note": "Cafe OTO's presenter biography explicitly connects the composer with Bristol's electronic music culture and names Disquiet. Not a source for the studio of the recorded EP.",
+          "city": "Bristol",
+          "studio": "Early composition and electronic-music practice developed in",
+          "id": "thread-9695ab175347"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
     },
     "3554620": {
       "kind": "artist",
@@ -21897,6 +22377,55 @@
           "city": "Germany",
           "studio": "Artist associated area",
           "id": "thread-396d162e549b"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "6419810": {
+      "kind": "artist",
+      "subject": "Moon B / Wes Gray",
+      "relation": "Synth-funk production established in",
+      "label": "Atlanta",
+      "lon": -84.388,
+      "lat": 33.749,
+      "precision": "city",
+      "source": "https://www.allmusic.com/artist/moon-b-mn0003033888",
+      "note": "AllMusic explicitly identifies Moon B as Wes Gray, a producer based in Atlanta during his early releases. Historical music base, not the recording location of III or a claim about current residence.",
+      "city": "Atlanta",
+      "studio": "Synth-funk production established in",
+      "id": "thread-a58646727e8a",
+      "threads": [
+        {
+          "kind": "artist",
+          "subject": "Moon B / Wes Gray",
+          "relation": "Synth-funk production established in",
+          "label": "Atlanta",
+          "lon": -84.388,
+          "lat": 33.749,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/moon-b-mn0003033888",
+          "note": "AllMusic explicitly identifies Moon B as Wes Gray, a producer based in Atlanta during his early releases. Historical music base, not the recording location of III or a claim about current residence.",
+          "city": "Atlanta",
+          "studio": "Synth-funk production established in",
+          "id": "thread-a58646727e8a"
+        }
+      ],
+      "primary_thread_id": "thread-a58646727e8a",
+      "locations": [
+        {
+          "kind": "artist",
+          "subject": "Moon B / Wes Gray",
+          "relation": "Synth-funk production established in",
+          "label": "Atlanta",
+          "lon": -84.388,
+          "lat": 33.749,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/moon-b-mn0003033888",
+          "note": "AllMusic explicitly identifies Moon B as Wes Gray, a producer based in Atlanta during his early releases. Historical music base, not the recording location of III or a claim about current residence.",
+          "city": "Atlanta",
+          "studio": "Synth-funk production established in",
+          "id": "thread-a58646727e8a"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -22048,6 +22577,74 @@
       ],
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
+    },
+    "11072824": {
+      "kind": "recording",
+      "relation": "Recorded and mixed partly in",
+      "subject": "Conga Square — Secada Mondatta",
+      "label": "New York City",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "precision": "city",
+      "source": "https://paltoflats.com/release/conga-square-secada-mondatta/",
+      "coverage": "Sourced cultural threads",
+      "note": "Original label explicitly credits recording and mixing by Davey Jewell in both NYC and Los Angeles. It does not allocate individual tracks to one of these two cities; both are retained.",
+      "city": "New York City",
+      "studio": "Recorded and mixed partly in",
+      "id": "thread-46f3aa27feee",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded and mixed partly in",
+          "subject": "Conga Square — Secada Mondatta",
+          "label": "New York City",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://paltoflats.com/release/conga-square-secada-mondatta/",
+          "coverage": "partial",
+          "note": "Original label explicitly credits recording and mixing by Davey Jewell in both NYC and Los Angeles. It does not allocate individual tracks to one of these two cities; both are retained.",
+          "city": "New York City",
+          "studio": "Recorded and mixed partly in",
+          "id": "thread-46f3aa27feee"
+        },
+        {
+          "kind": "recording",
+          "relation": "Recorded and mixed partly in",
+          "subject": "Conga Square — Secada Mondatta",
+          "label": "Los Angeles",
+          "lon": -118.2437,
+          "lat": 34.0522,
+          "precision": "city",
+          "source": "https://paltoflats.com/release/conga-square-secada-mondatta/",
+          "coverage": "partial",
+          "note": "The same original label credits recording/mixing in NYC and LA, with no track-by-city breakdown. The separate German mastering/cutting location is not represented as music origin.",
+          "city": "Los Angeles",
+          "studio": "Recorded and mixed partly in",
+          "id": "thread-606b684be409"
+        }
+      ],
+      "primary_thread_id": "thread-46f3aa27feee",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded and mixed partly in",
+          "subject": "Conga Square — Secada Mondatta",
+          "label": "New York City",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://paltoflats.com/release/conga-square-secada-mondatta/",
+          "coverage": "partial",
+          "note": "Original label explicitly credits recording and mixing by Davey Jewell in both NYC and Los Angeles. It does not allocate individual tracks to one of these two cities; both are retained.",
+          "city": "New York City",
+          "studio": "Recorded and mixed partly in",
+          "id": "thread-46f3aa27feee"
+        }
+      ],
+      "unlocated_artists": [
+        "Conga Square"
+      ]
     },
     "6774": {
       "kind": "artist",
@@ -22363,6 +22960,55 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "21945322": {
+      "kind": "repertoire",
+      "relation": "Compilation sound-magazine project developed in",
+      "subject": "PRE-DELAY /// 04 (NABA Sound Design)",
+      "label": "Milan",
+      "lon": 9.19,
+      "lat": 45.4642,
+      "precision": "city",
+      "source": "https://pre-delay.bandcamp.com/album/pre-delay-04",
+      "note": "First-party PRE-DELAY /// sound magazine describes the exact 2017 double-vinyl compilation as developed within the NABA Sound Design programme in Milan, art-directed by Igor Muroni. Editorial/project provenance only, not the geographical origin or studio of all 15 separately credited tracks.",
+      "city": "Milan",
+      "studio": "Compilation sound-magazine project developed in",
+      "id": "thread-df360f1a4341",
+      "threads": [
+        {
+          "kind": "repertoire",
+          "relation": "Compilation sound-magazine project developed in",
+          "subject": "PRE-DELAY /// 04 (NABA Sound Design)",
+          "label": "Milan",
+          "lon": 9.19,
+          "lat": 45.4642,
+          "precision": "city",
+          "source": "https://pre-delay.bandcamp.com/album/pre-delay-04",
+          "note": "First-party PRE-DELAY /// sound magazine describes the exact 2017 double-vinyl compilation as developed within the NABA Sound Design programme in Milan, art-directed by Igor Muroni. Editorial/project provenance only, not the geographical origin or studio of all 15 separately credited tracks.",
+          "city": "Milan",
+          "studio": "Compilation sound-magazine project developed in",
+          "id": "thread-df360f1a4341"
+        }
+      ],
+      "primary_thread_id": "thread-df360f1a4341",
+      "locations": [
+        {
+          "kind": "repertoire",
+          "relation": "Compilation sound-magazine project developed in",
+          "subject": "PRE-DELAY /// 04 (NABA Sound Design)",
+          "label": "Milan",
+          "lon": 9.19,
+          "lat": 45.4642,
+          "precision": "city",
+          "source": "https://pre-delay.bandcamp.com/album/pre-delay-04",
+          "note": "First-party PRE-DELAY /// sound magazine describes the exact 2017 double-vinyl compilation as developed within the NABA Sound Design programme in Milan, art-directed by Igor Muroni. Editorial/project provenance only, not the geographical origin or studio of all 15 separately credited tracks.",
+          "city": "Milan",
+          "studio": "Compilation sound-magazine project developed in",
+          "id": "thread-df360f1a4341"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "14028131": {
       "kind": "artist",
       "relation": "Electronic duo based in",
@@ -22456,6 +23102,58 @@
           "city": "Medellín",
           "studio": "Electronic DJ and production career from",
           "id": "thread-6e0a903fae5d"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "16222272": {
+      "kind": "artist",
+      "relation": "Electro and synth production career developed in",
+      "subject": "Quadratschulz / Carsten Schulz",
+      "label": "Hamburg",
+      "lon": 9.9937,
+      "lat": 53.5511,
+      "precision": "city",
+      "source": "https://ra.co/dj/quadratschulz-de/biography",
+      "identity_source": "https://quadratschulz.bandcamp.com/",
+      "note": "Resident Advisor gives both Hamburg musical base and Pudel Produkte 34: Remixes (the original queue's record); the producer's own Bandcamp lists that exact EP. No recording location inferred for the remixes.",
+      "city": "Hamburg",
+      "studio": "Electro and synth production career developed in",
+      "id": "thread-672221ec93bd",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Electro and synth production career developed in",
+          "subject": "Quadratschulz / Carsten Schulz",
+          "label": "Hamburg",
+          "lon": 9.9937,
+          "lat": 53.5511,
+          "precision": "city",
+          "source": "https://ra.co/dj/quadratschulz-de/biography",
+          "identity_source": "https://quadratschulz.bandcamp.com/",
+          "note": "Resident Advisor gives both Hamburg musical base and Pudel Produkte 34: Remixes (the original queue's record); the producer's own Bandcamp lists that exact EP. No recording location inferred for the remixes.",
+          "city": "Hamburg",
+          "studio": "Electro and synth production career developed in",
+          "id": "thread-672221ec93bd"
+        }
+      ],
+      "primary_thread_id": "thread-672221ec93bd",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Electro and synth production career developed in",
+          "subject": "Quadratschulz / Carsten Schulz",
+          "label": "Hamburg",
+          "lon": 9.9937,
+          "lat": 53.5511,
+          "precision": "city",
+          "source": "https://ra.co/dj/quadratschulz-de/biography",
+          "identity_source": "https://quadratschulz.bandcamp.com/",
+          "note": "Resident Advisor gives both Hamburg musical base and Pudel Produkte 34: Remixes (the original queue's record); the producer's own Bandcamp lists that exact EP. No recording location inferred for the remixes.",
+          "city": "Hamburg",
+          "studio": "Electro and synth production career developed in",
+          "id": "thread-672221ec93bd"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -23255,6 +23953,55 @@
           "city": "Paris",
           "studio": "Artist associated with",
           "id": "thread-fdc84fde86f5"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "11873515": {
+      "kind": "artist",
+      "relation": "Detroit dance-label and production community in",
+      "subject": "Moonlighter / Rocksteady Disco",
+      "label": "Detroit",
+      "lon": -83.0458,
+      "lat": 42.3314,
+      "precision": "city",
+      "source": "https://rocksteadydisco.bandcamp.com/album/rsd009-moonlighter-ep",
+      "note": "The label's own page names Moonlighter as co-founder of Rocksteady Disco in Detroit and as the producer of this exact 2018 EP. Detroit is musical label/project association, not studio or proof of birthplace. Pressing at Archer in Detroit is NOT used for geography.",
+      "city": "Detroit",
+      "studio": "Detroit dance-label and production community in",
+      "id": "thread-d77dd6f37861",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Detroit dance-label and production community in",
+          "subject": "Moonlighter / Rocksteady Disco",
+          "label": "Detroit",
+          "lon": -83.0458,
+          "lat": 42.3314,
+          "precision": "city",
+          "source": "https://rocksteadydisco.bandcamp.com/album/rsd009-moonlighter-ep",
+          "note": "The label's own page names Moonlighter as co-founder of Rocksteady Disco in Detroit and as the producer of this exact 2018 EP. Detroit is musical label/project association, not studio or proof of birthplace. Pressing at Archer in Detroit is NOT used for geography.",
+          "city": "Detroit",
+          "studio": "Detroit dance-label and production community in",
+          "id": "thread-d77dd6f37861"
+        }
+      ],
+      "primary_thread_id": "thread-d77dd6f37861",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Detroit dance-label and production community in",
+          "subject": "Moonlighter / Rocksteady Disco",
+          "label": "Detroit",
+          "lon": -83.0458,
+          "lat": 42.3314,
+          "precision": "city",
+          "source": "https://rocksteadydisco.bandcamp.com/album/rsd009-moonlighter-ep",
+          "note": "The label's own page names Moonlighter as co-founder of Rocksteady Disco in Detroit and as the producer of this exact 2018 EP. Detroit is musical label/project association, not studio or proof of birthplace. Pressing at Archer in Detroit is NOT used for geography.",
+          "city": "Detroit",
+          "studio": "Detroit dance-label and production community in",
+          "id": "thread-d77dd6f37861"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -24518,6 +25265,58 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "30001": {
+      "kind": "artist",
+      "relation": "Jungle production and early hardcore scene in",
+      "subject": "DJ Red Alert & Mike Slammer",
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5072,
+      "precision": "city",
+      "source": "https://ra.co/news/81471",
+      "location_source": "https://artisanvinyl.co.uk/dj-red-alert-mike-slammer-don-t-need-your-love-in-effect-slammin-vinyl-disc24739n8.html",
+      "note": "Resident Advisor documents duo in East London's Brain Records scene, and the original 1993 Don't Need Your Love / In Effect pressing explicitly says written and produced at Slammer Studios, London. Artist musical production scene only; this does not establish the studio for owned Feel So Real / Walking On Sunshine.",
+      "city": "London",
+      "studio": "Jungle production and early hardcore scene in",
+      "id": "thread-2c251f3a4505",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Jungle production and early hardcore scene in",
+          "subject": "DJ Red Alert & Mike Slammer",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://ra.co/news/81471",
+          "location_source": "https://artisanvinyl.co.uk/dj-red-alert-mike-slammer-don-t-need-your-love-in-effect-slammin-vinyl-disc24739n8.html",
+          "note": "Resident Advisor documents duo in East London's Brain Records scene, and the original 1993 Don't Need Your Love / In Effect pressing explicitly says written and produced at Slammer Studios, London. Artist musical production scene only; this does not establish the studio for owned Feel So Real / Walking On Sunshine.",
+          "city": "London",
+          "studio": "Jungle production and early hardcore scene in",
+          "id": "thread-2c251f3a4505"
+        }
+      ],
+      "primary_thread_id": "thread-2c251f3a4505",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Jungle production and early hardcore scene in",
+          "subject": "DJ Red Alert & Mike Slammer",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://ra.co/news/81471",
+          "location_source": "https://artisanvinyl.co.uk/dj-red-alert-mike-slammer-don-t-need-your-love-in-effect-slammin-vinyl-disc24739n8.html",
+          "note": "Resident Advisor documents duo in East London's Brain Records scene, and the original 1993 Don't Need Your Love / In Effect pressing explicitly says written and produced at Slammer Studios, London. Artist musical production scene only; this does not establish the studio for owned Feel So Real / Walking On Sunshine.",
+          "city": "London",
+          "studio": "Jungle production and early hardcore scene in",
+          "id": "thread-2c251f3a4505"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "11405284": {
       "kind": "artist",
       "relation": "Experimental music career based in",
@@ -24677,6 +25476,55 @@
           "city": "United States",
           "studio": "Project originates from",
           "id": "thread-1a85231d0b2d"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "1621146": {
+      "kind": "artist",
+      "subject": "STL / Stephan Laubner",
+      "relation": "Underground house and electronic production based in",
+      "label": "Harz Mountains",
+      "lon": 10.5,
+      "lat": 51.75,
+      "precision": "region",
+      "source": "https://ra.co/dj/stl",
+      "note": "Resident Advisor directly identifies STL as Stephan Laubner and links its 2010 interview describing him as Harz-based. Harz is a region, not a precise studio or a city inferred from Berlin gigs.",
+      "city": "Harz Mountains",
+      "studio": "Underground house and electronic production based in",
+      "id": "thread-32ac6f0b1f6b",
+      "threads": [
+        {
+          "kind": "artist",
+          "subject": "STL / Stephan Laubner",
+          "relation": "Underground house and electronic production based in",
+          "label": "Harz Mountains",
+          "lon": 10.5,
+          "lat": 51.75,
+          "precision": "region",
+          "source": "https://ra.co/dj/stl",
+          "note": "Resident Advisor directly identifies STL as Stephan Laubner and links its 2010 interview describing him as Harz-based. Harz is a region, not a precise studio or a city inferred from Berlin gigs.",
+          "city": "Harz Mountains",
+          "studio": "Underground house and electronic production based in",
+          "id": "thread-32ac6f0b1f6b"
+        }
+      ],
+      "primary_thread_id": "thread-32ac6f0b1f6b",
+      "locations": [
+        {
+          "kind": "artist",
+          "subject": "STL / Stephan Laubner",
+          "relation": "Underground house and electronic production based in",
+          "label": "Harz Mountains",
+          "lon": 10.5,
+          "lat": 51.75,
+          "precision": "region",
+          "source": "https://ra.co/dj/stl",
+          "note": "Resident Advisor directly identifies STL as Stephan Laubner and links its 2010 interview describing him as Harz-based. Harz is a region, not a precise studio or a city inferred from Berlin gigs.",
+          "city": "Harz Mountains",
+          "studio": "Underground house and electronic production based in",
+          "id": "thread-32ac6f0b1f6b"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -26498,6 +27346,55 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "250924": {
+      "kind": "artist",
+      "relation": "Breakcore and bass-music career developed in",
+      "subject": "Drop the Lime / Luca Venezia",
+      "label": "New York City",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "precision": "city",
+      "source": "https://www.factmag.com/2009/01/01/interview-drop-the-lime/",
+      "note": "Contemporaneous interview names Luca Venezia and directly describes the New York Trouble & Bass collective and his own music work. This is the artist's formative musical scene, not a recording claim for Killy 123 EP.",
+      "city": "New York City",
+      "studio": "Breakcore and bass-music career developed in",
+      "id": "thread-79cc843c724b",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Breakcore and bass-music career developed in",
+          "subject": "Drop the Lime / Luca Venezia",
+          "label": "New York City",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://www.factmag.com/2009/01/01/interview-drop-the-lime/",
+          "note": "Contemporaneous interview names Luca Venezia and directly describes the New York Trouble & Bass collective and his own music work. This is the artist's formative musical scene, not a recording claim for Killy 123 EP.",
+          "city": "New York City",
+          "studio": "Breakcore and bass-music career developed in",
+          "id": "thread-79cc843c724b"
+        }
+      ],
+      "primary_thread_id": "thread-79cc843c724b",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Breakcore and bass-music career developed in",
+          "subject": "Drop the Lime / Luca Venezia",
+          "label": "New York City",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://www.factmag.com/2009/01/01/interview-drop-the-lime/",
+          "note": "Contemporaneous interview names Luca Venezia and directly describes the New York Trouble & Bass collective and his own music work. This is the artist's formative musical scene, not a recording claim for Killy 123 EP.",
+          "city": "New York City",
+          "studio": "Breakcore and bass-music career developed in",
+          "id": "thread-79cc843c724b"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "1169426": {
       "kind": "artist",
       "relation": "Project originates from",
@@ -26954,6 +27851,57 @@
       ],
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
+    },
+    "20311276": {
+      "kind": "recording",
+      "relation": "Original 1960 West Side Story album session recorded in",
+      "subject": "Cal Tjader with Clare Fischer and orchestra",
+      "label": "Los Angeles",
+      "lon": -118.2437,
+      "lat": 34.0522,
+      "precision": "city",
+      "source": "https://www.jazzdisco.org/fantasy-records/discography-1959-1960/",
+      "note": "Jazz session discography directly identifies Fantasy LP 3310/8054 West Side Story session with Clare Fischer and ensemble in Los Angeles in November 1960. This pertains to the underlying album recorded for Fantasy, not a reissue manufacturing country; source chronology differs slightly from other October dates.",
+      "city": "Los Angeles",
+      "studio": "Original 1960 West Side Story album session recorded in",
+      "id": "thread-4ab966a71c94",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Original 1960 West Side Story album session recorded in",
+          "subject": "Cal Tjader with Clare Fischer and orchestra",
+          "label": "Los Angeles",
+          "lon": -118.2437,
+          "lat": 34.0522,
+          "precision": "city",
+          "source": "https://www.jazzdisco.org/fantasy-records/discography-1959-1960/",
+          "note": "Jazz session discography directly identifies Fantasy LP 3310/8054 West Side Story session with Clare Fischer and ensemble in Los Angeles in November 1960. This pertains to the underlying album recorded for Fantasy, not a reissue manufacturing country; source chronology differs slightly from other October dates.",
+          "city": "Los Angeles",
+          "studio": "Original 1960 West Side Story album session recorded in",
+          "id": "thread-4ab966a71c94"
+        }
+      ],
+      "primary_thread_id": "thread-4ab966a71c94",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Original 1960 West Side Story album session recorded in",
+          "subject": "Cal Tjader with Clare Fischer and orchestra",
+          "label": "Los Angeles",
+          "lon": -118.2437,
+          "lat": 34.0522,
+          "precision": "city",
+          "source": "https://www.jazzdisco.org/fantasy-records/discography-1959-1960/",
+          "note": "Jazz session discography directly identifies Fantasy LP 3310/8054 West Side Story session with Clare Fischer and ensemble in Los Angeles in November 1960. This pertains to the underlying album recorded for Fantasy, not a reissue manufacturing country; source chronology differs slightly from other October dates.",
+          "city": "Los Angeles",
+          "studio": "Original 1960 West Side Story album session recorded in",
+          "id": "thread-4ab966a71c94"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Cal Tjader And Orchestra"
+      ]
     },
     "1619565": {
       "kind": "artist",
@@ -28038,6 +28986,61 @@
         "Loose Joints"
       ]
     },
+    "152824": {
+      "kind": "artist",
+      "subject": "Shirley Lites",
+      "relation": "Professional soul and dance-music career connected to",
+      "label": "Philadelphia",
+      "lon": -75.1652,
+      "lat": 39.9526,
+      "precision": "city",
+      "source": "https://www.nabfeme.org/philadelphia/",
+      "note": "The music industry organization identifies Shirley Lites and explicitly names Heat You Up/Melt You Down as her early record while documenting her long professional activity and leadership in Philadelphia. This is career geography, not a recording studio.",
+      "identity_source": "https://www.nabfeme.org/philadelphia/",
+      "location_source": "https://www.nabfeme.org/philadelphia/",
+      "city": "Philadelphia",
+      "studio": "Professional soul and dance-music career connected to",
+      "id": "thread-ee29538401d1",
+      "threads": [
+        {
+          "kind": "artist",
+          "subject": "Shirley Lites",
+          "relation": "Professional soul and dance-music career connected to",
+          "label": "Philadelphia",
+          "lon": -75.1652,
+          "lat": 39.9526,
+          "precision": "city",
+          "source": "https://www.nabfeme.org/philadelphia/",
+          "note": "The music industry organization identifies Shirley Lites and explicitly names Heat You Up/Melt You Down as her early record while documenting her long professional activity and leadership in Philadelphia. This is career geography, not a recording studio.",
+          "identity_source": "https://www.nabfeme.org/philadelphia/",
+          "location_source": "https://www.nabfeme.org/philadelphia/",
+          "city": "Philadelphia",
+          "studio": "Professional soul and dance-music career connected to",
+          "id": "thread-ee29538401d1"
+        }
+      ],
+      "primary_thread_id": "thread-ee29538401d1",
+      "locations": [
+        {
+          "kind": "artist",
+          "subject": "Shirley Lites",
+          "relation": "Professional soul and dance-music career connected to",
+          "label": "Philadelphia",
+          "lon": -75.1652,
+          "lat": 39.9526,
+          "precision": "city",
+          "source": "https://www.nabfeme.org/philadelphia/",
+          "note": "The music industry organization identifies Shirley Lites and explicitly names Heat You Up/Melt You Down as her early record while documenting her long professional activity and leadership in Philadelphia. This is career geography, not a recording studio.",
+          "identity_source": "https://www.nabfeme.org/philadelphia/",
+          "location_source": "https://www.nabfeme.org/philadelphia/",
+          "city": "Philadelphia",
+          "studio": "Professional soul and dance-music career connected to",
+          "id": "thread-ee29538401d1"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "13483159": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -28518,7 +29521,7 @@
       "unlocated_artists": []
     }
   },
-  "thread_count": 706,
+  "thread_count": 726,
   "research": {
     "artist_ids_checked": 570,
     "identity_matches": 251,
@@ -28569,13 +29572,13 @@
     "method_version": "0.3",
     "reviewed_source_count": 520,
     "reviewed_claim_count": 135,
-    "located_entries": 443,
-    "located_editions": 441,
-    "unplaced_entries": 167,
+    "located_entries": 462,
+    "located_editions": 460,
+    "unplaced_entries": 148,
     "unplaced_reasons": {
-      "identity_requires_review": 133,
-      "compilation_requires_curation": 25,
-      "geographic_evidence_unverified": 7,
+      "identity_requires_review": 116,
+      "compilation_requires_curation": 24,
+      "geographic_evidence_unverified": 6,
       "unidentified_artist": 2
     }
   }
