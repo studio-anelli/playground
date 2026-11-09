@@ -125,3 +125,11 @@ python lib/music-that-travels/tests/research-relationships.py
 Three new review leads are saved separately in `source/relationship-leads.json`: Shabaka Hutchings (Black Focus / Universal Beings), Nkono Teles (Only You / Love Vibration), and Pino Daniele (Nero A Metà / Stop Bajon). The review queue currently contains seven candidates, all unaccepted. The map, generated worker and original accepted ledger remain untouched.
 
 This is a first structured-credit discovery route, **not** exhaustive research into samples, covers, remixes, group-member associations, or undocumented musicians. Those relationships still require separate searches and release-specific evidence.
+
+## Full four-cohort creative-credit scan
+
+The updated four-set pass is documented in [CREDIT-DISCOVERY-02.md](CREDIT-DISCOVERY-02.md). It covers **143 of 608 owned editions** represented by structured observations and detects **22 not-yet-reviewed creative-credit pairs** spanning **18 exact contributor identities**. The earlier 93-edition pilot remains a historical subset, not a measure of the whole collection.
+
+Important improvements: exclude hyphenated executive-producer roles and suppress only the **specific contributor** already documented by an accepted link, rather than suppressing all people on the same pair of albums. This reveals seven further credited contributors on the Battiato pair and seven on the Nu Genea pair, while preserving the previously accepted Giusto Pio and two-musician Nu Genea bridges.
+
+Next intake is **coverage expansion**, especially the 465 editions without structured release observations in these four research files. The count is a missing-source-inventory number, not a count of undocumented musical histories. Output remains a review queue; there is no automatic map publication.

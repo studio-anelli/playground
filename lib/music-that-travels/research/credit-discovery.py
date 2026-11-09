@@ -21,7 +21,7 @@ MUSIC_ROLE = re.compile(
 NOT_MUSICAL_RECORDING = re.compile(
     r'lacquer|master(?:ed|ing)|remaster|cover art|artwork|photograph|layout|'
     r'design|illustrat|liner notes|transfer|restoration|product manager|'
-    r'legal|licens|booklet|proofread|printing|executive producer|'
+    r'legal|licens|booklet|proofread|printing|executive[- ]producer|'
     r'engineer \[vinyl digitalization', re.I)
 # Executive producer is excluded here because this pass looks for directly
 # credited creative work, not business oversight; those links can be reviewed
@@ -37,11 +37,18 @@ def scan(collection, ledger, datasets):
     exclusions = {(str(x['release_id']), str(aid))
                   for x in ledger.get('identity_exceptions', [])
                   for aid in x.get('excluded_artist_ids', [])}
-    known = {frozenset(str(e['release_id']) for e in c['endpoints'])
-             for c in ledger.get('connections', [])
-             if c.get('decision') in {'accepted', 'rejected'}
-             and len(c.get('endpoints', [])) == 2
-             and all('release_id' in e for e in c['endpoints'])}
+    # Suppress only the *same reviewed contributor*, never a whole edition pair:
+    # another musician on those albums can represent a separate discovery.
+    reviewed_contributors = set()
+    for connection in ledger.get('connections', []):
+        if connection.get('decision') != 'accepted' or len(connection.get('endpoints', [])) != 2:
+            continue
+        endpoints = frozenset(str(e['release_id']) for e in connection['endpoints'])
+        subject = str(connection.get('subject', '')).lower()
+        # Existing reviewed bridges may explicitly name two collaborators.
+        # Split only explicit ' and ' name lists, not arbitrary substrings.
+        for name in subject.split(' and '):
+            reviewed_contributors.add((endpoints, name.strip()))
     observed, credits = set(), defaultdict(lambda: defaultdict(list))
     for dataset in datasets:
         for key, item in dataset.get('observations', {}).items():
@@ -64,7 +71,12 @@ def scan(collection, ledger, datasets):
     leads = []
     for aid, editions in sorted(credits.items(), key=lambda x: int(x[0])):
         for left, right in combinations(sorted(editions, key=int), 2):
-            if frozenset((left, right)) in known:
+            reviewed_subjects = [subject for endpoints, subject in reviewed_contributors
+                                 if endpoints == frozenset((left, right))]
+            person_name = editions[left][0]['name'].lower()
+            # Exact name equality is conservative: a connection listing multiple
+            # musicians is *not* treated as review of every other contributor.
+            if person_name in reviewed_subjects:
                 continue
             leads.append({
                 'artist_id': aid, 'artist_name': editions[left][0]['name'],
