@@ -6,8 +6,8 @@
   "copy_count": 610,
   "queue_count": 257,
   "outcome_counts": {
-    "accepted_geography": 117,
-    "verification_pending": 136,
+    "accepted_geography": 123,
+    "verification_pending": 130,
     "reviewed_no_evidence": 0,
     "identity_unresolved": 1,
     "compilation_scope_unresolved": 3,
@@ -506,10 +506,23 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
       "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "recording",
+          "subject": "Ackie / Chesse Roots — Call Me Rambo / Rambo Gun Salute",
+          "relation": "Original 1986 dancehall performance rooted in the Heavyweight soundsystem of",
+          "label": "North London",
+          "lon": -0.11,
+          "lat": 51.6,
+          "precision": "region",
+          "source": "https://www.forcedexposure.com/Artists/ACKIE.CHESSE.ROOTS.html",
+          "note": "Specialist distributor ties 1986 original recordings to Heavyweight soundsystem in Wood Green and Tottenham, North London. This is a scene/performer association, not a documented recording-studio address or the reissue market Germany."
+        }
+      ]
     },
     {
       "release_id": 14472273,
@@ -527,10 +540,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
       "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "The Goods / Badmandela, Rosario and Black Tree",
+          "relation": "Electronic soul band formed and active in",
+          "label": "Sydney",
+          "lon": 151.2093,
+          "lat": -33.8688,
+          "precision": "city",
+          "source": "https://thegoodsinyou.bandcamp.com/album/ii",
+          "note": "First-party band page explicitly documents Sydney's emerging electronic soul scene, group members and the song Peach, also named in the exact single. Sydney is project scene not recorded studio.",
+          "artist_id": 5588337
+        }
+      ]
     },
     {
       "release_id": 12362927,
@@ -700,10 +727,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
       "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "Fabrizio Fattori",
+          "relation": "Afro-Balearic DJ and production scene in",
+          "label": "Italy",
+          "lon": 12.5674,
+          "lat": 41.8719,
+          "precision": "country",
+          "source": "https://bestrecord.bandcamp.com/album/mediterranean-africa-bst-x052",
+          "note": "First-party label identifies Fattori as representative of the Italian Afro-Balearic movement and original 1985 productions gathered on exact Mediterranean Africa collection. Country musical scene, not label's Rome address.",
+          "artist_id": 154398
+        }
+      ]
     },
     {
       "release_id": 14192193,
@@ -1497,10 +1538,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
       "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "Octachoron / Bakur Metreveli and Sandro Kozmanishvili",
+          "relation": "Electronic duo formed in",
+          "label": "Tbilisi",
+          "lon": 44.8271,
+          "lat": 41.7151,
+          "precision": "city",
+          "source": "https://ra.co/dj/octachoron",
+          "note": "Resident Advisor explicitly identifies members and calls project duo from Tbilisi. Exact Land of Meta release identifies same named duo. Does not infer album studio.",
+          "artist_id": 6355289
+        }
+      ]
     },
     {
       "release_id": 4304708,
@@ -2558,10 +2613,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
       "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "SJ Tequilla / Naota Matsuda",
+          "relation": "Japanese house producer based in",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://ra.co/reviews/24501",
+          "note": "Contemporaneous 2019 Resident Advisor review explicitly describes Matsuda as Berlin-based and directly discusses Conditionel. Japanese background is separate from musical base.",
+          "artist_id": 5775913
+        }
+      ]
     },
     {
       "release_id": 25199035,
@@ -4235,10 +4304,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
       "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "Bonfim / Pedro Tenreiro and Hugo Passos",
+          "relation": "Electronic hip-hop production duo formed in",
+          "label": "Porto",
+          "lon": -8.6291,
+          "lat": 41.1579,
+          "precision": "city",
+          "source": "https://bonfimbeats.bandcamp.com/album/an-extended-play-record-of-assembled-sounds-for-different-kinds-of-moods",
+          "note": "First-party exact EP notes document Pedro Tenreiro's Porto DJ career, Hugo Passos' role in the city's early hip-hop scene, their formation and multiple intimate recording spaces. Porto is formative duo scene, not a specific studio.",
+          "artist_id": 8184122
+        }
+      ]
     },
     {
       "release_id": 9684455,
