@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
-  "scope": "Sourced associations tracked for entire queue, 257 unique release/copy identities; unfinished investigation explicitly marked pending",
+  "scope": "257 original queue records; source-verified findings and outstanding research truthfully distinguished",
   "source_queue": "geography-completion-queue.json",
   "date": "2026-11-09",
   "copy_count": 610,
   "queue_count": 257,
   "outcome_counts": {
-    "accepted_geography": 87,
-    "verification_pending": 170,
+    "accepted_geography": 90,
+    "verification_pending": 167,
     "reviewed_no_evidence": 0,
     "identity_unresolved": 0,
     "compilation_scope_unresolved": 0,
     "conflicting_evidence": 0
   },
-  "method_note": "Acceptance is scoped to documented location/role, source URL, precision, exact discogs identity. Cannot claim entire 257 reviewed; no successful runtime regeneration verified.",
+  "method_note": "No evidence-based location is inferred from artist nationality, titles, edition country, labels or genre. Unadjudicated pending, not absence established.",
   "records": [
     {
       "release_id": 25466773,
@@ -33,7 +33,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -89,7 +89,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -124,7 +124,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -159,7 +159,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -194,7 +194,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -228,7 +228,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -305,7 +305,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -340,7 +340,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -375,7 +375,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -431,7 +431,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -581,7 +581,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -616,7 +616,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -651,7 +651,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -707,7 +707,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -742,7 +742,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -777,7 +777,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -875,7 +875,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -973,7 +973,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1055,7 +1055,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1090,7 +1090,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1130,7 +1130,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1165,7 +1165,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1205,7 +1205,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1266,7 +1266,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1301,7 +1301,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1336,7 +1336,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1392,7 +1392,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1438,7 +1438,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1494,7 +1494,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1529,7 +1529,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1585,7 +1585,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1620,7 +1620,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1676,7 +1676,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1710,7 +1710,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1808,7 +1808,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1861,10 +1861,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "Techno producer from",
+          "subject": "Distant Echoes",
+          "label": "Italy",
+          "lon": 12.5674,
+          "lat": 41.8719,
+          "precision": "country",
+          "source": "https://ra.co/dj/distantechoes-de",
+          "note": "RA identifies the producer's southern Italian origin and exact Fury Road EP; no city or studio claimed and label Dystopian's Berlin address is separate.",
+          "artist_id": 4060065
+        }
+      ]
     },
     {
       "release_id": 7488481,
@@ -1903,10 +1917,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "Dystopian techno DJ and production activity developed in",
+          "subject": "Alex.Do",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://ra.co/dj/alex.do/biography",
+          "note": "Resident Advisor documents his Dystopian collective and shows in Berlin, directly linking the city with musical activity. This is a scene association, not Beyond the Black Rainbow studio.",
+          "artist_id": 3350258
+        }
+      ]
     },
     {
       "release_id": 10531324,
@@ -1926,7 +1954,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2050,7 +2078,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2083,10 +2111,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "independent artist or recording source not established",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "recording",
+          "relation": "Original 1979 Goya recording made at Conny's Studio in",
+          "subject": "House at the Sea / Mandy — Goya",
+          "label": "Wolperath",
+          "lon": 7.3259,
+          "lat": 50.8321,
+          "precision": "city",
+          "source": "https://www.hhv.de/en/records/item/goya-house-at-the-sea-mandy-584186",
+          "location_source": "https://musicbrainz.org/place/db144801-c453-468a-9c37-12dc8a13e833",
+          "note": "Exact reissue's supplier attributes the original 1979 songs to Conny's Studio; MusicBrainz records the historic studio in Wolperath, Neunkirchen, 1974–2006, with coordinates. No association with the reissue distributor location."
+        }
+      ]
     },
     {
       "release_id": 971558,
@@ -2148,7 +2190,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2288,7 +2330,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2328,7 +2370,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2417,7 +2459,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2599,7 +2641,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2634,7 +2676,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2689,7 +2731,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2829,7 +2871,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2864,7 +2906,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2899,7 +2941,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2934,7 +2976,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2995,7 +3037,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3063,7 +3105,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3160,7 +3202,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3337,7 +3379,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3540,7 +3582,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3575,7 +3617,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3631,7 +3673,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3666,7 +3708,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3701,7 +3743,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3778,7 +3820,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3855,7 +3897,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3911,7 +3953,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4067,7 +4109,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4128,7 +4170,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4252,7 +4294,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4514,7 +4556,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4612,7 +4654,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4647,7 +4689,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4834,7 +4876,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4869,7 +4911,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4946,7 +4988,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5086,7 +5128,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5237,7 +5279,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5277,7 +5319,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5312,7 +5354,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5389,7 +5431,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5445,7 +5487,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5564,7 +5606,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5625,7 +5667,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5751,7 +5793,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5791,7 +5833,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6140,7 +6182,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6322,7 +6364,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6420,7 +6462,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6481,7 +6523,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6642,7 +6684,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6698,7 +6740,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6733,7 +6775,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6789,7 +6831,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one exact-identity evidence-backed geographic claim; other musical participants and versions can remain unknown",
+      "reason": "At least one directly sourced, scope-labelled geographic connection",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
