@@ -7,6 +7,7 @@ on:
     paths:
       - 'lib/music-that-travels/source/cultural-threads.json'
       - 'lib/music-that-travels/source/geography-completion-review-register.json'
+      - 'lib/music-that-travels/tests/geography-completion.mjs'
       - '.github/workflows/music-geography-regenerate.yml'
   workflow_dispatch:
 
@@ -34,6 +35,7 @@ jobs:
         run: |
           python lib/music-that-travels/research/pipeline.py validate
           python lib/music-that-travels/tests/research-method.py
+          node lib/music-that-travels/tests/geography-completion.mjs
           node lib/music-that-travels/audit-geographic-coverage.mjs > /tmp/music-geography-audit.json
           python - <<'PY'
           import json
