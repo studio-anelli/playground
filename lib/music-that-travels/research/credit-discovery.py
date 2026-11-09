@@ -37,11 +37,15 @@ def scan(collection, ledger, datasets):
     exclusions = {(str(x['release_id']), str(aid))
                   for x in ledger.get('identity_exceptions', [])
                   for aid in x.get('excluded_artist_ids', [])}
-    known = {frozenset(str(e['release_id']) for e in c['endpoints'])
-             for c in ledger.get('connections', [])
-             if c.get('decision') in {'accepted', 'rejected'}
-             and len(c.get('endpoints', [])) == 2
-             and all('release_id' in e for e in c['endpoints'])}
+    # Suppress only the *same reviewed contributor*, never a whole edition pair:
+    # another musician on those albums can represent a separate discovery.
+    reviewed_contributors = set()
+    for connection in ledger.get('connections', []):
+        if connection.get('decision') != 'accepted' or len(connection.get('endpoints', [])) != 2:
+            continue
+        endpoints = frozenset(str(e['release_id']) for e in connection['endpoints'])
+        subject = str(connection.get('subject', '')).lower()
+        reviewed_contributors.add((endpoints, subject))
     observed, credits = set(), defaultdict(lambda: defaultdict(list))
     for dataset in datasets:
         for key, item in dataset.get('observations', {}).items():
@@ -64,7 +68,12 @@ def scan(collection, ledger, datasets):
     leads = []
     for aid, editions in sorted(credits.items(), key=lambda x: int(x[0])):
         for left, right in combinations(sorted(editions, key=int), 2):
-            if frozenset((left, right)) in known:
+            reviewed_subjects = [subject for endpoints, subject in reviewed_contributors
+                                 if endpoints == frozenset((left, right))]
+            person_name = editions[left][0]['name'].lower()
+            # Exact name equality is conservative: a connection listing multiple
+            # musicians is *not* treated as review of every other contributor.
+            if person_name in reviewed_subjects:
                 continue
             leads.append({
                 'artist_id': aid, 'artist_name': editions[left][0]['name'],
