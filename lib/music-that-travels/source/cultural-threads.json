@@ -582,6 +582,19 @@
         "note": "First-party Dark Entries release notes for exact Closer/Tam Tam identify Jean-Marie Salaun's Paris post-punk career and two Paris-area studio sessions. Artist association separate from recording location."
       }
     ],
+    "160033": [
+      {
+        "kind": "artist",
+        "relation": "Breakcore and bass-music career developed in",
+        "subject": "Drop the Lime / Luca Venezia",
+        "label": "New York City",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "precision": "city",
+        "source": "https://www.factmag.com/2009/01/01/interview-drop-the-lime/",
+        "note": "Contemporaneous interview names Luca Venezia and directly describes the New York Trouble & Bass collective and his own music work. This is the artist's formative musical scene, not a recording claim for Killy 123 EP."
+      }
+    ],
     "180280": [
       {
         "kind": "artist",
@@ -663,14 +676,15 @@
     "347795": [
       {
         "kind": "artist",
-        "relation": "Electronic music and performance-art practice in",
+        "relation": "Early music and performance career associated with",
         "subject": "Tobias Bernstrup",
         "label": "Stockholm",
         "lon": 18.0686,
         "lat": 59.3293,
         "precision": "city",
-        "source": "https://www.bernstrup.com/pagecv",
-        "note": "Artist CV documents fine-art training in Stockholm and musical live-performance/CD presentations there. Stockholm is a documented part of artistic formation, not the location of the recording 27."
+        "source": "https://fargfabriken.se/en/pa-gang/tobias-bernstrup/",
+        "note": "The Stockholm art institution's 2002 release announcement documents Bernstrup's own musical compositions/performance since 1997 and his work in Stockholm before moving to Berlin in 2000. Swedish music interview also confirms his later return to Stockholm. The Stockholm connection is historical music/performance practice, not proof that the 27 EP was recorded there.",
+        "location_source": "https://hymn.se/2021/11/23/tobias-bernstrup-jag-tanker-alltid-visuellt-kring-musik/"
       }
     ],
     "417641": [
@@ -1178,6 +1192,20 @@
         "precision": "city",
         "source": "https://ra.co/dj/alex.do/biography",
         "note": "Resident Advisor documents his Dystopian collective and shows in Berlin, directly linking the city with musical activity. This is a scene association, not Beyond the Black Rainbow studio."
+      }
+    ],
+    "3395560": [
+      {
+        "kind": "artist",
+        "relation": "Experimental turntable work and Durian Brothers practice developed in",
+        "subject": "Don't DJ / Florian Meyer",
+        "label": "Düsseldorf",
+        "lon": 6.7735,
+        "lat": 51.2277,
+        "precision": "city",
+        "source": "https://emotional-response.bandcamp.com/album/ausgewahtle-durian-stucke",
+        "identity_source": "https://ra.co/dj/dontdj",
+        "note": "First-party label's Durian Brothers retrospective names Florian Meyer as Don't DJ and documents their development and rehearsals at Düsseldorf's Salon des Amateurs; RA confirms artist identity. This is the artist's documented formative musical context, not a claim that Hyperspace Is The Place was recorded there."
       }
     ],
     "3496975": [
