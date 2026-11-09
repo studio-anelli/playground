@@ -41,6 +41,19 @@
         "note": "CCCB documents Toop's part in London Musicians' Collective and London experimental music. This is Toop's scene association only, not Max Eastley's origin or their recording site."
       }
     ],
+    "479": [
+      {
+        "kind": "artist",
+        "relation": "Drum-and-bass and experimental producer based in",
+        "subject": "Force Of Angels / Justin Mackay",
+        "label": "South London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://lawauder.bandcamp.com/track/sea-of-chaos",
+        "note": "First-party label explicitly identifies Force of Angels as Justin Mackay and as a South London producer; references the exact Method to My Madness EP. London-centroid city artist base, not a recording-location credit."
+      }
+    ],
     "651": [
       {
         "kind": "artist",
@@ -156,6 +169,19 @@
         "precision": "country",
         "source": "https://ra.co/dj/gerd",
         "note": "Resident Advisor identifies Gert-Jan Bijl as Gerd and lists Netherlands location; recording studio of Planet F.M.D.X. is not established."
+      }
+    ],
+    "3383": [
+      {
+        "kind": "artist",
+        "relation": "Disco and downtempo production scene in",
+        "subject": "Fuzz Against Junk",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://www.balearicbreakfast.com/post/balearic-breakfast-episode-215-a-beatlesesque-magical-mystery-world-of-swirling-psychedelic-patterns",
+        "note": "Firsthand producer recollection identifies Fuzz Against Junk as Andy Williams and Gordon Smith working in London (Nuphonic, Soho record shop), and directly names first Country Clonk single. Artist scene, not unverified studio for the owned edition."
       }
     ],
     "4281": [
@@ -404,6 +430,19 @@
         "precision": "city",
         "source": "https://www.allmusic.com/artist/shitmat-mn0000115041",
         "note": "AllMusic identifies Henry Collins/Shitmat as Brighton-based and his breakcore output. The geographic claim concerns the artist's scene rather than the recording site of Full English Breakfest Vol. 4."
+      }
+    ],
+    "115967": [
+      {
+        "kind": "artist",
+        "relation": "House and downtempo project associated with",
+        "subject": "Machine Shop / Gerd",
+        "label": "Netherlands",
+        "lon": 5.2913,
+        "lat": 52.1326,
+        "precision": "country",
+        "source": "https://clone.nl/instock/label/4lux",
+        "note": "Clone record-store credits for the exact Machine Shop Naked Lunch attribute all five tracks to producer Gerd; RA identifies Gerd/Gert-Jan Bijl as Netherlands-based. Country-level producer association, not 4Lux label address or recording studio."
       }
     ],
     "144934": [
@@ -846,6 +885,19 @@
         "precision": "city",
         "source": "https://www.liaisonartists.com/artists/helena-hauff/",
         "note": "Artist representation documents hometown Hamburg and Golden Pudel residency, not where Have You Been There was recorded."
+      }
+    ],
+    "2924778": [
+      {
+        "kind": "artist",
+        "relation": "Hardware techno artist based in",
+        "subject": "Robert Bergman",
+        "label": "Antwerp",
+        "lon": 4.4025,
+        "lat": 51.2194,
+        "precision": "city",
+        "source": "https://www.newtone-records.com/artist/Robert%2BBergman",
+        "note": "Specialist Japanese retailer's original B02 entry explicitly describes this artist as Antwerp, Belgium-based. This is an artist association, not release-market Netherlands."
       }
     ],
     "3148324": [
