@@ -2,6 +2,19 @@
   "schema_version": 1,
   "criteria": "Cultural threads are typed, sourced relationships. They are not a physical itinerary. A broad territory is not promoted to a city. No birthplace, nationality, title or genre is inferred as musical heritage.",
   "artists": {
+    "20": [
+      {
+        "kind": "artist",
+        "relation": "Techno DJ and production career established in",
+        "subject": "Percy X / Tony Scott",
+        "label": "Glasgow",
+        "lon": -4.2518,
+        "lat": 55.8642,
+        "precision": "city",
+        "source": "https://somarecords.com/artists/percyx/",
+        "note": "First-party Soma biography identifies Percy X as Glasgow's Tony Scott and explicitly names collaborative track -3 with Andrew Weatherall. Glasgow is his musical base, not Blood Sugar's separate geographic identity."
+      }
+    ],
     "253": [
       {
         "kind": "artist",
@@ -67,6 +80,19 @@
         "note": "RBMA interview with Steve Carr documents his Ipswich sound-system background and early production. Does not establish studio of One Ton."
       }
     ],
+    "652": [
+      {
+        "kind": "artist",
+        "relation": "Drum-and-bass production career associated with",
+        "subject": "Special Forces / Photek",
+        "label": "United Kingdom",
+        "lon": -2.5,
+        "lat": 54.5,
+        "precision": "country",
+        "source": "https://ra.co/dj/photek",
+        "note": "Resident Advisor expressly lists Special Forces as Rupert Parkes/Photek alias and locates the artist in the United Kingdom. This does not use a different contemporary DJ named Special Forces; national artist association only."
+      }
+    ],
     "782": [
       {
         "kind": "artist",
@@ -117,6 +143,19 @@
         "precision": "city",
         "source": "https://www.allmusic.com/artist/dj-deeon-mn0000663868",
         "note": "AllMusic documents Deeon's Chicago South Side house parties, Dance Mania releases and early ghetto-house production. This is a scene history, not a studio or location of the owned pressing."
+      }
+    ],
+    "1724": [
+      {
+        "kind": "artist",
+        "relation": "Jungle and breakbeat production developed in",
+        "subject": "Tek 9 / Dego McFarlane",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://www.skiddle.com/news/all/Dego-Interview-People-are-afraid-to-test-themselves-/30063/",
+        "note": "Interview identifies Tek 9 as Dego, raised in London, and founding Reinforced/4hero with local friends, with Tek 9 releases from 1991. AllMusic explicitly lists Killing Time. No remix sessions inferred."
       }
     ],
     "1749": [
@@ -208,6 +247,32 @@
         "precision": "city",
         "source": "https://bigbud1.bandcamp.com/album/free-beats",
         "note": "Artist's own Bandcamp identifies Southampton and explicitly describes the Fear of Flying album as recorded mostly in Belize. Current artist base does not locate the original 2005 sessions; sampler track-specific Belize sessions are not inferred."
+      }
+    ],
+    "5469": [
+      {
+        "kind": "artist",
+        "relation": "Drum-and-bass duo formed in",
+        "subject": "Subject 13",
+        "label": "Hackney, London",
+        "lon": -0.0553,
+        "lat": 51.545,
+        "precision": "city",
+        "source": "https://www.allmusic.com/artist/subject-13-mn0000488827",
+        "note": "AllMusic identifies Roy Bleau and David Stewart, formed 1995 in Hackney, London; DNBHQ matches the exact Spirit Breakdown / Can't Wait Tonight record to Discogs artist 5469. Formation, not studio."
+      }
+    ],
+    "7266": [
+      {
+        "kind": "artist",
+        "relation": "Wild Pitch house production created in",
+        "subject": "Photon Inc. / DJ Pierre",
+        "label": "New York City",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "precision": "city",
+        "source": "https://www.allmusic.com/artist/mn0000660881",
+        "note": "AllMusic identifies Photon Inc as DJ Pierre and says Generate Power was his first single after moving to New York, originating his Wild Pitch style. The vocalist Paula Brion is a separate artist; no claim for her geographic origin."
       }
     ],
     "7731": [
@@ -487,6 +552,19 @@
         "precision": "city",
         "source": "https://www.viviengoldman.com/about",
         "note": "Goldman's official biography identifies her as a Londoner, her role in the 1970s British music press and early-1980s post-punk recordings. London is a biographical and cultural association, not a proven recording location for Resolutionary's tracks."
+      }
+    ],
+    "71171": [
+      {
+        "kind": "artist",
+        "relation": "House music and DJ career based in",
+        "subject": "Michael Gray",
+        "label": "United Kingdom",
+        "lon": -2.5,
+        "lat": 54.5,
+        "precision": "country",
+        "source": "https://ra.co/dj/michaelgray",
+        "note": "Resident Advisor identifies the Full Intention collaborator as UK based and AllMusic indexes the owned Michael Gray Reworks release. Do not infer Croydon music scene from birthplace alone."
       }
     ],
     "72134": [
