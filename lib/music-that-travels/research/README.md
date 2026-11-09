@@ -109,3 +109,19 @@ python lib/music-that-travels/tests/research-relationships.py
 `artist-leads` compares exact billed artist IDs across owned editions and suppresses known accepted/rejected endpoint pairs, unknown/various artists and release-specific identity exclusions. These are low-confidence **review prompts**, not accepted contributor connections. In particular, a common billed artist is not evidence that two records used the same recording, producer, session or sample. Track-specific guest contributors need separate structured-credit research; the current identity pass cannot claim to discover them exhaustively.
 
 A future evidence adjudication pass should write explicit accepted `sample`, `cover`, `lyric_text`, `shared_contributor`, `influence` and `same_recording` relationships with source independence, exact-version/track matching and appropriate external-work identifiers. The current code is intentionally offline and deterministic; it does not independently search music databases or validate a musical link by listening.
+
+## Creative credits across collected editions
+
+`research/credit-discovery.py` adds an offline, deterministic candidate scan across the four available structured Discogs observation sets. It checks **exact numeric contributor IDs** from `extraartists`, keeps specific edition/track role wording, and excludes artwork, mastering, pressing and related edition-production roles from the **musical** relationship pass. Output is *candidate prompts only*, not an accepted connection or geographic fact.
+
+The bounded pilot documented in [CREDIT-DISCOVERY-01.md](CREDIT-DISCOVERY-01.md) uses the 93 owned editions available in the earlier source-observation subset, finding eight creative-role pair matches across four contributor identities. The batch-03 observations must be included for the full measured run; the pilot number is not the collection-wide total.
+
+```sh
+python lib/music-that-travels/research/credit-discovery.py --output /tmp/credit-leads.json
+python lib/music-that-travels/tests/credit-discovery.py
+python lib/music-that-travels/tests/research-relationships.py
+```
+
+Three new review leads are saved separately in `source/relationship-leads.json`: Shabaka Hutchings (Black Focus / Universal Beings), Nkono Teles (Only You / Love Vibration), and Pino Daniele (Nero A Metà / Stop Bajon). The review queue currently contains seven candidates, all unaccepted. The map, generated worker and original accepted ledger remain untouched.
+
+This is a first structured-credit discovery route, **not** exhaustive research into samples, covers, remixes, group-member associations, or undocumented musicians. Those relationships still require separate searches and release-specific evidence.
