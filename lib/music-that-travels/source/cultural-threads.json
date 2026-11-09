@@ -236,6 +236,19 @@
         "note": "Resident Advisor lists the artist's location as Germany. Country-level artist association only; the countries of Mashed Up Funk pressings are separate release-market facts. No city inferred."
       }
     ],
+    "35143": [
+      {
+        "kind": "artist",
+        "relation": "House DJ and producer based in",
+        "subject": "Kenny Carvajal",
+        "label": "Chicago",
+        "lon": -87.6298,
+        "lat": 41.8781,
+        "precision": "city",
+        "source": "https://www.nts.live/artists/140852-kenny-carvajal",
+        "note": "NTS documents his Chicago DJ scene and production career. This describes Kenny Carvajal alone, not featured vocalist Carla Prather."
+      }
+    ],
     "35328": [
       {
         "kind": "artist",
@@ -484,6 +497,19 @@
         "note": "Artist Bandcamp on the exact No One Belongs Here More Than You EP identifies New York, New York as location. Artist base only, not a proven recording address."
       }
     ],
+    "859232": [
+      {
+        "kind": "artist",
+        "relation": "Jazz music associated with",
+        "subject": "Guadeloupe Reflexions",
+        "label": "Guadeloupe",
+        "lon": -61.551,
+        "lat": 16.265,
+        "precision": "region",
+        "source": "https://www.distantrhythm.com/store/p/guadeloupe-reflexions-un-jeudi-a-larawak",
+        "note": "Specialist record store describes the exact album as jazz from Guadeloupe; regional musical association only, not this reissue's manufacturing place or a studio."
+      }
+    ],
     "869854": [
       {
         "kind": "artist",
@@ -721,14 +747,40 @@
     "4447121": [
       {
         "kind": "artist",
-        "relation": "Electronic musician based in",
+        "relation": "Record-store and electronic DJ career in",
         "subject": "Yoshinori Hayashi",
-        "label": "Japan",
-        "lon": 138.2529,
-        "lat": 36.2048,
-        "precision": "country",
-        "source": "https://ra.co/dj/yoshinorihayashi",
-        "note": "Resident Advisor identifies the electronic artist's Japanese location and work. Tokyo gigs are not interpreted as residence or recording."
+        "label": "Tokyo",
+        "lon": 139.6917,
+        "lat": 35.6895,
+        "precision": "city",
+        "source": "https://www.theransomnote.com/music/mixes/yoshinori-hayashi-the-ransom-note-mix/",
+        "note": "Interview identifies Tokyo record-store work alongside track-making and DJing. Artist's work city, not Uncountable Set session."
+      }
+    ],
+    "5080597": [
+      {
+        "kind": "artist",
+        "relation": "Electro production collective based in",
+        "subject": "London Modular Alliance",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://dimensionsrecordings.kudosrecords.co.uk/release/direc007/moons-delux-london-modular-alliance-material",
+        "note": "Label profile explicitly references the group's Hands & Brains EP and calls the collective London-based, with a modular store in East London."
+      }
+    ],
+    "5602556": [
+      {
+        "kind": "artist",
+        "relation": "Hip-hop beat producer based in",
+        "subject": "KUSO GVKI",
+        "label": "Berlin",
+        "lon": 13.405,
+        "lat": 52.52,
+        "precision": "city",
+        "source": "https://kusogvki.bandcamp.com/album/culture",
+        "note": "Artist page for the exact Culture release states Berlin, Germany and discusses his activity in German hip-hop. No record-session location claimed."
       }
     ],
     "5793123": [
@@ -850,6 +902,19 @@
     ]
   },
   "releases": {
+    "24685": [
+      {
+        "kind": "recording",
+        "relation": "Produced in",
+        "subject": "No Satellites Please — DJ Slip",
+        "label": "Minneapolis",
+        "lon": -93.265,
+        "lat": 44.9778,
+        "precision": "city",
+        "source": "https://dropbassnetwork.bandcamp.com/album/no-satellites-please",
+        "note": "Original label's exact reissue reproduces the etched original runout credit PRODUCED BY DJ SLIP IN MINNEAPOLIS, MN. Different locations for Detroit mastering and pressing are not music production."
+      }
+    ],
     "11758168": [
       {
         "kind": "repertoire",
@@ -888,6 +953,19 @@
         "precision": "country",
         "source": "https://chebrunner.bandcamp.com/album/tagnawit-ep",
         "note": "Artist and Rebel Up! release description identify traditional Gnawa percussion and two Brussels-based Gnawa masters on this EP. This is repertoire/cultural connection; the release is not asserted to have been recorded in Morocco."
+      }
+    ],
+    "15501102": [
+      {
+        "kind": "recording",
+        "relation": "Produced in",
+        "subject": "Baía Stamina — Luar Domatrix",
+        "label": "Glasgow",
+        "lon": -4.2518,
+        "lat": 55.8642,
+        "precision": "city",
+        "source": "https://acabine.pt/2020/07/luar-domatrix-baia-stamina/",
+        "note": "Portuguese music journalism and label material identify Luar Domatrix as Rudi Brito and explicitly state the record was composed/produced in Glasgow, after later return to Lisbon. This is exact-release production geography."
       }
     ]
   }
