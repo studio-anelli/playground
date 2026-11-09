@@ -63,6 +63,18 @@ class Discovery(unittest.TestCase):
         self.assertEqual(out['lead_count'],1)
         self.assertEqual(out['leads'][0]['artist_id'],'26')
 
+    def test_joint_named_contributors_are_suppressed_individually(self):
+        self.ledger['connections'] = [{'decision': 'accepted',
+            'subject': 'Person and Another',
+            'endpoints': [{'release_id': '1'}, {'release_id': '2'}]}]
+        a = release(1, [(25,'Person','Vocals',''), (26,'Another','Drums',''),
+                        (27,'Fresh','Guitar','')])
+        b = release(2, [(25,'Person','Vocals',''), (26,'Another','Drums',''),
+                        (27,'Fresh','Guitar','')])
+        out = scan(self.collection,self.ledger,[a,b])
+        self.assertEqual(out['lead_count'],1)
+        self.assertEqual(out['leads'][0]['artist_name'],'Fresh')
+
     def test_hyphenated_executive_producer_not_musical(self):
         a = release(1,[(25,'Manager','Executive-Producer','')])
         b = release(2,[(25,'Manager','Executive-Producer','')])
