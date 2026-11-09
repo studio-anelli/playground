@@ -302,6 +302,19 @@
         "note": "Goldman's official biography identifies her as a Londoner, her role in the 1970s British music press and early-1980s post-punk recordings. London is a biographical and cultural association, not a proven recording location for Resolutionary's tracks."
       }
     ],
+    "73715": [
+      {
+        "kind": "artist",
+        "relation": "Disco-house producer based in",
+        "subject": "Nebraska",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://ra.co/reviews/19242",
+        "note": "Contemporaneous Resident Advisor review identifies Nebraska as Londoner Ali Gibbs on the exact Look What You've Done To Me EP; artist base, not recording address."
+      }
+    ],
     "91058": [
       {
         "kind": "artist",
@@ -549,6 +562,19 @@
         "note": "ADE biography documents moving from Ivory Coast to Hamburg in 1992, developing a house/techno interest there and later making a home studio in Lübeck. Hamburg is formative scene, not location of Wind Of Goree recording."
       }
     ],
+    "1138698": [
+      {
+        "kind": "artist",
+        "relation": "Early electronic and footwork production career in",
+        "subject": "Slava",
+        "label": "Chicago",
+        "lon": -87.6298,
+        "lat": 41.8781,
+        "precision": "city",
+        "source": "https://music.apple.com/us/artist/slava/76028746",
+        "note": "Artist biography names Slava Balasanov and explicitly names Dreaming Tiger (2010), the Chicago-based Moment Sound label and later Brooklyn residence. Chicago is formative production scene."
+      }
+    ],
     "1152098": [
       {
         "kind": "artist",
@@ -586,6 +612,32 @@
         "precision": "city",
         "source": "https://www.slowmotionmusic.it/project/bottin/",
         "note": "Artist/label biography documents Guglielmo Bottin's Venice base and creative work. No claim about this specific 12-inch's recording, remix sources or manufacturing."
+      }
+    ],
+    "1198484": [
+      {
+        "kind": "artist",
+        "relation": "Three-turntable DJ and producer based in",
+        "subject": "DJ Marcelle / Another Nice Mess",
+        "label": "Amsterdam",
+        "lon": 4.9041,
+        "lat": 52.3676,
+        "precision": "city",
+        "source": "https://vimeo.com/1082047902",
+        "note": "Artist conversation introduction calls DJ Marcelle Amsterdam-based; official artist profile separately lists exact For 10-inch release. This is a music base, not a studio or the cities of her gigs."
+      }
+    ],
+    "1209519": [
+      {
+        "kind": "artist",
+        "relation": "DJ, party and label community built in",
+        "subject": "Eamon Harkin",
+        "label": "New York City",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "precision": "city",
+        "source": "https://nowadays.nyc/resident/eamon-harkin/",
+        "note": "Artist's own NYC venue biography documents the Mister Saturday Night / Nowadays DJ and production scene. Born in Derry but birth location is not substituted for his musical base."
       }
     ],
     "1488101": [
@@ -651,6 +703,19 @@
         "precision": "region",
         "source": "https://archives.crem-cnrs.fr/archives/collections/CNRSMH_E_2011_005_015/",
         "note": "CNRS Musée de l'Homme ethnomusicology archive identifies the exact Steel Band Shell de Port-Louis and associates its Souvenir de la Guadeloupe recording with Guadeloupe. This is a territorial musical association, not a presumed studio address."
+      }
+    ],
+    "2120212": [
+      {
+        "kind": "artist",
+        "relation": "First electronic music productions developed in",
+        "subject": "Recondite",
+        "label": "Lower Bavaria",
+        "lon": 12.8,
+        "lat": 48.55,
+        "precision": "region",
+        "source": "https://www.buddemusic.de/roster/recondite",
+        "note": "Publisher biography documents Lorenz Brunner first creating music in rural Lower Bavaria before moving to Berlin; region, not a studio location for Theater II."
       }
     ],
     "2406747": [
