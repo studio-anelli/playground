@@ -13,6 +13,7 @@
     18497,
     19378,
     24611,
+    24896,
     27538,
     31300,
     32063,
@@ -38,6 +39,7 @@
     114068,
     118630,
     125359,
+    125920,
     129528,
     141705,
     146035,
@@ -58,14 +60,17 @@
     239890,
     322096,
     346778,
+    366413,
     401373,
     408832,
     417556,
+    418688,
     489967,
     496794,
     567634,
     592730,
     617339,
+    645638,
     646323,
     658776,
     666200,
@@ -93,12 +98,14 @@
     1243093,
     1244858,
     1276204,
+    1352263,
     1356124,
     1358351,
     1363509,
     1387022,
     1492774,
     1555013,
+    1601162,
     1607739,
     1614712,
     1619565,
@@ -123,11 +130,14 @@
     2720604,
     2936028,
     2981774,
+    3103098,
     3146173,
+    3480952,
     3558397,
     3803673,
     3835570,
     3842748,
+    3851838,
     3880099,
     4253186,
     4268620,
@@ -138,8 +148,10 @@
     5035765,
     5156837,
     5530223,
+    5652780,
     5666067,
     5723089,
+    6022847,
     6127229,
     6141873,
     6245802,
@@ -150,6 +162,7 @@
     7555330,
     7568442,
     7704301,
+    7770150,
     7770151,
     7938017,
     8036642,
@@ -162,6 +175,7 @@
     8539380,
     8610636,
     8630272,
+    8636562,
     8653318,
     8786827,
     8800233,
@@ -171,6 +185,7 @@
     8929441,
     9034937,
     9059108,
+    9072898,
     9118974,
     9153158,
     9185698,
@@ -192,11 +207,15 @@
     11009929,
     11112454,
     11134399,
+    11209038,
+    11298561,
     11393080,
+    11437823,
     11534317,
     11573136,
     11636825,
     11679290,
+    11717510,
     11740322,
     11758168,
     11780074,
@@ -209,24 +228,30 @@
     12126044,
     12298829,
     12343877,
+    12424634,
     12574351,
     12716187,
     12765339,
     12863875,
+    12890235,
     12965221,
     13047516,
     13051777,
     13056907,
+    13132255,
     13339013,
+    13369708,
     13390804,
     13402018,
     13433334,
     13483159,
     13657670,
     13710933,
+    13852404,
     13867844,
     13986179,
     14207369,
+    14222949,
     14248741,
     14270021,
     14457597,
@@ -236,27 +261,41 @@
     14837376,
     14877491,
     14919928,
+    15268960,
+    15499420,
     15729017,
     16279297,
+    16691670,
     16868718,
+    17030529,
     17970382,
     18007090,
     18064021,
     18720775,
+    20152732,
+    20431393,
     20923105,
+    21016180,
+    21087580,
     21926020,
     21993661,
     23192537,
     24882914,
     24896429,
+    25267285,
+    25269778,
     25308625,
     26118410,
+    26359139,
+    26438102,
+    26572889,
     27478812,
     30112238,
+    30227756,
     30307487
   ],
-  "distinct_editions": 252,
-  "copy_count": 254,
+  "distinct_editions": 291,
+  "copy_count": 293,
   "collection_entries": 610,
   "records": {
     "7548627": {
@@ -2066,6 +2105,24 @@
           "studio": "Musical scene",
           "kind": "artist",
           "id": "thread-77af3914286f"
+        },
+        {
+          "kind": "artist",
+          "relation": "Musical roots and scene",
+          "subject": "Pino Daniele",
+          "label": "Naples",
+          "lat": 40.8518,
+          "lon": 14.2681,
+          "precision": "city",
+          "note": "The official biography connects his musical development to Naples and describes the combination of Neapolitan song with blues, jazz and rock. This is supported cultural history, not genre-based geographic inference.",
+          "source": "https://www.pinodaniele.com/about/",
+          "research_claim_id": "research-661efd7dc774",
+          "research_source_ids": [
+            "pino"
+          ],
+          "city": "Naples",
+          "studio": "Musical roots and scene",
+          "id": "thread-29f73cf892c0"
         }
       ],
       "primary_thread_id": "thread-77af3914286f",
@@ -2111,6 +2168,24 @@
           "studio": "Musical scene",
           "kind": "artist",
           "id": "thread-77af3914286f"
+        },
+        {
+          "kind": "artist",
+          "relation": "Musical roots and scene",
+          "subject": "Pino Daniele",
+          "label": "Naples",
+          "lat": 40.8518,
+          "lon": 14.2681,
+          "precision": "city",
+          "note": "The official biography connects his musical development to Naples and describes the combination of Neapolitan song with blues, jazz and rock. This is supported cultural history, not genre-based geographic inference.",
+          "source": "https://www.pinodaniele.com/about/",
+          "research_claim_id": "research-661efd7dc774",
+          "research_source_ids": [
+            "pino"
+          ],
+          "city": "Naples",
+          "studio": "Musical roots and scene",
+          "id": "thread-29f73cf892c0"
         }
       ],
       "primary_thread_id": "thread-77af3914286f",
@@ -6198,6 +6273,70 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "12424634": {
+      "kind": "repertoire",
+      "relation": "Adapted for listeners in",
+      "subject": "Dance — South African edition",
+      "label": "South Africa",
+      "lat": -29,
+      "lon": 24,
+      "precision": "country",
+      "note": "The label describes an authorised slower South African version of the European title track and additional Tom Cats material. This is circulation and adaptation, not proof the original track was recorded there.",
+      "source": "https://afrosynth.bandcamp.com/album/dance",
+      "research_claim_id": "research-03cfe4f0cbdb",
+      "research_source_ids": [
+        "nightforce"
+      ],
+      "city": "South Africa",
+      "studio": "Adapted for listeners in",
+      "id": "thread-b2542a66a4df",
+      "threads": [
+        {
+          "kind": "repertoire",
+          "relation": "Adapted for listeners in",
+          "subject": "Dance — South African edition",
+          "label": "South Africa",
+          "lat": -29,
+          "lon": 24,
+          "precision": "country",
+          "note": "The label describes an authorised slower South African version of the European title track and additional Tom Cats material. This is circulation and adaptation, not proof the original track was recorded there.",
+          "source": "https://afrosynth.bandcamp.com/album/dance",
+          "research_claim_id": "research-03cfe4f0cbdb",
+          "research_source_ids": [
+            "nightforce"
+          ],
+          "city": "South Africa",
+          "studio": "Adapted for listeners in",
+          "id": "thread-b2542a66a4df"
+        }
+      ],
+      "primary_thread_id": "thread-b2542a66a4df",
+      "locations": [
+        {
+          "kind": "repertoire",
+          "relation": "Adapted for listeners in",
+          "subject": "Dance — South African edition",
+          "label": "South Africa",
+          "lat": -29,
+          "lon": 24,
+          "precision": "country",
+          "note": "The label describes an authorised slower South African version of the European title track and additional Tom Cats material. This is circulation and adaptation, not proof the original track was recorded there.",
+          "source": "https://afrosynth.bandcamp.com/album/dance",
+          "research_claim_id": "research-03cfe4f0cbdb",
+          "research_source_ids": [
+            "nightforce"
+          ],
+          "city": "South Africa",
+          "studio": "Adapted for listeners in",
+          "id": "thread-b2542a66a4df"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Night Force (3)",
+        "Tom Cats (2)"
+      ]
+    },
     "13056907": {
       "kind": "artist",
       "relation": "Project originates from",
@@ -6450,6 +6589,271 @@
         "Chad White"
       ]
     },
+    "11437823": {
+      "kind": "artist",
+      "relation": "Group formed in",
+      "subject": "Alma Negra",
+      "label": "Basel",
+      "lat": 47.5596,
+      "lon": 7.5886,
+      "precision": "city",
+      "note": "The group’s own biography explicitly names Basel as its formation place. This applies to the group, including the remix release; it does not place the remixers’ sessions.",
+      "source": "https://almanegramusic.bandcamp.com/album/visions",
+      "research_claim_id": "research-96e054882a14",
+      "research_source_ids": [
+        "alma"
+      ],
+      "city": "Basel",
+      "studio": "Group formed in",
+      "id": "thread-e0a15eaa1e6f",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Group formed in",
+          "subject": "Alma Negra",
+          "label": "Basel",
+          "lat": 47.5596,
+          "lon": 7.5886,
+          "precision": "city",
+          "note": "The group’s own biography explicitly names Basel as its formation place. This applies to the group, including the remix release; it does not place the remixers’ sessions.",
+          "source": "https://almanegramusic.bandcamp.com/album/visions",
+          "research_claim_id": "research-96e054882a14",
+          "research_source_ids": [
+            "alma"
+          ],
+          "city": "Basel",
+          "studio": "Group formed in",
+          "id": "thread-e0a15eaa1e6f"
+        }
+      ],
+      "primary_thread_id": "thread-e0a15eaa1e6f",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Group formed in",
+          "subject": "Alma Negra",
+          "label": "Basel",
+          "lat": 47.5596,
+          "lon": 7.5886,
+          "precision": "city",
+          "note": "The group’s own biography explicitly names Basel as its formation place. This applies to the group, including the remix release; it does not place the remixers’ sessions.",
+          "source": "https://almanegramusic.bandcamp.com/album/visions",
+          "research_claim_id": "research-96e054882a14",
+          "research_source_ids": [
+            "alma"
+          ],
+          "city": "Basel",
+          "studio": "Group formed in",
+          "id": "thread-e0a15eaa1e6f"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "13369708": {
+      "kind": "artist",
+      "relation": "Group formed in",
+      "subject": "Alma Negra",
+      "label": "Basel",
+      "lat": 47.5596,
+      "lon": 7.5886,
+      "precision": "city",
+      "note": "The group’s own biography explicitly names Basel as its formation place. This applies to the group, including the remix release; it does not place the remixers’ sessions.",
+      "source": "https://almanegramusic.bandcamp.com/album/visions",
+      "research_claim_id": "research-96e054882a14",
+      "research_source_ids": [
+        "alma"
+      ],
+      "city": "Basel",
+      "studio": "Group formed in",
+      "id": "thread-e0a15eaa1e6f",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Group formed in",
+          "subject": "Alma Negra",
+          "label": "Basel",
+          "lat": 47.5596,
+          "lon": 7.5886,
+          "precision": "city",
+          "note": "The group’s own biography explicitly names Basel as its formation place. This applies to the group, including the remix release; it does not place the remixers’ sessions.",
+          "source": "https://almanegramusic.bandcamp.com/album/visions",
+          "research_claim_id": "research-96e054882a14",
+          "research_source_ids": [
+            "alma"
+          ],
+          "city": "Basel",
+          "studio": "Group formed in",
+          "id": "thread-e0a15eaa1e6f"
+        }
+      ],
+      "primary_thread_id": "thread-e0a15eaa1e6f",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Group formed in",
+          "subject": "Alma Negra",
+          "label": "Basel",
+          "lat": 47.5596,
+          "lon": 7.5886,
+          "precision": "city",
+          "note": "The group’s own biography explicitly names Basel as its formation place. This applies to the group, including the remix release; it does not place the remixers’ sessions.",
+          "source": "https://almanegramusic.bandcamp.com/album/visions",
+          "research_claim_id": "research-96e054882a14",
+          "research_source_ids": [
+            "alma"
+          ],
+          "city": "Basel",
+          "studio": "Group formed in",
+          "id": "thread-e0a15eaa1e6f"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "125920": {
+      "kind": "artist",
+      "relation": "Band based in",
+      "subject": "The Soul Searchers",
+      "label": "Washington, DC",
+      "lat": 38.9072,
+      "lon": -77.0369,
+      "precision": "city",
+      "note": "The label documents the DC band’s funk and go-go history. It also identifies Ashley’s Roachclip as a widely sampled break, connecting the collection’s track to later hip-hop.",
+      "source": "https://iconoclassicrecords.com/artist/the-soul-searchers/",
+      "research_claim_id": "research-7aaca9564824",
+      "research_source_ids": [
+        "soulsearchers"
+      ],
+      "city": "Washington, DC",
+      "studio": "Band based in",
+      "id": "thread-688d861ba9a6",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Musical career and community",
+          "subject": "Esther Williams",
+          "label": "Washington, DC",
+          "lat": 38.9072,
+          "lon": -77.0369,
+          "precision": "city",
+          "note": "The artist’s institute biography documents a professional career in Washington, DC and her Friends & Company recordings. The singer is distinguished from the actress of the same name.",
+          "source": "https://wjai.org/esther-williams/",
+          "research_claim_id": "research-67eaa22c5942",
+          "research_source_ids": [
+            "esther"
+          ],
+          "city": "Washington, DC",
+          "studio": "Musical career and community",
+          "id": "thread-79f4ff952540"
+        },
+        {
+          "kind": "artist",
+          "relation": "Band based in",
+          "subject": "The Soul Searchers",
+          "label": "Washington, DC",
+          "lat": 38.9072,
+          "lon": -77.0369,
+          "precision": "city",
+          "note": "The label documents the DC band’s funk and go-go history. It also identifies Ashley’s Roachclip as a widely sampled break, connecting the collection’s track to later hip-hop.",
+          "source": "https://iconoclassicrecords.com/artist/the-soul-searchers/",
+          "research_claim_id": "research-7aaca9564824",
+          "research_source_ids": [
+            "soulsearchers"
+          ],
+          "city": "Washington, DC",
+          "studio": "Band based in",
+          "id": "thread-688d861ba9a6"
+        }
+      ],
+      "primary_thread_id": "thread-688d861ba9a6",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Band based in",
+          "subject": "The Soul Searchers",
+          "label": "Washington, DC",
+          "lat": 38.9072,
+          "lon": -77.0369,
+          "precision": "city",
+          "note": "The label documents the DC band’s funk and go-go history. It also identifies Ashley’s Roachclip as a widely sampled break, connecting the collection’s track to later hip-hop.",
+          "source": "https://iconoclassicrecords.com/artist/the-soul-searchers/",
+          "research_claim_id": "research-7aaca9564824",
+          "research_source_ids": [
+            "soulsearchers"
+          ],
+          "city": "Washington, DC",
+          "studio": "Band based in",
+          "id": "thread-688d861ba9a6"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "21087580": {
+      "kind": "artist",
+      "relation": "Artist based in",
+      "subject": "Moor Mother",
+      "label": "Philadelphia",
+      "lat": 39.9526,
+      "lon": -75.1652,
+      "precision": "city",
+      "note": "The label identifies Philadelphia as Moor Mother’s musical base at this album’s release; it does not identify the home recording address.",
+      "period": "2021",
+      "source": "https://www.anti.com/news/moor-mother-releases-new-album-black-encyclopedia-of-the-air-today/",
+      "research_claim_id": "research-8c8b154287e9",
+      "research_source_ids": [
+        "moor"
+      ],
+      "city": "Philadelphia",
+      "studio": "Artist based in",
+      "id": "thread-1cd48c0a5031",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Artist based in",
+          "subject": "Moor Mother",
+          "label": "Philadelphia",
+          "lat": 39.9526,
+          "lon": -75.1652,
+          "precision": "city",
+          "note": "The label identifies Philadelphia as Moor Mother’s musical base at this album’s release; it does not identify the home recording address.",
+          "period": "2021",
+          "source": "https://www.anti.com/news/moor-mother-releases-new-album-black-encyclopedia-of-the-air-today/",
+          "research_claim_id": "research-8c8b154287e9",
+          "research_source_ids": [
+            "moor"
+          ],
+          "city": "Philadelphia",
+          "studio": "Artist based in",
+          "id": "thread-1cd48c0a5031"
+        }
+      ],
+      "primary_thread_id": "thread-1cd48c0a5031",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Artist based in",
+          "subject": "Moor Mother",
+          "label": "Philadelphia",
+          "lat": 39.9526,
+          "lon": -75.1652,
+          "precision": "city",
+          "note": "The label identifies Philadelphia as Moor Mother’s musical base at this album’s release; it does not identify the home recording address.",
+          "period": "2021",
+          "source": "https://www.anti.com/news/moor-mother-releases-new-album-black-encyclopedia-of-the-air-today/",
+          "research_claim_id": "research-8c8b154287e9",
+          "research_source_ids": [
+            "moor"
+          ],
+          "city": "Philadelphia",
+          "studio": "Artist based in",
+          "id": "thread-1cd48c0a5031"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "197500": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -6626,6 +7030,79 @@
       ],
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
+    },
+    "20431393": {
+      "kind": "recording",
+      "relation": "Recorded at",
+      "subject": "Zbliżenie",
+      "label": "Łódź",
+      "lat": 51.7592,
+      "lon": 19.455,
+      "precision": "city",
+      "note": "The release credits locate the archived sessions at Radio Łódź, with individual recording dates. The city marker does not identify a studio street address.",
+      "period": "1974–1977",
+      "venue": "Radio Łódź",
+      "source": "https://henrykdebich.bandcamp.com/album/zbli-enie",
+      "research_claim_id": "research-a20f9aee4b3b",
+      "research_source_ids": [
+        "debich",
+        "discogs-releases-20431393"
+      ],
+      "city": "Łódź",
+      "studio": "Recorded at",
+      "id": "thread-84daa1a0a353",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Zbliżenie",
+          "label": "Łódź",
+          "lat": 51.7592,
+          "lon": 19.455,
+          "precision": "city",
+          "note": "The release credits locate the archived sessions at Radio Łódź, with individual recording dates. The city marker does not identify a studio street address.",
+          "period": "1974–1977",
+          "venue": "Radio Łódź",
+          "source": "https://henrykdebich.bandcamp.com/album/zbli-enie",
+          "research_claim_id": "research-a20f9aee4b3b",
+          "research_source_ids": [
+            "debich",
+            "discogs-releases-20431393"
+          ],
+          "city": "Łódź",
+          "studio": "Recorded at",
+          "id": "thread-84daa1a0a353"
+        }
+      ],
+      "primary_thread_id": "thread-84daa1a0a353",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Zbliżenie",
+          "label": "Łódź",
+          "lat": 51.7592,
+          "lon": 19.455,
+          "precision": "city",
+          "note": "The release credits locate the archived sessions at Radio Łódź, with individual recording dates. The city marker does not identify a studio street address.",
+          "period": "1974–1977",
+          "venue": "Radio Łódź",
+          "source": "https://henrykdebich.bandcamp.com/album/zbli-enie",
+          "research_claim_id": "research-a20f9aee4b3b",
+          "research_source_ids": [
+            "debich",
+            "discogs-releases-20431393"
+          ],
+          "city": "Łódź",
+          "studio": "Recorded at",
+          "id": "thread-84daa1a0a353"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Henryk Debich",
+        "Orkiestra Polskiego Radia I Telewizji W Łodzi"
+      ]
     },
     "208447": {
       "kind": "artist",
@@ -7022,6 +7499,78 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "13852404": {
+      "kind": "recording",
+      "relation": "Recorded partly at",
+      "subject": "Feel My Love",
+      "label": "West Orange",
+      "lat": 40.7987,
+      "lon": -74.239,
+      "precision": "city",
+      "note": "Another edition credits House of Music, West Orange, NJ alongside two other studios. Only this explicitly located studio is mapped; the other sessions remain unresolved.",
+      "venue": "House of Music",
+      "coverage": "Sourced cultural threads",
+      "source": "https://www.discogs.com/release/3535278",
+      "research_claim_id": "research-ccb917dfbe50",
+      "research_source_ids": [
+        "discogs-releases-3535278",
+        "vaughan"
+      ],
+      "city": "West Orange",
+      "studio": "Recorded partly at",
+      "id": "thread-94cc7b076b69",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded partly at",
+          "subject": "Feel My Love",
+          "label": "West Orange",
+          "lat": 40.7987,
+          "lon": -74.239,
+          "precision": "city",
+          "note": "Another edition credits House of Music, West Orange, NJ alongside two other studios. Only this explicitly located studio is mapped; the other sessions remain unresolved.",
+          "venue": "House of Music",
+          "coverage": "partial",
+          "source": "https://www.discogs.com/release/3535278",
+          "research_claim_id": "research-ccb917dfbe50",
+          "research_source_ids": [
+            "discogs-releases-3535278",
+            "vaughan"
+          ],
+          "city": "West Orange",
+          "studio": "Recorded partly at",
+          "id": "thread-94cc7b076b69"
+        }
+      ],
+      "primary_thread_id": "thread-94cc7b076b69",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded partly at",
+          "subject": "Feel My Love",
+          "label": "West Orange",
+          "lat": 40.7987,
+          "lon": -74.239,
+          "precision": "city",
+          "note": "Another edition credits House of Music, West Orange, NJ alongside two other studios. Only this explicitly located studio is mapped; the other sessions remain unresolved.",
+          "venue": "House of Music",
+          "coverage": "partial",
+          "source": "https://www.discogs.com/release/3535278",
+          "research_claim_id": "research-ccb917dfbe50",
+          "research_source_ids": [
+            "discogs-releases-3535278",
+            "vaughan"
+          ],
+          "city": "West Orange",
+          "studio": "Recorded partly at",
+          "id": "thread-94cc7b076b69"
+        }
+      ],
+      "unlocated_artists": [
+        "Vaughan Mason",
+        "Butch Dayo"
+      ]
+    },
     "4389": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -7206,6 +7755,75 @@
         "Universal Funk (2)"
       ]
     },
+    "13132255": {
+      "kind": "recording",
+      "relation": "Recorded at",
+      "subject": "Traphouse Jazz",
+      "label": "Zurich",
+      "lat": 47.3769,
+      "lon": 8.5417,
+      "precision": "city",
+      "note": "The album description and credits locate the Boyoom Traphouse in Zurich, where the instrumentals were composed and recorded.",
+      "period": "2018",
+      "venue": "Boyoom Traphouse",
+      "source": "https://soulofzurich.bandcamp.com/album/traphouse-jazz",
+      "research_claim_id": "research-3cb6fa2d14c5",
+      "research_source_ids": [
+        "okvsho"
+      ],
+      "city": "Zurich",
+      "studio": "Recorded at",
+      "id": "thread-3883a7c60ea3",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Traphouse Jazz",
+          "label": "Zurich",
+          "lat": 47.3769,
+          "lon": 8.5417,
+          "precision": "city",
+          "note": "The album description and credits locate the Boyoom Traphouse in Zurich, where the instrumentals were composed and recorded.",
+          "period": "2018",
+          "venue": "Boyoom Traphouse",
+          "source": "https://soulofzurich.bandcamp.com/album/traphouse-jazz",
+          "research_claim_id": "research-3cb6fa2d14c5",
+          "research_source_ids": [
+            "okvsho"
+          ],
+          "city": "Zurich",
+          "studio": "Recorded at",
+          "id": "thread-3883a7c60ea3"
+        }
+      ],
+      "primary_thread_id": "thread-3883a7c60ea3",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded at",
+          "subject": "Traphouse Jazz",
+          "label": "Zurich",
+          "lat": 47.3769,
+          "lon": 8.5417,
+          "precision": "city",
+          "note": "The album description and credits locate the Boyoom Traphouse in Zurich, where the instrumentals were composed and recorded.",
+          "period": "2018",
+          "venue": "Boyoom Traphouse",
+          "source": "https://soulofzurich.bandcamp.com/album/traphouse-jazz",
+          "research_claim_id": "research-3cb6fa2d14c5",
+          "research_source_ids": [
+            "okvsho"
+          ],
+          "city": "Zurich",
+          "studio": "Recorded at",
+          "id": "thread-3883a7c60ea3"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Okvsho"
+      ]
+    },
     "666200": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -7262,6 +7880,67 @@
       "unlocated_artists": [
         "Ellen Allien"
       ]
+    },
+    "9072898": {
+      "kind": "artist",
+      "relation": "Musical roots and scene",
+      "subject": "Yussef Kamaal",
+      "label": "London",
+      "lat": 51.5074,
+      "lon": -0.1276,
+      "precision": "city",
+      "note": "The album notes describe the duo’s South East London pub gigs and the influence of the city’s pirate-radio cultures.",
+      "source": "https://yussefkamaal.bandcamp.com/album/black-focus",
+      "research_claim_id": "research-92d6175f61be",
+      "research_source_ids": [
+        "yussef"
+      ],
+      "city": "London",
+      "studio": "Musical roots and scene",
+      "id": "thread-307cfbef4112",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Musical roots and scene",
+          "subject": "Yussef Kamaal",
+          "label": "London",
+          "lat": 51.5074,
+          "lon": -0.1276,
+          "precision": "city",
+          "note": "The album notes describe the duo’s South East London pub gigs and the influence of the city’s pirate-radio cultures.",
+          "source": "https://yussefkamaal.bandcamp.com/album/black-focus",
+          "research_claim_id": "research-92d6175f61be",
+          "research_source_ids": [
+            "yussef"
+          ],
+          "city": "London",
+          "studio": "Musical roots and scene",
+          "id": "thread-307cfbef4112"
+        }
+      ],
+      "primary_thread_id": "thread-307cfbef4112",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Musical roots and scene",
+          "subject": "Yussef Kamaal",
+          "label": "London",
+          "lat": 51.5074,
+          "lon": -0.1276,
+          "precision": "city",
+          "note": "The album notes describe the duo’s South East London pub gigs and the influence of the city’s pirate-radio cultures.",
+          "source": "https://yussefkamaal.bandcamp.com/album/black-focus",
+          "research_claim_id": "research-92d6175f61be",
+          "research_source_ids": [
+            "yussef"
+          ],
+          "city": "London",
+          "studio": "Musical roots and scene",
+          "id": "thread-307cfbef4112"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
     },
     "208813": {
       "kind": "artist",
@@ -7503,6 +8182,70 @@
           "city": "Hartlepool",
           "studio": "Group formed in",
           "id": "thread-ac36f2636c20"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "1352263": {
+      "kind": "artist",
+      "relation": "Artist based in",
+      "subject": "Maynard Ferguson",
+      "label": "New York",
+      "lat": 40.7128,
+      "lon": -74.006,
+      "precision": "city",
+      "note": "The museum biography documents Ferguson’s move to New York in 1973 and the later studio-recording period. The single’s exact recording sessions are not inferred.",
+      "period": "From 1973",
+      "source": "https://shermanjazzmuseum.com/exhibit-page/maynard-ferguson/",
+      "research_claim_id": "research-c530bb8ec802",
+      "research_source_ids": [
+        "maynard"
+      ],
+      "city": "New York",
+      "studio": "Artist based in",
+      "id": "thread-c015526fb2e2",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Artist based in",
+          "subject": "Maynard Ferguson",
+          "label": "New York",
+          "lat": 40.7128,
+          "lon": -74.006,
+          "precision": "city",
+          "note": "The museum biography documents Ferguson’s move to New York in 1973 and the later studio-recording period. The single’s exact recording sessions are not inferred.",
+          "period": "From 1973",
+          "source": "https://shermanjazzmuseum.com/exhibit-page/maynard-ferguson/",
+          "research_claim_id": "research-c530bb8ec802",
+          "research_source_ids": [
+            "maynard"
+          ],
+          "city": "New York",
+          "studio": "Artist based in",
+          "id": "thread-c015526fb2e2"
+        }
+      ],
+      "primary_thread_id": "thread-c015526fb2e2",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Artist based in",
+          "subject": "Maynard Ferguson",
+          "label": "New York",
+          "lat": 40.7128,
+          "lon": -74.006,
+          "precision": "city",
+          "note": "The museum biography documents Ferguson’s move to New York in 1973 and the later studio-recording period. The single’s exact recording sessions are not inferred.",
+          "period": "From 1973",
+          "source": "https://shermanjazzmuseum.com/exhibit-page/maynard-ferguson/",
+          "research_claim_id": "research-c530bb8ec802",
+          "research_source_ids": [
+            "maynard"
+          ],
+          "city": "New York",
+          "studio": "Artist based in",
+          "id": "thread-c015526fb2e2"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -8189,6 +8932,153 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "16691670": {
+      "kind": "recording",
+      "relation": "Original album recorded in",
+      "subject": "I Need A Freak — original album",
+      "label": "Akron",
+      "lat": 41.0814,
+      "lon": -81.519,
+      "precision": "city",
+      "note": "The label describes Akron sessions for the original album. The expanded reissue’s two later bonus singles are not assigned this location.",
+      "period": "1983",
+      "coverage": "Sourced cultural threads",
+      "source": "https://sexual-harrassment.bandcamp.com/album/i-need-a-freak",
+      "research_claim_id": "research-0378be10fe76",
+      "research_source_ids": [
+        "sexual"
+      ],
+      "city": "Akron",
+      "studio": "Original album recorded in",
+      "id": "thread-1238c23b7c51",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Original album recorded in",
+          "subject": "I Need A Freak — original album",
+          "label": "Akron",
+          "lat": 41.0814,
+          "lon": -81.519,
+          "precision": "city",
+          "note": "The label describes Akron sessions for the original album. The expanded reissue’s two later bonus singles are not assigned this location.",
+          "period": "1983",
+          "coverage": "partial",
+          "source": "https://sexual-harrassment.bandcamp.com/album/i-need-a-freak",
+          "research_claim_id": "research-0378be10fe76",
+          "research_source_ids": [
+            "sexual"
+          ],
+          "city": "Akron",
+          "studio": "Original album recorded in",
+          "id": "thread-1238c23b7c51"
+        }
+      ],
+      "primary_thread_id": "thread-1238c23b7c51",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Original album recorded in",
+          "subject": "I Need A Freak — original album",
+          "label": "Akron",
+          "lat": 41.0814,
+          "lon": -81.519,
+          "precision": "city",
+          "note": "The label describes Akron sessions for the original album. The expanded reissue’s two later bonus singles are not assigned this location.",
+          "period": "1983",
+          "coverage": "partial",
+          "source": "https://sexual-harrassment.bandcamp.com/album/i-need-a-freak",
+          "research_claim_id": "research-0378be10fe76",
+          "research_source_ids": [
+            "sexual"
+          ],
+          "city": "Akron",
+          "studio": "Original album recorded in",
+          "id": "thread-1238c23b7c51"
+        }
+      ],
+      "unlocated_artists": [
+        "Sexual Harrassment"
+      ]
+    },
+    "26438102": {
+      "kind": "artist",
+      "relation": "Musical scene",
+      "subject": "Jimetta Rose",
+      "label": "Los Angeles",
+      "lat": 34.0522,
+      "lon": -118.2437,
+      "precision": "city",
+      "note": "The album notes identify Jimetta Rose’s Los Angeles musical community and the choir’s local collaborators.",
+      "source": "https://jimettarosethevoicesofcreation.bandcamp.com/album/how-good-it-is",
+      "research_claim_id": "research-f84eea043afa",
+      "research_source_ids": [
+        "jimetta"
+      ],
+      "city": "Los Angeles",
+      "studio": "Musical scene",
+      "id": "thread-30ea1c81da9e",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Musical scene",
+          "subject": "Jimetta Rose",
+          "label": "Los Angeles",
+          "lat": 34.0522,
+          "lon": -118.2437,
+          "precision": "city",
+          "note": "The album notes identify Jimetta Rose’s Los Angeles musical community and the choir’s local collaborators.",
+          "source": "https://jimettarosethevoicesofcreation.bandcamp.com/album/how-good-it-is",
+          "research_claim_id": "research-f84eea043afa",
+          "research_source_ids": [
+            "jimetta"
+          ],
+          "city": "Los Angeles",
+          "studio": "Musical scene",
+          "id": "thread-30ea1c81da9e"
+        },
+        {
+          "kind": "artist",
+          "relation": "Community choir based in",
+          "subject": "The Voices of Creation",
+          "label": "Los Angeles",
+          "lat": 34.0522,
+          "lon": -118.2437,
+          "precision": "city",
+          "note": "The same notes place the community choir in Jimetta Rose’s Los Angeles scene; no recording venue is asserted.",
+          "source": "https://jimettarosethevoicesofcreation.bandcamp.com/album/how-good-it-is",
+          "research_claim_id": "research-c9ccbb02fb70",
+          "research_source_ids": [
+            "jimetta"
+          ],
+          "city": "Los Angeles",
+          "studio": "Community choir based in",
+          "id": "thread-336b1eb740d2"
+        }
+      ],
+      "primary_thread_id": "thread-30ea1c81da9e",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Musical scene",
+          "subject": "Jimetta Rose",
+          "label": "Los Angeles",
+          "lat": 34.0522,
+          "lon": -118.2437,
+          "precision": "city",
+          "note": "The album notes identify Jimetta Rose’s Los Angeles musical community and the choir’s local collaborators.",
+          "source": "https://jimettarosethevoicesofcreation.bandcamp.com/album/how-good-it-is",
+          "research_claim_id": "research-f84eea043afa",
+          "research_source_ids": [
+            "jimetta"
+          ],
+          "city": "Los Angeles",
+          "studio": "Musical scene",
+          "id": "thread-30ea1c81da9e"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "11134399": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -8728,6 +9618,70 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "12890235": {
+      "kind": "recording",
+      "relation": "Recording sessions across",
+      "subject": "The Other Fantasy",
+      "label": "Europe",
+      "lat": 52,
+      "lon": 15,
+      "precision": "region",
+      "note": "The label documents sessions in several places around Europe but names no cities. The marker represents the broad region, not a studio or a complete itinerary.",
+      "source": "https://earlysounds.bandcamp.com/album/the-other-fantasy",
+      "research_claim_id": "research-69658cab53fc",
+      "research_source_ids": [
+        "edlongo"
+      ],
+      "city": "Europe",
+      "studio": "Recording sessions across",
+      "id": "thread-5aedc803509d",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recording sessions across",
+          "subject": "The Other Fantasy",
+          "label": "Europe",
+          "lat": 52,
+          "lon": 15,
+          "precision": "region",
+          "note": "The label documents sessions in several places around Europe but names no cities. The marker represents the broad region, not a studio or a complete itinerary.",
+          "source": "https://earlysounds.bandcamp.com/album/the-other-fantasy",
+          "research_claim_id": "research-69658cab53fc",
+          "research_source_ids": [
+            "edlongo"
+          ],
+          "city": "Europe",
+          "studio": "Recording sessions across",
+          "id": "thread-5aedc803509d"
+        }
+      ],
+      "primary_thread_id": "thread-5aedc803509d",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recording sessions across",
+          "subject": "The Other Fantasy",
+          "label": "Europe",
+          "lat": 52,
+          "lon": 15,
+          "precision": "region",
+          "note": "The label documents sessions in several places around Europe but names no cities. The marker represents the broad region, not a studio or a complete itinerary.",
+          "source": "https://earlysounds.bandcamp.com/album/the-other-fantasy",
+          "research_claim_id": "research-69658cab53fc",
+          "research_source_ids": [
+            "edlongo"
+          ],
+          "city": "Europe",
+          "studio": "Recording sessions across",
+          "id": "thread-5aedc803509d"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Ed Longo",
+        "The Applied Arts Ensemble"
+      ]
+    },
     "5530223": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -8908,6 +9862,89 @@
       ],
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
+    },
+    "1601162": {
+      "kind": "recording",
+      "relation": "Guitar solo recorded at",
+      "subject": "Beat It — guitar solo",
+      "label": "Los Angeles",
+      "lat": 34.0522,
+      "lon": -118.2437,
+      "precision": "city",
+      "note": "Swedien places Eddie Van Halen’s Beat It solo at Westlake Studio B. This covers the A-side contribution only, not Working Day & Night or every session on this edition.",
+      "period": "1982",
+      "venue": "Westlake Studio B",
+      "coverage": "Sourced cultural threads",
+      "track_positions": [
+        "A"
+      ],
+      "source": "https://www.musicradar.com/news/we-always-recorded-with-michael-in-the-dark-he-hated-light-engineer-bruce-swedien-on-the-making-of-michael-jacksons-thriller-track-by-track",
+      "research_claim_id": "research-726ac5ef71ca",
+      "research_source_ids": [
+        "swedien",
+        "westlake"
+      ],
+      "city": "Los Angeles",
+      "studio": "Guitar solo recorded at",
+      "id": "thread-397cc1dfddf4",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Guitar solo recorded at",
+          "subject": "Beat It — guitar solo",
+          "label": "Los Angeles",
+          "lat": 34.0522,
+          "lon": -118.2437,
+          "precision": "city",
+          "note": "Swedien places Eddie Van Halen’s Beat It solo at Westlake Studio B. This covers the A-side contribution only, not Working Day & Night or every session on this edition.",
+          "period": "1982",
+          "venue": "Westlake Studio B",
+          "coverage": "partial",
+          "track_positions": [
+            "A"
+          ],
+          "source": "https://www.musicradar.com/news/we-always-recorded-with-michael-in-the-dark-he-hated-light-engineer-bruce-swedien-on-the-making-of-michael-jacksons-thriller-track-by-track",
+          "research_claim_id": "research-726ac5ef71ca",
+          "research_source_ids": [
+            "swedien",
+            "westlake"
+          ],
+          "city": "Los Angeles",
+          "studio": "Guitar solo recorded at",
+          "id": "thread-397cc1dfddf4"
+        }
+      ],
+      "primary_thread_id": "thread-397cc1dfddf4",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Guitar solo recorded at",
+          "subject": "Beat It — guitar solo",
+          "label": "Los Angeles",
+          "lat": 34.0522,
+          "lon": -118.2437,
+          "precision": "city",
+          "note": "Swedien places Eddie Van Halen’s Beat It solo at Westlake Studio B. This covers the A-side contribution only, not Working Day & Night or every session on this edition.",
+          "period": "1982",
+          "venue": "Westlake Studio B",
+          "coverage": "partial",
+          "track_positions": [
+            "A"
+          ],
+          "source": "https://www.musicradar.com/news/we-always-recorded-with-michael-in-the-dark-he-hated-light-engineer-bruce-swedien-on-the-making-of-michael-jacksons-thriller-track-by-track",
+          "research_claim_id": "research-726ac5ef71ca",
+          "research_source_ids": [
+            "swedien",
+            "westlake"
+          ],
+          "city": "Los Angeles",
+          "studio": "Guitar solo recorded at",
+          "id": "thread-397cc1dfddf4"
+        }
+      ],
+      "unlocated_artists": [
+        "Michael Jackson"
+      ]
     },
     "184868": {
       "kind": "artist",
@@ -9303,6 +10340,70 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "25269778": {
+      "kind": "artist",
+      "relation": "Label and musical scene",
+      "subject": "Contact-U",
+      "label": "London",
+      "lat": 51.5074,
+      "lon": -0.1276,
+      "precision": "city",
+      "note": "The retrospective connects the duo to its Holloway Road label operation and early UK electro-boogie output. It does not locate every recording session.",
+      "period": "1982–1984",
+      "source": "https://freestylerecords.bandcamp.com/album/dancing-inner-space-1982-1984",
+      "research_claim_id": "research-01be03edd314",
+      "research_source_ids": [
+        "contact"
+      ],
+      "city": "London",
+      "studio": "Label and musical scene",
+      "id": "thread-18cb1e1c9f39",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Label and musical scene",
+          "subject": "Contact-U",
+          "label": "London",
+          "lat": 51.5074,
+          "lon": -0.1276,
+          "precision": "city",
+          "note": "The retrospective connects the duo to its Holloway Road label operation and early UK electro-boogie output. It does not locate every recording session.",
+          "period": "1982–1984",
+          "source": "https://freestylerecords.bandcamp.com/album/dancing-inner-space-1982-1984",
+          "research_claim_id": "research-01be03edd314",
+          "research_source_ids": [
+            "contact"
+          ],
+          "city": "London",
+          "studio": "Label and musical scene",
+          "id": "thread-18cb1e1c9f39"
+        }
+      ],
+      "primary_thread_id": "thread-18cb1e1c9f39",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Label and musical scene",
+          "subject": "Contact-U",
+          "label": "London",
+          "lat": 51.5074,
+          "lon": -0.1276,
+          "precision": "city",
+          "note": "The retrospective connects the duo to its Holloway Road label operation and early UK electro-boogie output. It does not locate every recording session.",
+          "period": "1982–1984",
+          "source": "https://freestylerecords.bandcamp.com/album/dancing-inner-space-1982-1984",
+          "research_claim_id": "research-01be03edd314",
+          "research_source_ids": [
+            "contact"
+          ],
+          "city": "London",
+          "studio": "Label and musical scene",
+          "id": "thread-18cb1e1c9f39"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "658776": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -9353,6 +10454,67 @@
           "city": "United States",
           "studio": "Artist associated area",
           "id": "thread-c47a58ca9081"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "3103098": {
+      "kind": "artist",
+      "relation": "Musical career and community",
+      "subject": "Esther Williams",
+      "label": "Washington, DC",
+      "lat": 38.9072,
+      "lon": -77.0369,
+      "precision": "city",
+      "note": "The artist’s institute biography documents a professional career in Washington, DC and her Friends & Company recordings. The singer is distinguished from the actress of the same name.",
+      "source": "https://wjai.org/esther-williams/",
+      "research_claim_id": "research-67eaa22c5942",
+      "research_source_ids": [
+        "esther"
+      ],
+      "city": "Washington, DC",
+      "studio": "Musical career and community",
+      "id": "thread-79f4ff952540",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Musical career and community",
+          "subject": "Esther Williams",
+          "label": "Washington, DC",
+          "lat": 38.9072,
+          "lon": -77.0369,
+          "precision": "city",
+          "note": "The artist’s institute biography documents a professional career in Washington, DC and her Friends & Company recordings. The singer is distinguished from the actress of the same name.",
+          "source": "https://wjai.org/esther-williams/",
+          "research_claim_id": "research-67eaa22c5942",
+          "research_source_ids": [
+            "esther"
+          ],
+          "city": "Washington, DC",
+          "studio": "Musical career and community",
+          "id": "thread-79f4ff952540"
+        }
+      ],
+      "primary_thread_id": "thread-79f4ff952540",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Musical career and community",
+          "subject": "Esther Williams",
+          "label": "Washington, DC",
+          "lat": 38.9072,
+          "lon": -77.0369,
+          "precision": "city",
+          "note": "The artist’s institute biography documents a professional career in Washington, DC and her Friends & Company recordings. The singer is distinguished from the actress of the same name.",
+          "source": "https://wjai.org/esther-williams/",
+          "research_claim_id": "research-67eaa22c5942",
+          "research_source_ids": [
+            "esther"
+          ],
+          "city": "Washington, DC",
+          "studio": "Musical career and community",
+          "id": "thread-79f4ff952540"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -9710,6 +10872,340 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "11298561": {
+      "kind": "repertoire",
+      "relation": "Compilation documents music from",
+      "subject": "Habibi Funk 007",
+      "label": "Morocco",
+      "lat": 32,
+      "lon": -7,
+      "precision": "country",
+      "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+      "source": "https://www.discogs.com/release/11209038",
+      "research_claim_id": "research-21f0057c7b64",
+      "research_source_ids": [
+        "discogs-releases-11209038",
+        "discogs-releases-11298561",
+        "habibi"
+      ],
+      "city": "Morocco",
+      "studio": "Compilation documents music from",
+      "id": "thread-48561b4610a1",
+      "threads": [
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music from",
+          "subject": "Habibi Funk 007",
+          "label": "Morocco",
+          "lat": 32,
+          "lon": -7,
+          "precision": "country",
+          "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+          "source": "https://www.discogs.com/release/11209038",
+          "research_claim_id": "research-21f0057c7b64",
+          "research_source_ids": [
+            "discogs-releases-11209038",
+            "discogs-releases-11298561",
+            "habibi"
+          ],
+          "city": "Morocco",
+          "studio": "Compilation documents music from",
+          "id": "thread-48561b4610a1"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music from",
+          "subject": "Habibi Funk 007",
+          "label": "Algeria",
+          "lat": 28,
+          "lon": 3,
+          "precision": "country",
+          "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+          "source": "https://www.discogs.com/release/11209038",
+          "research_claim_id": "research-b4e2ef65f094",
+          "research_source_ids": [
+            "discogs-releases-11209038",
+            "discogs-releases-11298561",
+            "habibi"
+          ],
+          "city": "Algeria",
+          "studio": "Compilation documents music from",
+          "id": "thread-4c1b2d9d115f"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music from",
+          "subject": "Habibi Funk 007",
+          "label": "Sudan",
+          "lat": 15,
+          "lon": 30,
+          "precision": "country",
+          "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+          "source": "https://www.discogs.com/release/11209038",
+          "research_claim_id": "research-24924ec961d3",
+          "research_source_ids": [
+            "discogs-releases-11209038",
+            "discogs-releases-11298561",
+            "habibi"
+          ],
+          "city": "Sudan",
+          "studio": "Compilation documents music from",
+          "id": "thread-dd1dc343674e"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music from",
+          "subject": "Habibi Funk 007",
+          "label": "Egypt",
+          "lat": 27,
+          "lon": 30,
+          "precision": "country",
+          "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+          "source": "https://www.discogs.com/release/11209038",
+          "research_claim_id": "research-cd7166b004c2",
+          "research_source_ids": [
+            "discogs-releases-11209038",
+            "discogs-releases-11298561",
+            "habibi"
+          ],
+          "city": "Egypt",
+          "studio": "Compilation documents music from",
+          "id": "thread-f0de4a1a3dfa"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music from",
+          "subject": "Habibi Funk 007",
+          "label": "Lebanon",
+          "lat": 33.9,
+          "lon": 35.8,
+          "precision": "country",
+          "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+          "source": "https://www.discogs.com/release/11209038",
+          "research_claim_id": "research-e62ba70aea66",
+          "research_source_ids": [
+            "discogs-releases-11209038",
+            "discogs-releases-11298561",
+            "habibi"
+          ],
+          "city": "Lebanon",
+          "studio": "Compilation documents music from",
+          "id": "thread-d0b6509702d7"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music from",
+          "subject": "Habibi Funk 007",
+          "label": "Tunisia",
+          "lat": 34,
+          "lon": 9,
+          "precision": "country",
+          "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+          "source": "https://www.discogs.com/release/11209038",
+          "research_claim_id": "research-740dd2024741",
+          "research_source_ids": [
+            "discogs-releases-11209038",
+            "discogs-releases-11298561",
+            "habibi"
+          ],
+          "city": "Tunisia",
+          "studio": "Compilation documents music from",
+          "id": "thread-cf9519f59728"
+        }
+      ],
+      "primary_thread_id": "thread-48561b4610a1",
+      "locations": [
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music from",
+          "subject": "Habibi Funk 007",
+          "label": "Morocco",
+          "lat": 32,
+          "lon": -7,
+          "precision": "country",
+          "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+          "source": "https://www.discogs.com/release/11209038",
+          "research_claim_id": "research-21f0057c7b64",
+          "research_source_ids": [
+            "discogs-releases-11209038",
+            "discogs-releases-11298561",
+            "habibi"
+          ],
+          "city": "Morocco",
+          "studio": "Compilation documents music from",
+          "id": "thread-48561b4610a1"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "11209038": {
+      "kind": "repertoire",
+      "relation": "Compilation documents music from",
+      "subject": "Habibi Funk 007",
+      "label": "Morocco",
+      "lat": 32,
+      "lon": -7,
+      "precision": "country",
+      "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+      "source": "https://www.discogs.com/release/11209038",
+      "research_claim_id": "research-21f0057c7b64",
+      "research_source_ids": [
+        "discogs-releases-11209038",
+        "discogs-releases-11298561",
+        "habibi"
+      ],
+      "city": "Morocco",
+      "studio": "Compilation documents music from",
+      "id": "thread-48561b4610a1",
+      "threads": [
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music from",
+          "subject": "Habibi Funk 007",
+          "label": "Morocco",
+          "lat": 32,
+          "lon": -7,
+          "precision": "country",
+          "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+          "source": "https://www.discogs.com/release/11209038",
+          "research_claim_id": "research-21f0057c7b64",
+          "research_source_ids": [
+            "discogs-releases-11209038",
+            "discogs-releases-11298561",
+            "habibi"
+          ],
+          "city": "Morocco",
+          "studio": "Compilation documents music from",
+          "id": "thread-48561b4610a1"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music from",
+          "subject": "Habibi Funk 007",
+          "label": "Algeria",
+          "lat": 28,
+          "lon": 3,
+          "precision": "country",
+          "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+          "source": "https://www.discogs.com/release/11209038",
+          "research_claim_id": "research-b4e2ef65f094",
+          "research_source_ids": [
+            "discogs-releases-11209038",
+            "discogs-releases-11298561",
+            "habibi"
+          ],
+          "city": "Algeria",
+          "studio": "Compilation documents music from",
+          "id": "thread-4c1b2d9d115f"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music from",
+          "subject": "Habibi Funk 007",
+          "label": "Sudan",
+          "lat": 15,
+          "lon": 30,
+          "precision": "country",
+          "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+          "source": "https://www.discogs.com/release/11209038",
+          "research_claim_id": "research-24924ec961d3",
+          "research_source_ids": [
+            "discogs-releases-11209038",
+            "discogs-releases-11298561",
+            "habibi"
+          ],
+          "city": "Sudan",
+          "studio": "Compilation documents music from",
+          "id": "thread-dd1dc343674e"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music from",
+          "subject": "Habibi Funk 007",
+          "label": "Egypt",
+          "lat": 27,
+          "lon": 30,
+          "precision": "country",
+          "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+          "source": "https://www.discogs.com/release/11209038",
+          "research_claim_id": "research-cd7166b004c2",
+          "research_source_ids": [
+            "discogs-releases-11209038",
+            "discogs-releases-11298561",
+            "habibi"
+          ],
+          "city": "Egypt",
+          "studio": "Compilation documents music from",
+          "id": "thread-f0de4a1a3dfa"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music from",
+          "subject": "Habibi Funk 007",
+          "label": "Lebanon",
+          "lat": 33.9,
+          "lon": 35.8,
+          "precision": "country",
+          "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+          "source": "https://www.discogs.com/release/11209038",
+          "research_claim_id": "research-e62ba70aea66",
+          "research_source_ids": [
+            "discogs-releases-11209038",
+            "discogs-releases-11298561",
+            "habibi"
+          ],
+          "city": "Lebanon",
+          "studio": "Compilation documents music from",
+          "id": "thread-d0b6509702d7"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music from",
+          "subject": "Habibi Funk 007",
+          "label": "Tunisia",
+          "lat": 34,
+          "lon": 9,
+          "precision": "country",
+          "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+          "source": "https://www.discogs.com/release/11209038",
+          "research_claim_id": "research-740dd2024741",
+          "research_source_ids": [
+            "discogs-releases-11209038",
+            "discogs-releases-11298561",
+            "habibi"
+          ],
+          "city": "Tunisia",
+          "studio": "Compilation documents music from",
+          "id": "thread-cf9519f59728"
+        }
+      ],
+      "primary_thread_id": "thread-48561b4610a1",
+      "locations": [
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music from",
+          "subject": "Habibi Funk 007",
+          "label": "Morocco",
+          "lat": 32,
+          "lon": -7,
+          "precision": "country",
+          "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+          "source": "https://www.discogs.com/release/11209038",
+          "research_claim_id": "research-21f0057c7b64",
+          "research_source_ids": [
+            "discogs-releases-11209038",
+            "discogs-releases-11298561",
+            "habibi"
+          ],
+          "city": "Morocco",
+          "studio": "Compilation documents music from",
+          "id": "thread-48561b4610a1"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "13867844": {
       "kind": "artist",
       "relation": "Project originates from",
@@ -9769,6 +11265,236 @@
       "unlocated_artists": [
         "Faradjallah"
       ]
+    },
+    "20152732": {
+      "kind": "repertoire",
+      "relation": "Compilation documents music connected with",
+      "subject": "Habibi Funk 015",
+      "label": "Egypt",
+      "lat": 27,
+      "lon": 30,
+      "precision": "country",
+      "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+      "source": "https://habibifunkrecords.bandcamp.com/album/habibi-funk-015-an-eclectic-selection-of-music-from-the-arab-world-part-2",
+      "research_claim_id": "research-7bdeafcf0616",
+      "research_source_ids": [
+        "habibi2"
+      ],
+      "city": "Egypt",
+      "studio": "Compilation documents music connected with",
+      "id": "thread-ddf04db0fd4e",
+      "threads": [
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music connected with",
+          "subject": "Habibi Funk 015",
+          "label": "Egypt",
+          "lat": 27,
+          "lon": 30,
+          "precision": "country",
+          "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+          "source": "https://habibifunkrecords.bandcamp.com/album/habibi-funk-015-an-eclectic-selection-of-music-from-the-arab-world-part-2",
+          "research_claim_id": "research-7bdeafcf0616",
+          "research_source_ids": [
+            "habibi2"
+          ],
+          "city": "Egypt",
+          "studio": "Compilation documents music connected with",
+          "id": "thread-ddf04db0fd4e"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music connected with",
+          "subject": "Habibi Funk 015",
+          "label": "Morocco",
+          "lat": 32,
+          "lon": -7,
+          "precision": "country",
+          "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+          "source": "https://habibifunkrecords.bandcamp.com/album/habibi-funk-015-an-eclectic-selection-of-music-from-the-arab-world-part-2",
+          "research_claim_id": "research-4e52cff04dd4",
+          "research_source_ids": [
+            "habibi2"
+          ],
+          "city": "Morocco",
+          "studio": "Compilation documents music connected with",
+          "id": "thread-0b0955b5bbe4"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music connected with",
+          "subject": "Habibi Funk 015",
+          "label": "Libya",
+          "lat": 27,
+          "lon": 17,
+          "precision": "country",
+          "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+          "source": "https://habibifunkrecords.bandcamp.com/album/habibi-funk-015-an-eclectic-selection-of-music-from-the-arab-world-part-2",
+          "research_claim_id": "research-e08c6a85d7fa",
+          "research_source_ids": [
+            "habibi2"
+          ],
+          "city": "Libya",
+          "studio": "Compilation documents music connected with",
+          "id": "thread-636943ed956b"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music connected with",
+          "subject": "Habibi Funk 015",
+          "label": "Lebanon",
+          "lat": 33.9,
+          "lon": 35.8,
+          "precision": "country",
+          "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+          "source": "https://habibifunkrecords.bandcamp.com/album/habibi-funk-015-an-eclectic-selection-of-music-from-the-arab-world-part-2",
+          "research_claim_id": "research-090c602f31ac",
+          "research_source_ids": [
+            "habibi2"
+          ],
+          "city": "Lebanon",
+          "studio": "Compilation documents music connected with",
+          "id": "thread-a2fe15110598"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music connected with",
+          "subject": "Habibi Funk 015",
+          "label": "Algeria",
+          "lat": 28,
+          "lon": 3,
+          "precision": "country",
+          "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+          "source": "https://habibifunkrecords.bandcamp.com/album/habibi-funk-015-an-eclectic-selection-of-music-from-the-arab-world-part-2",
+          "research_claim_id": "research-3408c0dfc02c",
+          "research_source_ids": [
+            "habibi2"
+          ],
+          "city": "Algeria",
+          "studio": "Compilation documents music connected with",
+          "id": "thread-8440e12b1f78"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music connected with",
+          "subject": "Habibi Funk 015",
+          "label": "Kenya",
+          "lat": 1,
+          "lon": 38,
+          "precision": "country",
+          "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+          "source": "https://habibifunkrecords.bandcamp.com/album/habibi-funk-015-an-eclectic-selection-of-music-from-the-arab-world-part-2",
+          "research_claim_id": "research-f99b77e6a5a3",
+          "research_source_ids": [
+            "habibi2"
+          ],
+          "city": "Kenya",
+          "studio": "Compilation documents music connected with",
+          "id": "thread-76ffd243c4b2"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music connected with",
+          "subject": "Habibi Funk 015",
+          "label": "Oman",
+          "lat": 21,
+          "lon": 57,
+          "precision": "country",
+          "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+          "source": "https://habibifunkrecords.bandcamp.com/album/habibi-funk-015-an-eclectic-selection-of-music-from-the-arab-world-part-2",
+          "research_claim_id": "research-aa3b48552373",
+          "research_source_ids": [
+            "habibi2"
+          ],
+          "city": "Oman",
+          "studio": "Compilation documents music connected with",
+          "id": "thread-1c2d078bdcb0"
+        }
+      ],
+      "primary_thread_id": "thread-ddf04db0fd4e",
+      "locations": [
+        {
+          "kind": "repertoire",
+          "relation": "Compilation documents music connected with",
+          "subject": "Habibi Funk 015",
+          "label": "Egypt",
+          "lat": 27,
+          "lon": 30,
+          "precision": "country",
+          "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+          "source": "https://habibifunkrecords.bandcamp.com/album/habibi-funk-015-an-eclectic-selection-of-music-from-the-arab-world-part-2",
+          "research_claim_id": "research-7bdeafcf0616",
+          "research_source_ids": [
+            "habibi2"
+          ],
+          "city": "Egypt",
+          "studio": "Compilation documents music connected with",
+          "id": "thread-ddf04db0fd4e"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "26359139": {
+      "kind": "artist",
+      "relation": "Band associated with",
+      "subject": "The Free Music / الموسيقى الحرة",
+      "label": "Libya",
+      "lat": 27,
+      "lon": 17,
+      "precision": "city",
+      "note": "The archival reissue identifies Najib Alhoush’s group with Libya. A national association is retained without inventing a city or one session for the whole retrospective.",
+      "source": "https://habibifunk.com/products/the-free-music-free-music-part1",
+      "research_claim_id": "research-4a251b9815be",
+      "research_source_ids": [
+        "free"
+      ],
+      "city": "Libya",
+      "studio": "Band associated with",
+      "id": "thread-aff1a22eb5a5",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Band associated with",
+          "subject": "The Free Music / الموسيقى الحرة",
+          "label": "Libya",
+          "lat": 27,
+          "lon": 17,
+          "precision": "city",
+          "note": "The archival reissue identifies Najib Alhoush’s group with Libya. A national association is retained without inventing a city or one session for the whole retrospective.",
+          "source": "https://habibifunk.com/products/the-free-music-free-music-part1",
+          "research_claim_id": "research-4a251b9815be",
+          "research_source_ids": [
+            "free"
+          ],
+          "city": "Libya",
+          "studio": "Band associated with",
+          "id": "thread-aff1a22eb5a5"
+        }
+      ],
+      "primary_thread_id": "thread-aff1a22eb5a5",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Band associated with",
+          "subject": "The Free Music / الموسيقى الحرة",
+          "label": "Libya",
+          "lat": 27,
+          "lon": 17,
+          "precision": "city",
+          "note": "The archival reissue identifies Najib Alhoush’s group with Libya. A national association is retained without inventing a city or one session for the whole retrospective.",
+          "source": "https://habibifunk.com/products/the-free-music-free-music-part1",
+          "research_claim_id": "research-4a251b9815be",
+          "research_source_ids": [
+            "free"
+          ],
+          "city": "Libya",
+          "studio": "Band associated with",
+          "id": "thread-aff1a22eb5a5"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
     },
     "7516023": {
       "kind": "artist",
@@ -10533,6 +12259,67 @@
       "unlocated_artists": [
         "Fredfades"
       ]
+    },
+    "7770150": {
+      "kind": "artist",
+      "relation": "Artist self-described area",
+      "subject": "FloFilz",
+      "label": "Germany",
+      "lat": 51,
+      "lon": 10,
+      "precision": "country",
+      "note": "The artist’s own biography identifies Germany. No city, birthplace or particular recording location is inferred.",
+      "source": "https://flofilz.bandcamp.com/album/speakthru",
+      "research_claim_id": "research-05a78efcf451",
+      "research_source_ids": [
+        "flofilz"
+      ],
+      "city": "Germany",
+      "studio": "Artist self-described area",
+      "id": "thread-c9be52eac619",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Artist self-described area",
+          "subject": "FloFilz",
+          "label": "Germany",
+          "lat": 51,
+          "lon": 10,
+          "precision": "country",
+          "note": "The artist’s own biography identifies Germany. No city, birthplace or particular recording location is inferred.",
+          "source": "https://flofilz.bandcamp.com/album/speakthru",
+          "research_claim_id": "research-05a78efcf451",
+          "research_source_ids": [
+            "flofilz"
+          ],
+          "city": "Germany",
+          "studio": "Artist self-described area",
+          "id": "thread-c9be52eac619"
+        }
+      ],
+      "primary_thread_id": "thread-c9be52eac619",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Artist self-described area",
+          "subject": "FloFilz",
+          "label": "Germany",
+          "lat": 51,
+          "lon": 10,
+          "precision": "country",
+          "note": "The artist’s own biography identifies Germany. No city, birthplace or particular recording location is inferred.",
+          "source": "https://flofilz.bandcamp.com/album/speakthru",
+          "research_claim_id": "research-05a78efcf451",
+          "research_source_ids": [
+            "flofilz"
+          ],
+          "city": "Germany",
+          "studio": "Artist self-described area",
+          "id": "thread-c9be52eac619"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
     },
     "14270021": {
       "kind": "artist",
@@ -11548,6 +13335,128 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "366413": {
+      "kind": "artist",
+      "relation": "Performed professionally in",
+      "subject": "Nile Rodgers",
+      "label": "New York",
+      "lat": 40.7128,
+      "lon": -74.006,
+      "precision": "city",
+      "note": "The biography documents early professional work in the Apollo Theater house band in Harlem. This is career history, not a claim about this single’s studio.",
+      "source": "https://www.songhall.org/profiles/nile-rodgers",
+      "research_claim_id": "research-9492f23c83b5",
+      "research_source_ids": [
+        "nile"
+      ],
+      "city": "New York",
+      "studio": "Performed professionally in",
+      "id": "thread-8ba0704309af",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Performed professionally in",
+          "subject": "Nile Rodgers",
+          "label": "New York",
+          "lat": 40.7128,
+          "lon": -74.006,
+          "precision": "city",
+          "note": "The biography documents early professional work in the Apollo Theater house band in Harlem. This is career history, not a claim about this single’s studio.",
+          "source": "https://www.songhall.org/profiles/nile-rodgers",
+          "research_claim_id": "research-9492f23c83b5",
+          "research_source_ids": [
+            "nile"
+          ],
+          "city": "New York",
+          "studio": "Performed professionally in",
+          "id": "thread-8ba0704309af"
+        }
+      ],
+      "primary_thread_id": "thread-8ba0704309af",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Performed professionally in",
+          "subject": "Nile Rodgers",
+          "label": "New York",
+          "lat": 40.7128,
+          "lon": -74.006,
+          "precision": "city",
+          "note": "The biography documents early professional work in the Apollo Theater house band in Harlem. This is career history, not a claim about this single’s studio.",
+          "source": "https://www.songhall.org/profiles/nile-rodgers",
+          "research_claim_id": "research-9492f23c83b5",
+          "research_source_ids": [
+            "nile"
+          ],
+          "city": "New York",
+          "studio": "Performed professionally in",
+          "id": "thread-8ba0704309af"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "3851838": {
+      "kind": "artist",
+      "relation": "Band based in",
+      "subject": "Archie Pelago",
+      "label": "Brooklyn",
+      "lat": 40.6782,
+      "lon": -73.9442,
+      "precision": "city",
+      "note": "The debut EP’s label notes introduce the group as a live band from Brooklyn.",
+      "source": "https://misterarchiepelago.bandcamp.com/album/the-archie-pelago-ep",
+      "research_claim_id": "research-6daa7bbd603c",
+      "research_source_ids": [
+        "archie"
+      ],
+      "city": "Brooklyn",
+      "studio": "Band based in",
+      "id": "thread-3ef9db55de77",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Band based in",
+          "subject": "Archie Pelago",
+          "label": "Brooklyn",
+          "lat": 40.6782,
+          "lon": -73.9442,
+          "precision": "city",
+          "note": "The debut EP’s label notes introduce the group as a live band from Brooklyn.",
+          "source": "https://misterarchiepelago.bandcamp.com/album/the-archie-pelago-ep",
+          "research_claim_id": "research-6daa7bbd603c",
+          "research_source_ids": [
+            "archie"
+          ],
+          "city": "Brooklyn",
+          "studio": "Band based in",
+          "id": "thread-3ef9db55de77"
+        }
+      ],
+      "primary_thread_id": "thread-3ef9db55de77",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Band based in",
+          "subject": "Archie Pelago",
+          "label": "Brooklyn",
+          "lat": 40.6782,
+          "lon": -73.9442,
+          "precision": "city",
+          "note": "The debut EP’s label notes introduce the group as a live band from Brooklyn.",
+          "source": "https://misterarchiepelago.bandcamp.com/album/the-archie-pelago-ep",
+          "research_claim_id": "research-6daa7bbd603c",
+          "research_source_ids": [
+            "archie"
+          ],
+          "city": "Brooklyn",
+          "studio": "Band based in",
+          "id": "thread-3ef9db55de77"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "26118410": {
       "kind": "artist",
       "relation": "Group formed in",
@@ -11651,6 +13560,144 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "5652780": {
+      "kind": "repertoire",
+      "relation": "Community music project in",
+      "subject": "Ghetto Reality",
+      "label": "Rochester",
+      "lat": 43.1566,
+      "lon": -77.6109,
+      "precision": "city",
+      "note": "Folkways documents the songs developed with Nancy Dupree’s elementary-school pupils in Rochester. This identifies the project community rather than an exact recording studio.",
+      "period": "1969",
+      "source": "https://folkways.si.edu/nancy-dupree/ghetto-reality/african-american-spoken-childrens/music/album/smithsonian",
+      "research_claim_id": "research-361bb90e0488",
+      "research_source_ids": [
+        "nancy"
+      ],
+      "city": "Rochester",
+      "studio": "Community music project in",
+      "id": "thread-4842c44488e1",
+      "threads": [
+        {
+          "kind": "repertoire",
+          "relation": "Community music project in",
+          "subject": "Ghetto Reality",
+          "label": "Rochester",
+          "lat": 43.1566,
+          "lon": -77.6109,
+          "precision": "city",
+          "note": "Folkways documents the songs developed with Nancy Dupree’s elementary-school pupils in Rochester. This identifies the project community rather than an exact recording studio.",
+          "period": "1969",
+          "source": "https://folkways.si.edu/nancy-dupree/ghetto-reality/african-american-spoken-childrens/music/album/smithsonian",
+          "research_claim_id": "research-361bb90e0488",
+          "research_source_ids": [
+            "nancy"
+          ],
+          "city": "Rochester",
+          "studio": "Community music project in",
+          "id": "thread-4842c44488e1"
+        }
+      ],
+      "primary_thread_id": "thread-4842c44488e1",
+      "locations": [
+        {
+          "kind": "repertoire",
+          "relation": "Community music project in",
+          "subject": "Ghetto Reality",
+          "label": "Rochester",
+          "lat": 43.1566,
+          "lon": -77.6109,
+          "precision": "city",
+          "note": "Folkways documents the songs developed with Nancy Dupree’s elementary-school pupils in Rochester. This identifies the project community rather than an exact recording studio.",
+          "period": "1969",
+          "source": "https://folkways.si.edu/nancy-dupree/ghetto-reality/african-american-spoken-childrens/music/album/smithsonian",
+          "research_claim_id": "research-361bb90e0488",
+          "research_source_ids": [
+            "nancy"
+          ],
+          "city": "Rochester",
+          "studio": "Community music project in",
+          "id": "thread-4842c44488e1"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Nancy Dupree",
+        "A Group Of Rochester, N.Y. Youngsters"
+      ]
+    },
+    "8636562": {
+      "kind": "recording",
+      "relation": "Partly re-recorded at",
+      "subject": "Dog",
+      "label": "Berlin",
+      "lat": 52.52,
+      "lon": 13.405,
+      "precision": "city",
+      "note": "The first pressing documents part of the album being re-recorded at Money $ex Studios Berlin. South Central Studios and any other recording locations remain unlocated.",
+      "venue": "Money $ex Studios",
+      "coverage": "Sourced cultural threads",
+      "source": "https://www.discogs.com/release/7837490",
+      "research_claim_id": "research-2db564edd840",
+      "research_source_ids": [
+        "discogs-releases-7837490",
+        "discogs-releases-8636562"
+      ],
+      "city": "Berlin",
+      "studio": "Partly re-recorded at",
+      "id": "thread-a5e0203c4ceb",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Partly re-recorded at",
+          "subject": "Dog",
+          "label": "Berlin",
+          "lat": 52.52,
+          "lon": 13.405,
+          "precision": "city",
+          "note": "The first pressing documents part of the album being re-recorded at Money $ex Studios Berlin. South Central Studios and any other recording locations remain unlocated.",
+          "venue": "Money $ex Studios",
+          "coverage": "partial",
+          "source": "https://www.discogs.com/release/7837490",
+          "research_claim_id": "research-2db564edd840",
+          "research_source_ids": [
+            "discogs-releases-7837490",
+            "discogs-releases-8636562"
+          ],
+          "city": "Berlin",
+          "studio": "Partly re-recorded at",
+          "id": "thread-a5e0203c4ceb"
+        }
+      ],
+      "primary_thread_id": "thread-a5e0203c4ceb",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Partly re-recorded at",
+          "subject": "Dog",
+          "label": "Berlin",
+          "lat": 52.52,
+          "lon": 13.405,
+          "precision": "city",
+          "note": "The first pressing documents part of the album being re-recorded at Money $ex Studios Berlin. South Central Studios and any other recording locations remain unlocated.",
+          "venue": "Money $ex Studios",
+          "coverage": "partial",
+          "source": "https://www.discogs.com/release/7837490",
+          "research_claim_id": "research-2db564edd840",
+          "research_source_ids": [
+            "discogs-releases-7837490",
+            "discogs-releases-8636562"
+          ],
+          "city": "Berlin",
+          "studio": "Partly re-recorded at",
+          "id": "thread-a5e0203c4ceb"
+        }
+      ],
+      "unlocated_artists": [
+        "Max Graef Band"
+      ]
+    },
     "14919928": {
       "kind": "artist",
       "relation": "Project originates from",
@@ -11733,6 +13780,131 @@
           "city": "United States",
           "studio": "Project originates from",
           "id": "thread-8623d512a0b1"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "21016180": {
+      "kind": "artist",
+      "relation": "Musical scene",
+      "subject": "Malik Alston",
+      "label": "Detroit",
+      "lat": 42.3314,
+      "lon": -83.0458,
+      "precision": "city",
+      "note": "The label identifies Alston and the collaborating musicians with Detroit. Verona, the label’s own location, is not used as the music’s origin.",
+      "source": "https://mothertonguerecords.bandcamp.com/album/in-a-better-way-vinyl-only-no-digital-download",
+      "research_claim_id": "research-6764b40704bf",
+      "research_source_ids": [
+        "malik"
+      ],
+      "city": "Detroit",
+      "studio": "Musical scene",
+      "id": "thread-f33e3ef937d1",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Musical scene",
+          "subject": "Malik Alston",
+          "label": "Detroit",
+          "lat": 42.3314,
+          "lon": -83.0458,
+          "precision": "city",
+          "note": "The label identifies Alston and the collaborating musicians with Detroit. Verona, the label’s own location, is not used as the music’s origin.",
+          "source": "https://mothertonguerecords.bandcamp.com/album/in-a-better-way-vinyl-only-no-digital-download",
+          "research_claim_id": "research-6764b40704bf",
+          "research_source_ids": [
+            "malik"
+          ],
+          "city": "Detroit",
+          "studio": "Musical scene",
+          "id": "thread-f33e3ef937d1"
+        }
+      ],
+      "primary_thread_id": "thread-f33e3ef937d1",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Musical scene",
+          "subject": "Malik Alston",
+          "label": "Detroit",
+          "lat": 42.3314,
+          "lon": -83.0458,
+          "precision": "city",
+          "note": "The label identifies Alston and the collaborating musicians with Detroit. Verona, the label’s own location, is not used as the music’s origin.",
+          "source": "https://mothertonguerecords.bandcamp.com/album/in-a-better-way-vinyl-only-no-digital-download",
+          "research_claim_id": "research-6764b40704bf",
+          "research_source_ids": [
+            "malik"
+          ],
+          "city": "Detroit",
+          "studio": "Musical scene",
+          "id": "thread-f33e3ef937d1"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "15268960": {
+      "kind": "artist",
+      "relation": "Artist self-reported area",
+      "subject": "Tiombé Lockhart",
+      "label": "Los Angeles",
+      "lat": 34.0522,
+      "lon": -118.2437,
+      "precision": "city",
+      "note": "The verified artist account currently identifies Los Angeles. This is a present-day self-description and is not assigned to the earlier recordings on this retrospective.",
+      "period": "Profile checked November 2026",
+      "source": "https://tiombelockhart.bandcamp.com/album/the-aquarius-years-ft-robert-glasper-bilal-ecussionist",
+      "research_claim_id": "research-c2cbccbb79ed",
+      "research_source_ids": [
+        "lockhart"
+      ],
+      "city": "Los Angeles",
+      "studio": "Artist self-reported area",
+      "id": "thread-6018663f5d68",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Artist self-reported area",
+          "subject": "Tiombé Lockhart",
+          "label": "Los Angeles",
+          "lat": 34.0522,
+          "lon": -118.2437,
+          "precision": "city",
+          "note": "The verified artist account currently identifies Los Angeles. This is a present-day self-description and is not assigned to the earlier recordings on this retrospective.",
+          "period": "Profile checked November 2026",
+          "source": "https://tiombelockhart.bandcamp.com/album/the-aquarius-years-ft-robert-glasper-bilal-ecussionist",
+          "research_claim_id": "research-c2cbccbb79ed",
+          "research_source_ids": [
+            "lockhart"
+          ],
+          "city": "Los Angeles",
+          "studio": "Artist self-reported area",
+          "id": "thread-6018663f5d68"
+        }
+      ],
+      "primary_thread_id": "thread-6018663f5d68",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Artist self-reported area",
+          "subject": "Tiombé Lockhart",
+          "label": "Los Angeles",
+          "lat": 34.0522,
+          "lon": -118.2437,
+          "precision": "city",
+          "note": "The verified artist account currently identifies Los Angeles. This is a present-day self-description and is not assigned to the earlier recordings on this retrospective.",
+          "period": "Profile checked November 2026",
+          "source": "https://tiombelockhart.bandcamp.com/album/the-aquarius-years-ft-robert-glasper-bilal-ecussionist",
+          "research_claim_id": "research-c2cbccbb79ed",
+          "research_source_ids": [
+            "lockhart"
+          ],
+          "city": "Los Angeles",
+          "studio": "Artist self-reported area",
+          "id": "thread-6018663f5d68"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -12085,6 +14257,70 @@
       "unlocated_artists": [
         "Marcus Intalex & ST Files"
       ]
+    },
+    "6022847": {
+      "kind": "artist",
+      "relation": "Recorded professionally in",
+      "subject": "Sahib Shihab",
+      "label": "Cologne",
+      "lat": 50.9375,
+      "lon": 6.9603,
+      "precision": "city",
+      "note": "The label’s Companionship credits document several Cologne sessions. This is artist career evidence; the unidentified white-label EP’s exact takes and other session venues remain unverified.",
+      "period": "1964–1970",
+      "source": "https://sahibshihab.bandcamp.com/album/companionship",
+      "research_claim_id": "research-d3394a8fb49c",
+      "research_source_ids": [
+        "sahib"
+      ],
+      "city": "Cologne",
+      "studio": "Recorded professionally in",
+      "id": "thread-e456a02b8b7b",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Recorded professionally in",
+          "subject": "Sahib Shihab",
+          "label": "Cologne",
+          "lat": 50.9375,
+          "lon": 6.9603,
+          "precision": "city",
+          "note": "The label’s Companionship credits document several Cologne sessions. This is artist career evidence; the unidentified white-label EP’s exact takes and other session venues remain unverified.",
+          "period": "1964–1970",
+          "source": "https://sahibshihab.bandcamp.com/album/companionship",
+          "research_claim_id": "research-d3394a8fb49c",
+          "research_source_ids": [
+            "sahib"
+          ],
+          "city": "Cologne",
+          "studio": "Recorded professionally in",
+          "id": "thread-e456a02b8b7b"
+        }
+      ],
+      "primary_thread_id": "thread-e456a02b8b7b",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Recorded professionally in",
+          "subject": "Sahib Shihab",
+          "label": "Cologne",
+          "lat": 50.9375,
+          "lon": 6.9603,
+          "precision": "city",
+          "note": "The label’s Companionship credits document several Cologne sessions. This is artist career evidence; the unidentified white-label EP’s exact takes and other session venues remain unverified.",
+          "period": "1964–1970",
+          "source": "https://sahibshihab.bandcamp.com/album/companionship",
+          "research_claim_id": "research-d3394a8fb49c",
+          "research_source_ids": [
+            "sahib"
+          ],
+          "city": "Cologne",
+          "studio": "Recorded professionally in",
+          "id": "thread-e456a02b8b7b"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
     },
     "408832": {
       "kind": "artist",
@@ -12784,6 +15020,67 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "24896": {
+      "kind": "artist",
+      "relation": "Artist hometown association",
+      "subject": "Mos Def / yasiin bey",
+      "label": "Brooklyn",
+      "lat": 40.6782,
+      "lon": -73.9442,
+      "precision": "city",
+      "note": "The museum identifies Brooklyn as the artist’s hometown and connects the names Mos Def and yasiin bey. This is an artist association, not this single’s recording location.",
+      "source": "https://cdn2.brooklynmuseum.org/labels/yasiin_bey_Press_Release.pdf",
+      "research_claim_id": "research-57019ecb46fc",
+      "research_source_ids": [
+        "mos-museum"
+      ],
+      "city": "Brooklyn",
+      "studio": "Artist hometown association",
+      "id": "thread-c04f6032770c",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Artist hometown association",
+          "subject": "Mos Def / yasiin bey",
+          "label": "Brooklyn",
+          "lat": 40.6782,
+          "lon": -73.9442,
+          "precision": "city",
+          "note": "The museum identifies Brooklyn as the artist’s hometown and connects the names Mos Def and yasiin bey. This is an artist association, not this single’s recording location.",
+          "source": "https://cdn2.brooklynmuseum.org/labels/yasiin_bey_Press_Release.pdf",
+          "research_claim_id": "research-57019ecb46fc",
+          "research_source_ids": [
+            "mos-museum"
+          ],
+          "city": "Brooklyn",
+          "studio": "Artist hometown association",
+          "id": "thread-c04f6032770c"
+        }
+      ],
+      "primary_thread_id": "thread-c04f6032770c",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Artist hometown association",
+          "subject": "Mos Def / yasiin bey",
+          "label": "Brooklyn",
+          "lat": 40.6782,
+          "lon": -73.9442,
+          "precision": "city",
+          "note": "The museum identifies Brooklyn as the artist’s hometown and connects the names Mos Def and yasiin bey. This is an artist association, not this single’s recording location.",
+          "source": "https://cdn2.brooklynmuseum.org/labels/yasiin_bey_Press_Release.pdf",
+          "research_claim_id": "research-57019ecb46fc",
+          "research_source_ids": [
+            "mos-museum"
+          ],
+          "city": "Brooklyn",
+          "studio": "Artist hometown association",
+          "id": "thread-c04f6032770c"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "1276204": {
       "kind": "artist",
       "relation": "Group formed in",
@@ -13173,6 +15470,67 @@
         "QPSM Unit"
       ]
     },
+    "14222949": {
+      "kind": "artist",
+      "relation": "Artist associated with",
+      "subject": "Dabeull",
+      "label": "Paris",
+      "lat": 48.8566,
+      "lon": 2.3522,
+      "precision": "city",
+      "note": "The release’s biographical text describes Dabeull as Parisian. This is artist context, not an inferred recording studio.",
+      "source": "https://dabeull.bandcamp.com/album/intimate-fonk",
+      "research_claim_id": "research-72cd2995c7e7",
+      "research_source_ids": [
+        "dabeull"
+      ],
+      "city": "Paris",
+      "studio": "Artist associated with",
+      "id": "thread-fdc84fde86f5",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Artist associated with",
+          "subject": "Dabeull",
+          "label": "Paris",
+          "lat": 48.8566,
+          "lon": 2.3522,
+          "precision": "city",
+          "note": "The release’s biographical text describes Dabeull as Parisian. This is artist context, not an inferred recording studio.",
+          "source": "https://dabeull.bandcamp.com/album/intimate-fonk",
+          "research_claim_id": "research-72cd2995c7e7",
+          "research_source_ids": [
+            "dabeull"
+          ],
+          "city": "Paris",
+          "studio": "Artist associated with",
+          "id": "thread-fdc84fde86f5"
+        }
+      ],
+      "primary_thread_id": "thread-fdc84fde86f5",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Artist associated with",
+          "subject": "Dabeull",
+          "label": "Paris",
+          "lat": 48.8566,
+          "lon": 2.3522,
+          "precision": "city",
+          "note": "The release’s biographical text describes Dabeull as Parisian. This is artist context, not an inferred recording studio.",
+          "source": "https://dabeull.bandcamp.com/album/intimate-fonk",
+          "research_claim_id": "research-72cd2995c7e7",
+          "research_source_ids": [
+            "dabeull"
+          ],
+          "city": "Paris",
+          "studio": "Artist associated with",
+          "id": "thread-fdc84fde86f5"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "109301": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -13369,6 +15727,187 @@
           "city": "Canada",
           "studio": "Artist associated area",
           "id": "thread-a366bdf5595e"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "15499420": {
+      "kind": "artist",
+      "relation": "Band based in",
+      "subject": "Compro Oro",
+      "label": "Ghent",
+      "lat": 51.0543,
+      "lon": 3.7174,
+      "precision": "city",
+      "note": "The band’s biography identifies Ghent as its base. The collaboration with Murat and Esma Ertel keeps its separate participant histories.",
+      "source": "https://compro-oro.bandcamp.com/album/compro-oro-feat-murat-ertel-esma-ertel-simurg",
+      "research_claim_id": "research-eae0b54f809b",
+      "research_source_ids": [
+        "compro"
+      ],
+      "city": "Ghent",
+      "studio": "Band based in",
+      "id": "thread-3e37d45c32f2",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Band based in",
+          "subject": "Compro Oro",
+          "label": "Ghent",
+          "lat": 51.0543,
+          "lon": 3.7174,
+          "precision": "city",
+          "note": "The band’s biography identifies Ghent as its base. The collaboration with Murat and Esma Ertel keeps its separate participant histories.",
+          "source": "https://compro-oro.bandcamp.com/album/compro-oro-feat-murat-ertel-esma-ertel-simurg",
+          "research_claim_id": "research-eae0b54f809b",
+          "research_source_ids": [
+            "compro"
+          ],
+          "city": "Ghent",
+          "studio": "Band based in",
+          "id": "thread-3e37d45c32f2"
+        },
+        {
+          "kind": "artist",
+          "relation": "Musical scene",
+          "subject": "Murat Ertel",
+          "label": "Istanbul",
+          "lat": 41.0082,
+          "lon": 28.9784,
+          "precision": "city",
+          "note": "The collaboration notes identify Ertel with Istanbul’s psychedelic music scene. Esma Ertel is credited separately without inventing an identical geographic history.",
+          "source": "https://compro-oro.bandcamp.com/album/compro-oro-feat-murat-ertel-esma-ertel-simurg",
+          "research_claim_id": "research-51ea144d4ef5",
+          "research_source_ids": [
+            "compro"
+          ],
+          "city": "Istanbul",
+          "studio": "Musical scene",
+          "id": "thread-2e65f6b26054"
+        }
+      ],
+      "primary_thread_id": "thread-3e37d45c32f2",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Band based in",
+          "subject": "Compro Oro",
+          "label": "Ghent",
+          "lat": 51.0543,
+          "lon": 3.7174,
+          "precision": "city",
+          "note": "The band’s biography identifies Ghent as its base. The collaboration with Murat and Esma Ertel keeps its separate participant histories.",
+          "source": "https://compro-oro.bandcamp.com/album/compro-oro-feat-murat-ertel-esma-ertel-simurg",
+          "research_claim_id": "research-eae0b54f809b",
+          "research_source_ids": [
+            "compro"
+          ],
+          "city": "Ghent",
+          "studio": "Band based in",
+          "id": "thread-3e37d45c32f2"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Esma Ertel"
+      ]
+    },
+    "17030529": {
+      "kind": "artist",
+      "relation": "Group formed in",
+      "subject": "Azmari",
+      "label": "Brussels",
+      "lat": 50.8503,
+      "lon": 4.3517,
+      "precision": "city",
+      "note": "The album notes explicitly date the band’s formation in Brussels to 2015.",
+      "period": "2015",
+      "source": "https://azmari.bandcamp.com/album/sam",
+      "research_claim_id": "research-c43f885c8bd1",
+      "research_source_ids": [
+        "azmari"
+      ],
+      "city": "Brussels",
+      "studio": "Group formed in",
+      "id": "thread-5d48ee9a24e0",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Group formed in",
+          "subject": "Azmari",
+          "label": "Brussels",
+          "lat": 50.8503,
+          "lon": 4.3517,
+          "precision": "city",
+          "note": "The album notes explicitly date the band’s formation in Brussels to 2015.",
+          "period": "2015",
+          "source": "https://azmari.bandcamp.com/album/sam",
+          "research_claim_id": "research-c43f885c8bd1",
+          "research_source_ids": [
+            "azmari"
+          ],
+          "city": "Brussels",
+          "studio": "Group formed in",
+          "id": "thread-5d48ee9a24e0"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Draws on musical scales from",
+          "subject": "Samā’ī",
+          "label": "Turkey",
+          "lat": 39,
+          "lon": 35,
+          "precision": "country",
+          "note": "The album notes explicitly describe studying Turkish and Ethiopian scales. This is a musical-language connection, not a claim that the Belgian group originates in either country.",
+          "source": "https://azmari.bandcamp.com/album/sam",
+          "research_claim_id": "research-b230ec081cce",
+          "research_source_ids": [
+            "azmari"
+          ],
+          "city": "Turkey",
+          "studio": "Draws on musical scales from",
+          "id": "thread-c5d76142106f"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Draws on musical scales from",
+          "subject": "Samā’ī",
+          "label": "Ethiopia",
+          "lat": 9,
+          "lon": 39,
+          "precision": "country",
+          "note": "The album notes explicitly describe studying Turkish and Ethiopian scales. This is a musical-language connection, not a claim that the Belgian group originates in either country.",
+          "source": "https://azmari.bandcamp.com/album/sam",
+          "research_claim_id": "research-b1a3bfea1708",
+          "research_source_ids": [
+            "azmari"
+          ],
+          "city": "Ethiopia",
+          "studio": "Draws on musical scales from",
+          "id": "thread-f39fbaa74e6a"
+        }
+      ],
+      "primary_thread_id": "thread-5d48ee9a24e0",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Group formed in",
+          "subject": "Azmari",
+          "label": "Brussels",
+          "lat": 50.8503,
+          "lon": 4.3517,
+          "precision": "city",
+          "note": "The album notes explicitly date the band’s formation in Brussels to 2015.",
+          "period": "2015",
+          "source": "https://azmari.bandcamp.com/album/sam",
+          "research_claim_id": "research-c43f885c8bd1",
+          "research_source_ids": [
+            "azmari"
+          ],
+          "city": "Brussels",
+          "studio": "Group formed in",
+          "id": "thread-5d48ee9a24e0"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -13713,6 +16252,227 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "11717510": {
+      "kind": "artist",
+      "relation": "Band based in",
+      "subject": "The Mauskovic Dance Band",
+      "label": "Amsterdam",
+      "lat": 52.3676,
+      "lon": 4.9041,
+      "precision": "city",
+      "note": "The release notes identify Amsterdam as the group’s current base at the time of the debut EP.",
+      "period": "2018",
+      "source": "https://mauskovicdanceband.bandcamp.com/album/down-in-the-basement-ep",
+      "research_claim_id": "research-a7675180d8d0",
+      "research_source_ids": [
+        "mauskovic"
+      ],
+      "city": "Amsterdam",
+      "studio": "Band based in",
+      "id": "thread-93473ba841cb",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Band based in",
+          "subject": "The Mauskovic Dance Band",
+          "label": "Amsterdam",
+          "lat": 52.3676,
+          "lon": 4.9041,
+          "precision": "city",
+          "note": "The release notes identify Amsterdam as the group’s current base at the time of the debut EP.",
+          "period": "2018",
+          "source": "https://mauskovicdanceband.bandcamp.com/album/down-in-the-basement-ep",
+          "research_claim_id": "research-a7675180d8d0",
+          "research_source_ids": [
+            "mauskovic"
+          ],
+          "city": "Amsterdam",
+          "studio": "Band based in",
+          "id": "thread-93473ba841cb"
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Draws on musical traditions from",
+          "subject": "Down In The Basement EP",
+          "label": "Colombia",
+          "lat": 4,
+          "lon": -74,
+          "precision": "country",
+          "note": "The label explicitly identifies Afro-Colombian champeta, cumbia and picó soundsystem culture among the EP’s influences. These are repertoire connections, not band nationality.",
+          "source": "https://mauskovicdanceband.bandcamp.com/album/down-in-the-basement-ep",
+          "research_claim_id": "research-3d5529c6caa0",
+          "research_source_ids": [
+            "mauskovic"
+          ],
+          "city": "Colombia",
+          "studio": "Draws on musical traditions from",
+          "id": "thread-44e7438c3b36"
+        }
+      ],
+      "primary_thread_id": "thread-93473ba841cb",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Band based in",
+          "subject": "The Mauskovic Dance Band",
+          "label": "Amsterdam",
+          "lat": 52.3676,
+          "lon": 4.9041,
+          "precision": "city",
+          "note": "The release notes identify Amsterdam as the group’s current base at the time of the debut EP.",
+          "period": "2018",
+          "source": "https://mauskovicdanceband.bandcamp.com/album/down-in-the-basement-ep",
+          "research_claim_id": "research-a7675180d8d0",
+          "research_source_ids": [
+            "mauskovic"
+          ],
+          "city": "Amsterdam",
+          "studio": "Band based in",
+          "id": "thread-93473ba841cb"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "25267285": {
+      "kind": "recording",
+      "relation": "Recorded and mixed at",
+      "subject": "Only You",
+      "label": "Lagos",
+      "lat": 6.5244,
+      "lon": 3.3792,
+      "precision": "city",
+      "note": "Both the owned reissue and another edition explicitly credit EMI Oregun Road Studios in Lagos. London mastering of the reissue is a separate process.",
+      "period": "1984",
+      "venue": "EMI Oregun Road Studios",
+      "source": "https://www.discogs.com/release/25267285",
+      "research_claim_id": "research-9fe2dd30cc16",
+      "research_source_ids": [
+        "discogs-releases-25267285",
+        "discogs-releases-4897638",
+        "steve"
+      ],
+      "city": "Lagos",
+      "studio": "Recorded and mixed at",
+      "id": "thread-d9f9e3886252",
+      "threads": [
+        {
+          "kind": "recording",
+          "relation": "Recorded and mixed at",
+          "subject": "Only You",
+          "label": "Lagos",
+          "lat": 6.5244,
+          "lon": 3.3792,
+          "precision": "city",
+          "note": "Both the owned reissue and another edition explicitly credit EMI Oregun Road Studios in Lagos. London mastering of the reissue is a separate process.",
+          "period": "1984",
+          "venue": "EMI Oregun Road Studios",
+          "source": "https://www.discogs.com/release/25267285",
+          "research_claim_id": "research-9fe2dd30cc16",
+          "research_source_ids": [
+            "discogs-releases-25267285",
+            "discogs-releases-4897638",
+            "steve"
+          ],
+          "city": "Lagos",
+          "studio": "Recorded and mixed at",
+          "id": "thread-d9f9e3886252"
+        }
+      ],
+      "primary_thread_id": "thread-d9f9e3886252",
+      "locations": [
+        {
+          "kind": "recording",
+          "relation": "Recorded and mixed at",
+          "subject": "Only You",
+          "label": "Lagos",
+          "lat": 6.5244,
+          "lon": 3.3792,
+          "precision": "city",
+          "note": "Both the owned reissue and another edition explicitly credit EMI Oregun Road Studios in Lagos. London mastering of the reissue is a separate process.",
+          "period": "1984",
+          "venue": "EMI Oregun Road Studios",
+          "source": "https://www.discogs.com/release/25267285",
+          "research_claim_id": "research-9fe2dd30cc16",
+          "research_source_ids": [
+            "discogs-releases-25267285",
+            "discogs-releases-4897638",
+            "steve"
+          ],
+          "city": "Lagos",
+          "studio": "Recorded and mixed at",
+          "id": "thread-d9f9e3886252"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": [
+        "Steve Monite"
+      ]
+    },
+    "26572889": {
+      "kind": "artist",
+      "relation": "Worked in the musical scene of",
+      "subject": "Nkono Teles",
+      "label": "Lagos",
+      "lat": 6.5244,
+      "lon": 3.3792,
+      "precision": "city",
+      "note": "The label’s retrospective documents Teles producing and arranging for Lagos musicians during the Nigerian electronic-boogie period.",
+      "period": "1980s",
+      "source": "https://soundwayrecords.bandcamp.com/album/love-vibration",
+      "research_claim_id": "research-4969f0ef5528",
+      "research_source_ids": [
+        "nkono"
+      ],
+      "city": "Lagos",
+      "studio": "Worked in the musical scene of",
+      "id": "thread-d67e1a99a76f",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Worked in the musical scene of",
+          "subject": "Nkono Teles",
+          "label": "Lagos",
+          "lat": 6.5244,
+          "lon": 3.3792,
+          "precision": "city",
+          "note": "The label’s retrospective documents Teles producing and arranging for Lagos musicians during the Nigerian electronic-boogie period.",
+          "period": "1980s",
+          "source": "https://soundwayrecords.bandcamp.com/album/love-vibration",
+          "research_claim_id": "research-4969f0ef5528",
+          "research_source_ids": [
+            "nkono"
+          ],
+          "city": "Lagos",
+          "studio": "Worked in the musical scene of",
+          "id": "thread-d67e1a99a76f"
+        }
+      ],
+      "primary_thread_id": "thread-d67e1a99a76f",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Worked in the musical scene of",
+          "subject": "Nkono Teles",
+          "label": "Lagos",
+          "lat": 6.5244,
+          "lon": 3.3792,
+          "precision": "city",
+          "note": "The label’s retrospective documents Teles producing and arranging for Lagos musicians during the Nigerian electronic-boogie period.",
+          "period": "1980s",
+          "source": "https://soundwayrecords.bandcamp.com/album/love-vibration",
+          "research_claim_id": "research-4969f0ef5528",
+          "research_source_ids": [
+            "nkono"
+          ],
+          "city": "Lagos",
+          "studio": "Worked in the musical scene of",
+          "id": "thread-d67e1a99a76f"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "146035": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -14036,6 +16796,70 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "30227756": {
+      "kind": "artist",
+      "relation": "Band based in",
+      "subject": "Lafayette Afro Rock Band",
+      "label": "Paris",
+      "lat": 48.8566,
+      "lon": 2.3522,
+      "precision": "city",
+      "note": "Strut documents the band living and developing its Afro-funk sound in Paris after moving from the US. It also documents Hihache’s later use in hip-hop.",
+      "period": "1970s",
+      "source": "https://strut-records.co.uk/products/lafayette-afro-rock-band-soul-makossa",
+      "research_claim_id": "research-723582c48522",
+      "research_source_ids": [
+        "lafayette-label"
+      ],
+      "city": "Paris",
+      "studio": "Band based in",
+      "id": "thread-981f6537d46c",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Band based in",
+          "subject": "Lafayette Afro Rock Band",
+          "label": "Paris",
+          "lat": 48.8566,
+          "lon": 2.3522,
+          "precision": "city",
+          "note": "Strut documents the band living and developing its Afro-funk sound in Paris after moving from the US. It also documents Hihache’s later use in hip-hop.",
+          "period": "1970s",
+          "source": "https://strut-records.co.uk/products/lafayette-afro-rock-band-soul-makossa",
+          "research_claim_id": "research-723582c48522",
+          "research_source_ids": [
+            "lafayette-label"
+          ],
+          "city": "Paris",
+          "studio": "Band based in",
+          "id": "thread-981f6537d46c"
+        }
+      ],
+      "primary_thread_id": "thread-981f6537d46c",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Band based in",
+          "subject": "Lafayette Afro Rock Band",
+          "label": "Paris",
+          "lat": 48.8566,
+          "lon": 2.3522,
+          "precision": "city",
+          "note": "Strut documents the band living and developing its Afro-funk sound in Paris after moving from the US. It also documents Hihache’s later use in hip-hop.",
+          "period": "1970s",
+          "source": "https://strut-records.co.uk/products/lafayette-afro-rock-band-soul-makossa",
+          "research_claim_id": "research-723582c48522",
+          "research_source_ids": [
+            "lafayette-label"
+          ],
+          "city": "Paris",
+          "studio": "Band based in",
+          "id": "thread-981f6537d46c"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "66506": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -14331,6 +17155,67 @@
           "city": "United States",
           "studio": "Project originates from",
           "id": "thread-89971eefe359"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "645638": {
+      "kind": "artist",
+      "relation": "Artist based in",
+      "subject": "George McCrae",
+      "label": "Miami",
+      "lat": 25.7617,
+      "lon": -80.1918,
+      "precision": "city",
+      "note": "The biographical account identifies McCrae as a Miami-based performer in the early disco scene. It does not locate the specific single’s recording.",
+      "source": "https://www.allmusic.com/artist/george-mccrae-mn0000945900/biography",
+      "research_claim_id": "research-846ea523cb38",
+      "research_source_ids": [
+        "george"
+      ],
+      "city": "Miami",
+      "studio": "Artist based in",
+      "id": "thread-1b15e2ad6b02",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Artist based in",
+          "subject": "George McCrae",
+          "label": "Miami",
+          "lat": 25.7617,
+          "lon": -80.1918,
+          "precision": "city",
+          "note": "The biographical account identifies McCrae as a Miami-based performer in the early disco scene. It does not locate the specific single’s recording.",
+          "source": "https://www.allmusic.com/artist/george-mccrae-mn0000945900/biography",
+          "research_claim_id": "research-846ea523cb38",
+          "research_source_ids": [
+            "george"
+          ],
+          "city": "Miami",
+          "studio": "Artist based in",
+          "id": "thread-1b15e2ad6b02"
+        }
+      ],
+      "primary_thread_id": "thread-1b15e2ad6b02",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Artist based in",
+          "subject": "George McCrae",
+          "label": "Miami",
+          "lat": 25.7617,
+          "lon": -80.1918,
+          "precision": "city",
+          "note": "The biographical account identifies McCrae as a Miami-based performer in the early disco scene. It does not locate the specific single’s recording.",
+          "source": "https://www.allmusic.com/artist/george-mccrae-mn0000945900/biography",
+          "research_claim_id": "research-846ea523cb38",
+          "research_source_ids": [
+            "george"
+          ],
+          "city": "Miami",
+          "studio": "Artist based in",
+          "id": "thread-1b15e2ad6b02"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -14764,6 +17649,67 @@
           "city": "United States",
           "studio": "Artist associated area",
           "id": "thread-79828806433b"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
+    "3480952": {
+      "kind": "artist",
+      "relation": "Artist origin documented as",
+      "subject": "Gino Soccio",
+      "label": "Montréal",
+      "lat": 45.5019,
+      "lon": -73.5673,
+      "precision": "city",
+      "note": "The museum catalogue explicitly identifies Montréal as the artist’s origin. This is distinct from interpreting a birthplace or the record’s manufacturing market.",
+      "source": "https://citizenfreak.com/artists/103253-gino-soccio",
+      "research_claim_id": "research-61174bf5dadb",
+      "research_source_ids": [
+        "gino"
+      ],
+      "city": "Montréal",
+      "studio": "Artist origin documented as",
+      "id": "thread-d7de8dae4a33",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Artist origin documented as",
+          "subject": "Gino Soccio",
+          "label": "Montréal",
+          "lat": 45.5019,
+          "lon": -73.5673,
+          "precision": "city",
+          "note": "The museum catalogue explicitly identifies Montréal as the artist’s origin. This is distinct from interpreting a birthplace or the record’s manufacturing market.",
+          "source": "https://citizenfreak.com/artists/103253-gino-soccio",
+          "research_claim_id": "research-61174bf5dadb",
+          "research_source_ids": [
+            "gino"
+          ],
+          "city": "Montréal",
+          "studio": "Artist origin documented as",
+          "id": "thread-d7de8dae4a33"
+        }
+      ],
+      "primary_thread_id": "thread-d7de8dae4a33",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Artist origin documented as",
+          "subject": "Gino Soccio",
+          "label": "Montréal",
+          "lat": 45.5019,
+          "lon": -73.5673,
+          "precision": "city",
+          "note": "The museum catalogue explicitly identifies Montréal as the artist’s origin. This is distinct from interpreting a birthplace or the record’s manufacturing market.",
+          "source": "https://citizenfreak.com/artists/103253-gino-soccio",
+          "research_claim_id": "research-61174bf5dadb",
+          "research_source_ids": [
+            "gino"
+          ],
+          "city": "Montréal",
+          "studio": "Artist origin documented as",
+          "id": "thread-d7de8dae4a33"
         }
       ],
       "coverage": "Sourced cultural threads",
@@ -15326,6 +18272,67 @@
       "coverage": "Sourced cultural threads",
       "unlocated_artists": []
     },
+    "418688": {
+      "kind": "artist",
+      "relation": "Artist origin documented as",
+      "subject": "Gino Soccio",
+      "label": "Montréal",
+      "lat": 45.5019,
+      "lon": -73.5673,
+      "precision": "city",
+      "note": "The museum catalogue explicitly identifies Montréal as the artist’s origin. This is distinct from interpreting a birthplace or the record’s manufacturing market.",
+      "source": "https://citizenfreak.com/artists/103253-gino-soccio",
+      "research_claim_id": "research-61174bf5dadb",
+      "research_source_ids": [
+        "gino"
+      ],
+      "city": "Montréal",
+      "studio": "Artist origin documented as",
+      "id": "thread-d7de8dae4a33",
+      "threads": [
+        {
+          "kind": "artist",
+          "relation": "Artist origin documented as",
+          "subject": "Gino Soccio",
+          "label": "Montréal",
+          "lat": 45.5019,
+          "lon": -73.5673,
+          "precision": "city",
+          "note": "The museum catalogue explicitly identifies Montréal as the artist’s origin. This is distinct from interpreting a birthplace or the record’s manufacturing market.",
+          "source": "https://citizenfreak.com/artists/103253-gino-soccio",
+          "research_claim_id": "research-61174bf5dadb",
+          "research_source_ids": [
+            "gino"
+          ],
+          "city": "Montréal",
+          "studio": "Artist origin documented as",
+          "id": "thread-d7de8dae4a33"
+        }
+      ],
+      "primary_thread_id": "thread-d7de8dae4a33",
+      "locations": [
+        {
+          "kind": "artist",
+          "relation": "Artist origin documented as",
+          "subject": "Gino Soccio",
+          "label": "Montréal",
+          "lat": 45.5019,
+          "lon": -73.5673,
+          "precision": "city",
+          "note": "The museum catalogue explicitly identifies Montréal as the artist’s origin. This is distinct from interpreting a birthplace or the record’s manufacturing market.",
+          "source": "https://citizenfreak.com/artists/103253-gino-soccio",
+          "research_claim_id": "research-61174bf5dadb",
+          "research_source_ids": [
+            "gino"
+          ],
+          "city": "Montréal",
+          "studio": "Artist origin documented as",
+          "id": "thread-d7de8dae4a33"
+        }
+      ],
+      "coverage": "Sourced cultural threads",
+      "unlocated_artists": []
+    },
     "1387022": {
       "kind": "artist",
       "relation": "Artist associated area",
@@ -15677,7 +18684,7 @@
       "unlocated_artists": []
     }
   },
-  "thread_count": 408,
+  "thread_count": 471,
   "research": {
     "artist_ids_checked": 570,
     "identity_matches": 251,
@@ -15687,13 +18694,16 @@
     "accepted_threads": 244,
     "skipped": [],
     "failed_batches": 0,
-    "located_entries": 254,
-    "located_editions": 252,
-    "unplaced_entries": 356,
+    "method_version": "0.1",
+    "reviewed_source_count": 119,
+    "reviewed_claim_count": 53,
+    "located_entries": 293,
+    "located_editions": 291,
+    "unplaced_entries": 317,
     "unplaced_reasons": {
-      "identity_requires_review": 259,
-      "geographic_evidence_unverified": 65,
-      "compilation_requires_curation": 30,
+      "identity_requires_review": 241,
+      "geographic_evidence_unverified": 47,
+      "compilation_requires_curation": 27,
       "unidentified_artist": 2
     }
   }

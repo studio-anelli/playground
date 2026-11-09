@@ -39,3 +39,7 @@ next-env.d.ts
 # Nested recovered builds
 /recovered/**/node_modules/
 /recovered/**/dist/
+
+# Python research tooling
+__pycache__/
+*.pyc

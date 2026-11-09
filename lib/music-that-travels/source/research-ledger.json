@@ -1,0 +1,3600 @@
+{
+  "schema_version": 1,
+  "batch_id": "research-batch-01",
+  "reviewed_at": "2026-11-09",
+  "method_version": "0.1",
+  "sources": {
+    "yussef": {
+      "url": "https://yussefkamaal.bandcamp.com/album/black-focus",
+      "title": "Black Focus — album notes",
+      "publisher": "Brownswood Recordings / Yussef Kamaal",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "20be44ccb57712789ab85907c3497b2dc7844da5505050fde19ba78164ec8fcd",
+      "summary": "Describes London musical influences and the duo’s early performances in Peckham and Camberwell."
+    },
+    "moor": {
+      "url": "https://www.anti.com/news/moor-mother-releases-new-album-black-encyclopedia-of-the-air-today/",
+      "title": "Black Encyclopedia Of The Air — release announcement",
+      "publisher": "ANTI-",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "598e9d3f3bf865d922900ce59779d549109388bad312ca3d7b7e862d273d1612",
+      "summary": "Identifies Moor Mother as Philadelphia-based in September 2021."
+    },
+    "nancy": {
+      "url": "https://folkways.si.edu/nancy-dupree/ghetto-reality/african-american-spoken-childrens/music/album/smithsonian",
+      "title": "Ghetto Reality — catalogue and album notes",
+      "publisher": "Smithsonian Folkways",
+      "type": "archive",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "ba7fdd1b3145a88ed86ed7358e6d2ed6927f293a4a7168e2254a8c7cc5e4fc2b",
+      "summary": "Documents the project with Nancy Dupree’s elementary-school pupils in Rochester, New York."
+    },
+    "steve": {
+      "url": "https://soundwayrecords.bandcamp.com/album/only-you-2",
+      "title": "Only You — reissue notes and artist interview",
+      "publisher": "Soundway Records",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "713d8e5c9b77f6527c564f7596e9a4a11951f6b59746c7558bf806c801f7c2d8",
+      "summary": "Connects the original album to the Nigerian boogie scene and producer Nkono Teles."
+    },
+    "nkono": {
+      "url": "https://soundwayrecords.bandcamp.com/album/love-vibration",
+      "title": "Love Vibration — retrospective notes",
+      "publisher": "Soundway Records",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "17883bc1ec1ee1167ab7ed757a049cfbd5420459ebadd477b25e65dbc87115c5",
+      "summary": "Documents the producer’s work in Lagos and his collaborations with Nigerian musicians."
+    },
+    "sexual": {
+      "url": "https://sexual-harrassment.bandcamp.com/album/i-need-a-freak",
+      "title": "I Need A Freak — expanded reissue notes",
+      "publisher": "Dark Entries",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "baa4e104aa01be652799d5fd049342956efde1def2770de157f5abb14fee83f9",
+      "summary": "Documents the original album’s recording in Akron; the reissue adds later singles."
+    },
+    "jimetta": {
+      "url": "https://jimettarosethevoicesofcreation.bandcamp.com/album/how-good-it-is",
+      "title": "How Good It Is — album notes",
+      "publisher": "Jimetta Rose & The Voices of Creation / Day Dreamer",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "9758b5acaf6d5d4da61b3d8eae33cb43ec431f9132db6b590cbc7c4397976333",
+      "summary": "Describes Jimetta Rose’s Los Angeles scene and community choir."
+    },
+    "contact": {
+      "url": "https://freestylerecords.bandcamp.com/album/dancing-inner-space-1982-1984",
+      "title": "Dancing Inner Space, 1982–1984 — liner notes",
+      "publisher": "Freestyle Records",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "e0b9edf294c983faa40803dc0c393998cfee217af55d24100c5d638dbc9175b3",
+      "summary": "Links the project to Andy Sojka, Rick de Jongh and their Holloway Road label operation."
+    },
+    "okvsho": {
+      "url": "https://soulofzurich.bandcamp.com/album/traphouse-jazz",
+      "title": "Traphouse Jazz — album notes and credits",
+      "publisher": "Okvsho / Boyoom",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "5d75e556e8678cd38c2a345c6bf0edec7a0e93f5df3f14e345a806f1aba88d9c",
+      "summary": "Explicitly locates the Boyoom Traphouse recording studio in Zurich."
+    },
+    "alma": {
+      "url": "https://almanegramusic.bandcamp.com/album/visions",
+      "title": "Visions — artist biography",
+      "publisher": "Alma Negra",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "7692ea2b4f43b49cd388d61298ae76818fd94d617bac6d97074b7d45ba729c3d",
+      "summary": "The band’s own biography states that it formed in Basel."
+    },
+    "flofilz": {
+      "url": "https://flofilz.bandcamp.com/album/speakthru",
+      "title": "Speakthru — artist biography",
+      "publisher": "FloFilz / Jakarta Records",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "619b37714bee55d58e82e933e51c4358716187838430587785061a51fa0647d5",
+      "summary": "The artist describes his work as jazz-sample-based beatmaking from Germany."
+    },
+    "debich": {
+      "url": "https://henrykdebich.bandcamp.com/album/zbli-enie",
+      "title": "Zbliżenie — archive notes and session credits",
+      "publisher": "Astigmatic Records / Radio Łódź",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "bbefdcc490826419ce33582697e2d4d6c4eee6fdf196e2dd3109e69f80a12b42",
+      "summary": "Lists Radio Łódź sessions from 1974 to 1977, with musicians and individual recording dates."
+    },
+    "compro": {
+      "url": "https://compro-oro.bandcamp.com/album/compro-oro-feat-murat-ertel-esma-ertel-simurg",
+      "title": "Simurg — collaboration notes",
+      "publisher": "Compro Oro / Sdban Ultra",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "6ff9c68b586c576c0435d5e8f4ccf8783e39f88d2e5aac63e9d99372f0c620ab",
+      "summary": "Describes the Ghent collective’s collaboration with Istanbul musician Murat Ertel and singer Esma Ertel."
+    },
+    "nightforce": {
+      "url": "https://afrosynth.bandcamp.com/album/dance",
+      "title": "Dance — reissue notes",
+      "publisher": "Afrosynth",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "a6656d42057934840fc9e0f3da7ab5a07274d4d1ba4537197da54ce394c8d217",
+      "summary": "Distinguishes the European title track from its slower South African edition and added Tom Cats tracks."
+    },
+    "lafayette-label": {
+      "url": "https://strut-records.co.uk/products/lafayette-afro-rock-band-soul-makossa",
+      "title": "Soul Makossa — historical reissue notes",
+      "publisher": "Strut Records",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "8d3c783c5567dfabe0cca7599cff44c55083c1db0fa0760af8bbedd2e7f70041",
+      "summary": "Documents the group’s move to Paris, collaboration with Manu Dibango and Hihache’s later sampling history."
+    },
+    "vaughan": {
+      "url": "https://www.bewithrecords.com/products/vaughan-mason-and-butch-dayo-feel-my-love-lp",
+      "title": "Feel My Love — reissue notes",
+      "publisher": "Be With Records",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "bd5b974dd7004afec803ea72b9094ad13d6335e345fe0a1075dfb373054703d0",
+      "summary": "Provides the 1983 album context and describes its later Orange County boogie association; this is not a recording location."
+    },
+    "azmari": {
+      "url": "https://azmari.bandcamp.com/album/sam",
+      "title": "Samā’ī — album notes",
+      "publisher": "Azmari / Sdban Ultra",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "2d5e2661db9daf214ae14aa4b3ad3de30d029940cc8f35282a72a94cb713db82",
+      "summary": "Documents Brussels formation in 2015, Istanbul performances, and study of Turkish and Ethiopian scales."
+    },
+    "free": {
+      "url": "https://habibifunk.com/products/the-free-music-free-music-part1",
+      "title": "Free Music (Part 1) — archival reissue notes",
+      "publisher": "Habibi Funk",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "90c4833de07168b3af877b6fd1b802a7f34a7f44baab13ad3eb4a7cb59179528",
+      "summary": "Identifies Najib Alhoush and The Free Music with Libya; describes a retrospective compiled from several albums."
+    },
+    "habibi": {
+      "url": "https://habibifunkrecords.bandcamp.com/album/habibi-funk-007-an-eclectic-selection-of-music-from-the-arab-world",
+      "title": "Habibi Funk 007 — curatorial notes",
+      "publisher": "Habibi Funk",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "901f43cf417226162c2cb0c372ffe60a10cd85e8996fcaa921fbbdde89a0aa9d",
+      "summary": "Describes a personal selection across multiple musical cultures, explicitly rejecting a single historical genre."
+    },
+    "habibi2": {
+      "url": "https://habibifunkrecords.bandcamp.com/album/habibi-funk-015-an-eclectic-selection-of-music-from-the-arab-world-part-2",
+      "title": "Habibi Funk 015 — curatorial notes",
+      "publisher": "Habibi Funk",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "e7c06300b929a11272f57d783ac75830f55ac7850d52a47c52147d48987cd541",
+      "summary": "Names Egyptian, Moroccan, Libyan, Lebanese and Algerian material, plus a musical connection between Kenya and Oman."
+    },
+    "archie": {
+      "url": "https://misterarchiepelago.bandcamp.com/album/the-archie-pelago-ep",
+      "title": "The Archie Pelago EP — label notes",
+      "publisher": "Mister Saturday Night / Archie Pelago",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "50d0e1d6a439b1acc6c34ebc821c70aa2a6ca451d59e63c6ad7049c4017e1d5a",
+      "summary": "Introduces Archie Pelago as a live band from Brooklyn."
+    },
+    "malik": {
+      "url": "https://mothertonguerecords.bandcamp.com/album/in-a-better-way-vinyl-only-no-digital-download",
+      "title": "In A Better Way — release notes",
+      "publisher": "Mother Tongue Records",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "9b41ddf14ff5beacc2cb9e7e2586be6b6c50a09f019bc412b4e89d8099fbce93",
+      "summary": "Identifies Malik Alston and collaborators Jason Hogans and John Arnold with Detroit."
+    },
+    "lockhart": {
+      "url": "https://tiombelockhart.bandcamp.com/album/the-aquarius-years-ft-robert-glasper-bilal-ecussionist",
+      "title": "The Aquarius Years — artist page and credits",
+      "publisher": "Tiombé Lockhart / Mother Tongue Records",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "64291f297c0b7073ca77e027a16a286042465a681611d03163852d12c661d544",
+      "summary": "Documents the featured musicians and earlier release history; the artist’s own profile currently identifies Los Angeles."
+    },
+    "edlongo": {
+      "url": "https://earlysounds.bandcamp.com/album/the-other-fantasy",
+      "title": "The Other Fantasy — recording notes",
+      "publisher": "Early Sounds Recordings",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "fc40eb948d289c09a74360bbcde548106dfe8d5b335c4058b6c52baf77928657",
+      "summary": "Describes multiple recording sessions around Europe without naming the cities."
+    },
+    "mauskovic": {
+      "url": "https://mauskovicdanceband.bandcamp.com/album/down-in-the-basement-ep",
+      "title": "Down In The Basement EP — album notes",
+      "publisher": "Soundway Records / The Mauskovic Dance Band",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "01e4db385b20c9fae20d9965a4fef882177df2e4de3457761ff2868f0e9f2193",
+      "summary": "Explicitly links the Amsterdam group’s music to Afro-Colombian styles and picó culture."
+    },
+    "pino": {
+      "url": "https://www.pinodaniele.com/about/",
+      "title": "Pino Daniele — official biography",
+      "publisher": "Pino Daniele official website",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "cf6c19942f96da8c9dbd8335a5c957685bfd19bdbb967e64d687047f1b034eca",
+      "summary": "Documents Neapolitan musical roots and the combination of local song with blues, jazz and rock."
+    },
+    "nile": {
+      "url": "https://www.songhall.org/profiles/nile-rodgers",
+      "title": "Nile Rodgers — inductee biography",
+      "publisher": "Songwriters Hall of Fame",
+      "type": "archive",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "61c6cd95c5e7d10281b00bbd2b1f28ee12993358b49127c8a556c1ce8fca355e",
+      "summary": "Documents the guitarist’s professional work in the Apollo Theater house band in Harlem."
+    },
+    "sahib": {
+      "url": "https://sahibshihab.bandcamp.com/album/companionship",
+      "title": "Companionship — liner notes and recording credits",
+      "publisher": "Schema Records / Rearward",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "27e9d4c4a9de4a315dd59cd546cc503d9525fc28e9e0e3048d38b3d115965f77",
+      "summary": "Lists several Cologne sessions and another venue; no assumption that the unidentified EP uses identical takes."
+    },
+    "gino": {
+      "url": "https://citizenfreak.com/artists/103253-gino-soccio",
+      "title": "Gino Soccio — artist catalogue",
+      "publisher": "Museum of Canadian Music",
+      "type": "archive",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "4c6d30358114387b200fc2c7d64ab69287cbb0aa49460a88da8065ceb0690bd2",
+      "summary": "The catalogue identifies Montréal, Québec as the artist’s origin, rather than merely a birthplace."
+    },
+    "george": {
+      "url": "https://www.allmusic.com/artist/george-mccrae-mn0000945900/biography",
+      "title": "George McCrae — biography by Bill Dahl",
+      "publisher": "AllMusic",
+      "type": "publication",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "5c131462298e0a01ca7db214a1b5473edd96771460a7ceafcfe9f0fa71136b13",
+      "summary": "Describes McCrae as a Miami-based performer associated with the early disco scene."
+    },
+    "westlake": {
+      "url": "https://www.westlakestudios.com/studios/studio-a",
+      "title": "Studio A — studio history and address",
+      "publisher": "Westlake Recording Studios",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "44d2baddbf69942819debc2b1b50bc2348c189665d31af2bb708a927f38bbc03",
+      "summary": "Documents the studio’s connection to Thriller and identifies its Los Angeles address."
+    },
+    "dabeull": {
+      "url": "https://dabeull.bandcamp.com/album/intimate-fonk",
+      "title": "Intimate Fonk — artist biography",
+      "publisher": "Dabeull / Roche Musique",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "03ad0430db928c3fa34c822dd70d77b801ebc72f59d2d883d474b2473ed3923b",
+      "summary": "The release biography describes Dabeull as Parisian and discusses his funk production practice."
+    },
+    "esther": {
+      "url": "https://wjai.org/esther-williams/",
+      "title": "Esther Williams — founder biography",
+      "publisher": "Washington Jazz Arts Institute",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "98119565aa7cc36144bd90c8faa7c73cf000f6f81e19e26967814422c4a58f9e",
+      "summary": "Documents the singer’s professional career and musical community in Washington, DC, including her Friends & Company recordings."
+    },
+    "soulsearchers": {
+      "url": "https://iconoclassicrecords.com/artist/the-soul-searchers/",
+      "title": "The Soul Searchers — artist history",
+      "publisher": "Iconoclassic Records",
+      "type": "official",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "8ca7c9924450526279050d4c71152614248a3081cc216d09d0d47d87b4e19476",
+      "summary": "Documents the Washington, DC band and the extensive sampling history of Ashley’s Roachclip."
+    },
+    "maynard": {
+      "url": "https://shermanjazzmuseum.com/exhibit-page/maynard-ferguson/",
+      "title": "Maynard Ferguson — biographical exhibit",
+      "publisher": "Sherman Jazz Museum",
+      "type": "archive",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "content_sha256": "730943e9a03c3cd89dd7f0f7c1fcab5db9bceb556ebf7034d4caec01309294b9",
+      "summary": "Documents the bandleader’s relocation to New York in 1973 and the subsequent recording period."
+    },
+    "mos-museum": {
+      "url": "https://cdn2.brooklynmuseum.org/labels/yasiin_bey_Press_Release.pdf",
+      "title": "yasiin bey: Negus — press release, October 17, 2019",
+      "publisher": "Brooklyn Museum",
+      "type": "archive",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "indexed_primary_text",
+      "summary": "Identifies yasiin bey as Mos Def and explicitly describes Brooklyn as his hometown. Direct PDF retrieval timed out; the relevant publisher text was read via its indexed primary-source result."
+    },
+    "swedien": {
+      "url": "https://www.musicradar.com/news/we-always-recorded-with-michael-in-the-dark-he-hated-light-engineer-bruce-swedien-on-the-making-of-michael-jacksons-thriller-track-by-track",
+      "title": "Bruce Swedien on Thriller, track by track — Beat It section",
+      "publisher": "Future Music / MusicRadar",
+      "type": "interview",
+      "retrieval": "read",
+      "checked_at": "2026-11-09",
+      "access_method": "publisher_page",
+      "summary": "Engineer Bruce Swedien recalls Eddie Van Halen recording the Beat It guitar solo at Westlake Studio B."
+    },
+    "discogs-masters-1014425": {
+      "url": "https://www.discogs.com/master/1014425",
+      "title": "Dog ",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:09.569540+00:00",
+      "access_method": "public_api",
+      "content_sha256": "a357afa95df357f79e99212f4161e3f3f3180c7fb4a8fdb4697fa802f6b3e8f2",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-101854": {
+      "url": "https://www.discogs.com/master/101854",
+      "title": "Beat It",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:12.569734+00:00",
+      "access_method": "public_api",
+      "content_sha256": "e0dbb0e3a71adef91ba89c4c3eaa68c58b99323f66b8638303ce30379306ed95",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-1061256": {
+      "url": "https://www.discogs.com/master/1061256",
+      "title": "Only You",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:15.569708+00:00",
+      "access_method": "public_api",
+      "content_sha256": "0ac4b8f36e24f15e421eb3bfb525dc20224eb586760a093bf7563273afcb769b",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-1084896": {
+      "url": "https://www.discogs.com/master/1084896",
+      "title": "Black Focus",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:18.569741+00:00",
+      "access_method": "public_api",
+      "content_sha256": "e02197ae7ef9485640396eb30c7e00046fb296695b28ea21c5cb2695d3714001",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-1148876": {
+      "url": "https://www.discogs.com/master/1148876",
+      "title": "Speakthru",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:21.569875+00:00",
+      "access_method": "public_api",
+      "content_sha256": "a44e5d657462f8f358d726a99f388f2f7c222cdaa45afa6d9682a454e1432bf8",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-1276241": {
+      "url": "https://www.discogs.com/master/1276241",
+      "title": "حبيبي فنك مختارات موسيقية متنوعة من الوطن العربي = Habibi Funk: An Eclectic Selection Of Music From The Arab World",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:24.569743+00:00",
+      "access_method": "public_api",
+      "content_sha256": "d9e74ab577be30990f539b61a39f26d1270e4506574491be6c150df4091728af",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-1360364": {
+      "url": "https://www.discogs.com/master/1360364",
+      "title": "Dance",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:29.058635+00:00",
+      "access_method": "public_api",
+      "content_sha256": "775c3b9c8fde9435bc862f7e13dac52bd022365ac591251c9c855bfe122ddf8e",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-141725": {
+      "url": "https://www.discogs.com/master/141725",
+      "title": "Soul Makossa",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:32.058781+00:00",
+      "access_method": "public_api",
+      "content_sha256": "fb9d4e358bbb812185eb1cc08f1c20a9ff0ea164fe3b96678ea3e49fcb3e348c",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-154005": {
+      "url": "https://www.discogs.com/master/154005",
+      "title": "Kiss Me (The Way I Like It)",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:35.059292+00:00",
+      "access_method": "public_api",
+      "content_sha256": "933cbc46d91e8834b677db63cf1d5ef4b24096fa5b8be8a8963ed55b81e2dead",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-1733221": {
+      "url": "https://www.discogs.com/master/1733221",
+      "title": "The Aquarius Years",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:38.061335+00:00",
+      "access_method": "public_api",
+      "content_sha256": "7b8e1907f89324d4a22ac8ebd696b629b39e3377bb614904cfbdb1715bafb6db",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-194593": {
+      "url": "https://www.discogs.com/master/194593",
+      "title": "Feel My Love",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:41.062112+00:00",
+      "access_method": "public_api",
+      "content_sha256": "2e96cd808a4525efc7d82edafdd45a7925de100e7d18f8adf8b3edfd63888ff0",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-2019127": {
+      "url": "https://www.discogs.com/master/2019127",
+      "title": "Samā'ī",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:44.059882+00:00",
+      "access_method": "public_api",
+      "content_sha256": "f3ab400de1f25f72dec910132932eccca946562dff3df641178143a46a44d1e2",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-224744": {
+      "url": "https://www.discogs.com/master/224744",
+      "title": "Your's And Your's Alone",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:47.058705+00:00",
+      "access_method": "public_api",
+      "content_sha256": "ab1565b9a0bdd9d7ad638c77b7d7693a3746547de4b7caa34ffad14a365f0df3",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-2281300": {
+      "url": "https://www.discogs.com/master/2281300",
+      "title": "حبيبي فنك - مختارات موسيقية متنوعة من الوطن العربي النسخة الثانية = Habibi Funk - An Eclectic Selection Of Music From The Arab World, Part 2 ",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:50.059654+00:00",
+      "access_method": "public_api",
+      "content_sha256": "18b753f90aa010e58038054a16b1e63e12512b003b07d2f85444a41647470919",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-2320186": {
+      "url": "https://www.discogs.com/master/2320186",
+      "title": "Zbliżenie",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:53.058814+00:00",
+      "access_method": "public_api",
+      "content_sha256": "3b866da337cfa70b5306c4b160d1324b20624a968d666b3d3e85306b88f8c6cc",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-2337862": {
+      "url": "https://www.discogs.com/master/2337862",
+      "title": "Black Encyclopedia Of The Air",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:56.059032+00:00",
+      "access_method": "public_api",
+      "content_sha256": "a0de3924541d6c471ad4a8bec1b1982464216d6efd734498ed034327449006e1",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-2640530": {
+      "url": "https://www.discogs.com/master/2640530",
+      "title": "Intimate Fonk",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:10:59.059059+00:00",
+      "access_method": "public_api",
+      "content_sha256": "468becef354312accedace0a52c1d3b664edd90d56483a5a20425ccedb2c088b",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-3018254": {
+      "url": "https://www.discogs.com/master/3018254",
+      "title": "Free Music (Part 1) = موسيقى حرة  (الجزء الأول)",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:02.058882+00:00",
+      "access_method": "public_api",
+      "content_sha256": "53c44464e9f99aa8b34992357888c5ef19258fd8af00109f28fbac56ad7aab46",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-3019346": {
+      "url": "https://www.discogs.com/master/3019346",
+      "title": "How Good It Is",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:05.058669+00:00",
+      "access_method": "public_api",
+      "content_sha256": "e910179edc2391f4f46fc2df95801cc20124f4e663afcfe11ff282eae2c492e4",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-3033272": {
+      "url": "https://www.discogs.com/master/3033272",
+      "title": "The Other Fantasy",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:08.058925+00:00",
+      "access_method": "public_api",
+      "content_sha256": "89f16f204cb9870db6a2ca228db69f5d316da43866eb8c673e5065a72633d397",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-324397": {
+      "url": "https://www.discogs.com/master/324397",
+      "title": "Nero A Metà",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:11.058944+00:00",
+      "access_method": "public_api",
+      "content_sha256": "07a84c3eae5c4e647b6c5912b808d2692de0efd0f1dff521e8272da7ec6917f7",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-442115": {
+      "url": "https://www.discogs.com/master/442115",
+      "title": "Ghetto Reality",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:14.058722+00:00",
+      "access_method": "public_api",
+      "content_sha256": "0d42bdf7d27cab995f52094f18934bb168558d69922b149571b9154f9ffb874b",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-471755": {
+      "url": "https://www.discogs.com/master/471755",
+      "title": "Nun Me Scoccià'",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:17.058841+00:00",
+      "access_method": "public_api",
+      "content_sha256": "91c1adb55e8423a918a8416748edc48129075db4a2c9dc5d0397f7eb7c0ef54b",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-58428": {
+      "url": "https://www.discogs.com/master/58428",
+      "title": "Yum-Yum / Get Her Crazy",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:20.058726+00:00",
+      "access_method": "public_api",
+      "content_sha256": "3f0624fd44435b0642ccf42f941ddea5b2e2d8c7de19a3d99c4a45e8c8023a76",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-66516": {
+      "url": "https://www.discogs.com/master/66516",
+      "title": "Ms. Fat Booty / Mathematics",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:23.058687+00:00",
+      "access_method": "public_api",
+      "content_sha256": "674a217f15e8a8eb2c6c13d2cded60c4ab9addd902dcca9d27cf073d1fa5d44e",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-67554": {
+      "url": "https://www.discogs.com/master/67554",
+      "title": "Dancer",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:26.058686+00:00",
+      "access_method": "public_api",
+      "content_sha256": "e38d6f4b46bdf3f6cd9340098c0523a5d05558bd6ba43b03ddca1c9550177784",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-71082": {
+      "url": "https://www.discogs.com/master/71082",
+      "title": "I Need A Freak",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:29.058691+00:00",
+      "access_method": "public_api",
+      "content_sha256": "adb46079774a64c68f978151094e8ae4737c3fa2b3dd0e28433a732037b5844a",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-masters-925693": {
+      "url": "https://www.discogs.com/master/925693",
+      "title": "Pagliacci / Primal Scream",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:32.058674+00:00",
+      "access_method": "public_api",
+      "content_sha256": "405cb791e6fdd1befaa33539c5010e3966db94a68e3c82a18f1fda9865daeac9",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-10086014": {
+      "url": "https://www.discogs.com/release/10086014",
+      "title": "Dance",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:39.821151+00:00",
+      "access_method": "public_api",
+      "content_sha256": "a475e4bdb895edc927aae2ee30c1cf6bb3abe2655e2583fbe77af8f93ad43f89",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-11209038": {
+      "url": "https://www.discogs.com/release/11209038",
+      "title": "حبيبي فنك مختارات موسيقية متنوعة من الوطن العربي = Habibi Funk: An Eclectic Selection Of Music From The Arab World",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:35.058867+00:00",
+      "access_method": "public_api",
+      "content_sha256": "6ce1d792c5049b172747099f446ed461849d6819cacfad970cd35c464c5673b6",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-11298561": {
+      "url": "https://www.discogs.com/release/11298561",
+      "title": "Habibi Funk (An Eclectic Selection Of Music From The Arab World)",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:38.059341+00:00",
+      "access_method": "public_api",
+      "content_sha256": "410b4fe4a22ab6f3790293487d1f76d4dad485757c6f0a2e4433dab7f9d3afa6",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-11437823": {
+      "url": "https://www.discogs.com/release/11437823",
+      "title": "Visions EP",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:41.059282+00:00",
+      "access_method": "public_api",
+      "content_sha256": "844d6e877455b592670e35b13e024e0cc290446b548e4887e1568b30b2beddff",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-11717510": {
+      "url": "https://www.discogs.com/release/11717510",
+      "title": "Down In The Basement EP",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:48.447892+00:00",
+      "access_method": "public_api",
+      "content_sha256": "cd3009d85eddf9442b9ab25fba50d2019782ca04b01fe9b769e67e705c0282f2",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-12424634": {
+      "url": "https://www.discogs.com/release/12424634",
+      "title": "Dance",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:51.447897+00:00",
+      "access_method": "public_api",
+      "content_sha256": "378220214612b229db65c068c6ee69bff8c35e9388e879a64479841fb3453a32",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-1242582": {
+      "url": "https://www.discogs.com/release/1242582",
+      "title": "Soul Makossa",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:42.822306+00:00",
+      "access_method": "public_api",
+      "content_sha256": "98289a47d01e35e326432e8a45dd25ace474151a4265fc9b50cd7f232357da3e",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-1244858": {
+      "url": "https://www.discogs.com/release/1244858",
+      "title": "Nero A Metà",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:54.448050+00:00",
+      "access_method": "public_api",
+      "content_sha256": "972f82f466d6dd59b91029bb7093d02ef2aa9db09f5a2ad1ecd40070fc6da792",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-125920": {
+      "url": "https://www.discogs.com/release/125920",
+      "title": "Last Night Changed It All / Ashley's Roach Clip",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:11:57.448946+00:00",
+      "access_method": "public_api",
+      "content_sha256": "dc9294a05916ce8c2b041ea96de88ade825b04999409f7c8a094c4e36d3fe6f5",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-12890235": {
+      "url": "https://www.discogs.com/release/12890235",
+      "title": "The Other Fantasy",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:00.447816+00:00",
+      "access_method": "public_api",
+      "content_sha256": "bb16bc6a0a07a238edfd336763f55138859e12cdc9d8ba8c0a9f5b56dac5ab3c",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-13132255": {
+      "url": "https://www.discogs.com/release/13132255",
+      "title": "Traphouse Jazz ",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:03.448775+00:00",
+      "access_method": "public_api",
+      "content_sha256": "bcff4bc60f821ed3e5e4741d763616bdcd3cfad9c2dbfdcdd5b8b42582a0040f",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-13369708": {
+      "url": "https://www.discogs.com/release/13369708",
+      "title": "Alma Negra Remixed",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:06.447859+00:00",
+      "access_method": "public_api",
+      "content_sha256": "3bb1d4ee6372f850112ca161468d1794c3d4a9b581fc051894f5994f6e191974",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-1352263": {
+      "url": "https://www.discogs.com/release/1352263",
+      "title": "Pagliacci / Primal Scream",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:09.448410+00:00",
+      "access_method": "public_api",
+      "content_sha256": "76699b70ca697f3899274456260b6375b215ab33ae15018d43fe0adc4bc90131",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-13852404": {
+      "url": "https://www.discogs.com/release/13852404",
+      "title": "Feel My Love",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:12.447944+00:00",
+      "access_method": "public_api",
+      "content_sha256": "c6e7291d50131c7b02ce94597117e013532adf50c20bc69164d306c6bf460a16",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-14222949": {
+      "url": "https://www.discogs.com/release/14222949",
+      "title": "Intimate Fonk",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:15.447947+00:00",
+      "access_method": "public_api",
+      "content_sha256": "0eeb2f4fb0626c97c0e059235a259584dacdba21e41e25a2c0fbe530477a4b04",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-15261650": {
+      "url": "https://www.discogs.com/release/15261650",
+      "title": "The Aquarius Years",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:48.821355+00:00",
+      "access_method": "public_api",
+      "content_sha256": "49a1cfe3411c351cc2932139cc9b197d95b105a319f022b98ef93977f7d3a6d2",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-15268960": {
+      "url": "https://www.discogs.com/release/15268960",
+      "title": "The Aquarius Years",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:18.447931+00:00",
+      "access_method": "public_api",
+      "content_sha256": "ce89f9db1e14adbf0550b851b00e69efeaa9d0a12ca1c5f6195efa738eaa4f1d",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-15499420": {
+      "url": "https://www.discogs.com/release/15499420",
+      "title": "Simurg",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:21.447829+00:00",
+      "access_method": "public_api",
+      "content_sha256": "04a86ecf7d05ad6f030c3c0078dd1b8385d78e27eadfb8d8b686c00aff9706e1",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-1601162": {
+      "url": "https://www.discogs.com/release/1601162",
+      "title": "Beat It / Working Day & Night",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:24.447819+00:00",
+      "access_method": "public_api",
+      "content_sha256": "7cd6da60ca3553779e397930692beaf488a0c10b49a3aaae8f7ba2b81ffa0556",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-16691670": {
+      "url": "https://www.discogs.com/release/16691670",
+      "title": "I Need A Freak",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:27.447966+00:00",
+      "access_method": "public_api",
+      "content_sha256": "2cb18e97534ab8023bd301122bd8610af5ec0a11e086d0d49f8d3005a155a5d7",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-17030529": {
+      "url": "https://www.discogs.com/release/17030529",
+      "title": "Samā'ī",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:30.447894+00:00",
+      "access_method": "public_api",
+      "content_sha256": "cc83a35a2d73ff2bc38110caf06cb853617fda5164fa5c05831d76f6fc98e0f0",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-1996594": {
+      "url": "https://www.discogs.com/release/1996594",
+      "title": "Your's And Your's Alone",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:45.821298+00:00",
+      "access_method": "public_api",
+      "content_sha256": "9e1412f4069f4e9a4a03c764f4587d0c05d8ac0a691c151323d0762ee0898344",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-20152732": {
+      "url": "https://www.discogs.com/release/20152732",
+      "title": "حبيبي فنك - مختارات موسيقية متنوعة من الوطن العربي النسخة الثانية = Habibi Funk - An Eclectic Selection Of Music From The Arab World, Part 2 ",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:33.447835+00:00",
+      "access_method": "public_api",
+      "content_sha256": "33ac8908239f95608bb0e08f389c79d9361e3dcbc623234122a1db941139f7e4",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-20407876": {
+      "url": "https://www.discogs.com/release/20407876",
+      "title": "Zbliżenie",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:51.821327+00:00",
+      "access_method": "public_api",
+      "content_sha256": "abb1286005a0222b6ca1dcd5505096402251cbd6699e15a9a12e514e69f1b536",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-20431393": {
+      "url": "https://www.discogs.com/release/20431393",
+      "title": "Zbliżenie",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:36.447845+00:00",
+      "access_method": "public_api",
+      "content_sha256": "0bf1e9550a2178156b5ea09185ae5652290d7cbaa70fae885ae8abd21c9f910a",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-21016180": {
+      "url": "https://www.discogs.com/release/21016180",
+      "title": "In A Better Way",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:39.450728+00:00",
+      "access_method": "public_api",
+      "content_sha256": "6efefef9c8ccc380c84242e431fdcf4198f642e08661af678ca53ed76e062043",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-21087580": {
+      "url": "https://www.discogs.com/release/21087580",
+      "title": "Black Encyclopedia Of The Air",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:42.447829+00:00",
+      "access_method": "public_api",
+      "content_sha256": "53b83f90068f13910c06c2436149481f983a1ab23a4facda379a5bc9073cf26d",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-2310728": {
+      "url": "https://www.discogs.com/release/2310728",
+      "title": "Ghetto Reality",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:54.827064+00:00",
+      "access_method": "public_api",
+      "content_sha256": "fcde3dc3d8ff8d63e6ae1ef05d638e1cd545ae3c322b4e46669c2a3704d14efe",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-23656460": {
+      "url": "https://www.discogs.com/release/23656460",
+      "title": "How Good It Is",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:57.822686+00:00",
+      "access_method": "public_api",
+      "content_sha256": "5bb368e5bb58e6668189accf24608dd205c041a50a829b5d1d190050625c70b6",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-24896": {
+      "url": "https://www.discogs.com/release/24896",
+      "title": "Ms. Fat Booty / Mathematics",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:45.451399+00:00",
+      "access_method": "public_api",
+      "content_sha256": "c4d03bd6696ceee352329500adcc8457b63961b0cad3851dfb3531e4db76d9b2",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-25267285": {
+      "url": "https://www.discogs.com/release/25267285",
+      "title": "Only You",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:48.448718+00:00",
+      "access_method": "public_api",
+      "content_sha256": "0d318aed1f9bfc82e94230d8153dd650332baa0c4efeaa214f2edd70930a377e",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-25269778": {
+      "url": "https://www.discogs.com/release/25269778",
+      "title": "Dancing Inner Space 1982-1984",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:51.451433+00:00",
+      "access_method": "public_api",
+      "content_sha256": "fd2e4d63c44e6a31b43931700b42521009cba1fcd8163e62e582e168827ec719",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-26359139": {
+      "url": "https://www.discogs.com/release/26359139",
+      "title": "Free Music (Part 1) = موسيقى حرة  (الجزء الأول)",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:54.462220+00:00",
+      "access_method": "public_api",
+      "content_sha256": "0b4429e9fe68ea65ffde6b5f10da163651359d4338175cbe62824baccd543fc4",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-26438102": {
+      "url": "https://www.discogs.com/release/26438102",
+      "title": "How Good It Is",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:12:57.447947+00:00",
+      "access_method": "public_api",
+      "content_sha256": "7cb31c2f4dccc3c6b13990b60a7664f01d187795607c141c41743a5711247d77",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-26572889": {
+      "url": "https://www.discogs.com/release/26572889",
+      "title": "Love Vibration",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:00.448144+00:00",
+      "access_method": "public_api",
+      "content_sha256": "c6823d04478cb93dc5ae13812c65fbee0f86a9c688edfc2056b010431e37c1bc",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-30227756": {
+      "url": "https://www.discogs.com/release/30227756",
+      "title": "Soul Makossa ",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:03.448611+00:00",
+      "access_method": "public_api",
+      "content_sha256": "8f2633d07b77ef35de1fd98f8b20ad5762b812de642eaa863739e49aec81b72f",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-3103098": {
+      "url": "https://www.discogs.com/release/3103098",
+      "title": "Your's And Your's Alone / Last Night Changed It All (I Really Had A Ball)",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:06.447864+00:00",
+      "access_method": "public_api",
+      "content_sha256": "b7b3061969424a35f2848dfd4f4542c79b7b53bf26fb29aedfc2ed20dd573b9a",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-334718": {
+      "url": "https://www.discogs.com/release/334718",
+      "title": "Dancer",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:14:00.821438+00:00",
+      "access_method": "public_api",
+      "content_sha256": "bc5e667947abe9059c239e6fa03bab120036004e71d85dd1189011ec8b35a958",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-3480952": {
+      "url": "https://www.discogs.com/release/3480952",
+      "title": "Dancer / Dance To Dance",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:09.447865+00:00",
+      "access_method": "public_api",
+      "content_sha256": "d348fec8c89e9b6c75cb0c56504fb74baa55b5c47fd79710187082f58d31c472",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-3535278": {
+      "url": "https://www.discogs.com/release/3535278",
+      "title": "Feel My Love",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:14:03.821831+00:00",
+      "access_method": "public_api",
+      "content_sha256": "9f75d5b222b8ad5e1c2624d00c04dabbd1776360aa519a6043ce5e7407a31118",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-366413": {
+      "url": "https://www.discogs.com/release/366413",
+      "title": "Yum-Yum / Get Her Crazy",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:12.447851+00:00",
+      "access_method": "public_api",
+      "content_sha256": "41039dd79b880e6150bac64511968f661cbc2c383a692cea50d99503676d8ff0",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-3851838": {
+      "url": "https://www.discogs.com/release/3851838",
+      "title": "The Archie Pelago EP",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:15.448711+00:00",
+      "access_method": "public_api",
+      "content_sha256": "ae04311f466028932020002669aacb3b14d2d21174dc929443542691030812e7",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-3880099": {
+      "url": "https://www.discogs.com/release/3880099",
+      "title": "Nun Me Scoccià'",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:18.448152+00:00",
+      "access_method": "public_api",
+      "content_sha256": "23c62e84bbea51b7933b3f82afbf4bb821c93c7a09a56b2980c7a76b3e3fc15f",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-479121": {
+      "url": "https://www.discogs.com/release/479121",
+      "title": "Beat It",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:14:06.825306+00:00",
+      "access_method": "public_api",
+      "content_sha256": "22f6904e850a9c803e1dc66a7187d6a1f900c383583ae03c045e7d214e2396aa",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-4897638": {
+      "url": "https://www.discogs.com/release/4897638",
+      "title": "Only You",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:14:09.822631+00:00",
+      "access_method": "public_api",
+      "content_sha256": "1da24f83d1629e444cadbb77c9f457b06bdf2a121cefefdd41f592d551400796",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-5652780": {
+      "url": "https://www.discogs.com/release/5652780",
+      "title": "Ghetto Reality",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:21.448770+00:00",
+      "access_method": "public_api",
+      "content_sha256": "1a972ac3f651d81696a76dbcb75f29f1172d470ac89b629f207e7050a590b3a2",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-566406": {
+      "url": "https://www.discogs.com/release/566406",
+      "title": "I Need A Freak",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:14:12.821291+00:00",
+      "access_method": "public_api",
+      "content_sha256": "e0eb4eea0694c110132225cb3a6389bb6f1c3c64fd4335a13969264ab5853c5e",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-6022847": {
+      "url": "https://www.discogs.com/release/6022847",
+      "title": "Companionship E.P.",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:24.448076+00:00",
+      "access_method": "public_api",
+      "content_sha256": "f1a0be1b547d7c0be040ead2bb90a614edeb286802989090514e27026c8dfd9b",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-645638": {
+      "url": "https://www.discogs.com/release/645638",
+      "title": "Kiss Me (The Way I Like It)",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:27.448262+00:00",
+      "access_method": "public_api",
+      "content_sha256": "4e2e4093d5717f37f2f4c00570eea50959d0115ef30ecfb47641bb1d783e64e3",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-7770150": {
+      "url": "https://www.discogs.com/release/7770150",
+      "title": "Speakthru",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:30.447973+00:00",
+      "access_method": "public_api",
+      "content_sha256": "cbe5a522d05f1c2df0cb81a3fb620fd3172c9727d7d30d41a464d55e1088c42a",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-7837490": {
+      "url": "https://www.discogs.com/release/7837490",
+      "title": "Dog ",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:14:15.821287+00:00",
+      "access_method": "public_api",
+      "content_sha256": "8c6e0b5d14a49122a7ccef5d0c6b5a8608e92b6c40e6390563115e1d900b1d83",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-8636562": {
+      "url": "https://www.discogs.com/release/8636562",
+      "title": "Dog ",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:33.448117+00:00",
+      "access_method": "public_api",
+      "content_sha256": "a6824af62375ee2aab32e390268d68644738bc92309a27f6de22e6bf088ec88b",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-9072898": {
+      "url": "https://www.discogs.com/release/9072898",
+      "title": "Black Focus",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:13:36.447858+00:00",
+      "access_method": "public_api",
+      "content_sha256": "edf190d702a03429006e7c8c3f16ce3ef26e53d419680363837557397df51cc0",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    },
+    "discogs-releases-9307305": {
+      "url": "https://www.discogs.com/release/9307305",
+      "title": "Black Focus",
+      "publisher": "Discogs",
+      "type": "discogs",
+      "retrieval": "read",
+      "checked_at": "2026-11-09T08:14:18.821392+00:00",
+      "access_method": "public_api",
+      "content_sha256": "2e1cbf7435b2b1d3dc48997fed6fea26253802892d2f2da47651a6e37423b951",
+      "summary": "Reviewed identity, edition notes, recording credits and available track listing. A master’s main release is a representative edition, not proof of the first edition."
+    }
+  },
+  "claims": [
+    {
+      "id": "research-8c8b154287e9",
+      "entity": {
+        "type": "artist",
+        "id": "5260145"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Artist based in",
+      "subject": "Moor Mother",
+      "label": "Philadelphia",
+      "lon": -75.1652,
+      "lat": 39.9526,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "moor"
+      ],
+      "evidence_summary": "The label identifies Philadelphia as Moor Mother’s musical base at this album’s release; it does not identify the home recording address.",
+      "note": "The label identifies Philadelphia as Moor Mother’s musical base at this album’s release; it does not identify the home recording address.",
+      "period": "2021"
+    },
+    {
+      "id": "research-57019ecb46fc",
+      "entity": {
+        "type": "artist",
+        "id": "5648"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Artist hometown association",
+      "subject": "Mos Def / yasiin bey",
+      "label": "Brooklyn",
+      "lon": -73.9442,
+      "lat": 40.6782,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "mos-museum"
+      ],
+      "evidence_summary": "The museum identifies Brooklyn as the artist’s hometown and connects the names Mos Def and yasiin bey. This is an artist association, not this single’s recording location.",
+      "note": "The museum identifies Brooklyn as the artist’s hometown and connects the names Mos Def and yasiin bey. This is an artist association, not this single’s recording location."
+    },
+    {
+      "id": "research-92d6175f61be",
+      "entity": {
+        "type": "artist",
+        "id": "5269272"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Musical roots and scene",
+      "subject": "Yussef Kamaal",
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5074,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "yussef"
+      ],
+      "evidence_summary": "The album notes describe the duo’s South East London pub gigs and the influence of the city’s pirate-radio cultures.",
+      "note": "The album notes describe the duo’s South East London pub gigs and the influence of the city’s pirate-radio cultures."
+    },
+    {
+      "id": "research-361bb90e0488",
+      "entity": {
+        "type": "release",
+        "id": "5652780"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Community music project in",
+      "subject": "Ghetto Reality",
+      "label": "Rochester",
+      "lon": -77.6109,
+      "lat": 43.1566,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "nancy"
+      ],
+      "evidence_summary": "Folkways documents the songs developed with Nancy Dupree’s elementary-school pupils in Rochester. This identifies the project community rather than an exact recording studio.",
+      "note": "Folkways documents the songs developed with Nancy Dupree’s elementary-school pupils in Rochester. This identifies the project community rather than an exact recording studio.",
+      "period": "1969"
+    },
+    {
+      "id": "research-9492f23c83b5",
+      "entity": {
+        "type": "artist",
+        "id": "49758"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Performed professionally in",
+      "subject": "Nile Rodgers",
+      "label": "New York",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "nile"
+      ],
+      "evidence_summary": "The biography documents early professional work in the Apollo Theater house band in Harlem. This is career history, not a claim about this single’s studio.",
+      "note": "The biography documents early professional work in the Apollo Theater house band in Harlem. This is career history, not a claim about this single’s studio."
+    },
+    {
+      "id": "research-726ac5ef71ca",
+      "entity": {
+        "type": "release",
+        "id": "1601162"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "recording",
+      "relation": "Guitar solo recorded at",
+      "subject": "Beat It — guitar solo",
+      "label": "Los Angeles",
+      "lon": -118.2437,
+      "lat": 34.0522,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "swedien",
+        "westlake"
+      ],
+      "evidence_summary": "Swedien places Eddie Van Halen’s Beat It solo at Westlake Studio B. This covers the A-side contribution only, not Working Day & Night or every session on this edition.",
+      "note": "Swedien places Eddie Van Halen’s Beat It solo at Westlake Studio B. This covers the A-side contribution only, not Working Day & Night or every session on this edition.",
+      "venue": "Westlake Studio B",
+      "coverage": "partial",
+      "track_positions": [
+        "A"
+      ],
+      "period": "1982"
+    },
+    {
+      "id": "research-a20f9aee4b3b",
+      "entity": {
+        "type": "release",
+        "id": "20431393"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "recording",
+      "relation": "Recorded at",
+      "subject": "Zbliżenie",
+      "label": "Łódź",
+      "lon": 19.455,
+      "lat": 51.7592,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "debich",
+        "discogs-releases-20431393"
+      ],
+      "evidence_summary": "The release credits locate the archived sessions at Radio Łódź, with individual recording dates. The city marker does not identify a studio street address.",
+      "note": "The release credits locate the archived sessions at Radio Łódź, with individual recording dates. The city marker does not identify a studio street address.",
+      "venue": "Radio Łódź",
+      "period": "1974–1977"
+    },
+    {
+      "id": "research-0378be10fe76",
+      "entity": {
+        "type": "release",
+        "id": "16691670"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "recording",
+      "relation": "Original album recorded in",
+      "subject": "I Need A Freak — original album",
+      "label": "Akron",
+      "lon": -81.519,
+      "lat": 41.0814,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "sexual"
+      ],
+      "evidence_summary": "The label describes Akron sessions for the original album. The expanded reissue’s two later bonus singles are not assigned this location.",
+      "note": "The label describes Akron sessions for the original album. The expanded reissue’s two later bonus singles are not assigned this location.",
+      "coverage": "partial",
+      "period": "1983"
+    },
+    {
+      "id": "research-f84eea043afa",
+      "entity": {
+        "type": "artist",
+        "id": "1040998"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Musical scene",
+      "subject": "Jimetta Rose",
+      "label": "Los Angeles",
+      "lon": -118.2437,
+      "lat": 34.0522,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "jimetta"
+      ],
+      "evidence_summary": "The album notes identify Jimetta Rose’s Los Angeles musical community and the choir’s local collaborators.",
+      "note": "The album notes identify Jimetta Rose’s Los Angeles musical community and the choir’s local collaborators."
+    },
+    {
+      "id": "research-c9ccbb02fb70",
+      "entity": {
+        "type": "artist",
+        "id": "11407823"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Community choir based in",
+      "subject": "The Voices of Creation",
+      "label": "Los Angeles",
+      "lon": -118.2437,
+      "lat": 34.0522,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "jimetta"
+      ],
+      "evidence_summary": "The same notes place the community choir in Jimetta Rose’s Los Angeles scene; no recording venue is asserted.",
+      "note": "The same notes place the community choir in Jimetta Rose’s Los Angeles scene; no recording venue is asserted."
+    },
+    {
+      "id": "research-01be03edd314",
+      "entity": {
+        "type": "artist",
+        "id": "133119"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Label and musical scene",
+      "subject": "Contact-U",
+      "label": "London",
+      "lon": -0.1276,
+      "lat": 51.5074,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "contact"
+      ],
+      "evidence_summary": "The retrospective connects the duo to its Holloway Road label operation and early UK electro-boogie output. It does not locate every recording session.",
+      "note": "The retrospective connects the duo to its Holloway Road label operation and early UK electro-boogie output. It does not locate every recording session.",
+      "period": "1982–1984"
+    },
+    {
+      "id": "research-9fe2dd30cc16",
+      "entity": {
+        "type": "release",
+        "id": "25267285"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "recording",
+      "relation": "Recorded and mixed at",
+      "subject": "Only You",
+      "label": "Lagos",
+      "lon": 3.3792,
+      "lat": 6.5244,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "discogs-releases-25267285",
+        "discogs-releases-4897638",
+        "steve"
+      ],
+      "evidence_summary": "Both the owned reissue and another edition explicitly credit EMI Oregun Road Studios in Lagos. London mastering of the reissue is a separate process.",
+      "note": "Both the owned reissue and another edition explicitly credit EMI Oregun Road Studios in Lagos. London mastering of the reissue is a separate process.",
+      "venue": "EMI Oregun Road Studios",
+      "period": "1984"
+    },
+    {
+      "id": "research-4969f0ef5528",
+      "entity": {
+        "type": "artist",
+        "id": "781536"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Worked in the musical scene of",
+      "subject": "Nkono Teles",
+      "label": "Lagos",
+      "lon": 3.3792,
+      "lat": 6.5244,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "nkono"
+      ],
+      "evidence_summary": "The label’s retrospective documents Teles producing and arranging for Lagos musicians during the Nigerian electronic-boogie period.",
+      "note": "The label’s retrospective documents Teles producing and arranging for Lagos musicians during the Nigerian electronic-boogie period.",
+      "period": "1980s"
+    },
+    {
+      "id": "research-723582c48522",
+      "entity": {
+        "type": "artist",
+        "id": "48419"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Band based in",
+      "subject": "Lafayette Afro Rock Band",
+      "label": "Paris",
+      "lon": 2.3522,
+      "lat": 48.8566,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "lafayette-label"
+      ],
+      "evidence_summary": "Strut documents the band living and developing its Afro-funk sound in Paris after moving from the US. It also documents Hihache’s later use in hip-hop.",
+      "note": "Strut documents the band living and developing its Afro-funk sound in Paris after moving from the US. It also documents Hihache’s later use in hip-hop.",
+      "period": "1970s"
+    },
+    {
+      "id": "research-03cfe4f0cbdb",
+      "entity": {
+        "type": "release",
+        "id": "12424634"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Adapted for listeners in",
+      "subject": "Dance — South African edition",
+      "label": "South Africa",
+      "lon": 24,
+      "lat": -29,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "nightforce"
+      ],
+      "evidence_summary": "The label describes an authorised slower South African version of the European title track and additional Tom Cats material. This is circulation and adaptation, not proof the original track was recorded there.",
+      "note": "The label describes an authorised slower South African version of the European title track and additional Tom Cats material. This is circulation and adaptation, not proof the original track was recorded there."
+    },
+    {
+      "id": "research-4a251b9815be",
+      "entity": {
+        "type": "artist",
+        "id": "2979809"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Band associated with",
+      "subject": "The Free Music / الموسيقى الحرة",
+      "label": "Libya",
+      "lon": 17,
+      "lat": 27,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "free"
+      ],
+      "evidence_summary": "The archival reissue identifies Najib Alhoush’s group with Libya. A national association is retained without inventing a city or one session for the whole retrospective.",
+      "note": "The archival reissue identifies Najib Alhoush’s group with Libya. A national association is retained without inventing a city or one session for the whole retrospective."
+    },
+    {
+      "id": "research-21f0057c7b64",
+      "entity": {
+        "type": "release",
+        "id": "11209038"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Compilation documents music from",
+      "subject": "Habibi Funk 007",
+      "label": "Morocco",
+      "lon": -7,
+      "lat": 32,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "discogs-releases-11209038",
+        "discogs-releases-11298561",
+        "habibi"
+      ],
+      "evidence_summary": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+      "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+      "reviewed_release_ids": [
+        "11298561"
+      ],
+      "transfer_basis": "The CD and double LP list matching 16-track artist/title sequences and matching country assignments; their packaging and track position formats differ."
+    },
+    {
+      "id": "research-b4e2ef65f094",
+      "entity": {
+        "type": "release",
+        "id": "11209038"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Compilation documents music from",
+      "subject": "Habibi Funk 007",
+      "label": "Algeria",
+      "lon": 3,
+      "lat": 28,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "discogs-releases-11209038",
+        "discogs-releases-11298561",
+        "habibi"
+      ],
+      "evidence_summary": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+      "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+      "reviewed_release_ids": [
+        "11298561"
+      ],
+      "transfer_basis": "The CD and double LP list matching 16-track artist/title sequences and matching country assignments; their packaging and track position formats differ."
+    },
+    {
+      "id": "research-24924ec961d3",
+      "entity": {
+        "type": "release",
+        "id": "11209038"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Compilation documents music from",
+      "subject": "Habibi Funk 007",
+      "label": "Sudan",
+      "lon": 30,
+      "lat": 15,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "discogs-releases-11209038",
+        "discogs-releases-11298561",
+        "habibi"
+      ],
+      "evidence_summary": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+      "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+      "reviewed_release_ids": [
+        "11298561"
+      ],
+      "transfer_basis": "The CD and double LP list matching 16-track artist/title sequences and matching country assignments; their packaging and track position formats differ."
+    },
+    {
+      "id": "research-cd7166b004c2",
+      "entity": {
+        "type": "release",
+        "id": "11209038"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Compilation documents music from",
+      "subject": "Habibi Funk 007",
+      "label": "Egypt",
+      "lon": 30,
+      "lat": 27,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "discogs-releases-11209038",
+        "discogs-releases-11298561",
+        "habibi"
+      ],
+      "evidence_summary": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+      "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+      "reviewed_release_ids": [
+        "11298561"
+      ],
+      "transfer_basis": "The CD and double LP list matching 16-track artist/title sequences and matching country assignments; their packaging and track position formats differ."
+    },
+    {
+      "id": "research-e62ba70aea66",
+      "entity": {
+        "type": "release",
+        "id": "11209038"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Compilation documents music from",
+      "subject": "Habibi Funk 007",
+      "label": "Lebanon",
+      "lon": 35.8,
+      "lat": 33.9,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "discogs-releases-11209038",
+        "discogs-releases-11298561",
+        "habibi"
+      ],
+      "evidence_summary": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+      "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+      "reviewed_release_ids": [
+        "11298561"
+      ],
+      "transfer_basis": "The CD and double LP list matching 16-track artist/title sequences and matching country assignments; their packaging and track position formats differ."
+    },
+    {
+      "id": "research-740dd2024741",
+      "entity": {
+        "type": "release",
+        "id": "11209038"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Compilation documents music from",
+      "subject": "Habibi Funk 007",
+      "label": "Tunisia",
+      "lon": 9,
+      "lat": 34,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "discogs-releases-11209038",
+        "discogs-releases-11298561",
+        "habibi"
+      ],
+      "evidence_summary": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+      "note": "The edition notes associate specific tracks with this country. These are repertoire connections; the compilation is not assigned the Berlin label’s location.",
+      "reviewed_release_ids": [
+        "11298561"
+      ],
+      "transfer_basis": "The CD and double LP list matching 16-track artist/title sequences and matching country assignments; their packaging and track position formats differ."
+    },
+    {
+      "id": "research-7bdeafcf0616",
+      "entity": {
+        "type": "release",
+        "id": "20152732"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Compilation documents music connected with",
+      "subject": "Habibi Funk 015",
+      "label": "Egypt",
+      "lon": 30,
+      "lat": 27,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "habibi2"
+      ],
+      "evidence_summary": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+      "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation."
+    },
+    {
+      "id": "research-4e52cff04dd4",
+      "entity": {
+        "type": "release",
+        "id": "20152732"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Compilation documents music connected with",
+      "subject": "Habibi Funk 015",
+      "label": "Morocco",
+      "lon": -7,
+      "lat": 32,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "habibi2"
+      ],
+      "evidence_summary": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+      "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation."
+    },
+    {
+      "id": "research-e08c6a85d7fa",
+      "entity": {
+        "type": "release",
+        "id": "20152732"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Compilation documents music connected with",
+      "subject": "Habibi Funk 015",
+      "label": "Libya",
+      "lon": 17,
+      "lat": 27,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "habibi2"
+      ],
+      "evidence_summary": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+      "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation."
+    },
+    {
+      "id": "research-090c602f31ac",
+      "entity": {
+        "type": "release",
+        "id": "20152732"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Compilation documents music connected with",
+      "subject": "Habibi Funk 015",
+      "label": "Lebanon",
+      "lon": 35.8,
+      "lat": 33.9,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "habibi2"
+      ],
+      "evidence_summary": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+      "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation."
+    },
+    {
+      "id": "research-3408c0dfc02c",
+      "entity": {
+        "type": "release",
+        "id": "20152732"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Compilation documents music connected with",
+      "subject": "Habibi Funk 015",
+      "label": "Algeria",
+      "lon": 3,
+      "lat": 28,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "habibi2"
+      ],
+      "evidence_summary": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+      "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation."
+    },
+    {
+      "id": "research-f99b77e6a5a3",
+      "entity": {
+        "type": "release",
+        "id": "20152732"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Compilation documents music connected with",
+      "subject": "Habibi Funk 015",
+      "label": "Kenya",
+      "lon": 38,
+      "lat": 1,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "habibi2"
+      ],
+      "evidence_summary": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+      "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation."
+    },
+    {
+      "id": "research-aa3b48552373",
+      "entity": {
+        "type": "release",
+        "id": "20152732"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Compilation documents music connected with",
+      "subject": "Habibi Funk 015",
+      "label": "Oman",
+      "lon": 57,
+      "lat": 21,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "habibi2"
+      ],
+      "evidence_summary": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation.",
+      "note": "The label’s curatorial notes explicitly include this country’s material or musical connection. These are separate, partial repertoire associations rather than a single origin for the compilation."
+    },
+    {
+      "id": "research-ccb917dfbe50",
+      "entity": {
+        "type": "release",
+        "id": "13852404"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "recording",
+      "relation": "Recorded partly at",
+      "subject": "Feel My Love",
+      "label": "West Orange",
+      "lon": -74.239,
+      "lat": 40.7987,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "discogs-releases-3535278",
+        "vaughan"
+      ],
+      "evidence_summary": "Another edition credits House of Music, West Orange, NJ alongside two other studios. Only this explicitly located studio is mapped; the other sessions remain unresolved.",
+      "note": "Another edition credits House of Music, West Orange, NJ alongside two other studios. Only this explicitly located studio is mapped; the other sessions remain unresolved.",
+      "venue": "House of Music",
+      "coverage": "partial",
+      "transfer_basis": "The reissue and 1983 album share the same artists and five named compositions; the claim is restricted to original album sessions, not the reissue mastering."
+    },
+    {
+      "id": "research-05a78efcf451",
+      "entity": {
+        "type": "artist",
+        "id": "3298939"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Artist self-described area",
+      "subject": "FloFilz",
+      "label": "Germany",
+      "lon": 10,
+      "lat": 51,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "flofilz"
+      ],
+      "evidence_summary": "The artist’s own biography identifies Germany. No city, birthplace or particular recording location is inferred.",
+      "note": "The artist’s own biography identifies Germany. No city, birthplace or particular recording location is inferred."
+    },
+    {
+      "id": "research-3cb6fa2d14c5",
+      "entity": {
+        "type": "release",
+        "id": "13132255"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "recording",
+      "relation": "Recorded at",
+      "subject": "Traphouse Jazz",
+      "label": "Zurich",
+      "lon": 8.5417,
+      "lat": 47.3769,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "okvsho"
+      ],
+      "evidence_summary": "The album description and credits locate the Boyoom Traphouse in Zurich, where the instrumentals were composed and recorded.",
+      "note": "The album description and credits locate the Boyoom Traphouse in Zurich, where the instrumentals were composed and recorded.",
+      "venue": "Boyoom Traphouse",
+      "period": "2018"
+    },
+    {
+      "id": "research-96e054882a14",
+      "entity": {
+        "type": "artist",
+        "id": "3572394"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Group formed in",
+      "subject": "Alma Negra",
+      "label": "Basel",
+      "lon": 7.5886,
+      "lat": 47.5596,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "alma"
+      ],
+      "evidence_summary": "The group’s own biography explicitly names Basel as its formation place. This applies to the group, including the remix release; it does not place the remixers’ sessions.",
+      "note": "The group’s own biography explicitly names Basel as its formation place. This applies to the group, including the remix release; it does not place the remixers’ sessions."
+    },
+    {
+      "id": "research-72cd2995c7e7",
+      "entity": {
+        "type": "artist",
+        "id": "1613326"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Artist associated with",
+      "subject": "Dabeull",
+      "label": "Paris",
+      "lon": 2.3522,
+      "lat": 48.8566,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "dabeull"
+      ],
+      "evidence_summary": "The release’s biographical text describes Dabeull as Parisian. This is artist context, not an inferred recording studio.",
+      "note": "The release’s biographical text describes Dabeull as Parisian. This is artist context, not an inferred recording studio."
+    },
+    {
+      "id": "research-eae0b54f809b",
+      "entity": {
+        "type": "artist",
+        "id": "4153154"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Band based in",
+      "subject": "Compro Oro",
+      "label": "Ghent",
+      "lon": 3.7174,
+      "lat": 51.0543,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "compro"
+      ],
+      "evidence_summary": "The band’s biography identifies Ghent as its base. The collaboration with Murat and Esma Ertel keeps its separate participant histories.",
+      "note": "The band’s biography identifies Ghent as its base. The collaboration with Murat and Esma Ertel keeps its separate participant histories."
+    },
+    {
+      "id": "research-51ea144d4ef5",
+      "entity": {
+        "type": "artist",
+        "id": "2149274"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Musical scene",
+      "subject": "Murat Ertel",
+      "label": "Istanbul",
+      "lon": 28.9784,
+      "lat": 41.0082,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "compro"
+      ],
+      "evidence_summary": "The collaboration notes identify Ertel with Istanbul’s psychedelic music scene. Esma Ertel is credited separately without inventing an identical geographic history.",
+      "note": "The collaboration notes identify Ertel with Istanbul’s psychedelic music scene. Esma Ertel is credited separately without inventing an identical geographic history."
+    },
+    {
+      "id": "research-c43f885c8bd1",
+      "entity": {
+        "type": "artist",
+        "id": "7249529"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Group formed in",
+      "subject": "Azmari",
+      "label": "Brussels",
+      "lon": 4.3517,
+      "lat": 50.8503,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "azmari"
+      ],
+      "evidence_summary": "The album notes explicitly date the band’s formation in Brussels to 2015.",
+      "note": "The album notes explicitly date the band’s formation in Brussels to 2015.",
+      "period": "2015"
+    },
+    {
+      "id": "research-b230ec081cce",
+      "entity": {
+        "type": "release",
+        "id": "17030529"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Draws on musical scales from",
+      "subject": "Samā’ī",
+      "label": "Turkey",
+      "lon": 35,
+      "lat": 39,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "azmari"
+      ],
+      "evidence_summary": "The album notes explicitly describe studying Turkish and Ethiopian scales. This is a musical-language connection, not a claim that the Belgian group originates in either country.",
+      "note": "The album notes explicitly describe studying Turkish and Ethiopian scales. This is a musical-language connection, not a claim that the Belgian group originates in either country."
+    },
+    {
+      "id": "research-b1a3bfea1708",
+      "entity": {
+        "type": "release",
+        "id": "17030529"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Draws on musical scales from",
+      "subject": "Samā’ī",
+      "label": "Ethiopia",
+      "lon": 39,
+      "lat": 9,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "azmari"
+      ],
+      "evidence_summary": "The album notes explicitly describe studying Turkish and Ethiopian scales. This is a musical-language connection, not a claim that the Belgian group originates in either country.",
+      "note": "The album notes explicitly describe studying Turkish and Ethiopian scales. This is a musical-language connection, not a claim that the Belgian group originates in either country."
+    },
+    {
+      "id": "research-a7675180d8d0",
+      "entity": {
+        "type": "artist",
+        "id": "5733576"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Band based in",
+      "subject": "The Mauskovic Dance Band",
+      "label": "Amsterdam",
+      "lon": 4.9041,
+      "lat": 52.3676,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "mauskovic"
+      ],
+      "evidence_summary": "The release notes identify Amsterdam as the group’s current base at the time of the debut EP.",
+      "note": "The release notes identify Amsterdam as the group’s current base at the time of the debut EP.",
+      "period": "2018"
+    },
+    {
+      "id": "research-3d5529c6caa0",
+      "entity": {
+        "type": "release",
+        "id": "11717510"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "repertoire",
+      "relation": "Draws on musical traditions from",
+      "subject": "Down In The Basement EP",
+      "label": "Colombia",
+      "lon": -74,
+      "lat": 4,
+      "precision": "country",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "mauskovic"
+      ],
+      "evidence_summary": "The label explicitly identifies Afro-Colombian champeta, cumbia and picó soundsystem culture among the EP’s influences. These are repertoire connections, not band nationality.",
+      "note": "The label explicitly identifies Afro-Colombian champeta, cumbia and picó soundsystem culture among the EP’s influences. These are repertoire connections, not band nationality."
+    },
+    {
+      "id": "research-d3394a8fb49c",
+      "entity": {
+        "type": "artist",
+        "id": "89693"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Recorded professionally in",
+      "subject": "Sahib Shihab",
+      "label": "Cologne",
+      "lon": 6.9603,
+      "lat": 50.9375,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "sahib"
+      ],
+      "evidence_summary": "The label’s Companionship credits document several Cologne sessions. This is artist career evidence; the unidentified white-label EP’s exact takes and other session venues remain unverified.",
+      "note": "The label’s Companionship credits document several Cologne sessions. This is artist career evidence; the unidentified white-label EP’s exact takes and other session venues remain unverified.",
+      "period": "1964–1970"
+    },
+    {
+      "id": "research-61174bf5dadb",
+      "entity": {
+        "type": "artist",
+        "id": "75922"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Artist origin documented as",
+      "subject": "Gino Soccio",
+      "label": "Montréal",
+      "lon": -73.5673,
+      "lat": 45.5019,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "gino"
+      ],
+      "evidence_summary": "The museum catalogue explicitly identifies Montréal as the artist’s origin. This is distinct from interpreting a birthplace or the record’s manufacturing market.",
+      "note": "The museum catalogue explicitly identifies Montréal as the artist’s origin. This is distinct from interpreting a birthplace or the record’s manufacturing market."
+    },
+    {
+      "id": "research-846ea523cb38",
+      "entity": {
+        "type": "artist",
+        "id": "87814"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Artist based in",
+      "subject": "George McCrae",
+      "label": "Miami",
+      "lon": -80.1918,
+      "lat": 25.7617,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "george"
+      ],
+      "evidence_summary": "The biographical account identifies McCrae as a Miami-based performer in the early disco scene. It does not locate the specific single’s recording.",
+      "note": "The biographical account identifies McCrae as a Miami-based performer in the early disco scene. It does not locate the specific single’s recording."
+    },
+    {
+      "id": "research-c2cbccbb79ed",
+      "entity": {
+        "type": "artist",
+        "id": "226946"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Artist self-reported area",
+      "subject": "Tiombé Lockhart",
+      "label": "Los Angeles",
+      "lon": -118.2437,
+      "lat": 34.0522,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "lockhart"
+      ],
+      "evidence_summary": "The verified artist account currently identifies Los Angeles. This is a present-day self-description and is not assigned to the earlier recordings on this retrospective.",
+      "note": "The verified artist account currently identifies Los Angeles. This is a present-day self-description and is not assigned to the earlier recordings on this retrospective.",
+      "period": "Profile checked November 2026"
+    },
+    {
+      "id": "research-6764b40704bf",
+      "entity": {
+        "type": "artist",
+        "id": "30478"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Musical scene",
+      "subject": "Malik Alston",
+      "label": "Detroit",
+      "lon": -83.0458,
+      "lat": 42.3314,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "malik"
+      ],
+      "evidence_summary": "The label identifies Alston and the collaborating musicians with Detroit. Verona, the label’s own location, is not used as the music’s origin.",
+      "note": "The label identifies Alston and the collaborating musicians with Detroit. Verona, the label’s own location, is not used as the music’s origin."
+    },
+    {
+      "id": "research-6daa7bbd603c",
+      "entity": {
+        "type": "artist",
+        "id": "2346938"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Band based in",
+      "subject": "Archie Pelago",
+      "label": "Brooklyn",
+      "lon": -73.9442,
+      "lat": 40.6782,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "archie"
+      ],
+      "evidence_summary": "The debut EP’s label notes introduce the group as a live band from Brooklyn.",
+      "note": "The debut EP’s label notes introduce the group as a live band from Brooklyn."
+    },
+    {
+      "id": "research-2db564edd840",
+      "entity": {
+        "type": "release",
+        "id": "8636562"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "recording",
+      "relation": "Partly re-recorded at",
+      "subject": "Dog",
+      "label": "Berlin",
+      "lon": 13.405,
+      "lat": 52.52,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "discogs-releases-7837490",
+        "discogs-releases-8636562"
+      ],
+      "evidence_summary": "The first pressing documents part of the album being re-recorded at Money $ex Studios Berlin. South Central Studios and any other recording locations remain unlocated.",
+      "note": "The first pressing documents part of the album being re-recorded at Money $ex Studios Berlin. South Central Studios and any other recording locations remain unlocated.",
+      "venue": "Money $ex Studios",
+      "coverage": "partial",
+      "transfer_basis": "The owned repress and first pressing share the same ten LP tracks, artist and album. The first pressing’s separate bonus 7-inch is excluded from this claim."
+    },
+    {
+      "id": "research-69658cab53fc",
+      "entity": {
+        "type": "release",
+        "id": "12890235"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "recording",
+      "relation": "Recording sessions across",
+      "subject": "The Other Fantasy",
+      "label": "Europe",
+      "lon": 15,
+      "lat": 52,
+      "precision": "region",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "edlongo"
+      ],
+      "evidence_summary": "The label documents sessions in several places around Europe but names no cities. The marker represents the broad region, not a studio or a complete itinerary.",
+      "note": "The label documents sessions in several places around Europe but names no cities. The marker represents the broad region, not a studio or a complete itinerary."
+    },
+    {
+      "id": "research-c530bb8ec802",
+      "entity": {
+        "type": "artist",
+        "id": "38207"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Artist based in",
+      "subject": "Maynard Ferguson",
+      "label": "New York",
+      "lon": -74.006,
+      "lat": 40.7128,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "maynard"
+      ],
+      "evidence_summary": "The museum biography documents Ferguson’s move to New York in 1973 and the later studio-recording period. The single’s exact recording sessions are not inferred.",
+      "note": "The museum biography documents Ferguson’s move to New York in 1973 and the later studio-recording period. The single’s exact recording sessions are not inferred.",
+      "period": "From 1973"
+    },
+    {
+      "id": "research-661efd7dc774",
+      "entity": {
+        "type": "artist",
+        "id": "152754"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Musical roots and scene",
+      "subject": "Pino Daniele",
+      "label": "Naples",
+      "lon": 14.2681,
+      "lat": 40.8518,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "pino"
+      ],
+      "evidence_summary": "The official biography connects his musical development to Naples and describes the combination of Neapolitan song with blues, jazz and rock. This is supported cultural history, not genre-based geographic inference.",
+      "note": "The official biography connects his musical development to Naples and describes the combination of Neapolitan song with blues, jazz and rock. This is supported cultural history, not genre-based geographic inference."
+    },
+    {
+      "id": "research-67eaa22c5942",
+      "entity": {
+        "type": "artist",
+        "id": "37112"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Musical career and community",
+      "subject": "Esther Williams",
+      "label": "Washington, DC",
+      "lon": -77.0369,
+      "lat": 38.9072,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "esther"
+      ],
+      "evidence_summary": "The artist’s institute biography documents a professional career in Washington, DC and her Friends & Company recordings. The singer is distinguished from the actress of the same name.",
+      "note": "The artist’s institute biography documents a professional career in Washington, DC and her Friends & Company recordings. The singer is distinguished from the actress of the same name."
+    },
+    {
+      "id": "research-7aaca9564824",
+      "entity": {
+        "type": "artist",
+        "id": "219896"
+      },
+      "identity": {
+        "status": "reviewed",
+        "basis": "Collection Discogs artist/release IDs and the reviewed source identify the same artist in the named release context; names alone are not automatically joined."
+      },
+      "decision": "accepted",
+      "kind": "artist",
+      "relation": "Band based in",
+      "subject": "The Soul Searchers",
+      "label": "Washington, DC",
+      "lon": -77.0369,
+      "lat": 38.9072,
+      "precision": "city",
+      "geographic_basis": "explicit",
+      "source_ids": [
+        "soulsearchers"
+      ],
+      "evidence_summary": "The label documents the DC band’s funk and go-go history. It also identifies Ashley’s Roachclip as a widely sampled break, connecting the collection’s track to later hip-hop.",
+      "note": "The label documents the DC band’s funk and go-go history. It also identifies Ashley’s Roachclip as a widely sampled break, connecting the collection’s track to later hip-hop."
+    }
+  ],
+  "attempts": [
+    {
+      "entity": "release:21087580",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-21087580",
+        "discogs-masters-2337862"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:21087580",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "moor"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:24896",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-24896",
+        "discogs-masters-66516"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:24896",
+      "stage": "archive",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "mos-museum"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:9072898",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-9072898",
+        "discogs-masters-1084896",
+        "discogs-releases-9307305"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:9072898",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "yussef"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:5652780",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-5652780",
+        "discogs-masters-442115",
+        "discogs-releases-2310728"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:5652780",
+      "stage": "archive",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "nancy"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:366413",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-366413",
+        "discogs-masters-58428"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:366413",
+      "stage": "archive",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "nile"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:1601162",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-1601162",
+        "discogs-masters-101854",
+        "discogs-releases-479121"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:1601162",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "swedien",
+        "westlake"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:20431393",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-20431393",
+        "discogs-masters-2320186",
+        "discogs-releases-20407876"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:20431393",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "debich"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:16691670",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-16691670",
+        "discogs-masters-71082",
+        "discogs-releases-566406"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:16691670",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "sexual"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:26438102",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-26438102",
+        "discogs-masters-3019346",
+        "discogs-releases-23656460"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:26438102",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "jimetta"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:25269778",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-25269778"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:25269778",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "contact"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:25267285",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-25267285",
+        "discogs-masters-1061256",
+        "discogs-releases-4897638"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:25267285",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "steve"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:26572889",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-26572889"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:26572889",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "nkono"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:30227756",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-30227756",
+        "discogs-masters-141725",
+        "discogs-releases-1242582"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:30227756",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "lafayette-label"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:12424634",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-12424634",
+        "discogs-masters-1360364",
+        "discogs-releases-10086014"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:12424634",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "nightforce"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:26359139",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-26359139",
+        "discogs-masters-3018254"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:26359139",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "free"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:11298561",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-11298561",
+        "discogs-masters-1276241",
+        "discogs-releases-11209038"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:11298561",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "habibi"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:11209038",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-11209038",
+        "discogs-masters-1276241"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:11209038",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "habibi"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:20152732",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-20152732",
+        "discogs-masters-2281300"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:20152732",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "habibi2"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:13852404",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-13852404",
+        "discogs-masters-194593",
+        "discogs-releases-3535278"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:13852404",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "vaughan"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:7770150",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-7770150",
+        "discogs-masters-1148876"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:7770150",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "flofilz"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:13132255",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-13132255"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:13132255",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "okvsho"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:11437823",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-11437823"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:11437823",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "alma"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:13369708",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-13369708"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:13369708",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "alma"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:14222949",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-14222949",
+        "discogs-masters-2640530"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:14222949",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "dabeull"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:15499420",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-15499420"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:15499420",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "compro"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:17030529",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-17030529",
+        "discogs-masters-2019127"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:17030529",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "azmari"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:11717510",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-11717510"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:11717510",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "mauskovic"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:6022847",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-6022847"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:6022847",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "sahib"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:3480952",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-3480952",
+        "discogs-masters-67554",
+        "discogs-releases-334718"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:3480952",
+      "stage": "archive",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "gino"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:645638",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-645638",
+        "discogs-masters-154005"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:645638",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "george"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:15268960",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-15268960",
+        "discogs-masters-1733221",
+        "discogs-releases-15261650"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:15268960",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "lockhart"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:21016180",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-21016180"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:21016180",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "malik"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:3851838",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-3851838"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:3851838",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "archie"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:8636562",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-8636562",
+        "discogs-masters-1014425",
+        "discogs-releases-7837490"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:12890235",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-12890235",
+        "discogs-masters-3033272"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:12890235",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "edlongo"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:1352263",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-1352263",
+        "discogs-masters-925693"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:1352263",
+      "stage": "archive",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "maynard"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:3880099",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-3880099",
+        "discogs-masters-471755"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:3880099",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "pino"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:1244858",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-1244858",
+        "discogs-masters-324397"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:1244858",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "pino"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:125920",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-125920"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:125920",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "esther",
+        "soulsearchers"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    },
+    {
+      "entity": "release:3103098",
+      "stage": "discogs",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "discogs-releases-3103098",
+        "discogs-masters-224744",
+        "discogs-releases-1996594"
+      ],
+      "detail": "Reviewed the owned edition and, where present, its master and representative main edition. Country, manufacturing, mastering and recording were kept distinct. No claim that every variant or sleeve scan was inspected."
+    },
+    {
+      "entity": "release:3103098",
+      "stage": "official",
+      "outcome": "reviewed",
+      "checked_at": "2026-11-09",
+      "source_ids": [
+        "esther"
+      ],
+      "detail": "Reviewed the named source for artist context and release-specific connections. Accepted only the relationships stated in the ledger; this does not assert exhaustive musical history."
+    }
+  ],
+  "open_questions": [
+    {
+      "release_id": "1601162",
+      "question": "The Beat It guitar contribution is documented; Working Day & Night and other recording contributions need separate research."
+    },
+    {
+      "release_id": "16691670",
+      "question": "The original album’s Akron sessions are documented; locate the two later bonus singles separately."
+    },
+    {
+      "release_id": "13852404",
+      "question": "Locate Room 10 and Eastern Artists studios with independent studio evidence; do not use the label’s Orange County imagery as a recording address."
+    },
+    {
+      "release_id": "15499420",
+      "question": "Resolve Esma Ertel’s own musical associations and verify Studio Gam’s location; do not copy Murat Ertel’s history to her."
+    },
+    {
+      "release_id": "6022847",
+      "question": "The white-label EP is not an identified edition of the full Companionship album. Match takes before transferring session credits."
+    },
+    {
+      "release_id": "8636562",
+      "question": "Locate South Central Studios; only the explicit Berlin re-recording is accepted."
+    },
+    {
+      "release_id": "12890235",
+      "question": "The source names only Europe; city-level sessions remain unresolved."
+    },
+    {
+      "release_id": "15268960",
+      "question": "Current artist location does not establish where early-2000s recordings were made."
+    },
+    {
+      "release_id": "3103098",
+      "question": "The owned edition is described as a bootleg. Compare original recordings and sleeve documentation before inheriting detailed production credits."
+    },
+    {
+      "release_id": "9072898",
+      "question": "The Discogs studio credit is present; verify the studio location before adding a recording-place claim."
+    }
+  ],
+  "limitations": [
+    "This is an initial research pass, not an exhaustive review of all source families. Unchecked archive stages remain explicit.",
+    "Artist identity was reviewed using release context and exact Discogs IDs, without requiring Wikidata links.",
+    "No sample locations or additional studio addresses are inferred from genre, birthplace, label addresses or source-account metadata.",
+    "New collections reuse identity-scoped artist evidence; session evidence is transferred only after a separate recording-equivalence review."
+  ]
+}
