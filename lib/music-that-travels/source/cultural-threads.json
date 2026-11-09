@@ -2,6 +2,19 @@
   "schema_version": 1,
   "criteria": "Cultural threads are typed, sourced relationships. They are not a physical itinerary. A broad territory is not promoted to a city. No birthplace, nationality, title or genre is inferred as musical heritage.",
   "artists": {
+    "253": [
+      {
+        "kind": "artist",
+        "relation": "Early electronic music developed in",
+        "subject": "Luke Vibert",
+        "label": "Cornwall",
+        "lon": -4.8,
+        "lat": 50.3,
+        "precision": "region",
+        "source": "https://lukevibert.com/bio/",
+        "note": "Vibert's official biography describes growing up and starting his music in Cornwall; his present London base is separate. Cornwall is a regional musical-development association, not the recording location of Arcadia."
+      }
+    ],
     "338": [
       {
         "kind": "artist",
@@ -13,6 +26,19 @@
         "precision": "city",
         "source": "https://www.bucksmusicgroup.com/artists/166-roni-size",
         "note": "Publisher biography documents the Bristol youth-club, sound-system and early production roots of Roni Size. This does not claim that Sing was recorded in Bristol or that Jocelyn Brown shares this origin."
+      }
+    ],
+    "1665": [
+      {
+        "kind": "artist",
+        "relation": "Pioneered ghetto house in",
+        "subject": "DJ Deeon",
+        "label": "Chicago",
+        "lon": -87.6298,
+        "lat": 41.8781,
+        "precision": "city",
+        "source": "https://www.allmusic.com/artist/dj-deeon-mn0000663868",
+        "note": "AllMusic documents Deeon's Chicago South Side house parties, Dance Mania releases and early ghetto-house production. This is a scene history, not a studio or location of the owned pressing."
       }
     ],
     "2173": [
@@ -107,6 +133,19 @@
         "note": "Studio One/The Gaylads biography documents Seaton as a Kingston-born singer and his early Kingston-area musical career. This is an artist musical association, not a recording location of this owned single."
       }
     ],
+    "417641": [
+      {
+        "kind": "artist",
+        "relation": "DJ and musical roots in",
+        "subject": "Morphosis / Rabih Beaini",
+        "label": "Lebanon",
+        "lon": 35.8623,
+        "lat": 33.8547,
+        "precision": "country",
+        "source": "https://morphinerecords.com/artists/rabih-beaini",
+        "note": "Beaini's own label documents starting his DJ career in Lebanon before moving to Italy in 1996 and Berlin in 2012. This is a historical artist musical association, not any record's recording site."
+      }
+    ],
     "734504": [
       {
         "kind": "artist",
@@ -118,6 +157,32 @@
         "precision": "city",
         "source": "https://ra.co/dj/sanproper/biography",
         "note": "Resident Advisor documents San Proper's sustained Amsterdam scene involvement, Rush Hour and Dekmantel releases. Artist association only; not a studio for either owned record."
+      }
+    ],
+    "1158290": [
+      {
+        "kind": "artist",
+        "relation": "Formative DJ and record culture in",
+        "subject": "DJ Sotofett",
+        "label": "Moss",
+        "lon": 10.659,
+        "lat": 59.434,
+        "precision": "city",
+        "source": "https://mixmag.net/feature/dj-sotofett-mix-interview-in-session-sex-tags-mania",
+        "note": "Mixmag's interview details growing up in Moss, Norway, local record-store influences and founding Sex Tags Mania. Does not imply that either collaboration was recorded there."
+      }
+    ],
+    "1181868": [
+      {
+        "kind": "artist",
+        "relation": "Electronic musician based in",
+        "subject": "Bottin",
+        "label": "Venice",
+        "lon": 12.3155,
+        "lat": 45.4408,
+        "precision": "city",
+        "source": "https://www.slowmotionmusic.it/project/bottin/",
+        "note": "Artist/label biography documents Guglielmo Bottin's Venice base and creative work. No claim about this specific 12-inch's recording, remix sources or manufacturing."
       }
     ],
     "2576696": [
