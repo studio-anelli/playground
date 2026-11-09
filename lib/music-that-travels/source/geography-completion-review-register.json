@@ -1,19 +1,19 @@
 {
   "schema_version": 1,
-  "scope": "Full 257-record review register; genuinely source-reviewed acceptances plus explicitly pending identities",
+  "scope": "All 257 queue records, with source-adjudicated acceptances and remaining pending cases; not a complete research pass.",
   "source_queue": "geography-completion-queue.json",
   "date": "2026-11-09",
   "copy_count": 610,
   "queue_count": 257,
   "outcome_counts": {
-    "verification_pending": 228,
-    "accepted_geography": 29,
+    "accepted_geography": 43,
+    "verification_pending": 214,
     "reviewed_no_evidence": 0,
     "identity_unresolved": 0,
     "compilation_scope_unresolved": 0,
     "conflicting_evidence": 0
   },
-  "method_note": "accepted_geography is supported by reviewed external artist profile or specialist material and exact collection Discogs artist identity. All other entries remain verification_pending; this is NOT the entire queue researched.",
+  "method_note": "Only entries with reviewed artist/release sources marked accepted. Remaining records still require source work. Generated map and CI outcome to be verified independently.",
   "records": [
     {
       "release_id": 25466773,
@@ -31,10 +31,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "artist musical geography requires independent source verification",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "artist_id": 6302438,
+          "kind": "artist",
+          "relation": "Electronic music project based in",
+          "subject": "Bejenec",
+          "label": "Ukraine",
+          "lon": 31.1656,
+          "lat": 48.3794,
+          "precision": "country",
+          "source": "https://bejenec.bandcamp.com/album/slavic-breus-ep",
+          "note": "Artist-operated Bandcamp page for the exact Slavic Breus EP lists Bejenec in Ukraine and credits Daniel Syenichkin with production. No specific city inferred from release country/tags."
+        }
+      ]
     },
     {
       "release_id": 258314,
@@ -73,10 +87,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "artist musical geography requires independent source verification",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "artist_id": 3265924,
+          "kind": "artist",
+          "relation": "Techno artist based in",
+          "subject": "Lucindo",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://fr.ra.co/dj/lucindo/biography",
+          "note": "Artist biography explicitly lists Alien Rebellion and documents Berlin residence and work with 3TH Records. Italo-Brazilian heritage is not represented as recording geography."
+        }
+      ]
     },
     {
       "release_id": 154166,
@@ -159,7 +187,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -255,10 +283,24 @@
           "status": "area_unavailable"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "artist musical geography requires independent source verification",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "artist_id": 30786,
+          "kind": "artist",
+          "relation": "Disco studio project originated in",
+          "subject": "Suzy Q",
+          "label": "Montréal",
+          "lon": -73.5673,
+          "lat": 45.5017,
+          "precision": "city",
+          "source": "https://citizenfreak.com/artists/103854-suzy-q",
+          "note": "Museum of Canadian Music documents Suzy Q as the Montréal studio project of Jerry Cucuzzella and explicitly discusses Get On Up Do It Again. It does not separately assign individual singers' origins."
+        }
+      ]
     },
     {
       "release_id": 11421995,
@@ -318,10 +360,24 @@
           "status": "area_unavailable"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "artist musical geography requires independent source verification",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "artist_id": 202236,
+          "kind": "artist",
+          "relation": "Formative gospel singing and musical education in",
+          "subject": "Dolette McDonald",
+          "label": "Newark",
+          "lon": -74.1724,
+          "lat": 40.7357,
+          "precision": "city",
+          "source": "https://www.sjchs.org/resource-hub/smart-living-magazine/may-june-2025/working-in-harmony",
+          "note": "Interview recalls McDonald's Newark church music and school singing, followed by a professional singing career. Newark is formative musical scene, not Xtra Special recording site."
+        }
+      ]
     },
     {
       "release_id": 77058,
@@ -664,10 +720,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "artist musical geography requires independent source verification",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "artist_id": 19902,
+          "kind": "artist",
+          "relation": "Early reggae and dancehall career in",
+          "subject": "Echo Minott",
+          "label": "Kingston",
+          "lon": -76.792,
+          "lat": 17.9712,
+          "precision": "city",
+          "source": "https://bat-records.com/label/echo-minott/",
+          "note": "Label biography documents singing while growing up in Kingston and first recordings with King Jammy. This is earlier dancehall career context, not evidence of where the Jungle remix was made."
+        }
+      ]
     },
     {
       "release_id": 14125997,
@@ -748,10 +818,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "artist musical geography requires independent source verification",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "artist_id": 144934,
+          "kind": "artist",
+          "relation": "Early techno and electro production career in",
+          "subject": "Marco Bernardi",
+          "label": "Glasgow",
+          "lon": -4.2518,
+          "lat": 55.8642,
+          "precision": "city",
+          "source": "https://www.somarecords.com/artists/octogen/",
+          "note": "Soma Records biography under Bernardi's Octogen alias documents his Glasgow early music work and links him by real name. Not the recording place of Mystery Of Nazerus remixes."
+        }
+      ]
     },
     {
       "release_id": 193283,
@@ -959,7 +1043,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -994,7 +1078,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1029,7 +1113,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1104,10 +1188,24 @@
           "status": "area_unavailable"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "artist musical geography requires independent source verification",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "artist_id": 347795,
+          "kind": "artist",
+          "relation": "Electronic music and performance-art practice in",
+          "subject": "Tobias Bernstrup",
+          "label": "Stockholm",
+          "lon": 18.0686,
+          "lat": 59.3293,
+          "precision": "city",
+          "source": "https://www.bernstrup.com/pagecv",
+          "note": "Artist CV documents fine-art training in Stockholm and musical live-performance/CD presentations there. Stockholm is a documented part of artistic formation, not the location of the recording 27."
+        }
+      ]
     },
     {
       "release_id": 11685775,
@@ -1148,7 +1246,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1183,7 +1281,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1260,7 +1358,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1846,7 +1944,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1886,7 +1984,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2204,10 +2302,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "artist musical geography requires independent source verification",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "artist_id": 3148324,
+          "kind": "artist",
+          "relation": "Electronic music project formed in",
+          "subject": "Africaine 808",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://daily.redbullmusicacademy.com/2016/02/interview-africaine-808/",
+          "note": "Interview documents Hans Reuschl and Dirk Leyers meeting in Berlin's techno scene and later forming their duo. The title Lagos, New York does not determine the recording geography."
+        }
+      ]
     },
     {
       "release_id": 910642,
@@ -2332,7 +2444,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2365,10 +2477,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "artist musical geography requires independent source verification",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "artist_id": 6194004,
+          "kind": "artist",
+          "relation": "Disco edit producer based in",
+          "subject": "LTJ Edits",
+          "label": "Italy",
+          "lon": 12.5674,
+          "lat": 41.8719,
+          "precision": "country",
+          "source": "https://ra.co/dj/ltjedits",
+          "note": "Resident Advisor identifies LTJ Edits with Luca Trevisi and Italy as artist location. Rome appearances are not used to infer studio or residence."
+        }
+      ]
     },
     {
       "release_id": 13534190,
@@ -2734,7 +2860,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2937,7 +3063,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3033,10 +3159,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "artist musical geography requires independent source verification",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "artist_id": 846548,
+          "kind": "artist",
+          "relation": "Electronic producer based in",
+          "subject": "Olsen",
+          "label": "New York City",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://misterolsen.bandcamp.com/album/no-one-belongs-here-more-than-you-ep",
+          "note": "Artist Bandcamp on the exact No One Belongs Here More Than You EP identifies New York, New York as location. Artist base only, not a proven recording address."
+        }
+      ]
     },
     {
       "release_id": 8509913,
@@ -3119,7 +3259,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3196,7 +3336,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3252,7 +3392,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3397,7 +3537,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3458,7 +3598,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3818,7 +3958,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3914,10 +4054,24 @@
           "status": "area_unavailable"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "artist musical geography requires independent source verification",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "artist_id": 91058,
+          "kind": "artist",
+          "relation": "Breakcore and jungle production scene in",
+          "subject": "Shitmat",
+          "label": "Brighton",
+          "lon": -0.1372,
+          "lat": 50.8225,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/shitmat-mn0000115041",
+          "note": "AllMusic identifies Henry Collins/Shitmat as Brighton-based and his breakcore output. The geographic claim concerns the artist's scene rather than the recording site of Full English Breakfest Vol. 4."
+        }
+      ]
     },
     {
       "release_id": 4288392,
@@ -3937,7 +4091,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4124,7 +4278,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4159,7 +4313,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4360,10 +4514,35 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "artist musical geography requires independent source verification",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "artist_id": 7698701,
+          "kind": "artist",
+          "relation": "Electronic production practice based in",
+          "subject": "Cheb Runner",
+          "label": "Brussels",
+          "lon": 4.3517,
+          "lat": 50.8503,
+          "precision": "city",
+          "source": "https://listenfestival.be/our-scene/visiting-molenbeat-finest-cheb-runner",
+          "note": "2022 artist interview identifies Reda Senhaji as a Brussels-based Moroccan producer. His Tagnawit EP also engages Gnawa traditions with Brussels-based musicians; separate repertoire geography is included on the exact release."
+        },
+        {
+          "kind": "repertoire",
+          "relation": "Reworks Gnawa musical tradition from",
+          "subject": "Tagnawit EP (Cheb Runner)",
+          "label": "Morocco",
+          "lon": -7.0926,
+          "lat": 31.7917,
+          "precision": "country",
+          "source": "https://chebrunner.bandcamp.com/album/tagnawit-ep",
+          "note": "Artist and Rebel Up! release description identify traditional Gnawa percussion and two Brussels-based Gnawa masters on this EP. This is repertoire/cultural connection; the release is not asserted to have been recorded in Morocco."
+        }
+      ]
     },
     {
       "release_id": 235251,
@@ -4514,7 +4693,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4610,10 +4789,24 @@
           "status": "area_unavailable"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "artist musical geography requires independent source verification",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "artist_id": 1152098,
+          "kind": "artist",
+          "relation": "South African kwaito and rap career in",
+          "subject": "Senyaka",
+          "label": "South Africa",
+          "lon": 22.9375,
+          "lat": -30.5595,
+          "precision": "country",
+          "source": "https://musicismysanctuary.com/senkaya-bayanyonyoba-1987-1993-rush-hour",
+          "note": "Specialist discussion explicitly ties Senyaka's career, Fuquza, Ma-Gents and Bayanyonyoba to South African rap and kwaito history. No city precision claimed."
+        }
+      ]
     },
     {
       "release_id": 4913304,
@@ -4759,7 +4952,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4820,7 +5013,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4834,6 +5027,18 @@
           "precision": "city",
           "source": "https://sites.google.com/view/robertomusci/about",
           "note": "Musci's own biography describes his Milan base and global field-recording practice. Milan is an artist base; no claim about recordings on Urban And Tribal Portraits or collaborator Giovanni Venosta."
+        },
+        {
+          "artist_id": 180281,
+          "kind": "artist",
+          "relation": "Experimental music career based in",
+          "subject": "Giovanni Venosta",
+          "label": "Milan",
+          "lon": 9.19,
+          "lat": 45.4642,
+          "precision": "city",
+          "source": "https://musica.fondazionemilano.eu/docenti/giovanni-venosta",
+          "note": "Milan Conservatory faculty biography documents Milan residence and experimental records with Roberto Musci in the 1980s and 1990s. This is contributor-specific artist base, not a session site."
         }
       ]
     },
@@ -5284,7 +5489,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5466,7 +5671,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5562,10 +5767,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "artist musical geography requires independent source verification",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "artist_id": 1937785,
+          "kind": "artist",
+          "relation": "Steel-band music associated with",
+          "subject": "Steel Band Shell de Port-Louis",
+          "label": "Guadeloupe",
+          "lon": -61.551,
+          "lat": 16.265,
+          "precision": "region",
+          "source": "https://archives.crem-cnrs.fr/archives/collections/CNRSMH_E_2011_005_015/",
+          "note": "CNRS Musée de l'Homme ethnomusicology archive identifies the exact Steel Band Shell de Port-Louis and associates its Souvenir de la Guadeloupe recording with Guadeloupe. This is a territorial musical association, not a presumed studio address."
+        }
+      ]
     },
     {
       "release_id": 7546119,
@@ -5758,7 +5977,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5814,7 +6033,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5849,7 +6068,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Accepted documented artist association; not assumed recording geography; other contributors may remain unresolved.",
+      "reason": "Source-reviewed, typed artist or repertoire geographic association; not evidence of all recording locations.",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
