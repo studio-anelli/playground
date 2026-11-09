@@ -1704,6 +1704,19 @@
         "source": "https://www.jazzdisco.org/fantasy-records/discography-1959-1960/",
         "note": "Jazz session discography directly identifies Fantasy LP 3310/8054 West Side Story session with Clare Fischer and ensemble in Los Angeles in November 1960. This pertains to the underlying album recorded for Fantasy, not a reissue manufacturing country; source chronology differs slightly from other October dates."
       }
+    ],
+    "21945322": [
+      {
+        "kind": "repertoire",
+        "relation": "Compilation sound-magazine project developed in",
+        "subject": "PRE-DELAY /// 04 (NABA Sound Design)",
+        "label": "Milan",
+        "lon": 9.19,
+        "lat": 45.4642,
+        "precision": "city",
+        "source": "https://pre-delay.bandcamp.com/album/pre-delay-04",
+        "note": "First-party PRE-DELAY /// sound magazine describes the exact 2017 double-vinyl compilation as developed within the NABA Sound Design programme in Milan, art-directed by Igor Muroni. Editorial/project provenance only, not the geographical origin or studio of all 15 separately credited tracks."
+      }
     ]
   }
 }
