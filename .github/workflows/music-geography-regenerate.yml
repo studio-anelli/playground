@@ -5,6 +5,7 @@ on:
     branches:
       - research/music-geography-completion-02
     paths:
+      - 'lib/music-that-travels/prepare-collection-research.py'
       - 'lib/music-that-travels/source/cultural-threads.json'
       - 'lib/music-that-travels/source/geography-completion-review-register.json'
       - 'lib/music-that-travels/tests/geography-completion.mjs'
