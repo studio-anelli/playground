@@ -45,7 +45,10 @@ def scan(collection, ledger, datasets):
             continue
         endpoints = frozenset(str(e['release_id']) for e in connection['endpoints'])
         subject = str(connection.get('subject', '')).lower()
-        reviewed_contributors.add((endpoints, subject))
+        # Existing reviewed bridges may explicitly name two collaborators.
+        # Split only explicit ' and ' name lists, not arbitrary substrings.
+        for name in subject.split(' and '):
+            reviewed_contributors.add((endpoints, name.strip()))
     observed, credits = set(), defaultdict(lambda: defaultdict(list))
     for dataset in datasets:
         for key, item in dataset.get('observations', {}).items():
