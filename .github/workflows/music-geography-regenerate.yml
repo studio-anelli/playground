@@ -25,9 +25,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: pnpm
       - name: Regenerate all origin and Worker data from reviewed sources
         run: |
           python lib/music-that-travels/prepare-origins.py
@@ -37,6 +41,7 @@ jobs:
           python lib/music-that-travels/research/pipeline.py validate
           python lib/music-that-travels/tests/research-method.py
           node lib/music-that-travels/tests/geography-completion.mjs
+          find lib/music-that-travels/tests -maxdepth 1 -name '*.mjs' ! -name 'geography-completion.mjs' -print0 | sort -z | xargs -0 -r -n1 node
           node lib/music-that-travels/audit-geographic-coverage.mjs > /tmp/music-geography-audit.json
           python - <<'PY'
           import json
@@ -52,6 +57,10 @@ jobs:
           print("Collection instances:",len(ids),"unique editions:",len(set(releases)))
           print("Mapped copies:",d["copy_count"],"unplaced:",610-d["copy_count"])
           PY
+      - name: Verify full project build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
       - name: Commit regenerated geographic datasets on successful checks
         run: |
           git config user.name "github-actions[bot]"
