@@ -220,7 +220,9 @@
         "lat": 53.6458,
         "precision": "city",
         "source": "https://www.generatormagazine.com/95_09s.pdf",
-        "note": "Contemporaneous 1995 jungle directory calls L Double a Huddersfield-based producer, while BBC biography links his name and musical career. Huddersfield is formative work location, not necessarily the studio for Music For The 90's."
+        "note": "DNBHQ identifies L Double as Lee Johnson and indexes Music for the 90's; a contemporary 1995 jungle directory calls the same producer Huddersfield-based. Formation/work location, not studio. Both identity and geographic source are required.",
+        "identity_source": "https://www.dnbhq.com/artist/7731",
+        "location_source": "https://www.generatormagazine.com/95_09s.pdf"
       }
     ],
     "13398": [
@@ -350,7 +352,9 @@
         "lat": 39.9526,
         "precision": "city",
         "source": "https://www.nabfeme.org/philadelphia/",
-        "note": "The music industry organization identifies Shirley Lites and explicitly names Heat You Up/Melt You Down as her early record while documenting her long professional activity and leadership in Philadelphia. This is career geography, not a recording studio."
+        "note": "The music industry organization identifies Shirley Lites and explicitly names Heat You Up/Melt You Down as her early record while documenting her long professional activity and leadership in Philadelphia. This is career geography, not a recording studio.",
+        "identity_source": "https://www.nabfeme.org/philadelphia/",
+        "location_source": "https://www.nabfeme.org/philadelphia/"
       }
     ],
     "34453": [
@@ -506,8 +510,10 @@
         "lon": 5.2913,
         "lat": 52.1326,
         "precision": "country",
-        "source": "https://clone.nl/instock/label/4lux",
-        "note": "Clone record-store credits for the exact Machine Shop Naked Lunch attribute all five tracks to producer Gerd; RA identifies Gerd/Gert-Jan Bijl as Netherlands-based. Country-level producer association, not 4Lux label address or recording studio."
+        "source": "https://www.newtone-records.com/label/4%2BLux",
+        "note": "The specialist label discography explicitly identifies Machine Shop's exact Naked Lunch as a project of 4Lux founder Gerd. Resident Advisor separately places Gerd in the Netherlands. The artist alias-to-person and national musical base therefore require BOTH cited sources; neither the Rotterdam label office nor a recording studio is inferred.",
+        "identity_source": "https://www.newtone-records.com/label/4%2BLux",
+        "location_source": "https://ra.co/dj/gerd"
       }
     ],
     "144934": [
