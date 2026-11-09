@@ -1069,6 +1069,19 @@
         "note": "Interview with band founder documents its Czechoslovak-era origin, home experimentation and recordings from 1980 to 1985. Historical territory mapped at country level using modern Czechia centroid, not a specific recording studio."
       }
     ],
+    "3350258": [
+      {
+        "kind": "artist",
+        "relation": "Dystopian techno DJ and production activity developed in",
+        "subject": "Alex.Do",
+        "label": "Berlin",
+        "lon": 13.405,
+        "lat": 52.52,
+        "precision": "city",
+        "source": "https://ra.co/dj/alex.do/biography",
+        "note": "Resident Advisor documents his Dystopian collective and shows in Berlin, directly linking the city with musical activity. This is a scene association, not Beyond the Black Rainbow studio."
+      }
+    ],
     "3876503": [
       {
         "kind": "artist",
@@ -1080,6 +1093,19 @@
         "precision": "city",
         "source": "https://austinboogiecrewrecords.bandcamp.com/album/solar-shield",
         "note": "Original label's exact Solar Shield album page identifies Chris McDowell and describes him as homegrown in Austin. Austin is musical scene, not specific studio location."
+      }
+    ],
+    "4060065": [
+      {
+        "kind": "artist",
+        "relation": "Techno producer from",
+        "subject": "Distant Echoes",
+        "label": "Italy",
+        "lon": 12.5674,
+        "lat": 41.8719,
+        "precision": "country",
+        "source": "https://ra.co/dj/distantechoes-de",
+        "note": "RA identifies the producer's southern Italian origin and exact Fury Road EP; no city or studio claimed and label Dystopian's Berlin address is separate."
       }
     ],
     "4113842": [
@@ -1421,6 +1447,20 @@
         "precision": "city",
         "source": "https://ra.co/news/41327",
         "note": "Resident Advisor cites the Future Times label confirming the exact album was written and recorded in 2016–17 at a residence in Ridgewood, Queens. Approximate neighbourhood centroid, not a precise home address."
+      }
+    ],
+    "11819264": [
+      {
+        "kind": "recording",
+        "relation": "Original 1979 Goya recording made at Conny's Studio in",
+        "subject": "House at the Sea / Mandy — Goya",
+        "label": "Wolperath",
+        "lon": 7.3259,
+        "lat": 50.8321,
+        "precision": "city",
+        "source": "https://www.hhv.de/en/records/item/goya-house-at-the-sea-mandy-584186",
+        "location_source": "https://musicbrainz.org/place/db144801-c453-468a-9c37-12dc8a13e833",
+        "note": "Exact reissue's supplier attributes the original 1979 songs to Conny's Studio; MusicBrainz records the historic studio in Wolperath, Neunkirchen, 1974–2006, with coordinates. No association with the reissue distributor location."
       }
     ],
     "12125066": [
