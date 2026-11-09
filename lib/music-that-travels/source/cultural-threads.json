@@ -197,6 +197,32 @@
         "note": "Japanese music distributor biography identifies Saitama as Atobe's base and explicitly lists World (2016). A musical base, not a specific recording studio."
       }
     ],
+    "19902": [
+      {
+        "kind": "artist",
+        "relation": "Early reggae and dancehall career in",
+        "subject": "Echo Minott",
+        "label": "Kingston",
+        "lon": -76.792,
+        "lat": 17.9712,
+        "precision": "city",
+        "source": "https://bat-records.com/label/echo-minott/",
+        "note": "Label biography documents singing while growing up in Kingston and first recordings with King Jammy. This is earlier dancehall career context, not evidence of where the Jungle remix was made."
+      }
+    ],
+    "30786": [
+      {
+        "kind": "artist",
+        "relation": "Disco studio project originated in",
+        "subject": "Suzy Q",
+        "label": "Montréal",
+        "lon": -73.5673,
+        "lat": 45.5017,
+        "precision": "city",
+        "source": "https://citizenfreak.com/artists/103854-suzy-q",
+        "note": "Museum of Canadian Music documents Suzy Q as the Montréal studio project of Jerry Cucuzzella and explicitly discusses Get On Up Do It Again. It does not separately assign individual singers' origins."
+      }
+    ],
     "34453": [
       {
         "kind": "artist",
@@ -237,6 +263,19 @@
         "note": "Goldman's official biography identifies her as a Londoner, her role in the 1970s British music press and early-1980s post-punk recordings. London is a biographical and cultural association, not a proven recording location for Resolutionary's tracks."
       }
     ],
+    "144934": [
+      {
+        "kind": "artist",
+        "relation": "Early techno and electro production career in",
+        "subject": "Marco Bernardi",
+        "label": "Glasgow",
+        "lon": -4.2518,
+        "lat": 55.8642,
+        "precision": "city",
+        "source": "https://www.somarecords.com/artists/octogen/",
+        "note": "Soma Records biography under Bernardi's Octogen alias documents his Glasgow early music work and links him by real name. Not the recording place of Mystery Of Nazerus remixes."
+      }
+    ],
     "180280": [
       {
         "kind": "artist",
@@ -248,6 +287,19 @@
         "precision": "city",
         "source": "https://sites.google.com/view/robertomusci/about",
         "note": "Musci's own biography describes his Milan base and global field-recording practice. Milan is an artist base; no claim about recordings on Urban And Tribal Portraits or collaborator Giovanni Venosta."
+      }
+    ],
+    "202236": [
+      {
+        "kind": "artist",
+        "relation": "Formative gospel singing and musical education in",
+        "subject": "Dolette McDonald",
+        "label": "Newark",
+        "lon": -74.1724,
+        "lat": 40.7357,
+        "precision": "city",
+        "source": "https://www.sjchs.org/resource-hub/smart-living-magazine/may-june-2025/working-in-harmony",
+        "note": "Interview recalls McDonald's Newark church music and school singing, followed by a professional singing career. Newark is formative musical scene, not Xtra Special recording site."
       }
     ],
     "247674": [
@@ -536,6 +588,19 @@
         "note": "AllMusic documents London-based Alessio Natalizia forming the Not Waving project following Walls; Italian origin is not used as a substitute for musical base."
       }
     ],
+    "3265924": [
+      {
+        "kind": "artist",
+        "relation": "Techno artist based in",
+        "subject": "Lucindo",
+        "label": "Berlin",
+        "lon": 13.405,
+        "lat": 52.52,
+        "precision": "city",
+        "source": "https://fr.ra.co/dj/lucindo/biography",
+        "note": "Artist biography explicitly lists Alien Rebellion and documents Berlin residence and work with 3TH Records. Italo-Brazilian heritage is not represented as recording geography."
+      }
+    ],
     "4447121": [
       {
         "kind": "artist",
@@ -573,6 +638,19 @@
         "precision": "city",
         "source": "https://ra.co/dj/fitsiegel/biography",
         "note": "Artist biography describes studies with Underground Resistance and his active Detroit studio and music distribution. For Saboten it pertains to FIT only, not Kassem Mosse."
+      }
+    ],
+    "6302438": [
+      {
+        "kind": "artist",
+        "relation": "Electronic music project based in",
+        "subject": "Bejenec",
+        "label": "Ukraine",
+        "lon": 31.1656,
+        "lat": 48.3794,
+        "precision": "country",
+        "source": "https://bejenec.bandcamp.com/album/slavic-breus-ep",
+        "note": "Artist-operated Bandcamp page for the exact Slavic Breus EP lists Bejenec in Ukraine and credits Daniel Syenichkin with production. No specific city inferred from release country/tags."
       }
     ],
     "6584747": [
