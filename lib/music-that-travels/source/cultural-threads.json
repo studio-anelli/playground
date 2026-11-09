@@ -501,6 +501,20 @@
         "note": "AllMusic identifies Henry Collins/Shitmat as Brighton-based and his breakcore output. The geographic claim concerns the artist's scene rather than the recording site of Full English Breakfest Vol. 4."
       }
     ],
+    "99397": [
+      {
+        "kind": "artist",
+        "relation": "Electro and synth production career developed in",
+        "subject": "Quadratschulz / Carsten Schulz",
+        "label": "Hamburg",
+        "lon": 9.9937,
+        "lat": 53.5511,
+        "precision": "city",
+        "source": "https://ra.co/dj/quadratschulz-de/biography",
+        "identity_source": "https://quadratschulz.bandcamp.com/",
+        "note": "Resident Advisor gives both Hamburg musical base and Pudel Produkte 34: Remixes (the original queue's record); the producer's own Bandcamp lists that exact EP. No recording location inferred for the remixes."
+      }
+    ],
     "115967": [
       {
         "kind": "artist",
@@ -1309,6 +1323,19 @@
         "note": "Artist-operated Bandcamp page for the exact Slavic Breus EP lists Bejenec in Ukraine and credits Daniel Syenichkin with production. No specific city inferred from release country/tags."
       }
     ],
+    "6429183": [
+      {
+        "kind": "artist",
+        "relation": "Detroit dance-label and production community in",
+        "subject": "Moonlighter / Rocksteady Disco",
+        "label": "Detroit",
+        "lon": -83.0458,
+        "lat": 42.3314,
+        "precision": "city",
+        "source": "https://rocksteadydisco.bandcamp.com/album/rsd009-moonlighter-ep",
+        "note": "The label's own page names Moonlighter as co-founder of Rocksteady Disco in Detroit and as the producer of this exact 2018 EP. Detroit is musical label/project association, not studio or proof of birthplace. Pressing at Archer in Detroit is NOT used for geography."
+      }
+    ],
     "6584747": [
       {
         "kind": "artist",
@@ -1479,6 +1506,32 @@
         "precision": "city",
         "source": "https://imap.oye-records.com/releases/helena-hauff-have-you-been-there-have-you-seen-it",
         "note": "Ninja Tune product copy on the exact ZEN12469 EP explicitly describes four analogue tracks improvised and recorded in Helena's Hamburg studio. No address or label location used."
+      }
+    ],
+    "11072824": [
+      {
+        "kind": "recording",
+        "relation": "Recorded and mixed partly in",
+        "subject": "Conga Square — Secada Mondatta",
+        "label": "New York City",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "precision": "city",
+        "source": "https://paltoflats.com/release/conga-square-secada-mondatta/",
+        "coverage": "partial",
+        "note": "Original label explicitly credits recording and mixing by Davey Jewell in both NYC and Los Angeles. It does not allocate individual tracks to one of these two cities; both are retained."
+      },
+      {
+        "kind": "recording",
+        "relation": "Recorded and mixed partly in",
+        "subject": "Conga Square — Secada Mondatta",
+        "label": "Los Angeles",
+        "lon": -118.2437,
+        "lat": 34.0522,
+        "precision": "city",
+        "source": "https://paltoflats.com/release/conga-square-secada-mondatta/",
+        "coverage": "partial",
+        "note": "The same original label credits recording/mixing in NYC and LA, with no track-by-city breakdown. The separate German mastering/cutting location is not represented as music origin."
       }
     ],
     "11405284": [
