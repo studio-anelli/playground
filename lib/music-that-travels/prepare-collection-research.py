@@ -24,11 +24,20 @@ for aid,rows in grouped.items():
   claims.setdefault(aid,[]).append(t)
 aliases={'United States':'US','United States of America':'US','United Kingdom':'UK','Russian Federation':'Russia','Czechia':'Czech Republic','Türkiye':'Turkey','Korea, Republic of':'South Korea'}
 extra={'Bahamas':[-77.4,25.0],'England':[-1.5,52.5],'Scotland':[-4,57],'Wales':[-3.5,52.3],'Northern Ireland':[-6.5,54.7]};region={'Europe','UK & Europe','Scandinavia','Benelux','UK & Ireland','Germany, Austria, & Switzerland'}
+# A city/region/country hierarchy is not three competing artist origins.
+# Only the exact, already-reviewed anchor names below may turn hierarchical
+# MusicBrainz associated-area labels into geographic points. No geocoding guesses.
+area_anchors=read('reviewed-area-anchors.json')
 for x in mb['records']:
  aid=x['discogs_artist_id']
- if aid in ambiguous or x['status']!='area_found' or len(x['area_labels'])!=1:continue
- label=x['area_labels'][0];name=aliases.get(label,label);point=places.get(name) or extra.get(name)
+ if aid in ambiguous or aid not in grouped or x['status']!='area_found' or not x['area_labels']:continue
+ label=x['area_labels'][0];name=aliases.get(label,label)
+ anchor=area_anchors.get(label)
+ if len(x['area_labels'])>1 and not anchor:
+  skipped.append({'artist':aid,'reason':'hierarchical_area_needs_anchor_review','areas':x['area_labels']});continue
+ point=anchor['coordinates'] if anchor else places.get(name) or extra.get(name)
  if not point:skipped.append({'artist':aid,'reason':'area_needs_geographic_review','area':label});continue
- claims.setdefault(aid,[]).append({'kind':'artist','relation':'Artist associated area','subject':x['name'],'label':label,'lon':point[0],'lat':point[1],'precision':'region' if name in region else 'country','source':x['source'],'identity_source':x['wikidata'].replace('http:','https:').replace('/entity/','/wiki/')+'#P1953','evidence_property':'MusicBrainz Artist Area','note':'MusicBrainz identifies this as the artist’s associated area. It is not substituted for birthplace, recording location or the artist’s position at the release date.'})
+ precision=anchor['precision'] if anchor else ('region' if name in region else 'country')
+ claims.setdefault(aid,[]).append({'kind':'artist','relation':'MusicBrainz artist associated area','subject':x['name'],'label':label,'lon':point[0],'lat':point[1],'precision':precision,'source':x['source'],'identity_source':x['wikidata'].replace('http:','https:').replace('/entity/','/wiki/')+'#P1953','evidence_property':'MusicBrainz Artist Area','note':'An exact identity-linked associated-area field, sometimes accompanied by a wider geographic hierarchy. It is not a recording place, birthplace, artist formation place, or a statement about location at release date.'})
 report={'artist_ids_checked':len(wd['requested_artist_ids']),'identity_matches':len(grouped),'ambiguous_artist_ids':ambiguous,'musicbrainz_pages_checked':len(mb['records']),'accepted_artists':len(claims),'accepted_threads':sum(map(len,claims.values())),'skipped':skipped,'failed_batches':len(wd['failed_batches'])}
 (r/'source/collection-research.json').write_text(json.dumps({'schema_version':1,'criteria':'Exact external IDs; typed source properties; no birthplaces, citizenship, artist-name fuzzy matches or genre-based place inference. Region precision is retained unless the source entity is clearly city/country.','artists':claims,'matched_artist_ids':list(grouped),'report':report},ensure_ascii=False,indent=2)+'\n');print(json.dumps(report))
