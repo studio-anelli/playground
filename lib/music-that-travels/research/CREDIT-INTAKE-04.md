@@ -1,6 +1,6 @@
 # CREDIT INTAKE 04 — targeted expansion of collection credits
 
-2026-11-09. This is a **frozen selection and first source challenge**, not a claim that all thirty Discogs releases were fetched. Prior four-cohort structured Discogs observations cover 143/608 owned editions; 465 editions are not represented in that specific source layer.
+2026-11-09. This document records the **original frozen selection and first source challenge**. The later completed collection and its results are documented in [CREDIT-DISCOVERY-04.md](CREDIT-DISCOVERY-04.md). Prior four-cohort structured Discogs observations cover 143/608 owned editions; 465 editions are not represented in that specific source layer.
 
 ## Selection and integrity
 
@@ -55,7 +55,7 @@ python lib/music-that-travels/research/credit-discovery.py \
   --output /tmp/credit-intake-04-links.json
 ```
 
-The above is an **execution recipe, not an executed collection**. The current runtime cannot access the Discogs API, so no invented fetched dataset or coverage improvement has been committed. In the next executable environment, run collection, confirm successful status for each release, compare before/after exact-ID candidate networks, inspect sources, and stop when new credit routes no longer yield meaningful independent musical connections.
+The recipe above was subsequently executed successfully; see [CREDIT-DISCOVERY-04.md](CREDIT-DISCOVERY-04.md) for validation, results and unresolved evidence. The command shown is retained as the original execution recipe.
 
 ## Working principles
 

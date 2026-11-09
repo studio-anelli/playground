@@ -89,6 +89,39 @@ class Discovery(unittest.TestCase):
     def test_same_titles_without_credits_do_not_match(self):
         self.assertEqual(scan(self.collection,self.ledger,[release(1,[]),release(2,[])])['lead_count'],0)
 
+    def test_track_credit_keeps_position_title_and_parent_scope(self):
+        a = release(1, [])
+        a['observations']['releases:1']['data']['tracklist'] = [
+            {'position': 'B', 'title': 'Suite', 'sub_tracks': [
+                {'position': 'B2', 'title': 'Part Two', 'extraartists': [
+                    {'id': 25, 'name': 'Person', 'role': 'Vocals'}]}]}]
+        b = release(2, [(25, 'Person', 'Producer', '')])
+        lead = scan(self.collection, self.ledger, [a, b])['leads'][0]
+        self.assertEqual(lead['roles'][0][0]['track_path'], [
+            {'position': 'B', 'title': 'Suite'},
+            {'position': 'B2', 'title': 'Part Two'}])
+        self.assertEqual(lead['roles'][0][0]['tracks'], '')
+
+    def test_track_level_nonmusical_credit_is_excluded(self):
+        a = release(1, [])
+        a['observations']['releases:1']['data']['tracklist'] = [
+            {'position': 'A1', 'title': 'Track', 'extraartists': [
+                {'id': 25, 'name': 'Person', 'role': 'Mastered By'}]}]
+        b = release(2, [(25, 'Person', 'Producer', '')])
+        self.assertEqual(scan(self.collection, self.ledger, [a, b])['lead_count'], 0)
+
+    def test_remix_is_creative_but_reissue_producer_is_not(self):
+        a = release(1, [(25, 'Remixer', 'Remix', ''),
+                        (26, 'Reissuer', 'Reissue Producer [For Label]', '')])
+        b = release(2, [(25, 'Remixer', 'Producer', ''),
+                        (26, 'Reissuer', 'Producer', '')])
+        self.assertEqual([x['artist_id'] for x in scan(self.collection, self.ledger, [a, b])['leads']], ['25'])
+
+    def test_unknown_and_various_placeholders_do_not_match(self):
+        a = release(1, [(194, 'Various', 'Vocals', ''), (355, 'Unknown Artist', 'Guitar', '')])
+        b = release(2, [(194, 'Various', 'Vocals', ''), (355, 'Unknown Artist', 'Guitar', '')])
+        self.assertEqual(scan(self.collection, self.ledger, [a, b])['lead_count'], 0)
+
 
 if __name__ == '__main__':
     unittest.main()

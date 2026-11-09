@@ -1,0 +1,7007 @@
+{
+  "schema_version": 1,
+  "dataset_coverage": {
+    "owned_editions": 608,
+    "owned_editions_with_structured_discogs_observation": 173,
+    "scope": "Source releases in supplied observation files only; missing credits are unknown, not absent."
+  },
+  "lead_count": 118,
+  "leads": [
+    {
+      "artist_id": "338",
+      "artist_name": "Roni Size",
+      "release_ids": [
+        "61932",
+        "95045"
+      ],
+      "titles": [
+        "You're Not Alone",
+        "Share The Fall"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Remix",
+            "tracks": "",
+            "name": "Roni Size",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "You're Not Alone (Roni Size Remix)"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Producer, Mixed By",
+            "tracks": "",
+            "name": "Roni Size",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Share The Fall (Full Vocal Mix)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Roni Size",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Share The Fall (Full Vocal Mix)"
+              }
+            ]
+          },
+          {
+            "role": "Producer, Mixed By",
+            "tracks": "",
+            "name": "Roni Size",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Share The Fall (Way Out West Remix)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Roni Size",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Share The Fall (Way Out West Remix)"
+              }
+            ]
+          },
+          {
+            "role": "Producer, Mixed By",
+            "tracks": "",
+            "name": "Roni Size",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "New Forms"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Roni Size",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "New Forms"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "693",
+      "artist_name": "Ron Trent",
+      "release_ids": [
+        "8926196",
+        "9118974"
+      ],
+      "titles": [
+        "ABCF",
+        "Humans Drums & Machines"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Co-producer",
+            "tracks": "",
+            "name": "Ron Trent",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Starfall"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Composed By, Producer",
+            "tracks": "",
+            "name": "Ron Trent"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "1718",
+      "artist_name": "DJ Die",
+      "release_ids": [
+        "4312",
+        "95045"
+      ],
+      "titles": [
+        "Clear Skyz",
+        "Share The Fall"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By, Producer, Mixed By",
+            "tracks": "",
+            "name": "DJ Die"
+          }
+        ],
+        [
+          {
+            "role": "Producer [Additional Production]",
+            "tracks": "",
+            "name": "DJ Die",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Share The Fall (Full Vocal Mix)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "DJ Die",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Share The Fall (Full Vocal Mix)"
+              }
+            ]
+          },
+          {
+            "role": "Producer [Additional Production]",
+            "tracks": "",
+            "name": "DJ Die",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Share The Fall (Way Out West Remix)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "DJ Die",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Share The Fall (Way Out West Remix)"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "2323",
+      "artist_name": "DJ Hype",
+      "release_ids": [
+        "49017",
+        "66506"
+      ],
+      "titles": [
+        "Volume Six",
+        "The Trooper (Remixes)"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer, Written-By",
+            "tracks": "",
+            "name": "DJ Hype"
+          }
+        ],
+        [
+          {
+            "role": "Remix",
+            "tracks": "",
+            "name": "DJ Hype",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Hardswing (DJ Hype & Uncle 22 Remix)"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "3865",
+      "artist_name": "Herbie Hancock",
+      "release_ids": [
+        "36972",
+        "10496968"
+      ],
+      "titles": [
+        "Rockit (Extended Dance Version)",
+        "Stars In Your Eyes / Saturday Night"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Herbie Hancock"
+          },
+          {
+            "role": "Synthesizer [Fairlight CMI, Mini-Moog], Electric Piano [Rhodes Chroma], Vocoder [Sennheiser], Clavinet [Clavitar], Electronics [Dr. Click Rhythm Controller], Keyboards [E-mu 4060 Digital]",
+            "tracks": "",
+            "name": "Herbie Hancock"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Herbie Hancock"
+          }
+        ],
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Herbie Hancock"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "A, B",
+            "name": "Herbie Hancock"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "3865",
+      "artist_name": "Herbie Hancock",
+      "release_ids": [
+        "36972",
+        "14457597"
+      ],
+      "titles": [
+        "Rockit (Extended Dance Version)",
+        "Directstep = ダイレクトステップ"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Herbie Hancock"
+          },
+          {
+            "role": "Synthesizer [Fairlight CMI, Mini-Moog], Electric Piano [Rhodes Chroma], Vocoder [Sennheiser], Clavinet [Clavitar], Electronics [Dr. Click Rhythm Controller], Keyboards [E-mu 4060 Digital]",
+            "tracks": "",
+            "name": "Herbie Hancock"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Herbie Hancock"
+          }
+        ],
+        [
+          {
+            "role": "Vocals, Electric Piano [Rhodes], Clavinet, Synthesizer [Oberheim, Prophet, Yamaha CS-80 & Mini-Moog], Vocoder [Sennheiser Vocoder]",
+            "tracks": "",
+            "name": "Herbie Hancock"
+          },
+          {
+            "role": "Composed By",
+            "tracks": "",
+            "name": "Herbie Hancock",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Butterfly = バタフライ"
+              }
+            ]
+          },
+          {
+            "role": "Composed By",
+            "tracks": "",
+            "name": "Herbie Hancock",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Shiftless Shuffle = シフトレス・シヤフル"
+              }
+            ]
+          },
+          {
+            "role": "Composed By",
+            "tracks": "",
+            "name": "Herbie Hancock",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "I Thought It Was You = アイ・ソウト・イット・ウォズ・ユー"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "3865",
+      "artist_name": "Herbie Hancock",
+      "release_ids": [
+        "10496968",
+        "14457597"
+      ],
+      "titles": [
+        "Stars In Your Eyes / Saturday Night",
+        "Directstep = ダイレクトステップ"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Herbie Hancock"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "A, B",
+            "name": "Herbie Hancock"
+          }
+        ],
+        [
+          {
+            "role": "Vocals, Electric Piano [Rhodes], Clavinet, Synthesizer [Oberheim, Prophet, Yamaha CS-80 & Mini-Moog], Vocoder [Sennheiser Vocoder]",
+            "tracks": "",
+            "name": "Herbie Hancock"
+          },
+          {
+            "role": "Composed By",
+            "tracks": "",
+            "name": "Herbie Hancock",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Butterfly = バタフライ"
+              }
+            ]
+          },
+          {
+            "role": "Composed By",
+            "tracks": "",
+            "name": "Herbie Hancock",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Shiftless Shuffle = シフトレス・シヤフル"
+              }
+            ]
+          },
+          {
+            "role": "Composed By",
+            "tracks": "",
+            "name": "Herbie Hancock",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "I Thought It Was You = アイ・ソウト・イット・ウォズ・ユー"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "4478",
+      "artist_name": "DJ Shadow",
+      "release_ids": [
+        "118630",
+        "26118410"
+      ],
+      "titles": [
+        "Brainfreeze",
+        "Number Song / Painkiller"
+      ],
+      "roles": [
+        [
+          {
+            "role": "DJ Mix",
+            "tracks": "",
+            "name": "DJ Shadow"
+          }
+        ],
+        [
+          {
+            "role": "Producer, Engineer",
+            "tracks": "",
+            "name": "DJ Shadow",
+            "track_path": [
+              {
+                "position": "A",
+                "title": "The Number Song (Cut Chemist Remix)"
+              }
+            ]
+          },
+          {
+            "role": "Remix, Producer [Additional Production]",
+            "tracks": "",
+            "name": "DJ Shadow",
+            "track_path": [
+              {
+                "position": "B",
+                "title": "Painkiller (Kill The Pain Mix)"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "5455",
+      "artist_name": "Cut Chemist",
+      "release_ids": [
+        "118630",
+        "26118410"
+      ],
+      "titles": [
+        "Brainfreeze",
+        "Number Song / Painkiller"
+      ],
+      "roles": [
+        [
+          {
+            "role": "DJ Mix",
+            "tracks": "",
+            "name": "Cut Chemist"
+          }
+        ],
+        [
+          {
+            "role": "Remix",
+            "tracks": "",
+            "name": "Cut Chemist",
+            "track_path": [
+              {
+                "position": "A",
+                "title": "The Number Song (Cut Chemist Remix)"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "12596",
+      "artist_name": "James Brown",
+      "release_ids": [
+        "205935",
+        "7568442"
+      ],
+      "titles": [
+        "The Payback Mix (Keep On Doing What You're Doing But Make It Funky)",
+        "To Pimp A Butterfly"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "James Brown"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "James Brown",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Stone To The Bone"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "James Brown",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Cold Sweat"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Written-By [The Payback]",
+            "tracks": "",
+            "name": "James Brown",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "King Kunta"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "13247",
+      "artist_name": "Prince Paul",
+      "release_ids": [
+        "18497",
+        "165894"
+      ],
+      "titles": [
+        "Me Myself And I",
+        "Oooh."
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer [Produced By]",
+            "tracks": "A, B1",
+            "name": "Prince Paul"
+          }
+        ],
+        [
+          {
+            "role": "Producer",
+            "tracks": "A, B1",
+            "name": "Prince Paul"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "15885",
+      "artist_name": "Michael Jackson",
+      "release_ids": [
+        "1601162",
+        "7568442"
+      ],
+      "titles": [
+        "Beat It / Working Day & Night",
+        "To Pimp A Butterfly"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Co-producer",
+            "tracks": "",
+            "name": "Michael Jackson"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Michael Jackson"
+          }
+        ],
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Michael Jackson",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "King Kunta"
+              }
+            ]
+          },
+          {
+            "role": "Written-By [Smooth Criminal]",
+            "tracks": "",
+            "name": "Michael Jackson",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "King Kunta"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "17040",
+      "artist_name": "Bilal",
+      "release_ids": [
+        "7568442",
+        "15268960"
+      ],
+      "titles": [
+        "To Pimp A Butterfly",
+        "The Aquarius Years"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Backing Vocals",
+            "tracks": "",
+            "name": "Bilal",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "U"
+              }
+            ]
+          },
+          {
+            "role": "Backing Vocals",
+            "tracks": "",
+            "name": "Bilal",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "For Sale? (Interlude)"
+              }
+            ]
+          },
+          {
+            "role": "Backing Vocals",
+            "tracks": "",
+            "name": "Bilal",
+            "track_path": [
+              {
+                "position": "B4",
+                "title": "Momma"
+              }
+            ]
+          },
+          {
+            "role": "Backing Vocals",
+            "tracks": "",
+            "name": "Bilal",
+            "track_path": [
+              {
+                "position": "C1",
+                "title": "Hood Politics"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Drum Programming",
+            "tracks": "",
+            "name": "Bilal",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Mr. Johnnie Walker"
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Bilal",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Mr. Johnnie Walker"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Bilal",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Mr. Johnnie Walker"
+              }
+            ]
+          },
+          {
+            "role": "Drum Programming",
+            "tracks": "",
+            "name": "Bilal",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Sexy Suzy On A Sunday"
+              }
+            ]
+          },
+          {
+            "role": "Written-By, Producer",
+            "tracks": "",
+            "name": "Bilal",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Sexy Suzy On A Sunday"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "23755",
+      "artist_name": "Miles Davis",
+      "release_ids": [
+        "3842748",
+        "9153158"
+      ],
+      "titles": [
+        "Sketches Of Spain = スケッチ・オブ・スペイン",
+        "Birth Of The Cool"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Trumpet",
+            "tracks": "",
+            "name": "Miles Davis"
+          }
+        ],
+        [
+          {
+            "role": "Trumpet",
+            "tracks": "",
+            "name": "Miles Davis"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "23755",
+      "artist_name": "Miles Davis",
+      "release_ids": [
+        "3842748",
+        "14480820"
+      ],
+      "titles": [
+        "Sketches Of Spain = スケッチ・オブ・スペイン",
+        "Kind Of Blue"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Trumpet",
+            "tracks": "",
+            "name": "Miles Davis"
+          }
+        ],
+        [
+          {
+            "role": "Trumpet, Leader",
+            "tracks": "",
+            "name": "Miles Davis"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "23755",
+      "artist_name": "Miles Davis",
+      "release_ids": [
+        "9153158",
+        "14480820"
+      ],
+      "titles": [
+        "Birth Of The Cool",
+        "Kind Of Blue"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Trumpet",
+            "tracks": "",
+            "name": "Miles Davis"
+          }
+        ],
+        [
+          {
+            "role": "Trumpet, Leader",
+            "tracks": "",
+            "name": "Miles Davis"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "24422",
+      "artist_name": "Krust",
+      "release_ids": [
+        "95045",
+        "412145"
+      ],
+      "titles": [
+        "Share The Fall",
+        "Tremendous (DJ Krust Remixes)"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer [Additional Production]",
+            "tracks": "",
+            "name": "Krust",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Share The Fall (Full Vocal Mix)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Krust",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Share The Fall (Full Vocal Mix)"
+              }
+            ]
+          },
+          {
+            "role": "Producer [Additional Production]",
+            "tracks": "",
+            "name": "Krust",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Share The Fall (Way Out West Remix)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Krust",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Share The Fall (Way Out West Remix)"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Remix",
+            "tracks": "",
+            "name": "Krust"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "26955",
+      "artist_name": "John Cage",
+      "release_ids": [
+        "1027491",
+        "3835570"
+      ],
+      "titles": [
+        "Etudes Australes For Piano",
+        "Voices And Instruments"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Composed By",
+            "tracks": "",
+            "name": "John Cage"
+          }
+        ],
+        [
+          {
+            "role": "Composed By",
+            "tracks": "B1 to B5",
+            "name": "John Cage"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "29262",
+      "artist_name": "George Clinton",
+      "release_ids": [
+        "18497",
+        "212060"
+      ],
+      "titles": [
+        "Me Myself And I",
+        "You Shouldn't-Nuf Bit Fish"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "George Clinton",
+            "track_path": [
+              {
+                "position": "A",
+                "title": "Me Myself And I (Extended Version)"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "George Clinton"
+          },
+          {
+            "role": "Vocals",
+            "tracks": "",
+            "name": "George Clinton"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "29262",
+      "artist_name": "George Clinton",
+      "release_ids": [
+        "18497",
+        "7568442"
+      ],
+      "titles": [
+        "Me Myself And I",
+        "To Pimp A Butterfly"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "George Clinton",
+            "track_path": [
+              {
+                "position": "A",
+                "title": "Me Myself And I (Extended Version)"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "George Clinton",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Wesley's Theory"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "29262",
+      "artist_name": "George Clinton",
+      "release_ids": [
+        "212060",
+        "7568442"
+      ],
+      "titles": [
+        "You Shouldn't-Nuf Bit Fish",
+        "To Pimp A Butterfly"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "George Clinton"
+          },
+          {
+            "role": "Vocals",
+            "tracks": "",
+            "name": "George Clinton"
+          }
+        ],
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "George Clinton",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Wesley's Theory"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "29807",
+      "artist_name": "Fred Wesley",
+      "release_ids": [
+        "212060",
+        "7568442"
+      ],
+      "titles": [
+        "You Shouldn't-Nuf Bit Fish",
+        "To Pimp A Butterfly"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Arranged By [Horn]",
+            "tracks": "",
+            "name": "Fred Wesley",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Silly Millameter"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Written-By [The Payback]",
+            "tracks": "",
+            "name": "Fred Wesley",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "King Kunta"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "35328",
+      "artist_name": "Sun Ra",
+      "release_ids": [
+        "2045030",
+        "2981774"
+      ],
+      "titles": [
+        "What Planet Is This?",
+        "Views Of Saturn Vol.1"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Enlightment"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "Watusa, Egyptian March"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Composed By, Arranged By, Keyboards [Rocksichord, Tiger Organ, Moog Synth]",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "B",
+                "title": "Nidhamu"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "35328",
+      "artist_name": "Sun Ra",
+      "release_ids": [
+        "2045030",
+        "6912363"
+      ],
+      "titles": [
+        "What Planet Is This?",
+        "Planets Of Life Or Death: Amiens '73"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Enlightment"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "Watusa, Egyptian March"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Electric Piano, Synthesizer [Mini-Moog], Vocals",
+            "tracks": "",
+            "name": "Sun Ra"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Enlightenment"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Love In Outer Space"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Lights On A Satellite"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Discipline 27-II / What Planet Is This"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "35328",
+      "artist_name": "Sun Ra",
+      "release_ids": [
+        "2045030",
+        "11780074"
+      ],
+      "titles": [
+        "What Planet Is This?",
+        "On Jupiter"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Enlightment"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "Watusa, Egyptian March"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Piano, Electric Piano, Organ, Vocals, Composed By, Arranged By",
+            "tracks": "",
+            "name": "Sun Ra"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "35328",
+      "artist_name": "Sun Ra",
+      "release_ids": [
+        "2045030",
+        "12343877"
+      ],
+      "titles": [
+        "What Planet Is This?",
+        "Disco 3000"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Enlightment"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "Watusa, Egyptian March"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Piano, Organ, Synth",
+            "tracks": "",
+            "name": "Sun Ra"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "35328",
+      "artist_name": "Sun Ra",
+      "release_ids": [
+        "2981774",
+        "6912363"
+      ],
+      "titles": [
+        "Views Of Saturn Vol.1",
+        "Planets Of Life Or Death: Amiens '73"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Composed By, Arranged By, Keyboards [Rocksichord, Tiger Organ, Moog Synth]",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "B",
+                "title": "Nidhamu"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Electric Piano, Synthesizer [Mini-Moog], Vocals",
+            "tracks": "",
+            "name": "Sun Ra"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Enlightenment"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Love In Outer Space"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Lights On A Satellite"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Discipline 27-II / What Planet Is This"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "35328",
+      "artist_name": "Sun Ra",
+      "release_ids": [
+        "2981774",
+        "11780074"
+      ],
+      "titles": [
+        "Views Of Saturn Vol.1",
+        "On Jupiter"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Composed By, Arranged By, Keyboards [Rocksichord, Tiger Organ, Moog Synth]",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "B",
+                "title": "Nidhamu"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Piano, Electric Piano, Organ, Vocals, Composed By, Arranged By",
+            "tracks": "",
+            "name": "Sun Ra"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "35328",
+      "artist_name": "Sun Ra",
+      "release_ids": [
+        "2981774",
+        "12343877"
+      ],
+      "titles": [
+        "Views Of Saturn Vol.1",
+        "Disco 3000"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Composed By, Arranged By, Keyboards [Rocksichord, Tiger Organ, Moog Synth]",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "B",
+                "title": "Nidhamu"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Piano, Organ, Synth",
+            "tracks": "",
+            "name": "Sun Ra"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "35328",
+      "artist_name": "Sun Ra",
+      "release_ids": [
+        "6912363",
+        "11780074"
+      ],
+      "titles": [
+        "Planets Of Life Or Death: Amiens '73",
+        "On Jupiter"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Electric Piano, Synthesizer [Mini-Moog], Vocals",
+            "tracks": "",
+            "name": "Sun Ra"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Enlightenment"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Love In Outer Space"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Lights On A Satellite"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Discipline 27-II / What Planet Is This"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Piano, Electric Piano, Organ, Vocals, Composed By, Arranged By",
+            "tracks": "",
+            "name": "Sun Ra"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "35328",
+      "artist_name": "Sun Ra",
+      "release_ids": [
+        "6912363",
+        "12343877"
+      ],
+      "titles": [
+        "Planets Of Life Or Death: Amiens '73",
+        "Disco 3000"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Electric Piano, Synthesizer [Mini-Moog], Vocals",
+            "tracks": "",
+            "name": "Sun Ra"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Enlightenment"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Love In Outer Space"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Lights On A Satellite"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Discipline 27-II / What Planet Is This"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Piano, Organ, Synth",
+            "tracks": "",
+            "name": "Sun Ra"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "35328",
+      "artist_name": "Sun Ra",
+      "release_ids": [
+        "11780074",
+        "12343877"
+      ],
+      "titles": [
+        "On Jupiter",
+        "Disco 3000"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Piano, Electric Piano, Organ, Vocals, Composed By, Arranged By",
+            "tracks": "",
+            "name": "Sun Ra"
+          }
+        ],
+        [
+          {
+            "role": "Piano, Organ, Synth",
+            "tracks": "",
+            "name": "Sun Ra"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sun Ra"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "44423",
+      "artist_name": "Tribe Of Issachar",
+      "release_ids": [
+        "97331",
+        "135052"
+      ],
+      "titles": [
+        "Junglist (Remixes)",
+        "Champion Natty"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer, Mixed By",
+            "tracks": "",
+            "name": "Tribe Of Issachar"
+          }
+        ],
+        [
+          {
+            "role": "Mixed By, Producer",
+            "tracks": "",
+            "name": "Tribe Of Issachar"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "48413",
+      "artist_name": "Ohio Players",
+      "release_ids": [
+        "3558397",
+        "4330903"
+      ],
+      "titles": [
+        "Honey",
+        "Fire"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Ohio Players"
+          }
+        ],
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Ohio Players"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "89975",
+      "artist_name": "Dave Jolicoeur",
+      "release_ids": [
+        "18497",
+        "165894"
+      ],
+      "titles": [
+        "Me Myself And I",
+        "Oooh."
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Dave Jolicoeur",
+            "track_path": [
+              {
+                "position": "A",
+                "title": "Me Myself And I (Extended Version)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Dave Jolicoeur",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Jenifa Taught Me (Derwin's Revenge) (Extended Version)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Dave Jolicoeur",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Brain Washed Follower"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Written-By",
+            "tracks": "A, B1",
+            "name": "Dave Jolicoeur"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Dave Jolicoeur",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Words & Verbs"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "114390",
+      "artist_name": "Franco Battiato",
+      "release_ids": [
+        "985747",
+        "1218134"
+      ],
+      "titles": [
+        "La Voce Del Padrone",
+        "Patriots"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Arranged By, Vocals, Lyrics By, Music By",
+            "tracks": "",
+            "name": "Franco Battiato"
+          }
+        ],
+        [
+          {
+            "role": "Arranged By",
+            "tracks": "",
+            "name": "Franco Battiato"
+          },
+          {
+            "role": "Lyrics By, Music By, Synthesizer [E.m.s.]",
+            "tracks": "",
+            "name": "Franco Battiato"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "114390",
+      "artist_name": "Franco Battiato",
+      "release_ids": [
+        "985747",
+        "1358351"
+      ],
+      "titles": [
+        "La Voce Del Padrone",
+        "L'Arca Di Noè"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Arranged By, Vocals, Lyrics By, Music By",
+            "tracks": "",
+            "name": "Franco Battiato"
+          }
+        ],
+        [
+          {
+            "role": "Music By, Arranged By",
+            "tracks": "",
+            "name": "Franco Battiato"
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Radio Varsavia"
+              }
+            ]
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Scalo A Grado"
+              }
+            ]
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "La Torre"
+              }
+            ]
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "New Frontiers"
+              }
+            ]
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "B4",
+                "title": "Voglio Vederti Danzare"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "114390",
+      "artist_name": "Franco Battiato",
+      "release_ids": [
+        "985747",
+        "12101577"
+      ],
+      "titles": [
+        "La Voce Del Padrone",
+        "1974  Sulle Corde Di Aries / Clic"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Arranged By, Vocals, Lyrics By, Music By",
+            "tracks": "",
+            "name": "Franco Battiato"
+          }
+        ],
+        [
+          {
+            "role": "Music By, Lyrics By, Voice [Solo], Piano, Organ [Vcs3], Kalimba, Effects [Special Effects]",
+            "tracks": "",
+            "name": "Franco Battiato"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "114390",
+      "artist_name": "Franco Battiato",
+      "release_ids": [
+        "1218134",
+        "1358351"
+      ],
+      "titles": [
+        "Patriots",
+        "L'Arca Di Noè"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Arranged By",
+            "tracks": "",
+            "name": "Franco Battiato"
+          },
+          {
+            "role": "Lyrics By, Music By, Synthesizer [E.m.s.]",
+            "tracks": "",
+            "name": "Franco Battiato"
+          }
+        ],
+        [
+          {
+            "role": "Music By, Arranged By",
+            "tracks": "",
+            "name": "Franco Battiato"
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Radio Varsavia"
+              }
+            ]
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Scalo A Grado"
+              }
+            ]
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "La Torre"
+              }
+            ]
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "New Frontiers"
+              }
+            ]
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "B4",
+                "title": "Voglio Vederti Danzare"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "114390",
+      "artist_name": "Franco Battiato",
+      "release_ids": [
+        "1218134",
+        "12101577"
+      ],
+      "titles": [
+        "Patriots",
+        "1974  Sulle Corde Di Aries / Clic"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Arranged By",
+            "tracks": "",
+            "name": "Franco Battiato"
+          },
+          {
+            "role": "Lyrics By, Music By, Synthesizer [E.m.s.]",
+            "tracks": "",
+            "name": "Franco Battiato"
+          }
+        ],
+        [
+          {
+            "role": "Music By, Lyrics By, Voice [Solo], Piano, Organ [Vcs3], Kalimba, Effects [Special Effects]",
+            "tracks": "",
+            "name": "Franco Battiato"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "114390",
+      "artist_name": "Franco Battiato",
+      "release_ids": [
+        "1358351",
+        "12101577"
+      ],
+      "titles": [
+        "L'Arca Di Noè",
+        "1974  Sulle Corde Di Aries / Clic"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Music By, Arranged By",
+            "tracks": "",
+            "name": "Franco Battiato"
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Radio Varsavia"
+              }
+            ]
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Scalo A Grado"
+              }
+            ]
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "La Torre"
+              }
+            ]
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "New Frontiers"
+              }
+            ]
+          },
+          {
+            "role": "Lyrics By",
+            "tracks": "",
+            "name": "Franco Battiato",
+            "track_path": [
+              {
+                "position": "B4",
+                "title": "Voglio Vederti Danzare"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Music By, Lyrics By, Voice [Solo], Piano, Organ [Vcs3], Kalimba, Effects [Special Effects]",
+            "tracks": "",
+            "name": "Franco Battiato"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "152754",
+      "artist_name": "Pino Daniele",
+      "release_ids": [
+        "1244858",
+        "3880099"
+      ],
+      "titles": [
+        "Nero A Metà",
+        "Nun Me Scoccià'"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Acoustic Guitar [Chitarre Acustiche], Electric Guitar [Chitarre Elettriche]",
+            "tracks": "",
+            "name": "Pino Daniele"
+          },
+          {
+            "role": "Arranged By",
+            "tracks": "A1 to A6, B2 to B6",
+            "name": "Pino Daniele"
+          },
+          {
+            "role": "Lyrics By [Testi], Music By [Musica]",
+            "tracks": "",
+            "name": "Pino Daniele"
+          },
+          {
+            "role": "Producer [Produzione In Studio]",
+            "tracks": "",
+            "name": "Pino Daniele"
+          }
+        ],
+        [
+          {
+            "role": "Words By [Testo Di], Music By [Musica Di], Arranged By [Arrangiamento Di]",
+            "tracks": "",
+            "name": "Pino Daniele"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "152754",
+      "artist_name": "Pino Daniele",
+      "release_ids": [
+        "1244858",
+        "5030835"
+      ],
+      "titles": [
+        "Nero A Metà",
+        "Stop Bajon"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Acoustic Guitar [Chitarre Acustiche], Electric Guitar [Chitarre Elettriche]",
+            "tracks": "",
+            "name": "Pino Daniele"
+          },
+          {
+            "role": "Arranged By",
+            "tracks": "A1 to A6, B2 to B6",
+            "name": "Pino Daniele"
+          },
+          {
+            "role": "Lyrics By [Testi], Music By [Musica]",
+            "tracks": "",
+            "name": "Pino Daniele"
+          },
+          {
+            "role": "Producer [Produzione In Studio]",
+            "tracks": "",
+            "name": "Pino Daniele"
+          }
+        ],
+        [
+          {
+            "role": "Arranged By, Written-By",
+            "tracks": "",
+            "name": "Pino Daniele"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "152754",
+      "artist_name": "Pino Daniele",
+      "release_ids": [
+        "3880099",
+        "5030835"
+      ],
+      "titles": [
+        "Nun Me Scoccià'",
+        "Stop Bajon"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Words By [Testo Di], Music By [Musica Di], Arranged By [Arrangiamento Di]",
+            "tracks": "",
+            "name": "Pino Daniele"
+          }
+        ],
+        [
+          {
+            "role": "Arranged By, Written-By",
+            "tracks": "",
+            "name": "Pino Daniele"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "168235",
+      "artist_name": "Leroy \"Sugarfoot\" Bonner",
+      "release_ids": [
+        "3558397",
+        "4330903"
+      ],
+      "titles": [
+        "Honey",
+        "Fire"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Guitar, Lead Vocals, Backing Vocals",
+            "tracks": "",
+            "name": "Leroy \"Sugarfoot\" Bonner"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Leroy \"Sugarfoot\" Bonner"
+          }
+        ],
+        [
+          {
+            "role": "Backing Vocals, Vocals",
+            "tracks": "",
+            "name": "Leroy \"Sugarfoot\" Bonner"
+          },
+          {
+            "role": "Guitar",
+            "tracks": "",
+            "name": "Leroy \"Sugarfoot\" Bonner"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Leroy \"Sugarfoot\" Bonner"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "220244",
+      "artist_name": "Terrace Martin",
+      "release_ids": [
+        "7568442",
+        "10559651"
+      ],
+      "titles": [
+        "To Pimp A Butterfly",
+        "Damn."
+      ],
+      "roles": [
+        [
+          {
+            "role": "Arranged By [String Arrangement]",
+            "tracks": "",
+            "name": "Terrace Martin"
+          },
+          {
+            "role": "Horn, Alto Saxophone",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Wesley's Theory"
+              }
+            ]
+          },
+          {
+            "role": "Alto Saxophone",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "For Free? (Interlude)"
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "For Free? (Interlude)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "For Free? (Interlude)"
+              }
+            ]
+          },
+          {
+            "role": "Producer [Additional Production]",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "King Kunta"
+              }
+            ]
+          },
+          {
+            "role": "Alto Saxophone",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "A5",
+                "title": "These Walls"
+              }
+            ]
+          },
+          {
+            "role": "Keyboards",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "A5",
+                "title": "These Walls"
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "A5",
+                "title": "These Walls"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "A5",
+                "title": "These Walls"
+              }
+            ]
+          },
+          {
+            "role": "Alto Saxophone, Keyboards",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "U"
+              }
+            ]
+          },
+          {
+            "role": "Alto Saxophone",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Alright"
+              }
+            ]
+          },
+          {
+            "role": "Alto Saxophone, Keyboards",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "For Sale? (Interlude)"
+              }
+            ]
+          },
+          {
+            "role": "Producer [Additional Production]",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "For Sale? (Interlude)"
+              }
+            ]
+          },
+          {
+            "role": "Alto Saxophone, Keyboards, Vocoder",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "B4",
+                "title": "Momma"
+              }
+            ]
+          },
+          {
+            "role": "Keyboards",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "C1",
+                "title": "Hood Politics"
+              }
+            ]
+          },
+          {
+            "role": "Alto Saxophone, Keyboards",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "C2",
+                "title": "How Much A Dollar Cost"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "C2",
+                "title": "How Much A Dollar Cost"
+              }
+            ]
+          },
+          {
+            "role": "Alto Saxophone",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "Complexion (A Zulu Love)"
+              }
+            ]
+          },
+          {
+            "role": "Keyboards",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "Complexion (A Zulu Love)"
+              }
+            ]
+          },
+          {
+            "role": "Producer [Additional Production]",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "Complexion (A Zulu Love)"
+              }
+            ]
+          },
+          {
+            "role": "Alto Saxophone",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "C4",
+                "title": "The Blacker The Berry"
+              }
+            ]
+          },
+          {
+            "role": "Producer [Additional Production]",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "C4",
+                "title": "The Blacker The Berry"
+              }
+            ]
+          },
+          {
+            "role": "Alto Saxophone, Vocoder",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "D1",
+                "title": "You Aint Gotta Lie (Momma Said)"
+              }
+            ]
+          },
+          {
+            "role": "Keyboards",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "D1",
+                "title": "You Aint Gotta Lie (Momma Said)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "D1",
+                "title": "You Aint Gotta Lie (Momma Said)"
+              }
+            ]
+          },
+          {
+            "role": "Alto Saxophone, Horns",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "D3",
+                "title": "Mortal Man"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Loyalty."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Terrace Martin",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Loyalty."
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "235756",
+      "artist_name": "David Rubinson & Friends, Inc.",
+      "release_ids": [
+        "10496968",
+        "14457597"
+      ],
+      "titles": [
+        "Stars In Your Eyes / Saturday Night",
+        "Directstep = ダイレクトステップ"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "David Rubinson & Friends, Inc."
+          }
+        ],
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "David Rubinson & Friends, Inc."
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "249455",
+      "artist_name": "Willy David",
+      "release_ids": [
+        "1244858",
+        "3880099"
+      ],
+      "titles": [
+        "Nero A Metà",
+        "Nun Me Scoccià'"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer [Prodotto Da]",
+            "tracks": "",
+            "name": "Willy David"
+          }
+        ],
+        [
+          {
+            "role": "Producer [Prodotto Da]",
+            "tracks": "",
+            "name": "Willy David"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "249455",
+      "artist_name": "Willy David",
+      "release_ids": [
+        "1244858",
+        "5030835"
+      ],
+      "titles": [
+        "Nero A Metà",
+        "Stop Bajon"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer [Prodotto Da]",
+            "tracks": "",
+            "name": "Willy David"
+          }
+        ],
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Willy David"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "249455",
+      "artist_name": "Willy David",
+      "release_ids": [
+        "3880099",
+        "5030835"
+      ],
+      "titles": [
+        "Nun Me Scoccià'",
+        "Stop Bajon"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer [Prodotto Da]",
+            "tracks": "",
+            "name": "Willy David"
+          }
+        ],
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Willy David"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "252022",
+      "artist_name": "Eloe Omoe",
+      "release_ids": [
+        "6912363",
+        "11780074"
+      ],
+      "titles": [
+        "Planets Of Life Or Death: Amiens '73",
+        "On Jupiter"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Bass Clarinet, Flute, Percussion",
+            "tracks": "",
+            "name": "Eloe Omoe"
+          }
+        ],
+        [
+          {
+            "role": "Bass Clarinet",
+            "tracks": "",
+            "name": "Eloe Omoe"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "252033",
+      "artist_name": "Marshall Allen",
+      "release_ids": [
+        "6912363",
+        "11780074"
+      ],
+      "titles": [
+        "Planets Of Life Or Death: Amiens '73",
+        "On Jupiter"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Alto Saxophone, Flute, Piccolo Flute, Percussion",
+            "tracks": "",
+            "name": "Marshall Allen"
+          }
+        ],
+        [
+          {
+            "role": "Alto Saxophone, Flute, Oboe",
+            "tracks": "",
+            "name": "Marshall Allen"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "252034",
+      "artist_name": "John Gilmore",
+      "release_ids": [
+        "6912363",
+        "11780074"
+      ],
+      "titles": [
+        "Planets Of Life Or Death: Amiens '73",
+        "On Jupiter"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Tenor Saxophone, Drums, Vocals",
+            "tracks": "",
+            "name": "John Gilmore"
+          }
+        ],
+        [
+          {
+            "role": "Tenor Saxophone, Percussion, Vocals",
+            "tracks": "",
+            "name": "John Gilmore"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "252034",
+      "artist_name": "John Gilmore",
+      "release_ids": [
+        "6912363",
+        "12343877"
+      ],
+      "titles": [
+        "Planets Of Life Or Death: Amiens '73",
+        "Disco 3000"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Tenor Saxophone, Drums, Vocals",
+            "tracks": "",
+            "name": "John Gilmore"
+          }
+        ],
+        [
+          {
+            "role": "Tenor Saxophone, Drums, Vocals",
+            "tracks": "",
+            "name": "John Gilmore"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "252034",
+      "artist_name": "John Gilmore",
+      "release_ids": [
+        "11780074",
+        "12343877"
+      ],
+      "titles": [
+        "On Jupiter",
+        "Disco 3000"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Tenor Saxophone, Percussion, Vocals",
+            "tracks": "",
+            "name": "John Gilmore"
+          }
+        ],
+        [
+          {
+            "role": "Tenor Saxophone, Drums, Vocals",
+            "tracks": "",
+            "name": "John Gilmore"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "252035",
+      "artist_name": "June Tyson",
+      "release_ids": [
+        "6912363",
+        "11780074"
+      ],
+      "titles": [
+        "Planets Of Life Or Death: Amiens '73",
+        "On Jupiter"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Voice [Space Ethnic Voices], Vocals, Other [Dance]",
+            "tracks": "",
+            "name": "June Tyson"
+          }
+        ],
+        [
+          {
+            "role": "Vocals",
+            "tracks": "",
+            "name": "June Tyson"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "252039",
+      "artist_name": "Danny Ray Thompson",
+      "release_ids": [
+        "6912363",
+        "11780074"
+      ],
+      "titles": [
+        "Planets Of Life Or Death: Amiens '73",
+        "On Jupiter"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Baritone Saxophone, Flute, Percussion",
+            "tracks": "",
+            "name": "Danny Ray Thompson"
+          }
+        ],
+        [
+          {
+            "role": "Baritone Saxophone, Flute, Percussion",
+            "tracks": "",
+            "name": "Danny Ray Thompson"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "252311",
+      "artist_name": "Jimmy Cobb",
+      "release_ids": [
+        "3842748",
+        "14480820"
+      ],
+      "titles": [
+        "Sketches Of Spain = スケッチ・オブ・スペイン",
+        "Kind Of Blue"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Percussion",
+            "tracks": "",
+            "name": "Jimmy Cobb"
+          }
+        ],
+        [
+          {
+            "role": "Drums",
+            "tracks": "",
+            "name": "Jimmy Cobb"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "253543",
+      "artist_name": "Alfredo Golino",
+      "release_ids": [
+        "985747",
+        "1358351"
+      ],
+      "titles": [
+        "La Voce Del Padrone",
+        "L'Arca Di Noè"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Drums",
+            "tracks": "",
+            "name": "Alfredo Golino"
+          }
+        ],
+        [
+          {
+            "role": "Drums",
+            "tracks": "",
+            "name": "Alfredo Golino"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "259778",
+      "artist_name": "Paul Chambers (3)",
+      "release_ids": [
+        "3842748",
+        "14480820"
+      ],
+      "titles": [
+        "Sketches Of Spain = スケッチ・オブ・スペイン",
+        "Kind Of Blue"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Bass",
+            "tracks": "",
+            "name": "Paul Chambers (3)"
+          }
+        ],
+        [
+          {
+            "role": "Bass",
+            "tracks": "",
+            "name": "Paul Chambers (3)"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "263447",
+      "artist_name": "James Jacson",
+      "release_ids": [
+        "6912363",
+        "11780074"
+      ],
+      "titles": [
+        "Planets Of Life Or Death: Amiens '73",
+        "On Jupiter"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Bassoon, Flute, Percussion",
+            "tracks": "",
+            "name": "James Jacson"
+          }
+        ],
+        [
+          {
+            "role": "Bassoon, Flute, Percussion, Drums [Ancient Egyptian Infinity Lightning Drums]",
+            "tracks": "",
+            "name": "James Jacson"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "263454",
+      "artist_name": "Michael Ray",
+      "release_ids": [
+        "11780074",
+        "12343877"
+      ],
+      "titles": [
+        "On Jupiter",
+        "Disco 3000"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Trumpet, Vocals",
+            "tracks": "",
+            "name": "Michael Ray"
+          }
+        ],
+        [
+          {
+            "role": "Trumpet, Vocals",
+            "tracks": "",
+            "name": "Michael Ray"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "263461",
+      "artist_name": "Luqman Ali",
+      "release_ids": [
+        "11780074",
+        "12343877"
+      ],
+      "titles": [
+        "On Jupiter",
+        "Disco 3000"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Drums, Vocals",
+            "tracks": "",
+            "name": "Luqman Ali"
+          }
+        ],
+        [
+          {
+            "role": "Drums, Vocals",
+            "tracks": "",
+            "name": "Luqman Ali"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "273346",
+      "artist_name": "Billy Beck",
+      "release_ids": [
+        "3558397",
+        "4330903"
+      ],
+      "titles": [
+        "Honey",
+        "Fire"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Piano, Organ [Hammond], Piano [Fender Rhodes], Electric Piano [Rmi], Clavinet, Percussion, Lead Vocals, Backing Vocals, Strings [Ensemble]",
+            "tracks": "",
+            "name": "Billy Beck"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Billy Beck"
+          }
+        ],
+        [
+          {
+            "role": "Backing Vocals, Vocals",
+            "tracks": "",
+            "name": "Billy Beck"
+          },
+          {
+            "role": "Percussion, Piano, Piano [Wurlitzer Electric], Piano [Fender Rhodes], Clavinet, Synthesizer [Arp Odyssey, Se Iv], Keyboards [Fender Bass], Organ [Hammond B-3]",
+            "tracks": "",
+            "name": "Billy Beck"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Billy Beck"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "297026",
+      "artist_name": "Kelvin Mercer",
+      "release_ids": [
+        "18497",
+        "165894"
+      ],
+      "titles": [
+        "Me Myself And I",
+        "Oooh."
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer [Produced By]",
+            "tracks": "B2",
+            "name": "Kelvin Mercer"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kelvin Mercer",
+            "track_path": [
+              {
+                "position": "A",
+                "title": "Me Myself And I (Extended Version)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kelvin Mercer",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Jenifa Taught Me (Derwin's Revenge) (Extended Version)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kelvin Mercer",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Brain Washed Follower"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Written-By",
+            "tracks": "A, B1",
+            "name": "Kelvin Mercer"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "302237",
+      "artist_name": "Clarence Satchell",
+      "release_ids": [
+        "3558397",
+        "4330903"
+      ],
+      "titles": [
+        "Honey",
+        "Fire"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Tenor Saxophone, Baritone Saxophone, Flute",
+            "tracks": "",
+            "name": "Clarence Satchell"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Clarence Satchell"
+          }
+        ],
+        [
+          {
+            "role": "Backing Vocals, Vocals",
+            "tracks": "",
+            "name": "Clarence Satchell"
+          },
+          {
+            "role": "Percussion, Tenor Saxophone, Baritone Saxophone, Soprano Saxophone",
+            "tracks": "",
+            "name": "Clarence Satchell"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Clarence Satchell"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "312244",
+      "artist_name": "Marshall Jones",
+      "release_ids": [
+        "3558397",
+        "4330903"
+      ],
+      "titles": [
+        "Honey",
+        "Fire"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Electric Bass",
+            "tracks": "",
+            "name": "Marshall Jones"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Marshall Jones"
+          }
+        ],
+        [
+          {
+            "role": "Bass",
+            "tracks": "",
+            "name": "Marshall Jones"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Marshall Jones"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "318912",
+      "artist_name": "Vincent Mason",
+      "release_ids": [
+        "18497",
+        "165894"
+      ],
+      "titles": [
+        "Me Myself And I",
+        "Oooh."
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Vincent Mason",
+            "track_path": [
+              {
+                "position": "A",
+                "title": "Me Myself And I (Extended Version)"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Written-By",
+            "tracks": "A, B1",
+            "name": "Vincent Mason"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Vincent Mason",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Words & Verbs"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "340568",
+      "artist_name": "Robert Glasper",
+      "release_ids": [
+        "7568442",
+        "15268960"
+      ],
+      "titles": [
+        "To Pimp A Butterfly",
+        "The Aquarius Years"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Piano",
+            "tracks": "",
+            "name": "Robert Glasper",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "For Free? (Interlude)"
+              }
+            ]
+          },
+          {
+            "role": "Keyboards",
+            "tracks": "",
+            "name": "Robert Glasper",
+            "track_path": [
+              {
+                "position": "A5",
+                "title": "These Walls"
+              }
+            ]
+          },
+          {
+            "role": "Keyboards",
+            "tracks": "",
+            "name": "Robert Glasper",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "Complexion (A Zulu Love)"
+              }
+            ]
+          },
+          {
+            "role": "Keyboards",
+            "tracks": "",
+            "name": "Robert Glasper",
+            "track_path": [
+              {
+                "position": "C4",
+                "title": "The Blacker The Berry"
+              }
+            ]
+          },
+          {
+            "role": "Keyboards",
+            "tracks": "",
+            "name": "Robert Glasper",
+            "track_path": [
+              {
+                "position": "D3",
+                "title": "Mortal Man"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Piano",
+            "tracks": "",
+            "name": "Robert Glasper",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Mr. Johnnie Walker"
+              }
+            ]
+          },
+          {
+            "role": "Featuring, Piano",
+            "tracks": "",
+            "name": "Robert Glasper",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "G.P."
+              }
+            ]
+          },
+          {
+            "role": "Written-By, Producer",
+            "tracks": "",
+            "name": "Robert Glasper",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "G.P."
+              }
+            ]
+          },
+          {
+            "role": "Piano",
+            "tracks": "",
+            "name": "Robert Glasper",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Sexy Suzy On A Sunday"
+              }
+            ]
+          },
+          {
+            "role": "Featuring, Piano",
+            "tracks": "",
+            "name": "Robert Glasper",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "California Dreaming"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "342427",
+      "artist_name": "Alberto Radius",
+      "release_ids": [
+        "985747",
+        "1218134"
+      ],
+      "titles": [
+        "La Voce Del Padrone",
+        "Patriots"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Guitar",
+            "tracks": "",
+            "name": "Alberto Radius"
+          }
+        ],
+        [
+          {
+            "role": "Guitar",
+            "tracks": "",
+            "name": "Alberto Radius"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "342427",
+      "artist_name": "Alberto Radius",
+      "release_ids": [
+        "985747",
+        "1358351"
+      ],
+      "titles": [
+        "La Voce Del Padrone",
+        "L'Arca Di Noè"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Guitar",
+            "tracks": "",
+            "name": "Alberto Radius"
+          }
+        ],
+        [
+          {
+            "role": "Guitar",
+            "tracks": "",
+            "name": "Alberto Radius"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "342427",
+      "artist_name": "Alberto Radius",
+      "release_ids": [
+        "1218134",
+        "1358351"
+      ],
+      "titles": [
+        "Patriots",
+        "L'Arca Di Noè"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Guitar",
+            "tracks": "",
+            "name": "Alberto Radius"
+          }
+        ],
+        [
+          {
+            "role": "Guitar",
+            "tracks": "",
+            "name": "Alberto Radius"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "369410",
+      "artist_name": "Angelo Carrara",
+      "release_ids": [
+        "985747",
+        "1218134"
+      ],
+      "titles": [
+        "La Voce Del Padrone",
+        "Patriots"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Angelo Carrara"
+          }
+        ],
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Angelo Carrara"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "369410",
+      "artist_name": "Angelo Carrara",
+      "release_ids": [
+        "985747",
+        "1358351"
+      ],
+      "titles": [
+        "La Voce Del Padrone",
+        "L'Arca Di Noè"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Angelo Carrara"
+          }
+        ],
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Angelo Carrara"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "369410",
+      "artist_name": "Angelo Carrara",
+      "release_ids": [
+        "1218134",
+        "1358351"
+      ],
+      "titles": [
+        "Patriots",
+        "L'Arca Di Noè"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Angelo Carrara"
+          }
+        ],
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Angelo Carrara"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "369428",
+      "artist_name": "Giusto Pio",
+      "release_ids": [
+        "985747",
+        "1218134"
+      ],
+      "titles": [
+        "La Voce Del Padrone",
+        "Patriots"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Arranged By, Directed By",
+            "tracks": "",
+            "name": "Giusto Pio"
+          }
+        ],
+        [
+          {
+            "role": "Arranged By",
+            "tracks": "",
+            "name": "Giusto Pio"
+          },
+          {
+            "role": "Violin",
+            "tracks": "",
+            "name": "Giusto Pio"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "369428",
+      "artist_name": "Giusto Pio",
+      "release_ids": [
+        "1218134",
+        "1358351"
+      ],
+      "titles": [
+        "Patriots",
+        "L'Arca Di Noè"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Arranged By",
+            "tracks": "",
+            "name": "Giusto Pio"
+          },
+          {
+            "role": "Violin",
+            "tracks": "",
+            "name": "Giusto Pio"
+          }
+        ],
+        [
+          {
+            "role": "Arranged By, Violin",
+            "tracks": "",
+            "name": "Giusto Pio"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "377011",
+      "artist_name": "Paolo Donnarumma",
+      "release_ids": [
+        "985747",
+        "1358351"
+      ],
+      "titles": [
+        "La Voce Del Padrone",
+        "L'Arca Di Noè"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Bass",
+            "tracks": "",
+            "name": "Paolo Donnarumma"
+          }
+        ],
+        [
+          {
+            "role": "Bass",
+            "tracks": "",
+            "name": "Paolo Donnarumma"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "399840",
+      "artist_name": "Jeffrey Cohen",
+      "release_ids": [
+        "10496968",
+        "14457597"
+      ],
+      "titles": [
+        "Stars In Your Eyes / Saturday Night",
+        "Directstep = ダイレクトステップ"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By",
+            "tracks": "B",
+            "name": "Jeffrey Cohen"
+          }
+        ],
+        [
+          {
+            "role": "Composed By",
+            "tracks": "",
+            "name": "Jeffrey Cohen",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "I Thought It Was You = アイ・ソウト・イット・ウォズ・ユー"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "422683",
+      "artist_name": "Marvin \"Merv\" Pierce",
+      "release_ids": [
+        "3558397",
+        "4330903"
+      ],
+      "titles": [
+        "Honey",
+        "Fire"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Trumpet, Flugelhorn",
+            "tracks": "",
+            "name": "Marvin \"Merv\" Pierce"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Marvin \"Merv\" Pierce"
+          }
+        ],
+        [
+          {
+            "role": "Flugelhorn, Trombone, Trumpet",
+            "tracks": "",
+            "name": "Marvin \"Merv\" Pierce"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Marvin \"Merv\" Pierce"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "422686",
+      "artist_name": "Ralph \"Pee Wee\" Middlebrooks",
+      "release_ids": [
+        "3558397",
+        "4330903"
+      ],
+      "titles": [
+        "Honey",
+        "Fire"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Trumpet",
+            "tracks": "",
+            "name": "Ralph \"Pee Wee\" Middlebrooks"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Ralph \"Pee Wee\" Middlebrooks"
+          }
+        ],
+        [
+          {
+            "role": "Trumpet",
+            "tracks": "",
+            "name": "Ralph \"Pee Wee\" Middlebrooks"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Ralph \"Pee Wee\" Middlebrooks"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "422689",
+      "artist_name": "James \"Diamond\" Williams",
+      "release_ids": [
+        "3558397",
+        "4330903"
+      ],
+      "titles": [
+        "Honey",
+        "Fire"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Drums, Timbales, Congas, Percussion, Lead Vocals, Backing Vocals",
+            "tracks": "",
+            "name": "James \"Diamond\" Williams"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "James \"Diamond\" Williams"
+          }
+        ],
+        [
+          {
+            "role": "Backing Vocals, Vocals",
+            "tracks": "",
+            "name": "James \"Diamond\" Williams"
+          },
+          {
+            "role": "Drums, Congas, Flugelhorn, Timbales, Percussion [Gong], Percussion [Miscellaneous]",
+            "tracks": "",
+            "name": "James \"Diamond\" Williams"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "James \"Diamond\" Williams"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "443963",
+      "artist_name": "Filippo Destrieri",
+      "release_ids": [
+        "985747",
+        "1218134"
+      ],
+      "titles": [
+        "La Voce Del Padrone",
+        "Patriots"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Keyboards",
+            "tracks": "",
+            "name": "Filippo Destrieri"
+          }
+        ],
+        [
+          {
+            "role": "Organ, Harp, Synthesizer [Oberheim]",
+            "tracks": "",
+            "name": "Filippo Destrieri"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "443963",
+      "artist_name": "Filippo Destrieri",
+      "release_ids": [
+        "985747",
+        "1358351"
+      ],
+      "titles": [
+        "La Voce Del Padrone",
+        "L'Arca Di Noè"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Keyboards",
+            "tracks": "",
+            "name": "Filippo Destrieri"
+          }
+        ],
+        [
+          {
+            "role": "Keyboards",
+            "tracks": "",
+            "name": "Filippo Destrieri"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "443963",
+      "artist_name": "Filippo Destrieri",
+      "release_ids": [
+        "1218134",
+        "1358351"
+      ],
+      "titles": [
+        "Patriots",
+        "L'Arca Di Noè"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Organ, Harp, Synthesizer [Oberheim]",
+            "tracks": "",
+            "name": "Filippo Destrieri"
+          }
+        ],
+        [
+          {
+            "role": "Keyboards",
+            "tracks": "",
+            "name": "Filippo Destrieri"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "452687",
+      "artist_name": "Sylvester Stewart",
+      "release_ids": [
+        "87762",
+        "7568442"
+      ],
+      "titles": [
+        "???",
+        "To Pimp A Butterfly"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Music By, Lyrics By",
+            "tracks": "",
+            "name": "Sylvester Stewart",
+            "track_path": [
+              {
+                "position": "D3",
+                "title": "If You Want Me To Stay"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Sylvester Stewart",
+            "track_path": [
+              {
+                "position": "B4",
+                "title": "Momma"
+              }
+            ]
+          },
+          {
+            "role": "Written-By [Wishful Thinkin]",
+            "tracks": "",
+            "name": "Sylvester Stewart",
+            "track_path": [
+              {
+                "position": "B4",
+                "title": "Momma"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "453854",
+      "artist_name": "Hobart Dotson",
+      "release_ids": [
+        "2045030",
+        "6912363"
+      ],
+      "titles": [
+        "What Planet Is This?",
+        "Planets Of Life Or Death: Amiens '73"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Hobart Dotson",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Enlightment"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Hobart Dotson",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Enlightenment"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "539895",
+      "artist_name": "Madrigalisti Di Milano",
+      "release_ids": [
+        "985747",
+        "1358351"
+      ],
+      "titles": [
+        "La Voce Del Padrone",
+        "L'Arca Di Noè"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Choir",
+            "tracks": "",
+            "name": "Madrigalisti Di Milano"
+          }
+        ],
+        [
+          {
+            "role": "Choir",
+            "tracks": "",
+            "name": "Madrigalisti Di Milano"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "574092",
+      "artist_name": "Gianfranco D'Adda",
+      "release_ids": [
+        "1218134",
+        "12101577"
+      ],
+      "titles": [
+        "Patriots",
+        "1974  Sulle Corde Di Aries / Clic"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Percussion",
+            "tracks": "",
+            "name": "Gianfranco D'Adda"
+          }
+        ],
+        [
+          {
+            "role": "Percussion, Drums",
+            "tracks": "",
+            "name": "Gianfranco D'adda"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "660740",
+      "artist_name": "Fabrizio De André",
+      "release_ids": [
+        "981136",
+        "8539380"
+      ],
+      "titles": [
+        "Non Al Denaro Non All'Amore Nè Al Cielo",
+        "Volume 3°"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Guitar [Folk]",
+            "tracks": "",
+            "name": "Fabrizio De André"
+          },
+          {
+            "role": "Music By",
+            "tracks": "",
+            "name": "Fabrizio De André"
+          }
+        ],
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "La Canzone Di Marinella"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Il Testamento"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "La Ballata Dell'Eroe"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "A5",
+                "title": "Amore Che Vieni Amore Che Vai"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "La Ballata Del Miche'"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "La Guerra Di Piero"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "Nell'Acqua Della Chiara Fontana (Dans L'Eau De La Claire Fontaine)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "B4",
+                "title": "Il Gorilla"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "660740",
+      "artist_name": "Fabrizio De André",
+      "release_ids": [
+        "981136",
+        "10708678"
+      ],
+      "titles": [
+        "Non Al Denaro Non All'Amore Nè Al Cielo",
+        "Fabrizio De André In Concerto - Arrangiamenti PFM"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Guitar [Folk]",
+            "tracks": "",
+            "name": "Fabrizio De André"
+          },
+          {
+            "role": "Music By",
+            "tracks": "",
+            "name": "Fabrizio De André"
+          }
+        ],
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Fabrizio De André"
+          },
+          {
+            "role": "Vocals, Acoustic Guitar",
+            "tracks": "",
+            "name": "Fabrizio De André"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "660740",
+      "artist_name": "Fabrizio De André",
+      "release_ids": [
+        "8539380",
+        "10708678"
+      ],
+      "titles": [
+        "Volume 3°",
+        "Fabrizio De André In Concerto - Arrangiamenti PFM"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "La Canzone Di Marinella"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Il Testamento"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "La Ballata Dell'Eroe"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "A5",
+                "title": "Amore Che Vieni Amore Che Vai"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "La Ballata Del Miche'"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "La Guerra Di Piero"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "Nell'Acqua Della Chiara Fontana (Dans L'Eau De La Claire Fontaine)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Fabrizio De André",
+            "track_path": [
+              {
+                "position": "B4",
+                "title": "Il Gorilla"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Fabrizio De André"
+          },
+          {
+            "role": "Vocals, Acoustic Guitar",
+            "tracks": "",
+            "name": "Fabrizio De André"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "744368",
+      "artist_name": "Lucio Aquilina",
+      "release_ids": [
+        "7704301",
+        "12097296"
+      ],
+      "titles": [
+        "World EP",
+        "Nuova Napoli"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By, Producer",
+            "tracks": "",
+            "name": "Lucio Aquilina"
+          }
+        ],
+        [
+          {
+            "role": "Keyboards, Synthesizer",
+            "tracks": "",
+            "name": "Lucio Aquilina"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Nuova Napoli"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Je Vulesse"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Ddoje Facce"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Disco Sole"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Stann Fore"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "'A Voce 'E Napule"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "744368",
+      "artist_name": "Lucio Aquilina",
+      "release_ids": [
+        "7704301",
+        "23192537"
+      ],
+      "titles": [
+        "World EP",
+        "Bar Mediterraneo"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By, Producer",
+            "tracks": "",
+            "name": "Lucio Aquilina"
+          }
+        ],
+        [
+          {
+            "role": "Electric Piano [Rhodes], Synthesizer, Percussion, Piano",
+            "tracks": "",
+            "name": "Lucio Aquilina"
+          },
+          {
+            "role": "Written-By, Arranged By, Directed By",
+            "tracks": "",
+            "name": "Lucio Aquilina"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A1  ",
+                "title": "Bar Mediterraneo"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A2  ",
+                "title": "Tienaté"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Gelbi"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A4  ",
+                "title": "Marechià"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A5 ",
+                "title": "Straniero"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "B1  ",
+                "title": "Praja Magia"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "B3  ",
+                "title": "Rire"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "B4  ",
+                "title": "La Crisi"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "744368",
+      "artist_name": "Lucio Aquilina",
+      "release_ids": [
+        "12097296",
+        "23192537"
+      ],
+      "titles": [
+        "Nuova Napoli",
+        "Bar Mediterraneo"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Keyboards, Synthesizer",
+            "tracks": "",
+            "name": "Lucio Aquilina"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Nuova Napoli"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Je Vulesse"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Ddoje Facce"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Disco Sole"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Stann Fore"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "'A Voce 'E Napule"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Electric Piano [Rhodes], Synthesizer, Percussion, Piano",
+            "tracks": "",
+            "name": "Lucio Aquilina"
+          },
+          {
+            "role": "Written-By, Arranged By, Directed By",
+            "tracks": "",
+            "name": "Lucio Aquilina"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A1  ",
+                "title": "Bar Mediterraneo"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A2  ",
+                "title": "Tienaté"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Gelbi"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A4  ",
+                "title": "Marechià"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "A5 ",
+                "title": "Straniero"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "B1  ",
+                "title": "Praja Magia"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "B3  ",
+                "title": "Rire"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Lucio Aquilina",
+            "track_path": [
+              {
+                "position": "B4  ",
+                "title": "La Crisi"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "754998",
+      "artist_name": "Massimo Di Lena",
+      "release_ids": [
+        "7704301",
+        "12097296"
+      ],
+      "titles": [
+        "World EP",
+        "Nuova Napoli"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By, Producer",
+            "tracks": "",
+            "name": "Massimo Di Lena"
+          }
+        ],
+        [
+          {
+            "role": "Drum Programming",
+            "tracks": "",
+            "name": "Massimo Di Lena"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Nuova Napoli"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Je Vulesse"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Ddoje Facce"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Disco Sole"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Stann Fore"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "'A Voce 'E Napule"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "754998",
+      "artist_name": "Massimo Di Lena",
+      "release_ids": [
+        "7704301",
+        "23192537"
+      ],
+      "titles": [
+        "World EP",
+        "Bar Mediterraneo"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By, Producer",
+            "tracks": "",
+            "name": "Massimo Di Lena"
+          }
+        ],
+        [
+          {
+            "role": "Synthesizer, Drum Programming, Percussion",
+            "tracks": "",
+            "name": "Massimo Di Lena"
+          },
+          {
+            "role": "Written-By, Arranged By, Directed By",
+            "tracks": "",
+            "name": "Massimo Di Lena"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A1  ",
+                "title": "Bar Mediterraneo"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A2  ",
+                "title": "Tienaté"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Gelbi"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A4  ",
+                "title": "Marechià"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A5 ",
+                "title": "Straniero"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "B1  ",
+                "title": "Praja Magia"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "B3  ",
+                "title": "Rire"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "B4  ",
+                "title": "La Crisi"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "754998",
+      "artist_name": "Massimo Di Lena",
+      "release_ids": [
+        "12097296",
+        "23192537"
+      ],
+      "titles": [
+        "Nuova Napoli",
+        "Bar Mediterraneo"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Drum Programming",
+            "tracks": "",
+            "name": "Massimo Di Lena"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Nuova Napoli"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Je Vulesse"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Ddoje Facce"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Disco Sole"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Stann Fore"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "'A Voce 'E Napule"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Synthesizer, Drum Programming, Percussion",
+            "tracks": "",
+            "name": "Massimo Di Lena"
+          },
+          {
+            "role": "Written-By, Arranged By, Directed By",
+            "tracks": "",
+            "name": "Massimo Di Lena"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A1  ",
+                "title": "Bar Mediterraneo"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A2  ",
+                "title": "Tienaté"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Gelbi"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A4  ",
+                "title": "Marechià"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "A5 ",
+                "title": "Straniero"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "B1  ",
+                "title": "Praja Magia"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "B3  ",
+                "title": "Rire"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Massimo Di Lena",
+            "track_path": [
+              {
+                "position": "B4  ",
+                "title": "La Crisi"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "781536",
+      "artist_name": "Nkono Teles",
+      "release_ids": [
+        "9425519",
+        "25267285"
+      ],
+      "titles": [
+        "Doing It In Lagos (Boogie, Pop & Disco In 1980s Nigeria)",
+        "Only You"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By, Arranged By, Producer [Produced By]",
+            "tracks": "",
+            "name": "Nkono Teles",
+            "track_path": [
+              {
+                "position": "E3",
+                "title": "Be My Lady (Mix)"
+              }
+            ]
+          },
+          {
+            "role": "Arranged By, Producer [Produced By]",
+            "tracks": "",
+            "name": "Nkono Teles",
+            "track_path": [
+              {
+                "position": "H",
+                "title": "On The Air - Rap Mix (Frankie Francis Edit)"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Arranged By [Instrumental Arrangements]",
+            "tracks": "",
+            "name": "Nkono Teles"
+          },
+          {
+            "role": "Grand Piano, Electric Piano [Fender Rhodes], Guitar Synthesizer [Moog Bass], Synthesizer, Guitar, Percussion [Synthetic]",
+            "tracks": "",
+            "name": "Nkono Teles"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "781536",
+      "artist_name": "Nkono Teles",
+      "release_ids": [
+        "9425519",
+        "26572889"
+      ],
+      "titles": [
+        "Doing It In Lagos (Boogie, Pop & Disco In 1980s Nigeria)",
+        "Love Vibration"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By, Arranged By, Producer [Produced By]",
+            "tracks": "",
+            "name": "Nkono Teles",
+            "track_path": [
+              {
+                "position": "E3",
+                "title": "Be My Lady (Mix)"
+              }
+            ]
+          },
+          {
+            "role": "Arranged By, Producer [Produced By]",
+            "tracks": "",
+            "name": "Nkono Teles",
+            "track_path": [
+              {
+                "position": "H",
+                "title": "On The Air - Rap Mix (Frankie Francis Edit)"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Written-By, Producer",
+            "tracks": "",
+            "name": "Nkono Teles"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "781536",
+      "artist_name": "Nkono Teles",
+      "release_ids": [
+        "25267285",
+        "26572889"
+      ],
+      "titles": [
+        "Only You",
+        "Love Vibration"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Arranged By [Instrumental Arrangements]",
+            "tracks": "",
+            "name": "Nkono Teles"
+          },
+          {
+            "role": "Grand Piano, Electric Piano [Fender Rhodes], Guitar Synthesizer [Moog Bass], Synthesizer, Guitar, Percussion [Synthetic]",
+            "tracks": "",
+            "name": "Nkono Teles"
+          }
+        ],
+        [
+          {
+            "role": "Written-By, Producer",
+            "tracks": "",
+            "name": "Nkono Teles"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "1271958",
+      "artist_name": "Tony Okoroji",
+      "release_ids": [
+        "9425519",
+        "25267285"
+      ],
+      "titles": [
+        "Doing It In Lagos (Boogie, Pop & Disco In 1980s Nigeria)",
+        "Only You"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer [Produced By]",
+            "tracks": "",
+            "name": "Tony Okoroji",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Only You"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Arranged By [Instrumental Arrangements]",
+            "tracks": "",
+            "name": "Tony Okoroji"
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Tony Okoroji"
+          },
+          {
+            "role": "Organ",
+            "tracks": "",
+            "name": "Tony Okoroji",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "I Had A Dream"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "1419450",
+      "artist_name": "Shabaka Hutchings",
+      "release_ids": [
+        "9072898",
+        "12716187"
+      ],
+      "titles": [
+        "Black Focus",
+        "Universal Beings"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Tenor Saxophone",
+            "tracks": "",
+            "name": "Shabaka Hutchings"
+          }
+        ],
+        [
+          {
+            "role": "Tenor Saxophone",
+            "tracks": "B1 to B5",
+            "name": "Shabaka Hutchings"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "1492659",
+      "artist_name": "M. Issachar",
+      "release_ids": [
+        "97331",
+        "135052"
+      ],
+      "titles": [
+        "Junglist (Remixes)",
+        "Champion Natty"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "M. Issachar"
+          }
+        ],
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "M. Issachar"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "1550262",
+      "artist_name": "Mark Spears",
+      "release_ids": [
+        "7568442",
+        "10559651"
+      ],
+      "titles": [
+        "To Pimp A Butterfly",
+        "Damn."
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "King Kunta"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Alright"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "For Sale? (Interlude)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "C1",
+                "title": "Hood Politics"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "Complexion (A Zulu Love)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "D1",
+                "title": "You Aint Gotta Lie (Momma Said)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "D3",
+                "title": "Mortal Man"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Yah."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "A4",
+                "title": "Element."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Feel."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Loyalty."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "C1",
+                "title": "Lust."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "C2",
+                "title": "Love."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "XXX."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Mark Spears",
+            "track_path": [
+              {
+                "position": "D2",
+                "title": "God."
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "1690647",
+      "artist_name": "Pietro Santangelo",
+      "release_ids": [
+        "12097296",
+        "23192537"
+      ],
+      "titles": [
+        "Nuova Napoli",
+        "Bar Mediterraneo"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Tenor Saxophone, Recorded By [Drum]",
+            "tracks": "A1, A3, B2, B3",
+            "name": "Pietro Santangelo"
+          }
+        ],
+        [
+          {
+            "role": "Tenor Saxophone, Soprano Saxophone",
+            "tracks": "",
+            "name": "Pietro Santangelo"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "1784576",
+      "artist_name": "Sounwave",
+      "release_ids": [
+        "7568442",
+        "10559651"
+      ],
+      "titles": [
+        "To Pimp A Butterfly",
+        "Damn."
+      ],
+      "roles": [
+        [
+          {
+            "role": "Arranged By [String Arrangement]",
+            "tracks": "",
+            "name": "Sounwave"
+          },
+          {
+            "role": "Producer [Additional Production]",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Wesley's Theory"
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "King Kunta"
+              }
+            ]
+          },
+          {
+            "role": "Producer [Additional Production]",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "A5",
+                "title": "These Walls"
+              }
+            ]
+          },
+          {
+            "role": "Producer [Additional Production]",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "U"
+              }
+            ]
+          },
+          {
+            "role": "Producer [Additional Production]",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Alright"
+              }
+            ]
+          },
+          {
+            "role": "Producer [Additional Production]",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "For Sale? (Interlude)"
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "C1",
+                "title": "Hood Politics"
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "Complexion (A Zulu Love)"
+              }
+            ]
+          },
+          {
+            "role": "Keyboards",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "D1",
+                "title": "You Aint Gotta Lie (Momma Said)"
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "D3",
+                "title": "Mortal Man"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Yah."
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "A4",
+                "title": "Element."
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Feel."
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Loyalty."
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "C1",
+                "title": "Lust."
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "C2",
+                "title": "Love."
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "XXX."
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Sounwave",
+            "track_path": [
+              {
+                "position": "D2",
+                "title": "God."
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "1800656",
+      "artist_name": "Thundercat",
+      "release_ids": [
+        "7568442",
+        "10559651"
+      ],
+      "titles": [
+        "To Pimp A Butterfly",
+        "Damn."
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Thundercat",
+            "track_path": [
+              {
+                "position": "C1",
+                "title": "Hood Politics"
+              }
+            ]
+          },
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Thundercat",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "Complexion (A Zulu Love)"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Bass",
+            "tracks": "",
+            "name": "Thundercat",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Feel."
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "2171755",
+      "artist_name": "Anna Wise",
+      "release_ids": [
+        "7568442",
+        "10559651"
+      ],
+      "titles": [
+        "To Pimp A Butterfly",
+        "Damn."
+      ],
+      "roles": [
+        [
+          {
+            "role": "Backing Vocals",
+            "tracks": "",
+            "name": "Anna Wise",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Wesley's Theory"
+              }
+            ]
+          },
+          {
+            "role": "Backing Vocals",
+            "tracks": "",
+            "name": "Anna Wise",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "For Free? (Interlude)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Anna Wise",
+            "track_path": [
+              {
+                "position": "A5",
+                "title": "These Walls"
+              }
+            ]
+          },
+          {
+            "role": "Backing Vocals",
+            "tracks": "",
+            "name": "Anna Wise",
+            "track_path": [
+              {
+                "position": "C1",
+                "title": "Hood Politics"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Backing Vocals",
+            "tracks": "",
+            "name": "Anna Wise",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "Pride."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Anna Wise",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "Pride."
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "2219338",
+      "artist_name": "Marcello Giannini",
+      "release_ids": [
+        "12097296",
+        "23192537"
+      ],
+      "titles": [
+        "Nuova Napoli",
+        "Bar Mediterraneo"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Guitar",
+            "tracks": "A3, B1, B4",
+            "name": "Marcello Giannini"
+          }
+        ],
+        [
+          {
+            "role": "Guitar",
+            "tracks": "",
+            "name": "Marcello Giannini"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Marcello Giannini",
+            "track_path": [
+              {
+                "position": "A5 ",
+                "title": "Straniero"
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "2596318",
+      "artist_name": "Tae Beast",
+      "release_ids": [
+        "7568442",
+        "10559651"
+      ],
+      "titles": [
+        "To Pimp A Butterfly",
+        "Damn."
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer",
+            "tracks": "",
+            "name": "Tae Beast",
+            "track_path": [
+              {
+                "position": "C1",
+                "title": "Hood Politics"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Producer [Additional]",
+            "tracks": "",
+            "name": "Tae Beast",
+            "track_path": [
+              {
+                "position": "A4",
+                "title": "Element."
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "2596320",
+      "artist_name": "Dave Free",
+      "release_ids": [
+        "7568442",
+        "10559651"
+      ],
+      "titles": [
+        "To Pimp A Butterfly",
+        "Damn."
+      ],
+      "roles": [
+        [
+          {
+            "role": "Producer [Associate Producer]",
+            "tracks": "",
+            "name": "Dave Free"
+          },
+          {
+            "role": "Backing Vocals",
+            "tracks": "",
+            "name": "Dave Free",
+            "track_path": [
+              {
+                "position": "D2",
+                "title": "I"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Producer [Associate Producer]",
+            "tracks": "",
+            "name": "Dave Free"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "3062364",
+      "artist_name": "Kendrick Duckworth",
+      "release_ids": [
+        "7568442",
+        "10559651"
+      ],
+      "titles": [
+        "To Pimp A Butterfly",
+        "Damn."
+      ],
+      "roles": [
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Wesley's Theory"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "For Free? (Interlude)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "King Kunta"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "A4",
+                "title": "Institutionalized"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "A5",
+                "title": "These Walls"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "U"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Alright"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "For Sale? (Interlude)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "B4",
+                "title": "Momma"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "C1",
+                "title": "Hood Politics"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "C2",
+                "title": "How Much A Dollar Cost"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "Complexion (A Zulu Love)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "C4",
+                "title": "The Blacker The Berry"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "D1",
+                "title": "You Aint Gotta Lie (Momma Said)"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "D2",
+                "title": "I"
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "D3",
+                "title": "Mortal Man"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "A1",
+                "title": "Blood."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Dna."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Yah."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "A4",
+                "title": "Element."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Feel."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "B2",
+                "title": "Loyalty."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "B3",
+                "title": "Pride."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "B4",
+                "title": "Humble."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "C1",
+                "title": "Lust."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "C2",
+                "title": "Love."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "C3",
+                "title": "XXX."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "D1",
+                "title": "Fear."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "D2",
+                "title": "God."
+              }
+            ]
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Kendrick Duckworth",
+            "track_path": [
+              {
+                "position": "D3",
+                "title": "Duckworth."
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "3456696",
+      "artist_name": "Steve Monite",
+      "release_ids": [
+        "9425519",
+        "25267285"
+      ],
+      "titles": [
+        "Doing It In Lagos (Boogie, Pop & Disco In 1980s Nigeria)",
+        "Only You"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Composed By",
+            "tracks": "",
+            "name": "Steve Monite",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "Only You"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Steve Monite"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "3890928",
+      "artist_name": "Matt Schaeffer",
+      "release_ids": [
+        "7568442",
+        "10559651"
+      ],
+      "titles": [
+        "To Pimp A Butterfly",
+        "Damn."
+      ],
+      "roles": [
+        [
+          {
+            "role": "Guitar [Additional]",
+            "tracks": "",
+            "name": "Matt Schaeffer",
+            "track_path": [
+              {
+                "position": "A3",
+                "title": "King Kunta"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Guitar [Additional]",
+            "tracks": "",
+            "name": "Matt Schaeffer",
+            "track_path": [
+              {
+                "position": "A2",
+                "title": "Dna."
+              }
+            ]
+          },
+          {
+            "role": "Guitar [Additional]",
+            "tracks": "",
+            "name": "Matt Schaeffer",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Feel."
+              }
+            ]
+          },
+          {
+            "role": "Guitar",
+            "tracks": "",
+            "name": "Matt Schaeffer",
+            "track_path": [
+              {
+                "position": "B4",
+                "title": "Humble."
+              }
+            ]
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "5079049",
+      "artist_name": "Paolo Petrella",
+      "release_ids": [
+        "12097296",
+        "23192537"
+      ],
+      "titles": [
+        "Nuova Napoli",
+        "Bar Mediterraneo"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Recorded By [Drum]",
+            "tracks": "",
+            "name": "Paolo Petrella"
+          }
+        ],
+        [
+          {
+            "role": "Electric Bass, Guitar",
+            "tracks": "",
+            "name": "Paolo Petrella"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "6321304",
+      "artist_name": "Roberto Badoglio",
+      "release_ids": [
+        "12097296",
+        "23192537"
+      ],
+      "titles": [
+        "Nuova Napoli",
+        "Bar Mediterraneo"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Bass Guitar",
+            "tracks": "A1, B1, B2, B3",
+            "name": "Roberto Badoglio"
+          },
+          {
+            "role": "Written-By",
+            "tracks": "",
+            "name": "Roberto Badoglio",
+            "track_path": [
+              {
+                "position": "B1",
+                "title": "Disco Sole"
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "role": "Electric Bass",
+            "tracks": "",
+            "name": "Roberto Badoglio"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    },
+    {
+      "artist_id": "6490301",
+      "artist_name": "Marilù Martone",
+      "release_ids": [
+        "12097296",
+        "23192537"
+      ],
+      "titles": [
+        "Nuova Napoli",
+        "Bar Mediterraneo"
+      ],
+      "roles": [
+        [
+          {
+            "role": "Backing Vocals",
+            "tracks": "A3",
+            "name": "Marilù Martone"
+          }
+        ],
+        [
+          {
+            "role": "Backing Vocals",
+            "tracks": "",
+            "name": "Marilù Martone"
+          }
+        ]
+      ],
+      "status": "candidate",
+      "relation": "shared_creative_credit_lead",
+      "question": "Confirm matching identity, track/version scope, and the meaning of each distinct creative role. This does not establish shared sessions, sampling, or identical recordings."
+    }
+  ],
+  "limitations": [
+    "Only indexed, numeric release- and track-level extraartist IDs with directly creative roles are scanned; billed track artists are not scanned.",
+    "The same named contributor does not prove two records share a recording or sample.",
+    "Role text can mix production stages; candidates require scope adjudication.",
+    "This is a source-observation review queue, not a web validation or map projection."
+  ]
+}

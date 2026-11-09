@@ -256,6 +256,62 @@
       ],
       "identity_reviewed": false,
       "scope_reviewed": false
+    },
+    {
+      "id": "intake04-shadow-cutchemist",
+      "relation": "shared_contributor",
+      "status": "candidate",
+      "endpoints": [
+        {
+          "kind": "owned_release",
+          "release_id": "118630",
+          "role": "performer"
+        },
+        {
+          "kind": "owned_release",
+          "release_id": "26118410",
+          "role": "remixer"
+        }
+      ],
+      "track_scope": "Brainfreeze (2001 owned LP), sides A and B: DJ mix by DJ Shadow and Cut Chemist; Number Song / Painkiller (owned edition 26118410), side A: Cut Chemist remix of The Number Song; side B is DJ Shadow remix of Depeche Mode, not the same track.",
+      "question": "Verify whether the portion of Brainfreeze reported as The Number Song uses this exact Cut Chemist mix and locate it in the owned LP; shared contributors alone do not establish identical recording or playback segment.",
+      "source_ids": [],
+      "source_urls": [
+        "https://api.discogs.com/releases/118630",
+        "https://api.discogs.com/releases/26118410",
+        "https://cutchemist.bandcamp.com/album/brainfreeze-remastered",
+        "https://djshadow.com/products/dj-shadow-the-number-song-cut-chemist-remix-7-vinyl",
+        "https://www.miaminewtimes.com/music/cut-chemist-and-dj-shadow-6357732/"
+      ],
+      "identity_reviewed": false,
+      "scope_reviewed": false
+    },
+    {
+      "id": "intake04-brown-kendrick-payback",
+      "relation": "shared_contributor",
+      "status": "candidate",
+      "endpoints": [
+        {
+          "kind": "owned_release",
+          "release_id": "205935",
+          "role": "producer"
+        },
+        {
+          "kind": "owned_release",
+          "release_id": "7568442",
+          "role": "composer"
+        }
+      ],
+      "track_scope": "Owned James Brown The Payback Mix 12-inch versus King Kunta, A3 of the owned To Pimp A Butterfly; Kendrick release credits Brown and Fred Wesley as writers of The Payback. The 1988 mix is a later production: exact component sources and version identity require review.",
+      "question": "Determine whether and where the 12-inch mix uses the same musical material as the element of The Payback credited on King Kunta; distinguish an interpolation from a sampled recording and a mix from the original recording.",
+      "source_ids": [],
+      "source_urls": [
+        "https://api.discogs.com/releases/205935",
+        "https://api.discogs.com/releases/7568442",
+        "https://musicbrainz.org/release/57695e2b-df9b-44d4-84a4-1851a9cfceac"
+      ],
+      "identity_reviewed": false,
+      "scope_reviewed": false
     }
   ]
 }

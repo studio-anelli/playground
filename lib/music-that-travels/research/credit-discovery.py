@@ -12,16 +12,17 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OBSERVATIONS = ('research-discogs.json', 'research-discogs-02.json',
-                'research-discogs-03.json', 'research-discogs-connections-03.json')
+                'research-discogs-03.json', 'research-discogs-connections-03.json',
+                'research-discogs-04.json')
 MUSIC_ROLE = re.compile(
     r'\b(vocals?|singing|drums?|guitar|bass|piano|keyboard|keyboards|trumpet|'
     r'saxophone|sax|flute|clarinet|tuba|percussion|synthesizer|organ|violin|'
     r'cello|producer|production|arranged|composer|composed|written|'
-    r'music by|lyrics|performer|conga|sitar|choir|horn|reed)\b', re.I)
+    r'music by|lyrics|performer|conga|sitar|choir|horn|reed|remix(?:ed|er)?|dj mix)\b', re.I)
 NOT_MUSICAL_RECORDING = re.compile(
     r'lacquer|master(?:ed|ing)|remaster|cover art|artwork|photograph|layout|'
     r'design|illustrat|liner notes|transfer|restoration|product manager|'
-    r'legal|licens|booklet|proofread|printing|executive[- ]producer|'
+    r'legal|licens|booklet|proofread|printing|executive[- ]producer|reissue[- ]producer|'
     r'engineer \[vinyl digitalization', re.I)
 # Executive producer is excluded here because this pass looks for directly
 # credited creative work, not business oversight; those links can be reviewed
@@ -30,6 +31,17 @@ NOT_MUSICAL_RECORDING = re.compile(
 
 def read(path):
     return json.loads(Path(path).read_text(encoding='utf-8'))
+
+
+def track_credits(tracklist, parents=()):
+    """Yield track-local credits with their exact printed position and ancestry."""
+    for track in tracklist:
+        scope = {'position': track.get('position') or '',
+                 'title': track.get('title') or ''}
+        path = (*parents, scope)
+        for credit in track.get('extraartists', []):
+            yield credit, path
+        yield from track_credits(track.get('sub_tracks', []), path)
 
 
 def scan(collection, ledger, datasets):
@@ -58,14 +70,18 @@ def scan(collection, ledger, datasets):
             if rid not in owned:
                 continue
             observed.add(rid)
-            for credit in item['data'].get('extraartists', []):
+            source_credits = [(credit, ()) for credit in item['data'].get('extraartists', [])]
+            source_credits.extend(track_credits(item['data'].get('tracklist', [])))
+            for credit, track_path in source_credits:
                 aid, role = str(credit.get('id', '')), str(credit.get('role') or '')
-                if not aid.isdigit() or int(aid) < 1 or (rid, aid) in exclusions:
+                if not aid.isdigit() or int(aid) < 1 or aid in {'194', '355', '118760'} or (rid, aid) in exclusions:
                     continue
                 if not MUSIC_ROLE.search(role) or NOT_MUSICAL_RECORDING.search(role):
                     continue
                 row = {'role': role, 'tracks': credit.get('tracks') or '',
                        'name': credit.get('name') or ''}
+                if track_path:
+                    row['track_path'] = list(track_path)
                 if row not in credits[aid][rid]:
                     credits[aid][rid].append(row)
     leads = []
@@ -93,7 +109,7 @@ def scan(collection, ledger, datasets):
             'scope': 'Source releases in supplied observation files only; missing credits are unknown, not absent.'
         }, 'lead_count': len(leads), 'leads': leads,
         'limitations': [
-            'Only indexed, numeric extraartist IDs with directly creative roles are scanned.',
+            'Only indexed, numeric release- and track-level extraartist IDs with directly creative roles are scanned; billed track artists are not scanned.',
             'The same named contributor does not prove two records share a recording or sample.',
             'Role text can mix production stages; candidates require scope adjudication.',
             'This is a source-observation review queue, not a web validation or map projection.'
