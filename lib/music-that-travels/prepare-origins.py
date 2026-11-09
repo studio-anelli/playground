@@ -51,7 +51,8 @@ for key,n in by_release.items():
  for artist in n['artists']:
   for t in research['artists'].get(str(artist['id']),[]): threads.append(thread(t))
  for artist in n['artists']:
-  for t in expanded['artists'].get(str(artist['id']),[]): threads.append(thread(t))
+  for t in expanded['artists'].get(str(artist['id']),[]):
+   if key not in list(map(str,t.get('excluded_release_ids',[]))):threads.append(thread(t))
  for t in expanded['releases'].get(key,[]): threads.append(thread(t))
  for t in claims['releases'].get(key,[]): threads.append(thread(t))
  for l in recordings.get(key,{}).get('locations',[]):

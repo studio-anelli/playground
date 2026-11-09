@@ -52,7 +52,7 @@ The current visual pass uses more generous spacing, larger minimum covers, a qui
 
 ## Full-collection Geography
 
-The current map retains all 610 entries / 608 editions. Edition markets place 600 entries (598 editions); 10 stay unplaced. `origin-collection.json` applies reviewed artist IDs and explicit compilation overrides across the full snapshot, retaining the pilot’s curated associations. With typed recording and repertoire evidence included, this now covers 314 entries / 312 editions through 545 threads. The remaining 296 entries are available in the music unplaced tray, and their panels still show edition metadata. Missing collaborators are labelled rather than assigned another artist’s location. No country, studio or genre is inferred as an artist origin. Chromatic remains its separate 100-record trial.
+The current map retains all 610 entries / 608 editions. Edition markets place 600 entries (598 editions); 10 stay unplaced. `origin-collection.json` applies reviewed artist IDs and explicit compilation overrides across the full snapshot, retaining the pilot’s curated associations. With typed recording and repertoire evidence included, this now covers 329 entries / 327 editions through 577 threads. The remaining 281 entries are available in the music unplaced tray, and their panels still show edition metadata. Missing collaborators are labelled rather than assigned another artist’s location. No country, studio or genre is inferred as an artist origin. Chromatic remains its separate 100-record trial.
 
 Cultural thread fields retain the relation verb, subject, place precision, source, optional period and explanatory note. Overview anchors do not collapse or erase other connections. Artist connections may apply across releases; repertoire and recording claims are release-specific. Altın Gün and Sun Ra demonstrate these distinctions, while the same schema also carries the existing compilation and recording evidence throughout the collection.
 
@@ -70,3 +70,12 @@ This iteration adds 55 accepted claims and rechecks existing evidence for six ho
 `source/research-ledger.json` distinguishes reads, harvested-only resources, indexed excerpts and unavailable sources. Its review journal, question outcomes and exception queue remain outside `/api/geography`. The lean display preserves notes, sources, coverage and track positions; no research calls run on page load. The filter says “Not yet documented” because missing research does not establish absent history.
 
 See `research/README.md` for the reproducible commands and `research/REPORT-02.md` for all cases and measurements. Metadata collection took 8 min 19 s for 164 resources; human review time was not instrumented and no full-collection throughput is claimed. The method remains agent-assisted and has not yet been tested on a wholly independent full collection.
+
+
+## Context and collection connections (method 0.3)
+
+A further frozen 50-edition cohort tests five provisional contexts with ten editions each. It finds useful musical context for 43 releases and retains seven follow-up cases. Four additional version/identity checks do not inflate that count. Four documented contributor bridges link owned records: Kendrick/Clinton, Ron Trent/A Band Called Flash, Giusto Pio across Battiato albums, and De Fazio/Martone across Nu Guinea/Nu Genea albums.
+
+Fourteen selected editions and one other owned edition gain geography; all 545 thread instances from method 0.2 remain unchanged. The map now has 329 copies / 327 editions, 577 geographic threads, and separate non-geographic context notes. A namesake exception quarantines the Mancini & The Creepers LP from the incorrectly linked Paris producer. Only three editions close every source route; unavailable/undiscovered source routes remain explicit despite useful narrow findings.
+
+The planner retains format and provenance, without inferring fame from an absent master or calling every 12-inch an EP. See `research/REPORT-03.md` for the cohort, reclassifications, failed hypotheses and timing limits. The ledger and full audit stay outside the runtime; shared display evidence reduces the geography payload to 682,284 bytes while preserving sources and track scope.

@@ -34,6 +34,21 @@ def geography_record(key,value):
   'unlocated_artists':value.get('unlocated_artists',[])}
 geo_origins={'schema_version':origins['schema_version'],'records':{key:geography_record(key,value) for key,value in origins['records'].items()}}
 geo_data={'entries':geo_entries,'release_details':{k:{'country':v.get('country')} for k,v in data['release_details'].items()},'origins':geo_origins,'countries':json.loads((root/'source/countries.json').read_text()),'thumbnail_atlas':json.loads((root/'source/thumbnail-atlas.json').read_text())['records']}
+# Identical artist evidence is shared across editions on the wire, then hydrated once.
+# Distinct supporting evidence/scope produces a distinct key; nothing is discarded.
+from collections import Counter
+encode=lambda value:json.dumps(value,ensure_ascii=False,separators=(',',':'))
+frequency=Counter(encode(t) for row in geo_origins['records'].values() for t in row['threads'])
+shared={value:'t'+str(i) for i,(value,count) in enumerate(sorted(frequency.items())) if count>1}
+geo_data['shared_threads']={key:json.loads(value) for value,key in shared.items()}
+for row in geo_origins['records'].values():
+ row['threads']=[shared.get(encode(t),t) for t in row['threads']]
+ledger=json.loads((root/'source/research-ledger.json').read_text())
+def context_source(finding):
+ sources=[ledger['sources'][sid] for sid in finding['source_ids'] if ledger['sources'][sid].get('retrieval')=='read']
+ return next((s['url'] for s in sources if s['type']!='discogs'),sources[0]['url'])
+geo_data['research_contexts']={f['release_id']:{'summary':f['summary'],'scope':f['scope'],'source':context_source(f)} for f in ledger.get('findings',[]) if f.get('decision')=='accepted' and f.get('musical_value')!='version_scope'}
+geo_data['collection_connections']=[{'release_ids':[e['release_id'] for e in c['endpoints']],'subject':c['subject'].split(' / Discogs')[0],'summary':c['summary'],'source':ledger['sources'][c['source_ids'][0]]['url']} for c in ledger.get('connections',[]) if c.get('decision')=='accepted' and all(any(str(n['id'])==str(e['release_id']) for n in data['entries']) for e in c['endpoints'])]
 geo_json=json.dumps(geo_data,ensure_ascii=False,separators=(',',':'))
 geo_version=hashlib.sha256(geo_json.encode()).hexdigest()[:16]
 geo_html=(root/'source/geography.html').read_text().replace('__GEOGRAPHY_VERSION__',geo_version)

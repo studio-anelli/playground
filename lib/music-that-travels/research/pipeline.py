@@ -32,7 +32,8 @@ def index(collection):
         if rid not in releases:
             releases[rid] = {'title': row['title'], 'artists': row['artists'],
                              'master_id': row.get('master_id', 0), 'copies': [],
-                             'labels': row.get('labels', []), 'genres': row.get('genres', [])}
+                             'labels': row.get('labels', []), 'genres': row.get('genres', []),
+                             'formats': row.get('formats', []), 'styles': row.get('styles', [])}
         releases[rid]['copies'].append(row['instance_id'])
         mid = str(row.get('master_id', 0))
         if mid != '0':
@@ -48,6 +49,8 @@ def index(collection):
 
 
 def applicable(claim, release, rid):
+    if str(rid) in list(map(str, claim.get('excluded_release_ids', []))):
+        return False
     scope = claim['entity']
     if scope['type'] == 'artist':
         return any(str(a['id']) == str(scope['id']) for a in release['artists'])
@@ -59,6 +62,13 @@ def validate(ledger):
     """Fail closed: reviewed identity and direct evidence are required for projection."""
     errors = []
     sources = ledger.get('sources', {})
+    def reviewed_source(sid):
+        source = sources.get(sid, {})
+        url = urlparse(source.get('url', ''))
+        return (source.get('retrieval') == 'read' and source.get('checked_at')
+                and source.get('title') and source.get('publisher')
+                and source.get('type') in {'discogs', 'official', 'archive', 'interview', 'publication'}
+                and url.scheme == 'https' and bool(url.netloc))
     ids = set()
     for claim in ledger.get('claims', []):
         cid = claim.get('id', '<missing>')
@@ -120,8 +130,53 @@ def validate(ledger):
             errors.append('attempt: reviewed source IDs required')
         if any(s not in sources for s in attempt.get('source_ids', [])):
             errors.append('attempt: source ID not found')
-        if ledger.get('method_version') == '0.2' and attempt.get('outcome') == 'not_applicable' and not attempt.get('source_ids'):
+        if ledger.get('method_version') in {'0.2', '0.3'} and attempt.get('outcome') == 'not_applicable' and not attempt.get('source_ids'):
             errors.append('attempt: a closed route needs cited evidence and a specific reason')
+    findings = {}
+    for finding in ledger.get('findings', []):
+        fid = finding.get('id')
+        if not fid or fid in findings:
+            errors.append('finding: unique ID required')
+        findings[fid] = finding
+        if finding.get('decision') != 'accepted':
+            continue
+        if (not str(finding.get('release_id', '')).isdigit() or not finding.get('summary')
+                or not finding.get('scope') or not finding.get('identity_basis') or not finding.get('checked_at')
+                or finding.get('musical_value') not in {'formation', 'scene', 'training', 'career', 'session', 'tradition', 'production', 'repertoire', 'version_scope'}):
+            errors.append('finding: reviewed release, musical value and scope required')
+        if not finding.get('source_ids') or any(not reviewed_source(s) for s in finding.get('source_ids', [])):
+            errors.append('finding: dated read evidence required')
+    for exception in ledger.get('identity_exceptions', []):
+        if not exception.get('release_id') or not exception.get('excluded_artist_ids') or not exception.get('reason') or not exception.get('source_ids'):
+            errors.append('identity exception: release, excluded identities and evidence required')
+        if any(not reviewed_source(s) for s in exception.get('source_ids', [])):
+            errors.append('identity exception: dated read sources required')
+        rid = str(exception.get('release_id'))
+        for claim in ledger.get('claims', []):
+            if claim.get('decision') == 'accepted' and claim.get('entity', {}).get('type') == 'artist' and str(claim['entity']['id']) in exception.get('excluded_artist_ids', []):
+                if rid not in list(map(str, claim.get('excluded_release_ids', []))):
+                    errors.append('identity exception: artist-wide claim must exclude the disputed release')
+    connection_ids = set()
+    for connection in ledger.get('connections', []):
+        cid = connection.get('id')
+        if not cid or cid in connection_ids:
+            errors.append('connection: unique ID required')
+        connection_ids.add(cid)
+        if connection.get('decision') != 'accepted':
+            continue
+        endpoints = connection.get('endpoints', [])
+        if (len(endpoints) != 2 or len({str(e.get('release_id')) for e in endpoints}) != 2
+                or any(not str(e.get('release_id', '')).isdigit() or not e.get('role') or not e.get('identity_basis') for e in endpoints)):
+            errors.append('connection: two distinct reviewed release endpoints and roles required')
+        if connection.get('relation') not in {'shared_contributor', 'shared_session', 'documented_sample', 'shared_repertoire', 'musical_network'}:
+            errors.append('connection: explicit musical relationship required; genre/city similarity is insufficient')
+        if not all(connection.get(k) for k in ('subject', 'summary', 'scope', 'checked_at')):
+            errors.append('connection: subject, summary, scope and review date required')
+        if not connection.get('source_ids') or any(not reviewed_source(s) for s in connection.get('source_ids', [])):
+            errors.append('connection: dated read evidence required')
+        for endpoint in endpoints:
+            if not endpoint.get('source_ids') or any(s not in connection.get('source_ids', []) or sources.get(s, {}).get('retrieval') != 'read' for s in endpoint.get('source_ids', [])):
+                errors.append('connection: each endpoint needs its own cited role evidence')
     claims_by_id = {c['id']: c for c in ledger.get('claims', [])}
     reviewed = set()
     for review in ledger.get('reviews', []):
@@ -135,6 +190,10 @@ def validate(ledger):
             errors.append('review: identity, scope, sources, stop reason and date required')
         if any(s not in sources for s in review.get('source_ids', [])):
             errors.append('review: unknown source')
+        if any(findings.get(fid, {}).get('decision') != 'accepted' or str(findings[fid].get('release_id')) != rid for fid in review.get('finding_ids', []) + review.get('scope_finding_ids', [])):
+            errors.append('review: finding must be accepted and apply to this edition')
+        if any(findings.get(fid, {}).get('musical_value') == 'version_scope' for fid in review.get('finding_ids', [])):
+            errors.append('review: version checks alone are not meaningful musical context')
         context = [claims_by_id.get(cid, {}) for cid in review.get('meaningful_claim_ids', [])]
         if any(c.get('decision') != 'accepted' or c.get('musical_value') not in
                {'formation', 'scene', 'training', 'career', 'session', 'tradition'} for c in context):
@@ -181,11 +240,42 @@ def threads(ledger):
         t['source'] = ledger['sources'][c['source_ids'][0]]['url']
         t['research_claim_id'] = c['id']
         t['research_source_ids'] = c['source_ids']
+        if c.get('excluded_release_ids'):
+            t['excluded_release_ids'] = c['excluded_release_ids']
         bucket = artists if c['entity']['type'] == 'artist' else releases
         for eid in [str(c['entity']['id'])] + [str(x) for x in c.get('reviewed_release_ids', [])]:
             bucket.setdefault(eid, []).append(t)
     return {'schema_version': 1, 'criteria': 'Reviewed explicit evidence; full provenance in research-ledger.json.',
             'artists': artists, 'releases': releases}
+
+
+def connections(collection, ledger):
+    """Only export a reviewed relationship when both endpoint editions are owned."""
+    owned = set(index(collection)[1])
+    return [c for c in ledger.get('connections', []) if c.get('decision') == 'accepted'
+            and all(str(e['release_id']) in owned for e in c['endpoints'])]
+
+
+def research_route(release):
+    """Format and provenance guide questions, never an inferred popularity rank."""
+    descriptions = {d.lower() for f in release.get('formats', []) for d in f.get('descriptions', [])}
+    questions = ['Verify exact credited identities and roles; exclude namesakes.',
+                 'Keep artist career, musical references, edition market and sessions separate.',
+                 'Look for a documented contributor, repertoire or production connection to another owned edition.']
+    if not release.get('master_id'):
+        questions.append('No master linked: inspect catalogue, version and credited roles before any sibling transfer.')
+    if 'mixed' in descriptions:
+        questions.append('Separate the DJ/curator from the individual recordings and their producers.')
+    if 'unofficial release' in descriptions:
+        questions.append('Separate the underlying recording from unverified pressing or transfer provenance.')
+    if 'compilation' in descriptions:
+        questions.append('Review original recordings and track-specific dates; do not assign one session to the anthology.')
+    if any('remix' in s.lower() for s in [release.get('title', '')] + release.get('styles', [])):
+        questions.append('Keep original artists and each remixer separate; verify which versions the owned disc contains.')
+    return {'format_descriptions': sorted(descriptions),
+            'context_status': 'requires_context_review',
+            'policy': 'A 12-inch is not automatically an EP; no-master is not an obscurity or confidence score.',
+            'questions': questions}
 
 
 def report(collection, ledger, batch=None):
@@ -212,11 +302,21 @@ def report(collection, ledger, batch=None):
         rows.append({'release_id': rid, 'title': release['title'], 'copy_count': len(release['copies']),
                      'claim_ids': claims, 'evidence_status': 'documented' if claims else 'not_yet_documented',
                      'research_status': status,
-                     'meaningful_context': bool(review and (review.get('meaningful_claim_ids') or review.get('reused_thread_ids'))),
+                     'meaningful_context': bool(review and (review.get('meaningful_claim_ids') or review.get('reused_thread_ids') or review.get('finding_ids'))),
                      'review': review, 'stages': stages, 'gaps': gaps, 'open_questions': questions})
     selected = set(map(str, (batch or {}).get('release_ids', [])))
     batch_rows = [r for r in rows if r['release_id'] in selected]
+    context_counts = {}
+    for row in batch_rows:
+        context = (batch or {}).get('assignments', {}).get(row['release_id'], {}).get('research_context')
+        if context:
+            group = context_counts.setdefault(context, {'selected': 0, 'meaningful_context': 0, 'needs_followup': 0, 'reused_reviews': 0})
+            group['selected'] += 1
+            group['meaningful_context'] += int(row['meaningful_context'])
+            group['needs_followup'] += int(row['research_status'] == 'needs_followup')
+            group['reused_reviews'] += int(bool((row['review'] or {}).get('reused_thread_ids') or (row['review'] or {}).get('reused_claim_ids')))
     return {'schema_version': 1, 'collection_fingerprint': digest(collection['entries']),
+            'contexts': context_counts, 'connections': connections(collection, ledger),
             'counts': {'copies': len(collection['entries']), 'editions': len(releases),
                        'artists': len(artists), 'masters': len(masters),
                        'editions_with_new_evidence': sum(bool(r['claim_ids']) for r in rows),
@@ -240,6 +340,7 @@ def plan(collection, ledger):
                 c.get('decision') == 'accepted' and c['entity'] == {'type': 'artist', 'id': aid}
                 for c in ledger.get('claims', []))} for aid, a in artists.items()],
             'releases': [{'entity': 'release:'+rid, **r,
+                          'research_route': research_route(r),
                           'priority': len(r['copies']) + sum(len(artists.get(str(a['id']), {}).get('releases', [])) for a in r['artists']),
                           'discogs': {'release': f'https://api.discogs.com/releases/{rid}',
                                       'master': f'https://api.discogs.com/masters/{r["master_id"]}' if r['master_id'] else None},

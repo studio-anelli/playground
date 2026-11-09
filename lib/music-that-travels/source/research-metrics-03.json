@@ -1,0 +1,104 @@
+{
+  "method_version": "0.3",
+  "cohort": {
+    "selected": 50,
+    "found": 50,
+    "documented": 26,
+    "checks_complete": 3,
+    "source_routes_accounted": 50,
+    "bounded_reviews_complete": 43,
+    "meaningful_context": 43,
+    "with_limits": 50
+  },
+  "contexts": {
+    "established_scene_short_release": {
+      "selected": 10,
+      "meaningful_context": 9,
+      "needs_followup": 1,
+      "reused_reviews": 1,
+      "previously_placed": 9,
+      "newly_placed": 1
+    },
+    "obscure_or_ambiguous": {
+      "selected": 10,
+      "meaningful_context": 8,
+      "needs_followup": 2,
+      "reused_reviews": 0,
+      "previously_placed": 0,
+      "newly_placed": 4
+    },
+    "underground_network": {
+      "selected": 10,
+      "meaningful_context": 8,
+      "needs_followup": 2,
+      "reused_reviews": 0,
+      "previously_placed": 2,
+      "newly_placed": 4
+    },
+    "established_album": {
+      "selected": 10,
+      "meaningful_context": 9,
+      "needs_followup": 1,
+      "reused_reviews": 3,
+      "previously_placed": 10,
+      "newly_placed": 0
+    },
+    "less_documented_album": {
+      "selected": 10,
+      "meaningful_context": 9,
+      "needs_followup": 1,
+      "reused_reviews": 0,
+      "previously_placed": 2,
+      "newly_placed": 5
+    }
+  },
+  "collection": {
+    "copies": 610,
+    "editions": 608,
+    "located_copies": 329,
+    "located_editions": 327,
+    "geographic_threads": 577,
+    "newly_placed_batch_editions": 14,
+    "additional_editions_benefiting_from_artist_reuse": [
+      "12447146"
+    ],
+    "prior_thread_instances_preserved": 545,
+    "geographic_claims_added": 27
+  },
+  "research": {
+    "accepted_musical_context_findings": 43,
+    "version_scope_checks_only": 4,
+    "accepted_collection_connections": 4,
+    "rejected_connection_hypotheses": 2,
+    "read_sources_added": 220,
+    "unavailable_sources_added": 10,
+    "source_types": {
+      "official": 34,
+      "interview": 8,
+      "publication": 6,
+      "archive": 8,
+      "discogs": 174
+    }
+  },
+  "discogs_collection": {
+    "started_at": "2026-11-09T09:33:04.648710+00:00",
+    "finished_at": "2026-11-09T09:41:36.753062+00:00",
+    "wall_seconds": 512.104,
+    "unique_resources": 170,
+    "cache_hits": 3,
+    "retrieved": 170,
+    "unavailable": 0
+  },
+  "runtime": {
+    "geography_bytes": 682284,
+    "prior_geography_bytes": 694399,
+    "unshared_current_bytes_before_contexts": 711001,
+    "shared_evidence_transport": true
+  },
+  "comparison_limitations": [
+    "The prior holdout and this stratified same-collection batch have different selection and context criteria; equal 43/50 yields do not establish a speed or quality improvement.",
+    "Only three editions have every source route closed. Other unavailable or undiscovered routes remain visible, even where a bounded context finding is useful.",
+    "Review timing is partial and includes tool latency and some implementation; no total review-cost, per-route efficiency or full-collection throughput is claimed.",
+    "No remaining explicitly Blues-tagged albums were available in the unreviewed established-album pool; earlier reviewed blues records were not repeated."
+  ]
+}

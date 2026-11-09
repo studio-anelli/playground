@@ -1,4 +1,4 @@
-# Collection research method, version 0.2
+# Collection research method, version 0.3
 
 One collection intake produces a reusable evidence catalogue, geographic threads and an audit. The research is currently agent-assisted: these scripts organise source collection, validation and projection, but do not independently browse the web or adjudicate musical history. A new collection can be planned with the same interface; a fully unattended one-pass import has not been demonstrated.
 
@@ -17,7 +17,7 @@ One collection intake produces a reusable evidence catalogue, geographic threads
 4. **Adjudicate:** record the relationship, subject, place precision, period, claim scope and supporting source. Separate direct evidence from interpretation. Keep conflicting claims unpublished until resolved. Do not infer a birthplace, recording address or cultural lineage from nationality or genre.
 5. **Audit:** record each source route and its outcome, with a question-specific stopping reason. A decisive first-party or institutional source can close a narrow route without visiting another archive; cite that evidence. A failed or unavailable lead stays visible. One corroborated relationship does not establish a complete musical history.
 
-The frozen policy is `method-02.json`. `complete_with_limits` means a bounded review has stopped with recorded unknowns, not that all facts are known. Report source-route coverage, meaningful-context yield, reused evidence and unresolved scope separately. Generic profile place tags fail the stronger musical-context minimum.
+The earlier frozen policy is `method-02.json`; the third cohort adds `method-03.json`. `complete_with_limits` means a bounded review has stopped with recorded unknowns, not that all facts are known. Report source-route coverage, meaningful-context yield, reused evidence and unresolved scope separately. Generic profile place tags fail the stronger musical-context minimum.
 
 Batch 01's ten deeper questions were revisited: two closed at city-level context and eight retain explicit limits. The deterministic holdout selects 25 placed and 25 unplaced editions before research. It supports meaningful context for 43/50, places 21 previously unplaced editions, and leaves seven below the context threshold. See `REPORT-02.md` and `source/research-metrics-02.json` for measured results, every case and remaining limits. `REPORT-01.md` is the historical method-0.1 snapshot.
 
@@ -61,4 +61,32 @@ All pipeline commands accept `--collection` and `--ledger`; audit accepts `--bat
 - Cost: unique resources retrieved, cache reuse and collection timestamps. Batch 01 includes 82 unique Discogs observations; human review time was not instrumented and is not estimated.
 - Quality: every old claim retained, with any reviewed scope correction preserving its original fingerprint and an explicit reason; no implicit sibling transfer; no invented city for a regional source; no bonus-track coverage inferred from an original album; unavailable sources and unresolved conflicts remain visible.
 
-Next validate an independent collection and instrument active source-review time. Source collection took 499.086 seconds for the 164-resource holdout, but this is not a total research-time benchmark. The method remains agent-assisted; a fully unattended complete-collection pass has not been demonstrated. Explicit sample/cover links between recordings still need a dedicated evidence model. See `REPORT-02.md` for the rollout limits.
+Next validate an independent collection and instrument active source-review time. Source collection took 499.086 seconds for the 164-resource holdout, but this is not a total research-time benchmark. The method remains agent-assisted; a fully unattended complete-collection pass has not been demonstrated. Reviewed contributor connections now have a dedicated evidence model; sample/cover links require their own explicit source proof and are not inferred from shared genre or artist. See `REPORT-03.md` for current rollout limits.
+
+## Context-aware third batch
+
+`method-03.json` and `source/research-batch-03.json` freeze ten editions in each of five provisional research contexts before collection. Pools and ranking scores are preserved. Familiarity and obscurity remain review hypotheses; formats, source quality and geographic precision are separate dimensions. No-master metadata must not become a popularity score. The planner now retains formats/styles and emits format/provenance questions for mixed recordings, unofficial pressings, anthologies and remixes; context still needs adjudication.
+
+The third cohort yields 43 useful musical contexts, seven follow-up cases and four contributor connections. Four other version checks are retained without inflating context yield. Fourteen selected editions and one additional edition gain geography. The complete map has 329 copies / 327 editions and 577 geographic threads. All 545 prior thread instances are unchanged. Only three editions have every source route closed: useful bounded findings do not close unavailable archive or official routes. See `REPORT-03.md` and `source/research-metrics-03.json`.
+
+The ledger adds:
+
+- `findings`: non-geographic musical context or separately labelled `version_scope` checks, with exact release, identity basis, scope and read sources. A map location is never required to retain a useful finding.
+- `identity_exceptions`: release-specific exclusions from apparently stable artist IDs. Mancini & The Creepers must not reuse the unrelated Paris producer's identity.
+- `connections`: accepted/rejected relationships between two exact owned editions, supported roles for both endpoints and source reads. `connections(collection, ledger)` excludes links when either edition is absent from a different collection.
+- Per-review context qualifications and evidence reuse. Initial context assignments are never rewritten after seeing results.
+
+`source/research-context-intake.json` exercises all fifty independently of the full collection. `source/research-discogs-03.json` holds 170 structured observations; `research-discogs-connections-03.json` records four additional owned endpoints, including a single with insufficient credits for an edge. `research-review-sessions-03.json` contains partial measured windows and their instrumentation limits. No total research-time or category-efficiency claim is supported yet.
+
+The detail panel shows sourced “About this record” context and “In your collection” contributor bridges. `/api/geography` sends identical display threads once in `shared_threads`; a record's `threads` may contain an object or a shared key. `hydrateGeography` resolves keys once on load and fails on a missing key. Sources, notes, supporting claims and partial track scope survive. The payload is 682,284 bytes, below the earlier 694,399 bytes and unchanged 700,000-byte budget.
+
+Validation:
+
+```sh
+python lib/music-that-travels/research/pipeline.py audit --collection lib/music-that-travels/source/research-context-intake.json --batch lib/music-that-travels/source/research-batch-03.json --output lib/music-that-travels/source/research-audit-03.json
+python lib/music-that-travels/tests/research-contexts.py
+# From lib/music-that-travels:
+node tests/research-display.mjs
+```
+
+Next test a wholly independent collection using the same identity, role and scope contracts. Instrument source-reading intervals separately from implementation from the start, and retain unresolved cases rather than stretching facts to achieve full placement.

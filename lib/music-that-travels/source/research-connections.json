@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "criteria": "Only exact owned endpoints with explicit contributor evidence; similarity is not proof.",
+  "connections": [
+    {
+      "id": "p3-kendrick-clinton",
+      "decision": "accepted",
+      "relation": "shared_contributor",
+      "subject": "George Clinton / Discogs 29262",
+      "endpoints": [
+        {
+          "release_id": "7568442",
+          "role": "Featured contributor on Wesley’s Theory (A1)",
+          "identity_basis": "Exact owned release ID and named artist/contributor role reviewed.",
+          "source_ids": [
+            "p3-discogs-releases-7568442"
+          ]
+        },
+        {
+          "release_id": "1042849",
+          "role": "Billed lead artist",
+          "identity_basis": "Exact owned release ID and named artist/contributor role reviewed.",
+          "source_ids": [
+            "p3-discogs-releases-1042849"
+          ]
+        }
+      ],
+      "summary": "George Clinton appears on Kendrick’s Wesley’s Theory and leads the owned Do Fries Go With That Shake release. The latter recording is not claimed as the sampled source.",
+      "scope": "A documented contributor bridge, not identical recordings, a sample of the other owned record, or a shared session.",
+      "source_ids": [
+        "p3-kendrick-oral",
+        "p3-discogs-releases-7568442",
+        "p2-george-history",
+        "p3-discogs-releases-1042849"
+      ],
+      "checked_at": "2026-11-09T09:50:12.014991+00:00"
+    },
+    {
+      "id": "p3-trent-flash",
+      "decision": "accepted",
+      "relation": "shared_contributor",
+      "subject": "Ron Trent / Discogs 693",
+      "endpoints": [
+        {
+          "release_id": "9118974",
+          "role": "Composer and producer",
+          "identity_basis": "Exact owned release ID and named artist/contributor role reviewed.",
+          "source_ids": [
+            "p3-discogs-releases-9118974"
+          ]
+        },
+        {
+          "release_id": "8926196",
+          "role": "Executive producer",
+          "identity_basis": "Exact owned release ID and named artist/contributor role reviewed.",
+          "source_ids": [
+            "p3-discogs-releases-8926196"
+          ]
+        }
+      ],
+      "summary": "Ron Trent writes/produces Humans Drums & Machines and is executive producer on ABCF; Jared Hines remains ABCF’s credited producer.",
+      "scope": "A documented contributor bridge, not identical recordings, a sample of the other owned record, or a shared session.",
+      "source_ids": [
+        "p3-discogs-releases-9118974",
+        "p3-discogs-releases-8926196"
+      ],
+      "checked_at": "2026-11-09T09:50:12.014991+00:00"
+    },
+    {
+      "id": "p3-battiato-pio",
+      "decision": "accepted",
+      "relation": "shared_contributor",
+      "subject": "Giusto Pio",
+      "endpoints": [
+        {
+          "release_id": "1358351",
+          "role": "Arrangement and violin",
+          "identity_basis": "Exact owned release and same stable contributor ID reviewed.",
+          "source_ids": [
+            "p3-discogs-releases-1358351"
+          ]
+        },
+        {
+          "release_id": "985747",
+          "role": "Arrangement and direction",
+          "identity_basis": "Exact owned release and same stable contributor ID reviewed.",
+          "source_ids": [
+            "p3-discogs-releases-985747"
+          ]
+        }
+      ],
+      "source_ids": [
+        "p3-discogs-releases-1358351",
+        "p3-discogs-releases-985747"
+      ],
+      "checked_at": "2026-11-09T09:53:24.877765+00:00",
+      "summary": "Giusto Pio’s arrangements connect L’Arca Di Noè and La Voce del Padrone; the albums remain distinct recording sessions.",
+      "scope": "Only the documented contributor roles; neither shared sessions nor identical recordings are inferred."
+    },
+    {
+      "id": "p3-nugenea-musicians",
+      "decision": "accepted",
+      "relation": "shared_contributor",
+      "subject": "Andrea De Fazio and Fabiana Martone",
+      "endpoints": [
+        {
+          "release_id": "12097296",
+          "role": "Drums and lead vocals (specified tracks)",
+          "identity_basis": "Exact owned release and same stable contributor ID reviewed.",
+          "source_ids": [
+            "p3-discogs-releases-12097296"
+          ]
+        },
+        {
+          "release_id": "23192537",
+          "role": "Drums and vocals",
+          "identity_basis": "Exact owned release and same stable contributor ID reviewed.",
+          "source_ids": [
+            "p3-discogs-releases-23192537"
+          ]
+        }
+      ],
+      "source_ids": [
+        "p3-discogs-releases-12097296",
+        "p3-discogs-releases-23192537"
+      ],
+      "checked_at": "2026-11-09T09:53:24.877765+00:00",
+      "summary": "Nuova Napoli and Bar Mediterraneo credit Andrea De Fazio and Fabiana Martone. The shared musicians form a specific bridge across the Nu Guinea/Nu Genea name change.",
+      "scope": "Only the documented contributor roles; neither shared sessions nor identical recordings are inferred."
+    }
+  ]
+}

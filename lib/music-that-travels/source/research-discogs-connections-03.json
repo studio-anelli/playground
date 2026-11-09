@@ -1,0 +1,957 @@
+{
+  "schema_version": 1,
+  "purpose": "Additional owned endpoints reviewed for contributor connections; the empty-credit Hancock single yields no accepted edge.",
+  "observations": {
+    "releases:985747": {
+      "url": "https://api.discogs.com/releases/985747",
+      "checked_at": "2026-11-09T09:51:47.193765+00:00",
+      "status": "retrieved",
+      "sha256": "e9da01e2af581fb23cab8ec5b064b4711bac0dbf8993cfec12818ef02039776c",
+      "data": {
+        "id": 985747,
+        "year": 1981,
+        "artists": [
+          {
+            "name": "Franco Battiato",
+            "anv": "",
+            "join": "",
+            "role": "",
+            "tracks": "",
+            "id": 114390,
+            "resource_url": "https://api.discogs.com/artists/114390",
+            "thumbnail_url": "https://i.discogs.com/lkpyBX5w3fYmNZ41xd79FEpHypsGmG8Ncgzdnk0qUD4/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTExNDM5/MC0xNTQ0Mzg5NDQx/LTQxNDkuanBlZw.jpeg"
+          }
+        ],
+        "labels": [
+          {
+            "name": "EMI",
+            "catno": "3C 064-18558",
+            "entity_type": "1",
+            "entity_type_name": "Label",
+            "id": 26126,
+            "resource_url": "https://api.discogs.com/labels/26126",
+            "thumbnail_url": "https://i.discogs.com/kyUkdCkRdB9c0UbyACsewybDBqUqAVAU6ndQAp2VII4/rs:fit/g:sm/q:90/h:331/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTI2MTI2/LTEyMDY0Njg0NTEu/anBlZw.jpeg"
+          }
+        ],
+        "master_id": 69189,
+        "title": "La Voce Del Padrone",
+        "tracklist": [
+          {
+            "position": "A1",
+            "type_": "track",
+            "title": "Summer On A Solitary Beach",
+            "duration": ""
+          },
+          {
+            "position": "A2",
+            "type_": "track",
+            "title": "Bandiera Bianca",
+            "duration": ""
+          },
+          {
+            "position": "A3",
+            "type_": "track",
+            "title": "Gli Uccelli",
+            "duration": ""
+          },
+          {
+            "position": "B1",
+            "type_": "track",
+            "title": "Cuccurucucù",
+            "duration": ""
+          },
+          {
+            "position": "B2",
+            "type_": "track",
+            "title": "Segnali Di Vita",
+            "duration": ""
+          },
+          {
+            "position": "B3",
+            "type_": "track",
+            "title": "Centro Di Gravità Permanente",
+            "duration": ""
+          },
+          {
+            "position": "B4",
+            "type_": "track",
+            "title": "Sentimiento Nuevo",
+            "duration": ""
+          }
+        ],
+        "extraartists": [
+          {
+            "name": "Giusto Pio",
+            "anv": "",
+            "join": "",
+            "role": "Arranged By, Directed By",
+            "tracks": "",
+            "id": 369428,
+            "resource_url": "https://api.discogs.com/artists/369428"
+          },
+          {
+            "name": "Franco Battiato",
+            "anv": "",
+            "join": "",
+            "role": "Arranged By, Vocals, Lyrics By, Music By",
+            "tracks": "",
+            "id": 114390,
+            "resource_url": "https://api.discogs.com/artists/114390"
+          },
+          {
+            "name": "Francesco Messina",
+            "anv": "",
+            "join": "",
+            "role": "Art Direction",
+            "tracks": "",
+            "id": 604262,
+            "resource_url": "https://api.discogs.com/artists/604262"
+          },
+          {
+            "name": "Paolo Donnarumma",
+            "anv": "",
+            "join": "",
+            "role": "Bass",
+            "tracks": "",
+            "id": 377011,
+            "resource_url": "https://api.discogs.com/artists/377011"
+          },
+          {
+            "name": "Madrigalisti Di Milano",
+            "anv": "",
+            "join": "",
+            "role": "Choir",
+            "tracks": "",
+            "id": 539895,
+            "resource_url": "https://api.discogs.com/artists/539895"
+          },
+          {
+            "name": "Alfredo Golino",
+            "anv": "",
+            "join": "",
+            "role": "Drums",
+            "tracks": "",
+            "id": 253543,
+            "resource_url": "https://api.discogs.com/artists/253543"
+          },
+          {
+            "name": "Enzo \"Titti\" Denna",
+            "anv": "",
+            "join": "",
+            "role": "Engineer [Sound]",
+            "tracks": "",
+            "id": 457909,
+            "resource_url": "https://api.discogs.com/artists/457909"
+          },
+          {
+            "name": "Alberto Radius",
+            "anv": "",
+            "join": "",
+            "role": "Guitar",
+            "tracks": "",
+            "id": 342427,
+            "resource_url": "https://api.discogs.com/artists/342427"
+          },
+          {
+            "name": "Filippo Destrieri",
+            "anv": "Phil Destrieri",
+            "join": "",
+            "role": "Keyboards",
+            "tracks": "",
+            "id": 443963,
+            "resource_url": "https://api.discogs.com/artists/443963"
+          },
+          {
+            "name": "Giorgio Brusatin",
+            "anv": "GB",
+            "join": "",
+            "role": "Lacquer Cut By",
+            "tracks": "",
+            "id": 1312120,
+            "resource_url": "https://api.discogs.com/artists/1312120"
+          },
+          {
+            "name": "Roberto Masotti",
+            "anv": "",
+            "join": "",
+            "role": "Photography By",
+            "tracks": "",
+            "id": 1212174,
+            "resource_url": "https://api.discogs.com/artists/1212174"
+          },
+          {
+            "name": "Angelo Carrara",
+            "anv": "",
+            "join": "",
+            "role": "Producer",
+            "tracks": "",
+            "id": 369410,
+            "resource_url": "https://api.discogs.com/artists/369410"
+          },
+          {
+            "name": "Claudio Pascoli",
+            "anv": "",
+            "join": "",
+            "role": "Saxophone",
+            "tracks": "",
+            "id": 274658,
+            "resource_url": "https://api.discogs.com/artists/274658"
+          },
+          {
+            "name": "Giorgio Brusatin",
+            "anv": "",
+            "join": "",
+            "role": "Transferred By [Transfer EMI]",
+            "tracks": "",
+            "id": 1312120,
+            "resource_url": "https://api.discogs.com/artists/1312120"
+          },
+          {
+            "name": "Donato Scolese",
+            "anv": "",
+            "join": "",
+            "role": "Vibraphone",
+            "tracks": "",
+            "id": 539896,
+            "resource_url": "https://api.discogs.com/artists/539896"
+          }
+        ]
+      },
+      "notes_sha256": "4a9b5b918fc2108e3427e0be26feff8c04aa322e16026a179e7423a87f24eb22"
+    },
+    "releases:23192537": {
+      "url": "https://api.discogs.com/releases/23192537",
+      "checked_at": "2026-11-09T09:51:56.284553+00:00",
+      "status": "retrieved",
+      "sha256": "bed69bed52ff0edbc4ff9b46d9f5d295d83b991268c0244968da77170a2273c9",
+      "data": {
+        "id": 23192537,
+        "year": 2022,
+        "artists": [
+          {
+            "name": "Nu Genea",
+            "anv": "",
+            "join": "",
+            "role": "",
+            "tracks": "",
+            "id": 10053688,
+            "resource_url": "https://api.discogs.com/artists/10053688",
+            "thumbnail_url": "https://i.discogs.com/RbDrF8ZESJ6ZRDUbpwsd9b1i4VF4-78ca1fDfacAT6Q/rs:fit/g:sm/q:90/h:399/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTEwMDUz/Njg4LTE2MzI4MjI5/MzItOTU5NC5qcGVn.jpeg"
+          }
+        ],
+        "labels": [
+          {
+            "name": "NG Records (5)",
+            "catno": "NG 05",
+            "entity_type": "1",
+            "entity_type_name": "Label",
+            "id": 1311746,
+            "resource_url": "https://api.discogs.com/labels/1311746",
+            "thumbnail_url": "https://i.discogs.com/O2-QqW2ApC6mKc0hm2G39rpZ4Klql5V5CEa12EOJDIA/rs:fit/g:sm/q:90/h:412/w:412/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTEzMTE3/NDYtMTUwMzU3MjA0/Mi02MTM0LnBuZw.jpeg"
+          },
+          {
+            "name": "NG Records (5)",
+            "catno": "NG05",
+            "entity_type": "1",
+            "entity_type_name": "Label",
+            "id": 1311746,
+            "resource_url": "https://api.discogs.com/labels/1311746",
+            "thumbnail_url": "https://i.discogs.com/O2-QqW2ApC6mKc0hm2G39rpZ4Klql5V5CEa12EOJDIA/rs:fit/g:sm/q:90/h:412/w:412/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTEzMTE3/NDYtMTUwMzU3MjA0/Mi02MTM0LnBuZw.jpeg"
+          }
+        ],
+        "master_id": 2637044,
+        "title": "Bar Mediterraneo",
+        "tracklist": [
+          {
+            "position": "A1  ",
+            "type_": "track",
+            "title": "Bar Mediterraneo",
+            "extraartists": [
+              {
+                "name": "Lucio Aquilina",
+                "anv": "L.Aquilina",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 744368,
+                "resource_url": "https://api.discogs.com/artists/744368"
+              },
+              {
+                "name": "Massimo Di Lena",
+                "anv": "M.Di Lena",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 754998,
+                "resource_url": "https://api.discogs.com/artists/754998"
+              }
+            ],
+            "duration": "3:04"
+          },
+          {
+            "position": "A2  ",
+            "type_": "track",
+            "title": "Tienaté",
+            "extraartists": [
+              {
+                "name": "Lucio Aquilina",
+                "anv": "L.Aquilina",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 744368,
+                "resource_url": "https://api.discogs.com/artists/744368"
+              },
+              {
+                "name": "Massimo Di Lena",
+                "anv": "M.Di Lena",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 754998,
+                "resource_url": "https://api.discogs.com/artists/754998"
+              }
+            ],
+            "duration": "4:40"
+          },
+          {
+            "position": "A3",
+            "type_": "track",
+            "title": "Gelbi",
+            "extraartists": [
+              {
+                "name": "Lucio Aquilina",
+                "anv": "L.Aquilina",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 744368,
+                "resource_url": "https://api.discogs.com/artists/744368"
+              },
+              {
+                "name": "Marzuk Mejiri",
+                "anv": "M.Mejri",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 563283,
+                "resource_url": "https://api.discogs.com/artists/563283"
+              },
+              {
+                "name": "Massimo Di Lena",
+                "anv": "M.Di Lena",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 754998,
+                "resource_url": "https://api.discogs.com/artists/754998"
+              }
+            ],
+            "duration": "4:01"
+          },
+          {
+            "position": "A4  ",
+            "type_": "track",
+            "title": "Marechià",
+            "extraartists": [
+              {
+                "name": "Omissam Oykul",
+                "anv": "",
+                "join": "",
+                "role": "Backing Vocals",
+                "tracks": "",
+                "id": 11585489,
+                "resource_url": "https://api.discogs.com/artists/11585489"
+              },
+              {
+                "name": "Célia Kameni",
+                "anv": "C.Kameni",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 4355864,
+                "resource_url": "https://api.discogs.com/artists/4355864"
+              },
+              {
+                "name": "Lucio Aquilina",
+                "anv": "L.Aquilina",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 744368,
+                "resource_url": "https://api.discogs.com/artists/744368"
+              },
+              {
+                "name": "Massimo Di Lena",
+                "anv": "M.Di Lena",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 754998,
+                "resource_url": "https://api.discogs.com/artists/754998"
+              }
+            ],
+            "duration": "4:25"
+          },
+          {
+            "position": "A5 ",
+            "type_": "track",
+            "title": "Straniero",
+            "extraartists": [
+              {
+                "name": "Tony Allen",
+                "anv": "",
+                "join": "",
+                "role": "Drums",
+                "tracks": "",
+                "id": 9786,
+                "resource_url": "https://api.discogs.com/artists/9786"
+              },
+              {
+                "name": "Lucio Aquilina",
+                "anv": "L.Aquilina",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 744368,
+                "resource_url": "https://api.discogs.com/artists/744368"
+              },
+              {
+                "name": "Marcello Giannini",
+                "anv": "M.Giannini",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 2219338,
+                "resource_url": "https://api.discogs.com/artists/2219338"
+              },
+              {
+                "name": "Massimo Di Lena",
+                "anv": "M.Di Lena",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 754998,
+                "resource_url": "https://api.discogs.com/artists/754998"
+              }
+            ],
+            "duration": "2:58"
+          },
+          {
+            "position": "B1  ",
+            "type_": "track",
+            "title": "Praja Magia",
+            "extraartists": [
+              {
+                "name": "Lucio Aquilina",
+                "anv": "L.Aquilina",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 744368,
+                "resource_url": "https://api.discogs.com/artists/744368"
+              },
+              {
+                "name": "Massimo Di Lena",
+                "anv": "M.Di Lena",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 754998,
+                "resource_url": "https://api.discogs.com/artists/754998"
+              },
+              {
+                "name": "Saverio Sodano",
+                "anv": "S.Sodano",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 11585480,
+                "resource_url": "https://api.discogs.com/artists/11585480"
+              }
+            ],
+            "duration": "3:20"
+          },
+          {
+            "position": "B2  ",
+            "type_": "track",
+            "title": "Vesuvio",
+            "extraartists": [
+              {
+                "name": "Elisabetta Visco",
+                "anv": "",
+                "join": "",
+                "role": "Conductor [Chorus]",
+                "tracks": "",
+                "id": 11864933,
+                "resource_url": "https://api.discogs.com/artists/11864933"
+              },
+              {
+                "name": "69in.. Canto",
+                "anv": "",
+                "join": "",
+                "role": "Performer [Chorus]",
+                "tracks": "",
+                "id": 11864936,
+                "resource_url": "https://api.discogs.com/artists/11864936"
+              },
+              {
+                "name": "Angelo De Falco",
+                "anv": "A.De Falco",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 2265248,
+                "resource_url": "https://api.discogs.com/artists/2265248"
+              }
+            ],
+            "duration": "4:49"
+          },
+          {
+            "position": "B3  ",
+            "type_": "track",
+            "title": "Rire",
+            "extraartists": [
+              {
+                "name": "Lucio Aquilina",
+                "anv": "L.Aquilina",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 744368,
+                "resource_url": "https://api.discogs.com/artists/744368"
+              },
+              {
+                "name": "Massimo Di Lena",
+                "anv": "M.Di Lena",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 754998,
+                "resource_url": "https://api.discogs.com/artists/754998"
+              }
+            ],
+            "duration": "4:23"
+          },
+          {
+            "position": "B4  ",
+            "type_": "track",
+            "title": "La Crisi",
+            "extraartists": [
+              {
+                "name": "Lucio Aquilina",
+                "anv": "L.Aquilina",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 744368,
+                "resource_url": "https://api.discogs.com/artists/744368"
+              },
+              {
+                "name": "Massimo Di Lena",
+                "anv": "M.Di Lena",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 754998,
+                "resource_url": "https://api.discogs.com/artists/754998"
+              },
+              {
+                "name": "Raffaele Viviani",
+                "anv": "R.Viviani",
+                "join": "",
+                "role": "Written-By",
+                "tracks": "",
+                "id": 2829398,
+                "resource_url": "https://api.discogs.com/artists/2829398"
+              }
+            ],
+            "duration": "3:36"
+          }
+        ],
+        "extraartists": [
+          {
+            "name": "Angela Martone",
+            "anv": "",
+            "join": "",
+            "role": "Backing Vocals",
+            "tracks": "",
+            "id": 11585477,
+            "resource_url": "https://api.discogs.com/artists/11585477"
+          },
+          {
+            "name": "Marilù Martone",
+            "anv": "Marilù",
+            "join": "",
+            "role": "Backing Vocals",
+            "tracks": "",
+            "id": 6490301,
+            "resource_url": "https://api.discogs.com/artists/6490301"
+          },
+          {
+            "name": "Andrea De Fazio",
+            "anv": "",
+            "join": "",
+            "role": "Drums",
+            "tracks": "",
+            "id": 2692995,
+            "resource_url": "https://api.discogs.com/artists/2692995"
+          },
+          {
+            "name": "Malu Aliqun",
+            "anv": "",
+            "join": "",
+            "role": "Effects",
+            "tracks": "",
+            "id": 4897660,
+            "resource_url": "https://api.discogs.com/artists/4897660"
+          },
+          {
+            "name": "Daniele Labbate",
+            "anv": "",
+            "join": "",
+            "role": "Electric Bass",
+            "tracks": "",
+            "id": 3986505,
+            "resource_url": "https://api.discogs.com/artists/3986505"
+          },
+          {
+            "name": "Roberto Badoglio",
+            "anv": "",
+            "join": "",
+            "role": "Electric Bass",
+            "tracks": "",
+            "id": 6321304,
+            "resource_url": "https://api.discogs.com/artists/6321304"
+          },
+          {
+            "name": "Paolo Petrella",
+            "anv": "",
+            "join": "",
+            "role": "Electric Bass, Guitar",
+            "tracks": "",
+            "id": 5079049,
+            "resource_url": "https://api.discogs.com/artists/5079049"
+          },
+          {
+            "name": "Saverio Sodano",
+            "anv": "",
+            "join": "",
+            "role": "Electric Guitar",
+            "tracks": "",
+            "id": 11585480,
+            "resource_url": "https://api.discogs.com/artists/11585480"
+          },
+          {
+            "name": "Lucio Aquilina",
+            "anv": "",
+            "join": "",
+            "role": "Electric Piano [Rhodes], Synthesizer, Percussion, Piano",
+            "tracks": "",
+            "id": 744368,
+            "resource_url": "https://api.discogs.com/artists/744368"
+          },
+          {
+            "name": "S.Santos Jr.",
+            "anv": "",
+            "join": "",
+            "role": "Guiro, Drum Machine [Roland Cr 78]",
+            "tracks": "",
+            "id": 11585483,
+            "resource_url": "https://api.discogs.com/artists/11585483"
+          },
+          {
+            "name": "Marcello Giannini",
+            "anv": "",
+            "join": "",
+            "role": "Guitar",
+            "tracks": "",
+            "id": 2219338,
+            "resource_url": "https://api.discogs.com/artists/2219338"
+          },
+          {
+            "name": "R.Corda",
+            "anv": "Riccardo Corda",
+            "join": "",
+            "role": "Illustration, Graphics",
+            "tracks": "",
+            "id": 6367586,
+            "resource_url": "https://api.discogs.com/artists/6367586"
+          },
+          {
+            "name": "Luigi Scialdone",
+            "anv": "",
+            "join": "",
+            "role": "Mandola, Guitar",
+            "tracks": "",
+            "id": 1716677,
+            "resource_url": "https://api.discogs.com/artists/1716677"
+          },
+          {
+            "name": "Marcello Smigliante",
+            "anv": "",
+            "join": "",
+            "role": "Mandolin, Mandolincello",
+            "tracks": "",
+            "id": 11585486,
+            "resource_url": "https://api.discogs.com/artists/11585486"
+          },
+          {
+            "name": "Frank Merritt",
+            "anv": "",
+            "join": "",
+            "role": "Mastered By",
+            "tracks": "",
+            "id": 858903,
+            "resource_url": "https://api.discogs.com/artists/858903"
+          },
+          {
+            "name": "Lucio Aquilina",
+            "anv": "",
+            "join": "",
+            "role": "Mixed By",
+            "tracks": "",
+            "id": 744368,
+            "resource_url": "https://api.discogs.com/artists/744368"
+          },
+          {
+            "name": "Massimo Di Lena",
+            "anv": "",
+            "join": "",
+            "role": "Mixed By",
+            "tracks": "",
+            "id": 754998,
+            "resource_url": "https://api.discogs.com/artists/754998"
+          },
+          {
+            "name": "Raffaele Arcella",
+            "anv": "Raffaele \"Whodamanny\" Arcella",
+            "join": "",
+            "role": "Mixed By",
+            "tracks": "",
+            "id": 5103811,
+            "resource_url": "https://api.discogs.com/artists/5103811"
+          },
+          {
+            "name": "Paolo Bata Bianconcini",
+            "anv": "Paolo \"Batà\" Bianconcini",
+            "join": "",
+            "role": "Percussion",
+            "tracks": "",
+            "id": 8266129,
+            "resource_url": "https://api.discogs.com/artists/8266129"
+          },
+          {
+            "name": "Yannick Van Ter Beek",
+            "anv": "",
+            "join": "",
+            "role": "Percussion [Additional]",
+            "tracks": "",
+            "id": 6466348,
+            "resource_url": "https://api.discogs.com/artists/6466348"
+          },
+          {
+            "name": "Caterina Bianco",
+            "anv": "",
+            "join": "",
+            "role": "Strings",
+            "tracks": "",
+            "id": 7085419,
+            "resource_url": "https://api.discogs.com/artists/7085419"
+          },
+          {
+            "name": "Massimo Di Lena",
+            "anv": "",
+            "join": "",
+            "role": "Synthesizer, Drum Programming, Percussion",
+            "tracks": "",
+            "id": 754998,
+            "resource_url": "https://api.discogs.com/artists/754998"
+          },
+          {
+            "name": "Pietro Santangelo",
+            "anv": "",
+            "join": "",
+            "role": "Tenor Saxophone, Soprano Saxophone",
+            "tracks": "",
+            "id": 1690647,
+            "resource_url": "https://api.discogs.com/artists/1690647"
+          },
+          {
+            "name": "Célia Kameni",
+            "anv": "",
+            "join": "",
+            "role": "Vocals",
+            "tracks": "",
+            "id": 4355864,
+            "resource_url": "https://api.discogs.com/artists/4355864"
+          },
+          {
+            "name": "Fabiana Martone",
+            "anv": "",
+            "join": "",
+            "role": "Vocals",
+            "tracks": "",
+            "id": 4966253,
+            "resource_url": "https://api.discogs.com/artists/4966253"
+          },
+          {
+            "name": "Marco Castello",
+            "anv": "",
+            "join": "",
+            "role": "Vocals",
+            "tracks": "",
+            "id": 8046498,
+            "resource_url": "https://api.discogs.com/artists/8046498"
+          },
+          {
+            "name": "Marzuk Mejiri",
+            "anv": "Marzouk Mejri",
+            "join": "",
+            "role": "Vocals, Ney, Percussion [Darbuka]",
+            "tracks": "",
+            "id": 563283,
+            "resource_url": "https://api.discogs.com/artists/563283"
+          },
+          {
+            "name": "Lucio Aquilina",
+            "anv": "",
+            "join": "",
+            "role": "Written-By, Arranged By, Directed By",
+            "tracks": "",
+            "id": 744368,
+            "resource_url": "https://api.discogs.com/artists/744368"
+          },
+          {
+            "name": "Massimo Di Lena",
+            "anv": "",
+            "join": "",
+            "role": "Written-By, Arranged By, Directed By",
+            "tracks": "",
+            "id": 754998,
+            "resource_url": "https://api.discogs.com/artists/754998"
+          },
+          {
+            "name": "Nu Genea",
+            "anv": "",
+            "join": "",
+            "role": "Written-By, Arranged By, Directed By",
+            "tracks": "",
+            "id": 10053688,
+            "resource_url": "https://api.discogs.com/artists/10053688"
+          }
+        ]
+      },
+      "notes_sha256": "7f29cc431e1688bfc96a94b34a8b5b6ef71af07d5989f00f751872d1b9f0c47c"
+    },
+    "releases:12863875": {
+      "url": "https://api.discogs.com/releases/12863875",
+      "checked_at": "2026-11-09T09:52:06.363091+00:00",
+      "status": "retrieved",
+      "sha256": "fa30eab50aff48916ca656c7ad5e0eb11d1d35d4a592699eed54836ed8857491",
+      "data": {
+        "id": 12863875,
+        "year": 2018,
+        "artists": [
+          {
+            "name": "Herbie Hancock",
+            "anv": "",
+            "join": "",
+            "role": "",
+            "tracks": "",
+            "id": 3865,
+            "resource_url": "https://api.discogs.com/artists/3865",
+            "thumbnail_url": "https://i.discogs.com/bPRWOtW1vEIAJmyifaIGOwvp2Gu5_YlAkKxEIVVoVO8/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTM4NjUt/MTc4NTY5NDYxMS0y/NTQ4LmpwZWc.jpeg"
+          }
+        ],
+        "labels": [
+          {
+            "name": "Columbia",
+            "catno": "MK65001",
+            "entity_type": "1",
+            "entity_type_name": "Label",
+            "id": 1866,
+            "resource_url": "https://api.discogs.com/labels/1866",
+            "thumbnail_url": "https://i.discogs.com/JuO51-lZvasOtw8-yLUjsen-4O17uPH1A9SILCO-lG4/rs:fit/g:sm/q:90/h:300/w:299/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTE4NjYt/MTIzMzE5MzU1Ny5q/cGVn.jpeg"
+          },
+          {
+            "name": "Major Keys",
+            "catno": "MK65001",
+            "entity_type": "1",
+            "entity_type_name": "Label",
+            "id": 2315731,
+            "resource_url": "https://api.discogs.com/labels/2315731",
+            "thumbnail_url": "https://i.discogs.com/MiNOYBqdqrnpQ2GGU5g2sVGv1k2xe9yNvYQ6OdnYgg8/rs:fit/g:sm/q:90/h:153/w:245/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTIzMTU3/MzEtMTYzMjIyNTY0/NS05NjI2LmpwZWc.jpeg"
+          }
+        ],
+        "master_id": 1707331,
+        "title": "Chameleon / Watermelon Man",
+        "tracklist": [
+          {
+            "position": "A",
+            "type_": "track",
+            "title": "Chameleon",
+            "duration": "15:41"
+          },
+          {
+            "position": "AA",
+            "type_": "track",
+            "title": "Watermelon Man",
+            "duration": "6:29"
+          }
+        ]
+      },
+      "notes_sha256": "895a555a3de46d61d35408e43c0c4c16a4878c34d5d59df1f7a57bd6b3293c24"
+    },
+    "releases:1042849": {
+      "url": "https://api.discogs.com/releases/1042849",
+      "checked_at": "2026-11-09T08:46:44.046775+00:00",
+      "status": "retrieved",
+      "sha256": "3ff789ae9a3d7dec626a3da7b4fa8391c0d2a06868151c9be72efdc38507d3b6",
+      "data": {
+        "id": 1042849,
+        "year": 1986,
+        "artists": [
+          {
+            "name": "George Clinton",
+            "anv": "",
+            "join": "",
+            "role": "",
+            "tracks": "",
+            "id": 29262,
+            "resource_url": "https://api.discogs.com/artists/29262",
+            "thumbnail_url": "https://i.discogs.com/Z8abEAHLr_-J9yiycY2S4UkPuZaSPIQwneVjyLYWdNQ/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9BLTI5MjYy/LTE1NjA5MjM3MjMt/MTQ2OS5qcGVn.jpeg"
+          }
+        ],
+        "labels": [
+          {
+            "name": "Capitol Records",
+            "catno": "SPRO9628",
+            "entity_type": "1",
+            "entity_type_name": "Label",
+            "id": 654,
+            "resource_url": "https://api.discogs.com/labels/654",
+            "thumbnail_url": "https://i.discogs.com/jOm50Ncnop3VOhKg0rYbdvq7epxn5mnXdOWfVQNjOBg/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9MLTY1NC0x/NzgxODU0Mzk3LTU2/MzcuanBlZw.jpeg"
+          }
+        ],
+        "master_id": 14556,
+        "title": "Do Fries Go With That Shake",
+        "tracklist": [
+          {
+            "position": "A",
+            "type_": "track",
+            "title": "Do Fries Go With That Shake (Thick Mix)",
+            "duration": ""
+          },
+          {
+            "position": "B",
+            "type_": "track",
+            "title": "Do Fries Go With That Shake (Thick Mix)",
+            "duration": ""
+          }
+        ]
+      },
+      "notes_sha256": "770ec27127ee0c1e51fce1e7f394f8aeabca429c7003cb97ae13b223429d5014"
+    }
+  }
+}
