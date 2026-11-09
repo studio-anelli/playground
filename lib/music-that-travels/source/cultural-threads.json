@@ -588,6 +588,19 @@
         "note": "Resident Advisor identifies Phillip Washington as Cygnus and lists US location. Dallas/Fort Worth gigging is not proof of his recording studio."
       }
     ],
+    "1937785": [
+      {
+        "kind": "artist",
+        "relation": "Steel-band music associated with",
+        "subject": "Steel Band Shell de Port-Louis",
+        "label": "Guadeloupe",
+        "lon": -61.551,
+        "lat": 16.265,
+        "precision": "region",
+        "source": "https://archives.crem-cnrs.fr/archives/collections/CNRSMH_E_2011_005_015/",
+        "note": "CNRS Musée de l'Homme ethnomusicology archive identifies the exact Steel Band Shell de Port-Louis and associates its Souvenir de la Guadeloupe recording with Guadeloupe. This is a territorial musical association, not a presumed studio address."
+      }
+    ],
     "2406747": [
       {
         "kind": "artist",
@@ -769,6 +782,19 @@
         "source": "https://ra.co/dj/workforce",
         "note": "Resident Advisor identifies Workforce as Jack Stevens, previously SpectraSoul, and locates him in the UK. No city inferred from gigs."
       }
+    ],
+    "7698701": [
+      {
+        "kind": "artist",
+        "relation": "Electronic production practice based in",
+        "subject": "Cheb Runner",
+        "label": "Brussels",
+        "lon": 4.3517,
+        "lat": 50.8503,
+        "precision": "city",
+        "source": "https://listenfestival.be/our-scene/visiting-molenbeat-finest-cheb-runner",
+        "note": "2022 artist interview identifies Reda Senhaji as a Brussels-based Moroccan producer. His Tagnawit EP also engages Gnawa traditions with Brussels-based musicians; separate repertoire geography is included on the exact release."
+      }
     ]
   },
   "releases": {
@@ -797,6 +823,19 @@
         "period": "January 1978",
         "source": "https://artyardrecords.co.uk/sun-ra-disco-3000-complete-milan-concert-1978/",
         "note": "Art Yard documents the Milan concert recording. This session location remains separate from Sun Ra’s Chicago ensemble connection."
+      }
+    ],
+    "14922154": [
+      {
+        "kind": "repertoire",
+        "relation": "Reworks Gnawa musical tradition from",
+        "subject": "Tagnawit EP (Cheb Runner)",
+        "label": "Morocco",
+        "lon": -7.0926,
+        "lat": 31.7917,
+        "precision": "country",
+        "source": "https://chebrunner.bandcamp.com/album/tagnawit-ep",
+        "note": "Artist and Rebel Up! release description identify traditional Gnawa percussion and two Brussels-based Gnawa masters on this EP. This is repertoire/cultural connection; the release is not asserted to have been recorded in Morocco."
       }
     ]
   }
