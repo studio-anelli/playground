@@ -2,17 +2,69 @@
   "schema_version": 1,
   "criteria": "Cultural threads are typed, sourced relationships. They are not a physical itinerary. A broad territory is not promoted to a city. No birthplace, nationality, title or genre is inferred as musical heritage.",
   "artists": {
-    "5793123": [
+    "338": [
       {
         "kind": "artist",
-        "relation": "Band based in",
-        "subject": "Altın Gün",
-        "label": "Amsterdam",
-        "lon": 4.9041,
-        "lat": 52.3676,
+        "relation": "Musical roots and production scene in",
+        "subject": "Roni Size",
+        "label": "Bristol",
+        "lon": -2.5879,
+        "lat": 51.4545,
         "precision": "city",
-        "source": "https://atorecords.com/releases/on/",
-        "note": "The album notes identify the band with Amsterdam. This is its musical base, not a recording-location claim."
+        "source": "https://www.bucksmusicgroup.com/artists/166-roni-size",
+        "note": "Publisher biography documents the Bristol youth-club, sound-system and early production roots of Roni Size. This does not claim that Sing was recorded in Bristol or that Jocelyn Brown shares this origin."
+      }
+    ],
+    "2173": [
+      {
+        "kind": "artist",
+        "relation": "Jungle artist associated with",
+        "subject": "Renegade / Ray Keith",
+        "label": "Essex",
+        "lon": 0.4685,
+        "lat": 51.75,
+        "precision": "region",
+        "source": "https://djmag.com/news/jungle-pioneer-ray-keith-releasing-biography-dark-soldier",
+        "note": "DJ Mag identifies Ray Keith as an Essex jungle pioneer recording under the Renegade alias. The same Renegade's Dark Soldier Part 1 & 2 release is independently indexed at DNBHQ; an Essex scene association, not this record's studio."
+      }
+    ],
+    "4281": [
+      {
+        "kind": "artist",
+        "relation": "Musical career and scene in",
+        "subject": "Ellen Allien",
+        "label": "Berlin",
+        "lon": 13.405,
+        "lat": 52.52,
+        "precision": "city",
+        "source": "https://www.bpitch.de/en/artist/ellen-allien/",
+        "note": "BPitch documents Allien's Berlin techno career and scene-building. This is an artist association, not the recording location of Turn Off Your Mind."
+      }
+    ],
+    "17217": [
+      {
+        "kind": "artist",
+        "relation": "Electronic artist based in",
+        "subject": "Shinichi Atobe",
+        "label": "Saitama",
+        "lon": 139.6489,
+        "lat": 35.8617,
+        "precision": "city",
+        "source": "https://music.spaceshower.jp/contents/1041416",
+        "note": "Japanese music distributor biography identifies Saitama as Atobe's base and explicitly lists World (2016). A musical base, not a specific recording studio."
+      }
+    ],
+    "34453": [
+      {
+        "kind": "artist",
+        "relation": "Artist associated with",
+        "subject": "Malente",
+        "label": "Germany",
+        "lon": 10.4515,
+        "lat": 51.1657,
+        "precision": "country",
+        "source": "https://ra.co/dj/malente",
+        "note": "Resident Advisor lists the artist's location as Germany. Country-level artist association only; the countries of Mashed Up Funk pressings are separate release-market facts. No city inferred."
       }
     ],
     "35328": [
@@ -27,6 +79,84 @@
         "period": "Mid-1950s",
         "source": "https://tickets.citywinery.com/event/sun-ra-arkestra-quwhex",
         "note": "A connection through the ensemble Sun Ra founded. It does not identify where this particular record was made."
+      }
+    ],
+    "53036": [
+      {
+        "kind": "artist",
+        "relation": "Early post-punk musical career associated with",
+        "subject": "Vivien Goldman",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://www.viviengoldman.com/about",
+        "note": "Goldman's official biography identifies her as a Londoner, her role in the 1970s British music press and early-1980s post-punk recordings. London is a biographical and cultural association, not a proven recording location for Resolutionary's tracks."
+      }
+    ],
+    "298930": [
+      {
+        "kind": "artist",
+        "relation": "Early musical roots in",
+        "subject": "B.B. Seaton",
+        "label": "Kingston",
+        "lon": -76.792,
+        "lat": 17.9712,
+        "precision": "city",
+        "source": "https://thegaylads.bandcamp.com/album/soul-beat",
+        "note": "Studio One/The Gaylads biography documents Seaton as a Kingston-born singer and his early Kingston-area musical career. This is an artist musical association, not a recording location of this owned single."
+      }
+    ],
+    "734504": [
+      {
+        "kind": "artist",
+        "relation": "Musical career and house scene in",
+        "subject": "San Proper",
+        "label": "Amsterdam",
+        "lon": 4.9041,
+        "lat": 52.3676,
+        "precision": "city",
+        "source": "https://ra.co/dj/sanproper/biography",
+        "note": "Resident Advisor documents San Proper's sustained Amsterdam scene involvement, Rush Hour and Dekmantel releases. Artist association only; not a studio for either owned record."
+      }
+    ],
+    "2576696": [
+      {
+        "kind": "artist",
+        "relation": "Artist based in",
+        "subject": "Frits Wentink",
+        "label": "Amsterdam",
+        "lon": 4.9041,
+        "lat": 52.3676,
+        "precision": "city",
+        "source": "https://fritswentink.bandcamp.com/",
+        "note": "The artist's own Bandcamp profile identifies Amsterdam as his location. This is an artist base, not proof of where BODOMRGWLD01 was recorded."
+      }
+    ],
+    "5793123": [
+      {
+        "kind": "artist",
+        "relation": "Band based in",
+        "subject": "Altın Gün",
+        "label": "Amsterdam",
+        "lon": 4.9041,
+        "lat": 52.3676,
+        "precision": "city",
+        "source": "https://atorecords.com/releases/on/",
+        "note": "The album notes identify the band with Amsterdam. This is its musical base, not a recording-location claim."
+      }
+    ],
+    "6584747": [
+      {
+        "kind": "artist",
+        "relation": "DJ career and underground scene developed in",
+        "subject": "Yousuke Yukimatsu",
+        "label": "Osaka",
+        "lon": 135.5023,
+        "lat": 34.6937,
+        "precision": "city",
+        "source": "https://mixmag.net/feature/impact-yousuke-yukimatsu-japan-experimental-dj-producer-gabber-techno",
+        "note": "Mixmag's artist interview documents his early Osaka and nearby Kobe DJ work. Osaka is the artist's formative musical scene, not the mix compilation's recording site or a current permanent base."
       }
     ]
   },

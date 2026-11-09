@@ -13,6 +13,10 @@ def project(match):
 land=re.sub(r'(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)',project,land)
 # Geography only needs display fields and location evidence, not the full audit/credits.
 geo_entries=[{k:n[k] for k in ['instance_id','id','title','year','artists','labels']} for n in data['entries']]
+# Regenerate reviewed origin threads from their authoritative source before packaging.
+# Otherwise a new cultural-threads claim appears in GitHub but never reaches the map.
+runpy.run_path(str(root/'prepare-collection-research.py'))
+runpy.run_path(str(root/'prepare-origins.py'))
 origins=json.loads((root/'source/origin-collection.json').read_text())
 # Group redundant display places while retaining all original source claims.
 group_threads=runpy.run_path(str(root/'group-threads.py'))['group_threads']

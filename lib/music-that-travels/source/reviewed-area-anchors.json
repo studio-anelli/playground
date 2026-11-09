@@ -1,0 +1,34 @@
+{
+  "Berlin": {
+    "coordinates": [
+      13.405,
+      52.52
+    ],
+    "precision": "city",
+    "reason": "Reviewed Berlin city anchor; city-level cultural association only."
+  },
+  "London": {
+    "coordinates": [
+      -0.1276,
+      51.5072
+    ],
+    "precision": "city",
+    "reason": "Reviewed London city anchor; not recording evidence."
+  },
+  "Los Angeles": {
+    "coordinates": [
+      -118.2437,
+      34.0522
+    ],
+    "precision": "city",
+    "reason": "Reviewed Los Angeles city anchor; associated area may be historical."
+  },
+  "Pennsylvania": {
+    "coordinates": [
+      -77.1945,
+      41.2033
+    ],
+    "precision": "region",
+    "reason": "Approximate state-level anchor, never city or recording address."
+  }
+}
