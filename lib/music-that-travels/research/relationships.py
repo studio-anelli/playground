@@ -107,9 +107,10 @@ def shared_artist_leads(collection, ledger):
     release-specific alias exception. Produces prompts, not factual connections.
     """
     appearances = defaultdict(dict)
-    excluded = {(str(exc.get('release_id')), str(exc.get('artist_id')))
+    excluded = {(str(exc['release_id']), str(aid))
                 for exc in ledger.get('identity_exceptions', [])
-                if exc.get('release_id') and exc.get('artist_id')}
+                for aid in exc.get('excluded_artist_ids', [])
+                if exc.get('release_id')}
     for row in collection.get('entries', []):
         rid = str(row['id'])
         for a in row.get('artists', []):
