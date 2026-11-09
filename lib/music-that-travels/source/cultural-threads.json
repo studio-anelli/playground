@@ -2,6 +2,19 @@
   "schema_version": 1,
   "criteria": "Cultural threads are typed, sourced relationships. They are not a physical itinerary. A broad territory is not promoted to a city. No birthplace, nationality, title or genre is inferred as musical heritage.",
   "artists": {
+    "20": [
+      {
+        "kind": "artist",
+        "relation": "Techno DJ and production career established in",
+        "subject": "Percy X / Tony Scott",
+        "label": "Glasgow",
+        "lon": -4.2518,
+        "lat": 55.8642,
+        "precision": "city",
+        "source": "https://somarecords.com/artists/percyx/",
+        "note": "First-party Soma biography identifies Percy X as Glasgow's Tony Scott and explicitly names collaborative track -3 with Andrew Weatherall. Glasgow is his musical base, not Blood Sugar's separate geographic identity."
+      }
+    ],
     "253": [
       {
         "kind": "artist",
@@ -67,6 +80,19 @@
         "note": "RBMA interview with Steve Carr documents his Ipswich sound-system background and early production. Does not establish studio of One Ton."
       }
     ],
+    "652": [
+      {
+        "kind": "artist",
+        "relation": "Drum-and-bass production career associated with",
+        "subject": "Special Forces / Photek",
+        "label": "United Kingdom",
+        "lon": -2.5,
+        "lat": 54.5,
+        "precision": "country",
+        "source": "https://ra.co/dj/photek",
+        "note": "Resident Advisor expressly lists Special Forces as Rupert Parkes/Photek alias and locates the artist in the United Kingdom. This does not use a different contemporary DJ named Special Forces; national artist association only."
+      }
+    ],
     "782": [
       {
         "kind": "artist",
@@ -117,6 +143,19 @@
         "precision": "city",
         "source": "https://www.allmusic.com/artist/dj-deeon-mn0000663868",
         "note": "AllMusic documents Deeon's Chicago South Side house parties, Dance Mania releases and early ghetto-house production. This is a scene history, not a studio or location of the owned pressing."
+      }
+    ],
+    "1724": [
+      {
+        "kind": "artist",
+        "relation": "Jungle and breakbeat production developed in",
+        "subject": "Tek 9 / Dego McFarlane",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://www.skiddle.com/news/all/Dego-Interview-People-are-afraid-to-test-themselves-/30063/",
+        "note": "Interview identifies Tek 9 as Dego, raised in London, and founding Reinforced/4hero with local friends, with Tek 9 releases from 1991. AllMusic explicitly lists Killing Time. No remix sessions inferred."
       }
     ],
     "1749": [
@@ -210,6 +249,32 @@
         "note": "Artist's own Bandcamp identifies Southampton and explicitly describes the Fear of Flying album as recorded mostly in Belize. Current artist base does not locate the original 2005 sessions; sampler track-specific Belize sessions are not inferred."
       }
     ],
+    "5469": [
+      {
+        "kind": "artist",
+        "relation": "Drum-and-bass duo formed in",
+        "subject": "Subject 13",
+        "label": "Hackney, London",
+        "lon": -0.0553,
+        "lat": 51.545,
+        "precision": "city",
+        "source": "https://www.allmusic.com/artist/subject-13-mn0000488827",
+        "note": "AllMusic identifies Roy Bleau and David Stewart, formed 1995 in Hackney, London; DNBHQ matches the exact Spirit Breakdown / Can't Wait Tonight record to Discogs artist 5469. Formation, not studio."
+      }
+    ],
+    "7266": [
+      {
+        "kind": "artist",
+        "relation": "Wild Pitch house production created in",
+        "subject": "Photon Inc. / DJ Pierre",
+        "label": "New York City",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "precision": "city",
+        "source": "https://www.allmusic.com/artist/mn0000660881",
+        "note": "AllMusic identifies Photon Inc as DJ Pierre and says Generate Power was his first single after moving to New York, originating his Wild Pitch style. The vocalist Paula Brion is a separate artist; no claim for her geographic origin."
+      }
+    ],
     "7731": [
       {
         "kind": "artist",
@@ -288,6 +353,19 @@
         "precision": "country",
         "source": "https://ra.co/dj/djruffneck",
         "note": "Resident Advisor identifies Patrick van Kerckhoven by artist alias, Netherlands location, and his role in founding the artcore sound; no unsupported city inferred."
+      }
+    ],
+    "15301": [
+      {
+        "kind": "artist",
+        "subject": "Mathematics (drum-and-bass producer)",
+        "relation": "Drum-and-bass producer associated with",
+        "label": "New York City",
+        "lon": -74.006,
+        "lat": 40.7128,
+        "precision": "city",
+        "source": "https://musicbase.net/mathematics",
+        "note": "Artist discography identifies exact Funhouse / Brass Knuckles among same drum-and-bass artist's output and identifies New York City as location. This is an artist base, not proof of recorded studio; distinct from Wu-Tang producer Mathematics."
       }
     ],
     "16483": [
@@ -489,6 +567,19 @@
         "note": "Goldman's official biography identifies her as a Londoner, her role in the 1970s British music press and early-1980s post-punk recordings. London is a biographical and cultural association, not a proven recording location for Resolutionary's tracks."
       }
     ],
+    "71171": [
+      {
+        "kind": "artist",
+        "relation": "House music and DJ career based in",
+        "subject": "Michael Gray",
+        "label": "United Kingdom",
+        "lon": -2.5,
+        "lat": 54.5,
+        "precision": "country",
+        "source": "https://ra.co/dj/michaelgray",
+        "note": "Resident Advisor identifies the Full Intention collaborator as UK based and AllMusic indexes the owned Michael Gray Reworks release. Do not infer Croydon music scene from birthplace alone."
+      }
+    ],
     "72134": [
       {
         "kind": "artist",
@@ -594,6 +685,19 @@
         "precision": "region",
         "source": "https://ra.co/dj/stl",
         "note": "Resident Advisor directly identifies STL as Stephan Laubner and links its 2010 interview describing him as Harz-based. Harz is a region, not a precise studio or a city inferred from Berlin gigs."
+      }
+    ],
+    "154398": [
+      {
+        "kind": "artist",
+        "subject": "Fabrizio Fattori",
+        "relation": "Afro-Balearic DJ and production scene in",
+        "label": "Italy",
+        "lon": 12.5674,
+        "lat": 41.8719,
+        "precision": "country",
+        "source": "https://bestrecord.bandcamp.com/album/mediterranean-africa-bst-x052",
+        "note": "First-party label identifies Fattori as representative of the Italian Afro-Balearic movement and original 1985 productions gathered on exact Mediterranean Africa collection. Country musical scene, not label's Rome address."
       }
     ],
     "156256": [
@@ -792,6 +896,19 @@
         "note": "Resident Advisor documents San Proper's sustained Amsterdam scene involvement, Rush Hour and Dekmantel releases. Artist association only; not a studio for either owned record."
       }
     ],
+    "831479": [
+      {
+        "kind": "artist",
+        "subject": "Gold In The Shade / Robert Roper, Arletta Davis and Sonia Johnson",
+        "relation": "Street-soul group and DIY production scene developed in",
+        "label": "North West London",
+        "lon": -0.205,
+        "lat": 51.56,
+        "precision": "region",
+        "source": "https://heelsandsouls.bandcamp.com/album/over-you-shining-through-hsrec004",
+        "note": "Licensing label identifies original 1990–91 recordings, performers and Robert Roper's production work as North West London DIY street soul. This is formative scene, not a confirmed specific studio for Over You."
+      }
+    ],
     "846548": [
       {
         "kind": "artist",
@@ -922,6 +1039,19 @@
         "note": "Artist's own NYC venue biography documents the Mister Saturday Night / Nowadays DJ and production scene. Born in Derry but birth location is not substituted for his musical base."
       }
     ],
+    "1307268": [
+      {
+        "kind": "artist",
+        "subject": "Busy / M0ths",
+        "relation": "Instrumental hip-hop producer based in",
+        "label": "Maryland",
+        "lon": -76.7,
+        "lat": 39,
+        "precision": "region",
+        "source": "https://busymusic.bandcamp.com/",
+        "note": "Producer's own Bandcamp location is Maryland and their discography lists exact M0ths. State-level artist base, not a city or studio inferred."
+      }
+    ],
     "1374815": [
       {
         "kind": "artist",
@@ -946,6 +1076,19 @@
         "precision": "country",
         "source": "https://firsttouch.bandcamp.com/",
         "note": "First-party artist Bandcamp lists Germany and exact Sofea release. No reliable narrower city or recording address was provided."
+      }
+    ],
+    "1449063": [
+      {
+        "kind": "artist",
+        "relation": "House producer based in",
+        "subject": "Giovanni Damico",
+        "label": "Salerno",
+        "lon": 14.7594,
+        "lat": 40.6824,
+        "precision": "city",
+        "source": "https://giovannidamico.bandcamp.com/",
+        "note": "Artist's own profile identifies Salerno as location, explicitly lists Afro Stomp EP, and describes production work in Southern Italy. Base, not studio."
       }
     ],
     "1462144": [
@@ -1339,6 +1482,20 @@
         "note": "Cafe OTO's presenter biography explicitly connects the composer with Bristol's electronic music culture and names Disquiet. Not a source for the studio of the recorded EP."
       }
     ],
+    "4980033": [
+      {
+        "kind": "artist",
+        "subject": "SHKN / Marc Ashken",
+        "relation": "Electronic producer based in",
+        "label": "United Kingdom",
+        "lon": -2.5,
+        "lat": 54.5,
+        "precision": "country",
+        "source": "https://ra.co/dj/marcashken",
+        "identity_source": "https://yoyaku.io/artist/shkn/",
+        "note": "Record store directly identifies SHKN as Marc Ashken and indexes exact Domesticated 003. Resident Advisor locates Marc Ashken in the UK. Not a London studio assertion."
+      }
+    ],
     "5080597": [
       {
         "kind": "artist",
@@ -1365,6 +1522,19 @@
         "note": "Festival biography details formative years at Trouw and Paradiso and explicitly names the 2019 New Dance debut EP. Formative musical scene, not a release-specific recording address."
       }
     ],
+    "5588337": [
+      {
+        "kind": "artist",
+        "subject": "The Goods / Badmandela, Rosario and Black Tree",
+        "relation": "Electronic soul band formed and active in",
+        "label": "Sydney",
+        "lon": 151.2093,
+        "lat": -33.8688,
+        "precision": "city",
+        "source": "https://thegoodsinyou.bandcamp.com/album/ii",
+        "note": "First-party band page explicitly documents Sydney's emerging electronic soul scene, group members and the song Peach, also named in the exact single. Sydney is project scene not recorded studio."
+      }
+    ],
     "5602556": [
       {
         "kind": "artist",
@@ -1376,6 +1546,19 @@
         "precision": "city",
         "source": "https://kusogvki.bandcamp.com/album/culture",
         "note": "Artist page for the exact Culture release states Berlin, Germany and discusses his activity in German hip-hop. No record-session location claimed."
+      }
+    ],
+    "5775913": [
+      {
+        "kind": "artist",
+        "subject": "SJ Tequilla / Naota Matsuda",
+        "relation": "Japanese house producer based in",
+        "label": "Berlin",
+        "lon": 13.405,
+        "lat": 52.52,
+        "precision": "city",
+        "source": "https://ra.co/reviews/24501",
+        "note": "Contemporaneous 2019 Resident Advisor review explicitly describes Matsuda as Berlin-based and directly discusses Conditionel. Japanese background is separate from musical base."
       }
     ],
     "5793123": [
@@ -1428,6 +1611,19 @@
         "precision": "country",
         "source": "https://bejenec.bandcamp.com/album/slavic-breus-ep",
         "note": "Artist-operated Bandcamp page for the exact Slavic Breus EP lists Bejenec in Ukraine and credits Daniel Syenichkin with production. No specific city inferred from release country/tags."
+      }
+    ],
+    "6355289": [
+      {
+        "kind": "artist",
+        "subject": "Octachoron / Bakur Metreveli and Sandro Kozmanishvili",
+        "relation": "Electronic duo formed in",
+        "label": "Tbilisi",
+        "lon": 44.8271,
+        "lat": 41.7151,
+        "precision": "city",
+        "source": "https://ra.co/dj/octachoron",
+        "note": "Resident Advisor explicitly identifies members and calls project duo from Tbilisi. Exact Land of Meta release identifies same named duo. Does not infer album studio."
       }
     ],
     "6429183": [
@@ -1507,6 +1703,19 @@
         "source": "https://trommelmusic.com/featured/rising-stars-data-memory-access/",
         "note": "Interview with Giammarco Orsini and Jacopo Latini says they first worked together in the studio after Jacopo moved to Berlin in 2019. This is formation geography, not necessarily Hi-Tee EP recording."
       }
+    ],
+    "8184122": [
+      {
+        "kind": "artist",
+        "subject": "Bonfim / Pedro Tenreiro and Hugo Passos",
+        "relation": "Electronic hip-hop production duo formed in",
+        "label": "Porto",
+        "lon": -8.6291,
+        "lat": 41.1579,
+        "precision": "city",
+        "source": "https://bonfimbeats.bandcamp.com/album/an-extended-play-record-of-assembled-sounds-for-different-kinds-of-moods",
+        "note": "First-party exact EP notes document Pedro Tenreiro's Porto DJ career, Hugo Passos' role in the city's early hip-hop scene, their formation and multiple intimate recording spaces. Porto is formative duo scene, not a specific studio."
+      }
     ]
   },
   "releases": {
@@ -1548,6 +1757,32 @@
         "precision": "city",
         "source": "https://acidjazz.co.uk/products/totally-wired",
         "note": "First-party label history dates the original 1988 compilation and identifies its curators Eddie Piller and Gilles Peterson and club-scene context. This is compilation curation geography, not a blanket London origin for all eleven contributing recordings."
+      }
+    ],
+    "98807": [
+      {
+        "kind": "recording",
+        "relation": "Album recorded at Studio Tempo in",
+        "subject": "Bombers — (Everybody) Get Dancin'",
+        "label": "Montréal",
+        "lon": -73.5673,
+        "lat": 45.5017,
+        "precision": "city",
+        "source": "https://discjockeymusicstore.com/products/bombers-everybody-get-dancin-lp-album",
+        "note": "Exact album listing reproduces Discogs recording credit Studio Tempo, Montréal for 1979 album Everybody Get Dancin; this is a release/recording claim, not edition pressing France."
+      }
+    ],
+    "240699": [
+      {
+        "kind": "recording",
+        "subject": "Ackie / Chesse Roots — Call Me Rambo / Rambo Gun Salute",
+        "relation": "Original 1986 dancehall performance rooted in the Heavyweight soundsystem of",
+        "label": "North London",
+        "lon": -0.11,
+        "lat": 51.6,
+        "precision": "region",
+        "source": "https://www.forcedexposure.com/Artists/ACKIE.CHESSE.ROOTS.html",
+        "note": "Specialist distributor ties 1986 original recordings to Heavyweight soundsystem in Wood Green and Tottenham, North London. This is a scene/performer association, not a documented recording-studio address or the reissue market Germany."
       }
     ],
     "972054": [
@@ -1784,6 +2019,20 @@
         "precision": "city",
         "source": "https://pre-delay.bandcamp.com/album/pre-delay-04",
         "note": "First-party PRE-DELAY /// sound magazine describes the exact 2017 double-vinyl compilation as developed within the NABA Sound Design programme in Milan, art-directed by Igor Muroni. Editorial/project provenance only, not the geographical origin or studio of all 15 separately credited tracks."
+      }
+    ],
+    "22284061": [
+      {
+        "kind": "repertoire",
+        "subject": "Nadie La Fond and Embryo — Sofrito/Al Kent edits",
+        "relation": "Edits original 1970s soul/disco recordings created around",
+        "label": "Port of Spain",
+        "lon": -61.5166,
+        "lat": 10.6549,
+        "precision": "city",
+        "source": "https://www.bear-family.com/dealer_pdf/ccd1209_e.pdf",
+        "identity_source": "https://www.merchbar.com/albums/lafond-nadie-embryo/nappy-music-man-edits",
+        "note": "Cree/Bear Family archival Nappy Music Man project specifies tracks recorded in Port of Spain, Trinidad between 1975–81 by Richard Nappy Mayers/Embryo and Nadie La Fond. Identifies original source recordings re-edited on exact owned Sofrito 12; location not Al Kent's studio or modern pressing."
       }
     ]
   }

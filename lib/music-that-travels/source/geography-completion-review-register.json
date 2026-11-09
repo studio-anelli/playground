@@ -6,8 +6,8 @@
   "copy_count": 610,
   "queue_count": 257,
   "outcome_counts": {
-    "accepted_geography": 109,
-    "verification_pending": 144,
+    "accepted_geography": 125,
+    "verification_pending": 128,
     "reviewed_no_evidence": 0,
     "identity_unresolved": 1,
     "compilation_scope_unresolved": 3,
@@ -33,7 +33,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -89,7 +89,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -124,7 +124,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -161,7 +161,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -196,7 +196,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -230,7 +230,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -307,7 +307,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -342,7 +342,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -377,7 +377,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -433,7 +433,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -466,10 +466,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "Drum-and-bass duo formed in",
+          "subject": "Subject 13",
+          "label": "Hackney, London",
+          "lon": -0.0553,
+          "lat": 51.545,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/subject-13-mn0000488827",
+          "note": "AllMusic identifies Roy Bleau and David Stewart, formed 1995 in Hackney, London; DNBHQ matches the exact Spirit Breakdown / Can't Wait Tonight record to Discogs artist 5469. Formation, not studio.",
+          "artist_id": 5469
+        }
+      ]
     },
     {
       "release_id": 240699,
@@ -492,10 +506,23 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "recording",
+          "subject": "Ackie / Chesse Roots — Call Me Rambo / Rambo Gun Salute",
+          "relation": "Original 1986 dancehall performance rooted in the Heavyweight soundsystem of",
+          "label": "North London",
+          "lon": -0.11,
+          "lat": 51.6,
+          "precision": "region",
+          "source": "https://www.forcedexposure.com/Artists/ACKIE.CHESSE.ROOTS.html",
+          "note": "Specialist distributor ties 1986 original recordings to Heavyweight soundsystem in Wood Green and Tottenham, North London. This is a scene/performer association, not a documented recording-studio address or the reissue market Germany."
+        }
+      ]
     },
     {
       "release_id": 14472273,
@@ -513,10 +540,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "The Goods / Badmandela, Rosario and Black Tree",
+          "relation": "Electronic soul band formed and active in",
+          "label": "Sydney",
+          "lon": 151.2093,
+          "lat": -33.8688,
+          "precision": "city",
+          "source": "https://thegoodsinyou.bandcamp.com/album/ii",
+          "note": "First-party band page explicitly documents Sydney's emerging electronic soul scene, group members and the song Peach, also named in the exact single. Sydney is project scene not recorded studio.",
+          "artist_id": 5588337
+        }
+      ]
     },
     {
       "release_id": 12362927,
@@ -583,7 +624,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -618,7 +659,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -653,7 +694,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -686,10 +727,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "Fabrizio Fattori",
+          "relation": "Afro-Balearic DJ and production scene in",
+          "label": "Italy",
+          "lon": 12.5674,
+          "lat": 41.8719,
+          "precision": "country",
+          "source": "https://bestrecord.bandcamp.com/album/mediterranean-africa-bst-x052",
+          "note": "First-party label identifies Fattori as representative of the Italian Afro-Balearic movement and original 1985 productions gathered on exact Mediterranean Africa collection. Country musical scene, not label's Rome address.",
+          "artist_id": 154398
+        }
+      ]
     },
     {
       "release_id": 14192193,
@@ -709,7 +764,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -744,7 +799,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -779,7 +834,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -886,7 +941,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -984,7 +1039,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1066,7 +1121,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1101,7 +1156,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1141,7 +1196,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1176,7 +1231,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1216,7 +1271,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1277,7 +1332,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1312,7 +1367,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1347,7 +1402,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1403,7 +1458,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1449,7 +1504,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1483,10 +1538,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "Octachoron / Bakur Metreveli and Sandro Kozmanishvili",
+          "relation": "Electronic duo formed in",
+          "label": "Tbilisi",
+          "lon": 44.8271,
+          "lat": 41.7151,
+          "precision": "city",
+          "source": "https://ra.co/dj/octachoron",
+          "note": "Resident Advisor explicitly identifies members and calls project duo from Tbilisi. Exact Land of Meta release identifies same named duo. Does not infer album studio.",
+          "artist_id": 6355289
+        }
+      ]
     },
     {
       "release_id": 4304708,
@@ -1506,7 +1575,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1541,7 +1610,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1597,7 +1666,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1632,7 +1701,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1697,7 +1766,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1731,7 +1800,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1829,7 +1898,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1884,7 +1953,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1940,7 +2009,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -1975,7 +2044,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2057,7 +2126,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Geographic evidence not established; further source investigation required",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2114,7 +2183,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2149,7 +2218,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2226,7 +2295,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2366,7 +2435,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2406,7 +2475,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2474,7 +2543,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2511,7 +2580,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2544,10 +2613,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "SJ Tequilla / Naota Matsuda",
+          "relation": "Japanese house producer based in",
+          "label": "Berlin",
+          "lon": 13.405,
+          "lat": 52.52,
+          "precision": "city",
+          "source": "https://ra.co/reviews/24501",
+          "note": "Contemporaneous 2019 Resident Advisor review explicitly describes Matsuda as Berlin-based and directly discusses Conditionel. Japanese background is separate from musical base.",
+          "artist_id": 5775913
+        }
+      ]
     },
     {
       "release_id": 25199035,
@@ -2607,10 +2690,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "Mathematics (drum-and-bass producer)",
+          "relation": "Drum-and-bass producer associated with",
+          "label": "New York City",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://musicbase.net/mathematics",
+          "note": "Artist discography identifies exact Funhouse / Brass Knuckles among same drum-and-bass artist's output and identifies New York City as location. This is an artist base, not proof of recorded studio; distinct from Wu-Tang producer Mathematics.",
+          "artist_id": 15301
+        }
+      ]
     },
     {
       "release_id": 14477,
@@ -2693,7 +2790,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2728,7 +2825,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2783,7 +2880,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2879,10 +2976,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "Gold In The Shade / Robert Roper, Arletta Davis and Sonia Johnson",
+          "relation": "Street-soul group and DIY production scene developed in",
+          "label": "North West London",
+          "lon": -0.205,
+          "lat": 51.56,
+          "precision": "region",
+          "source": "https://heelsandsouls.bandcamp.com/album/over-you-shining-through-hsrec004",
+          "note": "Licensing label identifies original 1990–91 recordings, performers and Robert Roper's production work as North West London DIY street soul. This is formative scene, not a confirmed specific studio for Over You.",
+          "artist_id": 831479
+        }
+      ]
     },
     {
       "release_id": 110736,
@@ -2923,7 +3034,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2958,7 +3069,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -2993,7 +3104,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3028,7 +3139,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3089,7 +3200,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3157,7 +3268,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3212,7 +3323,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Geographic evidence not established; further source investigation required",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3247,7 +3358,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Geographic evidence not established; further source investigation required",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3281,7 +3392,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3348,7 +3459,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3444,10 +3555,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "House producer based in",
+          "subject": "Giovanni Damico",
+          "label": "Salerno",
+          "lon": 14.7594,
+          "lat": 40.6824,
+          "precision": "city",
+          "source": "https://giovannidamico.bandcamp.com/",
+          "note": "Artist's own profile identifies Salerno as location, explicitly lists Afro Stomp EP, and describes production work in Southern Italy. Base, not studio.",
+          "artist_id": 1449063
+        }
+      ]
     },
     {
       "release_id": 1782030,
@@ -3472,7 +3597,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3675,7 +3800,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3710,7 +3835,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3766,7 +3891,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3801,7 +3926,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3836,7 +3961,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3913,7 +4038,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -3948,7 +4073,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4004,7 +4129,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4060,7 +4185,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4132,7 +4257,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4207,10 +4332,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "subject": "Bonfim / Pedro Tenreiro and Hugo Passos",
+          "relation": "Electronic hip-hop production duo formed in",
+          "label": "Porto",
+          "lon": -8.6291,
+          "lat": 41.1579,
+          "precision": "city",
+          "source": "https://bonfimbeats.bandcamp.com/album/an-extended-play-record-of-assembled-sounds-for-different-kinds-of-moods",
+          "note": "First-party exact EP notes document Pedro Tenreiro's Porto DJ career, Hugo Passos' role in the city's early hip-hop scene, their formation and multiple intimate recording spaces. Porto is formative duo scene, not a specific studio.",
+          "artist_id": 8184122
+        }
+      ]
     },
     {
       "release_id": 9684455,
@@ -4230,7 +4369,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4300,7 +4439,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4403,7 +4542,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4438,7 +4577,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4485,7 +4624,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4604,7 +4743,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4707,7 +4846,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4754,7 +4893,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4808,10 +4947,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "Drum-and-bass production career associated with",
+          "subject": "Special Forces / Photek",
+          "label": "United Kingdom",
+          "lon": -2.5,
+          "lat": 54.5,
+          "precision": "country",
+          "source": "https://ra.co/dj/photek",
+          "note": "Resident Advisor expressly lists Special Forces as Rupert Parkes/Photek alias and locates the artist in the United Kingdom. This does not use a different contemporary DJ named Special Forces; national artist association only.",
+          "artist_id": 652
+        }
+      ]
     },
     {
       "release_id": 11762293,
@@ -4852,7 +5005,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4887,7 +5040,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -4969,7 +5122,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5087,7 +5240,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5122,7 +5275,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5157,7 +5310,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5214,7 +5367,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5354,7 +5507,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5398,10 +5551,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "Jungle and breakbeat production developed in",
+          "subject": "Tek 9 / Dego McFarlane",
+          "label": "London",
+          "lon": -0.1276,
+          "lat": 51.5072,
+          "precision": "city",
+          "source": "https://www.skiddle.com/news/all/Dego-Interview-People-are-afraid-to-test-themselves-/30063/",
+          "note": "Interview identifies Tek 9 as Dego, raised in London, and founding Reinforced/4hero with local friends, with Tek 9 releases from 1991. AllMusic explicitly lists Killing Time. No remix sessions inferred.",
+          "artist_id": 1724
+        }
+      ]
     },
     {
       "release_id": 17881,
@@ -5463,7 +5630,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5519,7 +5686,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5559,7 +5726,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5594,7 +5761,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5671,7 +5838,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5727,7 +5894,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5846,7 +6013,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5881,7 +6048,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Geographic evidence not established; further source investigation required",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5922,7 +6089,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -5983,10 +6150,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Prior review lacked acceptable place evidence; further routes needed",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "Techno DJ and production career established in",
+          "subject": "Percy X / Tony Scott",
+          "label": "Glasgow",
+          "lon": -4.2518,
+          "lat": 55.8642,
+          "precision": "city",
+          "source": "https://somarecords.com/artists/percyx/",
+          "note": "First-party Soma biography identifies Percy X as Glasgow's Tony Scott and explicitly names collaborative track -3 with Andrew Weatherall. Glasgow is his musical base, not Blood Sugar's separate geographic identity.",
+          "artist_id": 20
+        }
+      ]
     },
     {
       "release_id": 1621146,
@@ -6006,7 +6187,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6062,7 +6243,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6102,7 +6283,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6224,10 +6405,24 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "Wild Pitch house production created in",
+          "subject": "Photon Inc. / DJ Pierre",
+          "label": "New York City",
+          "lon": -74.006,
+          "lat": 40.7128,
+          "precision": "city",
+          "source": "https://www.allmusic.com/artist/mn0000660881",
+          "note": "AllMusic identifies Photon Inc as DJ Pierre and says Generate Power was his first single after moving to New York, originating his Wild Pitch style. The vocalist Paula Brion is a separate artist; no claim for her geographic origin.",
+          "artist_id": 7266
+        }
+      ]
     },
     {
       "release_id": 453412,
@@ -6451,7 +6646,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6507,7 +6702,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "Geographic evidence not established; further source investigation required",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6647,7 +6842,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6724,7 +6919,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6758,7 +6953,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6819,7 +7014,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6915,10 +7110,24 @@
           "status": "rate_limited"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "artist",
+          "relation": "House music and DJ career based in",
+          "subject": "Michael Gray",
+          "label": "United Kingdom",
+          "lon": -2.5,
+          "lat": 54.5,
+          "precision": "country",
+          "source": "https://ra.co/dj/michaelgray",
+          "note": "Resident Advisor identifies the Full Intention collaborator as UK based and AllMusic indexes the owned Michael Gray Reworks release. Do not infer Croydon music scene from birthplace alone.",
+          "artist_id": 71171
+        }
+      ]
     },
     {
       "release_id": 98807,
@@ -6936,10 +7145,23 @@
           "status": "not_checked"
         }
       ],
-      "outcome": "verification_pending",
-      "evidence_state": "not_adjudicated",
-      "reason": "Geographic evidence not established; further source investigation required",
-      "last_checked": null
+      "outcome": "accepted_geography",
+      "evidence_state": "source_reviewed",
+      "reason": "Verified scoped geographic association",
+      "last_checked": "2026-11-09",
+      "accepted_geography": [
+        {
+          "kind": "recording",
+          "relation": "Album recorded at Studio Tempo in",
+          "subject": "Bombers — (Everybody) Get Dancin'",
+          "label": "Montréal",
+          "lon": -73.5673,
+          "lat": 45.5017,
+          "precision": "city",
+          "source": "https://discjockeymusicstore.com/products/bombers-everybody-get-dancin-lp-album",
+          "note": "Exact album listing reproduces Discogs recording credit Studio Tempo, Montréal for 1979 album Everybody Get Dancin; this is a release/recording claim, not edition pressing France."
+        }
+      ]
     },
     {
       "release_id": 152824,
@@ -6959,7 +7181,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -6996,7 +7218,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -7067,7 +7289,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -7102,7 +7324,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
@@ -7158,7 +7380,7 @@
       ],
       "outcome": "accepted_geography",
       "evidence_state": "source_reviewed",
-      "reason": "At least one source-backed, scoped artist/recording/repertoire geographic association",
+      "reason": "Verified scoped geographic association",
       "last_checked": "2026-11-09",
       "accepted_geography": [
         {
