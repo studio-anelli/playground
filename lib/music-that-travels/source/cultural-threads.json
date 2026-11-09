@@ -1495,6 +1495,19 @@
         "note": "Artist page for the exact Culture release states Berlin, Germany and discusses his activity in German hip-hop. No record-session location claimed."
       }
     ],
+    "5775913": [
+      {
+        "kind": "artist",
+        "subject": "SJ Tequilla / Naota Matsuda",
+        "relation": "Japanese house producer based in",
+        "label": "Berlin",
+        "lon": 13.405,
+        "lat": 52.52,
+        "precision": "city",
+        "source": "https://ra.co/reviews/24501",
+        "note": "Contemporaneous 2019 Resident Advisor review explicitly describes Matsuda as Berlin-based and directly discusses Conditionel. Japanese background is separate from musical base."
+      }
+    ],
     "5793123": [
       {
         "kind": "artist",
@@ -1636,6 +1649,19 @@
         "precision": "city",
         "source": "https://trommelmusic.com/featured/rising-stars-data-memory-access/",
         "note": "Interview with Giammarco Orsini and Jacopo Latini says they first worked together in the studio after Jacopo moved to Berlin in 2019. This is formation geography, not necessarily Hi-Tee EP recording."
+      }
+    ],
+    "8184122": [
+      {
+        "kind": "artist",
+        "subject": "Bonfim / Pedro Tenreiro and Hugo Passos",
+        "relation": "Electronic hip-hop production duo formed in",
+        "label": "Porto",
+        "lon": -8.6291,
+        "lat": 41.1579,
+        "precision": "city",
+        "source": "https://bonfimbeats.bandcamp.com/album/an-extended-play-record-of-assembled-sounds-for-different-kinds-of-moods",
+        "note": "First-party exact EP notes document Pedro Tenreiro's Porto DJ career, Hugo Passos' role in the city's early hip-hop scene, their formation and multiple intimate recording spaces. Porto is formative duo scene, not a specific studio."
       }
     ]
   },
