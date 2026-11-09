@@ -380,6 +380,19 @@
         "note": "AllMusic documents Vernon Lynch and Wardell Mahone forming this exact late-1980s rap group at Fairleigh Dickinson University, Teaneck. Formation location, not Ain't Nothing To It studio."
       }
     ],
+    "44423": [
+      {
+        "kind": "artist",
+        "relation": "Early jungle production and sound-system scene in",
+        "subject": "Tribe of Issachar / Congo Natty",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://djmag.com/features/congo-natty-junglistic-soldier",
+        "note": "Congo Natty describes Tribe of Issachar as his own jungle alias and names the 1996 Peter Bouncer Junglist track; mid-1990s London music community, not a claim that each remix was recorded there."
+      }
+    ],
     "53036": [
       {
         "kind": "artist",
@@ -391,6 +404,19 @@
         "precision": "city",
         "source": "https://www.viviengoldman.com/about",
         "note": "Goldman's official biography identifies her as a Londoner, her role in the 1970s British music press and early-1980s post-punk recordings. London is a biographical and cultural association, not a proven recording location for Resolutionary's tracks."
+      }
+    ],
+    "72134": [
+      {
+        "kind": "artist",
+        "relation": "Jungle recording project and DJ culture associated with",
+        "subject": "Blackstar / Congo Natty",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://djmag.com/features/congo-natty-junglistic-soldier",
+        "note": "DJ Mag explicitly names Blackstar as Congo Natty's alias and ties his early productions to London jungle; does not identify Radical DJ Kane Remix studio."
       }
     ],
     "73715": [
@@ -456,6 +482,19 @@
         "precision": "city",
         "source": "https://www.somarecords.com/artists/octogen/",
         "note": "Soma Records biography under Bernardi's Octogen alias documents his Glasgow early music work and links him by real name. Not the recording place of Mystery Of Nazerus remixes."
+      }
+    ],
+    "156256": [
+      {
+        "kind": "artist",
+        "relation": "Early post-punk and electronic music practice in",
+        "subject": "Codek / Jean-Marie Salaun",
+        "label": "Paris",
+        "lon": 2.3522,
+        "lat": 48.8566,
+        "precision": "city",
+        "source": "https://codek.bandcamp.com/album/closer-tam-tam",
+        "note": "First-party Dark Entries release notes for exact Closer/Tam Tam identify Jean-Marie Salaun's Paris post-punk career and two Paris-area studio sessions. Artist association separate from recording location."
       }
     ],
     "180280": [
@@ -757,6 +796,19 @@
         "note": "Artist's own NYC venue biography documents the Mister Saturday Night / Nowadays DJ and production scene. Born in Derry but birth location is not substituted for his musical base."
       }
     ],
+    "1374815": [
+      {
+        "kind": "artist",
+        "relation": "Electronic music and soundtrack production based in",
+        "subject": "Daniele Mana",
+        "label": "Turin",
+        "lon": 7.6869,
+        "lat": 45.0703,
+        "precision": "city",
+        "source": "https://www.soundbetter.com/profiles/132604-daniele-mana",
+        "note": "Producer self-profile gives Turin location and release history under Mana; RA verifies exact Seven Steps Behind is Daniele Mana's Hyperdub album. Residence/production base, not recording studio."
+      }
+    ],
     "1488101": [
       {
         "kind": "artist",
@@ -859,6 +911,19 @@
         "precision": "city",
         "source": "https://www.allmusic.com/artist/powell-mn0003219352",
         "note": "AllMusic identifies Oscar Powell's London base and Diagonal label. The city is a career base, not documented recording location of Body Music EP."
+      }
+    ],
+    "2551800": [
+      {
+        "kind": "artist",
+        "relation": "Electro-funk producer based in",
+        "subject": "Gary Gritness",
+        "label": "Nancy",
+        "lon": 6.1844,
+        "lat": 48.6921,
+        "precision": "city",
+        "source": "https://garygritness.bandcamp.com/album/the-legend-of-cherenkov-blue",
+        "note": "Artist-operated Bandcamp explicitly lists Nancy, France on the exact Legend of Cherenkov Blue release. This is a geographic artistic base, not necessarily album recording location."
       }
     ],
     "2576696": [
@@ -1160,6 +1225,19 @@
         "precision": "city",
         "source": "https://acidjazz.co.uk/products/totally-wired",
         "note": "First-party label history dates the original 1988 compilation and identifies its curators Eddie Piller and Gilles Peterson and club-scene context. This is compilation curation geography, not a blanket London origin for all eleven contributing recordings."
+      }
+    ],
+    "10511020": [
+      {
+        "kind": "recording",
+        "relation": "Recorded at Studio D'Auteuil and Centre Georges Pompidou in",
+        "subject": "Closer / Tam Tam — Codek",
+        "label": "Paris",
+        "lon": 2.3522,
+        "lat": 48.8566,
+        "precision": "city",
+        "source": "https://codek.bandcamp.com/album/closer-tam-tam",
+        "note": "Detailed first-party Dark Entries liner notes identify the two Paris studios, 16-track and 8-track production, and Jean-Marie Salaun. This exact recording spans two years; remastering in Berkeley 2017 is not an original recording site."
       }
     ],
     "11405284": [
