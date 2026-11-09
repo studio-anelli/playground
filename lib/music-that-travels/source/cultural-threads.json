@@ -210,6 +210,19 @@
         "note": "Artist's own Bandcamp identifies Southampton and explicitly describes the Fear of Flying album as recorded mostly in Belize. Current artist base does not locate the original 2005 sessions; sampler track-specific Belize sessions are not inferred."
       }
     ],
+    "7731": [
+      {
+        "kind": "artist",
+        "subject": "L Double / Lee Johnson",
+        "relation": "Early jungle DJ and producer scene in",
+        "label": "Huddersfield",
+        "lon": -1.7833,
+        "lat": 53.6458,
+        "precision": "city",
+        "source": "https://www.generatormagazine.com/95_09s.pdf",
+        "note": "Contemporaneous 1995 jungle directory calls L Double a Huddersfield-based producer, while BBC biography links his name and musical career. Huddersfield is formative work location, not necessarily the studio for Music For The 90's."
+      }
+    ],
     "13398": [
       {
         "kind": "artist",
@@ -325,6 +338,19 @@
         "precision": "city",
         "source": "https://citizenfreak.com/artists/103854-suzy-q",
         "note": "Museum of Canadian Music documents Suzy Q as the Montréal studio project of Jerry Cucuzzella and explicitly discusses Get On Up Do It Again. It does not separately assign individual singers' origins."
+      }
+    ],
+    "31927": [
+      {
+        "kind": "artist",
+        "subject": "Shirley Lites",
+        "relation": "Professional soul and dance-music career connected to",
+        "label": "Philadelphia",
+        "lon": -75.1652,
+        "lat": 39.9526,
+        "precision": "city",
+        "source": "https://www.nabfeme.org/philadelphia/",
+        "note": "The music industry organization identifies Shirley Lites and explicitly names Heat You Up/Melt You Down as her early record while documenting her long professional activity and leadership in Philadelphia. This is career geography, not a recording studio."
       }
     ],
     "34453": [
@@ -1004,6 +1030,19 @@
         "note": "Resident Advisor identifies Luca Moplen as a DJ and remixer from Bergamo, Italy. This pertains to Moplen only in collaboration with DJ Rocca."
       }
     ],
+    "3056472": [
+      {
+        "kind": "artist",
+        "subject": "Moon B / Wes Gray",
+        "relation": "Synth-funk production established in",
+        "label": "Atlanta",
+        "lon": -84.388,
+        "lat": 33.749,
+        "precision": "city",
+        "source": "https://www.allmusic.com/artist/moon-b-mn0003033888",
+        "note": "AllMusic explicitly identifies Moon B as Wes Gray, a producer based in Atlanta during his early releases. Historical music base, not the recording location of III or a claim about current residence."
+      }
+    ],
     "3148324": [
       {
         "kind": "artist",
@@ -1082,6 +1121,19 @@
         "note": "Resident Advisor documents his Dystopian collective and shows in Berlin, directly linking the city with musical activity. This is a scene association, not Beyond the Black Rainbow studio."
       }
     ],
+    "3496975": [
+      {
+        "kind": "artist",
+        "subject": "Lata Ramasar",
+        "relation": "Hindustani musical tradition and early recordings in",
+        "label": "Trinidad and Tobago",
+        "lon": -61.2225,
+        "lat": 10.6918,
+        "precision": "country",
+        "source": "https://www.thevinylfactory.com/news/invisible-city-defy-bootleggers-to-give-super-rare-electronic-12-an-official-vinyl-release",
+        "note": "Vinyl Factory identifies Lata Ramasar as a Trinidad and Tobago Hindustani singer and the exact The Greatest Name That Lives record, citing the artist family's reissue; early family recordings reportedly occurred there, but this record's specific studio is not established."
+      }
+    ],
     "3876503": [
       {
         "kind": "artist",
@@ -1119,6 +1171,19 @@
         "precision": "city",
         "source": "https://www.toytonics.de/2021/05/28/delfonic-kapote-illegal-jazz-vol-4-ijr004/",
         "note": "First-party Toy Tonics identifies Delfonic as the former OYE Records Berlin figure, explicitly connecting him to Illegal Jazz series. Artist scene; not original source recordings."
+      }
+    ],
+    "4153841": [
+      {
+        "kind": "artist",
+        "subject": "Makala Jazz Funk Band",
+        "relation": "Jazz-funk live group formed in",
+        "label": "Zarautz",
+        "lon": -2.169,
+        "lat": 43.284,
+        "precision": "city",
+        "source": "https://djmakala.wordpress.com/mjfb/",
+        "note": "Founder's account explicitly states Makala Jazz Funk Band comes from Zarautz, lists founding local musicians and names the 2015 Xake! debut. Group formation and scene, not an album studio assertion."
       }
     ],
     "4447121": [
