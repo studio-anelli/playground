@@ -225,6 +225,19 @@
         "location_source": "https://www.generatormagazine.com/95_09s.pdf"
       }
     ],
+    "9867": [
+      {
+        "kind": "artist",
+        "relation": "Acid-jazz and bossa nova group formed in",
+        "subject": "Soul Bossa Trio",
+        "label": "Tokyo",
+        "lon": 139.6917,
+        "lat": 35.6895,
+        "precision": "city",
+        "source": "https://www.allmusic.com/artist/soul-bossa-trio-mn0000034010",
+        "note": "AllMusic gives 1993 Tokyo formation by Gonzalez Suzuki and specifically discusses Dolphins (2003), matching the owned Dolphins / Words Of Love; Tokyo is formation geography, not its session studio."
+      }
+    ],
     "13398": [
       {
         "kind": "artist",
@@ -314,6 +327,20 @@
         "precision": "city",
         "source": "https://music.spaceshower.jp/contents/1041416",
         "note": "Japanese music distributor biography identifies Saitama as Atobe's base and explicitly lists World (2016). A musical base, not a specific recording studio."
+      }
+    ],
+    "17390": [
+      {
+        "kind": "artist",
+        "relation": "Jungle production and early hardcore scene in",
+        "subject": "DJ Red Alert & Mike Slammer",
+        "label": "London",
+        "lon": -0.1276,
+        "lat": 51.5072,
+        "precision": "city",
+        "source": "https://ra.co/news/81471",
+        "location_source": "https://artisanvinyl.co.uk/dj-red-alert-mike-slammer-don-t-need-your-love-in-effect-slammin-vinyl-disc24739n8.html",
+        "note": "Resident Advisor documents duo in East London's Brain Records scene, and the original 1993 Don't Need Your Love / In Effect pressing explicitly says written and produced at Slammer Studios, London. Artist musical production scene only; this does not establish the studio for owned Feel So Real / Walking On Sunshine."
       }
     ],
     "19902": [
