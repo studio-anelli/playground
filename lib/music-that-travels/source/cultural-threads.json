@@ -1266,6 +1266,20 @@
         "note": "Original label's exact reissue reproduces the etched original runout credit PRODUCED BY DJ SLIP IN MINNEAPOLIS, MN. Different locations for Detroit mastering and pressing are not music production."
       }
     ],
+    "37985": [
+      {
+        "kind": "recording",
+        "relation": "Original composition recorded and mixed at the Basement Boys Studio in",
+        "subject": "Gypsy Woman (She's Homeless) — Crystal Waters (original song recording)",
+        "label": "Baltimore",
+        "lon": -76.6122,
+        "lat": 39.2904,
+        "precision": "city",
+        "coverage": "partial",
+        "source": "https://musicbrainz.org/release/9f0a966c-8429-4acd-a6ad-c0aa2c64cac9",
+        "note": "MusicBrainz release credits explicitly place original Gypsy Woman recording/mix at Basement Boys Studio in Baltimore, independently corroborated as a Baltimore production partnership by Washington Post. Scope is the underlying original vocal recording; no claim that all edits/remixes on the owned 12-inch were recorded there."
+      }
+    ],
     "39348": [
       {
         "kind": "repertoire",
@@ -1279,6 +1293,19 @@
         "note": "First-party label history dates the original 1988 compilation and identifies its curators Eddie Piller and Gilles Peterson and club-scene context. This is compilation curation geography, not a blanket London origin for all eleven contributing recordings."
       }
     ],
+    "5081661": [
+      {
+        "kind": "recording",
+        "relation": "Recorded in",
+        "subject": "Disco Illusion — Stephen Encinas (original 1979 recording)",
+        "label": "Trinidad and Tobago",
+        "lon": -61.2225,
+        "lat": 10.6918,
+        "precision": "country",
+        "source": "https://ra.co/reviews/14053",
+        "note": "Resident Advisor review and artist's own reissue Bandcamp independently confirm local ensemble recorded the original 1979 Disco Illusion in Trinidad and Tobago; territory-level only, not original 2013 reissue manufacture."
+      }
+    ],
     "10511020": [
       {
         "kind": "recording",
@@ -1290,6 +1317,19 @@
         "precision": "city",
         "source": "https://codek.bandcamp.com/album/closer-tam-tam",
         "note": "Detailed first-party Dark Entries liner notes identify the two Paris studios, 16-track and 8-track production, and Jean-Marie Salaun. This exact recording spans two years; remastering in Berkeley 2017 is not an original recording site."
+      }
+    ],
+    "11047607": [
+      {
+        "kind": "recording",
+        "relation": "Improvised and recorded in a studio in",
+        "subject": "Have You Been There, Have You Seen It — Helena Hauff",
+        "label": "Hamburg",
+        "lon": 9.9937,
+        "lat": 53.5511,
+        "precision": "city",
+        "source": "https://imap.oye-records.com/releases/helena-hauff-have-you-been-there-have-you-seen-it",
+        "note": "Ninja Tune product copy on the exact ZEN12469 EP explicitly describes four analogue tracks improvised and recorded in Helena's Hamburg studio. No address or label location used."
       }
     ],
     "11405284": [
@@ -1329,6 +1369,19 @@
         "precision": "city",
         "source": "https://ra.co/news/41327",
         "note": "Resident Advisor cites the Future Times label confirming the exact album was written and recorded in 2016–17 at a residence in Ridgewood, Queens. Approximate neighbourhood centroid, not a precise home address."
+      }
+    ],
+    "12125066": [
+      {
+        "kind": "recording",
+        "relation": "Recorded in",
+        "subject": "For — DJ Marcelle / Another Nice Mess",
+        "label": "Amsterdam",
+        "lon": 4.9041,
+        "lat": 52.3676,
+        "precision": "city",
+        "source": "https://www.schamoni.de/musik/jahmoni-music/dj-marcelle-another-nice-mess-for",
+        "note": "Jahmoni distributor's exact 2018 JMM-213 release notes explicitly state Recorded in Amsterdam. This refers to the original work, not distribution from Germany."
       }
     ],
     "12343877": [
