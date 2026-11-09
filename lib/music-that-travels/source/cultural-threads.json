@@ -54,6 +54,19 @@
         "note": "RBMA interview with Steve Carr documents his Ipswich sound-system background and early production. Does not establish studio of One Ton."
       }
     ],
+    "782": [
+      {
+        "kind": "artist",
+        "relation": "House music and production career established in",
+        "subject": "Norma Jean Bell",
+        "label": "Detroit",
+        "lon": -83.0458,
+        "lat": 42.3314,
+        "precision": "city",
+        "source": "https://www.allmusic.com/artist/norma-jean-bell-mn0000455694",
+        "note": "AllMusic directly identifies Bell's mid-1990s Detroit house work with Moodymann and her own Pandamonium label. Does not assert location of the owned mix recording."
+      }
+    ],
     "1665": [
       {
         "kind": "artist",
@@ -731,6 +744,19 @@
         "note": "Artist biography explicitly lists Alien Rebellion and documents Berlin residence and work with 3TH Records. Italo-Brazilian heritage is not represented as recording geography."
       }
     ],
+    "3320913": [
+      {
+        "kind": "artist",
+        "relation": "Experimental electronics developed in",
+        "subject": "Omnibus Band",
+        "label": "Czechoslovakia",
+        "lon": 15.473,
+        "lat": 49.8175,
+        "precision": "country",
+        "source": "https://unearthingthemusic.eu/posts/omnibus-israels-rhythmus-1980-1985/",
+        "note": "Interview with band founder documents its Czechoslovak-era origin, home experimentation and recordings from 1980 to 1985. Historical territory mapped at country level using modern Czechia centroid, not a specific recording studio."
+      }
+    ],
     "3876503": [
       {
         "kind": "artist",
@@ -926,6 +952,19 @@
         "precision": "country",
         "source": "https://atorecords.com/releases/on/",
         "note": "The label describes interpretations of traditional Turkish folk songs. The country marker represents a repertoire connection, not one exact place of origin for every song."
+      }
+    ],
+    "11768093": [
+      {
+        "kind": "recording",
+        "relation": "Recorded in",
+        "subject": "At Ease — Will DiMaggio",
+        "label": "Ridgewood, Queens",
+        "lon": -73.9053,
+        "lat": 40.7044,
+        "precision": "city",
+        "source": "https://ra.co/news/41327",
+        "note": "Resident Advisor cites the Future Times label confirming the exact album was written and recorded in 2016–17 at a residence in Ridgewood, Queens. Approximate neighbourhood centroid, not a precise home address."
       }
     ],
     "12343877": [
