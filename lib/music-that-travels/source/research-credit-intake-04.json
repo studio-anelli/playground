@@ -1,0 +1,647 @@
+{
+  "schema_version": 1,
+  "batch_id": "credit-intake-04",
+  "purpose": "Thirty distinct previously unobserved owned edition credit-source intake candidates; prioritize cross-scene musicians, track-specific remixes, historic session personnel, mixed editions and overlooked repertoire. No claim acceptance.",
+  "selected_at": "2026-11-09",
+  "selection_policy": "Purposefully varied, evidence-impact prioritized; not random and cannot measure unbiased yield.",
+  "release_ids": [
+    "36972",
+    "6912363",
+    "3842748",
+    "9153158",
+    "11780074",
+    "12343877",
+    "2981774",
+    "10559651",
+    "24896429",
+    "165894",
+    "26118410",
+    "205935",
+    "212060",
+    "154670",
+    "3558397",
+    "10496968",
+    "95045",
+    "66506",
+    "11795",
+    "97331",
+    "135052",
+    "9522",
+    "12101577",
+    "1218134",
+    "3835570",
+    "981136",
+    "7704301",
+    "11813901",
+    "9425519",
+    "30112238"
+  ],
+  "entries": [
+    {
+      "release_id": "36972",
+      "title": "Rockit (Extended Dance Version)",
+      "artists": [
+        {
+          "id": "3865",
+          "name": "Herbie Hancock"
+        }
+      ],
+      "master_id": "101922",
+      "genres": [
+        "Hip Hop",
+        "Jazz",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Electro",
+        "Future Jazz"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "6912363",
+      "title": "Planets Of Life Or Death: Amiens '73",
+      "artists": [
+        {
+          "id": "2219395",
+          "name": "The Sun Ra Arkestra"
+        }
+      ],
+      "master_id": "836601",
+      "genres": [
+        "Jazz"
+      ],
+      "styles": [
+        "Avant-garde Jazz",
+        "Free Jazz"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "3842748",
+      "title": "Sketches Of Spain = スケッチ・オブ・スペイン",
+      "artists": [
+        {
+          "id": "23755",
+          "name": "Miles Davis"
+        }
+      ],
+      "master_id": "48172",
+      "genres": [
+        "Jazz"
+      ],
+      "styles": [
+        "Modal"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "9153158",
+      "title": "Birth Of The Cool",
+      "artists": [
+        {
+          "id": "23755",
+          "name": "Miles Davis"
+        }
+      ],
+      "master_id": "62308",
+      "genres": [
+        "Jazz"
+      ],
+      "styles": [
+        "Cool Jazz"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "11780074",
+      "title": "On Jupiter",
+      "artists": [
+        {
+          "id": "2219395",
+          "name": "The Sun Ra Arkestra"
+        }
+      ],
+      "master_id": "143603",
+      "genres": [
+        "Jazz",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Free Jazz",
+        "Space-Age",
+        "Disco"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "12343877",
+      "title": "Disco 3000",
+      "artists": [
+        {
+          "id": "35328",
+          "name": "Sun Ra"
+        }
+      ],
+      "master_id": "143589",
+      "genres": [
+        "Electronic",
+        "Jazz"
+      ],
+      "styles": [
+        "Free Jazz",
+        "Space-Age"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "2981774",
+      "title": "Views Of Saturn Vol.1",
+      "artists": [
+        {
+          "id": "341770",
+          "name": "Ras G"
+        },
+        {
+          "id": "35328",
+          "name": "Sun Ra"
+        }
+      ],
+      "master_id": "0",
+      "genres": [
+        "Electronic",
+        "Jazz"
+      ],
+      "styles": [
+        "Free Jazz",
+        "Space-Age"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "10559651",
+      "title": "Damn.",
+      "artists": [
+        {
+          "id": "1778977",
+          "name": "Kendrick Lamar"
+        }
+      ],
+      "master_id": "1164779",
+      "genres": [
+        "Hip Hop"
+      ],
+      "styles": [
+        "Conscious"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "24896429",
+      "title": "Good Kid, M.A.A.D City",
+      "artists": [
+        {
+          "id": "1778977",
+          "name": "Kendrick Lamar"
+        }
+      ],
+      "master_id": "484590",
+      "genres": [
+        "Hip Hop"
+      ],
+      "styles": [
+        "Conscious"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "165894",
+      "title": "Oooh.",
+      "artists": [
+        {
+          "id": "4091",
+          "name": "De La Soul"
+        }
+      ],
+      "master_id": "110650",
+      "genres": [
+        "Hip Hop"
+      ],
+      "styles": [],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "26118410",
+      "title": "Number Song / Painkiller",
+      "artists": [
+        {
+          "id": "4478",
+          "name": "DJ Shadow"
+        },
+        {
+          "id": "2725",
+          "name": "Depeche Mode"
+        }
+      ],
+      "master_id": "35397",
+      "genres": [
+        "Electronic",
+        "Hip Hop"
+      ],
+      "styles": [
+        "Cut-up/DJ",
+        "Trip Hop",
+        "Breaks"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "205935",
+      "title": "The Payback Mix (Keep On Doing What You're Doing But Make It Funky)",
+      "artists": [
+        {
+          "id": "12596",
+          "name": "James Brown"
+        }
+      ],
+      "master_id": "235300",
+      "genres": [
+        "Electronic",
+        "Hip Hop",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Cut-up/DJ",
+        "Disco"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "212060",
+      "title": "You Shouldn't-Nuf Bit Fish",
+      "artists": [
+        {
+          "id": "29262",
+          "name": "George Clinton"
+        }
+      ],
+      "master_id": "19576",
+      "genres": [
+        "Electronic",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "P.Funk",
+        "Electro",
+        "Funk"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "154670",
+      "title": "One Nation Under A Groove / (Not Just) Knee Deep (Parts I & II)",
+      "artists": [
+        {
+          "id": "29923",
+          "name": "Funkadelic"
+        }
+      ],
+      "master_id": "2251966",
+      "genres": [
+        "Electronic",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "P.Funk"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "3558397",
+      "title": "Honey",
+      "artists": [
+        {
+          "id": "48413",
+          "name": "Ohio Players"
+        }
+      ],
+      "master_id": "91554",
+      "genres": [
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Funk",
+        "Disco"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "10496968",
+      "title": "Stars In Your Eyes / Saturday Night",
+      "artists": [
+        {
+          "id": "3865",
+          "name": "Herbie Hancock"
+        }
+      ],
+      "master_id": "0",
+      "genres": [
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Soul",
+        "Disco",
+        "Funk",
+        "Boogie"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "95045",
+      "title": "Share The Fall",
+      "artists": [
+        {
+          "id": "124108",
+          "name": "Roni Size / Reprazent"
+        }
+      ],
+      "master_id": "73152",
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Drum n Bass"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "66506",
+      "title": "The Trooper (Remixes)",
+      "artists": [
+        {
+          "id": "2323",
+          "name": "DJ Hype"
+        }
+      ],
+      "master_id": "5064",
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Hardcore",
+        "Jungle"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "11795",
+      "title": "Ni - Ten - Ichi - Ryu",
+      "artists": [
+        {
+          "id": "417",
+          "name": "Photek"
+        }
+      ],
+      "master_id": "73109",
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Drum n Bass"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "97331",
+      "title": "Junglist (Remixes)",
+      "artists": [
+        {
+          "id": "44423",
+          "name": "Tribe Of Issachar"
+        },
+        {
+          "id": "9521",
+          "name": "Peter Bouncer"
+        }
+      ],
+      "master_id": "1596706",
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Jungle"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "135052",
+      "title": "Champion Natty",
+      "artists": [
+        {
+          "id": "44423",
+          "name": "Tribe Of Issachar"
+        },
+        {
+          "id": "7137",
+          "name": "Top Cat"
+        }
+      ],
+      "master_id": "33842",
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Drum n Bass",
+        "Jungle"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "9522",
+      "title": "My Dreams (Remixed By Total Science & High Contrast)",
+      "artists": [
+        {
+          "id": "4628",
+          "name": "London Elektricity"
+        },
+        {
+          "id": "2187",
+          "name": "Robert Owens"
+        }
+      ],
+      "master_id": "442745",
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Drum n Bass"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "12101577",
+      "title": "1974  Sulle Corde Di Aries / Clic",
+      "artists": [
+        {
+          "id": "114390",
+          "name": "Franco Battiato"
+        }
+      ],
+      "master_id": "573486",
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Abstract",
+        "Experimental",
+        "Ambient"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "1218134",
+      "title": "Patriots",
+      "artists": [
+        {
+          "id": "114390",
+          "name": "Franco Battiato"
+        }
+      ],
+      "master_id": "69030",
+      "genres": [
+        "Electronic",
+        "Rock",
+        "Pop"
+      ],
+      "styles": [
+        "Pop Rock",
+        "Synth-pop",
+        "Ballad"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "3835570",
+      "title": "Voices And Instruments",
+      "artists": [
+        {
+          "id": "240814",
+          "name": "Jan Steele"
+        },
+        {
+          "id": "26955",
+          "name": "John Cage"
+        }
+      ],
+      "master_id": "289958",
+      "genres": [
+        "Classical"
+      ],
+      "styles": [
+        "Contemporary",
+        "Avantgarde"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "981136",
+      "title": "Non Al Denaro Non All'Amore Nè Al Cielo",
+      "artists": [
+        {
+          "id": "660740",
+          "name": "Fabrizio De André"
+        }
+      ],
+      "master_id": "286893",
+      "genres": [
+        "Pop"
+      ],
+      "styles": [
+        "Ballad"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "7704301",
+      "title": "World EP",
+      "artists": [
+        {
+          "id": "4007020",
+          "name": "Nu Guinea"
+        }
+      ],
+      "master_id": "911392",
+      "genres": [
+        "Electronic",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Disco",
+        "House"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "11813901",
+      "title": "Infinite Dreamz EP",
+      "artists": [
+        {
+          "id": "4601576",
+          "name": "No Moon"
+        }
+      ],
+      "master_id": "1389025",
+      "genres": [
+        "Electronic"
+      ],
+      "styles": [
+        "Electro"
+      ],
+      "scope_question": "Match edition/reissue credits to original song sessions and track-specific contributors; exclude pressing and remaster roles."
+    },
+    {
+      "release_id": "9425519",
+      "title": "Doing It In Lagos (Boogie, Pop & Disco In 1980s Nigeria)",
+      "artists": [
+        {
+          "id": "194",
+          "name": "Various"
+        }
+      ],
+      "master_id": "1097803",
+      "genres": [
+        "Electronic",
+        "Funk / Soul"
+      ],
+      "styles": [
+        "Afrobeat",
+        "Boogie",
+        "Disco"
+      ],
+      "scope_question": "Identify exact original performers and track/side-specific studio credits; do not assign one compilation origin."
+    },
+    {
+      "release_id": "30112238",
+      "title": "Congo Funk! Sound Madness From The Shores Of The Mighty Congo River (Kinshasa​/​Brazzaville 1969​-​1982)",
+      "artists": [
+        {
+          "id": "194",
+          "name": "Various"
+        }
+      ],
+      "master_id": "3434153",
+      "genres": [
+        "Latin",
+        "Funk / Soul",
+        "Folk, World, & Country"
+      ],
+      "styles": [
+        "Afrobeat",
+        "African",
+        "Funk",
+        "Rumba"
+      ],
+      "scope_question": "Identify exact original performers and track/side-specific studio credits; do not assign one compilation origin."
+    }
+  ]
+}

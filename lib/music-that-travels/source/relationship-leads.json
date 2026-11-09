@@ -199,6 +199,63 @@
       ],
       "identity_reviewed": false,
       "scope_reviewed": false
+    },
+    {
+      "id": "intake04-nkono-lagos",
+      "relation": "shared_contributor",
+      "status": "candidate",
+      "endpoints": [
+        {
+          "kind": "owned_release",
+          "release_id": "26572889",
+          "role": "producer"
+        },
+        {
+          "kind": "owned_release",
+          "release_id": "9425519",
+          "role": "performer"
+        }
+      ],
+      "track_scope": "Love Vibration owned edition: Nkono Teles credited as writer/producer; Doing It in Lagos owned Soundway SNDWLP087: Nkono Teles — Be My Lady (Mix), side E3. Exact original master and release chronology not equated.",
+      "question": "Validate the original source pressing for Be My Lady (Mix), the specific relationship to Nkono Teles' Love Vibration recordings, and any shared session/production personnel. An anthology track appearance is not a recording made for that compilation.",
+      "source_ids": [
+        "discogs-releases-26572889"
+      ],
+      "source_urls": [
+        "https://www.soundwaypublishing.com/doingitinlagos",
+        "https://www.lediscopathe.com/release/9425519/Various-Doing-It-In-Lagos-%28Boogie-Pop-and-Disco-In-1980s-Nigeria%29"
+      ],
+      "identity_reviewed": false,
+      "scope_reviewed": false
+    },
+    {
+      "id": "intake04-steve-monite-same-song",
+      "relation": "same_recording",
+      "status": "candidate",
+      "endpoints": [
+        {
+          "kind": "owned_release",
+          "release_id": "25267285",
+          "role": "performer"
+        },
+        {
+          "kind": "owned_release",
+          "release_id": "9425519",
+          "role": "performer"
+        }
+      ],
+      "track_scope": "Steve Monite 'Only You': 2022/23 Soundway album reissue track 'Only You' (not 'Only You (Disco Jam)') versus 2016 Doing It In Lagos compilation track A3. Compare exact mix/take/master, not just the title.",
+      "question": "Does the owned anthology side A3 use the exact same original recording and mix as the owned reissue album's first track? Confirm audio/version equivalence, then promote as an accepted same-recording link; do not assert shared physical pressing or remaster.",
+      "source_ids": [
+        "discogs-releases-25267285"
+      ],
+      "source_urls": [
+        "https://soundwayrecords.com/release/300028-steve-monite-only-you?lang=en_US",
+        "https://soundwayrecords.bandcamp.com/track/only-you",
+        "https://www.lediscopathe.com/release/9425519/Various-Doing-It-In-Lagos-%28Boogie-Pop-and-Disco-In-1980s-Nigeria%29"
+      ],
+      "identity_reviewed": false,
+      "scope_reviewed": false
     }
   ]
 }
