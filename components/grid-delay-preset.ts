@@ -31,7 +31,10 @@ export function parseGridDelayPreset(input:unknown,ranges:Record<string,readonly
  if(!object(input)||input.kind!=="grid-delay-machine"||input.version!==1)throw Error("This is not a supported Grid Delay preset (version 1).");
  const p=input;
  const values=p.settings;
- if(!object(values)||Object.keys(ranges).some(k=>!number(values[k],ranges[k][0],ranges[k][1])))throw Error("Preset parameters are missing or outside their allowed ranges.");
+ // Version-1 presets exported before the seam control existed must still load.
+ if(!object(values))throw Error("Preset parameters are missing.");
+ const validatedSettings={...values,edgeSoftness:values.edgeSoftness===undefined?70:values.edgeSoftness};
+ if(Object.keys(ranges).some(k=>!number(validatedSettings[k],ranges[k][0],ranges[k][1])))throw Error("Preset parameters are missing or outside their allowed ranges.");
  if(typeof p.text!=="string"||p.text.length>5000||typeof p.font!=="string"||p.font.length>200)throw Error("Invalid text or font in preset.");
  if(!option(p.align,["left","center","right"])||!option(p.vertical,["top","middle","bottom"])||
     !option(p.motion,modes)||!option(p.pattern,patterns)||!option(p.deformation,["rigid","fisheye","pinch"])||
@@ -49,5 +52,5 @@ export function parseGridDelayPreset(input:unknown,ranges:Record<string,readonly
  if(!object(p.feedback)||typeof p.feedback.enabled!=="boolean"||!number(p.feedback.amount,0,100)||
     !number(p.feedback.decay,0,100)||!number(p.feedback.refresh,16,500)||!option(p.feedback.blend,blends))throw Error("Invalid feedback settings.");
  if(p.image!==undefined&&p.image!==null&&(typeof p.image!=="string"||p.image.length>10_000_000||!/^data:image\/(?:png|jpeg|webp);base64,/i.test(p.image)))throw Error("Unsupported or oversized embedded image.");
- return input as GridDelayPreset;
+ return {...p,settings:validatedSettings} as GridDelayPreset;
 }
