@@ -167,50 +167,61 @@ void main(){
  vec3 rendered=compose(sampleColor.rgb,uBackground);
  vec3 result=uBackgroundInside?rendered:mix(uBackground,rendered,clamp(sampleColor.a,0.,1.));
  if(uDelayType==1 || uDelayType==2){
-   // Real echo compositing: preserve the main impression, then layer
-   // distinct, progressively weaker historical moments over it.
-   // Historical source canvases can have an opaque painted background.
-   // Recover an ink mask by comparing to the background in that mode,
-   // rather than fading whole background rectangles across the image.
-   float echoStep=clamp(uDelay*.28,.16,1.45);
+   // Musical echoes as refractive *regions of past frames*, not transparent
+   // duplicate images. The moving wavefront acts like a travelling lens:
+   // it bends the UVs and reveals a different point in source history.
+   // Outside the wavefront the original digital sampling stays untouched.
    float wet=clamp(uEchoMix,0.,1.);
-   float wear=clamp(uTapeWear,0.,1.);
+   float interval=clamp(uDelay*.28,.20,1.35);
+   float phase=uTime/max(.2,interval);
    if(uDelayType==1){
-     // Tape: low-frequency transport drift, slight horizontal flutter,
-     // and two dimmer echoes that trail the original without mirroring.
-     float wobble=wear*(.055*sin(uTime*2.3)+.023*sin(uTime*8.1));
-     vec2 flutter=vec2(wear*.003*sin(uTime*7.2),0.);
-     vec2 uvA=sourceUV+flutter;
-     vec4 head=textureLod(uFrames,vec3(clamp(uvA,0.,1.),float(historyLayer(clamp(secondsAgo+wobble,0.,5.)))),0.);
-     float grey=dot(head.rgb,vec3(.299,.587,.114));
-     head.rgb=mix(head.rgb,vec3(grey),wear*.16);
-     head.rgb*=mix(vec3(1.),vec3(1.055,.98,.91),wear);
-     float headMask=uBackgroundInside?smoothstep(.025,.12,length(head.rgb-uBackground)):clamp(head.a,0.,1.);
-     result=mix(uBackground,compose(head.rgb,uBackground),headMask);
-     vec2 trail1=sourceUV+vec2(.035+wear*.025,0.);
-     vec2 trail2=sourceUV+vec2(.075+wear*.035,0.);
-     vec4 echo1=textureLod(uFrames,vec3(clamp(trail1,0.,1.),float(historyLayer(min(5.,secondsAgo+echoStep)))),0.);
-     vec4 echo2=textureLod(uFrames,vec3(clamp(trail2,0.,1.),float(historyLayer(min(5.,secondsAgo+echoStep*2.)))),0.);
-     float mask1=uBackgroundInside?smoothstep(.025,.12,length(echo1.rgb-uBackground)):clamp(echo1.a,0.,1.);
-     float mask2=uBackgroundInside?smoothstep(.025,.12,length(echo2.rgb-uBackground)):clamp(echo2.a,0.,1.);
-     result=mix(result,compose(echo1.rgb,uBackground),wet*.53*mask1);
-     result=mix(result,compose(echo2.rgb,uBackground),wet*.23*mask2);
+     // Tape: irregular parallel ripples drift across the existing image.
+     // Two passes carry consecutive older frames; wow/flutter modulates
+     // both wave position and curvature rather than tinting the colours.
+     float wear=clamp(uTapeWear,0.,1.);
+     float drift=.06*sin(uTime*.87)+wear*.035*sin(uTime*4.2);
+     float flow=fract(phase*.14+drift);
+     float distanceA=abs(sourceUV.y-flow);
+     float distanceB=abs(sourceUV.y-fract(flow+.53));
+     float bandA=1.-smoothstep(.045,.20,distanceA);
+     float bandB=1.-smoothstep(.035,.16,distanceB);
+     float curveA=sin(distanceA*38.-uTime*4.3)*bandA;
+     float curveB=sin(distanceB*45.+uTime*3.1)*bandB;
+     vec2 bend=vec2((curveA*.027+curveB*.015)*( .3+wear*.7),0.);
+     vec2 tapeUV=clamp(sourceUV+bend,vec2(0.),vec2(1.));
+     vec4 tapeA=textureLod(uFrames,vec3(tapeUV,float(historyLayer(min(5.,secondsAgo+interval)))),0.);
+     vec4 tapeB=textureLod(uFrames,vec3(tapeUV,float(historyLayer(min(5.,secondsAgo+interval*2.)))),0.);
+     float maskA=uBackgroundInside?smoothstep(.025,.12,length(tapeA.rgb-uBackground)):clamp(tapeA.a,0.,1.);
+     float maskB=uBackgroundInside?smoothstep(.025,.12,length(tapeB.rgb-uBackground)):clamp(tapeB.a,0.,1.);
+     result=mix(result,compose(tapeA.rgb,uBackground),wet*.90*bandA*maskA);
+     result=mix(result,compose(tapeB.rgb,uBackground),wet*.65*bandB*maskB);
    }else{
-     // Ping-pong: unmirrored source copies alternate across the stage.
-     // Sample UV offsets place earlier snapshots on opposite sides:
-     // first echo left (-x), second echo right (+x).
-     float swing=.15;
-     vec2 leftUV=sourceUV+vec2(swing,0.);
-     vec2 rightUV=sourceUV-vec2(swing,0.);
-     // Outside the source is empty; never clamp shifted UV at the edges.
-     vec4 leftEcho=textureLod(uFrames,vec3(clamp(leftUV,0.,1.),float(historyLayer(min(5.,secondsAgo+echoStep)))),0.);
-     vec4 rightEcho=textureLod(uFrames,vec3(clamp(rightUV,0.,1.),float(historyLayer(min(5.,secondsAgo+echoStep*2.)))),0.);
-     float leftMask=uBackgroundInside?smoothstep(.025,.12,length(leftEcho.rgb-uBackground)):clamp(leftEcho.a,0.,1.);
-     float rightMask=uBackgroundInside?smoothstep(.025,.12,length(rightEcho.rgb-uBackground)):clamp(rightEcho.a,0.,1.);
-     if(leftUV.x>1.)leftMask=0.;
-     if(rightUV.x<0.)rightMask=0.;
-     result=mix(result,compose(leftEcho.rgb,uBackground),wet*.65*leftMask);
-     result=mix(result,compose(rightEcho.rgb,uBackground),wet*.37*rightMask);
+     // Ping-Pong: wavefront A travels left-to-right, wavefront B returns
+     // right-to-left on the next beat. Neither the source nor the
+     // historical image is mirrored. Each front bends and reveals
+     // successive taps, producing distinct travelling slices.
+     float cycle=fract(phase*.5);
+     float forward=cycle;
+     float backward=1.-cycle;
+     float distanceA=abs(sourceUV.x-forward);
+     float distanceB=abs(sourceUV.x-backward);
+     float bandA=1.-smoothstep(.035,.17,distanceA);
+     float bandB=1.-smoothstep(.035,.17,distanceB);
+     float bendA=sin(distanceA*35.)*bandA*.038*wet;
+     float bendB=sin(distanceB*35.)*bandB*.038*wet;
+     // Alternate the active front each half-cycle, with a short
+     // overlap rather than a sudden global image swap.
+     float leg=fract(phase);
+     float activeA=1.-smoothstep(.35,.55,leg);
+     float activeB=smoothstep(.45,.65,leg);
+     vec2 uvA=clamp(sourceUV+vec2(bendA,bandA*.006),vec2(0.),vec2(1.));
+     vec2 uvB=clamp(sourceUV-vec2(bendB,bandB*.006),vec2(0.),vec2(1.));
+     vec4 echoA=textureLod(uFrames,vec3(uvA,float(historyLayer(min(5.,secondsAgo+interval)))),0.);
+     vec4 echoB=textureLod(uFrames,vec3(uvB,float(historyLayer(min(5.,secondsAgo+interval*2.)))),0.);
+     float maskA=uBackgroundInside?smoothstep(.025,.12,length(echoA.rgb-uBackground)):clamp(echoA.a,0.,1.);
+     float maskB=uBackgroundInside?smoothstep(.025,.12,length(echoB.rgb-uBackground)):clamp(echoB.a,0.,1.);
+     result=mix(result,compose(echoA.rgb,uBackground),wet*bandA*activeA*maskA);
+     result=mix(result,compose(echoB.rgb,uBackground),wet*bandB*activeB*maskB);
    }
  }
  if(uGridVisible){
