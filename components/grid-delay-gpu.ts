@@ -356,7 +356,8 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
  };
  const render=(p:DelayGeometry)=>{
   if(!count||gl.isContextLost())return;
-  const wantFeedback=p.feedbackEnabled&&p.feedbackAmount>0;
+  // Keep buffers alive while enabled, even when a patch briefly drives amount to zero.
+  const wantFeedback=p.feedbackEnabled;
   if(!wantFeedback&&feedbackActive){deleteFeedback();feedbackActive=false}
   if(wantFeedback&&!feedbackActive){feedbackActive=true;feedbackValid=initFeedback()}
   const useFeedback=wantFeedback&&feedbackValid&&!!feedbackTargets;
