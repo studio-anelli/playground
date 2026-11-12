@@ -30,7 +30,7 @@ function Buttons<T extends string>({values,selected,onSelect}:{values:readonly T
 export default function GridDelayMachine(){
  const canvas=useRef<HTMLCanvasElement>(null),stage=useRef<HTMLDivElement>(null),file=useRef<HTMLInputElement>(null),presetFile=useRef<HTMLInputElement>(null),image=useRef<HTMLImageElement|null>(null);
  const settingsRef=useRef(defaults),oscRef=useRef<DelayWave[]>([{shape:"sine",rate:.01,depth:75,phase:0,enabled:true},{shape:"triangle",rate:.13,depth:65,phase:0,enabled:true},{shape:"sine",rate:1.08,depth:62,phase:0,enabled:true}]),patchRef=useRef<DelayPatch[]>([{id:"c2-inkHue",wave:2,target:"inkHue",amount:100}]);
- const visualRef=useRef<{ink:string;background:string;blend:BlendMode}>({ink:"#1133ff",background:"#000000",blend:"source-over"}),linkedRef=useRef(true);
+ const visualRef=useRef<{ink:string;background:string;blend:BlendMode}>({ink:"#0533ff",background:"#000000",blend:"source-over"}),linkedRef=useRef(true);
  const motionRef=useRef<Motion>("scale"),patternRef=useRef<Pattern>("radial"),textRef=useRef("play"),fontRef=useRef("Arial, Helvetica, sans-serif"),alignRef=useRef<TextAlign>("center"),vAlignRef=useRef<VerticalAlign>("middle"),deformRef=useRef<DeformMode>("pinch"),playingRef=useRef(true),gridRef=useRef(false);
  const patchGainRef=useRef<DelayInputGains>({});
  const [patchGains,setPatchGains]=useState<DelayInputGains>({});
@@ -46,7 +46,7 @@ export default function GridDelayMachine(){
  const [presetMessage,setPresetMessage]=useState<{text:string;error:boolean}|null>(null);
  const [renderError,setRenderError]=useState<string|null>(null),dirtyRef=useRef(true);
  const [alignText,setAlignText]=useState<TextAlign>("center"),[alignVertical,setAlignVertical]=useState<VerticalAlign>("middle"),[deformMode,setDeformMode]=useState<DeformMode>("pinch");
- const [ink,setInk]=useState("#1133ff"),[backgroundColor,setBackgroundColor]=useState("#000000"),[blend,setBlend]=useState<BlendMode>("source-over"),[linked,setLinked]=useState(true);
+ const [ink,setInk]=useState("#0533ff"),[backgroundColor,setBackgroundColor]=useState("#000000"),[blend,setBlend]=useState<BlendMode>("source-over"),[linked,setLinked]=useState(true);
  const [params,setParams]=useState(defaults),[motion,setMotion]=useState<Motion>("scale"),[pattern,setPattern]=useState<Pattern>("radial"),[sourceText,setSourceText]=useState("play"),[font,setFont]=useState("Arial, Helvetica, sans-serif"),[osc,setOsc]=useState<DelayWave[]>(oscRef.current),[patches,setPatches]=useState<DelayPatch[]>(patchRef.current),[playing,setPlaying]=useState(true),[showGrid,setShowGrid]=useState(false),[tab,setTab]=useState<"patch"|"source"|"grid"|"fx">("patch"),[open,setOpen]=useState(true),[fullscreen,setFullscreen]=useState(false),[hasImage,setHasImage]=useState(false);
  function change(name:Param,value:number){dirtyRef.current=true;setParams(p=>{const next={...p,[name]:value};
   if(linkedRef.current&&(name==="columns"||name==="rows")){
