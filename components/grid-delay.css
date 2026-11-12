@@ -342,7 +342,7 @@ label.gd-grid-link input{width:15px;height:15px;accent-color:#edeae3}
   right:16px;
   top:16px;
   bottom:16px;
-  width:410px;
+  width:308px;
   max-width:calc(100% - 32px);
   height:auto;
   z-index:5;
@@ -369,4 +369,27 @@ label.gd-grid-link input{width:15px;height:15px;accent-color:#edeae3}
   width:min(380px,calc(100% - 16px));height:min(46dvh,460px);
  }
  .gd-machine .gd-patch-rack.is-collapsed{width:42px;height:145px}
+}
+
+/* Compact right editor: 25% narrower than 410px.
+   The independently collapsible left Patch rack keeps its original width. */
+@media(min-width:761px){
+ .gd-machine .gd-workspace:not(.gd-no-panel) .gd-stage-bottom{
+  padding-right:340px;
+ }
+ .gd-machine .gd-panel .gd-module .gd-controls{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:7px 1px;
+ }
+ .gd-machine .gd-panel .gd-module .gd-knob-dial{
+  width:min(70px,100%);
+  height:auto;
+  aspect-ratio:1;
+ }
+ .gd-machine .gd-panel .gd-module .gd-knob-readout input{
+  width:38px;
+ }
+ .gd-machine .gd-panel .gd-block.gd-module{
+  padding:12px 10px 14px;
+ }
 }
