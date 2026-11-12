@@ -1,11 +1,11 @@
 "use client";
 import {useEffect,useRef,useState,type CSSProperties,type DragEvent} from "react";
 
-export type DelayTarget="positionX"|"positionY"|"rotation"|"scale"|"delay"|"spacing"|"amplitude"|"speed"|"columns"|"rows"|"inkHue"|"bgHue"|"blendMode";
+export type DelayTarget="positionX"|"positionY"|"rotation"|"scale"|"delay"|"spacing"|"amplitude"|"speed"|"columns"|"rows"|"inkHue"|"bgHue"|"blendMode"|"deformAmount"|"deformFrequency"|"deformFlow";
 export type DelayWave={shape:"sine"|"triangle"|"square"|"noise"|"ramp";rate:number;depth:number;phase:number;enabled:boolean};
 export type DelayPatch={id:string;wave:number;target:DelayTarget;amount:number};
-const targets:DelayTarget[]=["positionX","positionY","rotation","scale","delay","spacing","amplitude","speed","columns","rows","inkHue","bgHue","blendMode"];
-const labels:Record<DelayTarget,string>={positionX:"Position X",positionY:"Position Y",rotation:"Rotation",scale:"Source scale",delay:"Time delay",spacing:"Grid spacing",amplitude:"Motion range",speed:"Motion speed",columns:"Grid columns",rows:"Grid rows",inkHue:"Font color / Hue",bgHue:"Background / Hue",blendMode:"Blend mode"};
+const targets:DelayTarget[]=["positionX","positionY","rotation","scale","delay","spacing","amplitude","speed","columns","rows","inkHue","bgHue","blendMode","deformAmount","deformFrequency","deformFlow"];
+const labels:Record<DelayTarget,string>={positionX:"Position X",positionY:"Position Y",rotation:"Rotation",scale:"Source scale",delay:"Time delay",spacing:"Grid spacing",amplitude:"Motion range",speed:"Motion speed",columns:"Grid columns",rows:"Grid rows",inkHue:"Font color / Hue",bgHue:"Background / Hue",blendMode:"Blend mode",deformAmount:"Deform amount",deformFrequency:"Deform frequency",deformFlow:"Deform flow"};
 const colors=["#e9ad73","#91b4ea","#c2b7e9"];
 type Props={waves:DelayWave[];patches:DelayPatch[];onWaves:(w:DelayWave[])=>void;onPatches:(p:DelayPatch[])=>void};
 type Point={x:number;y:number};
