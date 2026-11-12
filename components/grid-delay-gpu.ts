@@ -49,6 +49,7 @@ uniform float uFlow;
 uniform float uTime;
 uniform int uLiquifyProfile;
 uniform float uEdgeReach;
+uniform vec2 uFrameSize;
 float hash21(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 // Smooth, low-frequency vector field: no tiled trigonometric bands.
 float smoothNoise(vec2 p){
@@ -106,27 +107,40 @@ void main(){
  vec2 margin=min(local,1.-local);
  float edgeFade=smoothstep(0.,.24,min(margin.x,margin.y));
  vec2 sampleLocal=local;
+ // A displacement specified as a fraction of local UV can shift a 1×32
+ // horizontal strip by hundreds of pixels sideways. Use PIXEL magnitudes
+ // limited by the real physical size of each cell instead.
+ vec2 cellPixels=max(cellSize*uFrameSize,vec2(1.));
+ float gentleFrequency=.65+sqrt(max(.0,uFrequency))*.55;
  if(uMode==1){
-   // ELASTIC: smooth, larger-scale stretch/shear within the fragment.
-   // The outside edges remain exactly where they are.
-   vec2 field=organicField(local+vec2(seed*7.3,seedB*5.1),.65+uFrequency*.22,phase);
+   // ELASTIC: smooth internal stretch, pinned at all four boundaries.
+   vec2 field=organicField(local+vec2(seed*7.3,seedB*5.1),
+                            gentleFrequency*.75,phase*.65);
    vec2 directional=vec2(field.x*.85+field.y*.25,field.y*.85-field.x*.25);
-   sampleLocal+=directional*strength*strength*.16*edgeFade;
+   vec2 maxShift=min(vec2(13.,9.),cellPixels*.14);
+   sampleLocal+=directional*maxShift/cellPixels*strength*strength*edgeFade;
  } else if(uMode==2){
-   // LIQUIFY is local to each tile. Keep the core perfectly still.
-   // Melt: max distortion at the border, softly decaying into the tile.
-   // Ring: distortion peaks just inside the border, leaving the seam intact.
+   // MELT: a deforming outer perimeter with a readable, still core.
+   // RING: a soft moving band just inside the cell border.
    float edgeDistance=min(margin.x,margin.y);
    float reach=clamp(uEdgeReach,.035,.48);
    float melt=1.-smoothstep(0.,reach,edgeDistance);
    float peak=reach*.24;
    float ring=smoothstep(0.,peak,edgeDistance)*(1.-smoothstep(peak,reach,edgeDistance));
    float edgeMask=uLiquifyProfile==1?ring:melt;
-   vec2 field=organicField(local+vec2(seed*13.7,seedB*9.1),1.5+uFrequency*.55,phase);
-   vec2 detail=organicField(local*1.8+vec2(seedB*17.1,seed*14.4),2.5+uFrequency*.65,-phase*.7);
-   sampleLocal+=(field*.65+detail*.35)*strength*strength*.19*edgeMask;
+   vec2 field=organicField(local+vec2(seed*13.7,seedB*9.1),
+                            gentleFrequency,phase*.65);
+   vec2 detail=organicField(local*1.8+vec2(seedB*17.1,seed*14.4),
+                             gentleFrequency*1.5,-phase*.32);
+   // Direction remains fluid but bounded: a short horizontal row can only
+   // move a few pixels vertically, while lateral shear remains visible.
+   vec2 maxShift=min(vec2(22.,11.),cellPixels*vec2(.20,.14));
+   sampleLocal+=(field*.75+detail*.25)*maxShift/cellPixels
+                 *strength*strength*edgeMask;
  }
- sampleLocal=clamp(sampleLocal,vec2(0.),vec2(1.));
+ // Half-pixel inset avoids texture filtering across neighbouring cells.
+ vec2 inset=min(vec2(.49),.5/max(uFrameSize/cells,vec2(1.)));
+ sampleLocal=clamp(sampleLocal,inset,1.-inset);
  vec2 sourceUV=(cell+sampleLocal)/cells;
  // The current frame is uploaded every RAF while historical snapshots
  // occupy a separate ring. Never crossfade distinct text shapes.
@@ -201,7 +215,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
   count:uniforms("uCount"),capacity:uniforms("uCapacity"),liveLayer:uniforms("uLiveLayer"),interval:uniforms("uInterval"),elapsed:uniforms("uElapsed"),
   background:uniforms("uBackground"),blend:uniforms("uBlend"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
-  flow:uniforms("uFlow"),time:uniforms("uTime"),liquifyProfile:uniforms("uLiquifyProfile"),edgeReach:uniforms("uEdgeReach")
+  flow:uniforms("uFlow"),time:uniforms("uTime"),liquifyProfile:uniforms("uLiquifyProfile"),edgeReach:uniforms("uEdgeReach"),frameSize:uniforms("uFrameSize")
  };
  let newest=-1,count=0;
  const write=(frame:HTMLCanvasElement,layer:number)=>{
@@ -228,6 +242,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
   gl.uniform1f(loc.frequency,p.frequency);gl.uniform1f(loc.flow,p.flow);
   gl.uniform1f(loc.time,p.time);
   gl.uniform1i(loc.liquifyProfile,p.liquifyProfile);gl.uniform1f(loc.edgeReach,p.edgeReach);
+  gl.uniform2f(loc.frameSize,tw,th);
   gl.drawArrays(gl.TRIANGLES,0,3);
  };
  return {width:tw,height:th,interval,push,pushLive,render,dispose:()=>{gl.deleteTexture(texture);gl.deleteVertexArray(vao);gl.deleteProgram(prog)}};
