@@ -131,33 +131,29 @@ void main(){
  bool invalid=outside||any(lessThan(local,vec2(0.)))||any(greaterThanEqual(local,vec2(1.)))||any(greaterThanEqual(cell,cells));
  if(invalid){outColor=vec4(uBackground,1.);return;}
 
- // A monotonic radial lens is essential: the previous slope/refraction
- // formulation could fold source coordinates over themselves near the rim.
- // That produced the hard clipped blocks and duplicated glyph outlines.
+ // Per-cell optical lenses. Unlike the old 14–64px quality gate, the
+ // available resolution only disables refraction on genuinely tiny cells.
+ // Fisheye pulls source coordinates inward (magnification); Pinch pushes
+ // outward (minification). Both preserve the cell boundary exactly.
  vec2 sampleLocal=local;
  vec2 tilePixels=max(vec2(1.),cellSize*vec2(textureSize(uFrames,0).xy));
- // At dense grids the old 14–56px falloff almost disabled the lens.
- // Preserve a bounded, visible deformation without allowing coordinate folds.
  float availablePixels=min(tilePixels.x,tilePixels.y);
- float detailBudget=smoothstep(4.,12.,availablePixels)*mix(.72,1.,smoothstep(8.,32.,availablePixels));
- if(uMode!=0 && uAmount>0. && detailBudget>.001){
+ float opticalBudget=smoothstep(3.,9.,availablePixels);
+ if(uMode!=0 && uAmount>.001 && opticalBudget>.001){
    float seed=hash21(cell+vec2(9.7,23.1));
    float seedB=hash21(cell+vec2(43.2,8.5));
    float phase=uTime*uFlow*(.48+seed*.46)+seedB*6.2831853;
    vec2 q=(local-.5)*2.;
-   float radius2=dot(q,q);
-   // Strength and curvature share a bounded optical budget. Even at maximum
-   // settings the mapping remains one-to-one in both modes.
-   float curvature=clamp(uFrequency,.2,12.)/12.;
-   float breathing=1.+.07*sin(phase*.55);
-   float k=clamp(uAmount,0.,1.)*detailBudget*mix(.26,.84,curvature)*breathing;
-   k=min(k,.78);
-   // Exactly zero at the cell perimeter, no discontinuous clamping at edges.
-   // r' = r(1 +/- k(1-r²)^2) for r in [0,1].
-   // Fisheye's minimum radial derivative >= 1-k; pinch's >= 1-.8k.
-   float falloff=pow(max(0.,1.-radius2),2.);
-   float radiusScale=uMode==1?1.-k*falloff:1.+k*falloff;
-   sampleLocal=.5+.5*q*radiusScale;
+   float r2=dot(q,q);
+   // An original-style curved glass profile, without folded coordinates.
+   // For f(r)=r*(1 +/- k*(1-r²)^2) both mappings stay monotonic for k<1.
+   float curvedGlass=pow(max(0.,1.-r2),2.);
+   float curvature=clamp((uFrequency-.2)/11.8,0.,1.);
+   float breathing=1.+.065*sin(phase*.55);
+   float opticalStrength=clamp(uAmount,0.,1.)*opticalBudget*mix(.55,.98,curvature)*breathing;
+   opticalStrength=min(.97,opticalStrength);
+   float radialScale=uMode==1?1.-opticalStrength*curvedGlass:1.+opticalStrength*curvedGlass;
+   sampleLocal=.5+.5*q*radialScale;
  }
  // Half-pixel inset avoids texture filtering across neighbouring cells.
  vec2 inset=min(vec2(.49),.5/max(cellSize*vec2(textureSize(uFrames,0).xy),vec2(1.)));
