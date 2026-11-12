@@ -8,8 +8,7 @@ type Motion = "horizontal"|"vertical"|"orbit"|"rotation"|"scale";
 type Pattern = "wave"|"cascade"|"radial"|"random";
 type TextAlign="left"|"center"|"right";
 type VerticalAlign="top"|"middle"|"bottom";
-type DeformMode="rigid"|"elastic"|"liquify"|"fisheye"|"pinch";
-type LiquifyProfile="melt"|"ring";
+type DeformMode="rigid"|"fisheye"|"pinch";
 type Param = "deformAmount"|"deformFrequency"|"deformFlow"|"columns"|"rows"|"spacing"|"delay"|"speed"|"amplitude"|"scale"|"fontSize"|"weight"|"tracking"|"lineHeight"|"positionX"|"positionY"|"rotation";
 type Settings = Record<Param, number>;
 type BlendMode="source-over"|"multiply"|"screen"|"overlay"|"difference"|"exclusion"|"lighten"|"darken";
@@ -32,9 +31,8 @@ export default function GridDelayMachine(){
  const settingsRef=useRef(defaults),oscRef=useRef<DelayWave[]>([{shape:"sine",rate:.01,depth:75,phase:0,enabled:true},{shape:"triangle",rate:.13,depth:65,phase:0,enabled:true},{shape:"square",rate:.20,depth:75,phase:0,enabled:true}]),patchRef=useRef<DelayPatch[]>([]);
  const visualRef=useRef<{ink:string;background:string;blend:BlendMode}>({ink:"#ffffff",background:"#969696",blend:"source-over"}),linkedRef=useRef(false);
  const motionRef=useRef<Motion>("scale"),patternRef=useRef<Pattern>("wave"),textRef=useRef("Hey\ngood\nlooking"),fontRef=useRef("Arial, Helvetica, sans-serif"),alignRef=useRef<TextAlign>("center"),vAlignRef=useRef<VerticalAlign>("middle"),deformRef=useRef<DeformMode>("rigid"),playingRef=useRef(true),gridRef=useRef(false);
- const liquifyProfileRef=useRef<LiquifyProfile>("melt"),edgeReachRef=useRef(26);
  const [renderError,setRenderError]=useState<string|null>(null),dirtyRef=useRef(true);
- const [alignText,setAlignText]=useState<TextAlign>("center"),[alignVertical,setAlignVertical]=useState<VerticalAlign>("middle"),[deformMode,setDeformMode]=useState<DeformMode>("rigid"),[liquifyProfile,setLiquifyProfile]=useState<LiquifyProfile>("melt"),[edgeReach,setEdgeReach]=useState(26);
+ const [alignText,setAlignText]=useState<TextAlign>("center"),[alignVertical,setAlignVertical]=useState<VerticalAlign>("middle"),[deformMode,setDeformMode]=useState<DeformMode>("rigid");
  const [ink,setInk]=useState("#ffffff"),[backgroundColor,setBackgroundColor]=useState("#969696"),[blend,setBlend]=useState<BlendMode>("source-over"),[linked,setLinked]=useState(false);
  const [params,setParams]=useState(defaults),[motion,setMotion]=useState<Motion>("scale"),[pattern,setPattern]=useState<Pattern>("wave"),[sourceText,setSourceText]=useState("Hey\ngood\nlooking"),[font,setFont]=useState("Arial, Helvetica, sans-serif"),[osc,setOsc]=useState<DelayWave[]>(oscRef.current),[patches,setPatches]=useState<DelayPatch[]>(patchRef.current),[playing,setPlaying]=useState(true),[showGrid,setShowGrid]=useState(false),[tab,setTab]=useState<"patch"|"source"|"grid"|"fx">("patch"),[open,setOpen]=useState(true),[fullscreen,setFullscreen]=useState(false),[hasImage,setHasImage]=useState(false);
  function change(name:Param,value:number){dirtyRef.current=true;setParams(p=>{const next={...p,[name]:value};
@@ -56,8 +54,6 @@ export default function GridDelayMachine(){
  function changeAlignment(v:TextAlign){dirtyRef.current=true;alignRef.current=v;setAlignText(v)}
  function changeVertical(v:VerticalAlign){dirtyRef.current=true;vAlignRef.current=v;setAlignVertical(v)}
  function changeDeformation(v:DeformMode){dirtyRef.current=true;deformRef.current=v;setDeformMode(v)}
- function changeLiquifyProfile(v:LiquifyProfile){liquifyProfileRef.current=v;setLiquifyProfile(v)}
- function changeEdgeReach(v:number){edgeReachRef.current=v;setEdgeReach(v)}
  function changeText(v:string){dirtyRef.current=true;textRef.current=v;setSourceText(v)}
  async function upload(f?:File){if(!f||!f.type.startsWith("image/"))return;const url=URL.createObjectURL(f);const img=new Image();img.onload=()=>{dirtyRef.current=true;image.current=img;setHasImage(true);URL.revokeObjectURL(url)};img.onerror=()=>URL.revokeObjectURL(url);img.src=url}
  useEffect(()=>{
@@ -195,10 +191,9 @@ export default function GridDelayMachine(){
    gpu.render({
     columns:p.columns,rows:p.rows,spacing:p.spacing,delay:p.delay,
     pattern:Math.max(0,["wave","cascade","radial","random"].indexOf(patternRef.current)),
-    mode:Math.max(0,["rigid","elastic","liquify","fisheye","pinch"].indexOf(deformRef.current)),
+    mode:Math.max(0,["rigid","fisheye","pinch"].indexOf(deformRef.current)),
     amount:p.deformAmount/100,frequency:p.deformFrequency,flow:p.deformFlow,
     time:clock,elapsed:Math.max(0,clock-lastCapture),grid:gridRef.current,
-    liquifyProfile:liquifyProfileRef.current==="ring"?1:0,edgeReach:edgeReachRef.current/100,
     background:rgb(rotateHue(visualRef.current.background,p.bgHue)),blend:selectedBlend
    });
    raf=requestAnimationFrame(draw);
@@ -218,7 +213,7 @@ export default function GridDelayMachine(){
   {open&&<aside id="gd-controls-panel" className="gd-panel" aria-label="Grid Delay controls"><nav className="gd-tabs">{(["patch","source","grid","fx"] as const).map(t=><button className={tab===t?"active":""} key={t} onClick={()=>setTab(t)}>{t}</button>)}</nav>
    {tab==="source"&&<div className="gd-panel-grid"><div className="gd-block"><h2>01 / INPUT</h2><textarea value={sourceText} onChange={e=>{changeText(e.target.value);image.current=null;setHasImage(false)}} rows={2} aria-label="Source text"/><div className="gd-inline"><button onClick={()=>file.current?.click()}>↑ Upload image</button>{hasImage&&<button onClick={()=>{image.current=null;setHasImage(false)}}>Use text</button>}<input ref={file} type="file" hidden accept="image/*" onChange={e=>upload(e.target.files?.[0])}/></div><h2>Typography</h2><select value={font} onChange={e=>changeFont(e.target.value)}><option value="Arial, Helvetica, sans-serif">Arial / System Sans</option><option value="Georgia, serif">Georgia / Serif</option><option value="'Times New Roman', serif">Times New Roman</option><option value="'Courier New', monospace">Courier Mono</option><option value="'GT Era Text', Arial, sans-serif">GT Era Text</option><option value="'GT Alpina Typewriter', monospace">GT Alpina Typewriter</option></select><div className="gd-control-group"><span>Horizontal alignment</span><Buttons values={["left","center","right"] as const} selected={alignText} onSelect={changeAlignment}/><span>Vertical alignment</span><Buttons values={["top","middle","bottom"] as const} selected={alignVertical} onSelect={changeVertical}/></div><div className="gd-controls">{(["fontSize","weight","tracking","lineHeight"] as Param[]).map(control)}</div><div className="gd-color-controls"><label>Font color <input type="color" value={ink} onChange={e=>updateColor("ink",e.target.value)}/></label><label>Background color <input type="color" value={backgroundColor} onChange={e=>updateColor("background",e.target.value)}/></label><label>Blend mode <select value={blend} onChange={e=>updateBlend(e.target.value as BlendMode)}>{blendModes.map(m=><option value={m} key={m}>{m}</option>)}</select></label></div></div><div className="gd-block"><h2>02 / SOURCE MOTION</h2><Buttons values={["horizontal","vertical","orbit","rotation","scale"] as const} selected={motion} onSelect={changeMotion}/><div className="gd-controls">{(["scale","speed","amplitude","positionX","positionY","rotation"] as Param[]).map(control)}</div></div></div>}
    {tab==="grid"&&<div className="gd-panel-grid"><div className="gd-block"><h2>03 / SAMPLING GRID</h2><div className="gd-grid-link"><label><input type="checkbox" checked={linked} onChange={e=>updateLinked(e.target.checked)}/> <span>Link columns &amp; rows</span></label></div><div className="gd-controls">{(["columns","rows","spacing"] as Param[]).map(control)}</div><p>Spacing reduces tile size to keep the complete composition in frame.</p></div><div className="gd-block"><h2>04 / TEMPORAL DELAY</h2><Buttons values={["wave","cascade","radial","random"] as const} selected={pattern} onSelect={changePattern}/><div className="gd-controls">{control("delay")}</div><p>Each stationary cell reads a different point in the source's recent motion history.</p></div></div>}
-   {tab==="fx"&&<div className="gd-panel-grid"><div className="gd-block"><h2>05 / WEBGL DEFORMATION</h2><Buttons values={["rigid","elastic","liquify","fisheye","pinch"] as const} selected={deformMode} onSelect={changeDeformation}/><div className="gd-controls">{(["deformAmount","deformFrequency","deformFlow"] as Param[]).map(control)}</div>{deformMode==="liquify"&&<div className="gd-control-group"><span>Liquify profile</span><Buttons values={["melt","ring"] as const} selected={liquifyProfile} onSelect={changeLiquifyProfile}/><label className="gd-control"><span>Edge reach <output>{edgeReach}%</output></span><input type="range" min="5" max="48" step="1" value={edgeReach} onChange={e=>changeEdgeReach(Number(e.target.value))}/></label></div>}<p>{deformMode==="fisheye"?"Fisheye magnifies the centre of each delayed cell, retaining a fixed border.":deformMode==="pinch"?"Pinch compresses each delayed fragment toward its outer border.":deformMode==="liquify"?"Liquify bends each fragment with slowly moving edge curves.":deformMode==="elastic"?"Elastic stretches fragment contents with an anchored perimeter.":"Rigid shows each temporal fragment without distortion."} For a clear comparison, try a 4 × 4 grid first.</p></div></div>}
+   {tab==="fx"&&<div className="gd-panel-grid"><div className="gd-block"><h2>05 / WEBGL DEFORMATION</h2><Buttons values={["rigid","fisheye","pinch"] as const} selected={deformMode} onSelect={changeDeformation}/><div className="gd-controls">{(["deformAmount","deformFrequency","deformFlow"] as Param[]).map(control)}</div><p>{deformMode==="fisheye"?"Convex glass: each delayed cell magnifies through its own lens.":deformMode==="pinch"?"Concave glass: each delayed cell compresses through its own lens.":"No optical refraction; the delayed grid is shown directly."} Try 4 × 4 to see the individual lenses.</p></div></div>}
    {tab==="patch"&&<GridDelayPatchBay waves={osc} patches={patches} onWaves={changeWaves} onPatches={changePatches}/>}
 
   </aside>}
