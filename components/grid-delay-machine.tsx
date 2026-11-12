@@ -38,16 +38,19 @@ export default function GridDelayMachine(){
   // Bounded temporal ring. Each source frame is drawn only once, then sampled by all cells.
   const history:{canvas:HTMLCanvasElement;at:number}[]=[];
   let raf=0,last=0,clock=0,accumulator=0,w=0,h=0,dpr=1;
-  // Keep a bounded, half-resolution history instead of hundreds of MB of full-size frames.
-  const interval=1/18;
-  const historyScale=.5;
+  // Bound frame history to ~40-60 MB even on Retina/large desktop screens.
+  // Reuse canvas storage instead of creating and discarding dozens per second.
+  const interval=1/15;
+  const maxAge=5.1;
+  const historyScale=()=>Math.min(.5,512/Math.max(1,w),384/Math.max(1,h));
+  const recycled:HTMLCanvasElement[]=[];
   function resize(){
    const box=output!.getBoundingClientRect();
    const width=Math.max(1,Math.round(box.width)),height=Math.max(1,Math.round(box.height));
    const quality=Math.min(window.devicePixelRatio||1,1.5);
    if(width===w&&height===h&&quality===dpr)return;
    w=width;h=height;dpr=quality;output!.width=Math.round(w*dpr);output!.height=Math.round(h*dpr);
-   source.width=w;source.height=h;history.length=0;accumulator=0;
+   source.width=w;source.height=h;history.length=0;recycled.length=0;accumulator=0;
   }
   const observer=new ResizeObserver(resize);observer.observe(output);resize();
   function modulated(t:number){
@@ -88,10 +91,14 @@ export default function GridDelayMachine(){
     lines.forEach((line,i)=>{const chars=Array.from(line);const widths=chars.map(ch=>sc!.measureText(ch).width),total=widths.reduce((a,b)=>a+b,0)+Math.max(0,chars.length-1)*letterSpacing;let x=-total/2;const y=(i-(lines.length-1)/2)*size*p.lineHeight;chars.forEach((ch,j)=>{sc!.fillText(ch,x+widths[j]/2,y);x+=widths[j]+letterSpacing})});
    }
    sc!.restore();
-   const snap=document.createElement("canvas");snap.width=Math.max(1,Math.ceil(w*historyScale));snap.height=Math.max(1,Math.ceil(h*historyScale));snap.getContext("2d")!.drawImage(source,0,0,snap.width,snap.height);
+   while(history.length>1&&history[0].at<t-maxAge)recycled.push(history.shift()!.canvas);
+   const snap=recycled.pop()??document.createElement("canvas");
+   const scale=historyScale(),sw=Math.max(1,Math.ceil(w*scale)),sh=Math.max(1,Math.ceil(h*scale));
+   if(snap.width!==sw||snap.height!==sh){snap.width=sw;snap.height=sh}
+   const snapshotContext=snap.getContext("2d");
+   if(!snapshotContext)return;
+   snapshotContext.drawImage(source,0,0,sw,sh);
    history.push({canvas:snap,at:t});
-   const maxAge=5.25;
-   while(history.length>2&&history[1].at<t-maxAge)history.shift();
   }
   function draw(now:number){
    const delta=last?Math.min(.06,(now-last)/1000):0;last=now;
@@ -101,7 +108,7 @@ export default function GridDelayMachine(){
    if(playingRef.current&&accumulator>=interval){makeSource(clock);accumulator%=interval}
    const p=modulated(clock),cols=Math.round(p.columns),rows=Math.round(p.rows);
    ctx!.setTransform(dpr,0,0,dpr,0,0);
-   ctx!.fillStyle="#222520";ctx!.fillRect(0,0,w,h);
+   ctx!.fillStyle= p.spacing===0?"#edeae3":"#222520";ctx!.fillRect(0,0,w,h);
    // Keep the ENTIRE grid inside the output. Spacing consumes available space;
    // each cell gets smaller, rather than pushing the outer cells offscreen.
    // The source remains a single full-size composition divided into grid samples.
@@ -121,16 +128,10 @@ export default function GridDelayMachine(){
     const dw=snap((x+1)*cellW+x*gapX)-dx;
     const dh=snap((y+1)*cellH+y*gapY)-dy;
     if(dw<=0||dh<=0)continue;
-    if(gapFraction===0){
-     // Drawing the full historical frame through pixel-snapped cell clips
-     // avoids repeated per-cell scaling seams when cells touch.
-     ctx!.save();ctx!.beginPath();ctx!.rect(dx,dy,dw,dh);ctx!.clip();
-     ctx!.drawImage(frame,0,0,w,h);ctx!.restore();
-    }else{
-     // With gaps, the same SOURCE region is displayed in a smaller destination
-     // rectangle. The complete image still fits the stage.
-     ctx!.drawImage(frame,sx*frame.width/w,sy*frame.height/h,sw*frame.width/w,sh*frame.height/h,dx,dy,dw,dh);
-    }
+    // Copy only the sampled region. This is much less expensive on WebKit
+    // than drawing a complete frame once per cell with a clipping path.
+    // Pixel-snapped destinations and a matching paper backdrop prevent dark seams.
+    ctx!.drawImage(frame,sx*frame.width/w,sy*frame.height/h,sw*frame.width/w,sh*frame.height/h,dx,dy,dw,dh);
     if(gridRef.current&&gapFraction>0){
      ctx!.strokeStyle="rgba(20,22,20,.2)";ctx!.lineWidth=1/dpr;
      ctx!.strokeRect(dx+.5/dpr,dy+.5/dpr,Math.max(0,dw-1/dpr),Math.max(0,dh-1/dpr));
@@ -145,7 +146,7 @@ export default function GridDelayMachine(){
    raf=requestAnimationFrame(draw);
   }
   raf=requestAnimationFrame(draw);
-  return ()=>{cancelAnimationFrame(raf);observer.disconnect();history.length=0};
+  return ()=>{cancelAnimationFrame(raf);observer.disconnect();history.length=0;recycled.length=0};
  },[]);
  const control=(k:Param)=><Control key={k} name={k} value={params[k]} onChange={v=>change(k,v)}/>;
  return <main className="gd-machine" style={{"--gd-paper":"#edeae3"} as CSSProperties}>
