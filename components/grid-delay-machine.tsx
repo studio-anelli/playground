@@ -97,17 +97,40 @@ export default function GridDelayMachine(){
    if(playingRef.current){const rate=modulated(clock).speed;clock+=delta*rate;accumulator+=delta*rate}
    if(!history.length){makeSource(clock);accumulator=0}
    if(playingRef.current&&accumulator>=interval){makeSource(clock);accumulator%=interval}
-   const p=modulated(clock),cols=Math.round(p.columns),rows=Math.round(p.rows),cw=w/cols,ch=h/rows,gx=cw*p.spacing/100,gy=ch*p.spacing/100;
-   ctx!.setTransform(dpr,0,0,dpr,0,0);ctx!.fillStyle="#222520";ctx!.fillRect(0,0,w,h);
+   const p=modulated(clock),cols=Math.round(p.columns),rows=Math.round(p.rows);
+   const gx=w/cols*p.spacing/100,gy=h/rows*p.spacing/100;
+   ctx!.setTransform(dpr,0,0,dpr,0,0);
+   ctx!.fillStyle="#222520";ctx!.fillRect(0,0,w,h);
+   // Snap tile boundaries to physical output pixels. A tile is a viewport into
+   // the full historical frame, NOT a separately scaled image slice.
+   // This prevents subpixel interpolation from introducing periodic dark seams.
+   const snap=(value:number)=>Math.round(value*dpr)/dpr;
    for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
     const u=(x+.5)/cols,v=(y+.5)/rows;
-    let offset=patternRef.current==="cascade"?(u+v)/2:patternRef.current==="radial"?Math.min(1,Math.hypot(u-.5,v-.5)*1.42):patternRef.current==="random"?hash(x,y):(.5+.5*Math.sin(u*8+v*5));
+    const offset=patternRef.current==="cascade"?(u+v)/2:patternRef.current==="radial"?Math.min(1,Math.hypot(u-.5,v-.5)*1.42):patternRef.current==="random"?hash(x,y):(.5+.5*Math.sin(u*8+v*5));
     const target=clock-offset*p.delay;
     let lo=0,hi=history.length-1;
     while(lo<hi){const mid=(lo+hi+1)>>1;if(history[mid].at<=target)lo=mid;else hi=mid-1}
-    const frame=history[lo].canvas,dx=x*cw+(x-(cols-1)/2)*gx,dy=y*ch+(y-(rows-1)/2)*gy;
-    ctx!.drawImage(frame,x*cw,y*ch,cw,ch,dx,dy,cw,ch);
-    if(gridRef.current){ctx!.strokeStyle="rgba(20,22,20,.2)";ctx!.lineWidth=.5;ctx!.strokeRect(dx+.25,dy+.25,cw-.5,ch-.5)}
+    const frame=history[lo].canvas;
+    const sx=snap(x*w/cols),sy=snap(y*h/rows);
+    const ex=snap((x+1)*w/cols),ey=snap((y+1)*h/rows);
+    const sw=ex-sx,sh=ey-sy;
+    const shiftX=snap((x-(cols-1)/2)*gx),shiftY=snap((y-(rows-1)/2)*gy);
+    ctx!.save();
+    ctx!.beginPath();ctx!.rect(sx+shiftX,sy+shiftY,sw,sh);ctx!.clip();
+    ctx!.drawImage(frame,shiftX,shiftY,w,h);
+    ctx!.restore();
+    if(gridRef.current&&p.spacing>0){
+     ctx!.strokeStyle="rgba(20,22,20,.2)";ctx!.lineWidth=1/dpr;
+     ctx!.strokeRect(sx+shiftX+.5/dpr,sy+shiftY+.5/dpr,sw-1/dpr,sh-1/dpr);
+    }
+   }
+   // Draw continuous grid lines once, rather than overlapping per-cell strokes.
+   if(gridRef.current&&p.spacing===0){
+    ctx!.beginPath();
+    for(let x=1;x<cols;x++){const a=snap(x*w/cols)+.5/dpr;ctx!.moveTo(a,0);ctx!.lineTo(a,h)}
+    for(let y=1;y<rows;y++){const a=snap(y*h/rows)+.5/dpr;ctx!.moveTo(0,a);ctx!.lineTo(w,a)}
+    ctx!.strokeStyle="rgba(20,22,20,.2)";ctx!.lineWidth=1/dpr;ctx!.stroke();
    }
    raf=requestAnimationFrame(draw);
   }
