@@ -92,7 +92,9 @@ void main(){
    float glass=clamp(strength*(1.+.08*sin(phase*.55)),0.,1.);
    float bulge=sqrt(max(.045,1.-min(radius2,.955)));
    float slope=(1./bulge-1.)*inside;
-   float refraction=clamp(slope*.18*glass,0.,.65);
+   // Frequency control now tunes optical curvature, not unused noise frequency.
+   float curvature=.08+clamp(uFrequency,.2,12.)*.036;
+   float refraction=clamp(slope*curvature*glass,0.,.65);
    // Fisheye (1) magnifies; Pinch (2) minifies.
    vec2 ray=q*(uMode==1?1.-refraction:1.+refraction);
    sampleLocal=.5+.5*ray;
