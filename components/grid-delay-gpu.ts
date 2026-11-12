@@ -4,12 +4,13 @@
  * 2D canvas; the history, grid composition and deformation live on the GPU. */
 export type DelayGeometry = {
   columns:number; rows:number; spacing:number; delay:number; pattern:number;
-  mode:number; amount:number; frequency:number; flow:number; time:number;
+  mode:number; amount:number; frequency:number; flow:number; time:number; elapsed:number;
   grid:boolean; background:[number,number,number]; blend:number;
 };
 export type DelayGPU = {
   width:number; height:number; interval:number;
   push:(frame:HTMLCanvasElement)=>void;
+  pushLive:(frame:HTMLCanvasElement)=>void;
   render:(params:DelayGeometry)=>void;
   dispose:()=>void;
 };
@@ -34,7 +35,9 @@ uniform int uPattern;
 uniform int uNewest;
 uniform int uCount;
 uniform int uCapacity;
+uniform int uLiveLayer;
 uniform float uInterval;
+uniform float uElapsed;
 uniform vec3 uBackground;
 uniform int uBlend;
 uniform bool uGridVisible;
@@ -86,10 +89,29 @@ void main(){
                      cos(sourceUV.x*uFrequency*6.28318-wave+sin(sourceUV.y*7.)));
    sourceUV=clamp(sourceUV+ripple*uAmount*.045,vec2(0.001),vec2(.999));
  }
- float delayFrames=patternValue(cell)*uDelay/max(.0001,uInterval);
- int age=min(max(0,int(floor(delayFrames+.5))),uCount-1);
- int layer=(uNewest-age+uCapacity)%uCapacity;
- vec3 sampleColor=texture(uFrames,vec3(sourceUV,float(layer))).rgb;
+ // The current frame is uploaded every RAF, while historical snapshots
+ // occupy a separate ring. Interpolating between snapshots removes temporal
+ // stepping even when long delays require relatively few stored frames.
+ float secondsAgo=max(0.,patternValue(cell)*uDelay);
+ vec3 sampleColor;
+ if(uCount==0){
+  sampleColor=texture(uFrames,vec3(sourceUV,float(uLiveLayer))).rgb;
+ } else if(secondsAgo<=uElapsed){
+  float liveWeight=uElapsed<.0001?1.:clamp(1.-secondsAgo/uElapsed,0.,1.);
+  vec3 previous=texture(uFrames,vec3(sourceUV,float(uNewest))).rgb;
+  vec3 current=texture(uFrames,vec3(sourceUV,float(uLiveLayer))).rgb;
+  sampleColor=mix(previous,current,liveWeight);
+ } else {
+  float past=(secondsAgo-uElapsed)/max(.0001,uInterval);
+  int newer=min(int(floor(past)),uCount-1);
+  int older=min(newer+1,uCount-1);
+  float fraction=clamp(fract(past),0.,1.);
+  int newerLayer=(uNewest-newer+uCapacity)%uCapacity;
+  int olderLayer=(uNewest-older+uCapacity)%uCapacity;
+  vec3 a=texture(uFrames,vec3(sourceUV,float(newerLayer))).rgb;
+  vec3 b=texture(uFrames,vec3(sourceUV,float(olderLayer))).rgb;
+  sampleColor=mix(a,b,fraction);
+ }
  vec3 result=compose(sampleColor,uBackground);
  if(uGridVisible){
    vec2 rim=min(local,1.-local)*cellSize*cells;
@@ -131,7 +153,9 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
  const tw=Math.max(1,Math.floor(w*scale)),th=Math.max(1,Math.floor(h*scale));
  const bytesPerFrame=tw*th*4;
  const capacity=Math.max(minimumLayers,Math.min(availableLayers,Math.floor(budget/bytesPerFrame)));
- const interval=5.05/Math.max(1,capacity-1);
+ const historyCapacity=capacity-1;
+ const liveLayer=capacity-1;
+ const interval=5.05/Math.max(1,historyCapacity-1);
  gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D_ARRAY,texture);
  gl.texParameteri(gl.TEXTURE_2D_ARRAY,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
  gl.texParameteri(gl.TEXTURE_2D_ARRAY,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
@@ -145,20 +169,21 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
  const loc={
   frames:uniforms("uFrames"),grid:uniforms("uGrid"),gap:uniforms("uGap"),
   delay:uniforms("uDelay"),pattern:uniforms("uPattern"),newest:uniforms("uNewest"),
-  count:uniforms("uCount"),capacity:uniforms("uCapacity"),interval:uniforms("uInterval"),
+  count:uniforms("uCount"),capacity:uniforms("uCapacity"),liveLayer:uniforms("uLiveLayer"),interval:uniforms("uInterval"),elapsed:uniforms("uElapsed"),
   background:uniforms("uBackground"),blend:uniforms("uBlend"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
   flow:uniforms("uFlow"),time:uniforms("uTime")
  };
  let newest=-1,count=0;
- const push=(frame:HTMLCanvasElement)=>{
+ const write=(frame:HTMLCanvasElement,layer:number)=>{
   if(gl.isContextLost())return;
   uc.clearRect(0,0,tw,th);uc.drawImage(frame,0,0,tw,th);
-  newest=(newest+1)%capacity;count=Math.min(capacity,count+1);
   gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D_ARRAY,texture);
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);
-  gl.texSubImage3D(gl.TEXTURE_2D_ARRAY,0,0,0,newest,tw,th,1,gl.RGBA,gl.UNSIGNED_BYTE,upload);
+  gl.texSubImage3D(gl.TEXTURE_2D_ARRAY,0,0,0,layer,tw,th,1,gl.RGBA,gl.UNSIGNED_BYTE,upload);
  };
+ const push=(frame:HTMLCanvasElement)=>{newest=(newest+1)%historyCapacity;count=Math.min(historyCapacity,count+1);write(frame,newest)};
+ const pushLive=(frame:HTMLCanvasElement)=>write(frame,liveLayer);
  const render=(p:DelayGeometry)=>{
   if(!count||gl.isContextLost())return;
   gl.viewport(0,0,canvas.width,canvas.height);
@@ -167,7 +192,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
   gl.uniform1i(loc.frames,0);gl.uniform2f(loc.grid,p.columns,p.rows);
   gl.uniform1f(loc.gap,p.spacing/200);gl.uniform1f(loc.delay,p.delay);
   gl.uniform1i(loc.pattern,p.pattern);gl.uniform1i(loc.newest,newest);
-  gl.uniform1i(loc.count,count);gl.uniform1i(loc.capacity,capacity);gl.uniform1f(loc.interval,interval);
+  gl.uniform1i(loc.count,count);gl.uniform1i(loc.capacity,historyCapacity);gl.uniform1i(loc.liveLayer,liveLayer);gl.uniform1f(loc.interval,interval);gl.uniform1f(loc.elapsed,p.elapsed);
   gl.uniform3f(loc.background,...p.background);gl.uniform1i(loc.blend,p.blend);
   gl.uniform1i(loc.gridVisible,p.grid?1:0);
   gl.uniform1i(loc.mode,p.mode);gl.uniform1f(loc.amount,p.amount);
@@ -175,5 +200,5 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
   gl.uniform1f(loc.time,p.time);
   gl.drawArrays(gl.TRIANGLES,0,3);
  };
- return {width:tw,height:th,interval,push,render,dispose:()=>{gl.deleteTexture(texture);gl.deleteVertexArray(vao);gl.deleteProgram(prog)}};
+ return {width:tw,height:th,interval,push,pushLive,render,dispose:()=>{gl.deleteTexture(texture);gl.deleteVertexArray(vao);gl.deleteProgram(prog)}};
 }
