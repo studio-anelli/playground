@@ -191,8 +191,8 @@ void main(){
      float flow=fract(phase*.13+drift);
      float distA=abs(sourceUV.y-flow);
      float distB=abs(sourceUV.y-fract(flow+.52));
-     float bandA=1.-smoothstep(.085,.105,distA);
-     float bandB=1.-smoothstep(.065,.085,distB);
+     float bandA=1.-step(.105,distA);
+     float bandB=1.-step(.085,distB);
      bool chooseA=bandA>=bandB;
      front=max(bandA,bandB);
      float dist=chooseA?distA:distB;
@@ -207,7 +207,7 @@ void main(){
      float direction=mod(floor(phase),2.)<1.?1.:-1.;
      float center=direction>0.?travel:1.-travel;
      float distance=abs(sourceUV.x-center);
-     front=1.-smoothstep(.105,.125,distance);
+     front=1.-step(.125,distance);
      float ripple=sin(distance*44.-uTime*3.2)*waveStrength*front;
      bend=vec2(.018*ripple, direction*.078*ripple);
      age=min(5.,secondsAgo+interval*(direction>0.?1.:2.));
@@ -217,10 +217,9 @@ void main(){
      vec4 previous=textureLod(uFrames,vec3(refractedUV,float(historyLayer(age))),0.);
      vec3 past=compose(previous.rgb,uBackground);
      vec3 pastVisible=uBackgroundInside?past:mix(uBackground,past,clamp(previous.a,0.,1.));
-     // A narrow soft border prevents a hard cut; unlike before, the
-     // control never scales opacity. Blend modes combine *pixels*, not
-     // repeated translucent layers.
-     result=mix(result,waveComposite(result,pastVisible),front);
+     // Binary cut: no feathered transition, alpha fade, or glow.
+     // Blend is applied at full strength only inside the refractive band.
+     result=waveComposite(result,pastVisible);
    }
  }
  if(uGridVisible){
