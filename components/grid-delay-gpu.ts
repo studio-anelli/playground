@@ -3,7 +3,7 @@
 /** WebGL2 temporal sampling. Source pixels are still authored in an offscreen
  * 2D canvas; the history, grid composition and deformation live on the GPU. */
 export type DelayGeometry = {
-  columns:number; rows:number; spacing:number; delay:number; pattern:number; edgeSoftness:number;
+  columns:number; rows:number; spacing:number; delay:number; pattern:number;
   delayMode:number; blackHold:number;
   mode:number; amount:number; frequency:number; flow:number; time:number; elapsed:number;
   globalMode:number; globalStrength:number; globalSize:number; globalGrowth:number;
@@ -57,29 +57,13 @@ uniform float uGlobalStrength;
 uniform float uGlobalSize;
 uniform float uGlobalGrowth;
 uniform float uAspect;
-uniform float uEdgeSoftness;
 float hash21(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-float patternAt(vec2 pos){
- if(uPattern==1)return (pos.x+pos.y)*.5;
- if(uPattern==2)return min(1.,length(pos-vec2(.5))*1.42);
- if(uPattern==3){
-  // Smooth random field: hashes agree with the discrete cell value at
-  // every cell centre, but adjacent sides meet at the same timestamp.
-  vec2 p=pos*uGrid-vec2(.5);
-  vec2 base=floor(p),f=fract(p);
-  f=f*f*(3.-2.*f);
-  float a=hash21(base);
-  float b=hash21(base+vec2(1.,0.));
-  float c=hash21(base+vec2(0.,1.));
-  float d=hash21(base+vec2(1.,1.));
-  return mix(mix(a,b,f.x),mix(c,d,f.x),f.y);
- }
- return .5+.5*sin(pos.x*8.+pos.y*5.);
-}
-float discretePattern(vec2 cell){
+float patternValue(vec2 cell){
  vec2 center=(cell+.5)/uGrid;
+ if(uPattern==1)return (center.x+center.y)*.5;
+ if(uPattern==2)return min(1.,length(center-vec2(.5))*1.42);
  if(uPattern==3)return hash21(cell);
- return patternAt(center);
+ return .5+.5*sin(center.x*8.+center.y*5.);
 }
 int historyLayer(float secondsAgo){
  if(uCount>0 && secondsAgo>max(.0001,uElapsed*.5)){
@@ -161,17 +145,10 @@ void main(){
  vec2 sourceUV=(cell+sampleLocal)/cells;
  // The current frame is uploaded every RAF while historical snapshots
  // occupy a separate ring. Never crossfade distinct text shapes.
- // A grid cell can read its own history, but its edge must share the same
- // time coordinate as the neighbouring cell. We blend the DELAY COORDINATE
- // (not two images). Each output pixel still samples one sharp history frame.
- float amountOfTime=discretePattern(cell);
- if(!uGridVisible && uEdgeSoftness>.001){
-  float edgeDistance=min(min(local.x,1.-local.x),min(local.y,1.-local.y));
-  float transitionWidth=max(.0001,clamp(uEdgeSoftness,0.,1.)*.5);
-  float inside=smoothstep(0.,transitionWidth,edgeDistance);
-  amountOfTime=mix(patternAt(uv),amountOfTime,inside);
- }
- float secondsAgo=max(0.,amountOfTime*uDelay);
+ // Restore the original, stable temporal index: ONE fixed delay per tile.
+ // Smoothly varying a quantised texture-layer index within a cell created
+ // staircase cuts through letterforms even with the optical lens in Rigid.
+ float secondsAgo=max(0.,patternValue(cell)*uDelay);
  int selectedLayer=historyLayer(secondsAgo);
  // Black mode gates each cell using its delay offset, without blending.
  // Return pure black before any texture lookup or grid decoration.
@@ -182,8 +159,6 @@ void main(){
  // The image mode and the visible interval of black mode share the sample.
  vec3 sampleColor=textureLod(uFrames,vec3(sourceUV,float(selectedLayer)),0.).rgb;
  vec3 result=compose(sampleColor,uBackground);
- // Deliberately no crossfade or edge blur: the time coordinate is
- // continuous across the seam, and each pixel stays a single source sample.
  if(uGridVisible){
    vec2 rim=min(local,1.-local)*cellSize*cells;
    if(min(rim.x,rim.y)<.006)result=mix(result,vec3(.13,.15,.13),.22);
@@ -289,7 +264,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   background:uniforms("uBackground"),blend:uniforms("uBlend"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
   flow:uniforms("uFlow"),time:uniforms("uTime"),
-  globalMode:uniforms("uGlobalMode"),globalStrength:uniforms("uGlobalStrength"),globalSize:uniforms("uGlobalSize"),globalGrowth:uniforms("uGlobalGrowth"),aspect:uniforms("uAspect"),edgeSoftness:uniforms("uEdgeSoftness")
+  globalMode:uniforms("uGlobalMode"),globalStrength:uniforms("uGlobalStrength"),globalSize:uniforms("uGlobalSize"),globalGrowth:uniforms("uGlobalGrowth"),aspect:uniforms("uAspect")
  };
  // Capture a history snapshot by copying the live texture layer on the GPU.
  // This avoids a second full-canvas CPU->GPU upload on every capture.
@@ -405,7 +380,6 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.uniform1f(loc.globalSize,p.globalSize);
   gl.uniform1f(loc.globalGrowth,p.globalGrowth);
   gl.uniform1f(loc.aspect,canvas.width/Math.max(1,canvas.height));
-  gl.uniform1f(loc.edgeSoftness,p.edgeSoftness);
   gl.drawArrays(gl.TRIANGLES,0,3);
   if(!useFeedback||!feedbackTargets)return;
   // Stage 2 combines the newly assembled frame with the last snapshot.
