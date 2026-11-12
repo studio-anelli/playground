@@ -4,7 +4,7 @@
  * 2D canvas; the history, grid composition and deformation live on the GPU. */
 export type DelayGeometry = {
   columns:number; rows:number; spacing:number; delay:number; pattern:number;
-  delayMode:number; blackHold:number; delayType:number; echoMix:number; tapeWear:number;
+  delayMode:number; blackHold:number; delayType:number; echoMix:number; tapeWear:number; waveBlend:number;
   mode:number; amount:number; frequency:number; flow:number; time:number; elapsed:number;
   globalMode:number; globalStrength:number; globalSize:number; globalGrowth:number;
   grid:boolean; background:[number,number,number]; blend:number; backgroundInside:boolean;
@@ -40,6 +40,7 @@ uniform float uBlackHold;
 uniform int uDelayType;
 uniform float uEchoMix;
 uniform float uTapeWear;
+uniform int uWaveBlend;
 uniform int uPattern;
 uniform int uNewest;
 uniform int uCount;
@@ -86,6 +87,12 @@ vec3 compose(vec3 sampleColor,vec3 bg){
  if(uBlend==6)return max(bg,sampleColor);
  if(uBlend==7)return min(bg,sampleColor);
  return sampleColor;
+}
+vec3 waveComposite(vec3 base,vec3 wave){
+ if(uWaveBlend==1)return base*wave;
+ if(uWaveBlend==2)return 1.-(1.-base)*(1.-wave);
+ if(uWaveBlend==3)return abs(base-wave);
+ return wave;
 }
 void main(){
  // Global glass refracts the ALREADY ASSEMBLED temporal grid.
@@ -167,61 +174,53 @@ void main(){
  vec3 rendered=compose(sampleColor.rgb,uBackground);
  vec3 result=uBackgroundInside?rendered:mix(uBackground,rendered,clamp(sampleColor.a,0.,1.));
  if(uDelayType==1 || uDelayType==2){
-   // Musical echoes as refractive *regions of past frames*, not transparent
-   // duplicate images. The moving wavefront acts like a travelling lens:
-   // it bends the UVs and reveals a different point in source history.
-   // Outside the wavefront the original digital sampling stays untouched.
-   float wet=clamp(uEchoMix,0.,1.);
+   // Wave strength controls REFRACTION (UV displacement) only.
+   // The refracted source replaces the pixels inside the wave: no alpha
+   // fading of successive copies, and the source is never mirrored.
+   float strength=clamp(uEchoMix,0.,1.);
    float interval=clamp(uDelay*.28,.20,1.35);
-   float phase=uTime/max(.2,interval);
+   float phase=uTime/interval;
+   float wear=clamp(uTapeWear,0.,1.);
+   float front=0.;
+   vec2 bend=vec2(0.);
+   float age=secondsAgo;
    if(uDelayType==1){
-     // Tape: irregular parallel ripples drift across the existing image.
-     // Two passes carry consecutive older frames; wow/flutter modulates
-     // both wave position and curvature rather than tinting the colours.
-     float wear=clamp(uTapeWear,0.,1.);
-     float drift=.06*sin(uTime*.87)+wear*.035*sin(uTime*4.2);
-     float flow=fract(phase*.14+drift);
-     float distanceA=abs(sourceUV.y-flow);
-     float distanceB=abs(sourceUV.y-fract(flow+.53));
-     float bandA=1.-smoothstep(.045,.20,distanceA);
-     float bandB=1.-smoothstep(.035,.16,distanceB);
-     float curveA=sin(distanceA*38.-uTime*4.3)*bandA;
-     float curveB=sin(distanceB*45.+uTime*3.1)*bandB;
-     vec2 bend=vec2((curveA*.027+curveB*.015)*( .3+wear*.7),0.);
-     vec2 tapeUV=clamp(sourceUV+bend,vec2(0.),vec2(1.));
-     vec4 tapeA=textureLod(uFrames,vec3(tapeUV,float(historyLayer(min(5.,secondsAgo+interval)))),0.);
-     vec4 tapeB=textureLod(uFrames,vec3(tapeUV,float(historyLayer(min(5.,secondsAgo+interval*2.)))),0.);
-     float maskA=uBackgroundInside?smoothstep(.025,.12,length(tapeA.rgb-uBackground)):clamp(tapeA.a,0.,1.);
-     float maskB=uBackgroundInside?smoothstep(.025,.12,length(tapeB.rgb-uBackground)):clamp(tapeB.a,0.,1.);
-     result=mix(result,compose(tapeA.rgb,uBackground),wet*.90*bandA*maskA);
-     result=mix(result,compose(tapeB.rgb,uBackground),wet*.65*bandB*maskB);
+     // Tape: two meandering horizontal refraction belts continuously
+     // expose two different moments of history.
+     float drift=.05*sin(uTime*.93)+wear*.035*sin(uTime*4.2);
+     float flow=fract(phase*.13+drift);
+     float distA=abs(sourceUV.y-flow);
+     float distB=abs(sourceUV.y-fract(flow+.52));
+     float bandA=1.-smoothstep(.085,.105,distA);
+     float bandB=1.-smoothstep(.065,.085,distB);
+     bool chooseA=bandA>=bandB;
+     front=max(bandA,bandB);
+     float dist=chooseA?distA:distB;
+     // Stronger wave -> more displacement, never less opacity.
+     float ripple=sin(dist*48.-uTime*(2.8+wear*6.))*strength;
+     bend=vec2((.012+.057*wear)*ripple*front, .006*wear*ripple*front);
+     age=min(5.,secondsAgo+interval*(chooseA?1.:2.));
    }else{
-     // Ping-Pong: wavefront A travels left-to-right, wavefront B returns
-     // right-to-left on the next beat. Neither the source nor the
-     // historical image is mirrored. Each front bends and reveals
-     // successive taps, producing distinct travelling slices.
+     // Ping-Pong: each clock interval sends one *unmirrored* refraction
+     // belt across the image, alternating travel direction every beat.
      float travel=fract(phase);
-     float forward=travel;
-     float backward=1.-travel;
-     float distanceA=abs(sourceUV.x-forward);
-     float distanceB=abs(sourceUV.x-backward);
-     float bandA=1.-smoothstep(.035,.17,distanceA);
-     float bandB=1.-smoothstep(.035,.17,distanceB);
-     float bendA=sin(distanceA*35.)*bandA*.038*wet;
-     float bendB=sin(distanceB*35.)*bandB*.038*wet;
-     // Each delay interval is one directional traversal; alternate
-     // on beat boundaries without flipping or replacing the full frame.
-     float leg=mod(floor(phase),2.);
-     float activeA=1.-leg;
-     float activeB=leg;
-     vec2 uvA=clamp(sourceUV+vec2(bendA,bandA*.006),vec2(0.),vec2(1.));
-     vec2 uvB=clamp(sourceUV-vec2(bendB,bandB*.006),vec2(0.),vec2(1.));
-     vec4 echoA=textureLod(uFrames,vec3(uvA,float(historyLayer(min(5.,secondsAgo+interval)))),0.);
-     vec4 echoB=textureLod(uFrames,vec3(uvB,float(historyLayer(min(5.,secondsAgo+interval*2.)))),0.);
-     float maskA=uBackgroundInside?smoothstep(.025,.12,length(echoA.rgb-uBackground)):clamp(echoA.a,0.,1.);
-     float maskB=uBackgroundInside?smoothstep(.025,.12,length(echoB.rgb-uBackground)):clamp(echoB.a,0.,1.);
-     result=mix(result,compose(echoA.rgb,uBackground),wet*bandA*activeA*maskA);
-     result=mix(result,compose(echoB.rgb,uBackground),wet*bandB*activeB*maskB);
+     float direction=mod(floor(phase),2.)<1.?1.:-1.;
+     float center=direction>0.?travel:1.-travel;
+     float distance=abs(sourceUV.x-center);
+     front=1.-smoothstep(.105,.125,distance);
+     float ripple=sin(distance*44.-uTime*3.2)*strength*front;
+     bend=vec2(.018*ripple, direction*.078*ripple);
+     age=min(5.,secondsAgo+interval*(direction>0.?1.:2.));
+   }
+   if(strength>.0001 && front>.0001){
+     vec2 refractedUV=clamp(sourceUV+bend,vec2(0.),vec2(1.));
+     vec4 previous=textureLod(uFrames,vec3(refractedUV,float(historyLayer(age))),0.);
+     vec3 past=compose(previous.rgb,uBackground);
+     vec3 pastVisible=uBackgroundInside?past:mix(uBackground,past,clamp(previous.a,0.,1.));
+     // A narrow soft border prevents a hard cut; unlike before, the
+     // control never scales opacity. Blend modes combine *pixels*, not
+     // repeated translucent layers.
+     result=mix(result,waveComposite(result,pastVisible),front);
    }
  }
  if(uGridVisible){
@@ -326,7 +325,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
  const uniforms=(name:string)=>gl.getUniformLocation(prog,name);
  const loc={
   frames:uniforms("uFrames"),grid:uniforms("uGrid"),gap:uniforms("uGap"),
-  delay:uniforms("uDelay"),delayMode:uniforms("uDelayMode"),blackHold:uniforms("uBlackHold"),delayType:uniforms("uDelayType"),echoMix:uniforms("uEchoMix"),tapeWear:uniforms("uTapeWear"),pattern:uniforms("uPattern"),newest:uniforms("uNewest"),
+  delay:uniforms("uDelay"),delayMode:uniforms("uDelayMode"),blackHold:uniforms("uBlackHold"),delayType:uniforms("uDelayType"),echoMix:uniforms("uEchoMix"),tapeWear:uniforms("uTapeWear"),waveBlend:uniforms("uWaveBlend"),pattern:uniforms("uPattern"),newest:uniforms("uNewest"),
   count:uniforms("uCount"),capacity:uniforms("uCapacity"),liveLayer:uniforms("uLiveLayer"),interval:uniforms("uInterval"),elapsed:uniforms("uElapsed"),
   background:uniforms("uBackground"),blend:uniforms("uBlend"),backgroundInside:uniforms("uBackgroundInside"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
@@ -436,7 +435,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.uniform1i(loc.frames,0);gl.uniform2f(loc.grid,p.columns,p.rows);
   gl.uniform1f(loc.gap,p.spacing/200);gl.uniform1f(loc.delay,p.delay);
   gl.uniform1i(loc.delayMode,p.delayMode);gl.uniform1f(loc.blackHold,p.blackHold);
-  gl.uniform1i(loc.delayType,p.delayType);gl.uniform1f(loc.echoMix,p.echoMix);gl.uniform1f(loc.tapeWear,p.tapeWear);
+  gl.uniform1i(loc.delayType,p.delayType);gl.uniform1f(loc.echoMix,p.echoMix);gl.uniform1f(loc.tapeWear,p.tapeWear);gl.uniform1i(loc.waveBlend,p.waveBlend);
   gl.uniform1i(loc.pattern,p.pattern);gl.uniform1i(loc.newest,newest);
   gl.uniform1i(loc.count,count);gl.uniform1i(loc.capacity,historyCapacity);gl.uniform1i(loc.liveLayer,liveLayer);gl.uniform1f(loc.interval,interval);gl.uniform1f(loc.elapsed,p.elapsed);
   gl.uniform3f(loc.background,...p.background);gl.uniform1i(loc.blend,p.blend);gl.uniform1i(loc.backgroundInside,p.backgroundInside?1:0);
