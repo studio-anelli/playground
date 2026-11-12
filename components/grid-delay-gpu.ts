@@ -138,7 +138,8 @@ void main(){
  vec2 tilePixels=max(vec2(1.),cellSize*vec2(textureSize(uFrames,0).xy));
  // At dense grids the old 14–56px falloff almost disabled the lens.
  // Preserve a bounded, visible deformation without allowing coordinate folds.
- float detailBudget=mix(.72,1.,smoothstep(8.,32.,min(tilePixels.x,tilePixels.y)));
+ float availablePixels=min(tilePixels.x,tilePixels.y);
+ float detailBudget=smoothstep(4.,12.,availablePixels)*mix(.72,1.,smoothstep(8.,32.,availablePixels));
  if(uMode!=0 && uAmount>0. && detailBudget>.001){
    float seed=hash21(cell+vec2(9.7,23.1));
    float seedB=hash21(cell+vec2(43.2,8.5));
