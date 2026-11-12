@@ -65,9 +65,15 @@ export default function GridDelayMachine(){
  useEffect(()=>{
   const output=canvas.current;if(!output)return;
   const source=document.createElement("canvas"),sc=source.getContext("2d",{alpha:false});
-  if(!sc)return;
+  const textLayer=document.createElement("canvas"),tc=textLayer.getContext("2d");
+  if(!sc||!tc)return;
+  let textCacheKey="";
   let gpu:DelayGPU|null=null;
   let raf=0,last=0,clock=0,accumulator=0,lastCapture=0,w=0,h=0,dpr=1,needsFirstFrame=true,failed=false,qualityChanged=false;
+  // Opt-in measurements: append ?perf=1 to compare frame pacing and CPU
+  // command costs without introducing an always-on profiling UI.
+  const monitor=new URLSearchParams(window.location.search).get("perf")==="1";
+  let measureSince=0,measureFrames=0,measureSlow=0,sourceMs=0,captureMs=0,submitMs=0;
   function resize(){
    const box=output.getBoundingClientRect();
    const width=Math.max(1,Math.round(box.width)),height=Math.max(1,Math.round(box.height));
@@ -83,6 +89,7 @@ export default function GridDelayMachine(){
     // Draw source at the actual history texture resolution, not the output
     // resolution: removes a full-canvas rescale every animation frame.
     source.width=gpu.width;source.height=gpu.height;
+    textCacheKey="";
     setRenderError(null);
    }
    catch(error){failed=true;setRenderError(error instanceof Error?error.message:String(error));return}
@@ -135,8 +142,53 @@ export default function GridDelayMachine(){
    return p;
   }
 
-  function makeSource(t:number){
-   const p=modulated(t),phase=t*1.7,amp=p.amplitude/100;
+  // K-TIC-SYNTH-inspired split: rasterise type only when the glyph/layout
+  // actually changes. Animate a prepared transparent text layer each RAF.
+  let textOriginX=0,textOriginY=0,textLogicalW=1,textLogicalH=1;
+  // Keep the cache tightly bounded to the glyphs. A viewport-sized cached
+  // raster would clip large type before its animated transform is applied.
+  function preparedText(p:ReturnType<typeof modulated>){
+   const ink=rotateHue(visualRef.current.ink,p.inkHue);
+   const key=JSON.stringify([source.width,source.height,w,h,textRef.current,fontRef.current,
+    p.fontSize,p.weight,p.tracking,p.lineHeight,ink,alignRef.current,vAlignRef.current]);
+   if(key===textCacheKey)return;
+   textCacheKey=key;
+   const sx=source.width/w,sy=source.height/h;
+   const lines=textRef.current.split("\n").slice(0,6),size=h*p.fontSize/100;
+   tc!.font=p.weight+" "+size+"px "+fontRef.current;
+   const letterSpacing=size*p.tracking/100;
+   const layout=lines.map(line=>{
+    const chars=Array.from(line),widths=chars.map(ch=>tc!.measureText(ch).width);
+    const width=widths.reduce((a,b)=>a+b,0)+Math.max(0,chars.length-1)*letterSpacing;
+    return {chars,widths,width};
+   });
+   const advance=size*p.lineHeight,total=layout.length*advance;
+   const positioned=layout.map((line,i)=>{
+    const x=alignRef.current==="left"?0:alignRef.current==="right"?-line.width:-line.width/2;
+    const y=vAlignRef.current==="top"?i*advance+size*.5:
+           vAlignRef.current==="bottom"?-total+i*advance+size*.5:
+           (i-(layout.length-1)/2)*advance;
+    return {...line,x,y};
+   });
+   const padding=Math.max(8,size);
+   textOriginX=Math.min(0,...positioned.map(line=>Math.min(line.x,line.x+line.width)))-padding;
+   textOriginY=Math.min(0,...positioned.map(line=>line.y))-padding;
+   const right=Math.max(0,...positioned.map(line=>Math.max(line.x,line.x+line.width)))+padding;
+   const bottom=Math.max(0,...positioned.map(line=>line.y))+padding;
+   textLogicalW=Math.max(1,right-textOriginX);
+   textLogicalH=Math.max(1,bottom-textOriginY);
+   textLayer.width=Math.max(1,Math.ceil(textLogicalW*sx));
+   textLayer.height=Math.max(1,Math.ceil(textLogicalH*sy));
+   tc!.setTransform(sx,0,0,sy,-textOriginX*sx,-textOriginY*sy);
+   tc!.textBaseline="middle";tc!.fillStyle=ink;
+   tc!.font=p.weight+" "+size+"px "+fontRef.current;
+   positioned.forEach(line=>{
+    let x=line.x;
+    line.chars.forEach((ch,j)=>{tc!.fillText(ch,x+line.widths[j]/2,line.y);x+=line.widths[j]+letterSpacing});
+   });
+  }
+  function makeSource(t:number,p:ReturnType<typeof modulated>){
+   const phase=t*1.7,amp=p.amplitude/100;
    sc!.setTransform(source.width/w,0,0,source.height/h,0,0);
    sc!.fillStyle=rotateHue(visualRef.current.background,p.bgHue);
    sc!.fillRect(0,0,w,h);
@@ -158,50 +210,46 @@ export default function GridDelayMachine(){
     const im=image.current,ratio=Math.min(w*.76/im.width,h*.76/im.height);
     sc!.drawImage(im,-im.width*ratio/2,-im.height*ratio/2,im.width*ratio,im.height*ratio);
    }else{
-    const lines=textRef.current.split("\n").slice(0,6),size=h*p.fontSize/100;
-    sc!.textBaseline="middle";sc!.fillStyle=rotateHue(visualRef.current.ink,p.inkHue);
-    sc!.font=p.weight+" "+size+"px "+fontRef.current;
-    const letterSpacing=size*p.tracking/100;
-    const layout=lines.map(line=>{
-     const chars=Array.from(line),widths=chars.map(ch=>sc!.measureText(ch).width);
-     const width=widths.reduce((a,b)=>a+b,0)+Math.max(0,chars.length-1)*letterSpacing;
-     return {chars,widths,width};
-    });
-    const advance=size*p.lineHeight,total=layout.length*advance;
-    layout.forEach((line,i)=>{
-     let x=alignRef.current==="left"?0:alignRef.current==="right"?-line.width:-line.width/2;
-     const y=vAlignRef.current==="top"?i*advance+size*.5:
-             vAlignRef.current==="bottom"?-total+i*advance+size*.5:
-             (i-(layout.length-1)/2)*advance;
-     line.chars.forEach((ch,j)=>{sc!.fillText(ch,x+line.widths[j]/2,y);x+=line.widths[j]+letterSpacing});
-    });
+    preparedText(p);
+    sc!.drawImage(textLayer,textOriginX,textOriginY,textLogicalW,textLogicalH);
    }
    sc!.restore();
    gpu?.pushLive(source);
   }
   function draw(now:number){
-   const delta=last?Math.min(.06,(now-last)/1000):0;last=now;
+   const actualDelta=last?(now-last)/1000:0;
+   const delta=Math.min(.06,actualDelta);last=now;
+   if(monitor&&document.visibilityState==="visible"){
+    if(!measureSince)measureSince=now;
+    measureFrames++;
+    if(actualDelta>1/30&&actualDelta<.5)measureSlow++;
+   }
    if(!gpu){raf=requestAnimationFrame(draw);return}
    if(playingRef.current){
     const speed=modulated(clock).speed;
     clock+=delta*speed;accumulator+=delta*speed;
    }
+   const p=modulated(clock);
    const interval=gpu.interval;
    // Always redraw the current source for smooth motion; only archive snapshots
    // at the cadence permitted by the bounded history texture array.
    const capture=needsFirstFrame||(playingRef.current&&accumulator>=interval);
    if(playingRef.current||needsFirstFrame||dirtyRef.current){
-    makeSource(clock);
+    const sourceStart=monitor?performance.now():0;
+    makeSource(clock,p);
+    if(monitor)sourceMs+=performance.now()-sourceStart;
     if(capture){
-     gpu.push(source);
+     const captureStart=monitor?performance.now():0;
+     gpu.capture(source);
+     if(monitor)captureMs+=performance.now()-captureStart;
      lastCapture=clock;
      accumulator=accumulator%interval;
     }
     needsFirstFrame=false;dirtyRef.current=false;
    }
-   const p=modulated(clock);
    const blendIndex=blendModes.indexOf(visualRef.current.blend);
    const selectedBlend=((blendIndex+Math.round(p.blendOffset))%blendModes.length+blendModes.length)%blendModes.length;
+   const renderStart=monitor?performance.now():0;
    gpu.render({
     columns:p.columns,rows:p.rows,spacing:p.spacing,delay:p.delay,
     pattern:Math.max(0,["wave","cascade","radial","random"].indexOf(patternRef.current)),
@@ -212,6 +260,21 @@ export default function GridDelayMachine(){
     time:clock,elapsed:Math.max(0,clock-lastCapture),grid:gridRef.current,
     background:rgb(rotateHue(visualRef.current.background,p.bgHue)),blend:selectedBlend
    });
+   if(monitor){
+    submitMs+=performance.now()-renderStart;
+    if(now-measureSince>=5000&&measureSince>0){
+     const samples=Math.max(1,measureFrames);
+     console.info("[Grid Delay perf]",{
+      fps:Math.round(measureFrames*1000/(now-measureSince)*10)/10,
+      slowFrames:measureSlow,
+      sourceMsPerFrame:Math.round(sourceMs/samples*100)/100,
+      captureMsPerFrame:Math.round(captureMs/samples*100)/100,
+      renderSubmissionMs:Math.round(submitMs/samples*100)/100,
+      quality:qualityRef.current
+     });
+     measureSince=now;measureFrames=0;measureSlow=0;sourceMs=0;captureMs=0;submitMs=0;
+    }
+   }
    raf=requestAnimationFrame(draw);
   }
   raf=requestAnimationFrame(draw);
