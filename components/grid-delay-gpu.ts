@@ -4,6 +4,7 @@
  * 2D canvas; the history, grid composition and deformation live on the GPU. */
 export type DelayGeometry = {
   columns:number; rows:number; spacing:number; delay:number; pattern:number;
+  delayMode:number; blackHold:number;
   mode:number; amount:number; frequency:number; flow:number; time:number; elapsed:number;
   globalMode:number; globalStrength:number; globalSize:number; globalGrowth:number;
   grid:boolean; background:[number,number,number]; blend:number;
@@ -33,6 +34,8 @@ uniform sampler2DArray uFrames;
 uniform vec2 uGrid;
 uniform float uGap;
 uniform float uDelay;
+uniform int uDelayMode;
+uniform float uBlackHold;
 uniform int uPattern;
 uniform int uNewest;
 uniform int uCount;
@@ -149,7 +152,12 @@ void main(){
  }
  // Pure refraction: a single texture sample, with no optical highlight or RGB split.
  vec3 sampleColor=texture(uFrames,vec3(sourceUV,float(selectedLayer))).rgb;
- vec3 result=compose(sampleColor,uBackground);
+ // Black delay uses the same per-cell temporal offsets as Image mode.
+ // The gate is a discrete, time-shifted blackout rather than a blend, so
+ // even Screen/Difference blend modes produce real black frames.
+ float blackPhase=fract((uTime-secondsAgo)*.5);
+ bool blacked=uDelayMode==1 && blackPhase<clamp(uBlackHold,0.,1.);
+ vec3 result=blacked?vec3(0.):compose(sampleColor,uBackground);
  if(uGridVisible){
    vec2 rim=min(local,1.-local)*cellSize*cells;
    if(min(rim.x,rim.y)<.006)result=mix(result,vec3(.13,.15,.13),.22);
@@ -207,7 +215,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
  const uniforms=(name:string)=>gl.getUniformLocation(prog,name);
  const loc={
   frames:uniforms("uFrames"),grid:uniforms("uGrid"),gap:uniforms("uGap"),
-  delay:uniforms("uDelay"),pattern:uniforms("uPattern"),newest:uniforms("uNewest"),
+  delay:uniforms("uDelay"),delayMode:uniforms("uDelayMode"),blackHold:uniforms("uBlackHold"),pattern:uniforms("uPattern"),newest:uniforms("uNewest"),
   count:uniforms("uCount"),capacity:uniforms("uCapacity"),liveLayer:uniforms("uLiveLayer"),interval:uniforms("uInterval"),elapsed:uniforms("uElapsed"),
   background:uniforms("uBackground"),blend:uniforms("uBlend"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
@@ -265,6 +273,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D_ARRAY,texture);
   gl.uniform1i(loc.frames,0);gl.uniform2f(loc.grid,p.columns,p.rows);
   gl.uniform1f(loc.gap,p.spacing/200);gl.uniform1f(loc.delay,p.delay);
+  gl.uniform1i(loc.delayMode,p.delayMode);gl.uniform1f(loc.blackHold,p.blackHold);
   gl.uniform1i(loc.pattern,p.pattern);gl.uniform1i(loc.newest,newest);
   gl.uniform1i(loc.count,count);gl.uniform1i(loc.capacity,historyCapacity);gl.uniform1i(loc.liveLayer,liveLayer);gl.uniform1f(loc.interval,interval);gl.uniform1f(loc.elapsed,p.elapsed);
   gl.uniform3f(loc.background,...p.background);gl.uniform1i(loc.blend,p.blend);
