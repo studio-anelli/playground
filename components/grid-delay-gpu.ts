@@ -7,7 +7,7 @@ export type DelayGeometry = {
   delayMode:number; blackHold:number;
   mode:number; amount:number; frequency:number; flow:number; time:number; elapsed:number;
   globalMode:number; globalStrength:number; globalSize:number; globalGrowth:number;
-  grid:boolean; background:[number,number,number]; blend:number;
+  grid:boolean; background:[number,number,number]; blend:number; backgroundInside:boolean;
   feedbackEnabled:boolean;feedbackAmount:number;feedbackDecay:number;feedbackRefresh:number;feedbackBlend:number;
 };
 export type DelayQuality="balanced"|"sharp"|"fluid";
@@ -46,6 +46,7 @@ uniform float uInterval;
 uniform float uElapsed;
 uniform vec3 uBackground;
 uniform int uBlend;
+uniform bool uBackgroundInside;
 uniform bool uGridVisible;
 uniform int uMode;
 uniform float uAmount;
@@ -159,8 +160,12 @@ void main(){
   if(blackPhase<clamp(uBlackHold,0.,1.)){outColor=vec4(0.,0.,0.,1.);return;}
  }
  // The image mode and the visible interval of black mode share the sample.
- vec3 sampleColor=textureLod(uFrames,vec3(sourceUV,float(selectedLayer)),0.).rgb;
- vec3 result=compose(sampleColor,uBackground);
+ vec4 sampleColor=textureLod(uFrames,vec3(sourceUV,float(selectedLayer)),0.);
+ // In external-background mode the alpha of the delayed source acts as a
+ // foreground mask; the static stage colour is drawn exactly once behind it.
+ // The historical texture still contains the image's alpha, not coloured tiles.
+ vec3 rendered=compose(sampleColor.rgb,uBackground);
+ vec3 result=uBackgroundInside?rendered:mix(uBackground,rendered,clamp(sampleColor.a,0.,1.));
  if(uGridVisible){
    vec2 rim=min(local,1.-local)*cellSize*cells;
    if(min(rim.x,rim.y)<.006)result=mix(result,vec3(.13,.15,.13),.22);
@@ -256,14 +261,14 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
  gl.texParameteri(gl.TEXTURE_2D_ARRAY,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
  gl.texStorage3D(gl.TEXTURE_2D_ARRAY,1,gl.RGBA8,tw,th,capacity);
  const upload=document.createElement("canvas");upload.width=tw;upload.height=th;
- const uc=upload.getContext("2d",{alpha:false});
+ const uc=upload.getContext("2d",{alpha:true});
  if(!uc)throw new Error("Could not create WebGL source upload canvas");
  const uniforms=(name:string)=>gl.getUniformLocation(prog,name);
  const loc={
   frames:uniforms("uFrames"),grid:uniforms("uGrid"),gap:uniforms("uGap"),
   delay:uniforms("uDelay"),delayMode:uniforms("uDelayMode"),blackHold:uniforms("uBlackHold"),pattern:uniforms("uPattern"),newest:uniforms("uNewest"),
   count:uniforms("uCount"),capacity:uniforms("uCapacity"),liveLayer:uniforms("uLiveLayer"),interval:uniforms("uInterval"),elapsed:uniforms("uElapsed"),
-  background:uniforms("uBackground"),blend:uniforms("uBlend"),gridVisible:uniforms("uGridVisible"),
+  background:uniforms("uBackground"),blend:uniforms("uBlend"),backgroundInside:uniforms("uBackgroundInside"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
   flow:uniforms("uFlow"),time:uniforms("uTime"),
   globalMode:uniforms("uGlobalMode"),globalStrength:uniforms("uGlobalStrength"),globalSize:uniforms("uGlobalSize"),globalGrowth:uniforms("uGlobalGrowth"),aspect:uniforms("uAspect")
@@ -287,6 +292,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   if(pixels===upload){uc.clearRect(0,0,tw,th);uc.drawImage(frame,0,0,tw,th)}
   gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D_ARRAY,texture);
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);
+  gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,false);
   gl.texSubImage3D(gl.TEXTURE_2D_ARRAY,0,0,0,layer,tw,th,1,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
  };
  const capture=(frame:HTMLCanvasElement)=>{
@@ -372,7 +378,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.uniform1i(loc.delayMode,p.delayMode);gl.uniform1f(loc.blackHold,p.blackHold);
   gl.uniform1i(loc.pattern,p.pattern);gl.uniform1i(loc.newest,newest);
   gl.uniform1i(loc.count,count);gl.uniform1i(loc.capacity,historyCapacity);gl.uniform1i(loc.liveLayer,liveLayer);gl.uniform1f(loc.interval,interval);gl.uniform1f(loc.elapsed,p.elapsed);
-  gl.uniform3f(loc.background,...p.background);gl.uniform1i(loc.blend,p.blend);
+  gl.uniform3f(loc.background,...p.background);gl.uniform1i(loc.blend,p.blend);gl.uniform1i(loc.backgroundInside,p.backgroundInside?1:0);
   gl.uniform1i(loc.gridVisible,p.grid?1:0);
   gl.uniform1i(loc.mode,p.mode);gl.uniform1f(loc.amount,p.amount);
   gl.uniform1f(loc.frequency,p.frequency);gl.uniform1f(loc.flow,p.flow);
