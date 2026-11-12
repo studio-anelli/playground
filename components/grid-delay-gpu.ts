@@ -47,6 +47,22 @@ uniform float uFrequency;
 uniform float uFlow;
 uniform float uTime;
 float hash21(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+// Smooth, low-frequency vector field: no tiled trigonometric bands.
+float smoothNoise(vec2 p){
+ vec2 i=floor(p),f=fract(p);
+ f=f*f*(3.-2.*f);
+ float a=hash21(i),b=hash21(i+vec2(1.,0.));
+ float c=hash21(i+vec2(0.,1.)),d=hash21(i+vec2(1.,1.));
+ return mix(mix(a,b,f.x),mix(c,d,f.x),f.y);
+}
+vec2 organicField(vec2 point,float frequency,float phase){
+ vec2 q=point*max(.35,frequency);
+ // Different domains and slow opposing drift prevent obvious wave oscillation.
+ float a=smoothNoise(q+vec2(5.3,11.1)+vec2(phase*.13,-phase*.09));
+ float b=smoothNoise(q*.83+vec2(26.7,3.2)+vec2(-phase*.08,phase*.12));
+ float detail=smoothNoise(q*1.91+vec2(8.9,21.3)+phase*.045);
+ return vec2(a-.5,b-.5)*1.6+vec2(detail-.5,.5-detail)*.18;
+}
 float patternValue(vec2 cell){
  vec2 center=(cell+.5)/uGrid;
  if(uPattern==1)return (center.x+center.y)*.5;
@@ -66,12 +82,14 @@ vec3 compose(vec3 sampleColor,vec3 bg){
 }
 void main(){
  vec2 uv=vUv;
- // Elastic mode displaces spatial boundaries continuously across the whole grid.
+ // Elastic: a coherent membrane with subtle, non-periodic curvature.
+ // Shared coordinates keep neighbours touching; pin outer canvas boundaries.
  float wave=uTime*uFlow;
  if(uMode==1){
-   vec2 warp=vec2(sin(uv.y*uFrequency*6.28318+wave)*cos(uv.x*5.+wave),
-                   cos(uv.x*uFrequency*6.28318-wave)*sin(uv.y*5.-wave));
-   uv+=warp*uAmount*.028;
+   vec2 field=organicField(uv,1.1+uFrequency*.55,wave);
+   vec2 edge=4.*uv*(1.-uv);
+   float pinned=clamp(edge.x*edge.y,0.,1.);
+   uv+=field*(uAmount*uAmount)*.024*pinned;
  }
  vec2 cells=max(vec2(1.),uGrid);
  vec2 gap=vec2(uGap)/cells;
@@ -83,11 +101,14 @@ void main(){
  bool invalid=outside||any(lessThan(local,vec2(0.)))||any(greaterThanEqual(local,vec2(1.)))||any(greaterThanEqual(cell,cells));
  if(invalid){outColor=vec4(uBackground,1.);return;}
  vec2 sourceUV=(cell+local)/cells;
- // Liquify changes sampled content while retaining rigid cell geometry.
+ // Liquify: slowly advect the IMAGE inside each cell using spatially
+ // coherent noise. Fade displacement at cell boundaries so it never creates
+ // an obvious ripple or drags adjacent cell contents through the seam.
  if(uMode==2){
-   vec2 ripple=vec2(sin(sourceUV.y*uFrequency*6.28318+wave+sin(sourceUV.x*7.)),
-                     cos(sourceUV.x*uFrequency*6.28318-wave+sin(sourceUV.y*7.)));
-   sourceUV=clamp(sourceUV+ripple*uAmount*.045,vec2(0.001),vec2(.999));
+   vec2 field=organicField(sourceUV,1.4+uFrequency*.55,wave);
+   vec2 margin=min(local,1.-local);
+   float edgeFade=smoothstep(0.,.18,min(margin.x,margin.y));
+   sourceUV=clamp(sourceUV+field*(uAmount*uAmount)*.032*edgeFade,vec2(.001),vec2(.999));
  }
  // The current frame is uploaded every RAF while historical snapshots
  // occupy a separate ring. Never crossfade distinct text shapes.
