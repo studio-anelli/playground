@@ -88,29 +88,32 @@ export default function GridDelayMachine(){
    let gridDrive=0;
    for(const cable of patchRef.current){
     const o=oscRef.current[cable.wave];if(!o||!o.enabled||cable.amount===0||o.depth===0)continue;
-    const delta=oscValue(o,t)*o.depth/100*cable.amount/100;
+    // Fine control around zero, with target-specific ranges. A full-strength
+    // cable no longer sweeps an entire parameter range in a single cycle.
+    const amount=Math.sign(cable.amount)*Math.pow(Math.abs(cable.amount)/100,1.5);
+    const delta=oscValue(o,t)*o.depth/100*amount;
     switch(cable.target){
-     case "scale":p.scale=clamp(p.scale*(1+delta),10,400);break;
-     case "delay":p.delay=clamp(p.delay+delta*4,0,5);break;
-     case "spacing":p.spacing=clamp(p.spacing+delta*140,0,200);break;
-     case "positionX":case "positionY":p[cable.target]=clamp(p[cable.target]+delta*100,-150,150);break;
-     case "rotation":p.rotation+=delta*180;break;
-     case "amplitude":p.amplitude=clamp(p.amplitude+delta*100,0,100);break;
-     case "speed":p.speed=clamp(p.speed+delta*2,0,3);break;
+     case "scale":p.scale=clamp(p.scale*(1+delta*.2),10,400);break;
+     case "delay":p.delay=clamp(p.delay+delta*.7,0,5);break;
+     case "spacing":p.spacing=clamp(p.spacing+delta*30,0,150);break;
+     case "positionX":case "positionY":p[cable.target]=clamp(p[cable.target]+delta*22,-100,100);break;
+     case "rotation":p.rotation+=delta*45;break;
+     case "amplitude":p.amplitude=clamp(p.amplitude+delta*25,0,100);break;
+     case "speed":p.speed=clamp(p.speed+delta*.6,0,3);break;
      case "columns":case "rows":
       if(linkedRef.current)gridDrive+=delta;
-      else p[cable.target]=clamp(Math.round(p[cable.target]+delta*(cable.target==="columns"?47:31)),1,cable.target==="columns"?48:32);
+      else p[cable.target]=clamp(Math.round(p[cable.target]+delta*(cable.target==="columns"?8:6)),1,cable.target==="columns"?48:32);
       break;
-     case "inkHue":p.inkHue+=delta*360;break;
-     case "bgHue":p.bgHue+=delta*360;break;
-     case "blendMode":p.blendOffset+=delta*(blendModes.length-1);break;
-     case "deformAmount":p.deformAmount=clamp(p.deformAmount+delta*100,0,100);break;
-     case "deformFrequency":p.deformFrequency=clamp(p.deformFrequency+delta*8,.2,12);break;
-     case "deformFlow":p.deformFlow=clamp(p.deformFlow+delta*3,0,4);break;
+     case "inkHue":p.inkHue+=delta*100;break;
+     case "bgHue":p.bgHue+=delta*100;break;
+     case "blendMode":p.blendOffset+=delta*2.5;break;
+     case "deformAmount":p.deformAmount=clamp(p.deformAmount+delta*28,0,100);break;
+     case "deformFrequency":p.deformFrequency=clamp(p.deformFrequency+delta*2,.2,12);break;
+     case "deformFlow":p.deformFlow=clamp(p.deformFlow+delta*.8,0,4);break;
     }
    }
    if(linkedRef.current&&gridDrive!==0){
-    const factor=Math.max(.05,1+gridDrive);
+    const factor=clamp(1+gridDrive*.35,.35,1.65);
     p.columns=clamp(Math.round(p.columns*factor),1,48);
     p.rows=clamp(Math.round(p.rows*factor),1,32);
    }
