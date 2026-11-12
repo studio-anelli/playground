@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-import { experiments } from "@/app/data/experiments";
+import { archivedExperiments, experiments } from "@/app/data/experiments";
 import { SiteHeader } from "@/components/site-header";
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
       <section className="experiment-index" aria-labelledby="index-title">
         <div className="section-label" id="index-title">
           <span>Working index</span>
-          <span>Updated 21.09.26</span>
+          <a href="/archive">Archive / {String(archivedExperiments.length).padStart(2, "0")} entries ↗</a>
         </div>
         {experiments.map((experiment) => (
           <a className="experiment-row" href={experiment.href ?? `/experiments/${experiment.slug}`} key={experiment.id}>
