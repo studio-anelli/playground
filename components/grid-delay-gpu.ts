@@ -5,6 +5,7 @@
 export type DelayGeometry = {
   columns:number; rows:number; spacing:number; delay:number; pattern:number;
   mode:number; amount:number; frequency:number; flow:number; time:number; elapsed:number;
+  globalMode:number; globalStrength:number; globalSize:number; globalGrowth:number;
   grid:boolean; background:[number,number,number]; blend:number;
 };
 export type DelayGPU = {
@@ -46,6 +47,11 @@ uniform float uAmount;
 uniform float uFrequency;
 uniform float uFlow;
 uniform float uTime;
+uniform int uGlobalMode;
+uniform float uGlobalStrength;
+uniform float uGlobalSize;
+uniform float uGlobalGrowth;
+uniform float uAspect;
 float hash21(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float patternValue(vec2 cell){
  vec2 center=(cell+.5)/uGrid;
@@ -65,9 +71,27 @@ vec3 compose(vec3 sampleColor,vec3 bg){
  return sampleColor;
 }
 void main(){
- // The grid geometry is immutable: all distortion takes place inside each
- // cell's LOCAL sample coordinates, after its row/column have been identified.
+ // Global glass refracts the ALREADY ASSEMBLED temporal grid.
+ // Evaluate the final pixel at a shifted screen coordinate BEFORE cell lookup:
+ // grid boundaries, time slices and per-cell lenses all bend together.
  vec2 uv=vUv;
+ if(uGlobalMode!=0 && uGlobalStrength>0.){
+   vec2 aspect=vec2(max(.01,uAspect),1.);
+   vec2 delta=(vUv-.5)*aspect;
+   float radiusMax=max(.10,uGlobalSize);
+   // Smooth growth and contraction, rather than resetting at the end of a loop.
+   float cycle=uGlobalGrowth>0.001?
+      (.5-.5*cos(uTime*uGlobalGrowth*1.5707963)):1.;
+   float radius=mix(.06,radiusMax,cycle);
+   float normalizedDistance=length(delta)/radius;
+   float inside=1.-smoothstep(.78,1.,normalizedDistance);
+   float lensSlope=pow(max(0.,1.-normalizedDistance*normalizedDistance),2.);
+   float lens=uGlobalStrength*inside*lensSlope*.68;
+   // Convex samples the inner region; concave samples farther out.
+   float direction=uGlobalMode==1?-1.:1.;
+   uv=vUv+delta/aspect*direction*lens;
+ }
+
  vec2 cells=max(vec2(1.),uGrid);
  vec2 gap=vec2(uGap)/cells;
  vec2 cellSize=(1.-gap*(cells-1.))/cells;
@@ -177,7 +201,8 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
   count:uniforms("uCount"),capacity:uniforms("uCapacity"),liveLayer:uniforms("uLiveLayer"),interval:uniforms("uInterval"),elapsed:uniforms("uElapsed"),
   background:uniforms("uBackground"),blend:uniforms("uBlend"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
-  flow:uniforms("uFlow"),time:uniforms("uTime")
+  flow:uniforms("uFlow"),time:uniforms("uTime"),
+  globalMode:uniforms("uGlobalMode"),globalStrength:uniforms("uGlobalStrength"),globalSize:uniforms("uGlobalSize"),globalGrowth:uniforms("uGlobalGrowth"),aspect:uniforms("uAspect")
  };
  let newest=-1,count=0;
  const write=(frame:HTMLCanvasElement,layer:number)=>{
@@ -205,6 +230,11 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
   gl.uniform1i(loc.mode,p.mode);gl.uniform1f(loc.amount,p.amount);
   gl.uniform1f(loc.frequency,p.frequency);gl.uniform1f(loc.flow,p.flow);
   gl.uniform1f(loc.time,p.time);
+  gl.uniform1i(loc.globalMode,p.globalMode);
+  gl.uniform1f(loc.globalStrength,p.globalStrength);
+  gl.uniform1f(loc.globalSize,p.globalSize);
+  gl.uniform1f(loc.globalGrowth,p.globalGrowth);
+  gl.uniform1f(loc.aspect,canvas.width/Math.max(1,canvas.height));
   gl.drawArrays(gl.TRIANGLES,0,3);
  };
  return {width:tw,height:th,interval,push,pushLive,render,dispose:()=>{gl.deleteTexture(texture);gl.deleteVertexArray(vao);gl.deleteProgram(prog)}};
