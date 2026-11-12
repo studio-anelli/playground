@@ -218,6 +218,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
  // This avoids a second full-canvas CPU->GPU upload on every capture.
  const readFramebuffer=gl.createFramebuffer();
  let fastCapture=!!readFramebuffer;
+ let verifyCapture=true;
  if(readFramebuffer){
   gl.bindFramebuffer(gl.READ_FRAMEBUFFER,readFramebuffer);
   gl.framebufferTextureLayer(gl.READ_FRAMEBUFFER,gl.COLOR_ATTACHMENT0,texture,0,liveLayer);
@@ -243,6 +244,15 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
    gl.bindTexture(gl.TEXTURE_2D_ARRAY,texture);
    gl.copyTexSubImage3D(gl.TEXTURE_2D_ARRAY,0,0,0,newest,0,0,tw,th);
    gl.bindFramebuffer(gl.READ_FRAMEBUFFER,null);
+   // Validate the copy once (not every frame). Safari/driver failures use the
+   // original CPU upload path rather than silently leaving empty history.
+   if(verifyCapture){
+    verifyCapture=false;
+    if(gl.getError()!==gl.NO_ERROR){
+     fastCapture=false;
+     write(frame,newest);
+    }
+   }
   }else{
    write(frame,newest);
   }
