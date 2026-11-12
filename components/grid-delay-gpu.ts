@@ -66,8 +66,8 @@ float patternValue(vec2 cell){
  if(uPattern==3)return hash21(cell);
  return .5+.5*sin(center.x*8.+center.y*5.);
 }
-// Retrieve a complete historical frame for a cell. Adjacent cells are
-// blended only in a very narrow output-pixel edge anti-alias band.
+// Retrieve a whole historical frame for one grid cell. Temporal seams use
+// neighbouring time indices at the same spatial coordinate.
 int historyLayer(vec2 c){
  float secondsAgo=max(0.,patternValue(c)*uDelay);
  if(uCount>0 && secondsAgo>max(.0001,uElapsed*.5)){
@@ -162,34 +162,34 @@ void main(){
  // The image mode and the visible interval of black mode share the sample.
  vec3 sampleColor=texture(uFrames,vec3(sourceUV,float(selectedLayer))).rgb;
  vec3 result=compose(sampleColor,uBackground);
- // Prevent a one-pixel horizontal/vertical "gate" at exact tile boundaries.
- // Temporal discontinuities remain crisp inside each cell: only the two
- // pixels nearest an edge are anti-aliased when Grid is hidden.
- // Do not soften intentional black gates or visible grid outlines.
+ // Temporal tiles show different moments. The old seam correction used a
+ // one-pixel, spatially mirrored neighbour lookup: this left a dark gate
+ // because the two sides never agreed about the underlying source pixel.
+ // Instead blend the NEIGHBOUR'S TIME at the EXACT SAME source coordinate.
+ // Both sides converge to the same 50/50 mixture at the shared boundary.
+ // Only a narrow edge band is softened; the cell interior remains a single
+ // unmixed historical frame and keeps its crisp typography.
  if(!uGridVisible && uDelayMode==0 && uDelay>.001){
-  vec2 edgePx=min(local,1.-local)*cellSize*uOutputSize;
-  // Safely pull the neighbouring sample from INSIDE its own tile, never
-  // from a texture filtering footprint that crosses an unrelated cell.
-  if(edgePx.y<1.5){
-   float side=local.y<.5?-1.:1.;
-   vec2 other=cell+vec2(0.,side);
+  vec2 tilePx=cellSize*uOutputSize;
+  float seamPx=clamp(min(tilePx.x,tilePx.y)*.18,2.,10.);
+  vec2 toEdge=min(local,1.-local)*tilePx;
+  if(toEdge.y<seamPx && cells.y>1.){
+   float direction=local.y<.5?-1.:1.;
+   vec2 other=cell+vec2(0.,direction);
    if(other.y>=0.&&other.y<cells.y){
-    vec2 otherLocal=clamp(vec2(sampleLocal.x,1.-local.y),inset,1.-inset);
-    vec2 otherUV=(other+otherLocal)/cells;
-    vec3 otherColor=texture(uFrames,vec3(otherUV,float(historyLayer(other)))).rgb;
-    float edgeMix=.5*(1.-smoothstep(0.,1.5,edgePx.y));
-    result=mix(result,compose(otherColor,uBackground),edgeMix);
+    // Use the same image-space pixel and different historical timestamp.
+    vec3 otherColor=texture(uFrames,vec3(sourceUV,float(historyLayer(other)))).rgb;
+    float weight=.5*(1.-smoothstep(0.,seamPx,toEdge.y));
+    result=mix(result,compose(otherColor,uBackground),weight);
    }
   }
-  if(edgePx.x<1.5){
-   float side=local.x<.5?-1.:1.;
-   vec2 other=cell+vec2(side,0.);
+  if(toEdge.x<seamPx && cells.x>1.){
+   float direction=local.x<.5?-1.:1.;
+   vec2 other=cell+vec2(direction,0.);
    if(other.x>=0.&&other.x<cells.x){
-    vec2 otherLocal=clamp(vec2(1.-local.x,sampleLocal.y),inset,1.-inset);
-    vec2 otherUV=(other+otherLocal)/cells;
-    vec3 otherColor=texture(uFrames,vec3(otherUV,float(historyLayer(other)))).rgb;
-    float edgeMix=.5*(1.-smoothstep(0.,1.5,edgePx.x));
-    result=mix(result,compose(otherColor,uBackground),edgeMix);
+    vec3 otherColor=texture(uFrames,vec3(sourceUV,float(historyLayer(other)))).rgb;
+    float weight=.5*(1.-smoothstep(0.,seamPx,toEdge.x));
+    result=mix(result,compose(otherColor,uBackground),weight);
    }
   }
  }
