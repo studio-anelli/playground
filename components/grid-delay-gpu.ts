@@ -81,16 +81,9 @@ vec3 compose(vec3 sampleColor,vec3 bg){
  return sampleColor;
 }
 void main(){
+ // The grid geometry is immutable: all distortion takes place inside each
+ // cell's LOCAL sample coordinates, after its row/column have been identified.
  vec2 uv=vUv;
- // Elastic: a coherent membrane with subtle, non-periodic curvature.
- // Shared coordinates keep neighbours touching; pin outer canvas boundaries.
- float wave=uTime*uFlow;
- if(uMode==1){
-   vec2 field=organicField(uv,1.1+uFrequency*.55,wave);
-   vec2 edge=4.*uv*(1.-uv);
-   float pinned=clamp(edge.x*edge.y,0.,1.);
-   uv+=field*(uAmount*uAmount)*.024*pinned;
- }
  vec2 cells=max(vec2(1.),uGrid);
  vec2 gap=vec2(uGap)/cells;
  vec2 cellSize=(1.-gap*(cells-1.))/cells;
@@ -100,16 +93,31 @@ void main(){
  bool outside=any(lessThan(uv,vec2(0.)))||any(greaterThanEqual(uv,vec2(1.)));
  bool invalid=outside||any(lessThan(local,vec2(0.)))||any(greaterThanEqual(local,vec2(1.)))||any(greaterThanEqual(cell,cells));
  if(invalid){outColor=vec4(uBackground,1.);return;}
- vec2 sourceUV=(cell+local)/cells;
- // Liquify: slowly advect the IMAGE inside each cell using spatially
- // coherent noise. Fade displacement at cell boundaries so it never creates
- // an obvious ripple or drags adjacent cell contents through the seam.
- if(uMode==2){
-   vec2 field=organicField(sourceUV,1.4+uFrequency*.55,wave);
-   vec2 margin=min(local,1.-local);
-   float edgeFade=smoothstep(0.,.18,min(margin.x,margin.y));
-   sourceUV=clamp(sourceUV+field*(uAmount*uAmount)*.032*edgeFade,vec2(.001),vec2(.999));
+
+ // Each cell receives its own spatial seed, phase, speed and orientation.
+ // Its delay identity never changes: only the content read inside the cell.
+ float seed=hash21(cell+vec2(9.7,23.1));
+ float seedB=hash21(cell+vec2(43.2,8.5));
+ float phase=uTime*uFlow*(.48+seed*.46)+seedB*6.2831853;
+ float strength=clamp(uAmount,0.,1.);
+ vec2 margin=min(local,1.-local);
+ float edgeFade=smoothstep(0.,.24,min(margin.x,margin.y));
+ vec2 sampleLocal=local;
+ if(uMode==1){
+   // ELASTIC: smooth, larger-scale stretch/shear within the fragment.
+   // The outside edges remain exactly where they are.
+   vec2 field=organicField(local+vec2(seed*7.3,seedB*5.1),.65+uFrequency*.22,phase);
+   vec2 directional=vec2(field.x*.85+field.y*.25,field.y*.85-field.x*.25);
+   sampleLocal+=directional*strength*strength*.16*edgeFade;
+ } else if(uMode==2){
+   // LIQUIFY: smaller, more turbulent advection, independently phased in
+   // each cell and softly confined so neighbouring fragments never bleed.
+   vec2 field=organicField(local+vec2(seed*13.7,seedB*9.1),1.5+uFrequency*.55,phase);
+   vec2 detail=organicField(local*1.8+vec2(seedB*17.1,seed*14.4),2.5+uFrequency*.65,-phase*.7);
+   sampleLocal+=(field*.65+detail*.35)*strength*strength*.19*edgeFade;
  }
+ sampleLocal=clamp(sampleLocal,vec2(0.),vec2(1.));
+ vec2 sourceUV=(cell+sampleLocal)/cells;
  // The current frame is uploaded every RAF while historical snapshots
  // occupy a separate ring. Never crossfade distinct text shapes.
  float secondsAgo=max(0.,patternValue(cell)*uDelay);
