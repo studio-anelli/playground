@@ -177,7 +177,7 @@ void main(){
    // Wave strength controls REFRACTION (UV displacement) only.
    // The refracted source replaces the pixels inside the wave: no alpha
    // fading of successive copies, and the source is never mirrored.
-   float strength=clamp(uEchoMix,0.,1.);
+   float waveStrength=clamp(uEchoMix,0.,1.);
    float interval=clamp(uDelay*.28,.20,1.35);
    float phase=uTime/interval;
    float wear=clamp(uTapeWear,0.,1.);
@@ -197,7 +197,7 @@ void main(){
      front=max(bandA,bandB);
      float dist=chooseA?distA:distB;
      // Stronger wave -> more displacement, never less opacity.
-     float ripple=sin(dist*48.-uTime*(2.8+wear*6.))*strength;
+     float ripple=sin(dist*48.-uTime*(2.8+wear*6.))*waveStrength;
      bend=vec2((.012+.057*wear)*ripple*front, .006*wear*ripple*front);
      age=min(5.,secondsAgo+interval*(chooseA?1.:2.));
    }else{
@@ -208,11 +208,11 @@ void main(){
      float center=direction>0.?travel:1.-travel;
      float distance=abs(sourceUV.x-center);
      front=1.-smoothstep(.105,.125,distance);
-     float ripple=sin(distance*44.-uTime*3.2)*strength*front;
+     float ripple=sin(distance*44.-uTime*3.2)*waveStrength*front;
      bend=vec2(.018*ripple, direction*.078*ripple);
      age=min(5.,secondsAgo+interval*(direction>0.?1.:2.));
    }
-   if(strength>.0001 && front>.0001){
+   if(waveStrength>.0001 && front>.0001){
      vec2 refractedUV=clamp(sourceUV+bend,vec2(0.),vec2(1.));
      vec4 previous=textureLod(uFrames,vec3(refractedUV,float(historyLayer(age))),0.);
      vec3 past=compose(previous.rgb,uBackground);
