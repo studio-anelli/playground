@@ -101,6 +101,9 @@ export default function GridDelayMachine(){
      case "inkHue":p.inkHue+=delta*360;break;
      case "bgHue":p.bgHue+=delta*360;break;
      case "blendMode":p.blendOffset+=delta*(blendModes.length-1);break;
+     case "deformAmount":p.deformAmount=clamp(p.deformAmount+delta*100,0,100);break;
+     case "deformFrequency":p.deformFrequency=clamp(p.deformFrequency+delta*8,.2,12);break;
+     case "deformFlow":p.deformFlow=clamp(p.deformFlow+delta*3,0,4);break;
     }
    }
    if(linkedRef.current&&gridDrive!==0){
@@ -135,7 +138,7 @@ export default function GridDelayMachine(){
     const im=image.current,ratio=Math.min(w*.76/im.width,h*.76/im.height);
     sc!.drawImage(im,-im.width*ratio/2,-im.height*ratio/2,im.width*ratio,im.height*ratio);
    }else{
-    const lines=textRef.current.split("\\n").slice(0,6),size=h*p.fontSize/100;
+    const lines=textRef.current.split("\n").slice(0,6),size=h*p.fontSize/100;
     sc!.textBaseline="middle";sc!.fillStyle=rotateHue(visualRef.current.ink,p.inkHue);
     sc!.font=p.weight+" "+size+"px "+fontRef.current;
     const letterSpacing=size*p.tracking/100;
