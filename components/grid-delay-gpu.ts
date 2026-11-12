@@ -5,7 +5,6 @@
 export type DelayGeometry = {
   columns:number; rows:number; spacing:number; delay:number; pattern:number;
   mode:number; amount:number; frequency:number; flow:number; time:number; elapsed:number;
-  liquifyProfile:number; edgeReach:number;
   grid:boolean; background:[number,number,number]; blend:number;
 };
 export type DelayGPU = {
@@ -47,26 +46,7 @@ uniform float uAmount;
 uniform float uFrequency;
 uniform float uFlow;
 uniform float uTime;
-uniform int uLiquifyProfile;
-uniform float uEdgeReach;
-uniform vec2 uFrameSize;
 float hash21(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-// Smooth, low-frequency vector field: no tiled trigonometric bands.
-float smoothNoise(vec2 p){
- vec2 i=floor(p),f=fract(p);
- f=f*f*(3.-2.*f);
- float a=hash21(i),b=hash21(i+vec2(1.,0.));
- float c=hash21(i+vec2(0.,1.)),d=hash21(i+vec2(1.,1.));
- return mix(mix(a,b,f.x),mix(c,d,f.x),f.y);
-}
-vec2 organicField(vec2 point,float frequency,float phase){
- vec2 q=point*max(.35,frequency);
- // Different domains and slow opposing drift prevent obvious wave oscillation.
- float a=smoothNoise(q+vec2(5.3,11.1)+vec2(phase*.13,-phase*.09));
- float b=smoothNoise(q*.83+vec2(26.7,3.2)+vec2(-phase*.08,phase*.12));
- float detail=smoothNoise(q*1.91+vec2(8.9,21.3)+phase*.045);
- return vec2(a-.5,b-.5)*1.6+vec2(detail-.5,.5-detail)*.18;
-}
 float patternValue(vec2 cell){
  vec2 center=(cell+.5)/uGrid;
  if(uPattern==1)return (center.x+center.y)*.5;
@@ -98,63 +78,14 @@ void main(){
  bool invalid=outside||any(lessThan(local,vec2(0.)))||any(greaterThanEqual(local,vec2(1.)))||any(greaterThanEqual(cell,cells));
  if(invalid){outColor=vec4(uBackground,1.);return;}
 
- // Each cell receives its own spatial seed, phase, speed and orientation.
- // Its delay identity never changes: only the content read inside the cell.
- float seed=hash21(cell+vec2(9.7,23.1));
- float seedB=hash21(cell+vec2(43.2,8.5));
- float phase=uTime*uFlow*(.48+seed*.46)+seedB*6.2831853;
- float strength=clamp(uAmount,0.,1.);
- vec2 margin=min(local,1.-local);
- float edgeFade=smoothstep(0.,.24,min(margin.x,margin.y));
+ // Optical refraction is evaluated independently in each stationary cell.
+ // Rigid takes the identity path; convex and concave lenses share the shader.
  vec2 sampleLocal=local;
- // A displacement specified as a fraction of local UV can shift a 1×32
- // horizontal strip by hundreds of pixels sideways. Use PIXEL magnitudes
- // limited by the real physical size of each cell instead.
- vec2 cellPixels=max(cellSize*uFrameSize,vec2(1.));
- float gentleFrequency=.65+sqrt(max(.0,uFrequency))*.55;
- if(uMode==1){
-   // ELASTIC: smooth internal stretch, pinned at all four boundaries.
-   vec2 field=organicField(local+vec2(seed*7.3,seedB*5.1),
-                            gentleFrequency*.75,phase*.65);
-   vec2 directional=vec2(field.x*.85+field.y*.25,field.y*.85-field.x*.25);
-   vec2 maxShift=min(vec2(13.,9.),cellPixels*.14);
-   sampleLocal+=directional*maxShift/cellPixels*strength*strength*edgeFade;
- } else if(uMode==2){
-   // ORGANIC LIQUIFY: four gently bending 1D edge curves per cell.
-   // Unlike an image-wide noise field, this is a deformable soft boundary:
-   // top/bottom use smooth curves along X, left/right along Y.
-   // All curves decay to zero before the stable central region.
-   float reach=clamp(uEdgeReach,.06,.48);
-   float peak=reach*.27;
-   vec4 distanceToEdge=vec4(local.y,1.-local.y,local.x,1.-local.x);
-   vec4 weights=1.-smoothstep(vec4(0.),vec4(reach),distanceToEdge);
-   if(uLiquifyProfile==1){
-     // A softer ring just inside the edge: no displacement at the seam.
-     weights*=smoothstep(vec4(0.),vec4(peak),distanceToEdge);
-   }
-   // Slow, non-repeating spatial curves driven by animated coherent noise.
-   // Frequency changes the number of broad bends, not a visible ripple wave.
-   float bends=.7+sqrt(max(uFrequency,.01))*.75;
-   float t=phase*.18;
-   float topCurve=smoothNoise(vec2(local.x*bends+seed*12.7,t+seedB*9.2))-.5;
-   float bottomCurve=smoothNoise(vec2(local.x*bends+seedB*17.1,t*.81+seed*13.4))-.5;
-   float leftCurve=smoothNoise(vec2(local.y*bends+seed*21.3,t*.93+seedB*3.7))-.5;
-   float rightCurve=smoothNoise(vec2(local.y*bends+seedB*11.2,t*.77+seed*8.4))-.5;
-   // A cell's deformation is based on its shorter side. Thin strips only
-   // bend a few pixels vertically and cannot tear laterally across the frame.
-   float shortSide=min(cellPixels.x,cellPixels.y);
-   float maxPixels=min(15.,shortSide*.30)*strength*strength;
-   vec2 edgeBend=vec2(
-     (leftCurve*weights.z-rightCurve*weights.w),
-     (topCurve*weights.x-bottomCurve*weights.y)
-   );
-   vec2 pixelShift=edgeBend*maxPixels*1.8;
-   sampleLocal+=pixelShift/cellPixels;
- } else if(uMode==3 || uMode==4){
-   // An elliptical glass lens covering the tile (not a Photoshop-style warp).
-   // Map through a curved refractive surface whose slope steepens toward
-   // the rim. Lens curvature is measured in local physical cell units;
-   // the grid boundary itself never changes.
+ float strength=clamp(uAmount,0.,1.);
+ if(uMode!=0){
+   float seed=hash21(cell+vec2(9.7,23.1));
+   float seedB=hash21(cell+vec2(43.2,8.5));
+   float phase=uTime*uFlow*(.48+seed*.46)+seedB*6.2831853;
    vec2 q=(local-.5)*2.;
    float radius2=dot(q,q);
    float inside=1.-smoothstep(.81,1.0,radius2);
@@ -162,13 +93,12 @@ void main(){
    float bulge=sqrt(max(.045,1.-min(radius2,.955)));
    float slope=(1./bulge-1.)*inside;
    float refraction=clamp(slope*.18*glass,0.,.65);
-   // Convex Fisheye magnifies; concave Pinch minifies. Refraction changes
-   // where source rays come from, including beyond the original tile.
-   vec2 ray=q*(uMode==3?1.-refraction:1.+refraction);
+   // Fisheye (1) magnifies; Pinch (2) minifies.
+   vec2 ray=q*(uMode==1?1.-refraction:1.+refraction);
    sampleLocal=.5+.5*ray;
  }
  // Half-pixel inset avoids texture filtering across neighbouring cells.
- vec2 inset=min(vec2(.49),.5/max(uFrameSize/cells,vec2(1.)));
+ vec2 inset=min(vec2(.49),.5/max(cellSize*vec2(textureSize(uFrames,0).xy),vec2(1.)));
  sampleLocal=clamp(sampleLocal,inset,1.-inset);
  vec2 sourceUV=(cell+sampleLocal)/cells;
  // The current frame is uploaded every RAF while historical snapshots
@@ -184,7 +114,7 @@ void main(){
   selectedLayer=(uNewest-age+uCapacity)%uCapacity;
  }
  vec3 sampleColor=texture(uFrames,vec3(sourceUV,float(selectedLayer))).rgb;
- if(uMode==3 || uMode==4){
+ if(uMode!=0){
    vec2 q=(local-.5)*2.;
    float r2=dot(q,q);
    float inside=1.-smoothstep(.82,1.0,r2);
@@ -227,15 +157,15 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
  if(!gl.getProgramParameter(prog,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(prog)||"WebGL shader link failed");
  const vao=gl.createVertexArray();if(!vao)throw new Error("WebGL vertex array allocation failed");
  const texture=gl.createTexture();if(!texture)throw new Error("WebGL history texture allocation failed");
- // ~144 MiB maximum texture history. Temporal resolution is adapted to display dimensions.
+ // 224 MiB maximum texture history. Temporal resolution is adapted to display dimensions.
  // Resolve the image FIRST, then fit as many history layers as memory permits.
  // The former fixed 64-layer allocation shrank every frame to a thumbnail.
  const maxTexture=Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE) as number,2048);
  const maxLayers=gl.getParameter(gl.MAX_ARRAY_TEXTURE_LAYERS) as number;
  const budget=224*1024*1024;
- const availableLayers=Math.min(maxLayers,48);
+ const availableLayers=Math.min(maxLayers,72);
  if(availableLayers<2)throw new Error("GPU does not support the temporal texture array");
- const minimumLayers=Math.min(availableLayers,16);
+ const minimumLayers=Math.min(availableLayers,20);
  let scale=Math.min(1,maxTexture/Math.max(1,w,h));
  const minimumBytes=minimumLayers*4*w*h*scale*scale;
  if(minimumBytes>budget)scale*=Math.sqrt(budget/minimumBytes);
@@ -261,15 +191,17 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
   count:uniforms("uCount"),capacity:uniforms("uCapacity"),liveLayer:uniforms("uLiveLayer"),interval:uniforms("uInterval"),elapsed:uniforms("uElapsed"),
   background:uniforms("uBackground"),blend:uniforms("uBlend"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
-  flow:uniforms("uFlow"),time:uniforms("uTime"),liquifyProfile:uniforms("uLiquifyProfile"),edgeReach:uniforms("uEdgeReach"),frameSize:uniforms("uFrameSize")
+  flow:uniforms("uFlow"),time:uniforms("uTime")
  };
  let newest=-1,count=0;
  const write=(frame:HTMLCanvasElement,layer:number)=>{
   if(gl.isContextLost())return;
-  uc.clearRect(0,0,tw,th);uc.drawImage(frame,0,0,tw,th);
+  // Avoid a redundant 2D resample if the source already matches the GPU frame.
+  const pixels=frame.width===tw&&frame.height===th?frame:upload;
+  if(pixels===upload){uc.clearRect(0,0,tw,th);uc.drawImage(frame,0,0,tw,th)}
   gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D_ARRAY,texture);
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);
-  gl.texSubImage3D(gl.TEXTURE_2D_ARRAY,0,0,0,layer,tw,th,1,gl.RGBA,gl.UNSIGNED_BYTE,upload);
+  gl.texSubImage3D(gl.TEXTURE_2D_ARRAY,0,0,0,layer,tw,th,1,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
  };
  const push=(frame:HTMLCanvasElement)=>{newest=(newest+1)%historyCapacity;count=Math.min(historyCapacity,count+1);write(frame,newest)};
  const pushLive=(frame:HTMLCanvasElement)=>write(frame,liveLayer);
@@ -287,8 +219,6 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
   gl.uniform1i(loc.mode,p.mode);gl.uniform1f(loc.amount,p.amount);
   gl.uniform1f(loc.frequency,p.frequency);gl.uniform1f(loc.flow,p.flow);
   gl.uniform1f(loc.time,p.time);
-  gl.uniform1i(loc.liquifyProfile,p.liquifyProfile);gl.uniform1f(loc.edgeReach,p.edgeReach);
-  gl.uniform2f(loc.frameSize,tw,th);
   gl.drawArrays(gl.TRIANGLES,0,3);
  };
  return {width:tw,height:th,interval,push,pushLive,render,dispose:()=>{gl.deleteTexture(texture);gl.deleteVertexArray(vao);gl.deleteProgram(prog)}};
