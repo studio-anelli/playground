@@ -8,6 +8,7 @@ export type DelayGeometry = {
   globalMode:number; globalStrength:number; globalSize:number; globalGrowth:number;
   grid:boolean; background:[number,number,number]; blend:number;
 };
+export type DelayQuality="balanced"|"sharp"|"fluid";
 export type DelayGPU = {
   width:number; height:number; interval:number;
   push:(frame:HTMLCanvasElement)=>void;
@@ -116,14 +117,15 @@ void main(){
    float phase=uTime*uFlow*(.48+seed*.46)+seedB*6.2831853;
    vec2 q=(local-.5)*2.;
    float radius2=dot(q,q);
-   float inside=1.-smoothstep(.81,1.0,radius2);
+   float inside=1.-smoothstep(.68,1.0,radius2);
    float glass=clamp(strength*(1.+.08*sin(phase*.55)),0.,1.);
    float bulge=sqrt(max(.045,1.-min(radius2,.955)));
    float slope=(1./bulge-1.)*inside;
    // Lower curvature as tile resolution shrinks. Otherwise small tiles
    // become dozens of hard-edged repeats instead of a readable lens.
    float curvature=(.08+clamp(uFrequency,.2,12.)*.036)*mix(.65,1.,detailBudget);
-   float refraction=clamp(slope*curvature*glass,0.,.65);
+   // Smoothly tapered refraction avoids abrupt micro-lens rims.
+   float refraction=min(.58,slope*curvature*glass);
    vec2 ray=q*(uMode==1?1.-refraction:1.+refraction);
    sampleLocal=.5+.5*ray;
  }
@@ -161,7 +163,7 @@ function shader(gl:WebGL2RenderingContext,type:number,src:string){
  }
  return s;
 }
-export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):DelayGPU{
+export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,quality:DelayQuality="balanced"):DelayGPU{
  const gl=canvas.getContext("webgl2",{alpha:false,antialias:false,preserveDrawingBuffer:false,powerPreference:"high-performance"});
  if(!gl)throw new Error("WebGL2 is not available in this browser.");
  const vs=shader(gl,gl.VERTEX_SHADER,vertex),fs=shader(gl,gl.FRAGMENT_SHADER,fragment);
@@ -176,10 +178,12 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
  // The former fixed 64-layer allocation shrank every frame to a thumbnail.
  const maxTexture=Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE) as number,2048);
  const maxLayers=gl.getParameter(gl.MAX_ARRAY_TEXTURE_LAYERS) as number;
- const budget=224*1024*1024;
- const availableLayers=Math.min(maxLayers,72);
+ // Budget texture memory by quality instead of blindly raising resolution.
+ // Sharp favours source detail; Fluid favours more chronological samples.
+ const budget=(quality==="sharp"?256:quality==="fluid"?192:224)*1024*1024;
+ const availableLayers=Math.min(maxLayers,quality==="fluid"?112:quality==="sharp"?48:72);
  if(availableLayers<2)throw new Error("GPU does not support the temporal texture array");
- const minimumLayers=Math.min(availableLayers,20);
+ const minimumLayers=Math.min(availableLayers,quality==="sharp"?12:quality==="fluid"?32:20);
  let scale=Math.min(1,maxTexture/Math.max(1,w,h));
  const minimumBytes=minimumLayers*4*w*h*scale*scale;
  if(minimumBytes>budget)scale*=Math.sqrt(budget/minimumBytes);
