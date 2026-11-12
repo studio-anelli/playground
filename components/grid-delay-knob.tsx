@@ -26,6 +26,11 @@ export default function GridDelayKnob({name,value,min,max,step,unit="",onChange,
  function stop(e:PointerEvent<HTMLElement>){if(ref.current?.pointer===e.pointerId){ref.current=null;setDragging(false)}}
  const pct=clamp((value-min)/Math.max(.000001,max-min),0,1);
  const angle=-135+pct*270;
+ // Draw the indicator at explicit SVG coordinates. CSS transform-origin and
+ // SVG transform attributes can combine differently in Safari, detaching it.
+ const radians=angle*Math.PI/180;
+ const marker=(radius:number)=>({x:32+radius*Math.sin(radians),y:32-radius*Math.cos(radians)});
+ const markerInner=marker(10),markerOuter=marker(19);
  return <div className={"gd-knob-control"+(compact?" gd-knob-compact":"")+(dragging?" is-dragging":"")} style={accent?{"--gd-knob-accent":accent} as CSSProperties:undefined}>
   <div className="gd-knob-label" title="Drag up/down to adjust · Shift fine · Option ultra fine" onPointerDown={start} onPointerMove={move} onPointerUp={stop} onPointerCancel={()=>{ref.current=null;setDragging(false)}} onLostPointerCapture={()=>{ref.current=null;setDragging(false)}} onDoubleClick={()=>{input.current?.focus();input.current?.select()}}>{name}</div>
   <button className="gd-knob-dial" type="button" role="slider" aria-label={name} aria-valuemin={min} aria-valuemax={max} aria-valuenow={value} title="Drag up/down · Shift fine · Option ultra fine · Double click to enter a value"
@@ -40,7 +45,7 @@ export default function GridDelayKnob({name,value,min,max,step,unit="",onChange,
     <circle cx="32" cy="32" r="26" className="gd-knob-track" strokeDasharray="122.52 163.36" transform="rotate(135 32 32)"/>
     <circle cx="32" cy="32" r="26" className="gd-knob-fill" strokeDasharray={`${122.52*pct} 163.36`} transform="rotate(135 32 32)"/>
     <circle cx="32" cy="32" r="20" className="gd-knob-face"/>
-    <path d="M32 13 V23" className="gd-knob-pointer" transform={`rotate(${angle} 32 32)`}/>
+    <line x1={markerInner.x} y1={markerInner.y} x2={markerOuter.x} y2={markerOuter.y} className="gd-knob-pointer"/>
    </svg>
   </button>
   <div className="gd-knob-readout"><input ref={input} type="number" min={min} max={max} step={step} value={editing?draft:String(value)} aria-label={name+" exact value"} onFocus={()=>{setEditing(true);setDraft(String(value))}} onChange={e=>setDraft(e.target.value)} onBlur={()=>{if(draft.trim()!=="")commit(Number(draft));setEditing(false)}} onKeyDown={e=>{if(e.key==="Enter")e.currentTarget.blur();if(e.key==="Escape"){setDraft(String(value));e.currentTarget.blur()}}}/><span>{unit}</span></div>
