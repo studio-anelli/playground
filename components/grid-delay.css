@@ -94,3 +94,5 @@
 .gd-control-group>span{font-size:10px;letter-spacing:.03em;color:#b6bbb2}
 .gd-control-group .gd-pills{margin:0 0 9px}
 .gd-control-group .gd-pills button{flex:1;min-width:0}
+
+.gd-stage-error{position:absolute;inset:24px;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;text-align:center;background:#1c211ded;color:#edeae3;padding:24px;z-index:3}.gd-stage-error strong{font-weight:500;font-size:18px}.gd-stage-error span{max-width:540px;font:12px var(--ui-mono),monospace;overflow-wrap:anywhere;color:#bfc6bb}
