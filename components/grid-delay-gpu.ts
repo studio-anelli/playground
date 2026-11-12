@@ -120,23 +120,37 @@ void main(){
    vec2 maxShift=min(vec2(13.,9.),cellPixels*.14);
    sampleLocal+=directional*maxShift/cellPixels*strength*strength*edgeFade;
  } else if(uMode==2){
-   // MELT: a deforming outer perimeter with a readable, still core.
-   // RING: a soft moving band just inside the cell border.
-   float edgeDistance=min(margin.x,margin.y);
-   float reach=clamp(uEdgeReach,.035,.48);
-   float melt=1.-smoothstep(0.,reach,edgeDistance);
-   float peak=reach*.24;
-   float ring=smoothstep(0.,peak,edgeDistance)*(1.-smoothstep(peak,reach,edgeDistance));
-   float edgeMask=uLiquifyProfile==1?ring:melt;
-   vec2 field=organicField(local+vec2(seed*13.7,seedB*9.1),
-                            gentleFrequency,phase*.65);
-   vec2 detail=organicField(local*1.8+vec2(seedB*17.1,seed*14.4),
-                             gentleFrequency*1.5,-phase*.32);
-   // Direction remains fluid but bounded: a short horizontal row can only
-   // move a few pixels vertically, while lateral shear remains visible.
-   vec2 maxShift=min(vec2(22.,11.),cellPixels*vec2(.20,.14));
-   sampleLocal+=(field*.75+detail*.25)*maxShift/cellPixels
-                 *strength*strength*edgeMask;
+   // ORGANIC LIQUIFY: four gently bending 1D edge curves per cell.
+   // Unlike an image-wide noise field, this is a deformable soft boundary:
+   // top/bottom use smooth curves along X, left/right along Y.
+   // All curves decay to zero before the stable central region.
+   float reach=clamp(uEdgeReach,.06,.48);
+   float peak=reach*.27;
+   vec4 distanceToEdge=vec4(local.y,1.-local.y,local.x,1.-local.x);
+   vec4 weights=1.-smoothstep(vec4(0.),vec4(reach),distanceToEdge);
+   if(uLiquifyProfile==1){
+     // A softer ring just inside the edge: no displacement at the seam.
+     weights*=smoothstep(vec4(0.),vec4(peak),distanceToEdge);
+   }
+   // Slow, non-repeating spatial curves driven by animated coherent noise.
+   // Frequency changes the number of broad bends, not a visible ripple wave.
+   float bends=.7+sqrt(max(uFrequency,.01))*.75;
+   float t=phase*.18;
+   float topCurve=smoothNoise(vec2(local.x*bends+seed*12.7,t+seedB*9.2))-.5;
+   float bottomCurve=smoothNoise(vec2(local.x*bends+seedB*17.1,t*.81+seed*13.4))-.5;
+   float leftCurve=smoothNoise(vec2(local.y*bends+seed*21.3,t*.93+seedB*3.7))-.5;
+   float rightCurve=smoothNoise(vec2(local.y*bends+seedB*11.2,t*.77+seed*8.4))-.5;
+   // A cell's deformation is based on its shorter side. Thin strips only
+   // bend a few pixels vertically and cannot tear laterally across the frame.
+   float shortSide=min(cellPixels.x,cellPixels.y);
+   float maxPixels=min(15.,shortSide*.30)*strength*strength;
+   vec2 edgeBend=vec2(
+     (leftCurve*weights.z-rightCurve*weights.w),
+     (topCurve*weights.x-bottomCurve*weights.y)
+   );
+   vec2 pixelShift=edgeBend*maxPixels*1.8;
+   sampleLocal+=pixelShift/cellPixels;
+
  }
  // Half-pixel inset avoids texture filtering across neighbouring cells.
  vec2 inset=min(vec2(.49),.5/max(uFrameSize/cells,vec2(1.)));
