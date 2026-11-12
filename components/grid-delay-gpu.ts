@@ -57,20 +57,31 @@ uniform float uGlobalStrength;
 uniform float uGlobalSize;
 uniform float uGlobalGrowth;
 uniform float uAspect;
-uniform vec2 uOutputSize;
 uniform float uEdgeSoftness;
 float hash21(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-float patternValue(vec2 cell){
- vec2 center=(cell+.5)/uGrid;
- if(uPattern==1)return (center.x+center.y)*.5;
- if(uPattern==2)return min(1.,length(center-vec2(.5))*1.42);
- if(uPattern==3)return hash21(cell);
- return .5+.5*sin(center.x*8.+center.y*5.);
+float patternAt(vec2 pos){
+ if(uPattern==1)return (pos.x+pos.y)*.5;
+ if(uPattern==2)return min(1.,length(pos-vec2(.5))*1.42);
+ if(uPattern==3){
+  // Smooth random field: hashes agree with the discrete cell value at
+  // every cell centre, but adjacent sides meet at the same timestamp.
+  vec2 p=pos*uGrid-vec2(.5);
+  vec2 base=floor(p),f=fract(p);
+  f=f*f*(3.-2.*f);
+  float a=hash21(base);
+  float b=hash21(base+vec2(1.,0.));
+  float c=hash21(base+vec2(0.,1.));
+  float d=hash21(base+vec2(1.,1.));
+  return mix(mix(a,b,f.x),mix(c,d,f.x),f.y);
+ }
+ return .5+.5*sin(pos.x*8.+pos.y*5.);
 }
-// Retrieve a whole historical frame for one grid cell. Temporal seams use
-// neighbouring time indices at the same spatial coordinate.
-int historyLayer(vec2 c){
- float secondsAgo=max(0.,patternValue(c)*uDelay);
+float discretePattern(vec2 cell){
+ vec2 center=(cell+.5)/uGrid;
+ if(uPattern==3)return hash21(cell);
+ return patternAt(center);
+}
+int historyLayer(float secondsAgo){
  if(uCount>0 && secondsAgo>max(.0001,uElapsed*.5)){
   float past=max(0.,secondsAgo-uElapsed)/max(.0001,uInterval);
   int age=min(int(floor(past+.5)),uCount-1);
@@ -125,7 +136,10 @@ void main(){
  // That produced the hard clipped blocks and duplicated glyph outlines.
  vec2 sampleLocal=local;
  vec2 tilePixels=max(vec2(1.),cellSize*vec2(textureSize(uFrames,0).xy));
- float detailBudget=smoothstep(14.,56.,min(tilePixels.x,tilePixels.y));
+ // At dense grids the old 14–56px falloff almost disabled the lens.
+ // Preserve a bounded, visible deformation without allowing coordinate folds.
+ float availablePixels=min(tilePixels.x,tilePixels.y);
+ float detailBudget=smoothstep(4.,12.,availablePixels)*mix(.72,1.,smoothstep(8.,32.,availablePixels));
  if(uMode!=0 && uAmount>0. && detailBudget>.001){
    float seed=hash21(cell+vec2(9.7,23.1));
    float seedB=hash21(cell+vec2(43.2,8.5));
@@ -136,8 +150,8 @@ void main(){
    // settings the mapping remains one-to-one in both modes.
    float curvature=clamp(uFrequency,.2,12.)/12.;
    float breathing=1.+.07*sin(phase*.55);
-   float k=clamp(uAmount,0.,1.)*detailBudget*mix(.20,.70,curvature)*breathing;
-   k=min(k,.72);
+   float k=clamp(uAmount,0.,1.)*detailBudget*mix(.26,.84,curvature)*breathing;
+   k=min(k,.78);
    // Exactly zero at the cell perimeter, no discontinuous clamping at edges.
    // r' = r(1 +/- k(1-r²)^2) for r in [0,1].
    // Fisheye's minimum radial derivative >= 1-k; pinch's >= 1-.8k.
@@ -151,9 +165,18 @@ void main(){
  vec2 sourceUV=(cell+sampleLocal)/cells;
  // The current frame is uploaded every RAF while historical snapshots
  // occupy a separate ring. Never crossfade distinct text shapes.
- float secondsAgo=max(0.,patternValue(cell)*uDelay);
- // A complete historical frame per tile, with just a subpixel seam transition.
- int selectedLayer=historyLayer(cell);
+ // A grid cell can read its own history, but its edge must share the same
+ // time coordinate as the neighbouring cell. We blend the DELAY COORDINATE
+ // (not two images). Each output pixel still samples one sharp history frame.
+ float amountOfTime=discretePattern(cell);
+ if(!uGridVisible && uEdgeSoftness>.001){
+  float edgeDistance=min(min(local.x,1.-local.x),min(local.y,1.-local.y));
+  float transitionWidth=max(.0001,clamp(uEdgeSoftness,0.,1.)*.5);
+  float inside=smoothstep(0.,transitionWidth,edgeDistance);
+  amountOfTime=mix(patternAt(uv),amountOfTime,inside);
+ }
+ float secondsAgo=max(0.,amountOfTime*uDelay);
+ int selectedLayer=historyLayer(secondsAgo);
  // Black mode gates each cell using its delay offset, without blending.
  // Return pure black before any texture lookup or grid decoration.
  if(uDelayMode==1){
@@ -163,46 +186,8 @@ void main(){
  // The image mode and the visible interval of black mode share the sample.
  vec3 sampleColor=textureLod(uFrames,vec3(sourceUV,float(selectedLayer)),0.).rgb;
  vec3 result=compose(sampleColor,uBackground);
- // Temporal tiles show different moments. The old seam correction used a
- // one-pixel, spatially mirrored neighbour lookup: this left a dark gate
- // because the two sides never agreed about the underlying source pixel.
- // Instead blend the NEIGHBOUR'S TIME at the EXACT SAME source coordinate.
- // Both sides converge to the same 50/50 mixture at the shared boundary.
- // Only a narrow edge band is softened; the cell interior remains a single
- // unmixed historical frame and keeps its crisp typography.
- if(!uGridVisible && uDelayMode==0 && uDelay>.001 && uEdgeSoftness>.001){
-  vec2 tilePx=cellSize*uOutputSize;
-  float seamPx=min(tilePx.x,tilePx.y)*clamp(uEdgeSoftness,0.,1.)*.42;
-  vec2 toEdge=min(local,1.-local)*tilePx;
-  vec2 dir=mix(vec2(-1.),vec2(1.),step(vec2(.5),local));
-  vec2 xCell=cell+vec2(dir.x,0.);
-  vec2 yCell=cell+vec2(0.,dir.y);
-  vec2 xyCell=cell+dir;
-  float wx=0.,wy=0.;
-  if(cells.x>1.&&xCell.x>=0.&&xCell.x<cells.x&&toEdge.x<seamPx)
-   wx=.5*(1.-smoothstep(0.,seamPx,toEdge.x));
-  if(cells.y>1.&&yCell.y>=0.&&yCell.y<cells.y&&toEdge.y<seamPx)
-   wy=.5*(1.-smoothstep(0.,seamPx,toEdge.y));
-  // Four-way temporal interpolation at corners avoids a residual stitch
-  // where two independently blended seams intersect.
-  if(wx>0.||wy>0.){
-   vec3 xColor=result;
-   if(wx>0.){
-    vec3 c=textureLod(uFrames,vec3(sourceUV,float(historyLayer(xCell))),0.).rgb;
-    xColor=compose(c,uBackground);
-   }
-   result=mix(result,xColor,wx);
-   if(wy>0.){
-    vec3 c=textureLod(uFrames,vec3(sourceUV,float(historyLayer(yCell))),0.).rgb;
-    vec3 yColor=compose(c,uBackground);
-    if(wx>0.){
-     vec3 corner=textureLod(uFrames,vec3(sourceUV,float(historyLayer(xyCell))),0.).rgb;
-     yColor=mix(yColor,compose(corner,uBackground),wx);
-    }
-    result=mix(result,yColor,wy);
-   }
-  }
- }
+ // Deliberately no crossfade or edge blur: the time coordinate is
+ // continuous across the seam, and each pixel stays a single source sample.
  if(uGridVisible){
    vec2 rim=min(local,1.-local)*cellSize*cells;
    if(min(rim.x,rim.y)<.006)result=mix(result,vec3(.13,.15,.13),.22);
@@ -308,7 +293,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   background:uniforms("uBackground"),blend:uniforms("uBlend"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
   flow:uniforms("uFlow"),time:uniforms("uTime"),
-  globalMode:uniforms("uGlobalMode"),globalStrength:uniforms("uGlobalStrength"),globalSize:uniforms("uGlobalSize"),globalGrowth:uniforms("uGlobalGrowth"),aspect:uniforms("uAspect"),outputSize:uniforms("uOutputSize"),edgeSoftness:uniforms("uEdgeSoftness")
+  globalMode:uniforms("uGlobalMode"),globalStrength:uniforms("uGlobalStrength"),globalSize:uniforms("uGlobalSize"),globalGrowth:uniforms("uGlobalGrowth"),aspect:uniforms("uAspect"),edgeSoftness:uniforms("uEdgeSoftness")
  };
  // Capture a history snapshot by copying the live texture layer on the GPU.
  // This avoids a second full-canvas CPU->GPU upload on every capture.
@@ -424,7 +409,6 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.uniform1f(loc.globalSize,p.globalSize);
   gl.uniform1f(loc.globalGrowth,p.globalGrowth);
   gl.uniform1f(loc.aspect,canvas.width/Math.max(1,canvas.height));
-  gl.uniform2f(loc.outputSize,canvas.width,canvas.height);
   gl.uniform1f(loc.edgeSoftness,p.edgeSoftness);
   gl.drawArrays(gl.TRIANGLES,0,3);
   if(!useFeedback||!feedbackTargets)return;
