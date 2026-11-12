@@ -115,24 +115,8 @@ void main(){
   int age=min(int(floor(past+.5)),uCount-1);
   selectedLayer=(uNewest-age+uCapacity)%uCapacity;
  }
+ // Pure refraction: a single texture sample, with no optical highlight or RGB split.
  vec3 sampleColor=texture(uFrames,vec3(sourceUV,float(selectedLayer))).rgb;
- if(uMode!=0){
-   vec2 q=(local-.5)*2.;
-   float r2=dot(q,q);
-   float inside=1.-smoothstep(.82,1.0,r2);
-   // Very restrained optical rim, a tiny specular glint and colour
-   // separation near the steepest part of the lens.
-   float edge=inside*smoothstep(.50,.92,r2);
-   float glass=clamp(strength,0.,1.);
-   float ca=edge*glass*.0016;
-   vec2 rayDirection=normalize(q+vec2(.00001));
-   vec2 redUv=clamp(sourceUV+rayDirection*ca,vec2(.001),vec2(.999));
-   vec2 blueUv=clamp(sourceUV-rayDirection*ca,vec2(.001),vec2(.999));
-   sampleColor.r=texture(uFrames,vec3(redUv,float(selectedLayer))).r;
-   sampleColor.b=texture(uFrames,vec3(blueUv,float(selectedLayer))).b;
-   float glint=pow(max(0.,dot(normalize(vec2(-.65,-.76)),rayDirection)),10.)*edge*glass*.065;
-   sampleColor=mix(sampleColor,vec3(1.),glint);
- }
  vec3 result=compose(sampleColor,uBackground);
  if(uGridVisible){
    vec2 rim=min(local,1.-local)*cellSize*cells;
