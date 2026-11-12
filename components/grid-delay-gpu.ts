@@ -204,10 +204,12 @@ void main(){
  // Decay toward the incoming image, not toward black: full-colour opaque
  // backgrounds remain stable while differences between frames fade.
  vec3 previous=mix(source,texture(uPrevious,uv).rgb,clamp(uDecay,0.,1.));
- // Remove each blend mode's static self-blend baseline. Without this,
- // Screen would turn the background white and Multiply would darken it.
- vec3 shifted=blendFrames(source,previous)-blendFrames(source,source);
- vec3 result=clamp(source+shifted*clamp(uAmount,0.,1.),0.,1.);
+ // Conventional layer compositing: the current frame is the base layer
+ // and the faded feedback frame is the blend layer. The old self-blend
+ // subtraction cancelled the familiar Screen/Multiply/Overlay response.
+ // Amount is equivalent to the feedback layer's opacity.
+ vec3 blended=blendFrames(source,previous);
+ vec3 result=mix(source,blended,clamp(uAmount,0.,1.));
  outColor=vec4(result,1.);
 }`;
 
