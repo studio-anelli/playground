@@ -38,11 +38,18 @@ export default function GridDelayMachine(){
   // Bounded temporal ring. Each source frame is drawn only once, then sampled by all cells.
   const history:{canvas:HTMLCanvasElement;at:number}[]=[];
   let raf=0,last=0,clock=0,accumulator=0,w=0,h=0,dpr=1;
-  // Bound frame history to ~40-60 MB even on Retina/large desktop screens.
-  // Reuse canvas storage instead of creating and discarding dozens per second.
-  const interval=1/15;
+  // Sample at native canvas CSS resolution instead of scaling a 512px
+  // thumbnail across the entire output. Adapt capture cadence to an explicit
+  // memory budget; the ring remains bounded even on large displays in Safari.
   const maxAge=5.1;
-  const historyScale=()=>Math.min(.5,512/Math.max(1,w),384/Math.max(1,h));
+  const memoryBudget=220*1024*1024;
+  const historyScale=()=>Math.min(1,1600/Math.max(1,w),1100/Math.max(1,h));
+  const frameInterval=()=>{
+   const scale=historyScale();
+   const pixels=Math.ceil(w*scale)*Math.ceil(h*scale);
+   const safeFrameCount=Math.max(5,Math.floor(memoryBudget/Math.max(1,pixels*4)));
+   return Math.max(1/15,maxAge/Math.max(1,safeFrameCount-1));
+  };
   const recycled:HTMLCanvasElement[]=[];
   function resize(){
    const box=output!.getBoundingClientRect();
@@ -105,6 +112,7 @@ export default function GridDelayMachine(){
    resize();
    if(playingRef.current){const rate=modulated(clock).speed;clock+=delta*rate;accumulator+=delta*rate}
    if(!history.length){makeSource(clock);accumulator=0}
+   const interval=frameInterval();
    if(playingRef.current&&accumulator>=interval){makeSource(clock);accumulator%=interval}
    const p=modulated(clock),cols=Math.round(p.columns),rows=Math.round(p.rows);
    ctx!.setTransform(dpr,0,0,dpr,0,0);
