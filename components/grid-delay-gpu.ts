@@ -151,21 +151,21 @@ void main(){
    vec2 pixelShift=edgeBend*maxPixels*1.8;
    sampleLocal+=pixelShift/cellPixels;
  } else if(uMode==3 || uMode==4){
-   // FISHEYE / PINCH: a continuous radial lens INSIDE each tile.
-   // Chebyshev distance reaches exactly 1 at rectangular cell boundaries,
-   // so all four edges stay fixed regardless of the tile's aspect ratio.
-   vec2 centred=local*2.-1.;
-   float radius=max(abs(centred.x),abs(centred.y));
-   float radiusShape=clamp(1.35+uFrequency*.22,1.2,4.0);
-   // Vary each lens gently and independently; at zero flow it is stationary.
-   float pulse=1.+.16*sin(phase*.7);
-   float power=clamp(strength*.88*pulse,0.,.92);
-   float falloff=pow(max(0.,1.-radius),radiusShape);
-   // Fisheye pulls sampled coordinates toward the centre (magnification);
-   // Pinch pushes them outward (compression). Both are identity at the rim.
-   float signedPower=uMode==3?-power:power;
-   float mapping=1.+signedPower*falloff;
-   sampleLocal=.5+.5*centred*mapping;
+   // An elliptical glass lens covering the tile (not a Photoshop-style warp).
+   // Map through a curved refractive surface whose slope steepens toward
+   // the rim. Lens curvature is measured in local physical cell units;
+   // the grid boundary itself never changes.
+   vec2 q=(local-.5)*2.;
+   float radius2=dot(q,q);
+   float inside=1.-smoothstep(.81,1.0,radius2);
+   float glass=clamp(strength*(1.+.08*sin(phase*.55)),0.,1.);
+   float bulge=sqrt(max(.045,1.-min(radius2,.955)));
+   float slope=(1./bulge-1.)*inside;
+   float refraction=clamp(slope*.18*glass,0.,.65);
+   // Convex Fisheye magnifies; concave Pinch minifies. Refraction changes
+   // where source rays come from, including beyond the original tile.
+   vec2 ray=q*(uMode==3?1.-refraction:1.+refraction);
+   sampleLocal=.5+.5*ray;
  }
  // Half-pixel inset avoids texture filtering across neighbouring cells.
  vec2 inset=min(vec2(.49),.5/max(uFrameSize/cells,vec2(1.)));
@@ -184,6 +184,23 @@ void main(){
   selectedLayer=(uNewest-age+uCapacity)%uCapacity;
  }
  vec3 sampleColor=texture(uFrames,vec3(sourceUV,float(selectedLayer))).rgb;
+ if(uMode==3 || uMode==4){
+   vec2 q=(local-.5)*2.;
+   float r2=dot(q,q);
+   float inside=1.-smoothstep(.82,1.0,r2);
+   // Very restrained optical rim, a tiny specular glint and colour
+   // separation near the steepest part of the lens.
+   float edge=inside*smoothstep(.50,.92,r2);
+   float glass=clamp(strength,0.,1.);
+   float ca=edge*glass*.0016;
+   vec2 rayDirection=normalize(q+vec2(.00001));
+   vec2 redUv=clamp(sourceUV+rayDirection*ca,vec2(.001),vec2(.999));
+   vec2 blueUv=clamp(sourceUV-rayDirection*ca,vec2(.001),vec2(.999));
+   sampleColor.r=texture(uFrames,vec3(redUv,float(selectedLayer))).r;
+   sampleColor.b=texture(uFrames,vec3(blueUv,float(selectedLayer))).b;
+   float glint=pow(max(0.,dot(normalize(vec2(-.65,-.76)),rayDirection)),10.)*edge*glass*.065;
+   sampleColor=mix(sampleColor,vec3(1.),glint);
+ }
  vec3 result=compose(sampleColor,uBackground);
  if(uGridVisible){
    vec2 rim=min(local,1.-local)*cellSize*cells;
