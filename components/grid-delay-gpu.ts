@@ -117,12 +117,20 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
  const vao=gl.createVertexArray();if(!vao)throw new Error("WebGL vertex array allocation failed");
  const texture=gl.createTexture();if(!texture)throw new Error("WebGL history texture allocation failed");
  // ~144 MiB maximum texture history. Temporal resolution is adapted to display dimensions.
- const maxTexture=Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE) as number,1600);
- const maxLayers=Math.min(gl.getParameter(gl.MAX_ARRAY_TEXTURE_LAYERS) as number,64);
- const capacity=Math.max(8,Math.min(maxLayers,64));
- const budget=144*1024*1024;
- const scale=Math.min(1,maxTexture/Math.max(1,w,h),Math.sqrt(budget/(Math.max(1,w*h)*4*capacity)));
+ // Resolve the image FIRST, then fit as many history layers as memory permits.
+ // The former fixed 64-layer allocation shrank every frame to a thumbnail.
+ const maxTexture=Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE) as number,2048);
+ const maxLayers=gl.getParameter(gl.MAX_ARRAY_TEXTURE_LAYERS) as number;
+ const budget=224*1024*1024;
+ const availableLayers=Math.min(maxLayers,48);
+ if(availableLayers<2)throw new Error("GPU does not support the temporal texture array");
+ const minimumLayers=Math.min(availableLayers,16);
+ let scale=Math.min(1,maxTexture/Math.max(1,w,h));
+ const minimumBytes=minimumLayers*4*w*h*scale*scale;
+ if(minimumBytes>budget)scale*=Math.sqrt(budget/minimumBytes);
  const tw=Math.max(1,Math.floor(w*scale)),th=Math.max(1,Math.floor(h*scale));
+ const bytesPerFrame=tw*th*4;
+ const capacity=Math.max(minimumLayers,Math.min(availableLayers,Math.floor(budget/bytesPerFrame)));
  const interval=5.05/Math.max(1,capacity-1);
  gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D_ARRAY,texture);
  gl.texParameteri(gl.TEXTURE_2D_ARRAY,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
