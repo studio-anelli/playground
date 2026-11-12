@@ -11,7 +11,7 @@ export type DelayGeometry = {
 export type DelayQuality="balanced"|"sharp"|"fluid";
 export type DelayGPU = {
   width:number; height:number; interval:number;
-  push:(frame:HTMLCanvasElement)=>void;
+  capture:(frame:HTMLCanvasElement)=>void;
   pushLive:(frame:HTMLCanvasElement)=>void;
   render:(params:DelayGeometry)=>void;
   dispose:()=>void;
@@ -214,6 +214,16 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   flow:uniforms("uFlow"),time:uniforms("uTime"),
   globalMode:uniforms("uGlobalMode"),globalStrength:uniforms("uGlobalStrength"),globalSize:uniforms("uGlobalSize"),globalGrowth:uniforms("uGlobalGrowth"),aspect:uniforms("uAspect")
  };
+ // Capture a history snapshot by copying the live texture layer on the GPU.
+ // This avoids a second full-canvas CPU->GPU upload on every capture.
+ const readFramebuffer=gl.createFramebuffer();
+ let fastCapture=!!readFramebuffer;
+ if(readFramebuffer){
+  gl.bindFramebuffer(gl.READ_FRAMEBUFFER,readFramebuffer);
+  gl.framebufferTextureLayer(gl.READ_FRAMEBUFFER,gl.COLOR_ATTACHMENT0,texture,0,liveLayer);
+  fastCapture=gl.checkFramebufferStatus(gl.READ_FRAMEBUFFER)===gl.FRAMEBUFFER_COMPLETE;
+  gl.bindFramebuffer(gl.READ_FRAMEBUFFER,null);
+ }
  let newest=-1,count=0;
  const write=(frame:HTMLCanvasElement,layer:number)=>{
   if(gl.isContextLost())return;
@@ -224,7 +234,19 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);
   gl.texSubImage3D(gl.TEXTURE_2D_ARRAY,0,0,0,layer,tw,th,1,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
  };
- const push=(frame:HTMLCanvasElement)=>{newest=(newest+1)%historyCapacity;count=Math.min(historyCapacity,count+1);write(frame,newest)};
+ const capture=(frame:HTMLCanvasElement)=>{
+  newest=(newest+1)%historyCapacity;
+  count=Math.min(historyCapacity,count+1);
+  if(fastCapture&&readFramebuffer&&!gl.isContextLost()){
+   gl.bindFramebuffer(gl.READ_FRAMEBUFFER,readFramebuffer);
+   gl.activeTexture(gl.TEXTURE0);
+   gl.bindTexture(gl.TEXTURE_2D_ARRAY,texture);
+   gl.copyTexSubImage3D(gl.TEXTURE_2D_ARRAY,0,0,0,newest,0,0,tw,th);
+   gl.bindFramebuffer(gl.READ_FRAMEBUFFER,null);
+  }else{
+   write(frame,newest);
+  }
+ };
  const pushLive=(frame:HTMLCanvasElement)=>write(frame,liveLayer);
  const render=(p:DelayGeometry)=>{
   if(!count||gl.isContextLost())return;
@@ -247,5 +269,8 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.uniform1f(loc.aspect,canvas.width/Math.max(1,canvas.height));
   gl.drawArrays(gl.TRIANGLES,0,3);
  };
- return {width:tw,height:th,interval,push,pushLive,render,dispose:()=>{gl.deleteTexture(texture);gl.deleteVertexArray(vao);gl.deleteProgram(prog)}};
+ return {width:tw,height:th,interval,capture,pushLive,render,dispose:()=>{
+  if(readFramebuffer)gl.deleteFramebuffer(readFramebuffer);
+  gl.deleteTexture(texture);gl.deleteVertexArray(vao);gl.deleteProgram(prog);
+ }};
 }
