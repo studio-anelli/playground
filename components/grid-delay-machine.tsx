@@ -61,7 +61,7 @@ export default function GridDelayMachine(){
   const source=document.createElement("canvas"),sc=source.getContext("2d",{alpha:false});
   if(!sc)return;
   let gpu:DelayGPU|null=null;
-  let raf=0,last=0,clock=0,accumulator=0,w=0,h=0,dpr=1,needsFirstFrame=true,failed=false;
+  let raf=0,last=0,clock=0,accumulator=0,lastCapture=0,w=0,h=0,dpr=1,needsFirstFrame=true,failed=false;
   function resize(){
    const box=output.getBoundingClientRect();
    const width=Math.max(1,Math.round(box.width)),height=Math.max(1,Math.round(box.height));
@@ -160,7 +160,7 @@ export default function GridDelayMachine(){
     });
    }
    sc!.restore();
-   gpu?.push(source);
+   gpu?.pushLive(source);
   }
   function draw(now:number){
    const delta=last?Math.min(.06,(now-last)/1000):0;last=now;
@@ -169,10 +169,19 @@ export default function GridDelayMachine(){
     const speed=modulated(clock).speed;
     clock+=delta*speed;accumulator+=delta*speed;
    }
-   if(needsFirstFrame){makeSource(clock);needsFirstFrame=false;dirtyRef.current=false;accumulator=0}
-   if(dirtyRef.current&&!playingRef.current){makeSource(clock);dirtyRef.current=false}
    const interval=gpu.interval;
-   if(playingRef.current&&accumulator>=interval){makeSource(clock);accumulator%=interval}
+   // Always redraw the current source for smooth motion; only archive snapshots
+   // at the cadence permitted by the bounded history texture array.
+   const capture=needsFirstFrame||(playingRef.current&&accumulator>=interval);
+   if(playingRef.current||needsFirstFrame||dirtyRef.current){
+    makeSource(clock);
+    if(capture){
+     gpu.push(source);
+     lastCapture=clock;
+     accumulator=accumulator%interval;
+    }
+    needsFirstFrame=false;dirtyRef.current=false;
+   }
    const p=modulated(clock);
    const blendIndex=blendModes.indexOf(visualRef.current.blend);
    const selectedBlend=((blendIndex+Math.round(p.blendOffset))%blendModes.length+blendModes.length)%blendModes.length;
@@ -181,7 +190,7 @@ export default function GridDelayMachine(){
     pattern:Math.max(0,["wave","cascade","radial","random"].indexOf(patternRef.current)),
     mode:Math.max(0,["rigid","elastic","liquify"].indexOf(deformRef.current)),
     amount:p.deformAmount/100,frequency:p.deformFrequency,flow:p.deformFlow,
-    time:clock,grid:gridRef.current,
+    time:clock,elapsed:Math.max(0,clock-lastCapture),grid:gridRef.current,
     background:rgb(rotateHue(visualRef.current.background,p.bgHue)),blend:selectedBlend
    });
    raf=requestAnimationFrame(draw);
