@@ -8,6 +8,7 @@ export type DelayGeometry = {
   mode:number; amount:number; frequency:number; flow:number; time:number; elapsed:number;
   globalMode:number; globalStrength:number; globalSize:number; globalGrowth:number;
   grid:boolean; background:[number,number,number]; blend:number;
+  feedbackEnabled:boolean;feedbackAmount:number;feedbackDecay:number;feedbackRefresh:number;feedbackBlend:number;
 };
 export type DelayQuality="balanced"|"sharp"|"fluid";
 export type DelayGPU = {
@@ -166,6 +167,36 @@ void main(){
  outColor=vec4(result,1.);
 }`;
 
+// Feedback is an output-only pass: delay history still stores raw source frames.
+// Use gl_FragCoord so framebuffer textures are sampled without vertical flips.
+const feedbackFragment = `#version 300 es
+precision highp float;
+out vec4 outColor;
+uniform sampler2D uScene;
+uniform sampler2D uPrevious;
+uniform vec2 uResolution;
+uniform float uAmount;
+uniform float uDecay;
+uniform int uBlendMode;
+uniform bool uHasHistory;
+void main(){
+ vec2 uv=gl_FragCoord.xy/uResolution;
+ vec3 source=texture(uScene,uv).rgb;
+ if(!uHasHistory||uAmount<=0.){
+  outColor=vec4(source,1.);return;
+ }
+ vec3 previous=texture(uPrevious,uv).rgb*clamp(uDecay,0.,1.);
+ vec3 combined=previous;
+ if(uBlendMode==1)combined=source*previous;
+ else if(uBlendMode==2)combined=1.-(1.-source)*(1.-previous);
+ else if(uBlendMode==3)combined=mix(2.*source*previous,1.-2.*(1.-source)*(1.-previous),step(.5,source));
+ else if(uBlendMode==4)combined=abs(source-previous);
+ else if(uBlendMode==5)combined=source+previous-2.*source*previous;
+ else if(uBlendMode==6)combined=max(source,previous);
+ else if(uBlendMode==7)combined=min(source,previous);
+ outColor=vec4(mix(source,clamp(combined,0.,1.),clamp(uAmount,0.,1.)),1.);
+}`;
+
 function shader(gl:WebGL2RenderingContext,type:number,src:string){
  const s=gl.createShader(type);if(!s)throw new Error("WebGL shader allocation failed");
  gl.shaderSource(s,src);gl.compileShader(s);
@@ -182,6 +213,11 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
  gl.attachShader(prog,vs);gl.attachShader(prog,fs);gl.linkProgram(prog);
  gl.deleteShader(vs);gl.deleteShader(fs);
  if(!gl.getProgramParameter(prog,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(prog)||"WebGL shader link failed");
+ const fvs=shader(gl,gl.VERTEX_SHADER,vertex),ffs=shader(gl,gl.FRAGMENT_SHADER,feedbackFragment);
+ const feedbackProgram=gl.createProgram();if(!feedbackProgram)throw new Error("Feedback program allocation failed");
+ gl.attachShader(feedbackProgram,fvs);gl.attachShader(feedbackProgram,ffs);gl.linkProgram(feedbackProgram);
+ gl.deleteShader(fvs);gl.deleteShader(ffs);
+ if(!gl.getProgramParameter(feedbackProgram,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(feedbackProgram)||"Feedback shader link failed");
  const vao=gl.createVertexArray();if(!vao)throw new Error("WebGL vertex array allocation failed");
  const texture=gl.createTexture();if(!texture)throw new Error("WebGL history texture allocation failed");
  // 224 MiB maximum texture history. Temporal resolution is adapted to display dimensions.
@@ -267,8 +303,57 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   }
  };
  const pushLive=(frame:HTMLCanvasElement)=>write(frame,liveLayer);
+ // Lazily allocate output-resolution feedback buffers only when enabled.
+ // The raw history texture array and feedback texture must never alias.
+ type FeedbackTarget={texture:WebGLTexture;framebuffer:WebGLFramebuffer};
+ let feedbackTargets:FeedbackTarget[]|null=null;
+ let feedbackValid=false,feedbackActive=false,feedbackNewest=-1,feedbackLast=-Infinity;
+ const feedbackUniform={
+  scene:gl.getUniformLocation(feedbackProgram,"uScene"),
+  previous:gl.getUniformLocation(feedbackProgram,"uPrevious"),
+  resolution:gl.getUniformLocation(feedbackProgram,"uResolution"),
+  amount:gl.getUniformLocation(feedbackProgram,"uAmount"),
+  decay:gl.getUniformLocation(feedbackProgram,"uDecay"),
+  blend:gl.getUniformLocation(feedbackProgram,"uBlendMode"),
+  hasHistory:gl.getUniformLocation(feedbackProgram,"uHasHistory")
+ };
+ const deleteFeedback=()=>{
+  if(feedbackTargets)for(const target of feedbackTargets){gl.deleteFramebuffer(target.framebuffer);gl.deleteTexture(target.texture)}
+  feedbackTargets=null;feedbackNewest=-1;feedbackLast=-Infinity;
+ };
+ const initFeedback=()=>{
+  if(feedbackTargets)return true;
+  const created:FeedbackTarget[]=[];
+  for(let i=0;i<3;i++){
+   const tex=gl.createTexture(),fb=gl.createFramebuffer();
+   if(!tex||!fb){if(tex)gl.deleteTexture(tex);if(fb)gl.deleteFramebuffer(fb);break}
+   gl.bindTexture(gl.TEXTURE_2D,tex);
+   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+   gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA8,canvas.width,canvas.height,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+   gl.bindFramebuffer(gl.FRAMEBUFFER,fb);
+   gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,tex,0);
+   const ok=gl.checkFramebufferStatus(gl.FRAMEBUFFER)===gl.FRAMEBUFFER_COMPLETE;
+   created.push({texture:tex,framebuffer:fb});
+   if(!ok)break;
+  }
+  gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+  if(created.length!==3){
+   for(const t of created){gl.deleteFramebuffer(t.framebuffer);gl.deleteTexture(t.texture)}
+   feedbackValid=false;return false;
+  }
+  feedbackTargets=created;feedbackNewest=-1;feedbackLast=-Infinity;return true;
+ };
  const render=(p:DelayGeometry)=>{
   if(!count||gl.isContextLost())return;
+  const wantFeedback=p.feedbackEnabled&&p.feedbackAmount>0;
+  if(!wantFeedback&&feedbackActive){deleteFeedback();feedbackActive=false}
+  if(wantFeedback&&!feedbackActive){feedbackActive=true;feedbackValid=initFeedback()}
+  const useFeedback=wantFeedback&&feedbackValid&&!!feedbackTargets;
+  // Stage 1 renders the temporal grid either directly or to a scene texture.
+  gl.bindFramebuffer(gl.FRAMEBUFFER,useFeedback?feedbackTargets![0].framebuffer:null);
   gl.viewport(0,0,canvas.width,canvas.height);
   gl.disable(gl.BLEND);gl.useProgram(prog);gl.bindVertexArray(vao);
   gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D_ARRAY,texture);
@@ -288,9 +373,39 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.uniform1f(loc.globalGrowth,p.globalGrowth);
   gl.uniform1f(loc.aspect,canvas.width/Math.max(1,canvas.height));
   gl.drawArrays(gl.TRIANGLES,0,3);
+  if(!useFeedback||!feedbackTargets)return;
+  // Stage 2 combines the newly assembled frame with the last snapshot.
+  // On refresh ticks, write the result into the opposite history target.
+  // Between ticks, display the blend without changing feedback history.
+  const refreshSeconds=Math.max(.016,p.feedbackRefresh);
+  const due=feedbackNewest<0||p.time-feedbackLast>=refreshSeconds;
+  const next=feedbackNewest<0?1:feedbackNewest===1?2:1;
+  const outputTarget=due?feedbackTargets[next]:null;
+  gl.bindFramebuffer(gl.FRAMEBUFFER,outputTarget?.framebuffer||null);
+  gl.useProgram(feedbackProgram);
+  gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,feedbackTargets[0].texture);
+  gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,feedbackNewest>=0?feedbackTargets[feedbackNewest].texture:feedbackTargets[0].texture);
+  gl.uniform1i(feedbackUniform.scene,0);gl.uniform1i(feedbackUniform.previous,1);
+  gl.uniform2f(feedbackUniform.resolution,canvas.width,canvas.height);
+  gl.uniform1f(feedbackUniform.amount,p.feedbackAmount);
+  gl.uniform1f(feedbackUniform.decay,p.feedbackDecay);
+  gl.uniform1i(feedbackUniform.blend,p.feedbackBlend);
+  gl.uniform1i(feedbackUniform.hasHistory,feedbackNewest>=0?1:0);
+  gl.drawArrays(gl.TRIANGLES,0,3);
+  if(due&&outputTarget){
+   // The feedback pass already rendered to the snapshot. Present it using
+   // WebGL2's framebuffer blit, without introducing a CPU canvas copy.
+   gl.bindFramebuffer(gl.READ_FRAMEBUFFER,outputTarget.framebuffer);
+   gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER,null);
+   gl.blitFramebuffer(0,0,canvas.width,canvas.height,0,0,canvas.width,canvas.height,gl.COLOR_BUFFER_BIT,gl.NEAREST);
+   gl.bindFramebuffer(gl.READ_FRAMEBUFFER,null);
+   feedbackNewest=next;feedbackLast=p.time;
+  }
+  gl.bindFramebuffer(gl.FRAMEBUFFER,null);
  };
  return {width:tw,height:th,interval,capture,pushLive,render,dispose:()=>{
+  deleteFeedback();
   if(readFramebuffer)gl.deleteFramebuffer(readFramebuffer);
-  gl.deleteTexture(texture);gl.deleteVertexArray(vao);gl.deleteProgram(prog);
+  gl.deleteTexture(texture);gl.deleteVertexArray(vao);gl.deleteProgram(prog);gl.deleteProgram(feedbackProgram);
  }};
 }
