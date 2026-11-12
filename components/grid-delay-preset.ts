@@ -15,7 +15,7 @@ export type GridDelayPreset={
  blend:GridDelayBlend;
  linked:boolean;grid:boolean;playing:boolean;quality:DelayQuality;
  transport?:{bpm:number;delaySync:boolean;delayDivision:BeatDivision};backgroundInside?:boolean;
- delay:{mode:"image"|"black";blackHold:number;type?:"digital"|"tape"|"ping-pong";echoMix?:number;tapeWear?:number};
+ delay:{mode:"image"|"black";blackHold:number;type?:"digital"|"tape"|"ping-pong";echoMix?:number;tapeWear?:number;waveBlend?:"replace"|"multiply"|"screen"|"difference"};
  globalLens:{enabled:boolean;mode:"fisheye"|"pinch";strength:number;size:number;growth:number};
  feedback:{enabled:boolean;amount:number;decay:number;refresh:number;blend:GridDelayBlend};
  image?:string|null;
@@ -56,7 +56,8 @@ export function parseGridDelayPreset(input:unknown,ranges:Record<string,readonly
  if(!object(p.delay)||!option(p.delay.mode,["image","black"])||!number(p.delay.blackHold,0,100)||
    (p.delay.type!==undefined&&!option(p.delay.type,["digital","tape","ping-pong"]))||
    (p.delay.echoMix!==undefined&&!number(p.delay.echoMix,0,100))||
-   (p.delay.tapeWear!==undefined&&!number(p.delay.tapeWear,0,100)))throw Error("Invalid delay mode.");
+   (p.delay.tapeWear!==undefined&&!number(p.delay.tapeWear,0,100))||
+   (p.delay.waveBlend!==undefined&&!option(p.delay.waveBlend,["replace","multiply","screen","difference"])))throw Error("Invalid delay mode.");
  if(!object(p.globalLens)||typeof p.globalLens.enabled!=="boolean"||!option(p.globalLens.mode,["fisheye","pinch"])||
     !number(p.globalLens.strength,0,100)||!number(p.globalLens.size,15,150)||!number(p.globalLens.growth,0,3))throw Error("Invalid global lens.");
  if(!object(p.feedback)||typeof p.feedback.enabled!=="boolean"||!number(p.feedback.amount,0,100)||
