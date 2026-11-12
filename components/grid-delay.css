@@ -242,3 +242,42 @@ label.gd-grid-link input{width:15px;height:15px;accent-color:#edeae3}
  .gd-target>span{font-size:8px}
  .gd-target .gd-input-gain input{width:27px}
 }
+
+/* Compact patch rack: wave modules 2 × 2, six input groups 3 × 2.
+   Keep sockets close enough for short cable gestures in one viewport. */
+@media(min-width:761px){
+ .gd-panel.gd-panel-patch{width:min(780px,calc(100% - 32px))}
+ .gd-panel-patch .gd-bay-columns{padding:8px 10px;gap:7px}
+ .gd-panel-patch .gd-bay-sources{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 8px}
+ .gd-panel-patch .gd-bay-sources>.gd-bay-caption{margin-bottom:0}
+ .gd-panel-patch .gd-bay-sources .gd-wave-unit{min-height:0;margin:0;padding:7px 12px}
+ .gd-panel-patch .gd-wave-title{margin-bottom:4px}
+ .gd-panel-patch .gd-wave-unit>select{padding:3px 6px;margin:0}
+ .gd-panel-patch .gd-wave-ctrl{margin-top:4px;gap:2px 8px;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .gd-panel-patch .gd-wave-ctrl .gd-wave-sync{margin:0;line-height:1.2}
+ .gd-panel-patch .gd-wave-ctrl .gd-knob-control{padding:0}
+ .gd-panel-patch .gd-wave-ctrl .gd-knob-dial{width:43px;height:43px}
+ .gd-panel-patch .gd-wave-ctrl .gd-knob-label{min-height:12px;font-size:9px}
+ .gd-panel-patch .gd-wave-ctrl .gd-knob-readout{min-height:13px}
+ .gd-panel-patch .gd-wave-empty{min-height:0;padding:8px}
+ .gd-panel-patch .gd-bay-targets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 8px;padding-top:7px}
+ .gd-panel-patch .gd-bay-targets>.gd-bay-caption{grid-column:1/-1;margin:0}
+ .gd-panel-patch .gd-target-section{margin:0;min-width:0;padding:4px 7px;border:1px solid #485347}
+ .gd-panel-patch .gd-target-group-label{font-size:8px;padding:3px 0!important}
+ .gd-panel-patch .gd-target-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 5px}
+ .gd-panel-patch .gd-target{min-height:27px;padding:3px 0}
+ .gd-panel-patch .gd-target>span{font-size:9px}
+ .gd-panel-patch .gd-target .gd-input{height:16px;width:16px;min-width:16px}
+ .gd-panel-patch .gd-bay-help{margin:0 12px 7px;font-size:10px;line-height:1.35}
+ .gd-panel-patch .gd-bay-head{padding:10px 12px 5px}
+ .gd-panel-patch .gd-bpm-module{margin:8px 12px 6px}
+ .gd-panel-patch .gd-bay-board{margin:0 12px}
+ .gd-panel-patch .gd-connections-head{margin-top:7px;padding-top:8px}
+}
+@media(max-width:760px){
+ .gd-panel-patch .gd-bay-sources .gd-wave-unit{padding:5px}
+ .gd-panel-patch .gd-wave-ctrl .gd-knob-dial{width:42px;height:42px}
+ .gd-panel-patch .gd-wave-ctrl .gd-knob-control{padding:0}
+ .gd-panel-patch .gd-wave-ctrl{gap:2px}
+ .gd-panel-patch .gd-target{min-height:27px;padding:3px 0}
+}
