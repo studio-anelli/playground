@@ -5,7 +5,8 @@ export type DelayTarget="positionX"|"positionY"|"rotation"|"scale"|"delay"|"spac
 export type DelayWave={shape:"sine"|"triangle"|"square"|"noise"|"ramp";rate:number;depth:number;phase:number;enabled:boolean};
 export type DelayPatch={id:string;wave:number;target:DelayTarget;amount:number};
 export type DelayInputGains=Partial<Record<DelayTarget,number>>;
-const targets:DelayTarget[]=["positionX","positionY","rotation","scale","speed","amplitude","columns","rows","spacing","delay","blackHold","inkHue","bgHue","blendMode","deformAmount","deformFrequency","deformFlow","globalStrength","globalSize","globalGrowth","feedbackAmount","feedbackDecay","feedbackRefresh","feedbackBlend"];
+export const knownTargets:DelayTarget[]=["positionX","positionY","rotation","scale","speed","amplitude","columns","rows","spacing","delay","blackHold","inkHue","bgHue","blendMode","deformAmount","deformFrequency","deformFlow","globalStrength","globalSize","globalGrowth","feedbackAmount","feedbackDecay","feedbackRefresh","feedbackBlend"];
+const targets=knownTargets;
 const labels:Record<DelayTarget,string>={positionX:"Position X",positionY:"Position Y",rotation:"Rotation",scale:"Source scale",delay:"Time delay",spacing:"Grid spacing",amplitude:"Motion range",speed:"Motion speed",columns:"Grid columns",rows:"Grid rows",inkHue:"Font color / Hue",bgHue:"Background / Hue",blendMode:"Blend selection",deformAmount:"Cell lens strength",deformFrequency:"Cell lens curvature",deformFlow:"Cell lens breathing",globalStrength:"Global lens strength",globalSize:"Global lens size",globalGrowth:"Global lens growth",blackHold:"Black mode hold",feedbackAmount:"Feedback amount",feedbackDecay:"Feedback decay",feedbackRefresh:"Feedback refresh",feedbackBlend:"Feedback blend selection"};
 const colors=["#e9ad73","#91b4ea","#c2b7e9"];
 // Logarithmic rate adjustment makes 0.01–0.3 Hz movements practical without removing fast modulation.
