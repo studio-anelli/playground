@@ -122,7 +122,7 @@ export default function GridDelayMachine(){
     blackHold:blackHoldRef.current,
     feedbackAmount:feedbackRef.current.amount,
     feedbackDecay:feedbackRef.current.decay,
-    feedbackRefresh:feedbackRef.current.refresh};
+    feedbackRefresh:feedbackRef.current.refresh,feedbackBlendOffset:0};
    let gridDrive=0;
    for(const cable of patchRef.current){
     const o=oscRef.current[cable.wave];if(!o||!o.enabled||cable.amount===0||o.depth===0)continue;
@@ -155,6 +155,7 @@ export default function GridDelayMachine(){
      case "feedbackAmount":p.feedbackAmount=clamp(p.feedbackAmount+delta*45,0,100);break;
      case "feedbackDecay":p.feedbackDecay=clamp(p.feedbackDecay+delta*40,0,100);break;
      case "feedbackRefresh":p.feedbackRefresh=clamp(p.feedbackRefresh+delta*120,16,500);break;
+     case "feedbackBlend":p.feedbackBlendOffset+=delta*3;break;
     }
    }
    if(linkedRef.current&&gridDrive!==0){
@@ -318,7 +319,8 @@ export default function GridDelayMachine(){
     background:rgb(rotateHue(visualRef.current.background,p.bgHue)),blend:selectedBlend,
     feedbackEnabled:feedbackRef.current.enabled,
     feedbackAmount:p.feedbackAmount/100,feedbackDecay:p.feedbackDecay/100,
-    feedbackRefresh:p.feedbackRefresh/1000,feedbackBlend:Math.max(0,blendModes.indexOf(feedbackRef.current.blend))
+    feedbackRefresh:p.feedbackRefresh/1000,
+    feedbackBlend:(blendModes.indexOf(feedbackRef.current.blend)+Math.round(p.feedbackBlendOffset)+blendModes.length*8)%blendModes.length
    });
    if(monitor){
     submitMs+=performance.now()-renderStart;
