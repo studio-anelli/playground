@@ -154,7 +154,7 @@ export default function GridDelayMachine(){
    if(key===textCacheKey)return;
    textCacheKey=key;
    const sx=source.width/w,sy=source.height/h;
-   const lines=textRef.current.split("\\n").slice(0,6),size=h*p.fontSize/100;
+   const lines=textRef.current.split("\n").slice(0,6),size=h*p.fontSize/100;
    tc!.font=p.weight+" "+size+"px "+fontRef.current;
    const letterSpacing=size*p.tracking/100;
    const layout=lines.map(line=>{
