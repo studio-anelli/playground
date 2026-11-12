@@ -69,9 +69,10 @@ export default function GridDelayMachine(){
    if(failed||width===w&&height===h&&quality===dpr&&gpu)return;
    w=width;h=height;dpr=quality;
    output.width=Math.round(w*dpr);output.height=Math.round(h*dpr);
-   source.width=w;source.height=h;
+   // Rasterize text at device-pixel resolution before uploading it to WebGL.
+   source.width=output.width;source.height=output.height;
    gpu?.dispose();
-   try{gpu=createDelayGPU(output,w,h);setRenderError(null)}
+   try{gpu=createDelayGPU(output,source.width,source.height);setRenderError(null)}
    catch(error){failed=true;setRenderError(error instanceof Error?error.message:String(error));return}
    needsFirstFrame=true;dirtyRef.current=true;accumulator=0;
   }
@@ -119,7 +120,7 @@ export default function GridDelayMachine(){
 
   function makeSource(t:number){
    const p=modulated(t),phase=t*1.7,amp=p.amplitude/100;
-   sc!.setTransform(1,0,0,1,0,0);
+   sc!.setTransform(dpr,0,0,dpr,0,0);
    sc!.fillStyle=rotateHue(visualRef.current.background,p.bgHue);
    sc!.fillRect(0,0,w,h);
    let dx=0,dy=0,angle=p.rotation*Math.PI/180,zoom=1;
