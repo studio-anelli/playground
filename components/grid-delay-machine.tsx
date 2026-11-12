@@ -144,18 +144,17 @@ export default function GridDelayMachine(){
 
   // K-TIC-SYNTH-inspired split: rasterise type only when the glyph/layout
   // actually changes. Animate a prepared transparent text layer each RAF.
+  let textOriginX=0,textOriginY=0,textLogicalW=1,textLogicalH=1;
+  // Keep the cache tightly bounded to the glyphs. A viewport-sized cached
+  // raster would clip large type before its animated transform is applied.
   function preparedText(p:ReturnType<typeof modulated>){
    const ink=rotateHue(visualRef.current.ink,p.inkHue);
    const key=JSON.stringify([source.width,source.height,w,h,textRef.current,fontRef.current,
     p.fontSize,p.weight,p.tracking,p.lineHeight,ink,alignRef.current,vAlignRef.current]);
    if(key===textCacheKey)return;
    textCacheKey=key;
-   textLayer.width=source.width;textLayer.height=source.height;
    const sx=source.width/w,sy=source.height/h;
-   tc!.setTransform(sx,0,0,sy,0,0);
-   tc!.clearRect(0,0,w,h);
    const lines=textRef.current.split("\\n").slice(0,6),size=h*p.fontSize/100;
-   tc!.textBaseline="middle";tc!.fillStyle=ink;
    tc!.font=p.weight+" "+size+"px "+fontRef.current;
    const letterSpacing=size*p.tracking/100;
    const layout=lines.map(line=>{
@@ -164,12 +163,28 @@ export default function GridDelayMachine(){
     return {chars,widths,width};
    });
    const advance=size*p.lineHeight,total=layout.length*advance;
-   layout.forEach((line,i)=>{
-    let x=alignRef.current==="left"?0:alignRef.current==="right"?-line.width:-line.width/2;
+   const positioned=layout.map((line,i)=>{
+    const x=alignRef.current==="left"?0:alignRef.current==="right"?-line.width:-line.width/2;
     const y=vAlignRef.current==="top"?i*advance+size*.5:
            vAlignRef.current==="bottom"?-total+i*advance+size*.5:
            (i-(layout.length-1)/2)*advance;
-    line.chars.forEach((ch,j)=>{tc!.fillText(ch,w*.5+x+line.widths[j]/2,h*.5+y);x+=line.widths[j]+letterSpacing});
+    return {...line,x,y};
+   });
+   const padding=Math.max(8,size);
+   textOriginX=Math.min(0,...positioned.map(line=>Math.min(line.x,line.x+line.width)))-padding;
+   textOriginY=Math.min(0,...positioned.map(line=>line.y))-padding;
+   const right=Math.max(0,...positioned.map(line=>Math.max(line.x,line.x+line.width)))+padding;
+   const bottom=Math.max(0,...positioned.map(line=>line.y))+padding;
+   textLogicalW=Math.max(1,right-textOriginX);
+   textLogicalH=Math.max(1,bottom-textOriginY);
+   textLayer.width=Math.max(1,Math.ceil(textLogicalW*sx));
+   textLayer.height=Math.max(1,Math.ceil(textLogicalH*sy));
+   tc!.setTransform(sx,0,0,sy,-textOriginX*sx,-textOriginY*sy);
+   tc!.textBaseline="middle";tc!.fillStyle=ink;
+   tc!.font=p.weight+" "+size+"px "+fontRef.current;
+   positioned.forEach(line=>{
+    let x=line.x;
+    line.chars.forEach((ch,j)=>{tc!.fillText(ch,x+line.widths[j]/2,line.y);x+=line.widths[j]+letterSpacing});
    });
   }
   function makeSource(t:number,p:ReturnType<typeof modulated>){
@@ -196,7 +211,7 @@ export default function GridDelayMachine(){
     sc!.drawImage(im,-im.width*ratio/2,-im.height*ratio/2,im.width*ratio,im.height*ratio);
    }else{
     preparedText(p);
-    sc!.drawImage(textLayer,-w/2,-h/2,w,h);
+    sc!.drawImage(textLayer,textOriginX,textOriginY,textLogicalW,textLogicalH);
    }
    sc!.restore();
    gpu?.pushLive(source);
