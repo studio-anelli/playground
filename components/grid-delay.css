@@ -5,7 +5,7 @@
 .gd-top strong{font-weight:500;letter-spacing:.04em}.gd-top strong span{color:#92978e;font-weight:400}
 .gd-top>div{display:flex;gap:16px;align-items:center}.gd-top button{border:0;background:none;padding:6px 0}
 .gd-back{display:inline-flex;align-items:center;min-height:36px;white-space:nowrap;text-decoration:none}.gd-back:hover{text-decoration:underline;text-underline-offset:4px}
-.gd-workspace{display:grid;grid-template-columns:minmax(0,1fr) 312px;flex:1;min-height:0}
+.gd-workspace{display:grid;grid-template-columns:minmax(0,1fr) 410px;flex:1;min-height:0}
 .gd-workspace.gd-no-panel{grid-template-columns:minmax(0,1fr)}
 .gd-stage{height:100%;min-height:0;min-width:0;background:#222520;position:relative;overflow:hidden}
 .gd-stage:fullscreen{height:100vh;width:100vw}
@@ -74,9 +74,8 @@
 .gd-connection input{width:55px;min-width:20px;accent-color:#ebe9df}
 .gd-connection output{font-size:9px;min-width:28px}
 .gd-connection button{border:0;background:none;font-size:17px;color:#c4c7bf;padding:1px 4px}
-.gd-panel:has(.gd-patch-machine) .gd-tabs{grid-template-columns:1fr 1fr 1fr}
 
-@media(min-width:761px){.gd-workspace.gd-patch-open{grid-template-columns:minmax(0,1fr) 410px}.gd-patch-open .gd-bay-columns{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:20px;padding:12px}.gd-patch-open .gd-wave-unit{padding:10px}.gd-patch-open .gd-target{min-height:40px}}
+@media(min-width:761px){.gd-bay-columns{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:20px;padding:12px}.gd-wave-unit{padding:10px}.gd-target{min-height:40px}}
 
 .gd-color-controls{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px;padding-top:14px;border-top:1px solid #444a42}
 .gd-color-controls label{display:flex;flex-direction:column;gap:8px;color:#b6bbb2;font-size:11px}
@@ -86,3 +85,12 @@
 .gd-grid-link{margin:0 0 15px}
 .gd-grid-link label{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:11px;color:#d9ddd6}
 .gd-grid-link input{accent-color:#edeae3;width:15px;height:15px}
+
+/* WebGL FX and type alignment */
+.gd-tabs{grid-template-columns:repeat(4,minmax(0,1fr))}
+.gd-control-group{display:grid;gap:6px;margin:4px 0 18px}
+.gd-control-group>span{font-size:10px;letter-spacing:.03em;color:#b6bbb2}
+.gd-control-group .gd-pills{margin:0 0 9px}
+.gd-control-group .gd-pills button{flex:1;min-width:0}
+
+.gd-stage-error{position:absolute;inset:24px;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;text-align:center;background:#1c211ded;color:#edeae3;padding:24px;z-index:3}.gd-stage-error strong{font-weight:500;font-size:18px}.gd-stage-error span{max-width:540px;font:12px var(--ui-mono),monospace;overflow-wrap:anywhere;color:#bfc6bb}

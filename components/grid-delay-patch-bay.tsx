@@ -1,12 +1,15 @@
 "use client";
 import {useEffect,useRef,useState,type CSSProperties,type DragEvent} from "react";
 
-export type DelayTarget="positionX"|"positionY"|"rotation"|"scale"|"delay"|"spacing"|"amplitude"|"speed"|"columns"|"rows"|"inkHue"|"bgHue"|"blendMode";
+export type DelayTarget="positionX"|"positionY"|"rotation"|"scale"|"delay"|"spacing"|"amplitude"|"speed"|"columns"|"rows"|"inkHue"|"bgHue"|"blendMode"|"deformAmount"|"deformFrequency"|"deformFlow";
 export type DelayWave={shape:"sine"|"triangle"|"square"|"noise"|"ramp";rate:number;depth:number;phase:number;enabled:boolean};
 export type DelayPatch={id:string;wave:number;target:DelayTarget;amount:number};
-const targets:DelayTarget[]=["positionX","positionY","rotation","scale","delay","spacing","amplitude","speed","columns","rows","inkHue","bgHue","blendMode"];
-const labels:Record<DelayTarget,string>={positionX:"Position X",positionY:"Position Y",rotation:"Rotation",scale:"Source scale",delay:"Time delay",spacing:"Grid spacing",amplitude:"Motion range",speed:"Motion speed",columns:"Grid columns",rows:"Grid rows",inkHue:"Font color / Hue",bgHue:"Background / Hue",blendMode:"Blend mode"};
+const targets:DelayTarget[]=["positionX","positionY","rotation","scale","delay","spacing","amplitude","speed","columns","rows","inkHue","bgHue","blendMode","deformAmount","deformFrequency","deformFlow"];
+const labels:Record<DelayTarget,string>={positionX:"Position X",positionY:"Position Y",rotation:"Rotation",scale:"Source scale",delay:"Time delay",spacing:"Grid spacing",amplitude:"Motion range",speed:"Motion speed",columns:"Grid columns",rows:"Grid rows",inkHue:"Font color / Hue",bgHue:"Background / Hue",blendMode:"Blend mode",deformAmount:"Deform amount",deformFrequency:"Deform frequency",deformFlow:"Deform flow"};
 const colors=["#e9ad73","#91b4ea","#c2b7e9"];
+// Logarithmic rate adjustment makes 0.01–0.3 Hz movements practical without removing fast modulation.
+const rateSlider=(rate:number)=>Math.round(1000*Math.log(Math.max(.01,Math.min(4,rate))/.01)/Math.log(400));
+const sliderRate=(value:number)=>Math.round(.01*Math.pow(400,value/1000)*1000)/1000;
 type Props={waves:DelayWave[];patches:DelayPatch[];onWaves:(w:DelayWave[])=>void;onPatches:(p:DelayPatch[])=>void};
 type Point={x:number;y:number};
 export default function GridDelayPatchBay({waves,patches,onWaves,onPatches}:Props){
@@ -14,7 +17,7 @@ export default function GridDelayPatchBay({waves,patches,onWaves,onPatches}:Prop
  const [geometry,setGeometry]=useState<Record<string,Point>>({}),[armed,setArmed]=useState<number|null>(null),[drag,setDrag]=useState<{wave:number;point:Point}|null>(null);
  const [compact,setCompact]=useState(false);
  function updateWave(i:number,key:keyof DelayWave,value:number|string|boolean){onWaves(waves.map((w,j)=>j===i?{...w,[key]:value}:w))}
- function connect(wave:number,target:DelayTarget){const found=patches.find(p=>p.wave===wave&&p.target===target);if(!found)onPatches([...patches,{id:"c"+wave+"-"+target,wave,target,amount:55}]);setArmed(null);setDrag(null)}
+ function connect(wave:number,target:DelayTarget){const found=patches.find(p=>p.wave===wave&&p.target===target);if(!found)onPatches([...patches,{id:"c"+wave+"-"+target,wave,target,amount:30}]);setArmed(null);setDrag(null)}
  function measure(){
   const b=surface.current?.getBoundingClientRect();if(!b)return;
   const positions:Record<string,Point>={};
@@ -36,7 +39,7 @@ export default function GridDelayPatchBay({waves,patches,onWaves,onPatches}:Prop
       <div className="gd-bay-sources"><div className="gd-bay-caption">SIGNAL GENERATORS</div>{waves.map((w,i)=><div className="gd-wave-unit" key={i} style={{"--wave-color":colors[i]} as CSSProperties}>
        <div className="gd-wave-title"><label><input type="checkbox" checked={w.enabled} onChange={e=>updateWave(i,"enabled",e.target.checked)}/> WAVE {i+1}</label><button type="button" className={"gd-port gd-output"+(armed===i?" armed":"")} ref={setNode("w"+i)} title={"Connect Wave "+(i+1)} aria-label={"Patch Wave "+(i+1)+" output"} draggable onDragStart={e=>handleDrag(e,i)} onDragEnd={()=>setArmed(null)} onClick={()=>setArmed(armed===i?null:i)} onPointerDown={e=>{if(e.pointerType==="touch"||e.pointerType==="pen"){const r=surface.current?.getBoundingClientRect();if(r)setDrag({wave:i,point:{x:e.clientX-r.left,y:e.clientY-r.top}})}}}>●</button></div>
        <select value={w.shape} aria-label={"Wave "+(i+1)+" shape"} onChange={e=>updateWave(i,"shape",e.target.value)}>{["sine","triangle","square","noise","ramp"].map(shape=><option key={shape} value={shape}>{shape}</option>)}</select>
-       <div className="gd-wave-ctrl"><label>RATE <output>{w.rate.toFixed(2)} Hz</output><input type="range" min=".01" max="4" step=".01" value={w.rate} onChange={e=>updateWave(i,"rate",Number(e.target.value))}/></label><label>DEPTH <output>{w.depth}%</output><input type="range" min="0" max="100" value={w.depth} onChange={e=>updateWave(i,"depth",Number(e.target.value))}/></label></div>
+       <div className="gd-wave-ctrl"><label>RATE <output>{w.rate.toFixed(w.rate<.1?3:2)} Hz</output><input type="range" min="0" max="1000" step="1" value={rateSlider(w.rate)} aria-label={"Wave "+(i+1)+" frequency"} onChange={e=>updateWave(i,"rate",sliderRate(Number(e.target.value)))}/></label><label>DEPTH <output>{w.depth}%</output><input type="range" min="0" max="100" value={w.depth} onChange={e=>updateWave(i,"depth",Number(e.target.value))}/></label></div>
        </div>)}</div>
       <div className="gd-bay-targets"><div className="gd-bay-caption">DESTINATIONS</div>{targets.map(target=><div className={"gd-target"+(armed!==null?" gd-target-ready":"")} key={target} onDragOver={e=>e.preventDefault()} onDrop={e=>{e.preventDefault();const raw=e.dataTransfer.getData("text/plain");if(raw.startsWith("gd-wave:")){const i=Number(raw.slice(8));if(Number.isInteger(i)&&i>=0&&i<waves.length)connect(i,target)}}}><button type="button" ref={setNode("t"+target)} className="gd-port gd-input" title={"Connect to "+labels[target]} aria-label={"Patch input "+labels[target]} onClick={()=>{if(armed!==null)connect(armed,target)}} onPointerUp={()=>{if(drag)connect(drag.wave,target)}}>●</button><span>{labels[target]}</span><small>{patches.filter(p=>p.target===target).length||""}</small></div>)}</div>
      </div>
