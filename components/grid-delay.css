@@ -59,6 +59,13 @@
 .gd-wave-ctrl label{font-size:9px;color:#b3b7af;display:grid;grid-template-columns:1fr auto;gap:5px}
 .gd-wave-ctrl output{font-size:9px;color:#eee}
 .gd-wave-ctrl input{grid-column:span 2;width:100%;accent-color:var(--wave-color)}
+.gd-wave-ctrl .gd-wave-sync{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:10px}
+.gd-wave-ctrl .gd-wave-sync input{width:14px;height:14px;grid-column:auto;flex:none}
+.gd-wave-ctrl select{grid-column:span 2;min-width:0;width:100%;padding:5px 7px;color:#e8ede4;background:#20261f;border:1px solid #51594f;border-radius:2px}
+.gd-control select{width:100%;margin-top:6px;padding:7px;color:#e8ede4;background:#20261f;border:1px solid #51594f;border-radius:2px}
+label.gd-grid-link{display:flex;align-items:center;gap:9px;font-size:11px;color:#d9ddd6;cursor:pointer;margin:8px 0 14px}
+label.gd-grid-link input{width:15px;height:15px;accent-color:#edeae3}
+
 .gd-port{width:22px;height:22px;flex:none;border:1px solid currentColor;border-radius:50%;display:inline-grid;place-items:center;padding:0!important;font-size:12px!important;line-height:1;background:#1c211d;position:relative;z-index:3}
 .gd-output{color:var(--wave-color)!important;cursor:grab}
 .gd-output.armed{box-shadow:0 0 0 4px color-mix(in srgb,var(--wave-color) 25%,transparent)}
@@ -108,3 +115,281 @@
 .gd-stage-error{position:absolute;inset:24px;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;text-align:center;background:#1c211ded;color:#edeae3;padding:24px;z-index:3}.gd-stage-error strong{font-weight:500;font-size:18px}.gd-stage-error span{max-width:540px;font:12px var(--ui-mono),monospace;overflow-wrap:anywhere;color:#bfc6bb}
 
 @media(max-width:760px){.gd-top-actions{gap:7px}.gd-top-actions button{font-size:10px}.gd-preset-success,.gd-preset-error{position:absolute;z-index:4;top:55px;right:8px;background:#20231f;padding:6px}.gd-top strong{display:none}}
+
+
+/* REC-13 modular instrument face — following K-TIC-SYNTH */
+.gd-machine{--gd-rack-bg:#1a1e1a;--gd-module-bg:#252a25;--gd-module-border:#555e51;--gd-knob-accent:#d6e1d5}
+.gd-panel{background:var(--gd-rack-bg);border-left:1px solid #565f53}
+.gd-tabs{background:#131713;border-bottom:1px solid #5c6658;padding:0 14px}
+.gd-tabs button{font-size:10px;letter-spacing:.09em;padding:15px 4px 12px}
+.gd-tabs button.active{border-bottom-color:#c5dcc0;color:#f1f4ed}
+.gd-panel-grid{gap:9px;padding:12px;align-content:start}
+.gd-block.gd-module{padding:14px 14px 17px;background:var(--gd-module-bg);border:1px solid var(--gd-module-border);box-shadow:inset 0 1px 0 #ffffff09}
+.gd-block.gd-module+.gd-module{border-top:1px solid var(--gd-module-border)}
+.gd-module h2{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:10px;letter-spacing:.085em;font-weight:550;color:#e8efe3;padding-bottom:11px;margin:0 0 13px;border-bottom:1px solid #50594e}
+.gd-module-led{font-size:11px;color:#b0d1a7;text-shadow:0 0 8px #b5dba04d}
+.gd-module .gd-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px 3px;margin-top:13px}
+.gd-module .gd-pills{gap:4px}
+.gd-module .gd-pills button{font-size:10px;padding:8px 9px;border-color:#697166;background:#1b211c}
+.gd-module .gd-pills button.selected{color:#1b211b;background:#cfd9c9;border-color:#cfd9c9}
+.gd-module p{margin-top:13px;font-size:10px;color:#a2afa0}
+.gd-knob-control{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;min-width:0;padding:7px 2px 9px;--gd-knob-accent:#cbdac8}
+.gd-knob-label{text-align:center;color:#bfcabd;font-size:10px;line-height:1.25;min-height:25px;display:flex;align-items:flex-end;justify-content:center;cursor:ns-resize}
+.gd-knob-dial{width:75px;height:75px;max-width:100%;padding:0!important;display:grid;place-items:center;border:0!important;outline-offset:3px;background:transparent!important;touch-action:none;cursor:ns-resize;flex:none}
+.gd-knob-dial:focus-visible{outline:2px solid #f0f8e8}
+.gd-knob-svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 2px 2px #0005)}
+.gd-knob-track{fill:none;stroke:#535e51;stroke-width:3.1;stroke-linecap:round}
+.gd-knob-fill{fill:none;stroke:var(--gd-knob-accent);stroke-width:3.3;stroke-linecap:round}
+.gd-knob-face{fill:#333a33;stroke:#687264;stroke-width:1.1}
+.gd-knob-pointer{stroke:#eef5e8;stroke-width:3;stroke-linecap:round}
+.gd-knob-control.is-dragging .gd-knob-face{fill:#435042}
+.gd-knob-readout{display:flex;align-items:center;justify-content:center;color:#b3c2b0;gap:2px;min-height:20px;font:9px var(--ui-mono),monospace}
+.gd-knob-readout input{border:0;box-shadow:none;outline:0;background:transparent;text-align:right;color:#eff5ea;font:10px var(--ui-mono),monospace;width:44px;padding:3px 0;min-width:0;appearance:textfield;-moz-appearance:textfield}
+.gd-knob-readout input::-webkit-outer-spin-button,.gd-knob-readout input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.gd-knob-readout input:focus{background:#101711;outline:1px solid #a6c29f}
+.gd-knob-compact .gd-knob-dial{width:63px;height:63px}
+.gd-knob-compact .gd-knob-label{min-height:16px}
+.gd-wave-ctrl{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:7px 3px}
+.gd-wave-ctrl .gd-wave-sync{grid-column:1/-1;font-size:10px}
+.gd-wave-ctrl .gd-wave-division{grid-column:1/-1}
+.gd-wave-ctrl .gd-knob-control{padding:2px 0 5px}
+.gd-bay-board{background:#171b18}
+.gd-wave-unit{background:#272c27;border-color:#636c5f}
+.gd-bay-caption{color:#b3c0b1}
+.gd-bay-head{border-top:1px solid #596255}
+.gd-port{border-width:2px;box-shadow:0 2px 5px #0009}
+.gd-output{background:#232923}
+.gd-input{background:#272c27}
+.gd-target-ready:hover{background:#384738}
+@media(max-width:760px){
+ .gd-panel-grid{padding:7px;gap:7px}
+ .gd-block.gd-module{padding:12px 9px}
+ .gd-module .gd-controls{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+ .gd-knob-dial{width:65px;height:65px}
+ .gd-knob-compact .gd-knob-dial{width:55px;height:55px}
+}
+
+/* Immersive synth layout: the rack floats above the full-stage output.
+   Its open/close control never changes the shader canvas dimensions. */
+@media(min-width:761px){
+ .gd-workspace,.gd-workspace.gd-no-panel{display:block;position:relative}
+ .gd-stage{position:absolute;inset:0;width:100%;height:100%}
+ .gd-panel{position:absolute;z-index:5;right:16px;top:16px;bottom:16px;width:430px;max-width:calc(100% - 32px);height:auto;min-height:0;border:1px solid #657063;box-shadow:0 20px 56px #0009,0 0 0 1px #0004;scrollbar-width:thin}
+ .gd-stage-bottom{padding-right:460px}
+}
+@media(max-width:760px){
+ .gd-workspace,.gd-workspace.gd-no-panel{display:block;position:relative}
+ .gd-stage{position:absolute;inset:0;width:100%;height:100%}
+ .gd-panel{position:absolute;z-index:5;left:7px;right:7px;bottom:7px;top:auto;width:auto;height:min(44dvh,440px);border:1px solid #657063;box-shadow:0 -8px 35px #0008}
+ .gd-stage-bottom{bottom:calc(min(44dvh,440px) + 17px)}
+ .gd-workspace.gd-no-panel .gd-stage-bottom{bottom:16px}
+}
+
+.gd-module .gd-controls.gd-one-knob{grid-template-columns:90px;justify-content:start;max-width:100%;margin-top:6px}
+.gd-bpm-module{margin:12px 12px 10px}
+.gd-bpm-module h2{margin-bottom:2px}
+
+/* Patch bay: outputs 2 × 2 above grouped, two-column inputs. */
+.gd-bay-columns{display:flex;flex-direction:column;gap:12px;padding:11px}
+@media(min-width:761px){.gd-bay-columns{display:flex;flex-direction:column;gap:12px;padding:11px}}
+.gd-bay-sources{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.gd-bay-sources>.gd-bay-caption{grid-column:1/-1;margin-bottom:0}
+.gd-bay-sources .gd-wave-unit{min-width:0;margin:0;padding:8px;background:#292e28}
+.gd-wave-title{min-width:0;gap:4px}
+.gd-wave-title label{white-space:nowrap;font-size:10px}
+.gd-wave-unit select{font-size:10px;max-width:100%}
+.gd-wave-ctrl{gap:3px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.gd-wave-ctrl .gd-knob-dial{width:54px;height:54px}
+.gd-wave-ctrl .gd-knob-readout input{width:38px;font-size:9px}
+.gd-wave-ctrl .gd-knob-label{font-size:9px;min-height:16px}
+.gd-wave-empty{display:flex;align-items:center;justify-content:center;border:1px dashed #4c554a!important;background:transparent!important;color:#707b70;letter-spacing:.09em;text-align:center;font:9px var(--ui-mono),monospace;line-height:1.6;min-height:145px}
+.gd-bay-targets{width:100%;min-width:0;border-top:1px solid #566054;padding-top:11px}
+.gd-bay-targets>.gd-bay-caption{margin-bottom:11px}
+.gd-target-section{margin:0 0 13px}
+.gd-target-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 9px}
+.gd-target-group-label{padding:7px 0!important;margin:0;border-bottom:1px solid #535d51;color:#d4dcd0;font-size:9px}
+.gd-target{min-width:0;min-height:39px;gap:5px;padding:6px 0}
+.gd-target>span{font-size:9px;line-height:1.2;overflow-wrap:anywhere;min-width:0}
+.gd-target .gd-input{height:17px;width:17px;min-width:17px;font-size:11px}
+.gd-target .gd-input-gain{gap:1px}
+.gd-target .gd-input-gain input{width:30px;padding:3px 1px;font-size:9px}
+.gd-bay-help{margin-bottom:8px}
+.gd-bpm-module .gd-controls.gd-one-knob{grid-template-columns:55px!important}
+.gd-bpm-module .gd-knob-dial{width:48px;height:48px}
+.gd-bpm-module .gd-knob-label{min-height:0;font-size:9px}
+.gd-bpm-module .gd-knob-readout input{width:32px}
+.gd-bpm-module{display:flex;align-items:center;gap:12px;padding:8px 12px!important}
+.gd-bpm-module h2{flex:1;border-bottom:0;margin:0;padding:0}
+.gd-bpm-module .gd-controls{flex:none;margin:0!important}
+.gd-bpm-module .gd-knob-control{padding:0}
+.gd-bay-board{background:#181b19}
+.gd-wave-unit:nth-child(2){--gd-knob-accent:#175cff}
+.gd-wave-unit:nth-child(3){--gd-knob-accent:#ef3d32}
+.gd-wave-unit:nth-child(4){--gd-knob-accent:#ffd528}
+.gd-wave-unit .gd-port.gd-output{color:var(--wave-color)!important}
+.gd-wave-unit .gd-knob-fill{stroke:var(--wave-color)}
+.gd-wave-unit .gd-knob-control{--gd-knob-accent:var(--wave-color)}
+.gd-wave-unit .gd-knob-pointer{stroke:#f5f4ed}
+.gd-target-ready .gd-input{border-color:#e3e8dc}
+.gd-target-ready:hover .gd-input{background:#e1e8da;color:#18211b}
+.gd-module-led{color:#ffd528;text-shadow:0 0 7px #ffd52842}
+@media(max-width:430px){
+ .gd-bay-columns{padding:7px;gap:8px}
+ .gd-bay-sources{gap:5px}
+ .gd-bay-sources .gd-wave-unit{padding:6px}
+ .gd-wave-ctrl .gd-knob-dial{width:46px;height:46px}
+ .gd-target-grid{gap:0 5px}
+ .gd-target>span{font-size:8px}
+ .gd-target .gd-input-gain input{width:27px}
+}
+
+/* Independent Patch rack (left) and main editor (right).
+   The Patch rack no longer shares the Source / Grid / FX tab panel. */
+@media(min-width:761px){
+ .gd-panel{
+  left:auto;right:16px;top:16px;bottom:16px;
+  width:430px;max-width:calc(100% - 32px);height:auto;
+ }
+ .gd-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .gd-workspace:not(.gd-no-panel) .gd-stage-caption{
+  left:18px;right:auto;text-align:left;
+ }
+ .gd-workspace:not(.gd-no-panel) .gd-stage-bottom{
+  padding-left:0;padding-right:460px;
+ }
+}
+.gd-patch-rack{
+ position:absolute;z-index:6;left:16px;top:16px;bottom:16px;
+ width:410px;max-width:calc(100% - 32px);
+ display:flex;flex-direction:column;min-height:0;
+ background:#1a1e1a;border:1px solid #657063;
+ box-shadow:0 20px 56px #0009,0 0 0 1px #0004;
+ overflow:hidden;
+}
+.gd-patch-rack-head{
+ flex:none;display:flex;align-items:center;justify-content:space-between;
+ gap:8px;min-height:39px;padding:7px 11px;
+ border-bottom:1px solid #5c6658;color:#dfe9db;
+ font:10px var(--ui-mono),monospace;letter-spacing:.06em;
+}
+.gd-patch-rack-head strong{font:inherit;font-weight:500}
+.gd-patch-rack-head button{
+ width:27px;height:27px;border:1px solid #687364;background:#252b25;
+ padding:0;font:17px var(--ui-mono),monospace;line-height:1;color:#e6f1e3;
+}
+.gd-patch-rack-scroll{
+ flex:1;min-height:0;overflow-x:hidden;overflow-y:auto;
+ overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#6d7169 #171917;
+}
+.gd-patch-rack.is-collapsed{
+ width:42px;min-width:42px;
+}
+.gd-patch-rack.is-collapsed .gd-patch-rack-head{
+ padding:7px 5px;flex-direction:column;justify-content:flex-start;
+}
+.gd-patch-rack.is-collapsed .gd-patch-rack-head strong{
+ writing-mode:vertical-rl;transform:rotate(180deg);
+ font-size:9px;white-space:nowrap;
+}
+.gd-patch-rack .gd-bay-columns{
+ display:flex;flex-direction:column;gap:9px;padding:9px;
+}
+.gd-patch-rack .gd-bay-sources{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;
+}
+.gd-patch-rack .gd-bay-sources .gd-wave-unit{padding:7px;min-width:0;margin:0}
+.gd-patch-rack .gd-wave-ctrl .gd-knob-dial{width:47px;height:47px}
+.gd-patch-rack .gd-wave-ctrl .gd-knob-control{padding:0}
+.gd-patch-rack .gd-bay-targets{display:flex;flex-direction:column;gap:7px}
+.gd-patch-rack .gd-target-section{margin:0;padding:7px 9px;border:1px solid #485347}
+.gd-patch-rack .gd-target-group-label{padding:4px 0!important;font-size:9px}
+.gd-patch-rack .gd-target-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 7px}
+.gd-patch-rack .gd-target{min-height:32px;padding:4px 0}
+.gd-patch-rack .gd-target>span{font-size:9px}
+.gd-patch-rack .gd-bay-help{font-size:10px;line-height:1.4;margin:9px 11px}
+.gd-patch-rack .gd-bay-board{margin:0 9px}
+.gd-patch-rack .gd-bay-head{padding:10px 10px 6px}
+.gd-patch-rack .gd-bpm-module{margin:9px 9px 6px}
+@media(max-width:760px){
+ .gd-panel{left:auto;right:8px;top:auto;bottom:8px;width:min(420px,calc(100% - 16px));height:min(44dvh,440px);max-height:none}
+ .gd-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .gd-patch-rack{left:8px;top:8px;bottom:auto;height:min(46dvh,460px);width:min(380px,calc(100% - 16px))}
+ .gd-patch-rack.is-collapsed{height:145px}
+ .gd-workspace:not(.gd-no-panel) .gd-stage-bottom{bottom:calc(min(44dvh,440px) + 17px);padding-left:0;justify-content:space-between}
+ .gd-workspace:not(.gd-no-panel) .gd-stage-bottom>span{display:inline}
+}
+
+/* Explicit final geometry: both racks are overlays on one unchanged canvas.
+   Do not allow the original two-column workspace grid to place either rack. */
+.gd-machine .gd-workspace,
+.gd-machine .gd-workspace.gd-no-panel{
+ position:relative;
+ display:block;
+ grid-template-columns:none;
+ grid-template-rows:none;
+}
+.gd-machine .gd-workspace .gd-stage{
+ position:absolute;
+ inset:0;
+ width:100%;
+ height:100%;
+ min-height:0;
+}
+@media(min-width:761px){
+ .gd-machine .gd-panel{
+  position:absolute;
+  left:auto;
+  right:16px;
+  top:16px;
+  bottom:16px;
+  width:308px;
+  max-width:calc(100% - 32px);
+  height:auto;
+  z-index:5;
+ }
+ .gd-machine .gd-patch-rack{
+  position:absolute;
+  left:16px;
+  right:auto;
+  top:16px;
+  bottom:16px;
+  width:410px;
+  max-width:calc(100% - 32px);
+  z-index:6;
+ }
+ .gd-machine .gd-patch-rack.is-collapsed{width:42px}
+}
+@media(max-width:760px){
+ .gd-machine .gd-panel{
+  position:absolute;left:auto;right:8px;top:auto;bottom:8px;
+  width:min(420px,calc(100% - 16px));height:min(44dvh,440px);
+ }
+ .gd-machine .gd-patch-rack{
+  position:absolute;left:8px;right:auto;top:8px;bottom:auto;
+  width:min(380px,calc(100% - 16px));height:min(46dvh,460px);
+ }
+ .gd-machine .gd-patch-rack.is-collapsed{width:42px;height:145px}
+}
+
+/* Compact right editor: 25% narrower than 410px.
+   The independently collapsible left Patch rack keeps its original width. */
+@media(min-width:761px){
+ .gd-machine .gd-workspace:not(.gd-no-panel) .gd-stage-bottom{
+  padding-right:340px;
+ }
+ .gd-machine .gd-panel .gd-module .gd-controls{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:7px 1px;
+ }
+ .gd-machine .gd-panel .gd-module .gd-knob-dial{
+  width:min(70px,100%);
+  height:auto;
+  aspect-ratio:1;
+ }
+ .gd-machine .gd-panel .gd-module .gd-knob-readout input{
+  width:38px;
+ }
+ .gd-machine .gd-panel .gd-block.gd-module{
+  padding:12px 10px 14px;
+ }
+}
