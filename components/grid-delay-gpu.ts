@@ -89,29 +89,19 @@ void main(){
                      cos(sourceUV.x*uFrequency*6.28318-wave+sin(sourceUV.y*7.)));
    sourceUV=clamp(sourceUV+ripple*uAmount*.045,vec2(0.001),vec2(.999));
  }
- // The current frame is uploaded every RAF, while historical snapshots
- // occupy a separate ring. Interpolating between snapshots removes temporal
- // stepping even when long delays require relatively few stored frames.
+ // The current frame is uploaded every RAF while historical snapshots
+ // occupy a separate ring. Never crossfade distinct text shapes.
  float secondsAgo=max(0.,patternValue(cell)*uDelay);
- vec3 sampleColor;
- if(uCount==0){
-  sampleColor=texture(uFrames,vec3(sourceUV,float(uLiveLayer))).rgb;
- } else if(secondsAgo<=uElapsed){
-  float liveWeight=uElapsed<.0001?1.:clamp(1.-secondsAgo/uElapsed,0.,1.);
-  vec3 previous=texture(uFrames,vec3(sourceUV,float(uNewest))).rgb;
-  vec3 current=texture(uFrames,vec3(sourceUV,float(uLiveLayer))).rgb;
-  sampleColor=mix(previous,current,liveWeight);
- } else {
-  float past=(secondsAgo-uElapsed)/max(.0001,uInterval);
-  int newer=min(int(floor(past)),uCount-1);
-  int older=min(newer+1,uCount-1);
-  float fraction=clamp(fract(past),0.,1.);
-  int newerLayer=(uNewest-newer+uCapacity)%uCapacity;
-  int olderLayer=(uNewest-older+uCapacity)%uCapacity;
-  vec3 a=texture(uFrames,vec3(sourceUV,float(newerLayer))).rgb;
-  vec3 b=texture(uFrames,vec3(sourceUV,float(olderLayer))).rgb;
-  sampleColor=mix(a,b,fraction);
+ // Choose exactly ONE complete historical frame per cell: blending between
+ // two text frames creates unwanted transparent-looking doubled letterforms.
+ // The current (zero-delay) frame still refreshes every animation frame.
+ int selectedLayer=uLiveLayer;
+ if(uCount>0 && secondsAgo>max(.0001,uElapsed*.5)){
+  float past=max(0.,secondsAgo-uElapsed)/max(.0001,uInterval);
+  int age=min(int(floor(past+.5)),uCount-1);
+  selectedLayer=(uNewest-age+uCapacity)%uCapacity;
  }
+ vec3 sampleColor=texture(uFrames,vec3(sourceUV,float(selectedLayer))).rgb;
  vec3 result=compose(sampleColor,uBackground);
  if(uGridVisible){
    vec2 rim=min(local,1.-local)*cellSize*cells;
