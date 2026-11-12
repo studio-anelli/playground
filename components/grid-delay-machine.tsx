@@ -70,6 +70,10 @@ export default function GridDelayMachine(){
   let textCacheKey="";
   let gpu:DelayGPU|null=null;
   let raf=0,last=0,clock=0,accumulator=0,lastCapture=0,w=0,h=0,dpr=1,needsFirstFrame=true,failed=false,qualityChanged=false;
+  // Opt-in measurements: append ?perf=1 to compare frame pacing and CPU
+  // command costs without introducing an always-on profiling UI.
+  const monitor=new URLSearchParams(window.location.search).get("perf")==="1";
+  let measureSince=0,measureFrames=0,measureSlow=0,sourceMs=0,captureMs=0,submitMs=0;
   function resize(){
    const box=output.getBoundingClientRect();
    const width=Math.max(1,Math.round(box.width)),height=Math.max(1,Math.round(box.height));
@@ -198,7 +202,13 @@ export default function GridDelayMachine(){
    gpu?.pushLive(source);
   }
   function draw(now:number){
-   const delta=last?Math.min(.06,(now-last)/1000):0;last=now;
+   const actualDelta=last?(now-last)/1000:0;
+   const delta=Math.min(.06,actualDelta);last=now;
+   if(monitor&&document.visibilityState==="visible"){
+    if(!measureSince)measureSince=now;
+    measureFrames++;
+    if(actualDelta>1/30&&actualDelta<.5)measureSlow++;
+   }
    if(!gpu){raf=requestAnimationFrame(draw);return}
    if(playingRef.current){
     const speed=modulated(clock).speed;
@@ -210,9 +220,13 @@ export default function GridDelayMachine(){
    // at the cadence permitted by the bounded history texture array.
    const capture=needsFirstFrame||(playingRef.current&&accumulator>=interval);
    if(playingRef.current||needsFirstFrame||dirtyRef.current){
+    const sourceStart=monitor?performance.now():0;
     makeSource(clock,p);
+    if(monitor)sourceMs+=performance.now()-sourceStart;
     if(capture){
+     const captureStart=monitor?performance.now():0;
      gpu.capture(source);
+     if(monitor)captureMs+=performance.now()-captureStart;
      lastCapture=clock;
      accumulator=accumulator%interval;
     }
@@ -220,6 +234,7 @@ export default function GridDelayMachine(){
    }
    const blendIndex=blendModes.indexOf(visualRef.current.blend);
    const selectedBlend=((blendIndex+Math.round(p.blendOffset))%blendModes.length+blendModes.length)%blendModes.length;
+   const renderStart=monitor?performance.now():0;
    gpu.render({
     columns:p.columns,rows:p.rows,spacing:p.spacing,delay:p.delay,
     pattern:Math.max(0,["wave","cascade","radial","random"].indexOf(patternRef.current)),
@@ -230,6 +245,21 @@ export default function GridDelayMachine(){
     time:clock,elapsed:Math.max(0,clock-lastCapture),grid:gridRef.current,
     background:rgb(rotateHue(visualRef.current.background,p.bgHue)),blend:selectedBlend
    });
+   if(monitor){
+    submitMs+=performance.now()-renderStart;
+    if(now-measureSince>=5000&&measureSince>0){
+     const samples=Math.max(1,measureFrames);
+     console.info("[Grid Delay perf]",{
+      fps:Math.round(measureFrames*1000/(now-measureSince)*10)/10,
+      slowFrames:measureSlow,
+      sourceMsPerFrame:Math.round(sourceMs/samples*100)/100,
+      captureMsPerFrame:Math.round(captureMs/samples*100)/100,
+      renderSubmissionMs:Math.round(submitMs/samples*100)/100,
+      quality:qualityRef.current
+     });
+     measureSince=now;measureFrames=0;measureSlow=0;sourceMs=0;captureMs=0;submitMs=0;
+    }
+   }
    raf=requestAnimationFrame(draw);
   }
   raf=requestAnimationFrame(draw);
