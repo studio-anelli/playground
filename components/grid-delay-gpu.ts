@@ -150,14 +150,15 @@ void main(){
   int age=min(int(floor(past+.5)),uCount-1);
   selectedLayer=(uNewest-age+uCapacity)%uCapacity;
  }
- // Pure refraction: a single texture sample, with no optical highlight or RGB split.
+ // Black mode gates each cell using its delay offset, without blending.
+ // Return pure black before any texture lookup or grid decoration.
+ if(uDelayMode==1){
+  float blackPhase=fract((uTime-secondsAgo)*.5);
+  if(blackPhase<clamp(uBlackHold,0.,1.)){outColor=vec4(0.,0.,0.,1.);return;}
+ }
+ // The image mode and the visible interval of black mode share the sample.
  vec3 sampleColor=texture(uFrames,vec3(sourceUV,float(selectedLayer))).rgb;
- // Black delay uses the same per-cell temporal offsets as Image mode.
- // The gate is a discrete, time-shifted blackout rather than a blend, so
- // even Screen/Difference blend modes produce real black frames.
- float blackPhase=fract((uTime-secondsAgo)*.5);
- bool blacked=uDelayMode==1 && blackPhase<clamp(uBlackHold,0.,1.);
- vec3 result=blacked?vec3(0.):compose(sampleColor,uBackground);
+ vec3 result=compose(sampleColor,uBackground);
  if(uGridVisible){
    vec2 rim=min(local,1.-local)*cellSize*cells;
    if(min(rim.x,rim.y)<.006)result=mix(result,vec3(.13,.15,.13),.22);
