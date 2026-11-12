@@ -184,3 +184,7 @@ label.gd-grid-link input{width:15px;height:15px;accent-color:#edeae3}
  .gd-stage-bottom{bottom:calc(min(44dvh,440px) + 17px)}
  .gd-workspace.gd-no-panel .gd-stage-bottom{bottom:16px}
 }
+
+.gd-module .gd-controls.gd-one-knob{grid-template-columns:90px;justify-content:start;max-width:100%;margin-top:6px}
+.gd-bpm-module{margin:12px 12px 10px}
+.gd-bpm-module h2{margin-bottom:2px}
