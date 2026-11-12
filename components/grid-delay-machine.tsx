@@ -65,7 +65,9 @@ export default function GridDelayMachine(){
  useEffect(()=>{
   const output=canvas.current;if(!output)return;
   const source=document.createElement("canvas"),sc=source.getContext("2d",{alpha:false});
-  if(!sc)return;
+  const textLayer=document.createElement("canvas"),tc=textLayer.getContext("2d");
+  if(!sc||!tc)return;
+  let textCacheKey="";
   let gpu:DelayGPU|null=null;
   let raf=0,last=0,clock=0,accumulator=0,lastCapture=0,w=0,h=0,dpr=1,needsFirstFrame=true,failed=false,qualityChanged=false;
   function resize(){
@@ -83,6 +85,7 @@ export default function GridDelayMachine(){
     // Draw source at the actual history texture resolution, not the output
     // resolution: removes a full-canvas rescale every animation frame.
     source.width=gpu.width;source.height=gpu.height;
+    textCacheKey="";
     setRenderError(null);
    }
    catch(error){failed=true;setRenderError(error instanceof Error?error.message:String(error));return}
@@ -135,8 +138,38 @@ export default function GridDelayMachine(){
    return p;
   }
 
-  function makeSource(t:number){
-   const p=modulated(t),phase=t*1.7,amp=p.amplitude/100;
+  // K-TIC-SYNTH-inspired split: rasterise type only when the glyph/layout
+  // actually changes. Animate a prepared transparent text layer each RAF.
+  function preparedText(p:ReturnType<typeof modulated>){
+   const ink=rotateHue(visualRef.current.ink,p.inkHue);
+   const key=JSON.stringify([source.width,source.height,w,h,textRef.current,fontRef.current,
+    p.fontSize,p.weight,p.tracking,p.lineHeight,ink,alignRef.current,vAlignRef.current]);
+   if(key===textCacheKey)return;
+   textCacheKey=key;
+   textLayer.width=source.width;textLayer.height=source.height;
+   const sx=source.width/w,sy=source.height/h;
+   tc!.setTransform(sx,0,0,sy,0,0);
+   tc!.clearRect(0,0,w,h);
+   const lines=textRef.current.split("\\n").slice(0,6),size=h*p.fontSize/100;
+   tc!.textBaseline="middle";tc!.fillStyle=ink;
+   tc!.font=p.weight+" "+size+"px "+fontRef.current;
+   const letterSpacing=size*p.tracking/100;
+   const layout=lines.map(line=>{
+    const chars=Array.from(line),widths=chars.map(ch=>tc!.measureText(ch).width);
+    const width=widths.reduce((a,b)=>a+b,0)+Math.max(0,chars.length-1)*letterSpacing;
+    return {chars,widths,width};
+   });
+   const advance=size*p.lineHeight,total=layout.length*advance;
+   layout.forEach((line,i)=>{
+    let x=alignRef.current==="left"?0:alignRef.current==="right"?-line.width:-line.width/2;
+    const y=vAlignRef.current==="top"?i*advance+size*.5:
+           vAlignRef.current==="bottom"?-total+i*advance+size*.5:
+           (i-(layout.length-1)/2)*advance;
+    line.chars.forEach((ch,j)=>{tc!.fillText(ch,w*.5+x+line.widths[j]/2,h*.5+y);x+=line.widths[j]+letterSpacing});
+   });
+  }
+  function makeSource(t:number,p:ReturnType<typeof modulated>){
+   const phase=t*1.7,amp=p.amplitude/100;
    sc!.setTransform(source.width/w,0,0,source.height/h,0,0);
    sc!.fillStyle=rotateHue(visualRef.current.background,p.bgHue);
    sc!.fillRect(0,0,w,h);
@@ -158,23 +191,8 @@ export default function GridDelayMachine(){
     const im=image.current,ratio=Math.min(w*.76/im.width,h*.76/im.height);
     sc!.drawImage(im,-im.width*ratio/2,-im.height*ratio/2,im.width*ratio,im.height*ratio);
    }else{
-    const lines=textRef.current.split("\n").slice(0,6),size=h*p.fontSize/100;
-    sc!.textBaseline="middle";sc!.fillStyle=rotateHue(visualRef.current.ink,p.inkHue);
-    sc!.font=p.weight+" "+size+"px "+fontRef.current;
-    const letterSpacing=size*p.tracking/100;
-    const layout=lines.map(line=>{
-     const chars=Array.from(line),widths=chars.map(ch=>sc!.measureText(ch).width);
-     const width=widths.reduce((a,b)=>a+b,0)+Math.max(0,chars.length-1)*letterSpacing;
-     return {chars,widths,width};
-    });
-    const advance=size*p.lineHeight,total=layout.length*advance;
-    layout.forEach((line,i)=>{
-     let x=alignRef.current==="left"?0:alignRef.current==="right"?-line.width:-line.width/2;
-     const y=vAlignRef.current==="top"?i*advance+size*.5:
-             vAlignRef.current==="bottom"?-total+i*advance+size*.5:
-             (i-(layout.length-1)/2)*advance;
-     line.chars.forEach((ch,j)=>{sc!.fillText(ch,x+line.widths[j]/2,y);x+=line.widths[j]+letterSpacing});
-    });
+    preparedText(p);
+    sc!.drawImage(textLayer,-w/2,-h/2,w,h);
    }
    sc!.restore();
    gpu?.pushLive(source);
@@ -186,12 +204,13 @@ export default function GridDelayMachine(){
     const speed=modulated(clock).speed;
     clock+=delta*speed;accumulator+=delta*speed;
    }
+   const p=modulated(clock);
    const interval=gpu.interval;
    // Always redraw the current source for smooth motion; only archive snapshots
    // at the cadence permitted by the bounded history texture array.
    const capture=needsFirstFrame||(playingRef.current&&accumulator>=interval);
    if(playingRef.current||needsFirstFrame||dirtyRef.current){
-    makeSource(clock);
+    makeSource(clock,p);
     if(capture){
      gpu.push(source);
      lastCapture=clock;
@@ -199,7 +218,6 @@ export default function GridDelayMachine(){
     }
     needsFirstFrame=false;dirtyRef.current=false;
    }
-   const p=modulated(clock);
    const blendIndex=blendModes.indexOf(visualRef.current.blend);
    const selectedBlend=((blendIndex+Math.round(p.blendOffset))%blendModes.length+blendModes.length)%blendModes.length;
    gpu.render({
