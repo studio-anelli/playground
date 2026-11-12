@@ -1,5 +1,5 @@
 "use client";
-import {useRef,useState,type CSSProperties,type PointerEvent} from "react";
+import {useEffect,useRef,useState,type CSSProperties,type PointerEvent} from "react";
 
 type Props={name:string;value:number;min:number;max:number;step:number;unit?:string;onChange:(value:number)=>void;accent?:string;compact?:boolean};
 const clamp=(v:number,a:number,b:number)=>Math.max(a,Math.min(b,v));
@@ -7,6 +7,9 @@ export default function GridDelayKnob({name,value,min,max,step,unit="",onChange,
  const ref=useRef<{pointer:number;y:number;raw:number}|null>(null);
  const input=useRef<HTMLInputElement>(null);
  const [dragging,setDragging]=useState(false);
+ const [editing,setEditing]=useState(false);
+ const [draft,setDraft]=useState(String(value));
+ useEffect(()=>{if(!editing)setDraft(String(value))},[value,editing]);
  const decimals=(String(step).split(".")[1]||"").length;
  const commit=(n:number)=>{
   if(!Number.isFinite(n))return;
@@ -40,6 +43,6 @@ export default function GridDelayKnob({name,value,min,max,step,unit="",onChange,
     <path d="M32 13 V23" className="gd-knob-pointer" transform={`rotate(${angle} 32 32)`}/>
    </svg>
   </button>
-  <div className="gd-knob-readout"><input ref={input} type="number" min={min} max={max} step={step} value={value} aria-label={name+" exact value"} onChange={e=>{if(e.target.value!=="")commit(Number(e.target.value))}}/><span>{unit}</span></div>
+  <div className="gd-knob-readout"><input ref={input} type="number" min={min} max={max} step={step} value={editing?draft:String(value)} aria-label={name+" exact value"} onFocus={()=>{setEditing(true);setDraft(String(value))}} onChange={e=>setDraft(e.target.value)} onBlur={()=>{if(draft.trim()!=="")commit(Number(draft));setEditing(false)}} onKeyDown={e=>{if(e.key==="Enter")e.currentTarget.blur();if(e.key==="Escape"){setDraft(String(value));e.currentTarget.blur()}}}/><span>{unit}</span></div>
  </div>;
 }
