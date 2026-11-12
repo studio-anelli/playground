@@ -31,51 +31,53 @@ export default function GridDelayMachine(){
  const settingsRef=useRef(defaults),oscRef=useRef<DelayWave[]>([{shape:"sine",rate:.18,depth:75,phase:0,enabled:true},{shape:"triangle",rate:.13,depth:65,phase:0,enabled:true},{shape:"sine",rate:.32,depth:55,phase:0,enabled:true}]),patchRef=useRef<DelayPatch[]>([{id:"c0-scale",wave:0,target:"scale",amount:35},{id:"c1-delay",wave:1,target:"delay",amount:50}]);
  const visualRef=useRef<{ink:string;background:string;blend:BlendMode}>({ink:"#20241f",background:"#edeae3",blend:"source-over"}),linkedRef=useRef(false);
  const motionRef=useRef<Motion>("horizontal"),patternRef=useRef<Pattern>("wave"),textRef=useRef("DELAY"),fontRef=useRef("Arial, Helvetica, sans-serif"),alignRef=useRef<TextAlign>("center"),vAlignRef=useRef<VerticalAlign>("middle"),deformRef=useRef<DeformMode>("rigid"),playingRef=useRef(true),gridRef=useRef(false);
+ const [renderError,setRenderError]=useState<string|null>(null),dirtyRef=useRef(true);
  const [alignText,setAlignText]=useState<TextAlign>("center"),[alignVertical,setAlignVertical]=useState<VerticalAlign>("middle"),[deformMode,setDeformMode]=useState<DeformMode>("rigid");
  const [ink,setInk]=useState("#20241f"),[backgroundColor,setBackgroundColor]=useState("#edeae3"),[blend,setBlend]=useState<BlendMode>("source-over"),[linked,setLinked]=useState(false);
  const [params,setParams]=useState(defaults),[motion,setMotion]=useState<Motion>("horizontal"),[pattern,setPattern]=useState<Pattern>("wave"),[sourceText,setSourceText]=useState("DELAY"),[font,setFont]=useState("Arial, Helvetica, sans-serif"),[osc,setOsc]=useState<DelayWave[]>(oscRef.current),[patches,setPatches]=useState<DelayPatch[]>(patchRef.current),[playing,setPlaying]=useState(true),[showGrid,setShowGrid]=useState(false),[tab,setTab]=useState<"patch"|"source"|"grid"|"fx">("patch"),[open,setOpen]=useState(true),[fullscreen,setFullscreen]=useState(false),[hasImage,setHasImage]=useState(false);
- function change(name:Param,value:number){setParams(p=>{const next={...p,[name]:value};
+ function change(name:Param,value:number){dirtyRef.current=true;setParams(p=>{const next={...p,[name]:value};
   if(linkedRef.current&&(name==="columns"||name==="rows")){
    const ratio=value/Math.max(1,p[name]),other=name==="columns"?"rows":"columns";
    next[other]=Math.round(clamp(p[other]*ratio,1,other==="rows"?32:48));
   }
   settingsRef.current=next;return next})}
- function updateColor(key:"ink"|"background",value:string){visualRef.current={...visualRef.current,[key]:value};if(key==="ink")setInk(value);else setBackgroundColor(value)}
- function updateBlend(value:BlendMode){visualRef.current={...visualRef.current,blend:value};setBlend(value)}
+ function updateColor(key:"ink"|"background",value:string){dirtyRef.current=true;visualRef.current={...visualRef.current,[key]:value};if(key==="ink")setInk(value);else setBackgroundColor(value)}
+ function updateBlend(value:BlendMode){dirtyRef.current=true;visualRef.current={...visualRef.current,blend:value};setBlend(value)}
  function updateLinked(value:boolean){linkedRef.current=value;setLinked(value)}
 
- function changeWaves(next:DelayWave[]){oscRef.current=next;setOsc(next)}
- function changePatches(next:DelayPatch[]){patchRef.current=next;setPatches(next)}
+ function changeWaves(next:DelayWave[]){dirtyRef.current=true;oscRef.current=next;setOsc(next)}
+ function changePatches(next:DelayPatch[]){dirtyRef.current=true;patchRef.current=next;setPatches(next)}
 
- function changeMotion(v:Motion){motionRef.current=v;setMotion(v)}
- function changePattern(v:Pattern){patternRef.current=v;setPattern(v)}
- function changeFont(v:string){fontRef.current=v;setFont(v)}
- function changeAlignment(v:TextAlign){alignRef.current=v;setAlignText(v)}
- function changeVertical(v:VerticalAlign){vAlignRef.current=v;setAlignVertical(v)}
- function changeDeformation(v:DeformMode){deformRef.current=v;setDeformMode(v)}
- function changeText(v:string){textRef.current=v;setSourceText(v)}
- async function upload(f?:File){if(!f||!f.type.startsWith("image/"))return;const url=URL.createObjectURL(f);const img=new Image();img.onload=()=>{image.current=img;setHasImage(true);URL.revokeObjectURL(url)};img.onerror=()=>URL.revokeObjectURL(url);img.src=url}
+ function changeMotion(v:Motion){dirtyRef.current=true;motionRef.current=v;setMotion(v)}
+ function changePattern(v:Pattern){dirtyRef.current=true;patternRef.current=v;setPattern(v)}
+ function changeFont(v:string){dirtyRef.current=true;fontRef.current=v;setFont(v)}
+ function changeAlignment(v:TextAlign){dirtyRef.current=true;alignRef.current=v;setAlignText(v)}
+ function changeVertical(v:VerticalAlign){dirtyRef.current=true;vAlignRef.current=v;setAlignVertical(v)}
+ function changeDeformation(v:DeformMode){dirtyRef.current=true;deformRef.current=v;setDeformMode(v)}
+ function changeText(v:string){dirtyRef.current=true;textRef.current=v;setSourceText(v)}
+ async function upload(f?:File){if(!f||!f.type.startsWith("image/"))return;const url=URL.createObjectURL(f);const img=new Image();img.onload=()=>{dirtyRef.current=true;image.current=img;setHasImage(true);URL.revokeObjectURL(url)};img.onerror=()=>URL.revokeObjectURL(url);img.src=url}
  useEffect(()=>{
   const output=canvas.current;if(!output)return;
   const source=document.createElement("canvas"),sc=source.getContext("2d",{alpha:false});
   if(!sc)return;
   let gpu:DelayGPU|null=null;
-  let raf=0,last=0,clock=0,accumulator=0,w=0,h=0,dpr=1,needsFirstFrame=true;
+  let raf=0,last=0,clock=0,accumulator=0,w=0,h=0,dpr=1,needsFirstFrame=true,failed=false;
   function resize(){
    const box=output.getBoundingClientRect();
    const width=Math.max(1,Math.round(box.width)),height=Math.max(1,Math.round(box.height));
    const quality=Math.min(window.devicePixelRatio||1,1.5);
-   if(width===w&&height===h&&quality===dpr&&gpu)return;
+   if(failed||width===w&&height===h&&quality===dpr&&gpu)return;
    w=width;h=height;dpr=quality;
    output.width=Math.round(w*dpr);output.height=Math.round(h*dpr);
    source.width=w;source.height=h;
    gpu?.dispose();
-   gpu=createDelayGPU(output,w,h);
-   needsFirstFrame=true;accumulator=0;
+   try{gpu=createDelayGPU(output,w,h);setRenderError(null)}
+   catch(error){failed=true;setRenderError(error instanceof Error?error.message:String(error));return}
+   needsFirstFrame=true;dirtyRef.current=true;accumulator=0;
   }
   const observer=new ResizeObserver(resize);
   const contextLost=(event:Event)=>{event.preventDefault();gpu=null;};
-  const contextRestored=()=>{w=0;resize()};
+  const contextRestored=()=>{failed=false;w=0;resize()};
   output.addEventListener("webglcontextlost",contextLost);
   output.addEventListener("webglcontextrestored",contextRestored);
   observer.observe(output);
@@ -166,7 +168,8 @@ export default function GridDelayMachine(){
     const speed=modulated(clock).speed;
     clock+=delta*speed;accumulator+=delta*speed;
    }
-   if(needsFirstFrame){makeSource(clock);needsFirstFrame=false;accumulator=0}
+   if(needsFirstFrame){makeSource(clock);needsFirstFrame=false;dirtyRef.current=false;accumulator=0}
+   if(dirtyRef.current&&!playingRef.current){makeSource(clock);dirtyRef.current=false}
    const interval=gpu.interval;
    if(playingRef.current&&accumulator>=interval){makeSource(clock);accumulator%=interval}
    const p=modulated(clock);
@@ -193,7 +196,7 @@ export default function GridDelayMachine(){
  const control=(k:Param)=><Control key={k} name={k} value={params[k]} onChange={v=>change(k,v)}/>;
  return <main className="gd-machine" style={{"--gd-paper":"#edeae3"} as CSSProperties}>
   <header className="gd-top"><a href="/" className="gd-back" aria-label="Back to Playground index">← Experiments</a><strong>GRID DELAY MACHINE <span> / REC-13</span></strong><div><button aria-expanded={open} aria-controls="gd-controls-panel" onClick={()=>setOpen(v=>!v)}>{open?"Hide panel":"Show panel"}</button><button onClick={async()=>{if(!stage.current)return;if(!document.fullscreenElement){await stage.current.requestFullscreen();setFullscreen(true)}else{await document.exitFullscreen();setFullscreen(false)}}}>{fullscreen?"Exit fullscreen":"Fullscreen ↗"}</button></div></header>
-  <div className={"gd-workspace"+(open?(tab==="patch"?" gd-patch-open":""):" gd-no-panel")}><div ref={stage} className="gd-stage"><canvas ref={canvas} aria-label="Animated temporal grid sampling output"/><div className="gd-stage-caption">SOURCE / {hasImage?"IMAGE":"TYPE"} &nbsp; · &nbsp; MOTION / {motion.toUpperCase()}</div><div className="gd-stage-bottom"><span>{params.columns} × {params.rows} / {pattern.toUpperCase()}</span><div><button onClick={()=>{playingRef.current=!playingRef.current;setPlaying(playingRef.current)}}>{playing?"Ⅱ Pause":"▶ Play"}</button><button className={showGrid?"active":""} onClick={()=>{gridRef.current=!gridRef.current;setShowGrid(gridRef.current)}}>Grid</button></div></div></div>
+  <div className={"gd-workspace"+(open?(tab==="patch"?" gd-patch-open":""):" gd-no-panel")}><div ref={stage} className="gd-stage"><canvas ref={canvas} aria-label="Animated temporal grid sampling output"/>{renderError&&<div role="alert" className="gd-stage-error"><strong>WebGL2 renderer unavailable</strong><span>{renderError}</span></div>}<div className="gd-stage-caption">SOURCE / {hasImage?"IMAGE":"TYPE"} &nbsp; · &nbsp; MOTION / {motion.toUpperCase()}</div><div className="gd-stage-bottom"><span>{params.columns} × {params.rows} / {pattern.toUpperCase()}</span><div><button onClick={()=>{playingRef.current=!playingRef.current;setPlaying(playingRef.current)}}>{playing?"Ⅱ Pause":"▶ Play"}</button><button className={showGrid?"active":""} onClick={()=>{gridRef.current=!gridRef.current;setShowGrid(gridRef.current)}}>Grid</button></div></div></div>
   {open&&<aside id="gd-controls-panel" className="gd-panel" aria-label="Grid Delay controls"><nav className="gd-tabs">{(["patch","source","grid","fx"] as const).map(t=><button className={tab===t?"active":""} key={t} onClick={()=>setTab(t)}>{t}</button>)}</nav>
    {tab==="source"&&<div className="gd-panel-grid"><div className="gd-block"><h2>01 / INPUT</h2><textarea value={sourceText} onChange={e=>{changeText(e.target.value);image.current=null;setHasImage(false)}} rows={2} aria-label="Source text"/><div className="gd-inline"><button onClick={()=>file.current?.click()}>↑ Upload image</button>{hasImage&&<button onClick={()=>{image.current=null;setHasImage(false)}}>Use text</button>}<input ref={file} type="file" hidden accept="image/*" onChange={e=>upload(e.target.files?.[0])}/></div><h2>Typography</h2><select value={font} onChange={e=>changeFont(e.target.value)}><option value="Arial, Helvetica, sans-serif">Arial / System Sans</option><option value="Georgia, serif">Georgia / Serif</option><option value="'Times New Roman', serif">Times New Roman</option><option value="'Courier New', monospace">Courier Mono</option><option value="'GT Era Text', Arial, sans-serif">GT Era Text</option><option value="'GT Alpina Typewriter', monospace">GT Alpina Typewriter</option></select><div className="gd-control-group"><span>Horizontal alignment</span><Buttons values={["left","center","right"] as const} selected={alignText} onSelect={changeAlignment}/><span>Vertical alignment</span><Buttons values={["top","middle","bottom"] as const} selected={alignVertical} onSelect={changeVertical}/></div><div className="gd-controls">{(["fontSize","weight","tracking","lineHeight"] as Param[]).map(control)}</div><div className="gd-color-controls"><label>Font color <input type="color" value={ink} onChange={e=>updateColor("ink",e.target.value)}/></label><label>Background color <input type="color" value={backgroundColor} onChange={e=>updateColor("background",e.target.value)}/></label><label>Blend mode <select value={blend} onChange={e=>updateBlend(e.target.value as BlendMode)}>{blendModes.map(m=><option value={m} key={m}>{m}</option>)}</select></label></div></div><div className="gd-block"><h2>02 / SOURCE MOTION</h2><Buttons values={["horizontal","vertical","orbit","rotation","scale"] as const} selected={motion} onSelect={changeMotion}/><div className="gd-controls">{(["scale","speed","amplitude","positionX","positionY","rotation"] as Param[]).map(control)}</div></div></div>}
    {tab==="grid"&&<div className="gd-panel-grid"><div className="gd-block"><h2>03 / SAMPLING GRID</h2><div className="gd-grid-link"><label><input type="checkbox" checked={linked} onChange={e=>updateLinked(e.target.checked)}/> <span>Link columns &amp; rows</span></label></div><div className="gd-controls">{(["columns","rows","spacing"] as Param[]).map(control)}</div><p>Spacing reduces tile size to keep the complete composition in frame.</p></div><div className="gd-block"><h2>04 / TEMPORAL DELAY</h2><Buttons values={["wave","cascade","radial","random"] as const} selected={pattern} onSelect={changePattern}/><div className="gd-controls">{control("delay")}</div><p>Each stationary cell reads a different point in the source's recent motion history.</p></div></div>}
