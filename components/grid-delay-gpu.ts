@@ -173,23 +173,32 @@ void main(){
   vec2 tilePx=cellSize*uOutputSize;
   float seamPx=clamp(min(tilePx.x,tilePx.y)*.18,2.,10.);
   vec2 toEdge=min(local,1.-local)*tilePx;
-  if(toEdge.y<seamPx && cells.y>1.){
-   float direction=local.y<.5?-1.:1.;
-   vec2 other=cell+vec2(0.,direction);
-   if(other.y>=0.&&other.y<cells.y){
-    // Use the same image-space pixel and different historical timestamp.
-    vec3 otherColor=texture(uFrames,vec3(sourceUV,float(historyLayer(other)))).rgb;
-    float weight=.5*(1.-smoothstep(0.,seamPx,toEdge.y));
-    result=mix(result,compose(otherColor,uBackground),weight);
+  vec2 dir=mix(vec2(-1.),vec2(1.),step(vec2(.5),local));
+  vec2 xCell=cell+vec2(dir.x,0.);
+  vec2 yCell=cell+vec2(0.,dir.y);
+  vec2 xyCell=cell+dir;
+  float wx=0.,wy=0.;
+  if(cells.x>1.&&xCell.x>=0.&&xCell.x<cells.x&&toEdge.x<seamPx)
+   wx=.5*(1.-smoothstep(0.,seamPx,toEdge.x));
+  if(cells.y>1.&&yCell.y>=0.&&yCell.y<cells.y&&toEdge.y<seamPx)
+   wy=.5*(1.-smoothstep(0.,seamPx,toEdge.y));
+  // Four-way temporal interpolation at corners avoids a residual stitch
+  // where two independently blended seams intersect.
+  if(wx>0.||wy>0.){
+   vec3 xColor=result;
+   if(wx>0.){
+    vec3 c=texture(uFrames,vec3(sourceUV,float(historyLayer(xCell)))).rgb;
+    xColor=compose(c,uBackground);
    }
-  }
-  if(toEdge.x<seamPx && cells.x>1.){
-   float direction=local.x<.5?-1.:1.;
-   vec2 other=cell+vec2(direction,0.);
-   if(other.x>=0.&&other.x<cells.x){
-    vec3 otherColor=texture(uFrames,vec3(sourceUV,float(historyLayer(other)))).rgb;
-    float weight=.5*(1.-smoothstep(0.,seamPx,toEdge.x));
-    result=mix(result,compose(otherColor,uBackground),weight);
+   result=mix(result,xColor,wx);
+   if(wy>0.){
+    vec3 c=texture(uFrames,vec3(sourceUV,float(historyLayer(yCell)))).rgb;
+    vec3 yColor=compose(c,uBackground);
+    if(wx>0.){
+     vec3 corner=texture(uFrames,vec3(sourceUV,float(historyLayer(xyCell)))).rgb;
+     yColor=mix(yColor,compose(corner,uBackground),wx);
+    }
+    result=mix(result,yColor,wy);
    }
   }
  }
