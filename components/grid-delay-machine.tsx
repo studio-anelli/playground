@@ -14,7 +14,7 @@ type Settings = Record<Param, number>;
 type BlendMode="source-over"|"multiply"|"screen"|"overlay"|"difference"|"exclusion"|"lighten"|"darken";
 const blendModes:BlendMode[]=["source-over","multiply","screen","overlay","difference","exclusion","lighten","darken"];
 const rotateHue=(hex:string,degrees:number)=>{const raw=hex.replace("#","");const rgb=[0,2,4].map(i=>parseInt(raw.slice(i,i+2),16)/255);const max=Math.max(...rgb),min=Math.min(...rgb),d=max-min,l=(max+min)/2;let h=0,sat=0;if(d){sat=d/(1-Math.abs(2*l-1));switch(max){case rgb[0]:h=((rgb[1]-rgb[2])/d)%6;break;case rgb[1]:h=(rgb[2]-rgb[0])/d+2;break;default:h=(rgb[0]-rgb[1])/d+4}h=h*60}h=(h+degrees%360+360)%360;sat=Math.max(sat,.55*Math.min(1,Math.abs(degrees)/90));const c=(1-Math.abs(2*l-1))*sat,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2;let v=[0,0,0];if(h<60)v=[c,x,0];else if(h<120)v=[x,c,0];else if(h<180)v=[0,c,x];else if(h<240)v=[0,x,c];else if(h<300)v=[x,0,c];else v=[c,0,x];return "#"+v.map(n=>Math.round((n+m)*255).toString(16).padStart(2,"0")).join("")};
-const defaults:Settings={deformAmount:35,deformFrequency:2.5,deformFlow:1,columns:1,rows:32,spacing:0,delay:1.8,speed:2.1,amplitude:65,scale:41,fontSize:34,weight:900,tracking:-8,lineHeight:.8,positionX:0,positionY:0,rotation:0};
+const defaults:Settings={deformAmount:76,deformFrequency:9,deformFlow:1,columns:30,rows:20,spacing:0,delay:4.4,speed:2.1,amplitude:65,scale:82,fontSize:63,weight:100,tracking:-8,lineHeight:.8,positionX:0,positionY:0,rotation:0};
 const specs:Record<Param,[string,number,number,number,string]>={
  deformAmount:["Lens strength",0,100,1,"%"],deformFrequency:["Lens curvature",.2,12,.1,""],deformFlow:["Lens breathing",0,4,.05,"×"],
  columns:["Columns",1,48,1,""],rows:["Rows",1,32,1,""],spacing:["Grid spacing",0,150,1,"%"],delay:["Time delay",0,5,.05,"s"],speed:["Speed",0,3,.05,"×"],amplitude:["Motion amplitude",0,100,1,"%"],scale:["Source scale",10,300,1,"%"],
@@ -28,9 +28,9 @@ function Control({name,value,onChange}:{name:Param;value:number;onChange:(n:numb
 function Buttons<T extends string>({values,selected,onSelect}:{values:readonly T[];selected:T;onSelect:(v:T)=>void}){return <div className="gd-pills">{values.map(v=><button type="button" key={v} className={selected===v?"selected":""} onClick={()=>onSelect(v)}>{v}</button>)}</div>}
 export default function GridDelayMachine(){
  const canvas=useRef<HTMLCanvasElement>(null),stage=useRef<HTMLDivElement>(null),file=useRef<HTMLInputElement>(null),image=useRef<HTMLImageElement|null>(null);
- const settingsRef=useRef(defaults),oscRef=useRef<DelayWave[]>([{shape:"sine",rate:.01,depth:75,phase:0,enabled:true},{shape:"triangle",rate:.13,depth:65,phase:0,enabled:true},{shape:"square",rate:.20,depth:75,phase:0,enabled:true}]),patchRef=useRef<DelayPatch[]>([]);
- const visualRef=useRef<{ink:string;background:string;blend:BlendMode}>({ink:"#ffffff",background:"#969696",blend:"source-over"}),linkedRef=useRef(false);
- const motionRef=useRef<Motion>("scale"),patternRef=useRef<Pattern>("wave"),textRef=useRef("Hey\ngood\nlooking"),fontRef=useRef("Arial, Helvetica, sans-serif"),alignRef=useRef<TextAlign>("center"),vAlignRef=useRef<VerticalAlign>("middle"),deformRef=useRef<DeformMode>("rigid"),playingRef=useRef(true),gridRef=useRef(false);
+ const settingsRef=useRef(defaults),oscRef=useRef<DelayWave[]>([{shape:"sine",rate:.01,depth:75,phase:0,enabled:true},{shape:"triangle",rate:.13,depth:65,phase:0,enabled:true},{shape:"sine",rate:1.08,depth:62,phase:0,enabled:true}]),patchRef=useRef<DelayPatch[]>([{id:"c2-inkHue",wave:2,target:"inkHue",amount:100}]);
+ const visualRef=useRef<{ink:string;background:string;blend:BlendMode}>({ink:"#1133ff",background:"#000000",blend:"source-over"}),linkedRef=useRef(false);
+ const motionRef=useRef<Motion>("scale"),patternRef=useRef<Pattern>("radial"),textRef=useRef("play"),fontRef=useRef("Arial, Helvetica, sans-serif"),alignRef=useRef<TextAlign>("center"),vAlignRef=useRef<VerticalAlign>("middle"),deformRef=useRef<DeformMode>("pinch"),playingRef=useRef(true),gridRef=useRef(false);
  const patchGainRef=useRef<DelayInputGains>({});
  const [patchGains,setPatchGains]=useState<DelayInputGains>({});
  const delayModeRef=useRef<"image"|"black">("image"),blackHoldRef=useRef(35);
@@ -43,9 +43,9 @@ export default function GridDelayMachine(){
  const qualityRef=useRef<DelayQuality>("balanced");
  const [quality,setQuality]=useState<DelayQuality>("balanced");
  const [renderError,setRenderError]=useState<string|null>(null),dirtyRef=useRef(true);
- const [alignText,setAlignText]=useState<TextAlign>("center"),[alignVertical,setAlignVertical]=useState<VerticalAlign>("middle"),[deformMode,setDeformMode]=useState<DeformMode>("rigid");
- const [ink,setInk]=useState("#ffffff"),[backgroundColor,setBackgroundColor]=useState("#969696"),[blend,setBlend]=useState<BlendMode>("source-over"),[linked,setLinked]=useState(false);
- const [params,setParams]=useState(defaults),[motion,setMotion]=useState<Motion>("scale"),[pattern,setPattern]=useState<Pattern>("wave"),[sourceText,setSourceText]=useState("Hey\ngood\nlooking"),[font,setFont]=useState("Arial, Helvetica, sans-serif"),[osc,setOsc]=useState<DelayWave[]>(oscRef.current),[patches,setPatches]=useState<DelayPatch[]>(patchRef.current),[playing,setPlaying]=useState(true),[showGrid,setShowGrid]=useState(false),[tab,setTab]=useState<"patch"|"source"|"grid"|"fx">("patch"),[open,setOpen]=useState(true),[fullscreen,setFullscreen]=useState(false),[hasImage,setHasImage]=useState(false);
+ const [alignText,setAlignText]=useState<TextAlign>("center"),[alignVertical,setAlignVertical]=useState<VerticalAlign>("middle"),[deformMode,setDeformMode]=useState<DeformMode>("pinch");
+ const [ink,setInk]=useState("#1133ff"),[backgroundColor,setBackgroundColor]=useState("#000000"),[blend,setBlend]=useState<BlendMode>("source-over"),[linked,setLinked]=useState(false);
+ const [params,setParams]=useState(defaults),[motion,setMotion]=useState<Motion>("scale"),[pattern,setPattern]=useState<Pattern>("radial"),[sourceText,setSourceText]=useState("play"),[font,setFont]=useState("Arial, Helvetica, sans-serif"),[osc,setOsc]=useState<DelayWave[]>(oscRef.current),[patches,setPatches]=useState<DelayPatch[]>(patchRef.current),[playing,setPlaying]=useState(true),[showGrid,setShowGrid]=useState(false),[tab,setTab]=useState<"patch"|"source"|"grid"|"fx">("patch"),[open,setOpen]=useState(true),[fullscreen,setFullscreen]=useState(false),[hasImage,setHasImage]=useState(false);
  function change(name:Param,value:number){dirtyRef.current=true;setParams(p=>{const next={...p,[name]:value};
   if(linkedRef.current&&(name==="columns"||name==="rows")){
    const ratio=value/Math.max(1,p[name]),other=name==="columns"?"rows":"columns";
