@@ -57,6 +57,7 @@ uniform float uGlobalStrength;
 uniform float uGlobalSize;
 uniform float uGlobalGrowth;
 uniform float uAspect;
+uniform vec2 uOutputSize;
 float hash21(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float patternValue(vec2 cell){
  vec2 center=(cell+.5)/uGrid;
@@ -64,6 +65,17 @@ float patternValue(vec2 cell){
  if(uPattern==2)return min(1.,length(center-vec2(.5))*1.42);
  if(uPattern==3)return hash21(cell);
  return .5+.5*sin(center.x*8.+center.y*5.);
+}
+// Retrieve a complete historical frame for a cell. Adjacent cells are
+// blended only in a very narrow output-pixel edge anti-alias band.
+int historyLayer(vec2 c){
+ float secondsAgo=max(0.,patternValue(c)*uDelay);
+ if(uCount>0 && secondsAgo>max(.0001,uElapsed*.5)){
+  float past=max(0.,secondsAgo-uElapsed)/max(.0001,uInterval);
+  int age=min(int(floor(past+.5)),uCount-1);
+  return (uNewest-age+uCapacity)%uCapacity;
+ }
+ return uLiveLayer;
 }
 vec3 compose(vec3 sampleColor,vec3 bg){
  if(uBlend==1)return sampleColor*bg;
@@ -139,15 +151,8 @@ void main(){
  // The current frame is uploaded every RAF while historical snapshots
  // occupy a separate ring. Never crossfade distinct text shapes.
  float secondsAgo=max(0.,patternValue(cell)*uDelay);
- // Choose exactly ONE complete historical frame per cell: blending between
- // two text frames creates unwanted transparent-looking doubled letterforms.
- // The current (zero-delay) frame still refreshes every animation frame.
- int selectedLayer=uLiveLayer;
- if(uCount>0 && secondsAgo>max(.0001,uElapsed*.5)){
-  float past=max(0.,secondsAgo-uElapsed)/max(.0001,uInterval);
-  int age=min(int(floor(past+.5)),uCount-1);
-  selectedLayer=(uNewest-age+uCapacity)%uCapacity;
- }
+ // A complete historical frame per tile, with just a subpixel seam transition.
+ int selectedLayer=historyLayer(cell);
  // Black mode gates each cell using its delay offset, without blending.
  // Return pure black before any texture lookup or grid decoration.
  if(uDelayMode==1){
@@ -157,6 +162,38 @@ void main(){
  // The image mode and the visible interval of black mode share the sample.
  vec3 sampleColor=texture(uFrames,vec3(sourceUV,float(selectedLayer))).rgb;
  vec3 result=compose(sampleColor,uBackground);
+ // Prevent a one-pixel horizontal/vertical "gate" at exact tile boundaries.
+ // Temporal discontinuities remain crisp inside each cell: only the two
+ // pixels nearest an edge are anti-aliased when Grid is hidden.
+ // Do not soften intentional black gates or visible grid outlines.
+ if(!uGridVisible && uDelayMode==0 && uDelay>.001){
+  vec2 edgePx=min(local,1.-local)*cellSize*uOutputSize;
+  vec2 sourcePixels=vec2(textureSize(uFrames,0).xy);
+  // Safely pull the neighbouring sample from INSIDE its own tile, never
+  // from a texture filtering footprint that crosses an unrelated cell.
+  if(edgePx.y<1.5){
+   float side=local.y<.5?-1.:1.;
+   vec2 other=cell+vec2(0.,side);
+   if(other.y>=0.&&other.y<cells.y){
+    vec2 otherLocal=clamp(vec2(sampleLocal.x,1.-local.y),inset,1.-inset);
+    vec2 otherUV=(other+otherLocal)/cells;
+    vec3 otherColor=texture(uFrames,vec3(otherUV,float(historyLayer(other)))).rgb;
+    float edgeMix=.5*(1.-smoothstep(0.,1.5,edgePx.y));
+    result=mix(result,compose(otherColor,uBackground),edgeMix);
+   }
+  }
+  if(edgePx.x<1.5){
+   float side=local.x<.5?-1.:1.;
+   vec2 other=cell+vec2(side,0.);
+   if(other.x>=0.&&other.x<cells.x){
+    vec2 otherLocal=clamp(vec2(1.-local.x,sampleLocal.y),inset,1.-inset);
+    vec2 otherUV=(other+otherLocal)/cells;
+    vec3 otherColor=texture(uFrames,vec3(otherUV,float(historyLayer(other)))).rgb;
+    float edgeMix=.5*(1.-smoothstep(0.,1.5,edgePx.x));
+    result=mix(result,compose(otherColor,uBackground),edgeMix);
+   }
+  }
+ }
  if(uGridVisible){
    vec2 rim=min(local,1.-local)*cellSize*cells;
    if(min(rim.x,rim.y)<.006)result=mix(result,vec3(.13,.15,.13),.22);
@@ -262,7 +299,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   background:uniforms("uBackground"),blend:uniforms("uBlend"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
   flow:uniforms("uFlow"),time:uniforms("uTime"),
-  globalMode:uniforms("uGlobalMode"),globalStrength:uniforms("uGlobalStrength"),globalSize:uniforms("uGlobalSize"),globalGrowth:uniforms("uGlobalGrowth"),aspect:uniforms("uAspect")
+  globalMode:uniforms("uGlobalMode"),globalStrength:uniforms("uGlobalStrength"),globalSize:uniforms("uGlobalSize"),globalGrowth:uniforms("uGlobalGrowth"),aspect:uniforms("uAspect"),outputSize:uniforms("uOutputSize")
  };
  // Capture a history snapshot by copying the live texture layer on the GPU.
  // This avoids a second full-canvas CPU->GPU upload on every capture.
@@ -378,6 +415,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.uniform1f(loc.globalSize,p.globalSize);
   gl.uniform1f(loc.globalGrowth,p.globalGrowth);
   gl.uniform1f(loc.aspect,canvas.width/Math.max(1,canvas.height));
+  gl.uniform2f(loc.outputSize,canvas.width,canvas.height);
   gl.drawArrays(gl.TRIANGLES,0,3);
   if(!useFeedback||!feedbackTargets)return;
   // Stage 2 combines the newly assembled frame with the last snapshot.
