@@ -9,7 +9,7 @@ type Param = "columns"|"rows"|"spacing"|"delay"|"speed"|"amplitude"|"scale"|"fon
 type Settings = Record<Param, number>;
 const defaults:Settings={columns:16,rows:10,spacing:0,delay:1.8,speed:1,amplitude:65,scale:100,fontSize:34,weight:800,tracking:0,lineHeight:1,positionX:0,positionY:0,rotation:0};
 const specs:Record<Param,[string,number,number,number,string]>={
- columns:["Columns",2,48,1,""],rows:["Rows",2,32,1,""],spacing:["Grid spacing",0,150,1,"%"],delay:["Time delay",0,5,.05,"s"],speed:["Speed",0,3,.05,"×"],amplitude:["Motion amplitude",0,100,1,"%"],scale:["Source scale",10,300,1,"%"],
+ columns:["Columns",1,48,1,""],rows:["Rows",1,32,1,""],spacing:["Grid spacing",0,150,1,"%"],delay:["Time delay",0,5,.05,"s"],speed:["Speed",0,3,.05,"×"],amplitude:["Motion amplitude",0,100,1,"%"],scale:["Source scale",10,300,1,"%"],
  fontSize:["Font size",5,120,1,"%"],weight:["Weight",100,900,10,""],tracking:["Letter spacing",-10,30,.5,"%"],lineHeight:["Line height",.6,2.5,.05,""],
  positionX:["Position X",-100,100,1,"%"],positionY:["Position Y",-100,100,1,"%"],rotation:["Rotation",-180,180,1,"°"]};
 const clamp=(v:number,min:number,max:number)=>Math.min(max,Math.max(min,v));
