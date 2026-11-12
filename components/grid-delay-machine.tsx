@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import "./grid-delay.css";
-import GridDelayPatchBay, {type DelayWave,type DelayPatch,type DelayTarget,type DelayInputGains,knownTargets,beatDivisions,syncSeconds,type BeatDivision} from "./grid-delay-patch-bay";
+import GridDelayPatchBay, {type DelayWave,type DelayPatch,type DelayTarget,type DelayInputGains,knownTargets,beatDivisions,divisionBeats,syncSeconds,type BeatDivision} from "./grid-delay-patch-bay";
 import {createDelayGPU, type DelayGPU, type DelayQuality} from "./grid-delay-gpu";
 import {parseGridDelayPreset, type GridDelayPreset} from "./grid-delay-preset";
 
@@ -24,7 +24,7 @@ const specs:Record<Param,[string,number,number,number,string]>={
 const clamp=(v:number,min:number,max:number)=>Math.min(max,Math.max(min,v));
 const rgb=(hex:string):[number,number,number]=>[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255) as [number,number,number];
 const hash=(x:number,y:number)=>{const a=Math.sin(x*127.1+y*311.7)*43758.5453;return a-Math.floor(a)};
-const oscValue=(o:DelayWave,t:number,beatClock:number)=>{const p=(o.sync?beatClock/({ "2 bars":8,"1 bar":4,"1/2":2,"1/4":1,"1/8":.5,"1/16":.25,"1/32":.125,"1/4 dotted":1.5,"1/8 dotted":.75,"1/16 dotted":.375,"1/4 triplet":2/3,"1/8 triplet":1/3,"1/16 triplet":1/6 }[o.division??"1/4"]):t*o.rate)+o.phase;switch(o.shape){case "triangle":return 1-4*Math.abs(p-Math.floor(p)-.5);case "square":return Math.sin(p*Math.PI*2)>0?1:-1;case "noise":return hash(Math.floor(p*7),9)*2-1;case "ramp":return 2*(p-Math.floor(p))-1;default:return Math.sin(p*Math.PI*2)}};
+const oscValue=(o:DelayWave,t:number,beatClock:number)=>{const p=(o.sync?beatClock/divisionBeats[o.division??"1/4"]:t*o.rate)+o.phase;switch(o.shape){case "triangle":return 1-4*Math.abs(p-Math.floor(p)-.5);case "square":return Math.sin(p*Math.PI*2)>0?1:-1;case "noise":return hash(Math.floor(p*7),9)*2-1;case "ramp":return 2*(p-Math.floor(p))-1;default:return Math.sin(p*Math.PI*2)}};
 function Control({name,value,onChange}:{name:Param;value:number;onChange:(n:number)=>void}){const [label,min,max,step,unit]=specs[name];return <label className="gd-control"><span>{label}<output>{Number(value.toFixed(2))}{unit}</output></span><input type="range" min={min} max={max} step={step} value={value} onChange={e=>onChange(Number(e.target.value))}/></label>}
 function Buttons<T extends string>({values,selected,onSelect}:{values:readonly T[];selected:T;onSelect:(v:T)=>void}){return <div className="gd-pills">{values.map(v=><button type="button" key={v} className={selected===v?"selected":""} onClick={()=>onSelect(v)}>{v}</button>)}</div>}
 export default function GridDelayMachine(){
