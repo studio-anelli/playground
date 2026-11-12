@@ -124,8 +124,10 @@ void main(){
    // Lower curvature as tile resolution shrinks. Otherwise small tiles
    // become dozens of hard-edged repeats instead of a readable lens.
    float curvature=(.08+clamp(uFrequency,.2,12.)*.036)*mix(.65,1.,detailBudget);
-   // Smoothly tapered refraction avoids abrupt micro-lens rims.
-   float refraction=min(.58,slope*curvature*glass);
+   // Smooth saturation instead of a hard displacement clamp. This keeps
+   // derivatives continuous and reduces stair-stepping around strong lenses.
+   float rawRefraction=max(0.,slope*curvature*glass);
+   float refraction=.58*(1.-exp(-rawRefraction/.58));
    vec2 ray=q*(uMode==1?1.-refraction:1.+refraction);
    sampleLocal=.5+.5*ray;
  }
