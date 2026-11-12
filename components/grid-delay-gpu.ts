@@ -107,33 +107,30 @@ void main(){
  bool invalid=outside||any(lessThan(local,vec2(0.)))||any(greaterThanEqual(local,vec2(1.)))||any(greaterThanEqual(cell,cells));
  if(invalid){outColor=vec4(uBackground,1.);return;}
 
- // Optical refraction is evaluated independently in each stationary cell.
- // The actual source pixels available in the tile determine lens quality:
- // a 24-pixel tile cannot resolve a full glass curvature without aliasing.
+ // A monotonic radial lens is essential: the previous slope/refraction
+ // formulation could fold source coordinates over themselves near the rim.
+ // That produced the hard clipped blocks and duplicated glyph outlines.
  vec2 sampleLocal=local;
  vec2 tilePixels=max(vec2(1.),cellSize*vec2(textureSize(uFrames,0).xy));
- float minPixels=min(tilePixels.x,tilePixels.y);
- float detailBudget=smoothstep(14.,64.,minPixels);
- float strength=clamp(uAmount,0.,1.)*detailBudget;
- if(uMode!=0 && detailBudget>.001){
+ float detailBudget=smoothstep(14.,56.,min(tilePixels.x,tilePixels.y));
+ if(uMode!=0 && uAmount>0. && detailBudget>.001){
    float seed=hash21(cell+vec2(9.7,23.1));
    float seedB=hash21(cell+vec2(43.2,8.5));
    float phase=uTime*uFlow*(.48+seed*.46)+seedB*6.2831853;
    vec2 q=(local-.5)*2.;
    float radius2=dot(q,q);
-   float inside=1.-smoothstep(.68,1.0,radius2);
-   float glass=clamp(strength*(1.+.08*sin(phase*.55)),0.,1.);
-   float bulge=sqrt(max(.045,1.-min(radius2,.955)));
-   float slope=(1./bulge-1.)*inside;
-   // Lower curvature as tile resolution shrinks. Otherwise small tiles
-   // become dozens of hard-edged repeats instead of a readable lens.
-   float curvature=(.08+clamp(uFrequency,.2,12.)*.036)*mix(.65,1.,detailBudget);
-   // Smooth saturation instead of a hard displacement clamp. This keeps
-   // derivatives continuous and reduces stair-stepping around strong lenses.
-   float rawRefraction=max(0.,slope*curvature*glass);
-   float refraction=.58*(1.-exp(-rawRefraction/.58));
-   vec2 ray=q*(uMode==1?1.-refraction:1.+refraction);
-   sampleLocal=.5+.5*ray;
+   // Strength and curvature share a bounded optical budget. Even at maximum
+   // settings the mapping remains one-to-one in both modes.
+   float curvature=clamp(uFrequency,.2,12.)/12.;
+   float breathing=1.+.07*sin(phase*.55);
+   float k=clamp(uAmount,0.,1.)*detailBudget*mix(.20,.70,curvature)*breathing;
+   k=min(k,.72);
+   // Exactly zero at the cell perimeter, no discontinuous clamping at edges.
+   // r' = r(1 +/- k(1-r²)^2) for r in [0,1].
+   // Fisheye's minimum radial derivative >= 1-k; pinch's >= 1-.8k.
+   float falloff=pow(max(0.,1.-radius2),2.);
+   float radiusScale=uMode==1?1.-k*falloff:1.+k*falloff;
+   sampleLocal=.5+.5*q*radiusScale;
  }
  // Half-pixel inset avoids texture filtering across neighbouring cells.
  vec2 inset=min(vec2(.49),.5/max(cellSize*vec2(textureSize(uFrames,0).xy),vec2(1.)));
