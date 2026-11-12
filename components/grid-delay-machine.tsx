@@ -155,13 +155,31 @@ export default function GridDelayMachine(){
    textCacheKey=key;
    const sx=source.width/w,sy=source.height/h;
    const lines=textRef.current.split("\n").slice(0,6),size=h*p.fontSize/100;
+   const tracking=size*p.tracking/100;
    tc!.font=p.weight+" "+size+"px "+fontRef.current;
-   const letterSpacing=size*p.tracking/100;
-   const layout=lines.map(line=>{
-    const chars=Array.from(line),widths=chars.map(ch=>tc!.measureText(ch).width);
-    const width=widths.reduce((a,b)=>a+b,0)+Math.max(0,chars.length-1)*letterSpacing;
-    return {chars,widths,width};
-   });
+   tc!.fontKerning="normal";
+   tc!.textBaseline="middle";
+   tc!.textAlign="left";
+   // Native whole-line shaping avoids the incorrect half-character offsets
+   // and preserves kerning pairs such as 'He', 'oo', and 'ki'.
+   const hasNativeSpacing="letterSpacing" in tc!;
+   const measureLine=(line:string)=>{
+    if(hasNativeSpacing){
+     tc!.letterSpacing=tracking+"px";
+     return tc!.measureText(line).width;
+    }
+    const chars=Array.from(line);
+    let width=0,previous="";
+    for(const ch of chars){
+     const advance=tc!.measureText(ch).width;
+     if(previous){
+      width+=tracking+tc!.measureText(previous+ch).width-tc!.measureText(previous).width-advance;
+     }
+     width+=advance;previous=ch;
+    }
+    return width;
+   };
+   const layout=lines.map(line=>({text:line,width:measureLine(line)}));
    const advance=size*p.lineHeight,total=layout.length*advance;
    const positioned=layout.map((line,i)=>{
     const x=alignRef.current==="left"?0:alignRef.current==="right"?-line.width:-line.width/2;
@@ -179,12 +197,26 @@ export default function GridDelayMachine(){
    textLogicalH=Math.max(1,bottom-textOriginY);
    textLayer.width=Math.max(1,Math.ceil(textLogicalW*sx));
    textLayer.height=Math.max(1,Math.ceil(textLogicalH*sy));
+   // Resizing the canvas resets font and spacing state.
    tc!.setTransform(sx,0,0,sy,-textOriginX*sx,-textOriginY*sy);
-   tc!.textBaseline="middle";tc!.fillStyle=ink;
+   tc!.textBaseline="middle";tc!.textAlign="left";tc!.fillStyle=ink;
    tc!.font=p.weight+" "+size+"px "+fontRef.current;
+   tc!.fontKerning="normal";
+   if(hasNativeSpacing)tc!.letterSpacing=tracking+"px";
    positioned.forEach(line=>{
-    let x=line.x;
-    line.chars.forEach((ch,j)=>{tc!.fillText(ch,x+line.widths[j]/2,line.y);x+=line.widths[j]+letterSpacing});
+    if(hasNativeSpacing||tracking===0){
+     tc!.fillText(line.text,line.x,line.y);
+    }else{
+     // Fallback for browsers without Canvas letterSpacing: advance each glyph
+     // using pair-aware kerning rather than its half-width as an offset.
+     let x=line.x,previous="";
+     for(const ch of Array.from(line.text)){
+      const advance=tc!.measureText(ch).width;
+      if(previous)x+=tracking+tc!.measureText(previous+ch).width-tc!.measureText(previous).width-advance;
+      tc!.fillText(ch,x,line.y);
+      x+=advance;previous=ch;
+     }
+    }
    });
   }
   function makeSource(t:number,p:ReturnType<typeof modulated>){
