@@ -190,7 +190,7 @@ label.gd-grid-link input{width:15px;height:15px;accent-color:#edeae3}
 .gd-bpm-module h2{margin-bottom:2px}
 
 /* Patch bay: outputs 2 × 2 above grouped, two-column inputs. */
-.gd-bay-columns,.gd-bay-columns{display:flex;flex-direction:column;gap:12px;padding:11px}
+.gd-bay-columns{display:flex;flex-direction:column;gap:12px;padding:11px}
 @media(min-width:761px){.gd-bay-columns{display:flex;flex-direction:column;gap:12px;padding:11px}}
 .gd-bay-sources{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .gd-bay-sources>.gd-bay-caption{grid-column:1/-1;margin-bottom:0}
