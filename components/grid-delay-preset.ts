@@ -1,6 +1,7 @@
 import type {DelayPatch,DelayTarget,DelayWave,DelayInputGains} from "./grid-delay-patch-bay";
 import type {DelayQuality} from "./grid-delay-gpu";
 
+export type GridDelayBlend="source-over"|"multiply"|"screen"|"overlay"|"difference"|"exclusion"|"lighten"|"darken";
 export type GridDelayPreset={
  kind:"grid-delay-machine";version:1;
  settings:Record<string,number>;
@@ -11,11 +12,11 @@ export type GridDelayPreset={
  pattern:"wave"|"cascade"|"radial"|"random";
  deformation:"rigid"|"fisheye"|"pinch";
  ink:string;background:string;
- blend:"source-over"|"multiply"|"screen"|"overlay"|"difference"|"exclusion"|"lighten"|"darken";
+ blend:GridDelayBlend;
  linked:boolean;grid:boolean;playing:boolean;quality:DelayQuality;
  delay:{mode:"image"|"black";blackHold:number};
  globalLens:{enabled:boolean;mode:"fisheye"|"pinch";strength:number;size:number;growth:number};
- feedback:{enabled:boolean;amount:number;decay:number;refresh:number;blend:GridDelayPreset["blend"]};
+ feedback:{enabled:boolean;amount:number;decay:number;refresh:number;blend:GridDelayBlend};
  image?:string|null;
 };
 const object=(v:unknown):v is Record<string,unknown>=>typeof v==="object"&&v!==null&&!Array.isArray(v);
