@@ -1,0 +1,3765 @@
+{
+  "11393080": {
+    "sources": [
+      "https://musicbrainz.org/artist/bc12bcac-4a2e-4ce1-9b7b-11d4cc9afa25"
+    ],
+    "basis": "geographic-note"
+  },
+  "25466773": {
+    "sources": [
+      "https://bejenec.bandcamp.com/album/slavic-breus-ep"
+    ],
+    "basis": "artist-context"
+  },
+  "7548627": {
+    "sources": [
+      "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac"
+    ],
+    "basis": "geographic-note"
+  },
+  "258314": {
+    "sources": [
+      "https://tek9.bandcamp.com/"
+    ],
+    "basis": "release-context"
+  },
+  "7798224": {
+    "sources": [
+      "https://fr.ra.co/dj/lucindo/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "154166": {
+    "sources": [
+      "https://www.newtone-records.com/label/4%2BLux",
+      "https://ra.co/dj/gerd"
+    ],
+    "basis": "artist-context"
+  },
+  "27538": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q4921470#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "1021651": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q7535877#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "13099166": {
+    "sources": [
+      "https://8mmrecords.bandcamp.com/album/turva-lingua"
+    ],
+    "basis": "artist-context"
+  },
+  "806687": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q193645#P937"
+    ],
+    "basis": "geographic-note"
+  },
+  "14248741": {
+    "sources": [
+      "https://musicbrainz.org/artist/20587005-7a2a-4b96-8f34-bc643bc4b60a"
+    ],
+    "basis": "geographic-note"
+  },
+  "1233959": {
+    "basis": "release-context",
+    "sources": [
+      "https://ci.nii.ac.jp/ncid/BA84978355"
+    ]
+  },
+  "39348": {
+    "sources": [
+      "https://acidjazz.co.uk/products/totally-wired"
+    ],
+    "basis": "release-context"
+  },
+  "27478812": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.createdefinerelease.com/producers/om-unit",
+      "https://inkonst.com/en/artists/andreas-tilliander-tm404-mokira"
+    ]
+  },
+  "13487844": {
+    "sources": [
+      "https://ra.co/dj/djpierre/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "12424634": {
+    "basis": "release-context",
+    "sources": [
+      "https://afrosynth.bandcamp.com/album/dance"
+    ]
+  },
+  "13056907": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q4006131#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "5035765": {
+    "sources": [
+      "https://musicbrainz.org/artist/5b92cd77-e05c-4c6c-a0e2-1fd3caf032de",
+      "https://powerstation.nyc/contact"
+    ],
+    "basis": "geographic-note"
+  },
+  "2981774": {
+    "sources": [
+      "https://tickets.citywinery.com/event/sun-ra-arkestra-quwhex"
+    ],
+    "basis": "artist-context"
+  },
+  "108283": {
+    "sources": [
+      "https://www.discogs.com/artist/80318"
+    ],
+    "basis": "artist-context"
+  },
+  "4253186": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/4346875a-2bba-4566-8dc1-680c38ba44c6",
+      "https://www.redbullmusicacademy.com/lectures/larry-heard-2018/"
+    ]
+  },
+  "11437823": {
+    "basis": "release-context",
+    "sources": [
+      "https://almanegramusic.bandcamp.com/album/visions"
+    ]
+  },
+  "13369708": {
+    "sources": [
+      "https://almanegramusic.bandcamp.com/album/visions"
+    ],
+    "basis": "geographic-note"
+  },
+  "125920": {
+    "basis": "release-context",
+    "sources": [
+      "https://wjai.org/esther-williams/",
+      "https://iconoclassicrecords.com/artist/the-soul-searchers/"
+    ]
+  },
+  "11065335": {
+    "basis": "release-context",
+    "sources": [
+      "https://afrobotic.bandcamp.com/album/05am"
+    ]
+  },
+  "20923105": {
+    "basis": "release-context",
+    "sources": [
+      "https://analogafrica.bandcamp.com/track/egye-tu-gbe"
+    ]
+  },
+  "30112238": {
+    "basis": "release-context",
+    "sources": [
+      "https://analogafrica.bandcamp.com/album/congo-funk-sound-madness-from-the-shores-of-the-mighty-congo-river-kinshasa-brazzaville-1969-1982-analog-africa-nr-38?from=footer-cc-a1289343264"
+    ]
+  },
+  "7555330": {
+    "sources": [
+      "https://www.allmusic.com/artist/darcangelo-mn0000139093",
+      "https://www.wikidata.org/wiki/Q126372744#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "10883955": {
+    "sources": [
+      "https://musicbrainz.org/artist/071cb80d-a198-4f88-b41e-f4dd9a65ec80"
+    ],
+    "basis": "geographic-note"
+  },
+  "21087580": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.anti.com/news/moor-mother-releases-new-album-black-encyclopedia-of-the-air-today/"
+    ]
+  },
+  "197500": {
+    "sources": [
+      "https://www.discogs.com/release/197500",
+      "https://www.discogs.com/artist/3773",
+      "https://www.discogs.com/master/1326773"
+    ],
+    "basis": "release-context"
+  },
+  "13588230": {
+    "sources": [
+      "https://www.discogs.com/release/13588230",
+      "https://www.discogs.com/artist/6692907",
+      "https://mygirlfriendsp.bandcamp.com/album/apron-ep"
+    ],
+    "basis": "release-context"
+  },
+  "8030996": {
+    "sources": [
+      "https://ra.co/dj/tomnoble/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "5956460": {
+    "basis": "release-context",
+    "sources": [
+      "https://5mag.net/features/stefano-zito-house-of-music/"
+    ]
+  },
+  "1356124": {
+    "sources": [
+      "https://musicbrainz.org/artist/2f2608ed-ff2b-400e-b614-8c648bfaae7b"
+    ],
+    "basis": "geographic-note"
+  },
+  "512650": {
+    "sources": [
+      "https://www.allmusic.com/artist/k-9-posse-mn0000839282"
+    ],
+    "basis": "artist-context"
+  },
+  "11780074": {
+    "sources": [
+      "https://musicbrainz.org/artist/d9733f21-71d7-4fa7-813d-67eca0f0eaaf/relationships",
+      "https://www.wikidata.org/wiki/Q65548769#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "12343877": {
+    "sources": [
+      "https://artyardrecords.co.uk/sun-ra-disco-3000-complete-milan-concert-1978/"
+    ],
+    "basis": "release-context"
+  },
+  "17614633": {
+    "sources": [
+      "https://www.slowmotionmusic.it/project/bottin/"
+    ],
+    "basis": "artist-context"
+  },
+  "1261891": {
+    "sources": [
+      "https://www.discogs.com/release/1261891",
+      "https://www.discogs.com/artist/14133",
+      "https://www.discogs.com/master/46230",
+      "https://www.discogs.com/release/20448",
+      "https://shadybrain.net/artist/optiv"
+    ],
+    "basis": "release-context"
+  },
+  "20431393": {
+    "basis": "release-context",
+    "sources": [
+      "https://henrykdebich.bandcamp.com/album/zbli-enie"
+    ]
+  },
+  "208447": {
+    "sources": [
+      "https://musicbrainz.org/artist/bd518350-09ad-4ecc-934e-11168e84227c"
+    ],
+    "basis": "geographic-note"
+  },
+  "962321": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q516712#P495",
+      "https://www.wikidata.org/wiki/Q516712#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "252518": {
+    "sources": [
+      "https://citizenfreak.com/artists/103854-suzy-q"
+    ],
+    "basis": "artist-context"
+  },
+  "11421995": {
+    "sources": [
+      "https://austinboogiecrewrecords.bandcamp.com/album/solar-shield"
+    ],
+    "basis": "artist-context"
+  },
+  "110": {
+    "sources": [
+      "https://www.discogs.com/release/110",
+      "https://www.discogs.com/artist/205",
+      "https://www.discogs.com/master/5908",
+      "https://www.detroithistorical.org/learn/online-research/encyclopedia-of-detroit/mills-jeff"
+    ],
+    "basis": "release-context"
+  },
+  "21461563": {
+    "sources": [
+      "https://www.sjchs.org/resource-hub/smart-living-magazine/may-june-2025/working-in-harmony"
+    ],
+    "basis": "artist-context"
+  },
+  "18720775": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q21086274#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "77058": {
+    "sources": [
+      "https://www.allmusic.com/artist/subject-13-mn0000488827"
+    ],
+    "basis": "artist-context"
+  },
+  "240699": {
+    "sources": [
+      "https://www.serendeepity.net/product/ackie-chesse-roots-call-me-rambo/"
+    ],
+    "basis": "release-context"
+  },
+  "1142878": {
+    "sources": [
+      "https://musicbrainz.org/artist/1751fa84-9e85-4c71-8330-2c7075dff06e"
+    ],
+    "basis": "geographic-note"
+  },
+  "14472273": {
+    "sources": [
+      "https://thegoodsinyou.bandcamp.com/album/ii"
+    ],
+    "basis": "artist-context"
+  },
+  "12362927": {
+    "sources": [
+      "https://viconsortium.com/mobile/vi-carnival/virgin-islands-mandingo-brass-founders-celebrated-as-carnival-village-opens-with-tribute-to-pinney-family-legacy"
+    ],
+    "basis": "artist-context"
+  },
+  "8653318": {
+    "sources": [
+      "https://musicbrainz.org/artist/65323ae4-1a49-497f-8f58-ae42b6c05eb6"
+    ],
+    "basis": "geographic-note"
+  },
+  "331602": {
+    "sources": [
+      "https://www.allmusic.com/artist/two-tons-o-fun-mn0000201946"
+    ],
+    "basis": "release-context"
+  },
+  "15729017": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.wikidata.org/wiki/Q4959697#P495",
+      "https://musicbrainz.org/artist/cbf1e36c-5f6f-4825-9527-d875e06bcfdc",
+      "https://tickets.citywinery.com/event/breakwater-4jm85e"
+    ]
+  },
+  "13852404": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.discogs.com/release/3535278"
+    ]
+  },
+  "302197": {
+    "sources": [
+      "https://www.balearicbreakfast.com/post/balearic-breakfast-episode-215-a-beatlesesque-magical-mystery-world-of-swirling-psychedelic-patterns"
+    ],
+    "basis": "artist-context"
+  },
+  "162975": {
+    "sources": [
+      "https://www.afrisson.com/in-the-bush/"
+    ],
+    "basis": "artist-context"
+  },
+  "777916": {
+    "sources": [
+      "https://ra.co/dj/lexx/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "13072057": {
+    "sources": [
+      "https://www.fabriziofattori.com/Bio.html"
+    ],
+    "basis": "artist-context"
+  },
+  "1614712": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.acerecords.co.uk/southern-funkin-louisiana-funk-and-soul-1967-1979",
+      "https://acerecords.co.uk/southern-funkin-louisiana-funk-and-soul-1967-1979"
+    ]
+  },
+  "4389": {
+    "sources": [
+      "https://musicbrainz.org/artist/f3d9beb7-d3a9-444b-8c9d-e1b2e6f76767"
+    ],
+    "basis": "geographic-note"
+  },
+  "14192193": {
+    "sources": [
+      "https://kusogvki.bandcamp.com/album/culture"
+    ],
+    "basis": "artist-context"
+  },
+  "193558": {
+    "sources": [
+      "https://lawauder.bandcamp.com/track/sea-of-chaos"
+    ],
+    "basis": "artist-context"
+  },
+  "2071439": {
+    "sources": [
+      "https://musicbrainz.org/artist/69f95e5c-4b34-4c8b-b8fe-c59f9296195a",
+      "https://soundfactoryhollywood.com/sound-factory-studio-b/"
+    ],
+    "basis": "geographic-note"
+  },
+  "2230011": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "https://www.museidigenova.it/it/node/622"
+    ]
+  },
+  "8539380": {
+    "sources": [
+      "https://www.discogs.com/release/8539380",
+      "https://www.discogs.com/artist/660740",
+      "https://www.discogs.com/master/240254",
+      "https://www.discogs.com/release/2086327",
+      "https://www.museidigenova.it/it/node/622"
+    ],
+    "basis": "release-context"
+  },
+  "40656": {
+    "sources": [
+      "https://musicbrainz.org/artist/58e2800d-991d-4fe9-860b-1d27931ae8de"
+    ],
+    "basis": "geographic-note"
+  },
+  "8290274": {
+    "sources": [
+      "https://fritswentink.bandcamp.com/"
+    ],
+    "basis": "artist-context"
+  },
+  "12083950": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.bornbadrecords.net/releases/"
+    ]
+  },
+  "13132255": {
+    "basis": "release-context",
+    "sources": [
+      "https://soulofzurich.bandcamp.com/album/traphouse-jazz"
+    ]
+  },
+  "8440937": {
+    "sources": [
+      "https://www.bpitch.de/en/artist/ellen-allien/"
+    ],
+    "basis": "artist-context"
+  },
+  "666200": {
+    "sources": [
+      "https://www.bpitch.de/en/artist/ellen-allien/"
+    ],
+    "basis": "artist-context"
+  },
+  "11888376": {
+    "sources": [
+      "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0"
+    ],
+    "basis": "geographic-note"
+  },
+  "12298829": {
+    "sources": [
+      "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0"
+    ],
+    "basis": "geographic-note"
+  },
+  "1303011": {
+    "sources": [
+      "https://www.discogs.com/release/1303011",
+      "https://www.discogs.com/artist/272062",
+      "https://www.discogs.com/master/9060",
+      "https://www.discogs.com/release/1376255",
+      "https://ukf.com/read/the-return-of-lynx/"
+    ],
+    "basis": "release-context"
+  },
+  "8901124": {
+    "sources": [
+      "https://www.newtone-records.com/artist/Robert%2BBergman"
+    ],
+    "basis": "artist-context"
+  },
+  "9072898": {
+    "basis": "release-context",
+    "sources": [
+      "https://yussefkamaal.bandcamp.com/album/black-focus",
+      "https://www.discogs.com/release/9072898"
+    ]
+  },
+  "15792075": {
+    "sources": [
+      "https://clingingvine.bandcamp.com/album/cycle-du-petit-prince-de-saint-exup-ry-bruta-lp-02"
+    ],
+    "basis": "release-context"
+  },
+  "1028298": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+      "https://georgeclinton.com/about/"
+    ]
+  },
+  "1042849": {
+    "sources": [
+      "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+      "https://georgeclinton.com/about/"
+    ],
+    "basis": "geographic-note"
+  },
+  "212060": {
+    "sources": [
+      "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+      "https://georgeclinton.com/about/"
+    ],
+    "basis": "geographic-note"
+  },
+  "9153158": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/561d854a-6a28-4aa7-8c99-323e6ce46c2a",
+      "https://www.juilliard.edu/event/187791/juilliard-apollo-birth-cool?start_date_from=03%2F29%2F23"
+    ]
+  },
+  "1623945": {
+    "sources": [
+      "https://musicrising.tulane.edu/discover/people/al-hirt/"
+    ],
+    "basis": "release-context"
+  },
+  "208813": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q863090#P740",
+      "https://www.wikidata.org/wiki/Q863090#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "3842748": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/561d854a-6a28-4aa7-8c99-323e6ce46c2a",
+      "https://www.milesdavis.com/track/will-o-the-wisp-mono-version/"
+    ]
+  },
+  "194086": {
+    "sources": [
+      "https://bat-records.com/label/echo-minott/"
+    ],
+    "basis": "artist-context"
+  },
+  "5359677": {
+    "sources": [
+      "https://www.allmusic.com/artist/dj-deeon-mn0000663868"
+    ],
+    "basis": "artist-context"
+  },
+  "8036642": {
+    "sources": [
+      "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac"
+    ],
+    "basis": "geographic-note"
+  },
+  "14125997": {
+    "sources": [
+      "https://inverted-audio.com/feature/in-perspective-pepe/"
+    ],
+    "basis": "artist-context"
+  },
+  "2236823": {
+    "sources": [
+      "https://busymusic.bandcamp.com/"
+    ],
+    "basis": "artist-context"
+  },
+  "13339013": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q7917301#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "211757": {
+    "sources": [
+      "https://ra.co/dj/adonis"
+    ],
+    "basis": "release-context"
+  },
+  "30831717": {
+    "basis": "release-context",
+    "sources": [
+      "https://n-gynn.bandcamp.com/"
+    ]
+  },
+  "16189": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q1754009#P495",
+      "https://www.wikidata.org/wiki/Q1754009#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "1697742": {
+    "sources": [
+      "https://www.somarecords.com/artists/octogen/"
+    ],
+    "basis": "artist-context"
+  },
+  "193283": {
+    "sources": [
+      "https://zone-magazine.eu/2026/03/08/feature-interview-nebula-ii/"
+    ],
+    "basis": "artist-context"
+  },
+  "36972": {
+    "sources": [
+      "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd"
+    ],
+    "basis": "geographic-note"
+  },
+  "1352263": {
+    "basis": "release-context",
+    "sources": [
+      "https://shermanjazzmuseum.com/exhibit-page/maynard-ferguson/"
+    ]
+  },
+  "10496968": {
+    "sources": [
+      "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd"
+    ],
+    "basis": "geographic-note"
+  },
+  "417556": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q45165#P740",
+      "https://www.wikidata.org/wiki/Q45165#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "10676369": {
+    "sources": [
+      "https://musicbrainz.org/artist/cfbc0924-0035-4d6c-8197-f024653af823",
+      "https://uniquerecording.com/studio/"
+    ],
+    "basis": "geographic-note"
+  },
+  "16279297": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q727115#P740",
+      "https://www.wikidata.org/wiki/Q727115#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "12863875": {
+    "sources": [
+      "https://musicbrainz.org/artist/27613b78-1b9d-4ec3-9db5-fa0743465fdd"
+    ],
+    "basis": "geographic-note"
+  },
+  "73719": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q4876279#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "97331": {
+    "sources": [
+      "https://djmag.com/features/congo-natty-junglistic-soldier"
+    ],
+    "basis": "artist-context"
+  },
+  "358586": {
+    "sources": [
+      "https://djmag.com/features/congo-natty-junglistic-soldier"
+    ],
+    "basis": "artist-context"
+  },
+  "135052": {
+    "sources": [
+      "https://djmag.com/features/congo-natty-junglistic-soldier"
+    ],
+    "basis": "artist-context"
+  },
+  "13402018": {
+    "sources": [
+      "https://psychicmirrors.bandcamp.com/community"
+    ],
+    "basis": "geographic-note"
+  },
+  "14877491": {
+    "sources": [
+      "https://psychicmirrors.bandcamp.com/community"
+    ],
+    "basis": "geographic-note"
+  },
+  "13657670": {
+    "sources": [
+      "https://www.discogs.com/release/13657670",
+      "https://www.discogs.com/artist/4601576",
+      "https://www.discogs.com/master/1853805",
+      "https://inverted-audio.com/review/no-moon-where-do-we-go-from-here/"
+    ],
+    "basis": "release-context"
+  },
+  "27313062": {
+    "sources": [
+      "https://trommelmusic.com/featured/rising-stars-data-memory-access/"
+    ],
+    "basis": "artist-context"
+  },
+  "11813901": {
+    "basis": "release-context",
+    "sources": [
+      "https://nextupthrowback.wordpress.com/2016/02/19/manchester-rising-no-moon/"
+    ]
+  },
+  "501628": {
+    "sources": [
+      "https://www.nts.live/artists/140852-kenny-carvajal"
+    ],
+    "basis": "artist-context"
+  },
+  "141705": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q11289305#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "22284061": {
+    "sources": [
+      "https://www.bear-family.com/dealer_pdf/ccd1209_e.pdf"
+    ],
+    "basis": "release-context"
+  },
+  "1497696": {
+    "sources": [
+      "https://ra.co/dj/cosmicforce"
+    ],
+    "basis": "artist-context"
+  },
+  "16086639": {
+    "sources": [
+      "https://djmag.com/content/get-know-coco-bryce"
+    ],
+    "basis": "artist-context"
+  },
+  "17111145": {
+    "sources": [
+      "https://ra.co/dj/workforce"
+    ],
+    "basis": "artist-context"
+  },
+  "17970382": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q100254879#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "6245802": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q52463#P495",
+      "https://www.wikidata.org/wiki/Q52463#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "10307172": {
+    "sources": [
+      "https://cmro.oye-records.com/releases/mezigue-mangez-moi-ep"
+    ],
+    "basis": "artist-context"
+  },
+  "10395690": {
+    "sources": [
+      "https://www.discogs.com/label/1258397"
+    ],
+    "basis": "geographic-note"
+  },
+  "14488444": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q2853143#P495",
+      "https://www.wikidata.org/wiki/Q2853143#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "10511020": {
+    "sources": [
+      "https://codek.bandcamp.com/album/closer-tam-tam"
+    ],
+    "basis": "release-context"
+  },
+  "10505637": {
+    "sources": [
+      "https://fargfabriken.se/en/pa-gang/tobias-bernstrup/",
+      "https://hymn.se/2021/11/23/tobias-bernstrup-jag-tanker-alltid-visuellt-kring-musik/"
+    ],
+    "basis": "artist-context"
+  },
+  "16691670": {
+    "basis": "release-context",
+    "sources": [
+      "https://sexual-harrassment.bandcamp.com/album/i-need-a-freak"
+    ]
+  },
+  "26438102": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/66883d1c-3502-4fa5-86fb-e0f7a8723d42",
+      "https://jimettarosethevoicesofcreation.bandcamp.com/album/how-good-it-is"
+    ]
+  },
+  "8707425": {
+    "sources": [
+      "https://music.spaceshower.jp/contents/1041416"
+    ],
+    "basis": "artist-context"
+  },
+  "11685775": {
+    "sources": [
+      "https://fr.ra.co/dj/kozmana/biography"
+    ],
+    "basis": "release-context"
+  },
+  "11664305": {
+    "sources": [
+      "https://lukevibert.com/bio/"
+    ],
+    "basis": "artist-context"
+  },
+  "11134399": {
+    "sources": [
+      "https://musicbrainz.org/artist/8542f9a4-bd91-4066-91cf-359d2d9950db"
+    ],
+    "basis": "geographic-note"
+  },
+  "13710933": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q118846536#P495",
+      "https://thekitchen.org/about/"
+    ],
+    "basis": "geographic-note"
+  },
+  "4304708": {
+    "sources": [
+      "https://www.allmusic.com/artist/powell-mn0003219352"
+    ],
+    "basis": "artist-context"
+  },
+  "11517554": {
+    "sources": [
+      "https://www.allmusic.com/artist/not-waving-mn0003108565"
+    ],
+    "basis": "artist-context"
+  },
+  "29125525": {
+    "sources": [
+      "https://www.discogs.com/artist/8081563"
+    ],
+    "basis": "artist-context"
+  },
+  "10816361": {
+    "sources": [
+      "https://dimensionsrecordings.kudosrecords.co.uk/release/direc007/moons-delux-london-modular-alliance-material"
+    ],
+    "basis": "artist-context"
+  },
+  "11679290": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q300119#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "8929441": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q1355554#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "11373857": {
+    "sources": [
+      "https://www.theransomnote.com/music/mixes/yoshinori-hayashi-the-ransom-note-mix/"
+    ],
+    "basis": "artist-context"
+  },
+  "20336797": {
+    "sources": [
+      "https://le-sucre.eu/artists/tushen-rai/"
+    ],
+    "basis": "release-context"
+  },
+  "13047516": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q100989583#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "15501102": {
+    "sources": [
+      "https://acabine.pt/2020/07/luar-domatrix-baia-stamina/"
+    ],
+    "basis": "release-context"
+  },
+  "974746": {
+    "sources": [
+      "https://www.distantrhythm.com/store/p/guadeloupe-reflexions-un-jeudi-a-larawak"
+    ],
+    "basis": "artist-context"
+  },
+  "8610636": {
+    "sources": [
+      "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0"
+    ],
+    "basis": "geographic-note"
+  },
+  "8268802": {
+    "sources": [
+      "https://musicbrainz.org/artist/071cb80d-a198-4f88-b41e-f4dd9a65ec80"
+    ],
+    "basis": "geographic-note"
+  },
+  "554183": {
+    "sources": [
+      "https://www.djguide.nl/djinfo.p?djid=5828"
+    ],
+    "basis": "release-context"
+  },
+  "14480820": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/561d854a-6a28-4aa7-8c99-323e6ce46c2a",
+      "https://www.milesdavis.com/news/60-years-ago-miles-davis-completes-kind-of-blue/"
+    ]
+  },
+  "14334743": {
+    "sources": [
+      "https://ra.co/dj/marcashken"
+    ],
+    "basis": "artist-context"
+  },
+  "4619033": {
+    "sources": [
+      "https://www.discogs.com/release/4619033",
+      "https://www.discogs.com/artist/24056",
+      "https://www.discogs.com/master/562454",
+      "https://www.discogs.com/release/4625843",
+      "https://www.thelineofbestfit.com/features/interviews/interview-jon-hopkins-129580"
+    ],
+    "basis": "release-context"
+  },
+  "52735": {
+    "sources": [
+      "https://sabotage-films.de/download/3GKpressenglish.pdf"
+    ],
+    "basis": "artist-context"
+  },
+  "44822": {
+    "sources": [
+      "https://www.discogs.com/release/44822",
+      "https://www.discogs.com/artist/2649",
+      "https://outsidefeaturingmattcooper.bandcamp.com/album/the-rough-and-the-smooth"
+    ],
+    "basis": "release-context"
+  },
+  "154670": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q523957#P740",
+      "https://www.wikidata.org/wiki/Q523957#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "44900": {
+    "sources": [
+      "https://www.discogs.com/release/44900",
+      "https://www.discogs.com/artist/2173",
+      "https://www.discogs.com/master/138662",
+      "https://dreadrecordings.bandcamp.com/album/past-present-future"
+    ],
+    "basis": "release-context"
+  },
+  "24685": {
+    "sources": [
+      "https://dropbassnetwork.bandcamp.com/album/no-satellites-please"
+    ],
+    "basis": "release-context"
+  },
+  "489967": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q1125637#P495",
+      "https://www.wikidata.org/wiki/Q1125637#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "6213392": {
+    "sources": [
+      "https://ra.co/dj/distantechoes-de"
+    ],
+    "basis": "artist-context"
+  },
+  "8395702": {
+    "sources": [
+      "https://ra.co/dj/alex.do/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "10531324": {
+    "sources": [
+      "https://www.buddemusic.de/roster/recondite"
+    ],
+    "basis": "artist-context"
+  },
+  "12890235": {
+    "basis": "release-context",
+    "sources": [
+      "https://earlysounds.bandcamp.com/album/the-other-fantasy"
+    ]
+  },
+  "41585": {
+    "sources": [
+      "https://n5md.com/artist/Funckarma"
+    ],
+    "basis": "artist-context"
+  },
+  "5530223": {
+    "sources": [
+      "https://musicbrainz.org/artist/0d9a2bfe-abb8-4ceb-a947-c4fbef03973b"
+    ],
+    "basis": "geographic-note"
+  },
+  "18710329": {
+    "sources": [
+      "https://www.discogs.com/release/18710329",
+      "https://www.discogs.com/artist/3356119",
+      "https://www.discogs.com/master/2124976",
+      "https://www.discogs.com/release/17928349",
+      "https://innode.bandcamp.com/album/syn"
+    ],
+    "basis": "release-context"
+  },
+  "3693330": {
+    "sources": [
+      "https://m.soundcloud.com/thenoodleman/theo-vaness-love-me-now-the-noodleman-dub"
+    ],
+    "basis": "release-context"
+  },
+  "13541780": {
+    "sources": [
+      "https://www.discogs.com/release/13541780",
+      "https://www.discogs.com/artist/1928334",
+      "https://eksterlabel.bandcamp.com/album/fire-zone"
+    ],
+    "basis": "release-context"
+  },
+  "9118974": {
+    "sources": [
+      "https://www.discogs.com/release/9118974",
+      "https://www.discogs.com/artist/693",
+      "https://articles.roland.com/a-few-minutes-with-ron-trent/"
+    ],
+    "basis": "release-context"
+  },
+  "1924569": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q1851859#P740",
+      "https://www.wikidata.org/wiki/Q1851859#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "10377344": {
+    "sources": [
+      "https://emotional-response.bandcamp.com/album/ausgewahtle-durian-stucke"
+    ],
+    "basis": "artist-context"
+  },
+  "255511": {
+    "sources": [
+      "https://jazzrocksoul.com/artists/linx/"
+    ],
+    "basis": "artist-context"
+  },
+  "1218134": {
+    "sources": [
+      "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+      "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416"
+    ],
+    "basis": "geographic-note"
+  },
+  "985747": {
+    "sources": [
+      "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+      "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416"
+    ],
+    "basis": "geographic-note"
+  },
+  "25308625": {
+    "sources": [
+      "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+      "https://www.ilfoglio.it/musica/2021/09/21/news/come-e-nato-la-voce-del-padrone-il-capolavoro-di-battiato-40-anni-dopo--145416"
+    ],
+    "basis": "geographic-note"
+  },
+  "1358351": {
+    "sources": [
+      "https://www.discogs.com/release/1358351",
+      "https://www.discogs.com/artist/114390",
+      "https://www.discogs.com/master/69197"
+    ],
+    "basis": "release-context"
+  },
+  "3880099": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.pinodaniele.com/about/"
+    ]
+  },
+  "1244858": {
+    "sources": [
+      "https://www.pinodaniele.com/about/"
+    ],
+    "basis": "geographic-note"
+  },
+  "9025846": {
+    "sources": [
+      "https://unearthingthemusic.eu/posts/omnibus-israels-rhythmus-1980-1985/"
+    ],
+    "basis": "artist-context"
+  },
+  "1601162": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.musicradar.com/news/we-always-recorded-with-michael-in-the-dark-he-hated-light-engineer-bruce-swedien-on-the-making-of-michael-jacksons-thriller-track-by-track",
+      "https://catalog.rockhall.com/rrhof-ais/Details/fullCatalogue/200032256"
+    ]
+  },
+  "184868": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q1440195#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "346778": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q1951576#P495",
+      "https://www.wikidata.org/wiki/Q1951576#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "1607739": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q956500#P495",
+      "https://www.wikidata.org/wiki/Q956500#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "11819264": {
+    "sources": [
+      "https://www.hhv.de/en/records/item/goya-house-at-the-sea-mandy-584186",
+      "https://musicbrainz.org/place/db144801-c453-468a-9c37-12dc8a13e833"
+    ],
+    "basis": "release-context"
+  },
+  "971558": {
+    "sources": [
+      "https://www.beatport.com/artist/mark-van-dale/30707"
+    ],
+    "basis": "artist-context"
+  },
+  "11375": {
+    "sources": [
+      "https://musicbrainz.org/artist/ec477866-bfaa-48e0-affd-1c151ef61b7b"
+    ],
+    "basis": "geographic-note"
+  },
+  "1566213": {
+    "sources": [
+      "https://www.allmusic.com/artist/norma-jean-bell-mn0000455694"
+    ],
+    "basis": "artist-context"
+  },
+  "697572": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+      "https://www.wikidata.org/wiki/Q2265651#P495",
+      "https://musicbrainz.org/artist/25cb36c7-a4a3-4a88-864f-76876737e488",
+      "https://www.wikidata.org/wiki/Q523957#P740",
+      "https://www.wikidata.org/wiki/Q523957#P495",
+      "https://musicbrainz.org/artist/cf042013-3edd-46c4-9b0e-a62faac98d0b",
+      "https://georgeclinton.com/about/"
+    ]
+  },
+  "2309936": {
+    "sources": [
+      "https://www.allmusic.com/artist/the-voices-of-east-harlem-mn0000228071"
+    ],
+    "basis": "release-context"
+  },
+  "4163662": {
+    "sources": [
+      "https://nwmusicarchives.com/artist/shock/"
+    ],
+    "basis": "artist-context"
+  },
+  "9919633": {
+    "sources": [
+      "https://le-sucre.eu/artists/mezigue/"
+    ],
+    "basis": "release-context"
+  },
+  "5624549": {
+    "sources": [
+      "https://www.barracuda.oye-records.com/releases/alis-apache"
+    ],
+    "basis": "artist-context"
+  },
+  "1015874": {
+    "sources": [
+      "https://www.fatcityrecordings.com/site/release.php?rid=223"
+    ],
+    "basis": "release-context"
+  },
+  "6554726": {
+    "sources": [
+      "https://ra.co/dj/fitsiegel/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "13172138": {
+    "sources": [
+      "https://ra.co/dj/fitsiegel/biography",
+      "https://www.allmusic.com/artist/kassem-mosse-mn0000672575"
+    ],
+    "basis": "artist-context"
+  },
+  "11009929": {
+    "basis": "release-context",
+    "sources": [
+      "https://ra.co/dj/evageist/biography"
+    ]
+  },
+  "201255": {
+    "sources": [
+      "https://tek9.bandcamp.com/"
+    ],
+    "basis": "release-context"
+  },
+  "200739": {
+    "sources": [
+      "https://www.generatormagazine.com/95_09s.pdf"
+    ],
+    "basis": "artist-context"
+  },
+  "14207369": {
+    "sources": [
+      "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "https://www.museidigenova.it/it/node/622"
+    ],
+    "basis": "geographic-note"
+  },
+  "1123569": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q1681322#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "9292116": {
+    "sources": [
+      "https://ra.co/dj/morira/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "10330769": {
+    "sources": [
+      "https://yoyaku.io/release/md008/"
+    ],
+    "basis": "artist-context"
+  },
+  "1859405": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q24951401#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "25199035": {
+    "sources": [
+      "https://www.discogs.com/release/25199035",
+      "https://www.minutes.haringey.gov.uk/documents/s27760/2012_0929%20PC%20Report.pdf"
+    ],
+    "basis": "release-context"
+  },
+  "25269778": {
+    "basis": "release-context",
+    "sources": [
+      "https://freestylerecords.bandcamp.com/album/dancing-inner-space-1982-1984"
+    ]
+  },
+  "658776": {
+    "sources": [
+      "https://musicbrainz.org/artist/c9faadad-85be-4ae3-808e-8e8d4f2ac900"
+    ],
+    "basis": "geographic-note"
+  },
+  "3103098": {
+    "sources": [
+      "https://wjai.org/esther-williams/"
+    ],
+    "basis": "geographic-note"
+  },
+  "76971": {
+    "sources": [
+      "https://leftlion.co.uk/legacy-content/2014/10/pick-of-the-week-halloween-special-2014-7055/"
+    ],
+    "basis": "artist-context"
+  },
+  "3408361": {
+    "sources": [
+      "https://www.dogsonacid.com/threads/mathematics-information.87565/"
+    ],
+    "basis": "artist-context"
+  },
+  "14477": {
+    "sources": [
+      "https://dnb365.wordpress.com/2023/12/28/bill-riley-in-at-the-deep-end/"
+    ],
+    "basis": "artist-context"
+  },
+  "4312": {
+    "basis": "release-context",
+    "sources": [
+      "https://ra.co/dj/djdie/biography"
+    ]
+  },
+  "5954869": {
+    "sources": [
+      "https://www.le-brise-glace.com/evenement/atomik-boogie-knights-2026/"
+    ],
+    "basis": "artist-context"
+  },
+  "35118": {
+    "sources": [
+      "https://ra.co/dj/dannycasseau"
+    ],
+    "basis": "artist-context"
+  },
+  "2573057": {
+    "sources": [
+      "https://music.apple.com/us/artist/slava/76028746"
+    ],
+    "basis": "artist-context"
+  },
+  "11768093": {
+    "sources": [
+      "https://ra.co/news/41327"
+    ],
+    "basis": "release-context"
+  },
+  "8926196": {
+    "sources": [
+      "https://www.discogs.com/release/8926196",
+      "https://www.discogs.com/artist/4641681",
+      "https://abandcalledflash.bandcamp.com/"
+    ],
+    "basis": "release-context"
+  },
+  "254459": {
+    "sources": [
+      "https://esp-agency.com/audio"
+    ],
+    "basis": "release-context"
+  },
+  "49017": {
+    "sources": [
+      "https://www.discogs.com/release/49017",
+      "https://www.discogs.com/artist/2323",
+      "https://www.discogs.com/artist/71592",
+      "https://www.discogs.com/master/5137",
+      "https://shop.playaz.co.uk/blogs/news/jamie-rodigan-s-soundsystem-show-with-dj-hype-08-07-21"
+    ],
+    "basis": "release-context"
+  },
+  "14457597": {
+    "sources": [
+      "https://www.discogs.com/release/14457597",
+      "https://www.discogs.com/artist/3865",
+      "https://www.discogs.com/master/261248",
+      "https://www.discogs.com/release/1161485",
+      "https://www.herbiehancock.com/music/discography/album/directstep/"
+    ],
+    "basis": "release-context"
+  },
+  "761161": {
+    "sources": [
+      "https://musicbrainz.org/artist/d55fe7ec-3c7f-44e7-b9cc-b025c4351f70"
+    ],
+    "basis": "geographic-note"
+  },
+  "5437927": {
+    "sources": [
+      "https://daily.redbullmusicacademy.com/2016/02/interview-africaine-808/"
+    ],
+    "basis": "artist-context"
+  },
+  "1221315": {
+    "sources": [
+      "https://musicbrainz.org/artist/2bf0b744-b122-4823-8877-ae9296635f7f",
+      "https://musicbrainz.org/artist/278bda0a-9019-4321-b296-d5af329cb6e8"
+    ],
+    "basis": "geographic-note"
+  },
+  "910642": {
+    "sources": [
+      "https://www.lpcdreissues.com/item/archie-whitewater-2"
+    ],
+    "basis": "release-context"
+  },
+  "8419913": {
+    "sources": [
+      "https://musicbrainz.org/artist/0b32db28-1a2a-4b4e-b9f2-ce0524987d4c"
+    ],
+    "basis": "geographic-note"
+  },
+  "9907114": {
+    "sources": [
+      "https://musicbrainz.org/artist/b67690b2-a6e9-456f-b847-1d9bfbc13fbf"
+    ],
+    "basis": "geographic-note"
+  },
+  "10179708": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q6824615#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "11298561": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.discogs.com/release/11209038"
+    ]
+  },
+  "11209038": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.discogs.com/release/11209038"
+    ]
+  },
+  "13867844": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q97358397#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "20152732": {
+    "basis": "release-context",
+    "sources": [
+      "https://habibifunkrecords.bandcamp.com/album/habibi-funk-015-an-eclectic-selection-of-music-from-the-arab-world-part-2"
+    ]
+  },
+  "26359139": {
+    "basis": "release-context",
+    "sources": [
+      "https://habibifunk.com/products/the-free-music-free-music-part1"
+    ]
+  },
+  "6176026": {
+    "sources": [
+      "https://www.hfn-music.com/hafendisko/artists/deo-z-man"
+    ],
+    "basis": "artist-context"
+  },
+  "11573136": {
+    "sources": [
+      "https://www.allmusic.com/artist/darcangelo-mn0000139093",
+      "https://www.wikidata.org/wiki/Q126372744#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "8872804": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/83d91898-7763-47d7-b03b-b92132375c47",
+      "https://www.wikidata.org/wiki/Q2306#P740",
+      "https://www.wikidata.org/wiki/Q2306#P495",
+      "https://store.pinkfloyd.com/products/atom-heart-mother-lp"
+    ]
+  },
+  "7516023": {
+    "sources": [
+      "https://musicbrainz.org/artist/0ac257a6-b1ba-45bc-a3ba-515c53e5bcaf"
+    ],
+    "basis": "geographic-note"
+  },
+  "4858498": {
+    "sources": [
+      "https://ra.co/dj/ashleybeedle"
+    ],
+    "basis": "artist-context"
+  },
+  "24368522": {
+    "sources": [
+      "https://heelsandsouls.bandcamp.com/album/over-you-shining-through-hsrec004"
+    ],
+    "basis": "artist-context"
+  },
+  "110736": {
+    "sources": [
+      "https://rickiebyars.org/biography/"
+    ],
+    "basis": "artist-context"
+  },
+  "205746": {
+    "sources": [
+      "https://musicbrainz.org/artist/2f2fbcfc-4631-4024-8105-289aeadfdf1f"
+    ],
+    "basis": "geographic-note"
+  },
+  "13051777": {
+    "sources": [
+      "https://musicbrainz.org/artist/217d2250-cc74-479b-91be-847d3393917c"
+    ],
+    "basis": "geographic-note"
+  },
+  "387809": {
+    "basis": "release-context",
+    "sources": [
+      "https://folkways.si.edu/tony-schwartz/new-york-19/documentary/album/smithsonian"
+    ]
+  },
+  "877943": {
+    "sources": [
+      "https://musicbrainz.org/artist/ea524cc6-191a-4c05-ab88-3bb5c0880ca5"
+    ],
+    "basis": "geographic-note"
+  },
+  "4635217": {
+    "sources": [
+      "https://morphinerecords.com/artists/rabih-beaini"
+    ],
+    "basis": "artist-context"
+  },
+  "10752055": {
+    "sources": [
+      "https://www.insomniac.com/music/artists/octo-octa/"
+    ],
+    "basis": "artist-context"
+  },
+  "9522": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q1858715#P495",
+      "https://www.wikidata.org/wiki/Q1858715#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "24611": {
+    "sources": [
+      "https://musicbrainz.org/artist/1b002a6c-0f6c-4335-aab6-36a74058250f",
+      "https://www.wikidata.org/wiki/Q2658762#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "23156297": {
+    "basis": "release-context",
+    "sources": [
+      "https://bbemusic.com/artist/mark-grusane"
+    ]
+  },
+  "14791220": {
+    "sources": [
+      "https://www.discogs.com/release/14791220",
+      "https://www.discogs.com/artist/1216832",
+      "https://www.discogs.com/artist/1850605",
+      "https://www.discogs.com/master/1683752",
+      "https://www.discogs.com/release/4711672",
+      "https://hotcasarecords.bandcamp.com/album/ahyewa-special"
+    ],
+    "basis": "release-context"
+  },
+  "14273207": {
+    "sources": [
+      "https://ra.co/dj/ltjedits"
+    ],
+    "basis": "artist-context"
+  },
+  "8888357": {
+    "sources": [
+      "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac"
+    ],
+    "basis": "geographic-note"
+  },
+  "9698138": {
+    "sources": [
+      "https://musicbrainz.org/artist/845ddc8b-36ba-4d7b-9c6f-bd7623cd3cac"
+    ],
+    "basis": "geographic-note"
+  },
+  "5151626": {
+    "sources": [
+      "https://mixmag.net/feature/dj-sotofett-mix-interview-in-session-sex-tags-mania"
+    ],
+    "basis": "artist-context"
+  },
+  "13534190": {
+    "sources": [
+      "https://garygritness.bandcamp.com/album/the-legend-of-cherenkov-blue"
+    ],
+    "basis": "artist-context"
+  },
+  "13619980": {
+    "sources": [
+      "https://www.soundbetter.com/profiles/132604-daniele-mana"
+    ],
+    "basis": "artist-context"
+  },
+  "22309528": {
+    "sources": [
+      "https://www.toytonics.de/2021/05/28/delfonic-kapote-illegal-jazz-vol-4-ijr004/"
+    ],
+    "basis": "artist-context"
+  },
+  "8786827": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.wikidata.org/wiki/Q2406165#P740",
+      "https://www.wikidata.org/wiki/Q2406165#P495",
+      "https://musicbrainz.org/artist/1e46801d-c27b-4f07-a50d-51597a26df60",
+      "https://www.vprecords.com/studio-17-with-silent-addy-and-yaadcore-launches/"
+    ]
+  },
+  "313021": {
+    "sources": [
+      "https://www.allmusic.com/artist/t-connection-mn0000004553"
+    ],
+    "basis": "release-context"
+  },
+  "12716187": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.wikidata.org/wiki/Q59942387#P937",
+      "https://intlanthem.bandcamp.com/album/universal-beings",
+      "https://www.sydkemp.com/studio",
+      "https://coprosperity.org/about"
+    ]
+  },
+  "24896429": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+      "https://exclaim.ca/music/article/kendrick_lamar-section80"
+    ]
+  },
+  "24882914": {
+    "sources": [
+      "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+      "https://exclaim.ca/music/article/kendrick_lamar-section80"
+    ],
+    "basis": "geographic-note"
+  },
+  "5081661": {
+    "sources": [
+      "https://ra.co/reviews/14053"
+    ],
+    "basis": "release-context"
+  },
+  "2099185": {
+    "sources": [
+      "https://hanfjournal.de/2009/01/20/s11_0109_jah-seal/"
+    ],
+    "basis": "artist-context"
+  },
+  "246845": {
+    "sources": [
+      "https://www.allmusic.com/artist/soul-bossa-trio-mn0000034010"
+    ],
+    "basis": "artist-context"
+  },
+  "11265395": {
+    "sources": [
+      "https://rectangletriangle.com/products/the-voice-of-q-q-10"
+    ],
+    "basis": "release-context"
+  },
+  "2227309": {
+    "sources": [
+      "https://musicbrainz.org/artist/5a78419b-a191-4423-adc9-95caebba6c1f"
+    ],
+    "basis": "geographic-note"
+  },
+  "12447146": {
+    "basis": "release-context",
+    "sources": [
+      "https://abandcalledflash.bandcamp.com/"
+    ]
+  },
+  "9059108": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.wikidata.org/wiki/Q2839521#P495",
+      "https://www.dub-stuy.com/alpha-omega-interview/"
+    ]
+  },
+  "12125066": {
+    "sources": [
+      "https://www.schamoni.de/musik/jahmoni-music/dj-marcelle-another-nice-mess-for"
+    ],
+    "basis": "release-context"
+  },
+  "3668574": {
+    "sources": [
+      "https://www.discogs.com/release/3668574",
+      "https://www.discogs.com/artist/82386",
+      "https://www.discogs.com/artist/3235079",
+      "https://www.discogs.com/master/817950",
+      "https://extramusicnew.wordpress.com/2011/10/20/downloadmancini-and-the-creepers-the-calling-ep/",
+      "https://jakartarecords-label.bandcamp.com/album/mancini-and-the-creepers",
+      "https://jakartarecords-label.bandcamp.com/album/the-calling-ep"
+    ],
+    "basis": "release-context"
+  },
+  "7770151": {
+    "sources": [
+      "https://musicbrainz.org/artist/716ec250-83b9-464c-8321-31bd565ef989"
+    ],
+    "basis": "geographic-note"
+  },
+  "7770150": {
+    "basis": "release-context",
+    "sources": [
+      "https://flofilz.bandcamp.com/album/speakthru",
+      "https://flofilzmpm.bandcamp.com/album/metronom"
+    ]
+  },
+  "51304": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q300602#P740"
+    ],
+    "basis": "release-context"
+  },
+  "14270021": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q300602#P495",
+      "https://www.wikidata.org/wiki/Q300602#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "254916": {
+    "sources": [
+      "https://www.capicherecords.co.uk/products/records/the-dream-team-like-dat-east-coast/"
+    ],
+    "basis": "artist-context"
+  },
+  "12941656": {
+    "sources": [
+      "https://www.monsterchildren.com/articles/alex-olson-is-breathing-easy"
+    ],
+    "basis": "artist-context"
+  },
+  "51412": {
+    "sources": [
+      "https://homepages.force9.net/king1/Discographies/Gerald/Energy.html"
+    ],
+    "basis": "release-context"
+  },
+  "6997484": {
+    "sources": [
+      "https://vocalsound.it/artists/pamela-prati/"
+    ],
+    "basis": "artist-context"
+  },
+  "12142239": {
+    "sources": [
+      "https://www.theransomnote.com/music/mixes/the-ransom-note-mix-giovanni-damico/"
+    ],
+    "basis": "artist-context"
+  },
+  "1782030": {
+    "sources": [
+      "https://www.pewcenterarts.org/fellow/king-britt"
+    ],
+    "basis": "artist-context"
+  },
+  "6576": {
+    "sources": [
+      "https://www.discogs.com/release/6576",
+      "https://www.discogs.com/artist/1094",
+      "https://www.discogs.com/master/77702",
+      "https://www.redbullmusicacademy.com/lectures/moodymann-henny-and-kenny/"
+    ],
+    "basis": "release-context"
+  },
+  "6127229": {
+    "sources": [
+      "https://www.mmone.org/ultimate-spinach-2/",
+      "https://www.wikidata.org/wiki/Q4003181#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "10579183": {
+    "sources": [
+      "https://yoyaku.io/release/md008/"
+    ],
+    "basis": "release-context"
+  },
+  "8008359": {
+    "sources": [
+      "https://musicbrainz.org/artist/75a282a9-c483-4d8e-86c6-1cb029068ca8"
+    ],
+    "basis": "geographic-note"
+  },
+  "163351": {
+    "sources": [
+      "https://knowledgeandwisdom.bandcamp.com/album/tales-from-the-jungle-album"
+    ],
+    "basis": "artist-context"
+  },
+  "12765339": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q6456314#P495",
+      "https://www.wikidata.org/wiki/Q6456314#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "13986179": {
+    "sources": [
+      "https://836m.org/artist/limperatrice/",
+      "https://www.wikidata.org/wiki/Q48754425#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "87762": {
+    "sources": [
+      "https://www.discogs.com/release/87762",
+      "https://www.discogs.com/artist/4567",
+      "https://www.discogs.com/master/136475",
+      "https://www.discogs.com/release/511679",
+      "https://zkm.de/en/persons/hans-nieswandt"
+    ],
+    "basis": "release-context"
+  },
+  "839372": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q176457#P495",
+      "https://www.wikidata.org/wiki/Q176457#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "5664657": {
+    "sources": [
+      "https://wordandsound.net/release/156218-OM67042-24-KingCats-KingCats"
+    ],
+    "basis": "artist-context"
+  },
+  "11758168": {
+    "sources": [
+      "https://atorecords.com/releases/on/"
+    ],
+    "basis": "release-context"
+  },
+  "2720604": {
+    "sources": [
+      "https://musicbrainz.org/artist/8b146091-2d4c-4a97-a353-03703d8afaa7"
+    ],
+    "basis": "geographic-note"
+  },
+  "153782": {
+    "sources": [
+      "https://musicbrainz.org/artist/2f548675-008d-4332-876c-108b0c7ab9c5"
+    ],
+    "basis": "geographic-note"
+  },
+  "20707": {
+    "sources": [
+      "https://musicbase.net/tonic"
+    ],
+    "basis": "artist-context"
+  },
+  "55665": {
+    "sources": [
+      "https://numerogroup.com/products/give-everybody-some"
+    ],
+    "basis": "release-context"
+  },
+  "5066132": {
+    "sources": [
+      "https://www.testpressing.org/magazine/20-questions-029joe-gill-craig-christonoutlaws-yacht-clubjoe-s-bakery"
+    ],
+    "basis": "artist-context"
+  },
+  "9034937": {
+    "sources": [
+      "https://ra.co/dj/evageist/biography"
+    ],
+    "basis": "geographic-note"
+  },
+  "16868718": {
+    "sources": [
+      "https://musicbrainz.org/artist/ea9078ef-20ca-4506-81ea-2ae5fe3a42e8"
+    ],
+    "basis": "geographic-note"
+  },
+  "12965221": {
+    "sources": [
+      "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0"
+    ],
+    "basis": "geographic-note"
+  },
+  "12842013": {
+    "sources": [
+      "https://ra.co/dj/fatimayamaha"
+    ],
+    "basis": "artist-context"
+  },
+  "2628223": {
+    "sources": [
+      "https://musicbrainz.org/artist/b1c124b3-cf60-41a6-8699-92728c8a3fe0"
+    ],
+    "basis": "geographic-note"
+  },
+  "1555013": {
+    "sources": [
+      "https://musicbrainz.org/artist/2825f90d-7c3b-467b-9a98-d66a5dc8ddca"
+    ],
+    "basis": "geographic-note"
+  },
+  "61487": {
+    "basis": "release-context",
+    "sources": [
+      "https://basementboys.com/"
+    ]
+  },
+  "1852237": {
+    "sources": [
+      "https://musicbrainz.org/artist/0323f501-4b5e-4682-a062-e60f6212f9c3"
+    ],
+    "basis": "geographic-note"
+  },
+  "2231053": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q1785406#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "5723089": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q130262567#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "37985": {
+    "sources": [
+      "https://musicbrainz.org/release/9f0a966c-8429-4acd-a6ad-c0aa2c64cac9"
+    ],
+    "basis": "release-context"
+  },
+  "4330903": {
+    "sources": [
+      "https://www.discogs.com/release/4330903",
+      "https://www.discogs.com/artist/48413",
+      "https://www.discogs.com/master/91544",
+      "https://www.discogs.com/release/635254"
+    ],
+    "basis": "release-context"
+  },
+  "3558397": {
+    "sources": [
+      "https://musicbrainz.org/artist/81e07550-d0e2-467e-bc71-44b5d52de8f4",
+      "https://www.wikidata.org/wiki/Q1291507#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "745165": {
+    "sources": [
+      "https://de.ra.co/events/775633"
+    ],
+    "basis": "artist-context"
+  },
+  "9185698": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/3e95edd2-5af6-47d4-aac4-c27e58fb08f8",
+      "https://daily.bandcamp.com/features/dom-roland-feature"
+    ]
+  },
+  "3146173": {
+    "sources": [
+      "https://www.mmone.org/ultimate-spinach-2/",
+      "https://www.wikidata.org/wiki/Q4003181#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "1363509": {
+    "sources": [
+      "https://www.mmone.org/ultimate-spinach-2/",
+      "https://www.wikidata.org/wiki/Q4003181#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "18007090": {
+    "sources": [
+      "https://836m.org/artist/limperatrice/",
+      "https://www.wikidata.org/wiki/Q48754425#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "12126044": {
+    "sources": [
+      "https://musicbrainz.org/artist/7b05d6fe-91e8-4cb9-a401-2a13b1578716"
+    ],
+    "basis": "geographic-note"
+  },
+  "646323": {
+    "sources": [
+      "https://musicbrainz.org/artist/a7f7df4a-77d8-4f12-8acd-5c60c93f4de8"
+    ],
+    "basis": "geographic-note"
+  },
+  "23783198": {
+    "sources": [
+      "https://www.discogs.com/release/23783198",
+      "https://www.discogs.com/artist/6584747",
+      "https://www.discogs.com/master/2697986",
+      "https://mnshift.bandcamp.com/album/midnight-is-comin"
+    ],
+    "basis": "release-context"
+  },
+  "366413": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.songhall.org/profiles/nile-rodgers"
+    ]
+  },
+  "11498568": {
+    "sources": [
+      "https://nowadays.nyc/resident/eamon-harkin/"
+    ],
+    "basis": "artist-context"
+  },
+  "11826621": {
+    "sources": [
+      "https://misterolsen.bandcamp.com/album/no-one-belongs-here-more-than-you-ep"
+    ],
+    "basis": "artist-context"
+  },
+  "3851838": {
+    "basis": "release-context",
+    "sources": [
+      "https://misterarchiepelago.bandcamp.com/album/the-archie-pelago-ep"
+    ]
+  },
+  "8509913": {
+    "sources": [
+      "https://ra.co/reviews/19242"
+    ],
+    "basis": "artist-context"
+  },
+  "26118410": {
+    "sources": [
+      "https://musicbrainz.org/artist/efa2c11a-1a35-4b60-bc1b-66d37de88511",
+      "https://www.wikidata.org/wiki/Q482964#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "5652780": {
+    "basis": "release-context",
+    "sources": [
+      "https://folkways.si.edu/nancy-dupree/ghetto-reality/african-american-spoken-childrens/music/album/smithsonian"
+    ]
+  },
+  "11534317": {
+    "sources": [
+      "https://musicbrainz.org/artist/8a562b21-af9e-4b6a-8c43-327cdf6713b0"
+    ],
+    "basis": "geographic-note"
+  },
+  "8636562": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.discogs.com/release/7837490"
+    ]
+  },
+  "9148392": {
+    "sources": [
+      "https://www.discogs.com/release/9148392",
+      "https://www.discogs.com/artist/5361803",
+      "https://www.discogs.com/master/1330230",
+      "https://moodhut.bandcamp.com/album/always-on"
+    ],
+    "basis": "release-context"
+  },
+  "951387": {
+    "sources": [
+      "https://morphinerecords.com/artists/rabih-beaini"
+    ],
+    "basis": "artist-context"
+  },
+  "5164913": {
+    "sources": [
+      "https://ra.co/dj/madteo"
+    ],
+    "basis": "artist-context"
+  },
+  "14919928": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q7313654#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "16125100": {
+    "sources": [
+      "https://musicbrainz.org/artist/80a0ab61-c33d-4a59-a950-aaf3b69d3251"
+    ],
+    "basis": "geographic-note"
+  },
+  "21016180": {
+    "basis": "release-context",
+    "sources": [
+      "https://mothertonguerecords.bandcamp.com/album/in-a-better-way-vinyl-only-no-digital-download"
+    ]
+  },
+  "14689821": {
+    "sources": [
+      "https://firsttouch.bandcamp.com/"
+    ],
+    "basis": "artist-context"
+  },
+  "15268960": {
+    "basis": "release-context",
+    "sources": [
+      "https://tiombelockhart.bandcamp.com/album/the-aquarius-years-ft-robert-glasper-bilal-ecussionist",
+      "https://www.allmusic.com/artist/tiombe-lockhart-mn0000110567/biography"
+    ]
+  },
+  "19289326": {
+    "sources": [
+      "https://musicbrainz.org/artist/80a0ab61-c33d-4a59-a950-aaf3b69d3251"
+    ],
+    "basis": "release-context"
+  },
+  "19378": {
+    "sources": [
+      "https://musicbrainz.org/artist/3e95edd2-5af6-47d4-aac4-c27e58fb08f8",
+      "https://daily.bandcamp.com/features/dom-roland-feature"
+    ],
+    "basis": "geographic-note"
+  },
+  "111915": {
+    "basis": "release-context",
+    "sources": [
+      "https://djmag.com/features/how-nookies-gonna-be-alright-cloud-9-remix-foresaw-hardcores-jungle-evolution"
+    ]
+  },
+  "12574351": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q4817085#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "30307487": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.wikidata.org/wiki/Q48838138#P495",
+      "https://lapiazzarimini.it/2026/gabicce-mare-gabicce-monte-disco-diva-25-26-27-giugno/"
+    ]
+  },
+  "1894057": {
+    "sources": [
+      "https://www.amsterdam-dance-event.nl/en/artists-speakers/mr-raoul-k/4581/"
+    ],
+    "basis": "artist-context"
+  },
+  "412145": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.villagevoice.com/we-got-your-hip-hop-hall-of-fame/",
+      "https://www.vrecordings.com/artist/krust"
+    ]
+  },
+  "8108409": {
+    "sources": [
+      "https://www.discogs.com/release/8108409",
+      "https://www.discogs.com/artist/2001956",
+      "https://bxentric.bandcamp.com/album/patch-valley"
+    ],
+    "basis": "release-context"
+  },
+  "984": {
+    "sources": [
+      "https://musicbrainz.org/artist/2e1ff73b-3605-44d2-b851-dd4e4a16e080"
+    ],
+    "basis": "geographic-note"
+  },
+  "23192537": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q110464571#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "12097296": {
+    "sources": [
+      "https://www.discogs.com/release/12097296",
+      "https://www.discogs.com/artist/4007020",
+      "https://www.discogs.com/master/1334042",
+      "https://www.discogs.com/release/11600879",
+      "https://nugenea.bandcamp.com/album/nuova-napoli"
+    ],
+    "basis": "release-context"
+  },
+  "11047607": {
+    "sources": [
+      "https://imap.oye-records.com/releases/helena-hauff-have-you-been-there-have-you-seen-it"
+    ],
+    "basis": "release-context"
+  },
+  "11112454": {
+    "sources": [
+      "https://musicbrainz.org/artist/b014d579-b549-4b21-b90d-5264e0433988"
+    ],
+    "basis": "geographic-note"
+  },
+  "11636825": {
+    "sources": [
+      "https://musicbrainz.org/artist/4c41d78d-9dd5-430d-81ea-286052158293"
+    ],
+    "basis": "geographic-note"
+  },
+  "19561852": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.afrosynth.com/2014/07/patience-africa-wozani-la-1987.html"
+    ]
+  },
+  "201238": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/afa502e0-fb84-4cf4-b3c0-21ed0c695939",
+      "https://bandonthewall.org/2017/07/al-baker-interview-marcus-intalex/"
+    ]
+  },
+  "8188592": {
+    "sources": [
+      "https://www.thevinylfactory.com/news/invisible-city-defy-bootleggers-to-give-super-rare-electronic-12-an-official-vinyl-release"
+    ],
+    "basis": "artist-context"
+  },
+  "919525": {
+    "sources": [
+      "https://ra.co/dj/malente"
+    ],
+    "basis": "artist-context"
+  },
+  "6022847": {
+    "basis": "release-context",
+    "sources": [
+      "https://sahibshihab.bandcamp.com/album/companionship"
+    ]
+  },
+  "2197760": {
+    "sources": [
+      "https://ra.co/features/850?comments=2"
+    ],
+    "basis": "release-context"
+  },
+  "16011980": {
+    "sources": [
+      "https://bonfimbeats.bandcamp.com/album/an-extended-play-record-of-assembled-sounds-for-different-kinds-of-moods"
+    ],
+    "basis": "artist-context"
+  },
+  "9684455": {
+    "sources": [
+      "https://ra.co/dj/hieroglyphicbeing/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "510441": {
+    "sources": [
+      "https://ra.co/dj/malente"
+    ],
+    "basis": "artist-context"
+  },
+  "408832": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q749019#P740",
+      "https://www.wikidata.org/wiki/Q749019#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "168868": {
+    "sources": [
+      "https://musicbrainz.org/artist/c3da3346-2643-48a7-93cd-011f6834b3d7"
+    ],
+    "basis": "geographic-note"
+  },
+  "8137189": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q10381461#P495",
+      "https://musicbrainz.org/artist/f221328f-bc6b-40f1-a750-ce11a1321489"
+    ],
+    "basis": "geographic-note"
+  },
+  "1492774": {
+    "sources": [
+      "https://musicbrainz.org/artist/20ff3303-4fe2-4a47-a1b6-291e26aa3438"
+    ],
+    "basis": "geographic-note"
+  },
+  "28522651": {
+    "sources": [
+      "https://numerogroup.com/products/donnell-pitman-burning-up-bw-the-taste-of-honey"
+    ],
+    "basis": "release-context"
+  },
+  "902597": {
+    "sources": [
+      "https://musicbrainz.org/artist/c0c0de23-d9c1-4776-97e0-0c2529402622"
+    ],
+    "basis": "geographic-note"
+  },
+  "5030835": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/f5a2a32e-3fbb-46c9-b34d-dca87250aa47",
+      "https://nam.it/docenti/tullio-de-piscopo/"
+    ]
+  },
+  "8354012": {
+    "sources": [
+      "https://musicbrainz.org/artist/549eb410-56c5-45ff-b3de-a1f4144ef740"
+    ],
+    "basis": "geographic-note"
+  },
+  "80037": {
+    "sources": [
+      "https://www.cccb.org/en/w/participants/david-toop"
+    ],
+    "basis": "artist-context"
+  },
+  "3835570": {
+    "sources": [
+      "https://musicbrainz.org/artist/76325a9d-6c25-4649-96b1-84e9b99d6b4b",
+      "https://www.wikidata.org/wiki/Q180727#P937"
+    ],
+    "basis": "geographic-note"
+  },
+  "654319": {
+    "sources": [
+      "https://opposide.bandcamp.com/album/oppop21-gifts-from-the-grid-ep"
+    ],
+    "basis": "artist-context"
+  },
+  "695304": {
+    "sources": [
+      "https://www.discogs.com/release/695304",
+      "https://www.discogs.com/artist/522541",
+      "https://www.discogs.com/artist/522542",
+      "https://clone.nl/item7206.html"
+    ],
+    "basis": "release-context"
+  },
+  "10771522": {
+    "sources": [
+      "https://www.francesconetti.com/enrico-serotti"
+    ],
+    "basis": "artist-context"
+  },
+  "6785873": {
+    "sources": [
+      "https://djmakala.wordpress.com/mjfb/"
+    ],
+    "basis": "artist-context"
+  },
+  "972054": {
+    "sources": [
+      "https://www.berghain.berlin/en/shop/releases/prosumer-murat-tepeli-what-makes-you-go-for-it/"
+    ],
+    "basis": "release-context"
+  },
+  "7367418": {
+    "sources": [
+      "https://www.cafeoto.co.uk/artists/john-bence/"
+    ],
+    "basis": "artist-context"
+  },
+  "3554620": {
+    "sources": [
+      "https://www.discogs.com/release/3554620",
+      "https://www.discogs.com/artist/2111",
+      "https://www.discogs.com/master/429607",
+      "https://www.discogs.com/release/130548",
+      "https://www.darkdnb.com/bkey"
+    ],
+    "basis": "release-context"
+  },
+  "7917513": {
+    "sources": [
+      "https://www.betinos.com/auteur/marta-acuna"
+    ],
+    "basis": "release-context"
+  },
+  "9131093": {
+    "sources": [
+      "https://www.digdeeprecords.co.uk/product/various-rhythms-of-the-pacific-volume-3/"
+    ],
+    "basis": "release-context"
+  },
+  "11854219": {
+    "sources": [
+      "https://musicbrainz.org/artist/3cec91e6-6c45-4c47-843b-0a516be96a91"
+    ],
+    "basis": "geographic-note"
+  },
+  "1008363": {
+    "sources": [
+      "https://www.traxsource.com/title/1321328/this-groove-is-on-the-loose"
+    ],
+    "basis": "artist-context"
+  },
+  "1704802": {
+    "basis": "release-context",
+    "sources": [
+      "https://ppudc.bandcamp.com/album/dmv-district-maryland-virginia-vol-1"
+    ]
+  },
+  "5156837": {
+    "sources": [
+      "https://psychicmirrors.bandcamp.com/community"
+    ],
+    "basis": "geographic-note"
+  },
+  "6419810": {
+    "sources": [
+      "https://www.allmusic.com/artist/moon-b-mn0003033888"
+    ],
+    "basis": "artist-context"
+  },
+  "6715051": {
+    "basis": "release-context",
+    "sources": [
+      "https://dwightsykes.bandcamp.com/album/jahari"
+    ]
+  },
+  "9872263": {
+    "sources": [
+      "https://ppudc.bandcamp.com/album/teacher"
+    ],
+    "basis": "release-context"
+  },
+  "22988753": {
+    "basis": "release-context",
+    "sources": [
+      "https://selectedworks.substack.com/p/selected-works-the-teddy-bryant-interview"
+    ]
+  },
+  "10579142": {
+    "sources": [
+      "https://ra.co/dj/lauer"
+    ],
+    "basis": "release-context"
+  },
+  "11072824": {
+    "sources": [
+      "https://paltoflats.com/release/conga-square-secada-mondatta/"
+    ],
+    "basis": "release-context"
+  },
+  "6774": {
+    "sources": [
+      "https://www.redbullmusicacademy.com/lectures/digital-roots-rocker/"
+    ],
+    "basis": "artist-context"
+  },
+  "3803673": {
+    "sources": [
+      "https://musicbrainz.org/artist/fc63a914-272d-4b95-9221-61adcce6f793"
+    ],
+    "basis": "geographic-note"
+  },
+  "16084646": {
+    "sources": [
+      "https://www.cheventi.it/eventi/2023-cardine-w-big-sea-matteo-coffetti-pho-bho/"
+    ],
+    "basis": "artist-context"
+  },
+  "11740322": {
+    "sources": [
+      "https://musicbrainz.org/artist/4c41d78d-9dd5-430d-81ea-286052158293"
+    ],
+    "basis": "geographic-note"
+  },
+  "2936028": {
+    "sources": [
+      "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0"
+    ],
+    "basis": "geographic-note"
+  },
+  "373": {
+    "sources": [
+      "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0"
+    ],
+    "basis": "artist-context"
+  },
+  "9359985": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/83d91898-7763-47d7-b03b-b92132375c47",
+      "https://www.wikidata.org/wiki/Q2306#P740",
+      "https://www.wikidata.org/wiki/Q2306#P495",
+      "https://archive.pinkfloyd.com/history/timeline_1976"
+    ]
+  },
+  "11762293": {
+    "sources": [
+      "https://alonereggaeshop.bandcamp.com/album/clive-matthews-jah-live-lp"
+    ],
+    "basis": "artist-context"
+  },
+  "974835": {
+    "sources": [
+      "https://musicbrainz.org/artist/d06e7e71-0178-4e66-8150-044ff6047d64"
+    ],
+    "basis": "geographic-note"
+  },
+  "309825": {
+    "sources": [
+      "https://www.allmusic.com/artist/shitmat-mn0000115041"
+    ],
+    "basis": "artist-context"
+  },
+  "2148724": {
+    "sources": [
+      "https://musicbrainz.org/artist/2340f89c-3ce0-4e49-a4a2-99b68ac42b0d"
+    ],
+    "basis": "geographic-note"
+  },
+  "4288392": {
+    "sources": [
+      "https://ra.co/dj/ajukajaandats/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "21945322": {
+    "sources": [
+      "https://pre-delay.bandcamp.com/album/pre-delay-04"
+    ],
+    "basis": "release-context"
+  },
+  "41275": {
+    "sources": [
+      "https://www.allmusic.com/artist/justice-mn0000309146"
+    ],
+    "basis": "artist-context"
+  },
+  "11806": {
+    "sources": [
+      "https://ra.co/events/128359"
+    ],
+    "basis": "artist-context"
+  },
+  "12575458": {
+    "sources": [
+      "https://www.oye-records.com/releases/california-flight-project-cali"
+    ],
+    "basis": "artist-context"
+  },
+  "21993661": {
+    "basis": "release-context",
+    "sources": [
+      "https://ra.co/dj/fredp/biography"
+    ]
+  },
+  "18064021": {
+    "sources": [
+      "https://ra.co/dj/fredp/biography"
+    ],
+    "basis": "geographic-note"
+  },
+  "2578052": {
+    "sources": [
+      "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "https://www.museidigenova.it/it/node/622"
+    ],
+    "basis": "geographic-note"
+  },
+  "981136": {
+    "sources": [
+      "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "https://www.museidigenova.it/it/node/622"
+    ],
+    "basis": "geographic-note"
+  },
+  "2255206": {
+    "sources": [
+      "https://dnb365.wordpress.com/2023/12/28/bill-riley-in-at-the-deep-end/"
+    ],
+    "basis": "artist-context"
+  },
+  "14028131": {
+    "sources": [
+      "https://ra.co/dj/psychemagik"
+    ],
+    "basis": "artist-context"
+  },
+  "11019692": {
+    "sources": [
+      "https://ra.co/dj/sano"
+    ],
+    "basis": "artist-context"
+  },
+  "16222272": {
+    "sources": [
+      "https://ra.co/dj/quadratschulz-de/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "21926020": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+      "https://www.detroithistorical.org/learn/online-research/encyclopedia-of-detroit/mills-jeff"
+    ]
+  },
+  "944": {
+    "sources": [
+      "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+      "https://www.detroithistorical.org/learn/online-research/encyclopedia-of-detroit/mills-jeff"
+    ],
+    "basis": "geographic-note"
+  },
+  "62559": {
+    "sources": [
+      "https://musicbrainz.org/artist/8ab9a62f-b8e6-4719-8e0a-0f9ea94b1955"
+    ],
+    "basis": "release-context"
+  },
+  "2507931": {
+    "sources": [
+      "https://musicbrainz.org/artist/a110acfe-212d-44b2-b729-18f0f94ce47e"
+    ],
+    "basis": "geographic-note"
+  },
+  "16406805": {
+    "sources": [
+      "https://www.avopolis.gr/albums/greek-albums/72592-tasos-xalkias-divine-reeds-obscure-recordings-from-special-music-record-company-athens-1966-1967-review"
+    ],
+    "basis": "artist-context"
+  },
+  "3148982": {
+    "sources": [
+      "https://ra.co/reviews/9827"
+    ],
+    "basis": "artist-context"
+  },
+  "24896": {
+    "basis": "release-context",
+    "sources": [
+      "https://cdn2.brooklynmuseum.org/labels/yasiin_bey_Press_Release.pdf"
+    ]
+  },
+  "13479375": {
+    "sources": [
+      "https://reggielucas.com/index.php/bio"
+    ],
+    "basis": "release-context"
+  },
+  "1537500": {
+    "sources": [
+      "https://www.discogs.com/release/1537500",
+      "https://www.mixonline.com/recording/la-grapevine-june-2009-367426"
+    ],
+    "basis": "release-context"
+  },
+  "1276204": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q7078416#P495",
+      "https://www.wikidata.org/wiki/Q7078416#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "617339": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q808794#P740",
+      "https://www.wikidata.org/wiki/Q808794#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "61932": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q2019953#P495",
+      "https://www.wikidata.org/wiki/Q2019953#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "283733": {
+    "sources": [
+      "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0"
+    ],
+    "basis": "release-context"
+  },
+  "1772452": {
+    "sources": [
+      "https://musicbrainz.org/artist/b7b6125c-1e77-4738-8e81-36affa0adc18"
+    ],
+    "basis": "geographic-note"
+  },
+  "14922154": {
+    "sources": [
+      "https://chebrunner.bandcamp.com/album/tagnawit-ep"
+    ],
+    "basis": "release-context"
+  },
+  "496794": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q3110146#P495",
+      "https://www.wikidata.org/wiki/Q3110146#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "235251": {
+    "sources": [
+      "https://tek9.bandcamp.com/"
+    ],
+    "basis": "artist-context"
+  },
+  "60897": {
+    "basis": "release-context",
+    "sources": [
+      "https://ra.co/dj/nubianmindz/biography"
+    ]
+  },
+  "7972280": {
+    "sources": [
+      "https://musicbrainz.org/artist/7377ee25-9240-4b50-a824-20c202e96da9"
+    ],
+    "basis": "geographic-note"
+  },
+  "12101577": {
+    "sources": [
+      "https://musicbrainz.org/artist/0cd117b2-2e21-406d-80cf-5ce0a6065e37"
+    ],
+    "basis": "geographic-note"
+  },
+  "2543335": {
+    "sources": [
+      "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "https://www.museidigenova.it/it/node/622"
+    ],
+    "basis": "geographic-note"
+  },
+  "2214344": {
+    "sources": [
+      "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "https://www.museidigenova.it/it/node/622"
+    ],
+    "basis": "geographic-note"
+  },
+  "10708678": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/204db5a8-78f1-4078-801f-ae8f456eeb60",
+      "https://www.museidigenova.it/it/node/622",
+      "https://api.discogs.com/releases/10708678"
+    ]
+  },
+  "9369950": {
+    "basis": "release-context",
+    "sources": [
+      "https://worldmusic.net/products/lost-in-mali"
+    ]
+  },
+  "10912777": {
+    "sources": [
+      "https://ra.co/dj/lukeeargoggle"
+    ],
+    "basis": "release-context"
+  },
+  "14222949": {
+    "basis": "release-context",
+    "sources": [
+      "https://dabeull.bandcamp.com/album/intimate-fonk"
+    ]
+  },
+  "11873515": {
+    "sources": [
+      "https://rocksteadydisco.bandcamp.com/album/rsd009-moonlighter-ep"
+    ],
+    "basis": "artist-context"
+  },
+  "9288000": {
+    "sources": [
+      "https://oye-records.com/releases/hylas-hylas-ep"
+    ],
+    "basis": "artist-context"
+  },
+  "1072873": {
+    "sources": [
+      "https://www.discogs.com/release/1072873",
+      "https://www.discogs.com/artist/222667",
+      "https://www.discogs.com/artist/914856",
+      "https://xlr8r.com/news/lucky-13-opio-treasure-fingers-ppp/"
+    ],
+    "basis": "release-context"
+  },
+  "13289860": {
+    "sources": [
+      "https://thegaylads.bandcamp.com/album/soul-beat"
+    ],
+    "basis": "artist-context"
+  },
+  "8479529": {
+    "sources": [
+      "https://www.discogs.com/release/8479529",
+      "https://www.discogs.com/artist/3221",
+      "https://cloneroyaloak.bandcamp.com/album/planet-f-m-d-x-pt-1"
+    ],
+    "basis": "release-context"
+  },
+  "13742611": {
+    "sources": [
+      "https://fettburger.com/dj"
+    ],
+    "basis": "artist-context"
+  },
+  "33967": {
+    "sources": [
+      "https://ra.co/dj/djruffneck"
+    ],
+    "basis": "artist-context"
+  },
+  "209945": {
+    "sources": [
+      "https://ukf.com/read/in-conversation-with-dazee/"
+    ],
+    "basis": "release-context"
+  },
+  "109301": {
+    "sources": [
+      "https://musicbrainz.org/artist/8e5fd838-497e-4404-b87d-ceb0005cfc7f"
+    ],
+    "basis": "geographic-note"
+  },
+  "1204689": {
+    "sources": [
+      "https://www.paradiso.nl/programma/the-set-full-crate-x-mar-my-baby-video-release-party/131628"
+    ],
+    "basis": "artist-context"
+  },
+  "3705359": {
+    "sources": [
+      "https://ra.co/dj/sanproper/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "10518041": {
+    "sources": [
+      "https://musicismysanctuary.com/senkaya-bayanyonyoba-1987-1993-rush-hour"
+    ],
+    "basis": "artist-context"
+  },
+  "8800233": {
+    "basis": "release-context",
+    "sources": [
+      "https://rushhourmusic.bandcamp.com/album/surinam-funk-force"
+    ]
+  },
+  "4913304": {
+    "sources": [
+      "https://5mag.net/features/boogie-nite-do-your-thang/"
+    ],
+    "basis": "artist-context"
+  },
+  "12698071": {
+    "sources": [
+      "https://dgtl-festival.com/en/artists/masalo-live"
+    ],
+    "basis": "artist-context"
+  },
+  "35247": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.wikidata.org/wiki/Q4051270#P740",
+      "https://www.wikidata.org/wiki/Q4051270#P495",
+      "https://musicbrainz.org/artist/3acb627b-787c-4276-bafe-516a5806aeb8",
+      "https://daily.bandcamp.com/features/the-sabres-of-paradise-remasters-interview"
+    ]
+  },
+  "13390804": {
+    "sources": [
+      "https://musicbrainz.org/artist/c47028fa-0086-426d-a7b8-ed20eba3ed61"
+    ],
+    "basis": "geographic-note"
+  },
+  "9992673": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.discogs.com/release/9992673"
+    ]
+  },
+  "11795": {
+    "sources": [
+      "https://musicbrainz.org/artist/2095b935-2007-4ae0-a48a-ef4d6fc3aac0"
+    ],
+    "basis": "geographic-note"
+  },
+  "15499420": {
+    "basis": "release-context",
+    "sources": [
+      "https://compro-oro.bandcamp.com/album/compro-oro-feat-murat-ertel-esma-ertel-simurg",
+      "https://muweb.mu.edu.tr/Newfiles/34/34/program_small.pdf",
+      "https://www.discogs.com/release/15499420"
+    ]
+  },
+  "17030529": {
+    "basis": "release-context",
+    "sources": [
+      "https://azmari.bandcamp.com/album/sam"
+    ]
+  },
+  "746165": {
+    "sources": [
+      "https://www.discogs.com/release/746165",
+      "https://www.discogs.com/artist/4178",
+      "https://tranquilelephantizer.bandcamp.com/"
+    ],
+    "basis": "release-context"
+  },
+  "10887542": {
+    "sources": [
+      "https://www.newtone-records.com/category/PRINCE"
+    ],
+    "basis": "release-context"
+  },
+  "17033907": {
+    "sources": [
+      "https://gobangmagazine.com/2021/04/01/event-tv-music-radio-andrew-kitchen-attack-of-the-boogie-tv-show-record-release/"
+    ],
+    "basis": "artist-context"
+  },
+  "103007": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q281888#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "125359": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q7986599#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "164362": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/0ec56df8-abd0-4e07-b5de-5caff7e42746",
+      "https://www.allmusic.com/artist/carrie-lucas-mn0000182897/biography"
+    ]
+  },
+  "8630272": {
+    "basis": "release-context",
+    "sources": [
+      "https://mixmag.net/feature/dan-shake-mixmag-cover-interview-dj"
+    ]
+  },
+  "7938017": {
+    "sources": [
+      "https://mixmag.net/feature/dan-shake-mixmag-cover-interview-dj"
+    ],
+    "basis": "geographic-note"
+  },
+  "13433334": {
+    "sources": [
+      "https://www.discogs.com/release/13433334",
+      "https://www.discogs.com/artist/3688697",
+      "https://www.discogs.com/master/1810698",
+      "https://mixmag.net/feature/dan-shake-mixmag-cover-interview-dj"
+    ],
+    "basis": "release-context"
+  },
+  "11446709": {
+    "sources": [
+      "https://ra.co/events/1306276"
+    ],
+    "basis": "release-context"
+  },
+  "118630": {
+    "sources": [
+      "https://www.discogs.com/release/118630",
+      "https://www.discogs.com/artist/4478",
+      "https://www.discogs.com/artist/5455",
+      "https://www.discogs.com/master/115897",
+      "https://www.discogs.com/release/69218",
+      "https://cutchemist.bandcamp.com/album/brainfreeze-remastered"
+    ],
+    "basis": "release-context"
+  },
+  "5606046": {
+    "sources": [
+      "https://ra.co/dj/monojunk"
+    ],
+    "basis": "artist-context"
+  },
+  "30001": {
+    "sources": [
+      "https://ra.co/news/81471",
+      "https://artisanvinyl.co.uk/dj-red-alert-mike-slammer-don-t-need-your-love-in-effect-slammin-vinyl-disc24739n8.html"
+    ],
+    "basis": "artist-context"
+  },
+  "11405284": {
+    "sources": [
+      "https://www.squidco.com/miva/merchant.mvc?Category_Code=&Product_Code=01193&Screen=PROD&Store_Code=S"
+    ],
+    "basis": "release-context"
+  },
+  "208460": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q1527931#P495",
+      "https://www.wikidata.org/wiki/Q1527931#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "2811130": {
+    "sources": [
+      "https://www.discogs.com/release/2811130",
+      "https://www.discogs.com/artist/20",
+      "https://www.discogs.com/artist/49831",
+      "https://www.discogs.com/master/37370",
+      "https://www.discogs.com/release/11512",
+      "https://www.flightpathestate.com/hyperreal/2002/text/weatherall.html"
+    ],
+    "basis": "release-context"
+  },
+  "1621146": {
+    "sources": [
+      "https://ra.co/dj/stl"
+    ],
+    "basis": "artist-context"
+  },
+  "339118": {
+    "sources": [
+      "https://slopemusic.bandcamp.com/album/slope-remixed"
+    ],
+    "basis": "artist-context"
+  },
+  "4345030": {
+    "basis": "release-context",
+    "sources": [
+      "https://southernsoulcollector.blogspot.com/2013/10/bob-meyer-and-rivieras.html"
+    ]
+  },
+  "12705870": {
+    "sources": [
+      "https://ra.co/dj/sanproper/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "479518": {
+    "sources": [
+      "https://bigbud1.bandcamp.com/album/free-beats"
+    ],
+    "basis": "artist-context"
+  },
+  "11717510": {
+    "basis": "release-context",
+    "sources": [
+      "https://mauskovicdanceband.bandcamp.com/album/down-in-the-basement-ep"
+    ]
+  },
+  "9425519": {
+    "basis": "release-context",
+    "sources": [
+      "https://soundwayrecords.bandcamp.com/album/doing-it-in-lagos?from=footer-cc-a841407783"
+    ]
+  },
+  "25267285": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.discogs.com/release/25267285"
+    ]
+  },
+  "26572889": {
+    "basis": "release-context",
+    "sources": [
+      "https://soundwayrecords.bandcamp.com/album/love-vibration"
+    ]
+  },
+  "146035": {
+    "sources": [
+      "https://musicbrainz.org/artist/f2340fa1-9cc8-4d5d-b10c-cca57045048e"
+    ],
+    "basis": "geographic-note"
+  },
+  "8227117": {
+    "sources": [
+      "https://ra.co/dj/moplen"
+    ],
+    "basis": "artist-context"
+  },
+  "16498374": {
+    "sources": [
+      "https://musicbrainz.org/artist/75a17c29-7679-412d-b33c-e5d5a235aa08"
+    ],
+    "basis": "artist-context"
+  },
+  "5141048": {
+    "basis": "release-context",
+    "sources": [
+      "https://fm4v3.orf.at/radio/stories/1734428/index.html"
+    ]
+  },
+  "8649345": {
+    "sources": [
+      "https://mixmag.net/feature/the-mix-047-man-power-dj-producer-interview-newcastle-grassroots"
+    ],
+    "basis": "artist-context"
+  },
+  "6141873": {
+    "sources": [
+      "https://musicbrainz.org/artist/862c35ad-044f-42fd-9855-8a918d955e69"
+    ],
+    "basis": "geographic-note"
+  },
+  "8205159": {
+    "sources": [
+      "https://www.viviengoldman.com/about"
+    ],
+    "basis": "artist-context"
+  },
+  "316639": {
+    "sources": [
+      "https://ukf.com/read/a-tribute-to-jason-kaye/"
+    ],
+    "basis": "artist-context"
+  },
+  "401373": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q74052379#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "13479515": {
+    "sources": [
+      "https://www.soulandfunkmusic.com/artist/hipnotic/overview"
+    ],
+    "basis": "release-context"
+  },
+  "592730": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q362677#P495",
+      "https://www.wikidata.org/wiki/Q7335713#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "9933928": {
+    "sources": [
+      "https://daily.redbullmusicacademy.com/2012/12/dj-pierre-interview/"
+    ],
+    "basis": "artist-context"
+  },
+  "45229": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q7546407#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "30227756": {
+    "basis": "release-context",
+    "sources": [
+      "https://strut-records.co.uk/products/lafayette-afro-rock-band-soul-makossa"
+    ]
+  },
+  "6912363": {
+    "sources": [
+      "https://musicbrainz.org/artist/d9733f21-71d7-4fa7-813d-67eca0f0eaaf/relationships",
+      "https://www.wikidata.org/wiki/Q65548769#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "66506": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/315a3523-c8ef-4445-83d7-2d9acd38d1ff",
+      "https://shop.playaz.co.uk/blogs/news/jamie-rodigan-s-soundsystem-show-with-dj-hype-08-07-21"
+    ]
+  },
+  "66965": {
+    "sources": [
+      "https://musicbrainz.org/artist/2ab2c317-3988-4d08-852d-b7805dc7b342"
+    ],
+    "basis": "geographic-note"
+  },
+  "11005652": {
+    "sources": [
+      "https://www.discogs.com/release/11005652",
+      "https://www.discogs.com/artist/20593",
+      "https://www.discogs.com/artist/20590",
+      "https://www.discogs.com/master/232054",
+      "https://www.discogs.com/release/125360",
+      "https://www.boisestatepublicradio.org/music/2023-08-28/fresh-air-celebrates-50-years-of-hip-hop-rapper-melle-mel"
+    ],
+    "basis": "release-context"
+  },
+  "516050": {
+    "sources": [
+      "https://musicbrainz.org/artist/d40925df-080e-4ac4-bcad-325c95a1642b"
+    ],
+    "basis": "geographic-note"
+  },
+  "1243093": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q1413494#P495",
+      "https://www.wikidata.org/wiki/Q1413494#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "9855853": {
+    "sources": [
+      "https://soulbluesmusic.com/carlmarshallpage.htm"
+    ],
+    "basis": "artist-context"
+  },
+  "567634": {
+    "sources": [
+      "https://musicbrainz.org/artist/7e092d19-6726-4b9a-a879-157065833481"
+    ],
+    "basis": "geographic-note"
+  },
+  "645638": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.allmusic.com/artist/george-mccrae-mn0000945900/biography"
+    ]
+  },
+  "8121481": {
+    "sources": [
+      "https://musicbrainz.org/artist/7e092d19-6726-4b9a-a879-157065833481"
+    ],
+    "basis": "geographic-note"
+  },
+  "84274": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q1440236#P740",
+      "https://www.wikidata.org/wiki/Q1440236#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "1948927": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q2383024#P495",
+      "https://musicbrainz.org/artist/e509b240-7d64-43ec-8d0e-c09090393c82"
+    ],
+    "basis": "geographic-note"
+  },
+  "14837376": {
+    "sources": [
+      "https://courtney-pine.com/biography"
+    ],
+    "basis": "geographic-note"
+  },
+  "97579": {
+    "sources": [
+      "https://musicbrainz.org/artist/2c489c94-e9d0-4adf-a67f-73cc025cee69"
+    ],
+    "basis": "geographic-note"
+  },
+  "114068": {
+    "sources": [
+      "https://www.allmusic.com/artist/reprazent-mn0000459997",
+      "https://www.wikidata.org/wiki/Q7314192#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "61693": {
+    "sources": [
+      "https://www.discogs.com/release/61693",
+      "https://www.discogs.com/artist/124108",
+      "https://www.discogs.com/master/89627",
+      "https://www.discogs.com/release/40362",
+      "https://www.skiddle.com/news/all/Roni-Size-interview-New-Forms/31265/"
+    ],
+    "basis": "release-context"
+  },
+  "95045": {
+    "sources": [
+      "https://www.allmusic.com/artist/reprazent-mn0000459997",
+      "https://www.wikidata.org/wiki/Q7314192#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "805316": {
+    "sources": [
+      "https://courtney-pine.com/biography"
+    ],
+    "basis": "geographic-note"
+  },
+  "14516902": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q617607#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "7704301": {
+    "sources": [
+      "https://italiana.esteri.it/italiana/en/eventi/nu-guinea-in-paris/"
+    ],
+    "basis": "geographic-note"
+  },
+  "8807880": {
+    "basis": "release-context",
+    "sources": [
+      "https://discoscapablanca.bandcamp.com/album/about-u"
+    ]
+  },
+  "6034801": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.bigdada.com/artist/kutmah"
+    ]
+  },
+  "7269434": {
+    "sources": [
+      "https://discoscapablanca.bandcamp.com/album/about-u"
+    ],
+    "basis": "geographic-note"
+  },
+  "239890": {
+    "sources": [
+      "https://musicbrainz.org/artist/599123c4-4286-40a9-8846-66565fbac303"
+    ],
+    "basis": "geographic-note"
+  },
+  "533275": {
+    "sources": [
+      "https://musicbrainz.org/artist/0d202011-2095-497a-adc8-42e2d7bad392"
+    ],
+    "basis": "release-context"
+  },
+  "14499190": {
+    "sources": [
+      "https://wordandsound.net/presales/2041/-1099"
+    ],
+    "basis": "release-context"
+  },
+  "538235": {
+    "sources": [
+      "https://ra.co/dj/potentialbadboy"
+    ],
+    "basis": "artist-context"
+  },
+  "1267143": {
+    "sources": [
+      "https://www.okhistory.org/publications/enc/entry?entry=GA009"
+    ],
+    "basis": "release-context"
+  },
+  "250924": {
+    "sources": [
+      "https://www.factmag.com/2009/01/01/interview-drop-the-lime/"
+    ],
+    "basis": "artist-context"
+  },
+  "27576126": {
+    "sources": [
+      "https://shallnotfade.bandcamp.com/album/one-more-time-ep"
+    ],
+    "basis": "artist-context"
+  },
+  "1169426": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q2012126#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "8124474": {
+    "sources": [
+      "https://musicbrainz.org/artist/56abaa47-0101-463b-b37e-e961136fec39"
+    ],
+    "basis": "geographic-note"
+  },
+  "1027491": {
+    "sources": [
+      "https://www.discogs.com/release/1027491",
+      "https://www.discogs.com/artist/26955",
+      "https://www.discogs.com/master/124492",
+      "https://www.schott-music.com/en/etudes-australes-complete-no93504.html"
+    ],
+    "basis": "release-context"
+  },
+  "165894": {
+    "sources": [
+      "https://musicbrainz.org/artist/a8ebde98-7e91-46c7-992c-90039ba42017?all=0&page=3&va=1",
+      "https://www.wikidata.org/wiki/Q685595#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "18497": {
+    "sources": [
+      "https://www.discogs.com/release/18497",
+      "https://www.discogs.com/artist/4091",
+      "https://www.discogs.com/master/19554",
+      "https://www.discogs.com/release/353297",
+      "https://freshairarchive.org/segments/dave-and-mase-de-la-soul",
+      "https://www.xxlmag.com/george-clinton-hip-hop-legacy-interview/"
+    ],
+    "basis": "release-context"
+  },
+  "340579": {
+    "sources": [
+      "https://www.lastnightadjsavedmylife.org/darrenjay/"
+    ],
+    "basis": "artist-context"
+  },
+  "7568442": {
+    "sources": [
+      "https://www.discogs.com/release/7568442",
+      "https://www.discogs.com/artist/1778977",
+      "https://www.discogs.com/master/810214",
+      "https://www.discogs.com/release/6781286",
+      "https://medium.com/cuepoint/the-oral-history-of-kendrick-lamar-s-to-pimp-a-butterfly-622f725c3fde",
+      "https://exclaim.ca/music/article/kendrick_lamar-section80"
+    ],
+    "basis": "release-context"
+  },
+  "10559651": {
+    "sources": [
+      "https://musicbrainz.org/artist/381086ea-f511-4aba-bdf9-71c753dc5077",
+      "https://exclaim.ca/music/article/kendrick_lamar-section80"
+    ],
+    "basis": "geographic-note"
+  },
+  "13724942": {
+    "sources": [
+      "https://www.discogs.com/release/13724942",
+      "https://www.discogs.com/artist/263108",
+      "https://www.discogs.com/master/191104",
+      "https://www.discogs.com/release/1191704",
+      "https://garydavis.bandcamp.com/album/quintessential-gary-davis"
+    ],
+    "basis": "release-context"
+  },
+  "31300": {
+    "sources": [
+      "https://musicbrainz.org/artist/0698b547-b992-4edf-a244-18eed7cdba98"
+    ],
+    "basis": "geographic-note"
+  },
+  "797825": {
+    "sources": [
+      "https://daily.redbullmusicacademy.com/2012/12/dj-pierre-interview/"
+    ],
+    "basis": "release-context"
+  },
+  "32063": {
+    "sources": [
+      "https://www.axisrecords.com/product/jeff-mills-the-zanza-22-wonderland-cd/",
+      "https://www.detroithistorical.org/learn/online-research/encyclopedia-of-detroit/mills-jeff"
+    ],
+    "basis": "geographic-note"
+  },
+  "19316317": {
+    "sources": [
+      "https://www.discogs.com/release/19316317",
+      "https://www.discogs.com/artist/4813419",
+      "https://www.discogs.com/artist/1158290",
+      "https://www.discogs.com/master/2193205",
+      "https://tresorberlin.bandcamp.com/album/sputters"
+    ],
+    "basis": "release-context"
+  },
+  "193290": {
+    "sources": [
+      "https://decadancebook.wordpress.com/2016/05/06/t-move-experience-running-in-real-time-tuscania-movement/"
+    ],
+    "basis": "artist-context"
+  },
+  "37171": {
+    "sources": [
+      "https://musicbase.net/dj-q"
+    ],
+    "basis": "artist-context"
+  },
+  "14446701": {
+    "sources": [
+      "https://ra.co/dj/jused/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "3480952": {
+    "basis": "release-context",
+    "sources": [
+      "https://citizenfreak.com/artists/103253-gino-soccio"
+    ]
+  },
+  "4619489": {
+    "sources": [
+      "https://musicbrainz.org/artist/84683370-5eae-418b-acd8-883ac028a8a0",
+      "https://musicbrainz.org/artist/600c5212-a8e6-458e-bd3f-78b6fbfe329a"
+    ],
+    "basis": "geographic-note"
+  },
+  "14460113": {
+    "sources": [
+      "https://www.selmer.fr/blogs/artistes/byard-lancaster"
+    ],
+    "basis": "release-context"
+  },
+  "15656885": {
+    "basis": "release-context",
+    "sources": [
+      "https://le-sucre.eu/artists/leo-pol-live/"
+    ]
+  },
+  "13461710": {
+    "sources": [
+      "https://www.allmusic.com/artist/corduroy-mn0000116932/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "20311276": {
+    "sources": [
+      "https://www.jazzdisco.org/fantasy-records/discography-1959-1960/"
+    ],
+    "basis": "release-context"
+  },
+  "1619565": {
+    "sources": [
+      "https://musicbrainz.org/artist/3af06bc4-68ad-4cae-bb7a-7eeeb45e411f"
+    ],
+    "basis": "geographic-note"
+  },
+  "27471945": {
+    "sources": [
+      "https://archives.crem-cnrs.fr/archives/collections/CNRSMH_E_2011_005_015/"
+    ],
+    "basis": "artist-context"
+  },
+  "129528": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q2393241#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "5666067": {
+    "basis": "release-context",
+    "sources": [
+      "https://musicbrainz.org/artist/82462e70-bc00-43ba-8d96-734efa6e72ac",
+      "https://www.universalmusic.it/popular-music/news/caparezza-museica-il-nuovo-album-e-gia-disco-doro_10334/"
+    ]
+  },
+  "4215038": {
+    "basis": "release-context",
+    "sources": [
+      "https://guiddo.com/biography/"
+    ]
+  },
+  "205935": {
+    "sources": [
+      "https://musicbrainz.org/artist/20ff3303-4fe2-4a47-a1b6-291e26aa3438"
+    ],
+    "basis": "geographic-note"
+  },
+  "1596994": {
+    "sources": [
+      "https://www.bucksmusicgroup.com/artists/166-roni-size"
+    ],
+    "basis": "artist-context"
+  },
+  "7546119": {
+    "sources": [
+      "https://vampisoul.bandcamp.com/album/the-reality"
+    ],
+    "basis": "release-context"
+  },
+  "4268620": {
+    "sources": [
+      "https://musicbrainz.org/artist/4f8a0d9b-5777-40da-b29a-e9753d5ae693",
+      "https://musicbrainz.org/artist/663f8232-8c46-4851-803f-a91d31593b14"
+    ],
+    "basis": "geographic-note"
+  },
+  "13360264": {
+    "sources": [
+      "https://www.festivalinfo.nl/artist/91594/I-F/"
+    ],
+    "basis": "artist-context"
+  },
+  "11705722": {
+    "sources": [
+      "https://www.discogs.com/release/11705722",
+      "https://www.discogs.com/artist/1900915",
+      "https://www.nldiscografie.nl/cynthia-bhikharie",
+      "https://cynthia.bandcamp.com/album/lets-dance-with-cynthia",
+      "https://vintagevoudou.bandcamp.com/"
+    ],
+    "basis": "release-context"
+  },
+  "2045030": {
+    "sources": [
+      "https://www.discogs.com/release/2045030",
+      "https://www.discogs.com/artist/2219395",
+      "https://www.discogs.com/master/414231",
+      "https://www.discogs.com/release/3230838",
+      "https://www.allaboutjazz.com/what-planet-is-this-sun-ra-golden-years-of-new-jazz-review-by-john-eyles/"
+    ],
+    "basis": "release-context"
+  },
+  "103819": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q1663959#P495",
+      "https://www.wikidata.org/wiki/Q1663959#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "668230": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q50037#P495",
+      "https://www.wikidata.org/wiki/Q50037#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "10346704": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q184827#P495",
+      "https://www.wikidata.org/wiki/Q184827#P740"
+    ],
+    "basis": "geographic-note"
+  },
+  "15417065": {
+    "sources": [
+      "https://www.mrbongo.com/collections/ebo-taylor"
+    ],
+    "basis": "release-context"
+  },
+  "418688": {
+    "sources": [
+      "https://citizenfreak.com/artists/103253-gino-soccio"
+    ],
+    "basis": "geographic-note"
+  },
+  "375740": {
+    "sources": [
+      "https://www.gaga.com.au/news/new-release-mark-pritchard/"
+    ],
+    "basis": "release-context"
+  },
+  "1387022": {
+    "sources": [
+      "https://musicbrainz.org/artist/14039c7d-b67e-46cd-9cf3-f252d0e83879"
+    ],
+    "basis": "geographic-note"
+  },
+  "5803138": {
+    "basis": "release-context",
+    "sources": [
+      "https://filhounico.com/booking/20"
+    ]
+  },
+  "322096": {
+    "sources": [
+      "https://musicbrainz.org/artist/76325a9d-6c25-4649-96b1-84e9b99d6b4b",
+      "https://www.wikidata.org/wiki/Q180727#P937"
+    ],
+    "basis": "geographic-note"
+  },
+  "14218890": {
+    "sources": [
+      "https://www.dmcworld.net/features/question-and-answer/michael-gray-724/"
+    ],
+    "basis": "artist-context"
+  },
+  "58340": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q1758822#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "98807": {
+    "sources": [
+      "https://citizenfreak.com/artists/91759-bombers"
+    ],
+    "basis": "artist-context"
+  },
+  "152824": {
+    "sources": [
+      "https://www.nabfeme.org/philadelphia/"
+    ],
+    "basis": "artist-context"
+  },
+  "13483159": {
+    "sources": [
+      "https://musicbrainz.org/artist/854d133d-771b-4776-ad66-6768f4f848e9"
+    ],
+    "basis": "geographic-note"
+  },
+  "7454586": {
+    "basis": "release-context",
+    "sources": [
+      "https://www.amsterdam-dance-event.nl/en/artists-speakers/olivier-boogie/14253/"
+    ]
+  },
+  "18579": {
+    "sources": [
+      "https://it.ra.co/dj/alexneri/biography"
+    ],
+    "basis": "artist-context"
+  },
+  "8426622": {
+    "sources": [
+      "https://ra.co/dj/andrekronert"
+    ],
+    "basis": "artist-context"
+  },
+  "15507007": {
+    "sources": [
+      "https://ra.co/dj/cygnus"
+    ],
+    "basis": "artist-context"
+  },
+  "385": {
+    "sources": [
+      "https://www.soundonsound.com/people/squarepusher"
+    ],
+    "basis": "release-context"
+  },
+  "680278": {
+    "sources": [
+      "https://dropthebass.co/artists/jonny-l"
+    ],
+    "basis": "artist-context"
+  },
+  "46231": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q2254953#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "83311": {
+    "sources": [
+      "https://www.wikidata.org/wiki/Q2254953#P495"
+    ],
+    "basis": "geographic-note"
+  },
+  "2331649": {
+    "sources": [
+      "https://musicbrainz.org/artist/83c616dd-9588-4663-83c4-13a7253b6733"
+    ],
+    "basis": "geographic-note"
+  },
+  "20490646": {
+    "sources": [
+      "https://magicwavesradio.blogspot.com/2008/08/interview-victor-life-of-fockewulf-190.html"
+    ],
+    "basis": "release-context"
+  }
+}
