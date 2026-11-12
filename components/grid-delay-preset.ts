@@ -1,4 +1,4 @@
-import type {DelayPatch,DelayTarget,DelayWave,DelayInputGains} from "./grid-delay-patch-bay";
+import {beatDivisions,type BeatDivision,type DelayPatch,type DelayTarget,type DelayWave,type DelayInputGains} from "./grid-delay-patch-bay";
 import type {DelayQuality} from "./grid-delay-gpu";
 
 export type GridDelayBlend="source-over"|"multiply"|"screen"|"overlay"|"difference"|"exclusion"|"lighten"|"darken";
@@ -14,6 +14,7 @@ export type GridDelayPreset={
  ink:string;background:string;
  blend:GridDelayBlend;
  linked:boolean;grid:boolean;playing:boolean;quality:DelayQuality;
+ transport?:{bpm:number;delaySync:boolean;delayDivision:BeatDivision};backgroundInside?:boolean;
  delay:{mode:"image"|"black";blackHold:number};
  globalLens:{enabled:boolean;mode:"fisheye"|"pinch";strength:number;size:number;growth:number};
  feedback:{enabled:boolean;amount:number;decay:number;refresh:number;blend:GridDelayBlend};
@@ -44,10 +45,14 @@ export function parseGridDelayPreset(input:unknown,ranges:Record<string,readonly
     !color(p.ink)||!color(p.background))throw Error("Preset contains an unsupported font, colour or mode.");
  if(typeof p.linked!=="boolean"||typeof p.grid!=="boolean"||typeof p.playing!=="boolean")throw Error("Invalid preset toggle settings.");
  if(!Array.isArray(p.waves)||p.waves.length!==3||p.waves.some(w=>!object(w)||!option(w.shape,shapes)||
-   !number(w.rate,.01,4)||!number(w.depth,0,100)||!number(w.phase,-100000,100000)||typeof w.enabled!=="boolean"))throw Error("Invalid preset wave generators.");
+   !number(w.rate,.01,4)||!number(w.depth,0,100)||!number(w.phase,-100000,100000)||typeof w.enabled!=="boolean"||
+   (w.sync!==undefined&&typeof w.sync!=="boolean")||(w.division!==undefined&&!option(w.division,beatDivisions))))throw Error("Invalid preset wave generators.");
  if(!Array.isArray(p.patches)||p.patches.length>128||p.patches.some(c=>!object(c)||typeof c.id!=="string"||c.id.length>90||
    !Number.isInteger(c.wave)||!number(c.wave,0,2)||!targets.includes(c.target as DelayTarget)||!number(c.amount,-100,100)))throw Error("Invalid preset patch cables.");
  if(!object(p.gains)||Object.entries(p.gains).some(([key,value])=>!targets.includes(key as DelayTarget)||!number(value,0,4)))throw Error("Invalid preset input multipliers.");
+ if(p.backgroundInside!==undefined&&typeof p.backgroundInside!=="boolean")throw Error("Invalid background mode.");
+ if(p.transport!==undefined&&(!object(p.transport)||!number(p.transport.bpm,40,240)||
+    typeof p.transport.delaySync!=="boolean"||!option(p.transport.delayDivision,beatDivisions)))throw Error("Invalid tempo settings.");
  if(!object(p.delay)||!option(p.delay.mode,["image","black"])||!number(p.delay.blackHold,0,100))throw Error("Invalid delay mode.");
  if(!object(p.globalLens)||typeof p.globalLens.enabled!=="boolean"||!option(p.globalLens.mode,["fisheye","pinch"])||
     !number(p.globalLens.strength,0,100)||!number(p.globalLens.size,15,150)||!number(p.globalLens.growth,0,3))throw Error("Invalid global lens.");
