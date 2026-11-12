@@ -59,7 +59,7 @@ const experimentCatalog: Experiment[] = [
     slug: "kinetic-type-synth",
     title: "K‑NET‑C",
     kind: "tool",
-    status: "test",
+    status: "archived",
     year: "2026",
     tags: ["kinetic type", "grid distortion", "feedback"],
     summary: "A modular kinetic-type synthesizer combining sampling, grid distortion, generated shapes and wave routing.",
@@ -89,7 +89,7 @@ const experimentCatalog: Experiment[] = [
     slug: "ascii-kinetic-typo-machine",
     title: "A_SCII",
     kind: "tool",
-    status: "test",
+    status: "archived",
     year: "2026",
     tags: ["ascii", "kinetic type", "wave"],
     summary: "A text-to-ASCII typographic machine with animated wave distortion and export.",
@@ -129,13 +129,17 @@ const experimentCatalog: Experiment[] = [
     slug: "kinetic-composer",
     title: "GR_D",
     kind: "tool",
-    status: "test",
+    status: "archived",
     year: "2026",
     tags: ["kinetic type", "canvas", "render"],
     summary: "A layered kinetic-typography composer with replicators and video rendering.",
   },
 ];
 
-export const experiments = experimentCatalog.filter((experiment) => experiment.slug !== "type-distorter");
+// REC identifiers and source routes stay stable when an entry is archived.
+export const archivedExperiments = experimentCatalog.filter((experiment) => experiment.status === "archived");
+export const experiments = experimentCatalog.filter(
+  (experiment) => experiment.status !== "archived" && experiment.slug !== "type-distorter"
+);
 
 export const statusOrder: ExperimentStatus[] = ["draft", "test", "public", "archived"];
