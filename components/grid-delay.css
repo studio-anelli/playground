@@ -3,6 +3,10 @@
 .gd-machine button{cursor:pointer}
 .gd-top{flex:none;height:52px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid #484b45;font-size:11px}
 .gd-top strong{font-weight:500;letter-spacing:.04em}.gd-top strong span{color:#92978e;font-weight:400}
+.gd-top-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+.gd-top-actions input[type=file]{display:none}
+.gd-preset-success,.gd-preset-error{font:10px var(--ui-mono),monospace;white-space:nowrap}
+.gd-preset-success{color:#a6c7a5}.gd-preset-error{color:#e5a6a6;max-width:230px;white-space:normal}
 .gd-top>div{display:flex;gap:16px;align-items:center}.gd-top button{border:0;background:none;padding:6px 0}
 .gd-back{display:inline-flex;align-items:center;min-height:36px;white-space:nowrap;text-decoration:none}.gd-back:hover{text-decoration:underline;text-underline-offset:4px}
 .gd-workspace{display:grid;grid-template-columns:minmax(0,1fr) 410px;flex:1;min-height:0}
@@ -63,6 +67,14 @@
 .gd-target{display:flex;align-items:center;gap:5px;min-height:36px;padding:4px 0;border-bottom:1px solid #363b36;color:#d9dcd4;font-size:10px}
 .gd-target span{min-width:0;flex:1}
 .gd-target small{color:#888e85}
+.gd-target-group-label{font:9px var(--ui-mono),monospace;color:#a8b0a6;padding:14px 0 7px;letter-spacing:.06em}
+.gd-target-group:first-child .gd-target-group-label{padding-top:3px}
+.gd-input-gain{display:flex;align-items:center;gap:2px;flex:none;margin-left:auto;color:#d8ddd4}
+.gd-input-gain input{font:10px var(--ui-mono),monospace;box-sizing:border-box;width:40px;min-width:0;padding:4px 2px;border:1px solid #626a60;border-radius:0;background:#222722;color:#f0ede5;text-align:right;appearance:textfield}
+.gd-input-gain input::-webkit-inner-spin-button,.gd-input-gain input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.gd-input-gain small{font-size:11px;color:#d3d7ce}
+.gd-target>small{font-size:9px;min-width:7px;text-align:right}
+
 .gd-target-ready:hover{background:#414a40}
 .gd-cables{position:absolute;inset:0;width:100%;height:100%;z-index:2;overflow:visible;pointer-events:none}
 .gd-connections-head{border-bottom:1px solid #363d35;margin:10px 0 0}
@@ -94,3 +106,5 @@
 .gd-control-group .gd-pills button{flex:1;min-width:0}
 
 .gd-stage-error{position:absolute;inset:24px;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;text-align:center;background:#1c211ded;color:#edeae3;padding:24px;z-index:3}.gd-stage-error strong{font-weight:500;font-size:18px}.gd-stage-error span{max-width:540px;font:12px var(--ui-mono),monospace;overflow-wrap:anywhere;color:#bfc6bb}
+
+@media(max-width:760px){.gd-top-actions{gap:7px}.gd-top-actions button{font-size:10px}.gd-preset-success,.gd-preset-error{position:absolute;z-index:4;top:55px;right:8px;background:#20231f;padding:6px}.gd-top strong{display:none}}

@@ -4,9 +4,11 @@
  * 2D canvas; the history, grid composition and deformation live on the GPU. */
 export type DelayGeometry = {
   columns:number; rows:number; spacing:number; delay:number; pattern:number;
+  delayMode:number; blackHold:number;
   mode:number; amount:number; frequency:number; flow:number; time:number; elapsed:number;
   globalMode:number; globalStrength:number; globalSize:number; globalGrowth:number;
   grid:boolean; background:[number,number,number]; blend:number;
+  feedbackEnabled:boolean;feedbackAmount:number;feedbackDecay:number;feedbackRefresh:number;feedbackBlend:number;
 };
 export type DelayQuality="balanced"|"sharp"|"fluid";
 export type DelayGPU = {
@@ -33,6 +35,8 @@ uniform sampler2DArray uFrames;
 uniform vec2 uGrid;
 uniform float uGap;
 uniform float uDelay;
+uniform int uDelayMode;
+uniform float uBlackHold;
 uniform int uPattern;
 uniform int uNewest;
 uniform int uCount;
@@ -53,6 +57,7 @@ uniform float uGlobalStrength;
 uniform float uGlobalSize;
 uniform float uGlobalGrowth;
 uniform float uAspect;
+uniform vec2 uOutputSize;
 float hash21(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float patternValue(vec2 cell){
  vec2 center=(cell+.5)/uGrid;
@@ -60,6 +65,17 @@ float patternValue(vec2 cell){
  if(uPattern==2)return min(1.,length(center-vec2(.5))*1.42);
  if(uPattern==3)return hash21(cell);
  return .5+.5*sin(center.x*8.+center.y*5.);
+}
+// Retrieve a complete historical frame for a cell. Adjacent cells are
+// blended only in a very narrow output-pixel edge anti-alias band.
+int historyLayer(vec2 c){
+ float secondsAgo=max(0.,patternValue(c)*uDelay);
+ if(uCount>0 && secondsAgo>max(.0001,uElapsed*.5)){
+  float past=max(0.,secondsAgo-uElapsed)/max(.0001,uInterval);
+  int age=min(int(floor(past+.5)),uCount-1);
+  return (uNewest-age+uCapacity)%uCapacity;
+ }
+ return uLiveLayer;
 }
 vec3 compose(vec3 sampleColor,vec3 bg){
  if(uBlend==1)return sampleColor*bg;
@@ -103,33 +119,30 @@ void main(){
  bool invalid=outside||any(lessThan(local,vec2(0.)))||any(greaterThanEqual(local,vec2(1.)))||any(greaterThanEqual(cell,cells));
  if(invalid){outColor=vec4(uBackground,1.);return;}
 
- // Optical refraction is evaluated independently in each stationary cell.
- // The actual source pixels available in the tile determine lens quality:
- // a 24-pixel tile cannot resolve a full glass curvature without aliasing.
+ // A monotonic radial lens is essential: the previous slope/refraction
+ // formulation could fold source coordinates over themselves near the rim.
+ // That produced the hard clipped blocks and duplicated glyph outlines.
  vec2 sampleLocal=local;
  vec2 tilePixels=max(vec2(1.),cellSize*vec2(textureSize(uFrames,0).xy));
- float minPixels=min(tilePixels.x,tilePixels.y);
- float detailBudget=smoothstep(14.,64.,minPixels);
- float strength=clamp(uAmount,0.,1.)*detailBudget;
- if(uMode!=0 && detailBudget>.001){
+ float detailBudget=smoothstep(14.,56.,min(tilePixels.x,tilePixels.y));
+ if(uMode!=0 && uAmount>0. && detailBudget>.001){
    float seed=hash21(cell+vec2(9.7,23.1));
    float seedB=hash21(cell+vec2(43.2,8.5));
    float phase=uTime*uFlow*(.48+seed*.46)+seedB*6.2831853;
    vec2 q=(local-.5)*2.;
    float radius2=dot(q,q);
-   float inside=1.-smoothstep(.68,1.0,radius2);
-   float glass=clamp(strength*(1.+.08*sin(phase*.55)),0.,1.);
-   float bulge=sqrt(max(.045,1.-min(radius2,.955)));
-   float slope=(1./bulge-1.)*inside;
-   // Lower curvature as tile resolution shrinks. Otherwise small tiles
-   // become dozens of hard-edged repeats instead of a readable lens.
-   float curvature=(.08+clamp(uFrequency,.2,12.)*.036)*mix(.65,1.,detailBudget);
-   // Smooth saturation instead of a hard displacement clamp. This keeps
-   // derivatives continuous and reduces stair-stepping around strong lenses.
-   float rawRefraction=max(0.,slope*curvature*glass);
-   float refraction=.58*(1.-exp(-rawRefraction/.58));
-   vec2 ray=q*(uMode==1?1.-refraction:1.+refraction);
-   sampleLocal=.5+.5*ray;
+   // Strength and curvature share a bounded optical budget. Even at maximum
+   // settings the mapping remains one-to-one in both modes.
+   float curvature=clamp(uFrequency,.2,12.)/12.;
+   float breathing=1.+.07*sin(phase*.55);
+   float k=clamp(uAmount,0.,1.)*detailBudget*mix(.20,.70,curvature)*breathing;
+   k=min(k,.72);
+   // Exactly zero at the cell perimeter, no discontinuous clamping at edges.
+   // r' = r(1 +/- k(1-r²)^2) for r in [0,1].
+   // Fisheye's minimum radial derivative >= 1-k; pinch's >= 1-.8k.
+   float falloff=pow(max(0.,1.-radius2),2.);
+   float radiusScale=uMode==1?1.-k*falloff:1.+k*falloff;
+   sampleLocal=.5+.5*q*radiusScale;
  }
  // Half-pixel inset avoids texture filtering across neighbouring cells.
  vec2 inset=min(vec2(.49),.5/max(cellSize*vec2(textureSize(uFrames,0).xy),vec2(1.)));
@@ -138,22 +151,90 @@ void main(){
  // The current frame is uploaded every RAF while historical snapshots
  // occupy a separate ring. Never crossfade distinct text shapes.
  float secondsAgo=max(0.,patternValue(cell)*uDelay);
- // Choose exactly ONE complete historical frame per cell: blending between
- // two text frames creates unwanted transparent-looking doubled letterforms.
- // The current (zero-delay) frame still refreshes every animation frame.
- int selectedLayer=uLiveLayer;
- if(uCount>0 && secondsAgo>max(.0001,uElapsed*.5)){
-  float past=max(0.,secondsAgo-uElapsed)/max(.0001,uInterval);
-  int age=min(int(floor(past+.5)),uCount-1);
-  selectedLayer=(uNewest-age+uCapacity)%uCapacity;
+ // A complete historical frame per tile, with just a subpixel seam transition.
+ int selectedLayer=historyLayer(cell);
+ // Black mode gates each cell using its delay offset, without blending.
+ // Return pure black before any texture lookup or grid decoration.
+ if(uDelayMode==1){
+  float blackPhase=fract((uTime-secondsAgo)*.5);
+  if(blackPhase<clamp(uBlackHold,0.,1.)){outColor=vec4(0.,0.,0.,1.);return;}
  }
- // Pure refraction: a single texture sample, with no optical highlight or RGB split.
+ // The image mode and the visible interval of black mode share the sample.
  vec3 sampleColor=texture(uFrames,vec3(sourceUV,float(selectedLayer))).rgb;
  vec3 result=compose(sampleColor,uBackground);
+ // Prevent a one-pixel horizontal/vertical "gate" at exact tile boundaries.
+ // Temporal discontinuities remain crisp inside each cell: only the two
+ // pixels nearest an edge are anti-aliased when Grid is hidden.
+ // Do not soften intentional black gates or visible grid outlines.
+ if(!uGridVisible && uDelayMode==0 && uDelay>.001){
+  vec2 edgePx=min(local,1.-local)*cellSize*uOutputSize;
+  // Safely pull the neighbouring sample from INSIDE its own tile, never
+  // from a texture filtering footprint that crosses an unrelated cell.
+  if(edgePx.y<1.5){
+   float side=local.y<.5?-1.:1.;
+   vec2 other=cell+vec2(0.,side);
+   if(other.y>=0.&&other.y<cells.y){
+    vec2 otherLocal=clamp(vec2(sampleLocal.x,1.-local.y),inset,1.-inset);
+    vec2 otherUV=(other+otherLocal)/cells;
+    vec3 otherColor=texture(uFrames,vec3(otherUV,float(historyLayer(other)))).rgb;
+    float edgeMix=.5*(1.-smoothstep(0.,1.5,edgePx.y));
+    result=mix(result,compose(otherColor,uBackground),edgeMix);
+   }
+  }
+  if(edgePx.x<1.5){
+   float side=local.x<.5?-1.:1.;
+   vec2 other=cell+vec2(side,0.);
+   if(other.x>=0.&&other.x<cells.x){
+    vec2 otherLocal=clamp(vec2(1.-local.x,sampleLocal.y),inset,1.-inset);
+    vec2 otherUV=(other+otherLocal)/cells;
+    vec3 otherColor=texture(uFrames,vec3(otherUV,float(historyLayer(other)))).rgb;
+    float edgeMix=.5*(1.-smoothstep(0.,1.5,edgePx.x));
+    result=mix(result,compose(otherColor,uBackground),edgeMix);
+   }
+  }
+ }
  if(uGridVisible){
    vec2 rim=min(local,1.-local)*cellSize*cells;
    if(min(rim.x,rim.y)<.006)result=mix(result,vec3(.13,.15,.13),.22);
  }
+ outColor=vec4(result,1.);
+}`;
+
+// Feedback is an output-only pass: delay history still stores raw source frames.
+// Use gl_FragCoord so framebuffer textures are sampled without vertical flips.
+const feedbackFragment = `#version 300 es
+precision highp float;
+out vec4 outColor;
+uniform sampler2D uScene;
+uniform sampler2D uPrevious;
+uniform vec2 uResolution;
+uniform float uAmount;
+uniform float uDecay;
+uniform int uBlendMode;
+uniform bool uHasHistory;
+vec3 blendFrames(vec3 a,vec3 b){
+ if(uBlendMode==1)return a*b;
+ if(uBlendMode==2)return 1.-(1.-a)*(1.-b);
+ if(uBlendMode==3)return mix(2.*a*b,1.-2.*(1.-a)*(1.-b),step(.5,a));
+ if(uBlendMode==4)return abs(a-b);
+ if(uBlendMode==5)return a+b-2.*a*b;
+ if(uBlendMode==6)return max(a,b);
+ if(uBlendMode==7)return min(a,b);
+ return b;
+}
+void main(){
+ vec2 uv=gl_FragCoord.xy/uResolution;
+ vec3 source=texture(uScene,uv).rgb;
+ if(!uHasHistory||uAmount<=0.){
+  outColor=vec4(source,1.);return;
+ }
+ // Decay toward the incoming image, not toward black: full-colour opaque
+ // backgrounds remain stable while differences between frames fade.
+ vec3 previous=mix(source,texture(uPrevious,uv).rgb,clamp(uDecay,0.,1.));
+ // Remove each blend mode's static self-blend baseline. Without this,
+ // Screen would turn the background white and Multiply would darken it.
+ vec3 shifted=blendFrames(source,previous)-blendFrames(source,source);
+ vec3 result=clamp(source+shifted*clamp(uAmount,0.,1.),0.,1.);
  outColor=vec4(result,1.);
 }`;
 
@@ -173,6 +254,11 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
  gl.attachShader(prog,vs);gl.attachShader(prog,fs);gl.linkProgram(prog);
  gl.deleteShader(vs);gl.deleteShader(fs);
  if(!gl.getProgramParameter(prog,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(prog)||"WebGL shader link failed");
+ const fvs=shader(gl,gl.VERTEX_SHADER,vertex),ffs=shader(gl,gl.FRAGMENT_SHADER,feedbackFragment);
+ const feedbackProgram=gl.createProgram();if(!feedbackProgram)throw new Error("Feedback program allocation failed");
+ gl.attachShader(feedbackProgram,fvs);gl.attachShader(feedbackProgram,ffs);gl.linkProgram(feedbackProgram);
+ gl.deleteShader(fvs);gl.deleteShader(ffs);
+ if(!gl.getProgramParameter(feedbackProgram,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(feedbackProgram)||"Feedback shader link failed");
  const vao=gl.createVertexArray();if(!vao)throw new Error("WebGL vertex array allocation failed");
  const texture=gl.createTexture();if(!texture)throw new Error("WebGL history texture allocation failed");
  // 224 MiB maximum texture history. Temporal resolution is adapted to display dimensions.
@@ -207,12 +293,12 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
  const uniforms=(name:string)=>gl.getUniformLocation(prog,name);
  const loc={
   frames:uniforms("uFrames"),grid:uniforms("uGrid"),gap:uniforms("uGap"),
-  delay:uniforms("uDelay"),pattern:uniforms("uPattern"),newest:uniforms("uNewest"),
+  delay:uniforms("uDelay"),delayMode:uniforms("uDelayMode"),blackHold:uniforms("uBlackHold"),pattern:uniforms("uPattern"),newest:uniforms("uNewest"),
   count:uniforms("uCount"),capacity:uniforms("uCapacity"),liveLayer:uniforms("uLiveLayer"),interval:uniforms("uInterval"),elapsed:uniforms("uElapsed"),
   background:uniforms("uBackground"),blend:uniforms("uBlend"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
   flow:uniforms("uFlow"),time:uniforms("uTime"),
-  globalMode:uniforms("uGlobalMode"),globalStrength:uniforms("uGlobalStrength"),globalSize:uniforms("uGlobalSize"),globalGrowth:uniforms("uGlobalGrowth"),aspect:uniforms("uAspect")
+  globalMode:uniforms("uGlobalMode"),globalStrength:uniforms("uGlobalStrength"),globalSize:uniforms("uGlobalSize"),globalGrowth:uniforms("uGlobalGrowth"),aspect:uniforms("uAspect"),outputSize:uniforms("uOutputSize")
  };
  // Capture a history snapshot by copying the live texture layer on the GPU.
  // This avoids a second full-canvas CPU->GPU upload on every capture.
@@ -258,13 +344,64 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   }
  };
  const pushLive=(frame:HTMLCanvasElement)=>write(frame,liveLayer);
+ // Lazily allocate output-resolution feedback buffers only when enabled.
+ // The raw history texture array and feedback texture must never alias.
+ type FeedbackTarget={texture:WebGLTexture;framebuffer:WebGLFramebuffer};
+ let feedbackTargets:FeedbackTarget[]|null=null;
+ let feedbackValid=false,feedbackActive=false,feedbackNewest=-1,feedbackLast=-Infinity;
+ const feedbackUniform={
+  scene:gl.getUniformLocation(feedbackProgram,"uScene"),
+  previous:gl.getUniformLocation(feedbackProgram,"uPrevious"),
+  resolution:gl.getUniformLocation(feedbackProgram,"uResolution"),
+  amount:gl.getUniformLocation(feedbackProgram,"uAmount"),
+  decay:gl.getUniformLocation(feedbackProgram,"uDecay"),
+  blend:gl.getUniformLocation(feedbackProgram,"uBlendMode"),
+  hasHistory:gl.getUniformLocation(feedbackProgram,"uHasHistory")
+ };
+ const deleteFeedback=()=>{
+  if(feedbackTargets)for(const target of feedbackTargets){gl.deleteFramebuffer(target.framebuffer);gl.deleteTexture(target.texture)}
+  feedbackTargets=null;feedbackNewest=-1;feedbackLast=-Infinity;
+ };
+ const initFeedback=()=>{
+  if(feedbackTargets)return true;
+  const created:FeedbackTarget[]=[];
+  for(let i=0;i<3;i++){
+   const tex=gl.createTexture(),fb=gl.createFramebuffer();
+   if(!tex||!fb){if(tex)gl.deleteTexture(tex);if(fb)gl.deleteFramebuffer(fb);break}
+   gl.bindTexture(gl.TEXTURE_2D,tex);
+   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
+   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+   gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA8,canvas.width,canvas.height,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+   gl.bindFramebuffer(gl.FRAMEBUFFER,fb);
+   gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,tex,0);
+   const ok=gl.checkFramebufferStatus(gl.FRAMEBUFFER)===gl.FRAMEBUFFER_COMPLETE;
+   created.push({texture:tex,framebuffer:fb});
+   if(!ok)break;
+  }
+  gl.bindFramebuffer(gl.FRAMEBUFFER,null);
+  if(created.length!==3){
+   for(const t of created){gl.deleteFramebuffer(t.framebuffer);gl.deleteTexture(t.texture)}
+   feedbackValid=false;return false;
+  }
+  feedbackTargets=created;feedbackNewest=-1;feedbackLast=-Infinity;return true;
+ };
  const render=(p:DelayGeometry)=>{
   if(!count||gl.isContextLost())return;
+  // Keep buffers alive while enabled, even when a patch briefly drives amount to zero.
+  const wantFeedback=p.feedbackEnabled;
+  if(!wantFeedback&&feedbackActive){deleteFeedback();feedbackActive=false}
+  if(wantFeedback&&!feedbackActive){feedbackActive=true;feedbackValid=initFeedback()}
+  const useFeedback=wantFeedback&&feedbackValid&&!!feedbackTargets;
+  // Stage 1 renders the temporal grid either directly or to a scene texture.
+  gl.bindFramebuffer(gl.FRAMEBUFFER,useFeedback?feedbackTargets![0].framebuffer:null);
   gl.viewport(0,0,canvas.width,canvas.height);
   gl.disable(gl.BLEND);gl.useProgram(prog);gl.bindVertexArray(vao);
   gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D_ARRAY,texture);
   gl.uniform1i(loc.frames,0);gl.uniform2f(loc.grid,p.columns,p.rows);
   gl.uniform1f(loc.gap,p.spacing/200);gl.uniform1f(loc.delay,p.delay);
+  gl.uniform1i(loc.delayMode,p.delayMode);gl.uniform1f(loc.blackHold,p.blackHold);
   gl.uniform1i(loc.pattern,p.pattern);gl.uniform1i(loc.newest,newest);
   gl.uniform1i(loc.count,count);gl.uniform1i(loc.capacity,historyCapacity);gl.uniform1i(loc.liveLayer,liveLayer);gl.uniform1f(loc.interval,interval);gl.uniform1f(loc.elapsed,p.elapsed);
   gl.uniform3f(loc.background,...p.background);gl.uniform1i(loc.blend,p.blend);
@@ -277,10 +414,41 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.uniform1f(loc.globalSize,p.globalSize);
   gl.uniform1f(loc.globalGrowth,p.globalGrowth);
   gl.uniform1f(loc.aspect,canvas.width/Math.max(1,canvas.height));
+  gl.uniform2f(loc.outputSize,canvas.width,canvas.height);
   gl.drawArrays(gl.TRIANGLES,0,3);
+  if(!useFeedback||!feedbackTargets)return;
+  // Stage 2 combines the newly assembled frame with the last snapshot.
+  // On refresh ticks, write the result into the opposite history target.
+  // Between ticks, display the blend without changing feedback history.
+  const refreshSeconds=Math.max(.016,p.feedbackRefresh);
+  const due=feedbackNewest<0||p.time-feedbackLast>=refreshSeconds;
+  const next=feedbackNewest<0?1:feedbackNewest===1?2:1;
+  const outputTarget=due?feedbackTargets[next]:null;
+  gl.bindFramebuffer(gl.FRAMEBUFFER,outputTarget?.framebuffer||null);
+  gl.useProgram(feedbackProgram);
+  gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,feedbackTargets[0].texture);
+  gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,feedbackNewest>=0?feedbackTargets[feedbackNewest].texture:feedbackTargets[0].texture);
+  gl.uniform1i(feedbackUniform.scene,0);gl.uniform1i(feedbackUniform.previous,1);
+  gl.uniform2f(feedbackUniform.resolution,canvas.width,canvas.height);
+  gl.uniform1f(feedbackUniform.amount,p.feedbackAmount);
+  gl.uniform1f(feedbackUniform.decay,p.feedbackDecay);
+  gl.uniform1i(feedbackUniform.blend,p.feedbackBlend);
+  gl.uniform1i(feedbackUniform.hasHistory,feedbackNewest>=0?1:0);
+  gl.drawArrays(gl.TRIANGLES,0,3);
+  if(due&&outputTarget){
+   // The feedback pass already rendered to the snapshot. Present it using
+   // WebGL2's framebuffer blit, without introducing a CPU canvas copy.
+   gl.bindFramebuffer(gl.READ_FRAMEBUFFER,outputTarget.framebuffer);
+   gl.bindFramebuffer(gl.DRAW_FRAMEBUFFER,null);
+   gl.blitFramebuffer(0,0,canvas.width,canvas.height,0,0,canvas.width,canvas.height,gl.COLOR_BUFFER_BIT,gl.NEAREST);
+   gl.bindFramebuffer(gl.READ_FRAMEBUFFER,null);
+   feedbackNewest=next;feedbackLast=p.time;
+  }
+  gl.bindFramebuffer(gl.FRAMEBUFFER,null);
  };
  return {width:tw,height:th,interval,capture,pushLive,render,dispose:()=>{
+  deleteFeedback();
   if(readFramebuffer)gl.deleteFramebuffer(readFramebuffer);
-  gl.deleteTexture(texture);gl.deleteVertexArray(vao);gl.deleteProgram(prog);
+  gl.deleteTexture(texture);gl.deleteVertexArray(vao);gl.deleteProgram(prog);gl.deleteProgram(feedbackProgram);
  }};
 }

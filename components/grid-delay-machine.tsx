@@ -1,8 +1,9 @@
 "use client";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import "./grid-delay.css";
-import GridDelayPatchBay, {type DelayWave,type DelayPatch} from "./grid-delay-patch-bay";
+import GridDelayPatchBay, {type DelayWave,type DelayPatch,type DelayTarget,type DelayInputGains,knownTargets} from "./grid-delay-patch-bay";
 import {createDelayGPU, type DelayGPU, type DelayQuality} from "./grid-delay-gpu";
+import {parseGridDelayPreset, type GridDelayPreset} from "./grid-delay-preset";
 
 type Motion = "horizontal"|"vertical"|"orbit"|"rotation"|"scale";
 type Pattern = "wave"|"cascade"|"radial"|"random";
@@ -14,7 +15,7 @@ type Settings = Record<Param, number>;
 type BlendMode="source-over"|"multiply"|"screen"|"overlay"|"difference"|"exclusion"|"lighten"|"darken";
 const blendModes:BlendMode[]=["source-over","multiply","screen","overlay","difference","exclusion","lighten","darken"];
 const rotateHue=(hex:string,degrees:number)=>{const raw=hex.replace("#","");const rgb=[0,2,4].map(i=>parseInt(raw.slice(i,i+2),16)/255);const max=Math.max(...rgb),min=Math.min(...rgb),d=max-min,l=(max+min)/2;let h=0,sat=0;if(d){sat=d/(1-Math.abs(2*l-1));switch(max){case rgb[0]:h=((rgb[1]-rgb[2])/d)%6;break;case rgb[1]:h=(rgb[2]-rgb[0])/d+2;break;default:h=(rgb[0]-rgb[1])/d+4}h=h*60}h=(h+degrees%360+360)%360;sat=Math.max(sat,.55*Math.min(1,Math.abs(degrees)/90));const c=(1-Math.abs(2*l-1))*sat,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2;let v=[0,0,0];if(h<60)v=[c,x,0];else if(h<120)v=[x,c,0];else if(h<180)v=[0,c,x];else if(h<240)v=[0,x,c];else if(h<300)v=[x,0,c];else v=[c,0,x];return "#"+v.map(n=>Math.round((n+m)*255).toString(16).padStart(2,"0")).join("")};
-const defaults:Settings={deformAmount:35,deformFrequency:2.5,deformFlow:1,columns:1,rows:32,spacing:0,delay:1.8,speed:2.1,amplitude:65,scale:41,fontSize:34,weight:900,tracking:-8,lineHeight:.8,positionX:0,positionY:0,rotation:0};
+const defaults:Settings={deformAmount:76,deformFrequency:9,deformFlow:1,columns:30,rows:20,spacing:0,delay:4.4,speed:2.1,amplitude:65,scale:82,fontSize:63,weight:100,tracking:-8,lineHeight:.8,positionX:0,positionY:0,rotation:0};
 const specs:Record<Param,[string,number,number,number,string]>={
  deformAmount:["Lens strength",0,100,1,"%"],deformFrequency:["Lens curvature",.2,12,.1,""],deformFlow:["Lens breathing",0,4,.05,"×"],
  columns:["Columns",1,48,1,""],rows:["Rows",1,32,1,""],spacing:["Grid spacing",0,150,1,"%"],delay:["Time delay",0,5,.05,"s"],speed:["Speed",0,3,.05,"×"],amplitude:["Motion amplitude",0,100,1,"%"],scale:["Source scale",10,300,1,"%"],
@@ -27,18 +28,26 @@ const oscValue=(o:DelayWave,t:number)=>{const p=t*o.rate+o.phase;switch(o.shape)
 function Control({name,value,onChange}:{name:Param;value:number;onChange:(n:number)=>void}){const [label,min,max,step,unit]=specs[name];return <label className="gd-control"><span>{label}<output>{Number(value.toFixed(2))}{unit}</output></span><input type="range" min={min} max={max} step={step} value={value} onChange={e=>onChange(Number(e.target.value))}/></label>}
 function Buttons<T extends string>({values,selected,onSelect}:{values:readonly T[];selected:T;onSelect:(v:T)=>void}){return <div className="gd-pills">{values.map(v=><button type="button" key={v} className={selected===v?"selected":""} onClick={()=>onSelect(v)}>{v}</button>)}</div>}
 export default function GridDelayMachine(){
- const canvas=useRef<HTMLCanvasElement>(null),stage=useRef<HTMLDivElement>(null),file=useRef<HTMLInputElement>(null),image=useRef<HTMLImageElement|null>(null);
- const settingsRef=useRef(defaults),oscRef=useRef<DelayWave[]>([{shape:"sine",rate:.01,depth:75,phase:0,enabled:true},{shape:"triangle",rate:.13,depth:65,phase:0,enabled:true},{shape:"square",rate:.20,depth:75,phase:0,enabled:true}]),patchRef=useRef<DelayPatch[]>([]);
- const visualRef=useRef<{ink:string;background:string;blend:BlendMode}>({ink:"#ffffff",background:"#969696",blend:"source-over"}),linkedRef=useRef(false);
- const motionRef=useRef<Motion>("scale"),patternRef=useRef<Pattern>("wave"),textRef=useRef("Hey\ngood\nlooking"),fontRef=useRef("Arial, Helvetica, sans-serif"),alignRef=useRef<TextAlign>("center"),vAlignRef=useRef<VerticalAlign>("middle"),deformRef=useRef<DeformMode>("rigid"),playingRef=useRef(true),gridRef=useRef(false);
+ const canvas=useRef<HTMLCanvasElement>(null),stage=useRef<HTMLDivElement>(null),file=useRef<HTMLInputElement>(null),presetFile=useRef<HTMLInputElement>(null),image=useRef<HTMLImageElement|null>(null);
+ const settingsRef=useRef(defaults),oscRef=useRef<DelayWave[]>([{shape:"sine",rate:.01,depth:75,phase:0,enabled:true},{shape:"triangle",rate:.13,depth:65,phase:0,enabled:true},{shape:"sine",rate:1.08,depth:62,phase:0,enabled:true}]),patchRef=useRef<DelayPatch[]>([{id:"c2-inkHue",wave:2,target:"inkHue",amount:100}]);
+ const visualRef=useRef<{ink:string;background:string;blend:BlendMode}>({ink:"#0533ff",background:"#000000",blend:"source-over"}),linkedRef=useRef(true);
+ const motionRef=useRef<Motion>("scale"),patternRef=useRef<Pattern>("radial"),textRef=useRef("play"),fontRef=useRef("Arial, Helvetica, sans-serif"),alignRef=useRef<TextAlign>("center"),vAlignRef=useRef<VerticalAlign>("middle"),deformRef=useRef<DeformMode>("pinch"),playingRef=useRef(true),gridRef=useRef(false);
+ const patchGainRef=useRef<DelayInputGains>({});
+ const [patchGains,setPatchGains]=useState<DelayInputGains>({});
+ const delayModeRef=useRef<"image"|"black">("image"),blackHoldRef=useRef(35);
+ const [delayMode,setDelayMode]=useState<"image"|"black">("image"),[blackHold,setBlackHold]=useState(35);
  const globalRef=useRef<{enabled:boolean;mode:"fisheye"|"pinch";strength:number;size:number;growth:number}>({enabled:false,mode:"fisheye",strength:65,size:90,growth:1});
  const [globalLens,setGlobalLens]=useState(globalRef.current);
+ const feedbackRef=useRef<{enabled:boolean;amount:number;decay:number;refresh:number;blend:BlendMode}>({enabled:false,amount:55,decay:88,refresh:33,blend:"screen"});
+ const [feedback,setFeedback]=useState(feedbackRef.current);
+ function changeFeedback(next:Partial<typeof feedback>){const value={...feedbackRef.current,...next};feedbackRef.current=value;setFeedback(value)}
  const qualityRef=useRef<DelayQuality>("balanced");
  const [quality,setQuality]=useState<DelayQuality>("balanced");
+ const [presetMessage,setPresetMessage]=useState<{text:string;error:boolean}|null>(null);
  const [renderError,setRenderError]=useState<string|null>(null),dirtyRef=useRef(true);
- const [alignText,setAlignText]=useState<TextAlign>("center"),[alignVertical,setAlignVertical]=useState<VerticalAlign>("middle"),[deformMode,setDeformMode]=useState<DeformMode>("rigid");
- const [ink,setInk]=useState("#ffffff"),[backgroundColor,setBackgroundColor]=useState("#969696"),[blend,setBlend]=useState<BlendMode>("source-over"),[linked,setLinked]=useState(false);
- const [params,setParams]=useState(defaults),[motion,setMotion]=useState<Motion>("scale"),[pattern,setPattern]=useState<Pattern>("wave"),[sourceText,setSourceText]=useState("Hey\ngood\nlooking"),[font,setFont]=useState("Arial, Helvetica, sans-serif"),[osc,setOsc]=useState<DelayWave[]>(oscRef.current),[patches,setPatches]=useState<DelayPatch[]>(patchRef.current),[playing,setPlaying]=useState(true),[showGrid,setShowGrid]=useState(false),[tab,setTab]=useState<"patch"|"source"|"grid"|"fx">("patch"),[open,setOpen]=useState(true),[fullscreen,setFullscreen]=useState(false),[hasImage,setHasImage]=useState(false);
+ const [alignText,setAlignText]=useState<TextAlign>("center"),[alignVertical,setAlignVertical]=useState<VerticalAlign>("middle"),[deformMode,setDeformMode]=useState<DeformMode>("pinch");
+ const [ink,setInk]=useState("#0533ff"),[backgroundColor,setBackgroundColor]=useState("#000000"),[blend,setBlend]=useState<BlendMode>("source-over"),[linked,setLinked]=useState(true);
+ const [params,setParams]=useState(defaults),[motion,setMotion]=useState<Motion>("scale"),[pattern,setPattern]=useState<Pattern>("radial"),[sourceText,setSourceText]=useState("play"),[font,setFont]=useState("Arial, Helvetica, sans-serif"),[osc,setOsc]=useState<DelayWave[]>(oscRef.current),[patches,setPatches]=useState<DelayPatch[]>(patchRef.current),[playing,setPlaying]=useState(true),[showGrid,setShowGrid]=useState(false),[tab,setTab]=useState<"patch"|"source"|"grid"|"fx">("patch"),[open,setOpen]=useState(true),[fullscreen,setFullscreen]=useState(false),[hasImage,setHasImage]=useState(false);
  function change(name:Param,value:number){dirtyRef.current=true;setParams(p=>{const next={...p,[name]:value};
   if(linkedRef.current&&(name==="columns"||name==="rows")){
    const ratio=value/Math.max(1,p[name]),other=name==="columns"?"rows":"columns";
@@ -51,6 +60,9 @@ export default function GridDelayMachine(){
 
  function changeWaves(next:DelayWave[]){dirtyRef.current=true;oscRef.current=next;setOsc(next)}
  function changePatches(next:DelayPatch[]){dirtyRef.current=true;patchRef.current=next;setPatches(next)}
+ function changePatchGain(target:DelayTarget,value:number){const next={...patchGainRef.current,[target]:value};patchGainRef.current=next;setPatchGains(next)}
+ function changeDelayMode(v:"image"|"black"){delayModeRef.current=v;setDelayMode(v)}
+ function changeBlackHold(v:number){blackHoldRef.current=v;setBlackHold(v)}
 
  function changeMotion(v:Motion){dirtyRef.current=true;motionRef.current=v;setMotion(v)}
  function changePattern(v:Pattern){dirtyRef.current=true;patternRef.current=v;setPattern(v)}
@@ -61,6 +73,88 @@ export default function GridDelayMachine(){
  function changeQuality(v:DelayQuality){qualityRef.current=v;setQuality(v);window.dispatchEvent(new Event("grid-delay-quality-change"))}
  function changeGlobalLens(next:Partial<typeof globalLens>){const value={...globalRef.current,...next};globalRef.current=value;setGlobalLens(value)}
  function changeText(v:string){dirtyRef.current=true;textRef.current=v;setSourceText(v)}
+ // A portable, versioned snapshot of the entire patch and visual state.
+ function presetImage():string|null{
+  const original=image.current;if(!original)return null;
+  const maxSide=1800,scale=Math.min(1,maxSide/Math.max(original.naturalWidth,original.naturalHeight));
+  const c=document.createElement("canvas");
+  c.width=Math.max(1,Math.round(original.naturalWidth*scale));
+  c.height=Math.max(1,Math.round(original.naturalHeight*scale));
+  c.getContext("2d")!.drawImage(original,0,0,c.width,c.height);
+  const encoded=c.toDataURL("image/webp",.9);
+  if(encoded.length>10_000_000)throw Error("The image is too large for a preset. Please use a smaller image.");
+  return encoded;
+ }
+ function snapshotPreset():GridDelayPreset{
+  return {
+   kind:"grid-delay-machine",version:1,
+   settings:{...settingsRef.current},
+   text:textRef.current,font:fontRef.current,
+   align:alignRef.current,vertical:vAlignRef.current,
+   motion:motionRef.current,pattern:patternRef.current,deformation:deformRef.current,
+   ink:visualRef.current.ink,background:visualRef.current.background,blend:visualRef.current.blend,
+   waves:oscRef.current.map(w=>({...w})),patches:patchRef.current.map(p=>({...p})),
+   gains:{...patchGainRef.current},
+   linked:linkedRef.current,grid:gridRef.current,playing:playingRef.current,quality:qualityRef.current,
+   delay:{mode:delayModeRef.current,blackHold:blackHoldRef.current},
+   globalLens:{...globalRef.current},
+   feedback:{...feedbackRef.current},
+   image:presetImage()
+  };
+ }
+ function exportPreset(){
+  try{
+   const json=JSON.stringify(snapshotPreset(),null,2);
+   const url=URL.createObjectURL(new Blob([json],{type:"application/json"}));
+   const a=document.createElement("a");a.href=url;a.download="grid-delay-"+new Date().toISOString().slice(0,19).replace(/[:T]/g,"-")+".json";
+   document.body.appendChild(a);a.click();a.remove();
+   window.setTimeout(()=>URL.revokeObjectURL(url),1000);
+   setPresetMessage({text:"Preset exported",error:false});
+  }catch(error){setPresetMessage({text:error instanceof Error?error.message:"Preset export failed",error:true})}
+ }
+ async function importPreset(f?:File){
+  if(!f)return;
+  try{
+   if(f.size>10_000_000)throw Error("Preset file is too large (10 MB limit).");
+   const raw:unknown=JSON.parse(await f.text());
+   const ranges=Object.fromEntries(Object.entries(specs).map(([key,[,min,max]])=>[key,[min,max] as const]));
+   const p=parseGridDelayPreset(raw,ranges,knownTargets);
+   const restoredImage=await (async()=>{
+    if(!p.image)return null;
+    return new Promise<HTMLImageElement>((resolve,reject)=>{
+     const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>reject(Error("Could not decode preset image"));img.src=p.image!;
+    });
+   })();
+   settingsRef.current={...p.settings} as Settings;setParams(settingsRef.current);
+   textRef.current=p.text;setSourceText(p.text);
+   fontRef.current=p.font;setFont(p.font);
+   alignRef.current=p.align;setAlignText(p.align);
+   vAlignRef.current=p.vertical;setAlignVertical(p.vertical);
+   motionRef.current=p.motion;setMotion(p.motion);
+   patternRef.current=p.pattern;setPattern(p.pattern);
+   deformRef.current=p.deformation;setDeformMode(p.deformation);
+   visualRef.current={ink:p.ink,background:p.background,blend:p.blend};
+   setInk(p.ink);setBackgroundColor(p.background);setBlend(p.blend);
+   oscRef.current=p.waves.map(w=>({...w}));setOsc(oscRef.current);
+   patchRef.current=p.patches.map(patch=>({...patch}));setPatches(patchRef.current);
+   patchGainRef.current={...p.gains};setPatchGains(patchGainRef.current);
+   linkedRef.current=p.linked;setLinked(p.linked);
+   gridRef.current=p.grid;setShowGrid(p.grid);
+   playingRef.current=p.playing;setPlaying(p.playing);
+   delayModeRef.current=p.delay.mode;setDelayMode(p.delay.mode);
+   blackHoldRef.current=p.delay.blackHold;setBlackHold(p.delay.blackHold);
+   globalRef.current={...p.globalLens};setGlobalLens(globalRef.current);
+   feedbackRef.current={...p.feedback};setFeedback(feedbackRef.current);
+   qualityRef.current=p.quality;setQuality(p.quality);
+   image.current=restoredImage;setHasImage(!!restoredImage);
+   dirtyRef.current=true;
+   // Reset the old temporal history and feedback buffers, including when
+   // the imported quality is unchanged.
+   window.dispatchEvent(new Event("grid-delay-quality-change"));
+   setPresetMessage({text:"Preset imported",error:false});
+  }catch(error){setPresetMessage({text:error instanceof Error?error.message:"Invalid preset file",error:true})}
+ }
+
  async function upload(f?:File){if(!f||!f.type.startsWith("image/"))return;const url=URL.createObjectURL(f);const img=new Image();img.onload=()=>{dirtyRef.current=true;image.current=img;setHasImage(true);URL.revokeObjectURL(url)};img.onerror=()=>URL.revokeObjectURL(url);img.src=url}
  useEffect(()=>{
   const output=canvas.current;if(!output)return;
@@ -105,14 +199,21 @@ export default function GridDelayMachine(){
   observer.observe(output);
   resize();
   function modulated(t:number){
-   const p={...settingsRef.current,inkHue:0,bgHue:0,blendOffset:0};
+   const p={...settingsRef.current,inkHue:0,bgHue:0,blendOffset:0,
+    globalStrength:globalRef.current.strength,
+    globalSize:globalRef.current.size,
+    globalGrowth:globalRef.current.growth,
+    blackHold:blackHoldRef.current,
+    feedbackAmount:feedbackRef.current.amount,
+    feedbackDecay:feedbackRef.current.decay,
+    feedbackRefresh:feedbackRef.current.refresh,feedbackBlendOffset:0};
    let gridDrive=0;
    for(const cable of patchRef.current){
     const o=oscRef.current[cable.wave];if(!o||!o.enabled||cable.amount===0||o.depth===0)continue;
     // Fine control around zero, with target-specific ranges. A full-strength
     // cable no longer sweeps an entire parameter range in a single cycle.
     const amount=Math.sign(cable.amount)*Math.pow(Math.abs(cable.amount)/100,1.5);
-    const delta=oscValue(o,t)*o.depth/100*amount;
+    const delta=oscValue(o,t)*o.depth/100*amount*(patchGainRef.current[cable.target]??1);
     switch(cable.target){
      case "scale":p.scale=clamp(p.scale*(1+delta*.2),10,400);break;
      case "delay":p.delay=clamp(p.delay+delta*.7,0,5);break;
@@ -131,6 +232,14 @@ export default function GridDelayMachine(){
      case "deformAmount":p.deformAmount=clamp(p.deformAmount+delta*28,0,100);break;
      case "deformFrequency":p.deformFrequency=clamp(p.deformFrequency+delta*2,.2,12);break;
      case "deformFlow":p.deformFlow=clamp(p.deformFlow+delta*.8,0,4);break;
+     case "globalStrength":p.globalStrength=clamp(p.globalStrength+delta*50,0,100);break;
+     case "globalSize":p.globalSize=clamp(p.globalSize+delta*65,15,150);break;
+     case "globalGrowth":p.globalGrowth=clamp(p.globalGrowth+delta*1.5,0,3);break;
+     case "blackHold":p.blackHold=clamp(p.blackHold+delta*45,0,100);break;
+     case "feedbackAmount":p.feedbackAmount=clamp(p.feedbackAmount+delta*45,0,100);break;
+     case "feedbackDecay":p.feedbackDecay=clamp(p.feedbackDecay+delta*40,0,100);break;
+     case "feedbackRefresh":p.feedbackRefresh=clamp(p.feedbackRefresh+delta*120,16,500);break;
+     case "feedbackBlend":p.feedbackBlendOffset+=delta*3;break;
     }
    }
    if(linkedRef.current&&gridDrive!==0){
@@ -284,13 +393,18 @@ export default function GridDelayMachine(){
    const renderStart=monitor?performance.now():0;
    gpu.render({
     columns:p.columns,rows:p.rows,spacing:p.spacing,delay:p.delay,
+    delayMode:delayModeRef.current==="black"?1:0,blackHold:p.blackHold/100,
     pattern:Math.max(0,["wave","cascade","radial","random"].indexOf(patternRef.current)),
     mode:Math.max(0,["rigid","fisheye","pinch"].indexOf(deformRef.current)),
     amount:p.deformAmount/100,frequency:p.deformFrequency,flow:p.deformFlow,
     globalMode:globalRef.current.enabled?(globalRef.current.mode==="fisheye"?1:2):0,
-    globalStrength:globalRef.current.strength/100,globalSize:globalRef.current.size/100,globalGrowth:globalRef.current.growth,
+    globalStrength:p.globalStrength/100,globalSize:p.globalSize/100,globalGrowth:p.globalGrowth,
     time:clock,elapsed:Math.max(0,clock-lastCapture),grid:gridRef.current,
-    background:rgb(rotateHue(visualRef.current.background,p.bgHue)),blend:selectedBlend
+    background:rgb(rotateHue(visualRef.current.background,p.bgHue)),blend:selectedBlend,
+    feedbackEnabled:feedbackRef.current.enabled,
+    feedbackAmount:p.feedbackAmount/100,feedbackDecay:p.feedbackDecay/100,
+    feedbackRefresh:p.feedbackRefresh/1000,
+    feedbackBlend:(blendModes.indexOf(feedbackRef.current.blend)+Math.round(p.feedbackBlendOffset)+blendModes.length*8)%blendModes.length
    });
    if(monitor){
     submitMs+=performance.now()-renderStart;
@@ -320,13 +434,13 @@ export default function GridDelayMachine(){
  },[]);
  const control=(k:Param)=><Control key={k} name={k} value={params[k]} onChange={v=>change(k,v)}/>;
  return <main className="gd-machine" style={{"--gd-paper":"#edeae3"} as CSSProperties}>
-  <header className="gd-top"><a href="/" className="gd-back" aria-label="Back to Playground index">← Experiments</a><strong>GRID DELAY MACHINE <span> / REC-13</span></strong><div><button aria-expanded={open} aria-controls="gd-controls-panel" onClick={()=>setOpen(v=>!v)}>{open?"Hide panel":"Show panel"}</button><button onClick={async()=>{if(!stage.current)return;if(!document.fullscreenElement){await stage.current.requestFullscreen();setFullscreen(true)}else{await document.exitFullscreen();setFullscreen(false)}}}>{fullscreen?"Exit fullscreen":"Fullscreen ↗"}</button></div></header>
+  <header className="gd-top"><a href="/" className="gd-back" aria-label="Back to Playground index">← Experiments</a><strong>GRID DELAY MACHINE <span> / REC-13</span></strong><div className="gd-top-actions"><button type="button" onClick={exportPreset}>Export preset</button><button type="button" onClick={()=>presetFile.current?.click()}>Import preset</button><input ref={presetFile} type="file" hidden accept=".json,application/json" aria-label="Import Grid Delay preset JSON" onChange={e=>{const selected=e.target.files?.[0];e.target.value="";void importPreset(selected)}}/>{presetMessage&&<span className={presetMessage.error?"gd-preset-error":"gd-preset-success"} role={presetMessage.error?"alert":"status"}>{presetMessage.text}</span>}<button aria-expanded={open} aria-controls="gd-controls-panel" onClick={()=>setOpen(v=>!v)}>{open?"Hide panel":"Show panel"}</button><button onClick={async()=>{if(!stage.current)return;if(!document.fullscreenElement){await stage.current.requestFullscreen();setFullscreen(true)}else{await document.exitFullscreen();setFullscreen(false)}}}>{fullscreen?"Exit fullscreen":"Fullscreen ↗"}</button></div></header>
   <div className={"gd-workspace"+(open?"":" gd-no-panel")}><div ref={stage} className="gd-stage"><canvas ref={canvas} aria-label="Animated temporal grid sampling output"/>{renderError&&<div role="alert" className="gd-stage-error"><strong>WebGL2 renderer unavailable</strong><span>{renderError}</span></div>}<div className="gd-stage-caption">SOURCE / {hasImage?"IMAGE":"TYPE"} &nbsp; · &nbsp; MOTION / {motion.toUpperCase()}</div><div className="gd-stage-bottom"><span>{params.columns} × {params.rows} / {pattern.toUpperCase()}</span><div><button onClick={()=>{playingRef.current=!playingRef.current;setPlaying(playingRef.current)}}>{playing?"Ⅱ Pause":"▶ Play"}</button><button className={showGrid?"active":""} onClick={()=>{gridRef.current=!gridRef.current;setShowGrid(gridRef.current)}}>Grid</button></div></div></div>
   {open&&<aside id="gd-controls-panel" className="gd-panel" aria-label="Grid Delay controls"><nav className="gd-tabs">{(["patch","source","grid","fx"] as const).map(t=><button className={tab===t?"active":""} key={t} onClick={()=>setTab(t)}>{t}</button>)}</nav>
    {tab==="source"&&<div className="gd-panel-grid"><div className="gd-block"><h2>01 / INPUT</h2><textarea value={sourceText} onChange={e=>{changeText(e.target.value);image.current=null;setHasImage(false)}} rows={2} aria-label="Source text"/><div className="gd-inline"><button onClick={()=>file.current?.click()}>↑ Upload image</button>{hasImage&&<button onClick={()=>{image.current=null;setHasImage(false)}}>Use text</button>}<input ref={file} type="file" hidden accept="image/*" onChange={e=>upload(e.target.files?.[0])}/></div><h2>Typography</h2><select value={font} onChange={e=>changeFont(e.target.value)}><option value="Arial, Helvetica, sans-serif">Arial / System Sans</option><option value="Georgia, serif">Georgia / Serif</option><option value="'Times New Roman', serif">Times New Roman</option><option value="'Courier New', monospace">Courier Mono</option><option value="'GT Era Text', Arial, sans-serif">GT Era Text</option><option value="'GT Alpina Typewriter', monospace">GT Alpina Typewriter</option></select><div className="gd-control-group"><span>Horizontal alignment</span><Buttons values={["left","center","right"] as const} selected={alignText} onSelect={changeAlignment}/><span>Vertical alignment</span><Buttons values={["top","middle","bottom"] as const} selected={alignVertical} onSelect={changeVertical}/></div><div className="gd-controls">{(["fontSize","weight","tracking","lineHeight"] as Param[]).map(control)}</div><div className="gd-color-controls"><label>Font color <input type="color" value={ink} onChange={e=>updateColor("ink",e.target.value)}/></label><label>Background color <input type="color" value={backgroundColor} onChange={e=>updateColor("background",e.target.value)}/></label><label>Blend mode <select value={blend} onChange={e=>updateBlend(e.target.value as BlendMode)}>{blendModes.map(m=><option value={m} key={m}>{m}</option>)}</select></label></div></div><div className="gd-block"><h2>02 / SOURCE MOTION</h2><Buttons values={["horizontal","vertical","orbit","rotation","scale"] as const} selected={motion} onSelect={changeMotion}/><div className="gd-controls">{(["scale","speed","amplitude","positionX","positionY","rotation"] as Param[]).map(control)}</div></div></div>}
-   {tab==="grid"&&<div className="gd-panel-grid"><div className="gd-block"><h2>03 / SAMPLING GRID</h2><div className="gd-grid-link"><label><input type="checkbox" checked={linked} onChange={e=>updateLinked(e.target.checked)}/> <span>Link columns &amp; rows</span></label></div><div className="gd-controls">{(["columns","rows","spacing"] as Param[]).map(control)}</div><p>Spacing reduces tile size to keep the complete composition in frame.</p></div><div className="gd-block"><h2>04 / TEMPORAL DELAY</h2><Buttons values={["wave","cascade","radial","random"] as const} selected={pattern} onSelect={changePattern}/><div className="gd-controls">{control("delay")}</div><p>Each stationary cell reads a different point in the source's recent motion history.</p></div></div>}
-   {tab==="fx"&&<div className="gd-panel-grid"><div className="gd-block"><h2>05 / WEBGL DEFORMATION</h2><Buttons values={["rigid","fisheye","pinch"] as const} selected={deformMode} onSelect={changeDeformation}/><div className="gd-controls">{(["deformAmount","deformFrequency","deformFlow"] as Param[]).map(control)}</div><p>{deformMode==="fisheye"?"Convex glass: each delayed cell magnifies through its own lens.":deformMode==="pinch"?"Concave glass: each delayed cell compresses through its own lens.":"No per-cell optical refraction."} Per-cell lens strength now adapts to the actual pixel resolution of each tile. At very dense grids, it fades to prevent repeated artifacts.</p></div><div className="gd-block"><h2>06 / RENDERING QUALITY</h2><Buttons values={["balanced","sharp","fluid"] as const} selected={quality} onSelect={changeQuality}/><p>Balanced is the default. Sharp gives more detail to the source; Fluid favours more temporal samples for smoother delayed motion. Changing quality restarts the history buffer.</p></div><div className="gd-block"><h2>07 / GLOBAL LENS</h2><div className="gd-grid-link"><label><input type="checkbox" checked={globalLens.enabled} onChange={e=>changeGlobalLens({enabled:e.target.checked})}/><span>Apply lens to entire delayed grid</span></label></div>{globalLens.enabled&&<><Buttons values={["fisheye","pinch"] as const} selected={globalLens.mode} onSelect={mode=>changeGlobalLens({mode})}/><div className="gd-controls"><label className="gd-control"><span>Lens strength <output>{globalLens.strength}%</output></span><input type="range" min="0" max="100" step="1" value={globalLens.strength} onChange={e=>changeGlobalLens({strength:Number(e.target.value)})}/></label><label className="gd-control"><span>Maximum size <output>{globalLens.size}%</output></span><input type="range" min="15" max="150" step="1" value={globalLens.size} onChange={e=>changeGlobalLens({size:Number(e.target.value)})}/></label><label className="gd-control"><span>Growth speed <output>{globalLens.growth.toFixed(2)}×</output></span><input type="range" min="0" max="3" step=".05" value={globalLens.growth} onChange={e=>changeGlobalLens({growth:Number(e.target.value)})}/></label></div><p>The lens expands and contracts smoothly across the entire delayed image. Set growth to 0 for a stationary lens.</p></>}</div></div>}
-   {tab==="patch"&&<GridDelayPatchBay waves={osc} patches={patches} onWaves={changeWaves} onPatches={changePatches}/>}
+   {tab==="grid"&&<div className="gd-panel-grid"><div className="gd-block"><h2>03 / SAMPLING GRID</h2><div className="gd-grid-link"><label><input type="checkbox" checked={linked} onChange={e=>updateLinked(e.target.checked)}/> <span>Link columns &amp; rows</span></label></div><div className="gd-controls">{(["columns","rows","spacing"] as Param[]).map(control)}</div><p>Spacing reduces tile size to keep the complete composition in frame.</p></div><div className="gd-block"><h2>04 / TEMPORAL DELAY</h2><Buttons values={["wave","cascade","radial","random"] as const} selected={pattern} onSelect={changePattern}/><div className="gd-controls">{control("delay")}</div><div className="gd-control-group"><span>Delay output</span><Buttons values={["image","black"] as const} selected={delayMode} onSelect={changeDelayMode}/></div>{delayMode==="black"&&<label className="gd-control"><span>Black hold <output>{blackHold}%</output></span><input type="range" min="0" max="100" step="1" value={blackHold} onChange={e=>changeBlackHold(Number(e.target.value))}/></label>}<p>{delayMode==="black"?"Each cell alternates between its delayed image and true black, staggered by its temporal offset. Black hold sets the proportion of each cycle.":"Each stationary cell reads a different point in the source's recent motion history."}</p></div></div>}
+   {tab==="fx"&&<div className="gd-panel-grid"><div className="gd-block"><h2>05 / WEBGL DEFORMATION</h2><Buttons values={["rigid","fisheye","pinch"] as const} selected={deformMode} onSelect={changeDeformation}/><div className="gd-controls">{(["deformAmount","deformFrequency","deformFlow"] as Param[]).map(control)}</div><p>{deformMode==="fisheye"?"Convex glass: each delayed cell magnifies through its own lens.":deformMode==="pinch"?"Concave glass: each delayed cell compresses through its own lens.":"No per-cell optical refraction."} Per-cell lens strength now adapts to the actual pixel resolution of each tile. At very dense grids, it fades to prevent repeated artifacts.</p></div><div className="gd-block"><h2>06 / RENDERING QUALITY</h2><Buttons values={["balanced","sharp","fluid"] as const} selected={quality} onSelect={changeQuality}/><p>Balanced is the default. Sharp gives more detail to the source; Fluid favours more temporal samples for smoother delayed motion. Changing quality restarts the history buffer.</p></div><div className="gd-block"><h2>07 / GLOBAL LENS</h2><div className="gd-grid-link"><label><input type="checkbox" checked={globalLens.enabled} onChange={e=>changeGlobalLens({enabled:e.target.checked})}/><span>Apply lens to entire delayed grid</span></label></div>{globalLens.enabled&&<><Buttons values={["fisheye","pinch"] as const} selected={globalLens.mode} onSelect={mode=>changeGlobalLens({mode})}/><div className="gd-controls"><label className="gd-control"><span>Lens strength <output>{globalLens.strength}%</output></span><input type="range" min="0" max="100" step="1" value={globalLens.strength} onChange={e=>changeGlobalLens({strength:Number(e.target.value)})}/></label><label className="gd-control"><span>Maximum size <output>{globalLens.size}%</output></span><input type="range" min="15" max="150" step="1" value={globalLens.size} onChange={e=>changeGlobalLens({size:Number(e.target.value)})}/></label><label className="gd-control"><span>Growth speed <output>{globalLens.growth.toFixed(2)}×</output></span><input type="range" min="0" max="3" step=".05" value={globalLens.growth} onChange={e=>changeGlobalLens({growth:Number(e.target.value)})}/></label></div><p>The lens expands and contracts smoothly across the entire delayed image. Set growth to 0 for a stationary lens.</p></>}</div><div className="gd-block"><h2>08 / FEEDBACK</h2><div className="gd-grid-link"><label><input type="checkbox" checked={feedback.enabled} onChange={e=>changeFeedback({enabled:e.target.checked})}/><span>Enable output feedback</span></label></div>{feedback.enabled&&<><div className="gd-controls"><label className="gd-control"><span>Feedback amount <output>{feedback.amount}%</output></span><input type="range" min="0" max="100" step="1" value={feedback.amount} onChange={e=>changeFeedback({amount:Number(e.target.value)})}/></label><label className="gd-control"><span>Decay <output>{feedback.decay}%</output></span><input type="range" min="0" max="100" step="1" value={feedback.decay} onChange={e=>changeFeedback({decay:Number(e.target.value)})}/></label><label className="gd-control"><span>Refresh <output>{feedback.refresh} ms</output></span><input type="range" min="16" max="500" step="1" value={feedback.refresh} onChange={e=>changeFeedback({refresh:Number(e.target.value)})}/></label></div><label className="gd-select-label">Feedback blend<select value={feedback.blend} onChange={e=>changeFeedback({blend:e.target.value as BlendMode})}>{blendModes.map(mode=><option key={mode} value={mode}>{mode}</option>)}</select></label><p>Output feedback accumulates previous composite frames. Separate from source time-delay history; modulation controls amount, decay and refresh.</p></>}</div></div>}
+   {tab==="patch"&&<GridDelayPatchBay waves={osc} patches={patches} gains={patchGains} onWaves={changeWaves} onPatches={changePatches} onGain={changePatchGain}/>}
 
   </aside>}
   </div><footer className="gd-footer"><span>TIME AS MATERIAL / TYPE · IMAGE · MOTION</span><span>WEBGL2 / BUILD 03</span></footer>
