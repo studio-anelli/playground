@@ -29,7 +29,8 @@ const shapes=["sine","triangle","square","noise","ramp"];
 export function parseGridDelayPreset(input:unknown,ranges:Record<string,readonly [number,number]>,targets:readonly DelayTarget[]):GridDelayPreset{
  if(!object(input)||input.kind!=="grid-delay-machine"||input.version!==1)throw Error("This is not a supported Grid Delay preset (version 1).");
  const p=input;
- if(!object(p.settings)||Object.keys(ranges).some(k=>!number(p.settings![k],ranges[k][0],ranges[k][1])))throw Error("Preset parameters are missing or outside their allowed ranges.");
+ const values=p.settings;
+ if(!object(values)||Object.keys(ranges).some(k=>!number(values[k],ranges[k][0],ranges[k][1])))throw Error("Preset parameters are missing or outside their allowed ranges.");
  if(typeof p.text!=="string"||p.text.length>5000||typeof p.font!=="string"||p.font.length>200)throw Error("Invalid text or font in preset.");
  if(!option(p.align,["left","center","right"])||!option(p.vertical,["top","middle","bottom"])||
     !option(p.motion,modes)||!option(p.pattern,patterns)||!option(p.deformation,["rigid","fisheye","pinch"])||
