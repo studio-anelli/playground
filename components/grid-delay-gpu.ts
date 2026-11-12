@@ -103,10 +103,14 @@ void main(){
  if(invalid){outColor=vec4(uBackground,1.);return;}
 
  // Optical refraction is evaluated independently in each stationary cell.
- // Rigid takes the identity path; convex and concave lenses share the shader.
+ // The actual source pixels available in the tile determine lens quality:
+ // a 24-pixel tile cannot resolve a full glass curvature without aliasing.
  vec2 sampleLocal=local;
- float strength=clamp(uAmount,0.,1.);
- if(uMode!=0){
+ vec2 tilePixels=max(vec2(1.),cellSize*vec2(textureSize(uFrames,0).xy));
+ float minPixels=min(tilePixels.x,tilePixels.y);
+ float detailBudget=smoothstep(14.,64.,minPixels);
+ float strength=clamp(uAmount,0.,1.)*detailBudget;
+ if(uMode!=0 && detailBudget>.001){
    float seed=hash21(cell+vec2(9.7,23.1));
    float seedB=hash21(cell+vec2(43.2,8.5));
    float phase=uTime*uFlow*(.48+seed*.46)+seedB*6.2831853;
@@ -116,10 +120,10 @@ void main(){
    float glass=clamp(strength*(1.+.08*sin(phase*.55)),0.,1.);
    float bulge=sqrt(max(.045,1.-min(radius2,.955)));
    float slope=(1./bulge-1.)*inside;
-   // Frequency control now tunes optical curvature, not unused noise frequency.
-   float curvature=.08+clamp(uFrequency,.2,12.)*.036;
+   // Lower curvature as tile resolution shrinks. Otherwise small tiles
+   // become dozens of hard-edged repeats instead of a readable lens.
+   float curvature=(.08+clamp(uFrequency,.2,12.)*.036)*mix(.65,1.,detailBudget);
    float refraction=clamp(slope*curvature*glass,0.,.65);
-   // Fisheye (1) magnifies; Pinch (2) minifies.
    vec2 ray=q*(uMode==1?1.-refraction:1.+refraction);
    sampleLocal=.5+.5*ray;
  }
