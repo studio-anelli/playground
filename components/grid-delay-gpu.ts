@@ -4,7 +4,7 @@
  * 2D canvas; the history, grid composition and deformation live on the GPU. */
 export type DelayGeometry = {
   columns:number; rows:number; spacing:number; delay:number; pattern:number;
-  delayMode:number; blackHold:number;
+  delayMode:number; blackHold:number; delayType:number; echoMix:number; tapeWear:number;
   mode:number; amount:number; frequency:number; flow:number; time:number; elapsed:number;
   globalMode:number; globalStrength:number; globalSize:number; globalGrowth:number;
   grid:boolean; background:[number,number,number]; blend:number; backgroundInside:boolean;
@@ -37,6 +37,9 @@ uniform float uGap;
 uniform float uDelay;
 uniform int uDelayMode;
 uniform float uBlackHold;
+uniform int uDelayType;
+uniform float uEchoMix;
+uniform float uTapeWear;
 uniform int uPattern;
 uniform int uNewest;
 uniform int uCount;
@@ -159,8 +162,40 @@ void main(){
   float blackPhase=fract((uTime-secondsAgo)*.5);
   if(blackPhase<clamp(uBlackHold,0.,1.)){outColor=vec4(0.,0.,0.,1.);return;}
  }
- // The image mode and the visible interval of black mode share the sample.
+ // Digital retains one discrete historical frame per cell.
+ // Tape and Ping Pong read a bounded number of separate historical taps,
+ // avoiding spatially varying layer indices that previously sliced glyphs.
  vec4 sampleColor=textureLod(uFrames,vec3(sourceUV,float(selectedLayer)),0.);
+ if(uDelayType==1){
+   // Tape: transport wow/flutter, a quieter repeated impression, and subtle
+   // analogue colour loss. Always clamp history to the existing 5s window.
+   float wear=clamp(uTapeWear,0.,1.);
+   float wobble=(sin(uTime*2.1+cell.x*.37)+.42*sin(uTime*7.3+cell.y*.29))
+                 *mix(.008,.115,wear);
+   float tapeTime=clamp(secondsAgo+wobble,0.,5.);
+   vec2 tapeUV=clamp(sourceUV+vec2(.0035*wear*sin(uTime*3.7+cell.y),0.),vec2(.001),vec2(.999));
+   vec4 tape=textureLod(uFrames,vec3(tapeUV,float(historyLayer(tapeTime))),0.);
+   float echoStep=clamp(max(.16,uDelay*.24),.16,1.3);
+   vec4 repeatTap=textureLod(uFrames,vec3(tapeUV,float(historyLayer(min(5.,tapeTime+echoStep)))),0.);
+   float echoAmount=clamp(uEchoMix,0.,1.)*.56;
+   sampleColor=mix(tape,repeatTap,echoAmount);
+   float luminance=dot(sampleColor.rgb,vec3(.299,.587,.114));
+   sampleColor.rgb=mix(sampleColor.rgb,vec3(luminance),wear*.22);
+   sampleColor.rgb*=mix(vec3(1.),vec3(1.07,.965,.85),wear);
+ }else if(uDelayType==2){
+   // Ping Pong: delayed mirrored echoes bounce left/right across the
+   // complete source image; optical cell deformation remains untouched.
+   float stepTime=clamp(max(.18,uDelay*.24),.18,1.35);
+   vec2 opposing=vec2(1.-sourceUV.x,sourceUV.y);
+   float bounce=mod(floor((uTime-secondsAgo)/stepTime),2.);
+   vec2 firstUV=mix(sourceUV,opposing,bounce);
+   vec2 secondUV=mix(opposing,sourceUV,bounce);
+   vec4 tapA=textureLod(uFrames,vec3(firstUV,float(historyLayer(secondsAgo))),0.);
+   vec4 tapB=textureLod(uFrames,vec3(secondUV,float(historyLayer(min(5.,secondsAgo+stepTime)))),0.);
+   vec4 tapC=textureLod(uFrames,vec3(firstUV,float(historyLayer(min(5.,secondsAgo+stepTime*2.)))),0.);
+   float mixAmount=clamp(uEchoMix,0.,1.);
+   sampleColor=mix(tapA,mix(tapB,tapC,.3),mixAmount*.68);
+ }
  // In external-background mode the alpha of the delayed source acts as a
  // foreground mask; the static stage colour is drawn exactly once behind it.
  // The historical texture still contains the image's alpha, not coloured tiles.
@@ -268,7 +303,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
  const uniforms=(name:string)=>gl.getUniformLocation(prog,name);
  const loc={
   frames:uniforms("uFrames"),grid:uniforms("uGrid"),gap:uniforms("uGap"),
-  delay:uniforms("uDelay"),delayMode:uniforms("uDelayMode"),blackHold:uniforms("uBlackHold"),pattern:uniforms("uPattern"),newest:uniforms("uNewest"),
+  delay:uniforms("uDelay"),delayMode:uniforms("uDelayMode"),blackHold:uniforms("uBlackHold"),delayType:uniforms("uDelayType"),echoMix:uniforms("uEchoMix"),tapeWear:uniforms("uTapeWear"),pattern:uniforms("uPattern"),newest:uniforms("uNewest"),
   count:uniforms("uCount"),capacity:uniforms("uCapacity"),liveLayer:uniforms("uLiveLayer"),interval:uniforms("uInterval"),elapsed:uniforms("uElapsed"),
   background:uniforms("uBackground"),blend:uniforms("uBlend"),backgroundInside:uniforms("uBackgroundInside"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
@@ -378,6 +413,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.uniform1i(loc.frames,0);gl.uniform2f(loc.grid,p.columns,p.rows);
   gl.uniform1f(loc.gap,p.spacing/200);gl.uniform1f(loc.delay,p.delay);
   gl.uniform1i(loc.delayMode,p.delayMode);gl.uniform1f(loc.blackHold,p.blackHold);
+  gl.uniform1i(loc.delayType,p.delayType);gl.uniform1f(loc.echoMix,p.echoMix);gl.uniform1f(loc.tapeWear,p.tapeWear);
   gl.uniform1i(loc.pattern,p.pattern);gl.uniform1i(loc.newest,newest);
   gl.uniform1i(loc.count,count);gl.uniform1i(loc.capacity,historyCapacity);gl.uniform1i(loc.liveLayer,liveLayer);gl.uniform1f(loc.interval,interval);gl.uniform1f(loc.elapsed,p.elapsed);
   gl.uniform3f(loc.background,...p.background);gl.uniform1i(loc.blend,p.blend);gl.uniform1i(loc.backgroundInside,p.backgroundInside?1:0);
