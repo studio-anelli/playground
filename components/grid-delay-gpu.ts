@@ -5,8 +5,10 @@
 export type DelayGeometry = {
   columns:number; rows:number; spacing:number; delay:number; pattern:number;
   mode:number; amount:number; frequency:number; flow:number; time:number; elapsed:number;
+  globalMode:number; globalStrength:number; globalSize:number; globalGrowth:number;
   grid:boolean; background:[number,number,number]; blend:number;
 };
+export type DelayQuality="balanced"|"sharp"|"fluid";
 export type DelayGPU = {
   width:number; height:number; interval:number;
   push:(frame:HTMLCanvasElement)=>void;
@@ -46,6 +48,11 @@ uniform float uAmount;
 uniform float uFrequency;
 uniform float uFlow;
 uniform float uTime;
+uniform int uGlobalMode;
+uniform float uGlobalStrength;
+uniform float uGlobalSize;
+uniform float uGlobalGrowth;
+uniform float uAspect;
 float hash21(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float patternValue(vec2 cell){
  vec2 center=(cell+.5)/uGrid;
@@ -65,9 +72,27 @@ vec3 compose(vec3 sampleColor,vec3 bg){
  return sampleColor;
 }
 void main(){
- // The grid geometry is immutable: all distortion takes place inside each
- // cell's LOCAL sample coordinates, after its row/column have been identified.
+ // Global glass refracts the ALREADY ASSEMBLED temporal grid.
+ // Evaluate the final pixel at a shifted screen coordinate BEFORE cell lookup:
+ // grid boundaries, time slices and per-cell lenses all bend together.
  vec2 uv=vUv;
+ if(uGlobalMode!=0 && uGlobalStrength>0.){
+   vec2 aspect=vec2(max(.01,uAspect),1.);
+   vec2 delta=(vUv-.5)*aspect;
+   float radiusMax=max(.10,uGlobalSize);
+   // Smooth growth and contraction, rather than resetting at the end of a loop.
+   float cycle=uGlobalGrowth>0.001?
+      (.5-.5*cos(uTime*uGlobalGrowth*1.5707963)):1.;
+   float radius=mix(.06,radiusMax,cycle);
+   float normalizedDistance=length(delta)/radius;
+   float inside=1.-smoothstep(.78,1.,normalizedDistance);
+   float lensSlope=pow(max(0.,1.-normalizedDistance*normalizedDistance),2.);
+   float lens=uGlobalStrength*inside*lensSlope*.68;
+   // Convex samples the inner region; concave samples farther out.
+   float direction=uGlobalMode==1?-1.:1.;
+   uv=vUv+delta/aspect*direction*lens;
+ }
+
  vec2 cells=max(vec2(1.),uGrid);
  vec2 gap=vec2(uGap)/cells;
  vec2 cellSize=(1.-gap*(cells-1.))/cells;
@@ -79,23 +104,30 @@ void main(){
  if(invalid){outColor=vec4(uBackground,1.);return;}
 
  // Optical refraction is evaluated independently in each stationary cell.
- // Rigid takes the identity path; convex and concave lenses share the shader.
+ // The actual source pixels available in the tile determine lens quality:
+ // a 24-pixel tile cannot resolve a full glass curvature without aliasing.
  vec2 sampleLocal=local;
- float strength=clamp(uAmount,0.,1.);
- if(uMode!=0){
+ vec2 tilePixels=max(vec2(1.),cellSize*vec2(textureSize(uFrames,0).xy));
+ float minPixels=min(tilePixels.x,tilePixels.y);
+ float detailBudget=smoothstep(14.,64.,minPixels);
+ float strength=clamp(uAmount,0.,1.)*detailBudget;
+ if(uMode!=0 && detailBudget>.001){
    float seed=hash21(cell+vec2(9.7,23.1));
    float seedB=hash21(cell+vec2(43.2,8.5));
    float phase=uTime*uFlow*(.48+seed*.46)+seedB*6.2831853;
    vec2 q=(local-.5)*2.;
    float radius2=dot(q,q);
-   float inside=1.-smoothstep(.81,1.0,radius2);
+   float inside=1.-smoothstep(.68,1.0,radius2);
    float glass=clamp(strength*(1.+.08*sin(phase*.55)),0.,1.);
    float bulge=sqrt(max(.045,1.-min(radius2,.955)));
    float slope=(1./bulge-1.)*inside;
-   // Frequency control now tunes optical curvature, not unused noise frequency.
-   float curvature=.08+clamp(uFrequency,.2,12.)*.036;
-   float refraction=clamp(slope*curvature*glass,0.,.65);
-   // Fisheye (1) magnifies; Pinch (2) minifies.
+   // Lower curvature as tile resolution shrinks. Otherwise small tiles
+   // become dozens of hard-edged repeats instead of a readable lens.
+   float curvature=(.08+clamp(uFrequency,.2,12.)*.036)*mix(.65,1.,detailBudget);
+   // Smooth saturation instead of a hard displacement clamp. This keeps
+   // derivatives continuous and reduces stair-stepping around strong lenses.
+   float rawRefraction=max(0.,slope*curvature*glass);
+   float refraction=.58*(1.-exp(-rawRefraction/.58));
    vec2 ray=q*(uMode==1?1.-refraction:1.+refraction);
    sampleLocal=.5+.5*ray;
  }
@@ -133,7 +165,7 @@ function shader(gl:WebGL2RenderingContext,type:number,src:string){
  }
  return s;
 }
-export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):DelayGPU{
+export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,quality:DelayQuality="balanced"):DelayGPU{
  const gl=canvas.getContext("webgl2",{alpha:false,antialias:false,preserveDrawingBuffer:false,powerPreference:"high-performance"});
  if(!gl)throw new Error("WebGL2 is not available in this browser.");
  const vs=shader(gl,gl.VERTEX_SHADER,vertex),fs=shader(gl,gl.FRAGMENT_SHADER,fragment);
@@ -148,10 +180,12 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
  // The former fixed 64-layer allocation shrank every frame to a thumbnail.
  const maxTexture=Math.min(gl.getParameter(gl.MAX_TEXTURE_SIZE) as number,2048);
  const maxLayers=gl.getParameter(gl.MAX_ARRAY_TEXTURE_LAYERS) as number;
- const budget=224*1024*1024;
- const availableLayers=Math.min(maxLayers,72);
+ // Budget texture memory by quality instead of blindly raising resolution.
+ // Sharp favours source detail; Fluid favours more chronological samples.
+ const budget=(quality==="sharp"?256:quality==="fluid"?192:224)*1024*1024;
+ const availableLayers=Math.min(maxLayers,quality==="fluid"?112:quality==="sharp"?48:72);
  if(availableLayers<2)throw new Error("GPU does not support the temporal texture array");
- const minimumLayers=Math.min(availableLayers,20);
+ const minimumLayers=Math.min(availableLayers,quality==="sharp"?12:quality==="fluid"?32:20);
  let scale=Math.min(1,maxTexture/Math.max(1,w,h));
  const minimumBytes=minimumLayers*4*w*h*scale*scale;
  if(minimumBytes>budget)scale*=Math.sqrt(budget/minimumBytes);
@@ -177,7 +211,8 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
   count:uniforms("uCount"),capacity:uniforms("uCapacity"),liveLayer:uniforms("uLiveLayer"),interval:uniforms("uInterval"),elapsed:uniforms("uElapsed"),
   background:uniforms("uBackground"),blend:uniforms("uBlend"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
-  flow:uniforms("uFlow"),time:uniforms("uTime")
+  flow:uniforms("uFlow"),time:uniforms("uTime"),
+  globalMode:uniforms("uGlobalMode"),globalStrength:uniforms("uGlobalStrength"),globalSize:uniforms("uGlobalSize"),globalGrowth:uniforms("uGlobalGrowth"),aspect:uniforms("uAspect")
  };
  let newest=-1,count=0;
  const write=(frame:HTMLCanvasElement,layer:number)=>{
@@ -205,6 +240,11 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number):Delay
   gl.uniform1i(loc.mode,p.mode);gl.uniform1f(loc.amount,p.amount);
   gl.uniform1f(loc.frequency,p.frequency);gl.uniform1f(loc.flow,p.flow);
   gl.uniform1f(loc.time,p.time);
+  gl.uniform1i(loc.globalMode,p.globalMode);
+  gl.uniform1f(loc.globalStrength,p.globalStrength);
+  gl.uniform1f(loc.globalSize,p.globalSize);
+  gl.uniform1f(loc.globalGrowth,p.globalGrowth);
+  gl.uniform1f(loc.aspect,canvas.width/Math.max(1,canvas.height));
   gl.drawArrays(gl.TRIANGLES,0,3);
  };
  return {width:tw,height:th,interval,push,pushLive,render,dispose:()=>{gl.deleteTexture(texture);gl.deleteVertexArray(vao);gl.deleteProgram(prog)}};
