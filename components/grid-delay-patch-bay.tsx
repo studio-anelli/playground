@@ -18,7 +18,7 @@ export default function GridDelayPatchBay({waves,patches,onWaves,onPatches}:Prop
  function measure(){
   const b=surface.current?.getBoundingClientRect();if(!b)return;
   const positions:Record<string,Point>={};
-  for(const [key,node] of Object.entries(nodes)){if(!node)continue;const r=node.getBoundingClientRect();positions[key]={x:r.left-b.left+r.width/2,y:r.top-b.top+r.height/2}}
+  for(const [key,node] of Object.entries(nodes.current)){if(!(node instanceof HTMLElement))continue;const r=node.getBoundingClientRect();positions[key]={x:r.left-b.left+r.width/2,y:r.top-b.top+r.height/2}}
   setGeometry(positions);
  }
  useEffect(()=>{const el=surface.current;if(!el)return;const ro=new ResizeObserver(measure);ro.observe(el);el.addEventListener("scroll",measure,true);measure();return()=>{ro.disconnect();el.removeEventListener("scroll",measure,true)}},[waves.length,patches.length,compact]);
