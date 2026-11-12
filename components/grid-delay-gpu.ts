@@ -168,7 +168,6 @@ void main(){
  // Do not soften intentional black gates or visible grid outlines.
  if(!uGridVisible && uDelayMode==0 && uDelay>.001){
   vec2 edgePx=min(local,1.-local)*cellSize*uOutputSize;
-  vec2 sourcePixels=vec2(textureSize(uFrames,0).xy);
   // Safely pull the neighbouring sample from INSIDE its own tile, never
   // from a texture filtering footprint that crosses an unrelated cell.
   if(edgePx.y<1.5){
