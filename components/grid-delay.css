@@ -141,7 +141,7 @@ label.gd-grid-link input{width:15px;height:15px;accent-color:#edeae3}
 .gd-knob-track{fill:none;stroke:#535e51;stroke-width:3.1;stroke-linecap:round}
 .gd-knob-fill{fill:none;stroke:var(--gd-knob-accent);stroke-width:3.3;stroke-linecap:round}
 .gd-knob-face{fill:#333a33;stroke:#687264;stroke-width:1.1}
-.gd-knob-pointer{stroke:#eef5e8;stroke-width:3;stroke-linecap:round;transform-origin:32px 32px}
+.gd-knob-pointer{stroke:#eef5e8;stroke-width:3;stroke-linecap:round}
 .gd-knob-control.is-dragging .gd-knob-face{fill:#435042}
 .gd-knob-readout{display:flex;align-items:center;justify-content:center;color:#b3c2b0;gap:2px;min-height:20px;font:9px var(--ui-mono),monospace}
 .gd-knob-readout input{border:0;box-shadow:none;outline:0;background:transparent;text-align:right;color:#eff5ea;font:10px var(--ui-mono),monospace;width:44px;padding:3px 0;min-width:0;appearance:textfield;-moz-appearance:textfield}
