@@ -115,3 +115,56 @@ label.gd-grid-link input{width:15px;height:15px;accent-color:#edeae3}
 .gd-stage-error{position:absolute;inset:24px;display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;text-align:center;background:#1c211ded;color:#edeae3;padding:24px;z-index:3}.gd-stage-error strong{font-weight:500;font-size:18px}.gd-stage-error span{max-width:540px;font:12px var(--ui-mono),monospace;overflow-wrap:anywhere;color:#bfc6bb}
 
 @media(max-width:760px){.gd-top-actions{gap:7px}.gd-top-actions button{font-size:10px}.gd-preset-success,.gd-preset-error{position:absolute;z-index:4;top:55px;right:8px;background:#20231f;padding:6px}.gd-top strong{display:none}}
+
+
+/* REC-13 modular instrument face — following K-TIC-SYNTH */
+.gd-machine{--gd-rack-bg:#1a1e1a;--gd-module-bg:#252a25;--gd-module-border:#555e51;--gd-knob-accent:#d6e1d5}
+.gd-panel{background:var(--gd-rack-bg);border-left:1px solid #565f53}
+.gd-tabs{background:#131713;border-bottom:1px solid #5c6658;padding:0 14px}
+.gd-tabs button{font-size:10px;letter-spacing:.09em;padding:15px 4px 12px}
+.gd-tabs button.active{border-bottom-color:#c5dcc0;color:#f1f4ed}
+.gd-panel-grid{gap:9px;padding:12px;align-content:start}
+.gd-block.gd-module{padding:14px 14px 17px;background:var(--gd-module-bg);border:1px solid var(--gd-module-border);box-shadow:inset 0 1px 0 #ffffff09}
+.gd-block.gd-module+.gd-module{border-top:1px solid var(--gd-module-border)}
+.gd-module h2{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:10px;letter-spacing:.085em;font-weight:550;color:#e8efe3;padding-bottom:11px;margin:0 0 13px;border-bottom:1px solid #50594e}
+.gd-module-led{font-size:11px;color:#b0d1a7;text-shadow:0 0 8px #b5dba04d}
+.gd-module .gd-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px 3px;margin-top:13px}
+.gd-module .gd-pills{gap:4px}
+.gd-module .gd-pills button{font-size:10px;padding:8px 9px;border-color:#697166;background:#1b211c}
+.gd-module .gd-pills button.selected{color:#1b211b;background:#cfd9c9;border-color:#cfd9c9}
+.gd-module p{margin-top:13px;font-size:10px;color:#a2afa0}
+.gd-knob-control{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;min-width:0;padding:7px 2px 9px;--gd-knob-accent:#cbdac8}
+.gd-knob-label{text-align:center;color:#bfcabd;font-size:10px;line-height:1.25;min-height:25px;display:flex;align-items:flex-end;justify-content:center;cursor:ns-resize}
+.gd-knob-dial{width:75px;height:75px;max-width:100%;padding:0!important;display:grid;place-items:center;border:0!important;outline-offset:3px;background:transparent!important;touch-action:none;cursor:ns-resize;flex:none}
+.gd-knob-dial:focus-visible{outline:2px solid #f0f8e8}
+.gd-knob-svg{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 2px 2px #0005)}
+.gd-knob-track{fill:none;stroke:#535e51;stroke-width:3.1;stroke-linecap:round}
+.gd-knob-fill{fill:none;stroke:var(--gd-knob-accent);stroke-width:3.3;stroke-linecap:round}
+.gd-knob-face{fill:#333a33;stroke:#687264;stroke-width:1.1}
+.gd-knob-pointer{stroke:#eef5e8;stroke-width:3;stroke-linecap:round;transform-origin:32px 32px}
+.gd-knob-control.is-dragging .gd-knob-face{fill:#435042}
+.gd-knob-readout{display:flex;align-items:center;justify-content:center;color:#b3c2b0;gap:2px;min-height:20px;font:9px var(--ui-mono),monospace}
+.gd-knob-readout input{border:0;box-shadow:none;outline:0;background:transparent;text-align:right;color:#eff5ea;font:10px var(--ui-mono),monospace;width:44px;padding:3px 0;min-width:0;appearance:textfield;-moz-appearance:textfield}
+.gd-knob-readout input::-webkit-outer-spin-button,.gd-knob-readout input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.gd-knob-readout input:focus{background:#101711;outline:1px solid #a6c29f}
+.gd-knob-compact .gd-knob-dial{width:63px;height:63px}
+.gd-knob-compact .gd-knob-label{min-height:16px}
+.gd-wave-ctrl{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:7px 3px}
+.gd-wave-ctrl .gd-wave-sync{grid-column:1/-1;font-size:10px}
+.gd-wave-ctrl .gd-wave-division{grid-column:1/-1}
+.gd-wave-ctrl .gd-knob-control{padding:2px 0 5px}
+.gd-bay-board{background:#171b18}
+.gd-wave-unit{background:#272c27;border-color:#636c5f}
+.gd-bay-caption{color:#b3c0b1}
+.gd-bay-head{border-top:1px solid #596255}
+.gd-port{border-width:2px;box-shadow:0 2px 5px #0009}
+.gd-output{background:#232923}
+.gd-input{background:#272c27}
+.gd-target-ready:hover{background:#384738}
+@media(max-width:760px){
+ .gd-panel-grid{padding:7px;gap:7px}
+ .gd-block.gd-module{padding:12px 9px}
+ .gd-module .gd-controls{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+ .gd-knob-dial{width:65px;height:65px}
+ .gd-knob-compact .gd-knob-dial{width:55px;height:55px}
+}
