@@ -212,7 +212,7 @@ export default function GridDelayMachine(){
    if(playingRef.current||needsFirstFrame||dirtyRef.current){
     makeSource(clock,p);
     if(capture){
-     gpu.push(source);
+     gpu.capture(source);
      lastCapture=clock;
      accumulator=accumulator%interval;
     }
