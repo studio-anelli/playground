@@ -150,7 +150,22 @@ void main(){
    );
    vec2 pixelShift=edgeBend*maxPixels*1.8;
    sampleLocal+=pixelShift/cellPixels;
-
+ } else if(uMode==3 || uMode==4){
+   // FISHEYE / PINCH: a continuous radial lens INSIDE each tile.
+   // Chebyshev distance reaches exactly 1 at rectangular cell boundaries,
+   // so all four edges stay fixed regardless of the tile's aspect ratio.
+   vec2 centred=local*2.-1.;
+   float radius=max(abs(centred.x),abs(centred.y));
+   float radiusShape=clamp(1.35+uFrequency*.22,1.2,4.0);
+   // Vary each lens gently and independently; at zero flow it is stationary.
+   float pulse=1.+.16*sin(phase*.7);
+   float power=clamp(strength*.88*pulse,0.,.92);
+   float falloff=pow(max(0.,1.-radius),radiusShape);
+   // Fisheye pulls sampled coordinates toward the centre (magnification);
+   // Pinch pushes them outward (compression). Both are identity at the rim.
+   float signedPower=uMode==3?-power:power;
+   float mapping=1.+signedPower*falloff;
+   sampleLocal=.5+.5*centred*mapping;
  }
  // Half-pixel inset avoids texture filtering across neighbouring cells.
  vec2 inset=min(vec2(.49),.5/max(uFrameSize/cells,vec2(1.)));
