@@ -59,6 +59,13 @@
 .gd-wave-ctrl label{font-size:9px;color:#b3b7af;display:grid;grid-template-columns:1fr auto;gap:5px}
 .gd-wave-ctrl output{font-size:9px;color:#eee}
 .gd-wave-ctrl input{grid-column:span 2;width:100%;accent-color:var(--wave-color)}
+.gd-wave-ctrl .gd-wave-sync{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:10px}
+.gd-wave-ctrl .gd-wave-sync input{width:14px;height:14px;grid-column:auto;flex:none}
+.gd-wave-ctrl select{grid-column:span 2;min-width:0;width:100%;padding:5px 7px;color:#e8ede4;background:#20261f;border:1px solid #51594f;border-radius:2px}
+.gd-control select{width:100%;margin-top:6px;padding:7px;color:#e8ede4;background:#20261f;border:1px solid #51594f;border-radius:2px}
+label.gd-grid-link{display:flex;align-items:center;gap:9px;font-size:11px;color:#d9ddd6;cursor:pointer;margin:8px 0 14px}
+label.gd-grid-link input{width:15px;height:15px;accent-color:#edeae3}
+
 .gd-port{width:22px;height:22px;flex:none;border:1px solid currentColor;border-radius:50%;display:inline-grid;place-items:center;padding:0!important;font-size:12px!important;line-height:1;background:#1c211d;position:relative;z-index:3}
 .gd-output{color:var(--wave-color)!important;cursor:grab}
 .gd-output.armed{box-shadow:0 0 0 4px color-mix(in srgb,var(--wave-color) 25%,transparent)}
