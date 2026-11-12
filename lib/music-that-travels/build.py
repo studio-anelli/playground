@@ -52,17 +52,21 @@ def context_source(finding):
  sources=[ledger['sources'][sid] for sid in finding['source_ids'] if ledger['sources'][sid].get('retrieval')=='read']
  return next((s['url'] for s in sources if s['type']!='discogs'),sources[0]['url'])
 geo_data['research_contexts']={f['release_id']:{'summary':f['summary'],'scope':f['scope'],'source':context_source(f)} for f in ledger.get('findings',[]) if f.get('decision')=='accepted' and f.get('musical_value')!='version_scope'}
-# Editorial prose only accompanies existing accepted, sourced context.
+# Intros reuse accepted release contexts and exact artist/geographic identities.
 excerpts=json.loads((root/'source/editorial-excerpts.json').read_text())
-assert all(key in geo_data['research_contexts'] for key in excerpts), 'Editorial excerpt needs accepted context'
-geo_data['editorial_excerpts']=excerpts
+editorial_sources=json.loads((root/'source/editorial-sources.json').read_text())
+assert set(excerpts)==set(editorial_sources), 'Every intro needs its existing evidence'
+assert all(key in origins['records'] for key in excerpts), 'Intro needs an accepted musical connection'
+assert all(row['sources'] for row in editorial_sources.values()), 'Intro needs at least one source'
+editorial_json=encode({'excerpts':excerpts,'sources':{key:row['sources'] for key,row in editorial_sources.items()}})
+editorial_version=hashlib.sha256(editorial_json.encode()).hexdigest()[:16]
 geo_data['collection_connections']=[{'release_ids':[e['release_id'] for e in c['endpoints']],'subject':c['subject'].split(' / Discogs')[0],'summary':c['summary'],'source':ledger['sources'][c['source_ids'][0]]['url']} for c in ledger.get('connections',[]) if c.get('decision')=='accepted' and all(any(str(n['id'])==str(e['release_id']) for n in data['entries']) for e in c['endpoints'])]
 geo_json=json.dumps(geo_data,ensure_ascii=False,separators=(',',':'))
 geo_version=hashlib.sha256(geo_json.encode()).hexdigest()[:16]
-geo_html=(root/'source/geography.html').read_text().replace('__GEOGRAPHY_VERSION__',geo_version)
+geo_html=(root/'source/geography.html').read_text().replace('__GEOGRAPHY_VERSION__',geo_version).replace('__EDITORIAL_VERSION__',editorial_version)
 worker='const COUNTRIES='+json.dumps(json.loads((root/'source/countries.json').read_text()))+';\nconst ORIGIN_PILOT='+json.dumps(json.loads((root/'source/origin-collection.json').read_text()),ensure_ascii=False)+';\nconst COVERAGE='+json.dumps((root/'source/coverage.html').read_text())+';\nconst ARTWORK='+json.dumps(json.loads((root/'source/artwork-analysis.json').read_text()),ensure_ascii=False)+';\nconst GEOGRAPHY='+json.dumps(geo_html)+';\nconst HUB='+json.dumps((root/'source/experiments.html').read_text())+';\nconst AUDIT='+json.dumps(json.loads((root/'source/dataset-audit.json').read_text()),ensure_ascii=False)+';\nconst HTML='+json.dumps(html)+';\nconst BOOTSTRAP='+json.dumps(data,ensure_ascii=False)+';\nconst LAND='+json.dumps(land)+';\nconst MUSIC_LOCATIONS='+json.dumps(json.loads((root/'source/music-locations-enriched.json').read_text()))+';\nconst TEST_SET='+json.dumps(json.loads((root/'source/color-experiment.json').read_text()),ensure_ascii=False)+';\n'+(root/'source/worker-runtime.js').read_text()
 worker='const LISTENING_CATALOG='+json.dumps(json.loads((root/'source/listening-catalog.json').read_text()),ensure_ascii=False)+';\n'+worker
-worker='const GEOGRAPHY_DATA_JSON='+json.dumps(geo_json)+';\nconst GEOGRAPHY_VERSION='+json.dumps(geo_version)+';\n'+worker
+worker='const GEOGRAPHY_DATA_JSON='+json.dumps(geo_json)+';\nconst GEOGRAPHY_VERSION='+json.dumps(geo_version)+';\nconst EDITORIAL_VERSION='+json.dumps(editorial_version)+';\nconst EDITORIAL_DATA_JSON='+json.dumps(editorial_json)+';\n'+worker
 (root/'worker.js').write_text(worker)
 print('Geography payload',len(geo_json.encode()),'bytes; snapshot',geo_version)
 print('Prepared worker',len(worker),'bytes; entries',len(data['entries']))
