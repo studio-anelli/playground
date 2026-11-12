@@ -63,6 +63,12 @@
 .gd-target{display:flex;align-items:center;gap:5px;min-height:36px;padding:4px 0;border-bottom:1px solid #363b36;color:#d9dcd4;font-size:10px}
 .gd-target span{min-width:0;flex:1}
 .gd-target small{color:#888e85}
+.gd-input-gain{display:flex;align-items:center;gap:2px;flex:none;margin-left:auto;color:#d8ddd4}
+.gd-input-gain input{font:10px var(--ui-mono),monospace;box-sizing:border-box;width:40px;min-width:0;padding:4px 2px;border:1px solid #626a60;border-radius:0;background:#222722;color:#f0ede5;text-align:right;appearance:textfield}
+.gd-input-gain input::-webkit-inner-spin-button,.gd-input-gain input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.gd-input-gain small{font-size:11px;color:#d3d7ce}
+.gd-target>small{font-size:9px;min-width:7px;text-align:right}
+
 .gd-target-ready:hover{background:#414a40}
 .gd-cables{position:absolute;inset:0;width:100%;height:100%;z-index:2;overflow:visible;pointer-events:none}
 .gd-connections-head{border-bottom:1px solid #363d35;margin:10px 0 0}
