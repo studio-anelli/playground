@@ -14,6 +14,16 @@ export type Experiment = {
 
 const experimentCatalog: Experiment[] = [
   {
+    id: "REC-13",
+    slug: "grid-delay-machine",
+    title: "GRID DELAY MACHINE",
+    kind: "experiment",
+    status: "test",
+    year: "2026",
+    tags: ["temporal sampling", "typography", "modulation"],
+    summary: "An immersive instrument that samples moving type and images through independently delayed grid cells.",
+  },
+  {
     id: "REC-12",
     slug: "music-that-travels",
     href: "/experiments/music-that-travels/geography",
