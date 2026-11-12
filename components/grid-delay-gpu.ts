@@ -3,7 +3,7 @@
 /** WebGL2 temporal sampling. Source pixels are still authored in an offscreen
  * 2D canvas; the history, grid composition and deformation live on the GPU. */
 export type DelayGeometry = {
-  columns:number; rows:number; spacing:number; delay:number; pattern:number;
+  columns:number; rows:number; spacing:number; delay:number; pattern:number; edgeSoftness:number;
   delayMode:number; blackHold:number;
   mode:number; amount:number; frequency:number; flow:number; time:number; elapsed:number;
   globalMode:number; globalStrength:number; globalSize:number; globalGrowth:number;
@@ -58,6 +58,7 @@ uniform float uGlobalSize;
 uniform float uGlobalGrowth;
 uniform float uAspect;
 uniform vec2 uOutputSize;
+uniform float uEdgeSoftness;
 float hash21(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float patternValue(vec2 cell){
  vec2 center=(cell+.5)/uGrid;
@@ -169,9 +170,9 @@ void main(){
  // Both sides converge to the same 50/50 mixture at the shared boundary.
  // Only a narrow edge band is softened; the cell interior remains a single
  // unmixed historical frame and keeps its crisp typography.
- if(!uGridVisible && uDelayMode==0 && uDelay>.001){
+ if(!uGridVisible && uDelayMode==0 && uDelay>.001 && uEdgeSoftness>.001){
   vec2 tilePx=cellSize*uOutputSize;
-  float seamPx=clamp(min(tilePx.x,tilePx.y)*.18,2.,10.);
+  float seamPx=min(tilePx.x,tilePx.y)*clamp(uEdgeSoftness,0.,1.)*.42;
   vec2 toEdge=min(local,1.-local)*tilePx;
   vec2 dir=mix(vec2(-1.),vec2(1.),step(vec2(.5),local));
   vec2 xCell=cell+vec2(dir.x,0.);
@@ -307,7 +308,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   background:uniforms("uBackground"),blend:uniforms("uBlend"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
   flow:uniforms("uFlow"),time:uniforms("uTime"),
-  globalMode:uniforms("uGlobalMode"),globalStrength:uniforms("uGlobalStrength"),globalSize:uniforms("uGlobalSize"),globalGrowth:uniforms("uGlobalGrowth"),aspect:uniforms("uAspect"),outputSize:uniforms("uOutputSize")
+  globalMode:uniforms("uGlobalMode"),globalStrength:uniforms("uGlobalStrength"),globalSize:uniforms("uGlobalSize"),globalGrowth:uniforms("uGlobalGrowth"),aspect:uniforms("uAspect"),outputSize:uniforms("uOutputSize"),edgeSoftness:uniforms("uEdgeSoftness")
  };
  // Capture a history snapshot by copying the live texture layer on the GPU.
  // This avoids a second full-canvas CPU->GPU upload on every capture.
@@ -424,6 +425,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.uniform1f(loc.globalGrowth,p.globalGrowth);
   gl.uniform1f(loc.aspect,canvas.width/Math.max(1,canvas.height));
   gl.uniform2f(loc.outputSize,canvas.width,canvas.height);
+  gl.uniform1f(loc.edgeSoftness,p.edgeSoftness);
   gl.drawArrays(gl.TRIANGLES,0,3);
   if(!useFeedback||!feedbackTargets)return;
   // Stage 2 combines the newly assembled frame with the last snapshot.
