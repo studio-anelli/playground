@@ -161,7 +161,7 @@ void main(){
   if(blackPhase<clamp(uBlackHold,0.,1.)){outColor=vec4(0.,0.,0.,1.);return;}
  }
  // The image mode and the visible interval of black mode share the sample.
- vec3 sampleColor=texture(uFrames,vec3(sourceUV,float(selectedLayer))).rgb;
+ vec3 sampleColor=textureLod(uFrames,vec3(sourceUV,float(selectedLayer)),0.).rgb;
  vec3 result=compose(sampleColor,uBackground);
  // Temporal tiles show different moments. The old seam correction used a
  // one-pixel, spatially mirrored neighbour lookup: this left a dark gate
@@ -188,15 +188,15 @@ void main(){
   if(wx>0.||wy>0.){
    vec3 xColor=result;
    if(wx>0.){
-    vec3 c=texture(uFrames,vec3(sourceUV,float(historyLayer(xCell)))).rgb;
+    vec3 c=textureLod(uFrames,vec3(sourceUV,float(historyLayer(xCell))),0.).rgb;
     xColor=compose(c,uBackground);
    }
    result=mix(result,xColor,wx);
    if(wy>0.){
-    vec3 c=texture(uFrames,vec3(sourceUV,float(historyLayer(yCell)))).rgb;
+    vec3 c=textureLod(uFrames,vec3(sourceUV,float(historyLayer(yCell))),0.).rgb;
     vec3 yColor=compose(c,uBackground);
     if(wx>0.){
-     vec3 corner=texture(uFrames,vec3(sourceUV,float(historyLayer(xyCell)))).rgb;
+     vec3 corner=textureLod(uFrames,vec3(sourceUV,float(historyLayer(xyCell))),0.).rgb;
      yColor=mix(yColor,compose(corner,uBackground),wx);
     }
     result=mix(result,yColor,wy);
