@@ -179,22 +179,30 @@ uniform float uAmount;
 uniform float uDecay;
 uniform int uBlendMode;
 uniform bool uHasHistory;
+vec3 blendFrames(vec3 a,vec3 b){
+ if(uBlendMode==1)return a*b;
+ if(uBlendMode==2)return 1.-(1.-a)*(1.-b);
+ if(uBlendMode==3)return mix(2.*a*b,1.-2.*(1.-a)*(1.-b),step(.5,a));
+ if(uBlendMode==4)return abs(a-b);
+ if(uBlendMode==5)return a+b-2.*a*b;
+ if(uBlendMode==6)return max(a,b);
+ if(uBlendMode==7)return min(a,b);
+ return b;
+}
 void main(){
  vec2 uv=gl_FragCoord.xy/uResolution;
  vec3 source=texture(uScene,uv).rgb;
  if(!uHasHistory||uAmount<=0.){
   outColor=vec4(source,1.);return;
  }
- vec3 previous=texture(uPrevious,uv).rgb*clamp(uDecay,0.,1.);
- vec3 combined=previous;
- if(uBlendMode==1)combined=source*previous;
- else if(uBlendMode==2)combined=1.-(1.-source)*(1.-previous);
- else if(uBlendMode==3)combined=mix(2.*source*previous,1.-2.*(1.-source)*(1.-previous),step(.5,source));
- else if(uBlendMode==4)combined=abs(source-previous);
- else if(uBlendMode==5)combined=source+previous-2.*source*previous;
- else if(uBlendMode==6)combined=max(source,previous);
- else if(uBlendMode==7)combined=min(source,previous);
- outColor=vec4(mix(source,clamp(combined,0.,1.),clamp(uAmount,0.,1.)),1.);
+ // Decay toward the incoming image, not toward black: full-colour opaque
+ // backgrounds remain stable while differences between frames fade.
+ vec3 previous=mix(source,texture(uPrevious,uv).rgb,clamp(uDecay,0.,1.));
+ // Remove each blend mode's static self-blend baseline. Without this,
+ // Screen would turn the background white and Multiply would darken it.
+ vec3 shifted=blendFrames(source,previous)-blendFrames(source,source);
+ vec3 result=clamp(source+shifted*clamp(uAmount,0.,1.),0.,1.);
+ outColor=vec4(result,1.);
 }`;
 
 function shader(gl:WebGL2RenderingContext,type:number,src:string){
