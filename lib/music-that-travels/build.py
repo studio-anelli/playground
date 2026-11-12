@@ -52,6 +52,10 @@ def context_source(finding):
  sources=[ledger['sources'][sid] for sid in finding['source_ids'] if ledger['sources'][sid].get('retrieval')=='read']
  return next((s['url'] for s in sources if s['type']!='discogs'),sources[0]['url'])
 geo_data['research_contexts']={f['release_id']:{'summary':f['summary'],'scope':f['scope'],'source':context_source(f)} for f in ledger.get('findings',[]) if f.get('decision')=='accepted' and f.get('musical_value')!='version_scope'}
+# Editorial prose only accompanies existing accepted, sourced context.
+excerpts=json.loads((root/'source/editorial-excerpts.json').read_text())
+assert all(key in geo_data['research_contexts'] for key in excerpts), 'Editorial excerpt needs accepted context'
+geo_data['editorial_excerpts']=excerpts
 geo_data['collection_connections']=[{'release_ids':[e['release_id'] for e in c['endpoints']],'subject':c['subject'].split(' / Discogs')[0],'summary':c['summary'],'source':ledger['sources'][c['source_ids'][0]]['url']} for c in ledger.get('connections',[]) if c.get('decision')=='accepted' and all(any(str(n['id'])==str(e['release_id']) for n in data['entries']) for e in c['endpoints'])]
 geo_json=json.dumps(geo_data,ensure_ascii=False,separators=(',',':'))
 geo_version=hashlib.sha256(geo_json.encode()).hexdigest()[:16]

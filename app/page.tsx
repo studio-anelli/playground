@@ -18,7 +18,7 @@ export default function Home() {
           <span>Updated 21.09.26</span>
         </div>
         {experiments.map((experiment) => (
-          <a className="experiment-row" href={`/experiments/${experiment.slug}`} key={experiment.id}>
+          <a className="experiment-row" href={experiment.href ?? `/experiments/${experiment.slug}`} key={experiment.id}>
             <span className="experiment-id">{experiment.id}</span>
             <span className="experiment-title">{experiment.title}</span>
             <span className="experiment-tags">{experiment.tags.join(" / ")}</span>
