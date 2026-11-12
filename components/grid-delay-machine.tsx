@@ -1,13 +1,12 @@
 "use client";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import "./grid-delay.css";
+import GridDelayPatchBay, {type DelayWave,type DelayPatch} from "./grid-delay-patch-bay";
 
 type Motion = "horizontal"|"vertical"|"orbit"|"rotation"|"scale";
 type Pattern = "wave"|"cascade"|"radial"|"random";
-type Target = "none"|"positionX"|"positionY"|"rotation"|"scale"|"delay"|"spacing";
 type Param = "columns"|"rows"|"spacing"|"delay"|"speed"|"amplitude"|"scale"|"fontSize"|"weight"|"tracking"|"lineHeight"|"positionX"|"positionY"|"rotation";
 type Settings = Record<Param, number>;
-type Osc = {target:Target;shape:"sine"|"triangle"|"square"|"noise";rate:number;depth:number};
 const defaults:Settings={columns:16,rows:10,spacing:0,delay:1.8,speed:1,amplitude:65,scale:100,fontSize:34,weight:800,tracking:0,lineHeight:1,positionX:0,positionY:0,rotation:0};
 const specs:Record<Param,[string,number,number,number,string]>={
  columns:["Columns",2,48,1,""],rows:["Rows",2,32,1,""],spacing:["Grid spacing",0,150,1,"%"],delay:["Time delay",0,5,.05,"s"],speed:["Speed",0,3,.05,"×"],amplitude:["Motion amplitude",0,100,1,"%"],scale:["Source scale",10,300,1,"%"],
@@ -15,16 +14,18 @@ const specs:Record<Param,[string,number,number,number,string]>={
  positionX:["Position X",-100,100,1,"%"],positionY:["Position Y",-100,100,1,"%"],rotation:["Rotation",-180,180,1,"°"]};
 const clamp=(v:number,min:number,max:number)=>Math.min(max,Math.max(min,v));
 const hash=(x:number,y:number)=>{const a=Math.sin(x*127.1+y*311.7)*43758.5453;return a-Math.floor(a)};
-const oscValue=(o:Osc,t:number)=>{const p=t*o.rate;switch(o.shape){case "triangle":return 1-4*Math.abs(p-Math.floor(p)-.5);case "square":return Math.sin(p*Math.PI*2)>0?1:-1;case "noise":return hash(Math.floor(p*7),9)*2-1;default:return Math.sin(p*Math.PI*2)}};
+const oscValue=(o:DelayWave,t:number)=>{const p=t*o.rate+o.phase;switch(o.shape){case "triangle":return 1-4*Math.abs(p-Math.floor(p)-.5);case "square":return Math.sin(p*Math.PI*2)>0?1:-1;case "noise":return hash(Math.floor(p*7),9)*2-1;case "ramp":return 2*(p-Math.floor(p))-1;default:return Math.sin(p*Math.PI*2)}};
 function Control({name,value,onChange}:{name:Param;value:number;onChange:(n:number)=>void}){const [label,min,max,step,unit]=specs[name];return <label className="gd-control"><span>{label}<output>{Number(value.toFixed(2))}{unit}</output></span><input type="range" min={min} max={max} step={step} value={value} onChange={e=>onChange(Number(e.target.value))}/></label>}
 function Buttons<T extends string>({values,selected,onSelect}:{values:readonly T[];selected:T;onSelect:(v:T)=>void}){return <div className="gd-pills">{values.map(v=><button type="button" key={v} className={selected===v?"selected":""} onClick={()=>onSelect(v)}>{v}</button>)}</div>}
 export default function GridDelayMachine(){
  const canvas=useRef<HTMLCanvasElement>(null),stage=useRef<HTMLDivElement>(null),file=useRef<HTMLInputElement>(null),image=useRef<HTMLImageElement|null>(null);
- const settingsRef=useRef(defaults),oscRef=useRef<Osc[]>([{target:"scale",shape:"sine",rate:.18,depth:25},{target:"delay",shape:"sine",rate:.13,depth:35}]);
+ const settingsRef=useRef(defaults),oscRef=useRef<DelayWave[]>([{shape:"sine",rate:.18,depth:75,phase:0,enabled:true},{shape:"triangle",rate:.13,depth:65,phase:0,enabled:true},{shape:"sine",rate:.32,depth:55,phase:0,enabled:true}]),patchRef=useRef<DelayPatch[]>([{id:"c0-scale",wave:0,target:"scale",amount:35},{id:"c1-delay",wave:1,target:"delay",amount:50}]);
  const motionRef=useRef<Motion>("horizontal"),patternRef=useRef<Pattern>("wave"),textRef=useRef("DELAY"),fontRef=useRef("Arial, Helvetica, sans-serif"),playingRef=useRef(true),gridRef=useRef(false);
- const [params,setParams]=useState(defaults),[motion,setMotion]=useState<Motion>("horizontal"),[pattern,setPattern]=useState<Pattern>("wave"),[sourceText,setSourceText]=useState("DELAY"),[font,setFont]=useState("Arial, Helvetica, sans-serif"),[osc,setOsc]=useState<Osc[]>(oscRef.current),[playing,setPlaying]=useState(true),[showGrid,setShowGrid]=useState(false),[tab,setTab]=useState<"source"|"grid"|"modulation">("source"),[open,setOpen]=useState(true),[fullscreen,setFullscreen]=useState(false),[hasImage,setHasImage]=useState(false);
+ const [params,setParams]=useState(defaults),[motion,setMotion]=useState<Motion>("horizontal"),[pattern,setPattern]=useState<Pattern>("wave"),[sourceText,setSourceText]=useState("DELAY"),[font,setFont]=useState("Arial, Helvetica, sans-serif"),[osc,setOsc]=useState<DelayWave[]>(oscRef.current),[patches,setPatches]=useState<DelayPatch[]>(patchRef.current),[playing,setPlaying]=useState(true),[showGrid,setShowGrid]=useState(false),[tab,setTab]=useState<"patch"|"source"|"grid">("patch"),[open,setOpen]=useState(true),[fullscreen,setFullscreen]=useState(false),[hasImage,setHasImage]=useState(false);
  function change(name:Param,value:number){setParams(p=>{const next={...p,[name]:value};settingsRef.current=next;return next})}
- function editOsc(i:number,key:keyof Osc,value:string|number){setOsc(p=>{const next=p.map((o,j)=>j===i?{...o,[key]:value}:o);oscRef.current=next;return next})}
+ function changeWaves(next:DelayWave[]){oscRef.current=next;setOsc(next)}
+ function changePatches(next:DelayPatch[]){patchRef.current=next;setPatches(next)}
+
  function changeMotion(v:Motion){motionRef.current=v;setMotion(v)}
  function changePattern(v:Pattern){patternRef.current=v;setPattern(v)}
  function changeFont(v:string){fontRef.current=v;setFont(v)}
@@ -49,12 +50,18 @@ export default function GridDelayMachine(){
   const observer=new ResizeObserver(resize);observer.observe(output);resize();
   function modulated(t:number){
    const p={...settingsRef.current};
-   for(const o of oscRef.current){if(o.target==="none"||o.depth===0)continue;const delta=oscValue(o,t)*o.depth/100;
-    if(o.target==="scale")p.scale=clamp(p.scale*(1+delta),10,400);
-    else if(o.target==="delay")p.delay=clamp(p.delay+delta*4,0,5);
-    else if(o.target==="spacing")p.spacing=clamp(p.spacing+delta*140,0,200);
-    else if(o.target==="positionX"||o.target==="positionY")p[o.target]+=delta*100;
-    else if(o.target==="rotation")p.rotation+=delta*180;
+   for(const cable of patchRef.current){
+    const o=oscRef.current[cable.wave];if(!o||!o.enabled||cable.amount===0||o.depth===0)continue;
+    const delta=oscValue(o,t)*o.depth/100*cable.amount/100;
+    switch(cable.target){
+     case "scale":p.scale=clamp(p.scale*(1+delta),10,400);break;
+     case "delay":p.delay=clamp(p.delay+delta*4,0,5);break;
+     case "spacing":p.spacing=clamp(p.spacing+delta*140,0,200);break;
+     case "positionX":case "positionY":p[cable.target]=clamp(p[cable.target]+delta*100,-150,150);break;
+     case "rotation":p.rotation+=delta*180;break;
+     case "amplitude":p.amplitude=clamp(p.amplitude+delta*100,0,100);break;
+     case "speed":p.speed=clamp(p.speed+delta*2,0,3);break;
+    }
    }
    return p;
   }
@@ -87,7 +94,7 @@ export default function GridDelayMachine(){
   function draw(now:number){
    const delta=last?Math.min(.06,(now-last)/1000):0;last=now;
    resize();
-   if(playingRef.current){clock+=delta*settingsRef.current.speed;accumulator+=delta*settingsRef.current.speed}
+   if(playingRef.current){const rate=modulated(clock).speed;clock+=delta*rate;accumulator+=delta*rate}
    if(!history.length){makeSource(clock);accumulator=0}
    if(playingRef.current&&accumulator>=interval){makeSource(clock);accumulator%=interval}
    const p=modulated(clock),cols=Math.round(p.columns),rows=Math.round(p.rows),cw=w/cols,ch=h/rows,gx=cw*p.spacing/100,gy=ch*p.spacing/100;
@@ -110,12 +117,13 @@ export default function GridDelayMachine(){
  const control=(k:Param)=><Control key={k} name={k} value={params[k]} onChange={v=>change(k,v)}/>;
  return <main className="gd-machine" style={{"--gd-paper":"#edeae3"} as CSSProperties}>
   <header className="gd-top"><a href="/" className="gd-back" aria-label="Back to Playground index">← Experiments</a><strong>GRID DELAY MACHINE <span> / REC-13</span></strong><div><button aria-expanded={open} aria-controls="gd-controls-panel" onClick={()=>setOpen(v=>!v)}>{open?"Hide panel":"Show panel"}</button><button onClick={async()=>{if(!stage.current)return;if(!document.fullscreenElement){await stage.current.requestFullscreen();setFullscreen(true)}else{await document.exitFullscreen();setFullscreen(false)}}}>{fullscreen?"Exit fullscreen":"Fullscreen ↗"}</button></div></header>
-  <div className={"gd-workspace"+(open?"":" gd-no-panel")}><div ref={stage} className="gd-stage"><canvas ref={canvas} aria-label="Animated temporal grid sampling output"/><div className="gd-stage-caption">SOURCE / {hasImage?"IMAGE":"TYPE"} &nbsp; · &nbsp; MOTION / {motion.toUpperCase()}</div><div className="gd-stage-bottom"><span>{params.columns} × {params.rows} / {pattern.toUpperCase()}</span><div><button onClick={()=>{playingRef.current=!playingRef.current;setPlaying(playingRef.current)}}>{playing?"Ⅱ Pause":"▶ Play"}</button><button className={showGrid?"active":""} onClick={()=>{gridRef.current=!gridRef.current;setShowGrid(gridRef.current)}}>Grid</button></div></div></div>
-  {open&&<aside id="gd-controls-panel" className="gd-panel" aria-label="Grid Delay controls"><nav className="gd-tabs">{(["source","grid","modulation"] as const).map(t=><button className={tab===t?"active":""} key={t} onClick={()=>setTab(t)}>{t}</button>)}</nav>
+  <div className={"gd-workspace"+(open?(tab==="patch"?" gd-patch-open":""):" gd-no-panel")}><div ref={stage} className="gd-stage"><canvas ref={canvas} aria-label="Animated temporal grid sampling output"/><div className="gd-stage-caption">SOURCE / {hasImage?"IMAGE":"TYPE"} &nbsp; · &nbsp; MOTION / {motion.toUpperCase()}</div><div className="gd-stage-bottom"><span>{params.columns} × {params.rows} / {pattern.toUpperCase()}</span><div><button onClick={()=>{playingRef.current=!playingRef.current;setPlaying(playingRef.current)}}>{playing?"Ⅱ Pause":"▶ Play"}</button><button className={showGrid?"active":""} onClick={()=>{gridRef.current=!gridRef.current;setShowGrid(gridRef.current)}}>Grid</button></div></div></div>
+  {open&&<aside id="gd-controls-panel" className="gd-panel" aria-label="Grid Delay controls"><nav className="gd-tabs">{(["patch","source","grid"] as const).map(t=><button className={tab===t?"active":""} key={t} onClick={()=>setTab(t)}>{t}</button>)}</nav>
    {tab==="source"&&<div className="gd-panel-grid"><div className="gd-block"><h2>01 / INPUT</h2><textarea value={sourceText} onChange={e=>{changeText(e.target.value);image.current=null;setHasImage(false)}} rows={2} aria-label="Source text"/><div className="gd-inline"><button onClick={()=>file.current?.click()}>↑ Upload image</button>{hasImage&&<button onClick={()=>{image.current=null;setHasImage(false)}}>Use text</button>}<input ref={file} type="file" hidden accept="image/*" onChange={e=>upload(e.target.files?.[0])}/></div><h2>Typography</h2><select value={font} onChange={e=>changeFont(e.target.value)}><option value="Arial, Helvetica, sans-serif">Arial / System Sans</option><option value="Georgia, serif">Georgia / Serif</option><option value="'Times New Roman', serif">Times New Roman</option><option value="'Courier New', monospace">Courier Mono</option><option value="'GT Era Text', Arial, sans-serif">GT Era Text</option><option value="'GT Alpina Typewriter', monospace">GT Alpina Typewriter</option></select><div className="gd-controls">{(["fontSize","weight","tracking","lineHeight"] as Param[]).map(control)}</div></div><div className="gd-block"><h2>02 / SOURCE MOTION</h2><Buttons values={["horizontal","vertical","orbit","rotation","scale"] as const} selected={motion} onSelect={changeMotion}/><div className="gd-controls">{(["scale","speed","amplitude","positionX","positionY","rotation"] as Param[]).map(control)}</div></div></div>}
    {tab==="grid"&&<div className="gd-panel-grid"><div className="gd-block"><h2>03 / SAMPLING GRID</h2><div className="gd-controls">{(["columns","rows","spacing"] as Param[]).map(control)}</div><p>Spacing pushes intact sampled cells outward. It does not resize their contents.</p></div><div className="gd-block"><h2>04 / TEMPORAL DELAY</h2><Buttons values={["wave","cascade","radial","random"] as const} selected={pattern} onSelect={changePattern}/><div className="gd-controls">{control("delay")}</div><p>Each stationary cell reads a different point in the source's recent motion history.</p></div></div>}
-   {tab==="modulation"&&<div className="gd-panel-grid">{osc.map((o,i)=><div className="gd-block" key={i}><h2>0{i+5} / OSCILLATOR {i+1}</h2><label className="gd-select-label">Destination<select value={o.target} onChange={e=>editOsc(i,"target",e.target.value)}>{(["none","positionX","positionY","rotation","scale","delay","spacing"] as const).map(v=><option key={v} value={v}>{v}</option>)}</select></label><Buttons values={["sine","triangle","square","noise"] as const} selected={o.shape} onSelect={v=>editOsc(i,"shape",v)}/><div className="gd-controls"><label className="gd-control"><span>Rate <output>{o.rate.toFixed(2)} Hz</output></span><input type="range" min=".01" max="3" step=".01" value={o.rate} onChange={e=>editOsc(i,"rate",Number(e.target.value))}/></label><label className="gd-control"><span>Depth <output>{o.depth}%</output></span><input type="range" min="0" max="100" step="1" value={o.depth} onChange={e=>editOsc(i,"depth",Number(e.target.value))}/></label></div></div>)}</div>}
+   {tab==="patch"&&<GridDelayPatchBay waves={osc} patches={patches} onWaves={changeWaves} onPatches={changePatches}/>}
+
   </aside>}
-  </div><footer className="gd-footer"><span>TIME AS MATERIAL / TYPE · IMAGE · MOTION</span><span>EXPERIMENTAL BUILD 01</span></footer>
+  </div><footer className="gd-footer"><span>TIME AS MATERIAL / TYPE · IMAGE · MOTION</span><span>PATCH SYNTH / BUILD 02</span></footer>
  </main>;
 }

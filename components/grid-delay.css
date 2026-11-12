@@ -36,3 +36,44 @@
 .gd-footer{flex:none;display:flex;justify-content:space-between;gap:16px;padding:11px 16px;border-top:1px solid #484b45;font:9px var(--ui-mono),monospace;color:#858a80}
 .gd-machine button:focus-visible,.gd-machine a:focus-visible,.gd-machine input:focus-visible,.gd-machine select:focus-visible,.gd-machine textarea:focus-visible{outline:2px solid #eae7df;outline-offset:2px}
 @media(max-width:760px){.gd-machine{min-height:0}.gd-top{padding:0 12px;gap:8px}.gd-top strong span{display:none}.gd-top>div{gap:8px}.gd-workspace{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(230px,1fr) minmax(180px,42dvh)}.gd-workspace.gd-no-panel{grid-template-rows:1fr}.gd-panel{border-left:0;border-top:1px solid #484b45}.gd-stage-caption{font-size:9px}.gd-block{padding:13px 14px}.gd-tabs{padding:0 14px}.gd-footer{padding:9px 12px}.gd-controls{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
+
+/* Grid Delay modular patch synthesizer */
+.gd-patch-machine{padding:0 0 20px}
+.gd-bay-head,.gd-connections-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:16px 14px 8px;letter-spacing:.06em;font-size:10px}
+.gd-bay-head button,.gd-connections-head button{background:transparent;border:0;color:#aeb1a9;font-size:10px;padding:3px 0}
+.gd-bay-head button:disabled{opacity:.3;cursor:default}
+.gd-bay-help{margin:0 14px 15px;color:#a7aba1;line-height:1.5;font-size:11px}
+.gd-bay-board{position:relative;margin:0 10px;border:1px solid #414840;background:#1d211e;min-width:0;isolation:isolate}
+.gd-bay-columns{display:grid;grid-template-columns:minmax(0,1.17fr) minmax(0,.83fr);gap:10px;position:relative;z-index:1;padding:9px 7px}
+.gd-bay-caption{font-size:9px;letter-spacing:.05em;color:#989f96;margin:0 0 10px}
+.gd-wave-unit{border:1px solid #555b52;padding:8px 6px;margin-bottom:10px;background:#262b26}
+.gd-wave-title{display:flex;align-items:center;justify-content:space-between;gap:5px;font-size:10px;letter-spacing:.04em;margin-bottom:7px}
+.gd-wave-title label{display:flex;gap:5px;align-items:center}
+.gd-wave-title input{accent-color:var(--wave-color);margin:0;width:12px;height:12px}
+.gd-wave-unit select{width:100%;padding:5px 4px;background:#1b201c;border:1px solid #565d52;color:#eee;font-size:11px}
+.gd-wave-ctrl{display:grid;gap:9px;margin-top:9px}
+.gd-wave-ctrl label{font-size:9px;color:#b3b7af;display:grid;grid-template-columns:1fr auto;gap:5px}
+.gd-wave-ctrl output{font-size:9px;color:#eee}
+.gd-wave-ctrl input{grid-column:span 2;width:100%;accent-color:var(--wave-color)}
+.gd-port{width:22px;height:22px;flex:none;border:1px solid currentColor;border-radius:50%;display:inline-grid;place-items:center;padding:0!important;font-size:12px!important;line-height:1;background:#1c211d;position:relative;z-index:3}
+.gd-output{color:var(--wave-color)!important;cursor:grab}
+.gd-output.armed{box-shadow:0 0 0 4px color-mix(in srgb,var(--wave-color) 25%,transparent)}
+.gd-input{color:#eee!important;cursor:crosshair;width:19px;height:19px}
+.gd-bay-targets{min-width:0}
+.gd-target{display:flex;align-items:center;gap:5px;min-height:36px;padding:4px 0;border-bottom:1px solid #363b36;color:#d9dcd4;font-size:10px}
+.gd-target span{min-width:0;flex:1}
+.gd-target small{color:#888e85}
+.gd-target-ready:hover{background:#414a40}
+.gd-cables{position:absolute;inset:0;width:100%;height:100%;z-index:2;overflow:visible;pointer-events:none}
+.gd-connections-head{border-bottom:1px solid #363d35;margin:10px 0 0}
+.gd-connection-list{padding:0 10px}
+.gd-connection-list>p{font-size:11px;line-height:1.4;color:#989f96}
+.gd-connection{display:flex;align-items:center;gap:7px;padding:10px 0;border-bottom:1px solid #353a34}
+.gd-connection-name{font-size:10px;flex:1;min-width:0}
+.gd-connection label{display:flex;align-items:center;gap:5px;min-width:0;max-width:90px}
+.gd-connection input{width:55px;min-width:20px;accent-color:#ebe9df}
+.gd-connection output{font-size:9px;min-width:28px}
+.gd-connection button{border:0;background:none;font-size:17px;color:#c4c7bf;padding:1px 4px}
+.gd-panel:has(.gd-patch-machine) .gd-tabs{grid-template-columns:1fr 1fr 1fr}
+
+@media(min-width:761px){.gd-workspace.gd-patch-open{grid-template-columns:minmax(0,1fr) 410px}.gd-patch-open .gd-bay-columns{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:20px;padding:12px}.gd-patch-open .gd-wave-unit{padding:10px}.gd-patch-open .gd-target{min-height:40px}}
