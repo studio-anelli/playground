@@ -200,20 +200,20 @@ void main(){
      // right-to-left on the next beat. Neither the source nor the
      // historical image is mirrored. Each front bends and reveals
      // successive taps, producing distinct travelling slices.
-     float cycle=fract(phase*.5);
-     float forward=cycle;
-     float backward=1.-cycle;
+     float travel=fract(phase);
+     float forward=travel;
+     float backward=1.-travel;
      float distanceA=abs(sourceUV.x-forward);
      float distanceB=abs(sourceUV.x-backward);
      float bandA=1.-smoothstep(.035,.17,distanceA);
      float bandB=1.-smoothstep(.035,.17,distanceB);
      float bendA=sin(distanceA*35.)*bandA*.038*wet;
      float bendB=sin(distanceB*35.)*bandB*.038*wet;
-     // Alternate the active front each half-cycle, with a short
-     // overlap rather than a sudden global image swap.
-     float leg=fract(phase);
-     float activeA=1.-smoothstep(.35,.55,leg);
-     float activeB=smoothstep(.45,.65,leg);
+     // Each delay interval is one directional traversal; alternate
+     // on beat boundaries without flipping or replacing the full frame.
+     float leg=mod(floor(phase),2.);
+     float activeA=1.-leg;
+     float activeB=leg;
      vec2 uvA=clamp(sourceUV+vec2(bendA,bandA*.006),vec2(0.),vec2(1.));
      vec2 uvB=clamp(sourceUV-vec2(bendB,bandB*.006),vec2(0.),vec2(1.));
      vec4 echoA=textureLod(uFrames,vec3(uvA,float(historyLayer(min(5.,secondsAgo+interval)))),0.);
