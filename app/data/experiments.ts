@@ -3,6 +3,7 @@ export type ExperimentStatus = "draft" | "test" | "public" | "archived";
 export type Experiment = {
   id: string;
   slug: string;
+  href?: string;
   title: string;
   kind: "experiment" | "tool" | "study";
   status: ExperimentStatus;
@@ -15,12 +16,13 @@ const experimentCatalog: Experiment[] = [
   {
     id: "REC-12",
     slug: "music-that-travels",
+    href: "/experiments/music-that-travels/geography",
     title: "MUSIC THAT TRAVELS",
     kind: "study",
     status: "test",
     year: "2026",
-    tags: ["music", "geography", "colour"],
-    summary: "Explore a personal record collection through two studies: chromatic artwork and the journey from musical origins to release markets.",
+    tags: ["music", "geography", "discovery"],
+    summary: "Explore a personal record collection through musical origins, cultural connections and release markets.",
   },
   {
     id: "REC-11",
