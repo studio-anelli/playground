@@ -4,7 +4,7 @@
  * 2D canvas; the history, grid composition and deformation live on the GPU. */
 export type DelayGeometry = {
   columns:number; rows:number; spacing:number; delay:number; pattern:number;
-  delayMode:number; blackHold:number;
+  delayMode:number; blackHold:number; delayType:number; echoMix:number; tapeWear:number; waveBlend:number;
   mode:number; amount:number; frequency:number; flow:number; time:number; elapsed:number;
   globalMode:number; globalStrength:number; globalSize:number; globalGrowth:number;
   grid:boolean; background:[number,number,number]; blend:number; backgroundInside:boolean;
@@ -37,6 +37,10 @@ uniform float uGap;
 uniform float uDelay;
 uniform int uDelayMode;
 uniform float uBlackHold;
+uniform int uDelayType;
+uniform float uEchoMix;
+uniform float uTapeWear;
+uniform int uWaveBlend;
 uniform int uPattern;
 uniform int uNewest;
 uniform int uCount;
@@ -83,6 +87,12 @@ vec3 compose(vec3 sampleColor,vec3 bg){
  if(uBlend==6)return max(bg,sampleColor);
  if(uBlend==7)return min(bg,sampleColor);
  return sampleColor;
+}
+vec3 waveComposite(vec3 base,vec3 wave){
+ if(uWaveBlend==1)return base*wave;
+ if(uWaveBlend==2)return 1.-(1.-base)*(1.-wave);
+ if(uWaveBlend==3)return abs(base-wave);
+ return wave;
 }
 void main(){
  // Global glass refracts the ALREADY ASSEMBLED temporal grid.
@@ -159,13 +169,59 @@ void main(){
   float blackPhase=fract((uTime-secondsAgo)*.5);
   if(blackPhase<clamp(uBlackHold,0.,1.)){outColor=vec4(0.,0.,0.,1.);return;}
  }
- // The image mode and the visible interval of black mode share the sample.
+ // Digital leaves the original exact time-slice sampler untouched.
  vec4 sampleColor=textureLod(uFrames,vec3(sourceUV,float(selectedLayer)),0.);
- // In external-background mode the alpha of the delayed source acts as a
- // foreground mask; the static stage colour is drawn exactly once behind it.
- // The historical texture still contains the image's alpha, not coloured tiles.
  vec3 rendered=compose(sampleColor.rgb,uBackground);
  vec3 result=uBackgroundInside?rendered:mix(uBackground,rendered,clamp(sampleColor.a,0.,1.));
+ if(uDelayType==1 || uDelayType==2){
+   // Wave strength controls REFRACTION (UV displacement) only.
+   // The refracted source replaces the pixels inside the wave: no alpha
+   // fading of successive copies, and the source is never mirrored.
+   float waveStrength=clamp(uEchoMix,0.,1.);
+   float interval=clamp(uDelay*.28,.20,1.35);
+   float phase=uTime/interval;
+   float wear=clamp(uTapeWear,0.,1.);
+   float front=0.;
+   vec2 bend=vec2(0.);
+   float age=secondsAgo;
+   if(uDelayType==1){
+     // Tape: two meandering horizontal refraction belts continuously
+     // expose two different moments of history.
+     float drift=.05*sin(uTime*.93)+wear*.035*sin(uTime*4.2);
+     float flow=fract(phase*.13+drift);
+     float distA=abs(sourceUV.y-flow);
+     float distB=abs(sourceUV.y-fract(flow+.52));
+     float bandA=1.-step(.105,distA);
+     float bandB=1.-step(.085,distB);
+     bool chooseA=bandA>=bandB;
+     front=max(bandA,bandB);
+     float dist=chooseA?distA:distB;
+     // Stronger wave -> more displacement, never less opacity.
+     float ripple=sin(dist*48.-uTime*(2.8+wear*6.))*waveStrength;
+     bend=vec2((.012+.057*wear)*ripple*front, .006*wear*ripple*front);
+     age=min(5.,secondsAgo+interval*(chooseA?1.:2.));
+   }else{
+     // Ping-Pong: each clock interval sends one *unmirrored* refraction
+     // belt across the image, alternating travel direction every beat.
+     float travel=fract(phase);
+     float direction=mod(floor(phase),2.)<1.?1.:-1.;
+     float center=direction>0.?travel:1.-travel;
+     float distance=abs(sourceUV.x-center);
+     front=1.-step(.125,distance);
+     float ripple=sin(distance*44.-uTime*3.2)*waveStrength*front;
+     bend=vec2(.018*ripple, direction*.078*ripple);
+     age=min(5.,secondsAgo+interval*(direction>0.?1.:2.));
+   }
+   if(waveStrength>.0001 && front>.0001){
+     vec2 refractedUV=clamp(sourceUV+bend,vec2(0.),vec2(1.));
+     vec4 previous=textureLod(uFrames,vec3(refractedUV,float(historyLayer(age))),0.);
+     vec3 past=compose(previous.rgb,uBackground);
+     vec3 pastVisible=uBackgroundInside?past:mix(uBackground,past,clamp(previous.a,0.,1.));
+     // Binary cut: no feathered transition, alpha fade, or glow.
+     // Blend is applied at full strength only inside the refractive band.
+     result=waveComposite(result,pastVisible);
+   }
+ }
  if(uGridVisible){
    vec2 rim=min(local,1.-local)*cellSize*cells;
    if(min(rim.x,rim.y)<.006)result=mix(result,vec3(.13,.15,.13),.22);
@@ -268,7 +324,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
  const uniforms=(name:string)=>gl.getUniformLocation(prog,name);
  const loc={
   frames:uniforms("uFrames"),grid:uniforms("uGrid"),gap:uniforms("uGap"),
-  delay:uniforms("uDelay"),delayMode:uniforms("uDelayMode"),blackHold:uniforms("uBlackHold"),pattern:uniforms("uPattern"),newest:uniforms("uNewest"),
+  delay:uniforms("uDelay"),delayMode:uniforms("uDelayMode"),blackHold:uniforms("uBlackHold"),delayType:uniforms("uDelayType"),echoMix:uniforms("uEchoMix"),tapeWear:uniforms("uTapeWear"),waveBlend:uniforms("uWaveBlend"),pattern:uniforms("uPattern"),newest:uniforms("uNewest"),
   count:uniforms("uCount"),capacity:uniforms("uCapacity"),liveLayer:uniforms("uLiveLayer"),interval:uniforms("uInterval"),elapsed:uniforms("uElapsed"),
   background:uniforms("uBackground"),blend:uniforms("uBlend"),backgroundInside:uniforms("uBackgroundInside"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
@@ -378,6 +434,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.uniform1i(loc.frames,0);gl.uniform2f(loc.grid,p.columns,p.rows);
   gl.uniform1f(loc.gap,p.spacing/200);gl.uniform1f(loc.delay,p.delay);
   gl.uniform1i(loc.delayMode,p.delayMode);gl.uniform1f(loc.blackHold,p.blackHold);
+  gl.uniform1i(loc.delayType,p.delayType);gl.uniform1f(loc.echoMix,p.echoMix);gl.uniform1f(loc.tapeWear,p.tapeWear);gl.uniform1i(loc.waveBlend,p.waveBlend);
   gl.uniform1i(loc.pattern,p.pattern);gl.uniform1i(loc.newest,newest);
   gl.uniform1i(loc.count,count);gl.uniform1i(loc.capacity,historyCapacity);gl.uniform1i(loc.liveLayer,liveLayer);gl.uniform1f(loc.interval,interval);gl.uniform1f(loc.elapsed,p.elapsed);
   gl.uniform3f(loc.background,...p.background);gl.uniform1i(loc.blend,p.blend);gl.uniform1i(loc.backgroundInside,p.backgroundInside?1:0);
