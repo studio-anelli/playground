@@ -31,9 +31,11 @@ export function parseGridDelayPreset(input:unknown,ranges:Record<string,readonly
  if(!object(input)||input.kind!=="grid-delay-machine"||input.version!==1)throw Error("This is not a supported Grid Delay preset (version 1).");
  const p=input;
  const values=p.settings;
- // Version-1 presets exported before the seam control existed must still load.
+ // Older presets may include the removed experimental edgeSoftness key.
+ // Keep reading their actual controls without restoring that broken effect.
  if(!object(values))throw Error("Preset parameters are missing.");
- const validatedSettings={...values,edgeSoftness:values.edgeSoftness===undefined?70:values.edgeSoftness};
+ const validatedSettings={...values};
+ delete validatedSettings.edgeSoftness;
  if(Object.keys(ranges).some(k=>!number(validatedSettings[k],ranges[k][0],ranges[k][1])))throw Error("Preset parameters are missing or outside their allowed ranges.");
  if(typeof p.text!=="string"||p.text.length>5000||typeof p.font!=="string"||p.font.length>200)throw Error("Invalid text or font in preset.");
  if(!option(p.align,["left","center","right"])||!option(p.vertical,["top","middle","bottom"])||
