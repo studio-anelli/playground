@@ -38,7 +38,9 @@ export default function GridDelayMachine(){
   // Bounded temporal ring. Each source frame is drawn only once, then sampled by all cells.
   const history:{canvas:HTMLCanvasElement;at:number}[]=[];
   let raf=0,last=0,clock=0,accumulator=0,w=0,h=0,dpr=1;
-  const interval=1/24;
+  // Keep a bounded, half-resolution history instead of hundreds of MB of full-size frames.
+  const interval=1/18;
+  const historyScale=.5;
   function resize(){
    const box=output!.getBoundingClientRect();
    const width=Math.max(1,Math.round(box.width)),height=Math.max(1,Math.round(box.height));
@@ -86,7 +88,7 @@ export default function GridDelayMachine(){
     lines.forEach((line,i)=>{const chars=Array.from(line);const widths=chars.map(ch=>sc!.measureText(ch).width),total=widths.reduce((a,b)=>a+b,0)+Math.max(0,chars.length-1)*letterSpacing;let x=-total/2;const y=(i-(lines.length-1)/2)*size*p.lineHeight;chars.forEach((ch,j)=>{sc!.fillText(ch,x+widths[j]/2,y);x+=widths[j]+letterSpacing})});
    }
    sc!.restore();
-   const snap=document.createElement("canvas");snap.width=w;snap.height=h;snap.getContext("2d")!.drawImage(source,0,0);
+   const snap=document.createElement("canvas");snap.width=Math.max(1,Math.ceil(w*historyScale));snap.height=Math.max(1,Math.ceil(h*historyScale));snap.getContext("2d")!.drawImage(source,0,0,snap.width,snap.height);
    history.push({canvas:snap,at:t});
    const maxAge=5.25;
    while(history.length>2&&history[1].at<t-maxAge)history.shift();
@@ -98,12 +100,14 @@ export default function GridDelayMachine(){
    if(!history.length){makeSource(clock);accumulator=0}
    if(playingRef.current&&accumulator>=interval){makeSource(clock);accumulator%=interval}
    const p=modulated(clock),cols=Math.round(p.columns),rows=Math.round(p.rows);
-   const gx=w/cols*p.spacing/100,gy=h/rows*p.spacing/100;
    ctx!.setTransform(dpr,0,0,dpr,0,0);
    ctx!.fillStyle="#222520";ctx!.fillRect(0,0,w,h);
-   // Snap tile boundaries to physical output pixels. A tile is a viewport into
-   // the full historical frame, NOT a separately scaled image slice.
-   // This prevents subpixel interpolation from introducing periodic dark seams.
+   // Keep the ENTIRE grid inside the output. Spacing consumes available space;
+   // each cell gets smaller, rather than pushing the outer cells offscreen.
+   // The source remains a single full-size composition divided into grid samples.
+   const gapFraction=clamp(p.spacing/200,0,.75);
+   const gapX=w/cols*gapFraction,gapY=h/rows*gapFraction;
+   const cellW=(w-gapX*(cols-1))/cols,cellH=(h-gapY*(rows-1))/rows;
    const snap=(value:number)=>Math.round(value*dpr)/dpr;
    for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
     const u=(x+.5)/cols,v=(y+.5)/rows;
@@ -112,21 +116,27 @@ export default function GridDelayMachine(){
     let lo=0,hi=history.length-1;
     while(lo<hi){const mid=(lo+hi+1)>>1;if(history[mid].at<=target)lo=mid;else hi=mid-1}
     const frame=history[lo].canvas;
-    const sx=snap(x*w/cols),sy=snap(y*h/rows);
-    const ex=snap((x+1)*w/cols),ey=snap((y+1)*h/rows);
-    const sw=ex-sx,sh=ey-sy;
-    const shiftX=snap((x-(cols-1)/2)*gx),shiftY=snap((y-(rows-1)/2)*gy);
-    ctx!.save();
-    ctx!.beginPath();ctx!.rect(sx+shiftX,sy+shiftY,sw,sh);ctx!.clip();
-    ctx!.drawImage(frame,shiftX,shiftY,w,h);
-    ctx!.restore();
-    if(gridRef.current&&p.spacing>0){
+    const sx=x*w/cols,sy=y*h/rows,sw=w/cols,sh=h/rows;
+    const dx=snap(x*(cellW+gapX)),dy=snap(y*(cellH+gapY));
+    const dw=snap((x+1)*cellW+x*gapX)-dx;
+    const dh=snap((y+1)*cellH+y*gapY)-dy;
+    if(dw<=0||dh<=0)continue;
+    if(gapFraction===0){
+     // Drawing the full historical frame through pixel-snapped cell clips
+     // avoids repeated per-cell scaling seams when cells touch.
+     ctx!.save();ctx!.beginPath();ctx!.rect(dx,dy,dw,dh);ctx!.clip();
+     ctx!.drawImage(frame,0,0,w,h);ctx!.restore();
+    }else{
+     // With gaps, the same SOURCE region is displayed in a smaller destination
+     // rectangle. The complete image still fits the stage.
+     ctx!.drawImage(frame,sx*frame.width/w,sy*frame.height/h,sw*frame.width/w,sh*frame.height/h,dx,dy,dw,dh);
+    }
+    if(gridRef.current&&gapFraction>0){
      ctx!.strokeStyle="rgba(20,22,20,.2)";ctx!.lineWidth=1/dpr;
-     ctx!.strokeRect(sx+shiftX+.5/dpr,sy+shiftY+.5/dpr,sw-1/dpr,sh-1/dpr);
+     ctx!.strokeRect(dx+.5/dpr,dy+.5/dpr,Math.max(0,dw-1/dpr),Math.max(0,dh-1/dpr));
     }
    }
-   // Draw continuous grid lines once, rather than overlapping per-cell strokes.
-   if(gridRef.current&&p.spacing===0){
+   if(gridRef.current&&gapFraction===0){
     ctx!.beginPath();
     for(let x=1;x<cols;x++){const a=snap(x*w/cols)+.5/dpr;ctx!.moveTo(a,0);ctx!.lineTo(a,h)}
     for(let y=1;y<rows;y++){const a=snap(y*h/rows)+.5/dpr;ctx!.moveTo(0,a);ctx!.lineTo(w,a)}
