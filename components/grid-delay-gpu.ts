@@ -119,25 +119,27 @@ void main(){
  // available resolution only disables refraction on genuinely tiny cells.
  // Fisheye pulls source coordinates inward (magnification); Pinch pushes
  // outward (minification). Both preserve the cell boundary exactly.
+ // Restored verbatim from the original lens engine (pre-PR #108).
+ // This steep surface-normal refraction is the intentional optical character
+ // that later monotonic radial profiles accidentally erased.
  vec2 sampleLocal=local;
- vec2 tilePixels=max(vec2(1.),cellSize*vec2(textureSize(uFrames,0).xy));
- float availablePixels=min(tilePixels.x,tilePixels.y);
- float opticalBudget=smoothstep(3.,9.,availablePixels);
- if(uMode!=0 && uAmount>.001 && opticalBudget>.001){
+ float strength=clamp(uAmount,0.,1.);
+ if(uMode!=0){
    float seed=hash21(cell+vec2(9.7,23.1));
    float seedB=hash21(cell+vec2(43.2,8.5));
    float phase=uTime*uFlow*(.48+seed*.46)+seedB*6.2831853;
    vec2 q=(local-.5)*2.;
-   float r2=dot(q,q);
-   // An original-style curved glass profile, without folded coordinates.
-   // For f(r)=r*(1 +/- k*(1-r²)^2) both mappings stay monotonic for k<1.
-   float curvedGlass=pow(max(0.,1.-r2),2.);
-   float curvature=clamp((uFrequency-.2)/11.8,0.,1.);
-   float breathing=1.+.065*sin(phase*.55);
-   float opticalStrength=clamp(uAmount,0.,1.)*opticalBudget*mix(.55,.98,curvature)*breathing;
-   opticalStrength=min(.97,opticalStrength);
-   float radialScale=uMode==1?1.-opticalStrength*curvedGlass:1.+opticalStrength*curvedGlass;
-   sampleLocal=.5+.5*q*radialScale;
+   float radius2=dot(q,q);
+   float inside=1.-smoothstep(.81,1.0,radius2);
+   float glass=clamp(strength*(1.+.08*sin(phase*.55)),0.,1.);
+   float bulge=sqrt(max(.045,1.-min(radius2,.955)));
+   float slope=(1./bulge-1.)*inside;
+   // Frequency control now tunes optical curvature, not unused noise frequency.
+   float curvature=.08+clamp(uFrequency,.2,12.)*.036;
+   float refraction=clamp(slope*curvature*glass,0.,.65);
+   // Fisheye (1) magnifies; Pinch (2) minifies.
+   vec2 ray=q*(uMode==1?1.-refraction:1.+refraction);
+   sampleLocal=.5+.5*ray;
  }
  // Half-pixel inset avoids texture filtering across neighbouring cells.
  vec2 inset=min(vec2(.49),.5/max(cellSize*vec2(textureSize(uFrames,0).xy),vec2(1.)));
