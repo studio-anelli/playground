@@ -50,6 +50,8 @@ type Mask = {
 
 type Particle = {
   id: number;
+  homeX?: number;
+  homeY?: number;
   x: number;
   y: number;
   vx: number;
@@ -452,7 +454,7 @@ function TextCommit(props: {
 }
 
 export default function LivingTypography() {
-  const [waveStrength, setWaveStrength] = useState(48);
+  const [waveStrength, setWaveStrength] = useState(36);
   const [waveScale, setWaveScale] = useState(420);
   const [waveSpeed, setWaveSpeed] = useState(0.6);
   const [recognition, setRecognition] = useState(0.35);
@@ -460,6 +462,7 @@ export default function LivingTypography() {
   const clockRef = useRef(0);
   useEffect(() => { if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) setPaused(true); }, []);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const touchRef = useRef<{ x: number; y: number } | null>(null);
   const rafRef = useRef<number>(0);
 
   const particlesRef = useRef<Particle[]>([]);
@@ -508,9 +511,9 @@ export default function LivingTypography() {
   const [cellRange, setCellRange] = useState(80);
   const [cellPressure, setCellPressure] = useState(1);
   const [cellSoftness, setCellSoftness] = useState(0.65);
-  const [cellDamping, setCellDamping] = useState(0.82);
+  const [cellDamping, setCellDamping] = useState(0.90);
   const [cellAgitation, setCellAgitation] = useState(0.003);
-  const [cellGrowthRate, setCellGrowthRate] = useState(0.002);
+  const [cellGrowthRate, setCellGrowthRate] = useState(0.012);
   const [cellExpansion, setCellExpansion] = useState(0.65);
   const cellBondsRef = useRef(new Set<string>());
   const [baseHue, setBaseHue] = useState(0);
@@ -585,6 +588,8 @@ export default function LivingTypography() {
       alpha,
     });
 
+    for (const p of particlesRef.current) { p.homeX = p.x; p.homeY = p.y; }
+
     if (bubbleStart && shapeMode !== "cells") {
       // Start with the mature collision state shown in the reference.
       for (const p of particlesRef.current) {
@@ -643,15 +648,7 @@ export default function LivingTypography() {
       painted = true;
       clockRef.current += dt * 16.6667;
       const fieldTime = clockRef.current * 0.001 * waveSpeed;
-      const amplitude = waveStrength * (1 - recognition);
       const k = Math.PI * 2 / waveScale;
-      // A shared, smooth material-space map: glyph, contacts and membranes
-      // deform together. Bounded derivatives prevent folding at short wavelengths.
-      const a = Math.min(amplitude, waveScale * 0.12);
-      const field = (x: number, y: number) => ({
-        x: x + a * (Math.sin(y * k + fieldTime) + 0.3 * Math.sin(x * k * 0.7 - fieldTime * 0.61)),
-        y: y + a * (0.65 * Math.sin(x * k - fieldTime * 0.83) + 0.25 * Math.cos(y * k * 0.8 + fieldTime * 0.47)),
-      });
 
       const w = canvasW;
       const h = canvasH;
@@ -699,8 +696,26 @@ export default function LivingTypography() {
       for (let i = 0; i < parts.length; i++) {
         const p = parts[i];
         const agitation = p.kind === "cells" ? cellAgitation : jitter;
-        p.vx += (rnd() - 0.5) * agitation;
-        p.vy += (rnd() - 0.5) * agitation;
+        p.vx += (rnd() - 0.5) * agitation * dt;
+        p.vy += (rnd() - 0.5) * agitation * dt;
+        if (p.kind === "cells") {
+          // Forces act on physical positions; rendering has no deformation map.
+          // The glyph is remembered through weak springs, never a hard boundary.
+          p.vx += ((p.homeX ?? p.x) - p.x) * recognition * 0.0015 * dt;
+          p.vy += ((p.homeY ?? p.y) - p.y) * recognition * 0.0015 * dt;
+          const drive = waveStrength * 0.001;
+          p.vx += Math.sin(p.y * k + fieldTime) * drive * dt;
+          p.vy += Math.sin(p.x * k - fieldTime * 0.83) * drive * 0.65 * dt;
+          const pointer = touchRef.current;
+          if (pointer) {
+            const dx = p.x - pointer.x, dy = p.y - pointer.y;
+            const d = Math.hypot(dx, dy);
+            if (d > 0 && d < 120) {
+              const push = (1 - d / 120) * 0.7 * dt;
+              p.vx += dx / d * push; p.vy += dy / d * push;
+            }
+          }
+        }
         if (p.cooldown > 0) p.cooldown -= 1 * dt;
       }
 
@@ -749,9 +764,9 @@ export default function LivingTypography() {
             const bonded = cellBondsRef.current.has(key);
             const rest = (ar + br) * (1.02 - cellPressure * 0.14);
             const force = bonded
-              ? Math.max(-0.18, Math.min(0.18, (d - rest) * 0.012)) * cellAttraction
+              ? Math.max(-0.65, Math.min(0.65, (d - rest) * 0.035)) * cellAttraction
               : d < cellRange && d > ar + br ? (1 - d / cellRange) * 0.012 * cellAttraction / 6 : 0;
-            const coreRepulsion = d < (ar + br) * 0.7 ? ((ar + br) * 0.7 - d) * (0.025 + cellPressure * 0.01) : 0;
+            const coreRepulsion = Math.max(0, (ar + br) * 0.88 - d) * (0.06 + cellPressure * 0.02);
             const relativeSpeed = (a.vx - b.vx) * ux + (a.vy - b.vy) * uy;
             const drag = bonded ? relativeSpeed * 0.07 : 0;
             const net = force - coreRepulsion + drag;
@@ -902,30 +917,26 @@ export default function LivingTypography() {
 
       for (let i = 0; i < parts.length; i++) {
         const p = parts[i];
-        const previousX = p.x, previousY = p.y;
         const drag = p.kind === "cells" ? Math.pow(cellDamping, dt) : damping;
         p.vx *= drag;
         p.vy *= drag;
         if (p.kind === "cells") {
           const speed = Math.hypot(p.vx, p.vy);
-          if (speed > 0.65) { p.vx *= 0.65 / speed; p.vy *= 0.65 / speed; }
-          const targetScale = 1 + cellExpansion * Math.min(1, (bondCounts.get(p.id) || 0) / 6);
+          if (speed > 2.4) { p.vx *= 2.4 / speed; p.vy *= 2.4 / speed; }
+          // A moving activation front changes rest volume. Contact pressure
+          // suppresses growth, so expansion physically pushes the surrounding tissue.
+          const activation = 0.5 + 0.5 * Math.sin((p.homeX ?? p.x) * k - fieldTime);
+          const compression = (p.cellFaces || []).reduce((sum, face) => sum + Math.max(0, 1 - face.distance / Math.max(1, p.size0 * p.scale)), 0);
+          const targetScale = 1 + cellExpansion * activation / (1 + compression * 0.7);
           p.scale += (targetScale - p.scale) * (1 - Math.exp(-cellGrowthRate * dt));
         }
         p.x += p.vx * dt;
         p.y += p.vy * dt;
 
-        if (p.kind === "cells" && maskData) {
-          const valid = insideOutside === "inside" ? isInsideMask(maskData, p.x, p.y) : !isInsideMask(maskData, p.x, p.y);
-          if (!valid) {
-            // Slide along the glyph boundary; cells never teleport to a new sample.
-            const validAt = (x: number, y: number) => insideOutside === "inside" ? isInsideMask(maskData, x, y) : !isInsideMask(maskData, x, y);
-            if (validAt(previousX, p.y)) { p.x = previousX; p.vx = 0; }
-            else if (validAt(p.x, previousY)) { p.y = previousY; p.vy = 0; }
-            else { p.x = previousX; p.y = previousY; p.vx = 0; p.vy = 0; }
-          }
-        } else if (insideOutside === "inside") keepInside(p);
-        else if (maskData && isInsideMask(maskData, p.x, p.y)) pushOutside(p);
+        if (p.kind !== "cells") {
+          if (insideOutside === "inside") keepInside(p);
+          else if (maskData && isInsideMask(maskData, p.x, p.y)) pushOutside(p);
+        }
 
         // walls
         if (p.x < 0) {
@@ -966,14 +977,7 @@ export default function LivingTypography() {
       for (let i = 0; i < parts.length; i++) {
         const p = parts[i];
         const hue = colorMode === "rainbow" ? p.hue : palette[p.id % palette.length];
-        const q = field(p.x, p.y);
-        const qx = field(p.x + 1, p.y), qy = field(p.x, p.y + 1);
-        ctx.save();
-        // Local Jacobian stretches and rotates each membrane with its neighbours.
-        ctx.transform(qx.x - q.x, qx.y - q.y, qy.x - q.x, qy.y - q.y, q.x, q.y);
-        ctx.translate(-p.x, -p.y);
         drawShape(ctx, p, clockRef.current, glyphs[p.id % glyphs.length], fontFamily, hsl(hue, p.sat, p.lit, p.alpha), cellSoftness, dt);
-        ctx.restore();
       }
 
       rafRef.current = requestAnimationFrame(step);
@@ -1075,7 +1079,7 @@ export default function LivingTypography() {
       key={id}
       role="tab"
       aria-selected={activeTab === id}
-      className={`min-h-8 px-2 font-mono text-[10px] uppercase transition ${
+      className={`min-h-8 px-2 font-mono !text-[9px] uppercase transition ${
         activeTab === id ? "bg-white text-black" : "bg-white/[0.06] hover:bg-white/15"
       }`}
       onClick={() => setActiveTab(id)}
@@ -1089,10 +1093,24 @@ export default function LivingTypography() {
       <div className="absolute inset-x-5 bottom-[82px] top-[82px] flex items-center justify-center overflow-hidden md:inset-x-8" aria-label="Stage">
         <canvas
           ref={canvasRef}
+          onPointerDown={(event) => {
+            event.currentTarget.setPointerCapture(event.pointerId);
+            const rect = event.currentTarget.getBoundingClientRect();
+            touchRef.current = { x: (event.clientX - rect.left) * canvasW / rect.width, y: (event.clientY - rect.top) * canvasH / rect.height };
+          }}
+          onPointerMove={(event) => {
+            if (!touchRef.current) return;
+            const rect = event.currentTarget.getBoundingClientRect();
+            touchRef.current = { x: (event.clientX - rect.left) * canvasW / rect.width, y: (event.clientY - rect.top) * canvasH / rect.height };
+          }}
+          onPointerUp={() => { touchRef.current = null; }}
+          onPointerCancel={() => { touchRef.current = null; }}
+          onLostPointerCapture={() => { touchRef.current = null; }}
+          aria-label="Living cellular letter. Press and drag to push the tissue."
           width={canvasW}
           height={canvasH}
           className="block h-auto w-auto max-h-full max-w-full"
-          style={{ aspectRatio: `${canvasW} / ${canvasH}` }}
+          style={{ aspectRatio: `${canvasW} / ${canvasH}`, touchAction: "none" }}
         />
       </div>
 
@@ -1133,13 +1151,17 @@ export default function LivingTypography() {
             </div>
             <div className="min-h-0 flex-1 overflow-y-auto p-3 pt-1">
               {activeTab === "field" && <div className="flex flex-col gap-4">
-                <p className="text-xs leading-relaxed text-white/65">TY-P0 / Living matter. A shared field bends the letter and its membranes. Glyph recognition pulls the material back towards its initial identity.</p>
-                <ControlGroup title="Wave field">
-                  <Slider label="Deformation" value={waveStrength} min={0} max={160} step={1} onChange={setWaveStrength} />
+                <p className="text-xs leading-relaxed text-white/65">Cells adhere, compress and grow. Press and drag the letter to push the tissue. Release glyph memory to let it lose its shape.</p>
+                <ControlGroup title="Forces & growth">
+                  <Slider label="Wave force" value={waveStrength} min={0} max={160} step={1} onChange={setWaveStrength} />
                   <Slider label="Wavelength" value={waveScale} min={120} max={1000} step={1} onChange={setWaveScale} />
                   <Slider label="Propagation speed" value={waveSpeed} min={0} max={2} step={0.01} onChange={setWaveSpeed} />
-                  <Slider label="Glyph recognition" value={recognition} min={0} max={1} step={0.01} onChange={setRecognition} />
+                  <Slider label="Glyph memory" value={recognition} min={0} max={1} step={0.01} onChange={setRecognition} />
                 </ControlGroup>
+                <div className="grid grid-cols-2 gap-2">
+                  <button type="button" className="h-10 bg-white/10 text-xs" onClick={() => setRecognition(0)}>Release glyph</button>
+                  <button type="button" className="h-10 bg-white/10 text-xs" onClick={() => setRecognition(1)}>Recover glyph</button>
+                </div>
                 <button type="button" className="h-10 bg-white/10" onClick={() => setPaused(v => !v)}>{paused ? "Resume" : "Pause"}</button>
                 <button type="button" className="h-10 bg-white/10" onClick={() => { clockRef.current = 0; setSeed(v => v + 1); setPaused(false); }}>Restart organism</button>
                 <a href="/experiments/reactive-letter-particles" className="text-xs underline">Original TY-P0 ↗</a>
@@ -1325,7 +1347,7 @@ export default function LivingTypography() {
                       <Slider label="Agitation" value={cellAgitation} min={0} max={0.08} step={0.001} onChange={setCellAgitation} />
                     </ControlGroup>
                     <ControlGroup title="Growth">
-                      <Slider label="Growth / recovery speed" value={cellGrowthRate} min={0} max={0.02} step={0.001} onChange={setCellGrowthRate} />
+                      <Slider label="Growth response" value={cellGrowthRate} min={0} max={0.02} step={0.001} onChange={setCellGrowthRate} />
                       <Slider label="Maximum expansion" value={cellExpansion} min={0} max={1.5} step={0.01} onChange={setCellExpansion} />
                     </ControlGroup>
                   </> : <>

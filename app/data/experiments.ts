@@ -82,7 +82,7 @@ const experimentCatalog: Experiment[] = [
     status: "test",
     year: "2026",
     tags: ["living type", "membranes", "wave fields"],
-    summary: "A fork of TY-P0: cohesive cellular letters bend and stretch through a shared wave field.",
+    summary: "A fork of TY-P0: adhesive cells grow, compress and transmit forces, with adjustable memory of their initial glyph.",
   },
   {
     id: "REC-07",
