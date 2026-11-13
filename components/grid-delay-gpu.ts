@@ -234,7 +234,9 @@ vec3 blendFrames(vec3 a,vec3 b){
 }
 void main(){
  vec2 uv=gl_FragCoord.xy/uResolution;
- vec3 incoming=texture(uScene,uv).rgb;
+ // Exact pixel fetch: even repeated transforms cannot soften the source.
+ ivec2 scenePixel=ivec2(gl_FragCoord.xy);
+ vec3 incoming=texelFetch(uScene,scenePixel,0).rgb;
  if(!uHasHistory||uAmount<=0.){outColor=vec4(incoming,1.);return;}
  // Recursive transform: the PREVIOUS COMPOSITE is the next pass's input.
  // Each iteration expands, rotates and drifts an already transformed image.
@@ -251,13 +253,19 @@ void main(){
  // Avoid clamped-edge streaks outside the previous canvas.
  vec3 previous=incoming;
  if(all(greaterThanEqual(prevUV,vec2(0.)))&&all(lessThanEqual(prevUV,vec2(1.)))){
-   previous=texture(uPrevious,prevUV).rgb;
+   // Snapped sampling preserves hard pixel edges through every recursion.
+   ivec2 previousPixel=clamp(ivec2(floor(prevUV*uResolution)),ivec2(0),ivec2(uResolution)-ivec2(1));
+   previous=texelFetch(uPrevious,previousPixel,0).rgb;
  }
- // Retention controls how much recursive history survives each iteration,
- // while Amount controls the final image contribution.
- vec3 retained=mix(incoming,previous,clamp(uDecay,0.,.999));
- vec3 transformed=blendFrames(incoming,retained);
- vec3 result=mix(incoming,transformed,clamp(uAmount,0.,1.));
+ // Sharp feedback: Amount and Persistence select *where* transformed
+ // history replaces the source, rather than turning it into a translucent
+ // overlay. Select the largest changed features first.
+ float changed=max(max(abs(previous.r-incoming.r),abs(previous.g-incoming.g)),abs(previous.b-incoming.b));
+ float coverage=clamp(uAmount,0.,1.)*clamp(uDecay,0.,1.);
+ float threshold=mix(.72,.002,coverage);
+ float choosePast=step(threshold,changed);
+ vec3 transformed=blendFrames(incoming,previous);
+ vec3 result=choosePast>0.5?transformed:incoming;
  outColor=vec4(result,1.);
 }`;
 
@@ -396,8 +404,10 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
    const tex=gl.createTexture(),fb=gl.createFramebuffer();
    if(!tex||!fb){if(tex)gl.deleteTexture(tex);if(fb)gl.deleteFramebuffer(fb);break}
    gl.bindTexture(gl.TEXTURE_2D,tex);
-   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
-   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+   // Recursive feedback is intentionally sharp: never interpolate a
+   // previously transformed frame with neighbouring texels.
+   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);
+   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA8,canvas.width,canvas.height,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
