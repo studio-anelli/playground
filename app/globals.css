@@ -1503,3 +1503,6 @@ html { scrollbar-gutter: stable; }
 @media (max-width: 760px) {
   .home-shell, .terminal-shell { --content-start-gap: 48px; }
 }
+
+/* Leave room for indentation and tracking without rewrapping source lines on desktop. */
+.terminal-document { width: min(100%, 96ch); }
