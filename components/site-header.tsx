@@ -1,10 +1,10 @@
-export function SiteHeader() {
+export function SiteHeader({ hideWordmark = false }: { hideWordmark?: boolean }) {
   return (
     <header className="site-header">
-      <a className="wordmark" href="/" aria-label="Prototype platform home">
+      {!hideWordmark && <a className="wordmark" href="/" aria-label="Prototype platform home">
         <span className="wordmark-mark" aria-hidden="true">A</span>
         <span>Prototype Platform</span>
-      </a>
+      </a>}
       <nav className="site-nav" aria-label="Main navigation">
         <a href="/">Index</a>
         <a href="/archive">Archive</a>

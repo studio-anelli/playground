@@ -1,29 +1,20 @@
-import { ArrowUpRight } from "lucide-react";
-import { archivedExperiments, experiments } from "@/app/data/experiments";
+import { experiments } from "@/app/data/experiments";
 import { SiteHeader } from "@/components/site-header";
 
 export default function Home() {
   return (
-    <main className="site-shell">
-      <SiteHeader />
-
-      <section className="index-intro">
-        <p>Typography, graphic systems, sound and code.</p>
-        <div className="index-count">{String(experiments.length).padStart(2, "0")} working entries</div>
-      </section>
+    <main className="site-shell home-shell">
+      <SiteHeader hideWordmark />
 
       <section className="experiment-index" aria-labelledby="index-title">
         <div className="section-label" id="index-title">
           <span>Working index</span>
-          <a href="/archive">Archive / {String(archivedExperiments.length).padStart(2, "0")} entries ↗</a>
         </div>
         {experiments.map((experiment) => (
           <a className="experiment-row" href={experiment.href ?? `/experiments/${experiment.slug}`} key={experiment.id}>
             <span className="experiment-id">{experiment.id}</span>
             <span className="experiment-title">{experiment.title}</span>
             <span className="experiment-tags">{experiment.tags.join(" / ")}</span>
-            <span className={`state state-${experiment.status}`}>{experiment.status}</span>
-            <ArrowUpRight aria-hidden="true" />
           </a>
         ))}
       </section>

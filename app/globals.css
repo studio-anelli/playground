@@ -1261,3 +1261,11 @@ button, input, select, textarea { font: inherit; }
   border-width: 1px;
 }
 .diary-shell .diary-index a:hover { border-color: #000000; }
+
+/* The homepage keeps navigation and the working collection without index chrome. */
+.home-shell .site-header { justify-content: flex-end; }
+.home-shell .experiment-index { margin-top: 40px; }
+.home-shell .experiment-row { grid-template-columns: 0.6fr 2.3fr 1.4fr; }
+@media (max-width: 760px) {
+  .home-shell .experiment-row { grid-template-columns: 58px minmax(0, 1fr); }
+}
