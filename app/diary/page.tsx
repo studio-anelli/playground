@@ -21,7 +21,7 @@ export default function DiaryPage() {
             {entry.lines.map((line, index) => {
               const number = ++lineNumber;
               return (
-                <div className="terminal-line" key={index}>
+                <div className="terminal-line" key={index} style={{ "--line-indent": line.indent } as CSSProperties}>
                   <span className="terminal-line-number" aria-hidden="true">{number}</span>
                   {line.heading ? <h1>{line.text}</h1> : <span className="terminal-line-text">{line.text || "\u00a0"}</span>}
                 </div>

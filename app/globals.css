@@ -1477,3 +1477,29 @@ button, input, select, textarea { font: inherit; }
   .terminal-index > span { flex-basis: 100%; }
   .terminal-line { grid-template-columns: 3ch minmax(0, 1fr); }
 }
+
+/* Every menu destination starts at the same document height. */
+html { scrollbar-gutter: stable; }
+.home-shell, .terminal-shell { --content-start-gap: clamp(48px, 14svh, 140px); }
+.home-shell .site-header, .terminal-shell .site-header {
+  min-height: 60px;
+  height: 60px;
+  font: 400 0.82rem/1.5 var(--ui-mono);
+  text-transform: none;
+}
+.home-shell .experiment-index {
+  margin-top: var(--content-start-gap);
+  margin-bottom: 0;
+  padding-top: 0;
+  transform: none;
+}
+.home-shell .experiment-row,
+.home-shell .experiment-row:hover,
+.home-shell .experiment-row:focus-visible { padding-top: 0; padding-bottom: 24px; }
+.terminal-document { margin-top: var(--content-start-gap); }
+.terminal-shell { line-height: 1.9; }
+.terminal-line { min-height: 1.9em; }
+.terminal-line-text, .terminal-line h1 { padding-left: calc(var(--line-indent, 0) * 2ch); }
+@media (max-width: 760px) {
+  .home-shell, .terminal-shell { --content-start-gap: 48px; }
+}
