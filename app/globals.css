@@ -1261,3 +1261,271 @@ button, input, select, textarea { font: inherit; }
   border-width: 1px;
 }
 .diary-shell .diary-index a:hover { border-color: #000000; }
+
+/* Shared navigation, without the old platform mark or release readout. */
+.site-header { justify-content: flex-end; }
+
+/* A quiet title-first list, grouped just above the viewport centre. */
+.home-shell {
+  background: color-mix(in srgb, var(--paper) 92%, #f4f1eb);
+  color: var(--ink);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+.home-shell .site-header {
+  min-height: 60px;
+  flex: 0 0 60px;
+  border: 0;
+}
+.home-shell .experiment-index {
+  flex: 0 0 auto;
+  display: grid;
+  margin-block: auto;
+  margin-inline: auto;
+  width: 600px;
+  max-width: calc(100% - 140px);
+  padding-block: 16px;
+}
+.home-shell .experiment-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 8px 28px;
+  min-height: 52px;
+  border: 0;
+  padding: 12px 0;
+  transition: color 150ms ease;
+}
+.home-shell .experiment-row:hover,
+.home-shell .experiment-row:focus-visible {
+  background: transparent;
+  color: var(--signal);
+  padding: 12px 0;
+}
+.home-shell .experiment-row:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
+.home-shell .experiment-title {
+  font-size: clamp(1.25rem, 1.8vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  text-transform: none;
+}
+.home-entry-meta { display: inline-flex; flex-wrap: wrap; gap: 8px 18px; }
+.home-shell .experiment-id,
+.home-shell .experiment-tags { font-size: 0.7rem; line-height: 1.5; }
+.home-shell .experiment-tags { text-transform: none; }
+@media (max-width: 760px) {
+  .home-shell .experiment-row { gap: 6px; flex-direction: column; align-items: flex-start; justify-content: center; }
+  .home-shell .experiment-title { font-size: 1.3rem; }
+  .home-shell .experiment-tags { display: inline; }
+  .home-entry-meta { gap: 6px 12px; }
+}
+
+@media (min-height: 700px) and (min-width: 761px) {
+  .home-shell .experiment-index { transform: translateY(-5svh); }
+}
+
+/* REC numbers hang left of the established title edge. */
+.home-entry-heading { position: relative; flex: 0 0 auto; }
+.home-entry-heading .experiment-id {
+  position: absolute;
+  right: calc(100% + 20px);
+  bottom: 0.15em;
+  white-space: nowrap;
+}
+.home-shell .experiment-row { width: calc(50vw + 300px - 28px); flex-wrap: nowrap; }
+.home-entry-meta { min-width: 0; font: 400 0.7rem/1.5 var(--ui-mono); }
+.home-entry-meta time { white-space: nowrap; }
+@media (max-width: 900px) {
+  .home-shell .experiment-index { width: calc(100% - 80px); max-width: none; margin-left: 80px; margin-right: 0; }
+  .home-shell .experiment-row { width: 100%; flex-wrap: wrap; }
+}
+@media (max-width: 760px) {
+  .home-shell .experiment-index { width: 100%; margin-inline: 0; }
+  .home-entry-heading { display: flex; align-items: baseline; gap: 14px; }
+  .home-entry-heading .experiment-id { position: static; flex: 0 0 46px; }
+  .home-entry-meta { padding-left: 60px; }
+}
+
+/* Open metadata spacing and a consistent right-aligned update column. */
+.home-shell .experiment-row {
+  width: min(860px, calc(50vw + 300px - 28px));
+  min-height: 64px;
+  align-items: center;
+  column-gap: 40px;
+}
+.home-entry-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  flex: 1;
+  gap: 12px 36px;
+  letter-spacing: 0.02em;
+  line-height: 1.65;
+}
+.home-entry-heading .experiment-id { letter-spacing: 0.02em; }
+.home-entry-updated { display: grid; text-align: right; }
+@media (max-width: 900px) {
+  .home-shell .experiment-row { width: 100%; }
+  .home-entry-meta { flex-basis: 100%; }
+}
+@media (max-width: 760px) {
+  .home-shell .experiment-row { align-items: stretch; padding-block: 14px; }
+  .home-shell .experiment-row:hover,
+  .home-shell .experiment-row:focus-visible { padding-block: 14px; }
+  .home-entry-meta { flex: auto; width: 100%; gap: 8px 20px; }
+}
+@media (max-width: 420px) {
+  .home-entry-meta { grid-template-columns: minmax(0, 1fr); }
+  .home-entry-updated { justify-self: end; }
+}
+
+/* Centre the complete REC/title/metadata block and align row content at its top. */
+.home-shell .experiment-index {
+  width: 940px;
+  max-width: 100%;
+  padding-left: 64px;
+  margin-inline: auto;
+  transform: translateY(-20px);
+}
+.home-shell .experiment-row { width: 100%; align-items: flex-start; }
+.home-entry-meta { align-items: start; }
+.site-nav a { transition: color 150ms ease; }
+.site-nav a:hover, .site-nav a:focus-visible { color: #fff; border-color: transparent; }
+.home-shell .experiment-row:hover, .home-shell .experiment-row:focus-visible { color: #fff; }
+.site-nav a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
+
+/* Keep the diary editorial, using the same palette and quiet navigation. */
+.editorial-theme {
+  background: color-mix(in srgb, var(--paper) 92%, #f4f1eb);
+  color: var(--ink);
+}
+.editorial-theme .site-header { min-height: 60px; border: 0; }
+.editorial-theme .diary-index,
+.editorial-theme .diary-hero,
+.editorial-theme .diary-aside,
+.editorial-theme .diary-section,
+.editorial-theme .diary-rec,
+.editorial-theme .diary-rec-list,
+.editorial-theme .diary-lessons,
+.editorial-theme .diary-lesson,
+.editorial-theme .diary-status,
+.editorial-theme .diary-footer,
+.editorial-theme .diary-archive { border: 0; }
+.editorial-theme .diary-page,
+.editorial-theme .diary-index { width: min(100%, 940px); margin-inline: auto; }
+.editorial-theme .diary-hero h1 { font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: -0.025em; text-transform: none; }
+.editorial-theme .diary-section h2 { font-size: clamp(1.6rem, 2.7vw, 2.5rem); letter-spacing: -0.025em; text-transform: none; }
+.editorial-theme .diary-meta,
+.editorial-theme .diary-index,
+.editorial-theme .diary-aside,
+.editorial-theme .diary-footer,
+.editorial-theme .eyebrow { letter-spacing: 0.02em; }
+.editorial-theme .diary-aside dt,
+.editorial-theme .diary-meta time,
+.editorial-theme .diary-index > span,
+.editorial-theme .diary-footer > span,
+.editorial-theme .diary-status > span { color: inherit; }
+.editorial-theme .diary-index a:hover,
+.editorial-theme .diary-index a:focus-visible,
+.editorial-theme .diary-footer a:hover { color: #fff; border-color: transparent; }
+@media (max-width: 760px) {
+  .home-shell .experiment-index { padding-left: 0; transform: none; }
+  .home-shell .experiment-row { align-items: stretch; }
+  .editorial-theme .diary-index { flex-wrap: wrap; gap: 16px; }
+}
+@media (max-height: 699px) {
+  .home-shell .experiment-index { transform: none; }
+}
+
+.editorial-theme .diary-lead { font-size: clamp(1.2rem, 2vw, 1.65rem); }
+.editorial-theme .diary-aside dt,
+.editorial-theme .diary-aside dd { letter-spacing: 0.02em; }
+
+/* REC sits on the same top edge as its title rather than its baseline. */
+.home-entry-heading .experiment-id { top: 0; bottom: auto; }
+
+/* Diary as a numbered manuscript: one typeface, one size, one weight. */
+.terminal-shell {
+  background: color-mix(in srgb, var(--paper) 92%, #f4f1eb);
+  color: var(--ink);
+  font: 400 14px/1.7 var(--ui-mono);
+  letter-spacing: 0.02em;
+}
+.terminal-shell .site-header {
+  min-height: 60px;
+  border: 0;
+  font: inherit;
+  text-transform: none;
+}
+.terminal-shell .site-nav { gap: 24px; }
+.terminal-document { width: min(100%, 86ch); margin: 64px auto 80px; }
+.terminal-index { display: flex; flex-wrap: wrap; gap: 12px 28px; padding-left: 6ch; margin-bottom: 48px; }
+.terminal-index > span { margin-right: auto; }
+.terminal-index a:hover, .terminal-index a:focus-visible { color: #fff; }
+.terminal-entry { scroll-margin-top: 28px; }
+.terminal-entry + .terminal-entry { margin-top: 48px; }
+.terminal-line { display: grid; grid-template-columns: 4ch minmax(0, 1fr); gap: 2ch; align-items: start; min-height: 1.7em; }
+.terminal-line-number { text-align: right; user-select: none; opacity: 0.6; }
+.terminal-line-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+.terminal-line h1 { font: inherit; letter-spacing: inherit; margin: 0; }
+@media (max-width: 760px) {
+  .terminal-document { margin-top: 36px; }
+  .terminal-index { padding-left: 5ch; gap: 12px 20px; }
+  .terminal-index > span { flex-basis: 100%; }
+  .terminal-line { grid-template-columns: 3ch minmax(0, 1fr); }
+}
+
+/* Every menu destination starts at the same document height. */
+html { scrollbar-gutter: stable; }
+.home-shell, .terminal-shell { --content-start-gap: clamp(48px, 14svh, 140px); }
+.home-shell .site-header, .terminal-shell .site-header {
+  min-height: 60px;
+  height: 60px;
+  font: 400 0.82rem/1.5 var(--ui-mono);
+  text-transform: none;
+}
+.home-shell .experiment-index {
+  margin-top: var(--content-start-gap);
+  margin-bottom: 0;
+  padding-top: 0;
+  transform: none;
+}
+.home-shell .experiment-row,
+.home-shell .experiment-row:hover,
+.home-shell .experiment-row:focus-visible { padding-top: 0; padding-bottom: 24px; }
+.terminal-document { margin-top: var(--content-start-gap); }
+.terminal-shell { line-height: 2.4; }
+.terminal-line { min-height: 2.4em; }
+.terminal-line-text, .terminal-line h1 { padding-left: calc(var(--line-indent, 0) * 2ch); }
+@media (max-width: 760px) {
+  .home-shell, .terminal-shell { --content-start-gap: 48px; }
+}
+
+/* Leave room for indentation and tracking without rewrapping source lines on desktop. */
+.terminal-document { width: min(100%, 96ch); }
+
+/* Page-edge identifiers balance the right-aligned navigation. */
+.home-shell, .terminal-shell { container-type: inline-size; }
+.terminal-line-text, .terminal-line h1 { padding-left: calc(var(--line-indent, 0) * 4ch); }
+@media (min-width: 761px) {
+  .terminal-line { position: relative; }
+  .terminal-line-number {
+    position: absolute;
+    top: 0;
+    left: calc((min(100cqw, 96ch) - 100cqw) / 2);
+    width: 4ch;
+    text-align: left;
+  }
+  .terminal-line-text, .terminal-line h1 { grid-column: 2; }
+  .home-entry-heading .experiment-id {
+    left: min(-64px, calc((940px - 100cqw) / 2 - 64px));
+    right: auto;
+    text-align: left;
+  }
+}
+@media (max-width: 760px) {
+  .terminal-line-number { text-align: left; }
+}

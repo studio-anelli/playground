@@ -1,32 +1,17 @@
-import { ArrowUpRight } from "lucide-react";
-import { archivedExperiments, experiments } from "@/app/data/experiments";
+import { ExperimentIndex } from "@/components/experiment-index";
+import { experiments } from "@/app/data/experiments";
+import { HomePalette } from "@/components/home-palette";
+import { diaryPalette } from "@/lib/diary-palette";
+import type { CSSProperties } from "react";
 import { SiteHeader } from "@/components/site-header";
 
 export default function Home() {
   return (
-    <main className="site-shell">
+    <main className="site-shell home-shell" style={{ "--paper": diaryPalette.ink, "--ink": diaryPalette.background, "--signal": diaryPalette.accent } as CSSProperties}>
+      <HomePalette />
       <SiteHeader />
 
-      <section className="index-intro">
-        <p>Typography, graphic systems, sound and code.</p>
-        <div className="index-count">{String(experiments.length).padStart(2, "0")} working entries</div>
-      </section>
-
-      <section className="experiment-index" aria-labelledby="index-title">
-        <div className="section-label" id="index-title">
-          <span>Working index</span>
-          <a href="/archive">Archive / {String(archivedExperiments.length).padStart(2, "0")} entries ↗</a>
-        </div>
-        {experiments.map((experiment) => (
-          <a className="experiment-row" href={experiment.href ?? `/experiments/${experiment.slug}`} key={experiment.id}>
-            <span className="experiment-id">{experiment.id}</span>
-            <span className="experiment-title">{experiment.title}</span>
-            <span className="experiment-tags">{experiment.tags.join(" / ")}</span>
-            <span className={`state state-${experiment.status}`}>{experiment.status}</span>
-            <ArrowUpRight aria-hidden="true" />
-          </a>
-        ))}
-      </section>
+      <ExperimentIndex entries={experiments} />
     </main>
   );
 }
