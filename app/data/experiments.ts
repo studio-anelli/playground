@@ -75,6 +75,16 @@ const experimentCatalog: Experiment[] = [
     summary: "A dual-VCO subtractive synth with an eight-step sequencer, accents, slide and overdrive.",
   },
   {
+    id: "REC-07-B",
+    slug: "living-typography",
+    title: "TY‑P0 / Living matter",
+    kind: "experiment",
+    status: "test",
+    year: "2026",
+    tags: ["living type", "membranes", "wave fields"],
+    summary: "A fork of TY-P0: adhesive cells grow, compress and transmit forces, with adjustable memory of their initial glyph.",
+  },
+  {
     id: "REC-07",
     slug: "reactive-letter-particles",
     title: "TY‑P0",
