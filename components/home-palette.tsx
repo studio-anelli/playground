@@ -5,7 +5,7 @@ import { DIARY_STYLE_STORAGE, readDiaryPalette } from "@/lib/diary-palette";
 
 export function HomePalette() {
   useEffect(() => {
-    const shell = document.querySelector<HTMLElement>(".home-shell");
+    const shell = document.querySelector<HTMLElement>(".home-shell, .terminal-shell");
     if (!shell) return;
     const apply = () => {
       const palette = readDiaryPalette();

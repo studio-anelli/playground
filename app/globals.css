@@ -1443,3 +1443,37 @@ button, input, select, textarea { font: inherit; }
 .editorial-theme .diary-lead { font-size: clamp(1.2rem, 2vw, 1.65rem); }
 .editorial-theme .diary-aside dt,
 .editorial-theme .diary-aside dd { letter-spacing: 0.02em; }
+
+/* REC sits on the same top edge as its title rather than its baseline. */
+.home-entry-heading .experiment-id { top: 0; bottom: auto; }
+
+/* Diary as a numbered manuscript: one typeface, one size, one weight. */
+.terminal-shell {
+  background: color-mix(in srgb, var(--paper) 92%, #f4f1eb);
+  color: var(--ink);
+  font: 400 14px/1.7 var(--ui-mono);
+  letter-spacing: 0.02em;
+}
+.terminal-shell .site-header {
+  min-height: 60px;
+  border: 0;
+  font: inherit;
+  text-transform: none;
+}
+.terminal-shell .site-nav { gap: 24px; }
+.terminal-document { width: min(100%, 86ch); margin: 64px auto 80px; }
+.terminal-index { display: flex; flex-wrap: wrap; gap: 12px 28px; padding-left: 6ch; margin-bottom: 48px; }
+.terminal-index > span { margin-right: auto; }
+.terminal-index a:hover, .terminal-index a:focus-visible { color: #fff; }
+.terminal-entry { scroll-margin-top: 28px; }
+.terminal-entry + .terminal-entry { margin-top: 48px; }
+.terminal-line { display: grid; grid-template-columns: 4ch minmax(0, 1fr); gap: 2ch; align-items: start; min-height: 1.7em; }
+.terminal-line-number { text-align: right; user-select: none; opacity: 0.6; }
+.terminal-line-text { white-space: pre-wrap; overflow-wrap: anywhere; }
+.terminal-line h1 { font: inherit; letter-spacing: inherit; margin: 0; }
+@media (max-width: 760px) {
+  .terminal-document { margin-top: 36px; }
+  .terminal-index { padding-left: 5ch; gap: 12px 20px; }
+  .terminal-index > span { flex-basis: 100%; }
+  .terminal-line { grid-template-columns: 3ch minmax(0, 1fr); }
+}
