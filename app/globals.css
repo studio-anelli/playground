@@ -1535,3 +1535,19 @@ html:has(.home-shell), html:has(.terminal-shell),
 body:has(.home-shell), body:has(.terminal-shell) {
   background: var(--shell-background, color-mix(in srgb, #000000 92%, #f4f1eb));
 }
+
+/* Contrast-adjusted blues for reading text and the smallest information. */
+.home-shell, .terminal-shell {
+  --reading-blue: #5271ff;
+  --detail-blue: #5c7cff;
+}
+.terminal-shell { color: var(--reading-blue); }
+.home-shell .site-nav, .terminal-shell .site-nav { color: var(--reading-blue); }
+.home-shell .home-entry-meta,
+.home-shell .experiment-id,
+.terminal-shell .terminal-line-number { color: var(--detail-blue); }
+.terminal-shell .terminal-line-number { opacity: 1; }
+.home-shell .experiment-row:hover .home-entry-meta,
+.home-shell .experiment-row:focus-visible .home-entry-meta,
+.home-shell .experiment-row:hover .experiment-id,
+.home-shell .experiment-row:focus-visible .experiment-id { color: #fff; }
