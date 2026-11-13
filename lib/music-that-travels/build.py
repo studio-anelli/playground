@@ -37,7 +37,9 @@ def geography_record(key,value):
   'threads':[display_claim(t) for t in threads],
   'unlocated_artists':value.get('unlocated_artists',[])}
 geo_origins={'schema_version':origins['schema_version'],'records':{key:geography_record(key,value) for key,value in origins['records'].items()}}
-geo_data={'entries':geo_entries,'release_details':{k:{'country':v.get('country')} for k,v in data['release_details'].items()},'origins':geo_origins,'countries':json.loads((root/'source/countries.json').read_text()),'thumbnail_atlas':json.loads((root/'source/thumbnail-atlas.json').read_text())['records']}
+listening_catalog=json.loads((root/'source/listening-catalog.json').read_text())
+playable_release_ids=[key for key,row in listening_catalog.items() if any(video.get('uri') and video.get('embed') is not False for video in row.get('videos',[]))]
+geo_data={'playable_release_ids':playable_release_ids,'entries':geo_entries,'release_details':{k:{'country':v.get('country')} for k,v in data['release_details'].items()},'origins':geo_origins,'countries':json.loads((root/'source/countries.json').read_text()),'thumbnail_atlas':json.loads((root/'source/thumbnail-atlas.json').read_text())['records']}
 # Identical artist evidence is shared across editions on the wire, then hydrated once.
 # Distinct supporting evidence/scope produces a distinct key; nothing is discarded.
 from collections import Counter
@@ -65,7 +67,7 @@ geo_json=json.dumps(geo_data,ensure_ascii=False,separators=(',',':'))
 geo_version=hashlib.sha256(geo_json.encode()).hexdigest()[:16]
 geo_html=(root/'source/geography.html').read_text().replace('__GEOGRAPHY_VERSION__',geo_version).replace('__EDITORIAL_VERSION__',editorial_version)
 worker='const COUNTRIES='+json.dumps(json.loads((root/'source/countries.json').read_text()))+';\nconst ORIGIN_PILOT='+json.dumps(json.loads((root/'source/origin-collection.json').read_text()),ensure_ascii=False)+';\nconst COVERAGE='+json.dumps((root/'source/coverage.html').read_text())+';\nconst ARTWORK='+json.dumps(json.loads((root/'source/artwork-analysis.json').read_text()),ensure_ascii=False)+';\nconst GEOGRAPHY='+json.dumps(geo_html)+';\nconst HUB='+json.dumps((root/'source/experiments.html').read_text())+';\nconst AUDIT='+json.dumps(json.loads((root/'source/dataset-audit.json').read_text()),ensure_ascii=False)+';\nconst HTML='+json.dumps(html)+';\nconst BOOTSTRAP='+json.dumps(data,ensure_ascii=False)+';\nconst LAND='+json.dumps(land)+';\nconst MUSIC_LOCATIONS='+json.dumps(json.loads((root/'source/music-locations-enriched.json').read_text()))+';\nconst TEST_SET='+json.dumps(json.loads((root/'source/color-experiment.json').read_text()),ensure_ascii=False)+';\n'+(root/'source/worker-runtime.js').read_text()
-worker='const LISTENING_CATALOG='+json.dumps(json.loads((root/'source/listening-catalog.json').read_text()),ensure_ascii=False)+';\n'+worker
+worker='const LISTENING_CATALOG='+json.dumps(listening_catalog,ensure_ascii=False)+';\n'+worker
 worker='const GEOGRAPHY_DATA_JSON='+json.dumps(geo_json)+';\nconst GEOGRAPHY_VERSION='+json.dumps(geo_version)+';\nconst EDITORIAL_VERSION='+json.dumps(editorial_version)+';\nconst EDITORIAL_DATA_JSON='+json.dumps(editorial_json)+';\n'+worker
 (root/'worker.js').write_text(worker)
 print('Geography payload',len(geo_json.encode()),'bytes; snapshot',geo_version)
