@@ -1506,3 +1506,26 @@ html { scrollbar-gutter: stable; }
 
 /* Leave room for indentation and tracking without rewrapping source lines on desktop. */
 .terminal-document { width: min(100%, 96ch); }
+
+/* Page-edge identifiers balance the right-aligned navigation. */
+.home-shell, .terminal-shell { container-type: inline-size; }
+.terminal-line-text, .terminal-line h1 { padding-left: calc(var(--line-indent, 0) * 4ch); }
+@media (min-width: 761px) {
+  .terminal-line { position: relative; }
+  .terminal-line-number {
+    position: absolute;
+    top: 0;
+    left: calc((min(100cqw, 96ch) - 100cqw) / 2);
+    width: 4ch;
+    text-align: left;
+  }
+  .terminal-line-text, .terminal-line h1 { grid-column: 2; }
+  .home-entry-heading .experiment-id {
+    left: min(-64px, calc((940px - 100cqw) / 2 - 64px));
+    right: auto;
+    text-align: left;
+  }
+}
+@media (max-width: 760px) {
+  .terminal-line-number { text-align: left; }
+}
