@@ -5,6 +5,8 @@ import { diaryPalette } from "@/lib/diary-palette";
 import type { CSSProperties } from "react";
 import { SiteHeader } from "@/components/site-header";
 
+const updateDate = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+
 const homeTitles: Record<string, string> = {
   "grid-delay-machine": "Grid delay machine",
   "music-that-travels": "Music that travels",
@@ -30,7 +32,10 @@ export default function Home() {
             </span>
             <span className="home-entry-meta">
               <span className="home-entry-description">{details?.description ?? experiment.summary}</span>
-              {details && <time dateTime={details.lastUpdated}>Updated {details.lastUpdated.slice(8)}.{details.lastUpdated.slice(5, 7)}.{details.lastUpdated.slice(2, 4)}</time>}
+              {details && <time className="home-entry-updated" dateTime={details.lastUpdated}>
+                <span>updated</span>
+                <span>{updateDate.format(new Date(`${details.lastUpdated}T00:00:00Z`))}</span>
+              </time>}
             </span>
           </a>
         );

@@ -1348,3 +1348,36 @@ button, input, select, textarea { font: inherit; }
   .home-entry-heading .experiment-id { position: static; flex: 0 0 46px; }
   .home-entry-meta { padding-left: 60px; }
 }
+
+/* Open metadata spacing and a consistent right-aligned update column. */
+.home-shell .experiment-row {
+  width: min(860px, calc(50vw + 300px - 28px));
+  min-height: 64px;
+  align-items: center;
+  column-gap: 40px;
+}
+.home-entry-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  flex: 1;
+  gap: 12px 36px;
+  letter-spacing: 0.02em;
+  line-height: 1.65;
+}
+.home-entry-heading .experiment-id { letter-spacing: 0.02em; }
+.home-entry-updated { display: grid; text-align: right; }
+@media (max-width: 900px) {
+  .home-shell .experiment-row { width: 100%; }
+  .home-entry-meta { flex-basis: 100%; }
+}
+@media (max-width: 760px) {
+  .home-shell .experiment-row { align-items: stretch; padding-block: 14px; }
+  .home-shell .experiment-row:hover,
+  .home-shell .experiment-row:focus-visible { padding-block: 14px; }
+  .home-entry-meta { flex: auto; width: 100%; gap: 8px 20px; }
+}
+@media (max-width: 420px) {
+  .home-entry-meta { grid-template-columns: minmax(0, 1fr); }
+  .home-entry-updated { justify-self: end; }
+}
