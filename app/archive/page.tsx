@@ -1,30 +1,16 @@
-import { ArrowUpRight } from "lucide-react";
+import type { CSSProperties } from "react";
 import { archivedExperiments } from "@/app/data/experiments";
+import { ExperimentIndex } from "@/components/experiment-index";
+import { HomePalette } from "@/components/home-palette";
 import { SiteHeader } from "@/components/site-header";
+import { diaryPalette } from "@/lib/diary-palette";
 
 export default function Archive() {
   return (
-    <main className="site-shell">
+    <main className="site-shell home-shell archive-shell" style={{ "--paper": diaryPalette.ink, "--ink": diaryPalette.background, "--signal": diaryPalette.accent } as CSSProperties}>
+      <HomePalette />
       <SiteHeader />
-      <section className="index-intro">
-        <p>Previous experiments, preserved as they were.</p>
-        <div className="index-count">{String(archivedExperiments.length).padStart(2, "0")} archived entries</div>
-      </section>
-      <section className="experiment-index" aria-labelledby="archive-title">
-        <div className="section-label" id="archive-title">
-          <span>REC / Archive</span>
-          <a href="/">← Working index</a>
-        </div>
-        {archivedExperiments.map((experiment) => (
-          <a className="experiment-row" href={experiment.href ?? `/experiments/${experiment.slug}`} key={experiment.id}>
-            <span className="experiment-id">{experiment.id}</span>
-            <span className="experiment-title">{experiment.title}</span>
-            <span className="experiment-tags">{experiment.tags.join(" / ")}</span>
-            <span className={`state state-${experiment.status}`}>{experiment.status}</span>
-            <ArrowUpRight aria-hidden="true" />
-          </a>
-        ))}
-      </section>
+      <ExperimentIndex entries={archivedExperiments} label="Archived experiments" />
     </main>
   );
 }

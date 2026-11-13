@@ -57,8 +57,8 @@ export function DiaryStyleEditor() {
   useEffect(() => {
     const shell = document.querySelector<HTMLElement>(".diary-shell");
     if (!shell) return;
-    shell.style.setProperty("--paper", values.background);
-    shell.style.setProperty("--ink", values.ink);
+    shell.style.setProperty("--paper", values.ink);
+    shell.style.setProperty("--ink", values.background);
     shell.style.setProperty("--signal", values.accent);
     for (const screen of screens) {
       for (const [key, value] of Object.entries(values[screen]))

@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+import { diaryPalette } from "@/lib/diary-palette";
 import { SiteHeader } from "@/components/site-header";
 import { DiaryStyleEditor } from "@/components/diary-style-editor";
 
@@ -33,7 +35,7 @@ const workingLessons = [
 
 export default function DiaryPage() {
   return (
-    <main className="site-shell diary-shell">
+    <main className="site-shell diary-shell editorial-theme" style={{ "--paper": diaryPalette.ink, "--ink": diaryPalette.background, "--signal": diaryPalette.accent } as CSSProperties}>
       <SiteHeader />
       <DiaryStyleEditor />
 
@@ -81,7 +83,7 @@ export default function DiaryPage() {
             </section>
             <section className="diary-section">
               <span className="eyebrow">04 / An unexpected synthesis</span>
-              <h2>Wait, haven't we already built this?</h2>
+              <h2>Wait, haven&apos;t we already built this?</h2>
               <p>Sampling, distortion, oscillation, noise, feedback. Much of what we had been developing as separate experiments was now finding its way into the same application.</p>
               <p>The Kinetic Synth was becoming a synthesis of several earlier experiments. Which raises a reasonable question: why are we maintaining so many separate tools?</p>
               <p>We probably do not need to. Some experiments deserve to remain independent. Others might work better as modules. Some are perhaps finished as studies, without requiring another six months of interface development.</p>
@@ -90,7 +92,7 @@ export default function DiaryPage() {
             <section className="diary-section">
               <span className="eyebrow">05 / The question</span>
               <h2>What are we investigating?</h2>
-              <p>We have somehow managed to avoid defining the Playground's identity while designing increasingly elaborate interfaces for it. Until now, we have described it as a collection of generative graphic experiments. Accurate, but not especially illuminating.</p>
+              <p>We have somehow managed to avoid defining the Playground&apos;s identity while designing increasingly elaborate interfaces for it. Until now, we have described it as a collection of generative graphic experiments. Accurate, but not especially illuminating.</p>
               <p>We are certainly not inventing generative design. These ideas have been around for decades, and studios like DIA have been exploring related approaches for years.</p>
               <p>We are interested in something a little more specific. Not necessarily new visual languages, but different ways of designing. Instead of composing an image directly, what happens when we design the system that produces it? What happens when we borrow methods from sound synthesis and apply them to typography?</p>
               <p>How much control do we actually want? And how useful is an instrument that occasionally refuses to behave? These questions are becoming more interesting than the individual features.</p>

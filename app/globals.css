@@ -1381,3 +1381,65 @@ button, input, select, textarea { font: inherit; }
   .home-entry-meta { grid-template-columns: minmax(0, 1fr); }
   .home-entry-updated { justify-self: end; }
 }
+
+/* Centre the complete REC/title/metadata block and align row content at its top. */
+.home-shell .experiment-index {
+  width: 940px;
+  max-width: 100%;
+  padding-left: 64px;
+  margin-inline: auto;
+  transform: translateY(-20px);
+}
+.home-shell .experiment-row { width: 100%; align-items: flex-start; }
+.home-entry-meta { align-items: start; }
+.site-nav a { transition: color 150ms ease; }
+.site-nav a:hover, .site-nav a:focus-visible { color: #fff; border-color: transparent; }
+.home-shell .experiment-row:hover, .home-shell .experiment-row:focus-visible { color: #fff; }
+.site-nav a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
+
+/* Keep the diary editorial, using the same palette and quiet navigation. */
+.editorial-theme {
+  background: color-mix(in srgb, var(--paper) 92%, #f4f1eb);
+  color: var(--ink);
+}
+.editorial-theme .site-header { min-height: 60px; border: 0; }
+.editorial-theme .diary-index,
+.editorial-theme .diary-hero,
+.editorial-theme .diary-aside,
+.editorial-theme .diary-section,
+.editorial-theme .diary-rec,
+.editorial-theme .diary-rec-list,
+.editorial-theme .diary-lessons,
+.editorial-theme .diary-lesson,
+.editorial-theme .diary-status,
+.editorial-theme .diary-footer,
+.editorial-theme .diary-archive { border: 0; }
+.editorial-theme .diary-page,
+.editorial-theme .diary-index { width: min(100%, 940px); margin-inline: auto; }
+.editorial-theme .diary-hero h1 { font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: -0.025em; text-transform: none; }
+.editorial-theme .diary-section h2 { font-size: clamp(1.6rem, 2.7vw, 2.5rem); letter-spacing: -0.025em; text-transform: none; }
+.editorial-theme .diary-meta,
+.editorial-theme .diary-index,
+.editorial-theme .diary-aside,
+.editorial-theme .diary-footer,
+.editorial-theme .eyebrow { letter-spacing: 0.02em; }
+.editorial-theme .diary-aside dt,
+.editorial-theme .diary-meta time,
+.editorial-theme .diary-index > span,
+.editorial-theme .diary-footer > span,
+.editorial-theme .diary-status > span { color: inherit; }
+.editorial-theme .diary-index a:hover,
+.editorial-theme .diary-index a:focus-visible,
+.editorial-theme .diary-footer a:hover { color: #fff; border-color: transparent; }
+@media (max-width: 760px) {
+  .home-shell .experiment-index { padding-left: 0; transform: none; }
+  .home-shell .experiment-row { align-items: stretch; }
+  .editorial-theme .diary-index { flex-wrap: wrap; gap: 16px; }
+}
+@media (max-height: 699px) {
+  .home-shell .experiment-index { transform: none; }
+}
+
+.editorial-theme .diary-lead { font-size: clamp(1.2rem, 2vw, 1.65rem); }
+.editorial-theme .diary-aside dt,
+.editorial-theme .diary-aside dd { letter-spacing: 0.02em; }
