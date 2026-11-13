@@ -1497,8 +1497,8 @@ html { scrollbar-gutter: stable; }
 .home-shell .experiment-row:hover,
 .home-shell .experiment-row:focus-visible { padding-top: 0; padding-bottom: 24px; }
 .terminal-document { margin-top: var(--content-start-gap); }
-.terminal-shell { line-height: 1.9; }
-.terminal-line { min-height: 1.9em; }
+.terminal-shell { line-height: 2.4; }
+.terminal-line { min-height: 2.4em; }
 .terminal-line-text, .terminal-line h1 { padding-left: calc(var(--line-indent, 0) * 2ch); }
 @media (max-width: 760px) {
   .home-shell, .terminal-shell { --content-start-gap: 48px; }
