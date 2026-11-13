@@ -1265,9 +1265,9 @@ button, input, select, textarea { font: inherit; }
 /* Shared navigation, without the old platform mark or release readout. */
 .site-header { justify-content: flex-end; }
 
-/* A title-first list that uses one desktop viewport without ornamental rules. */
+/* A quiet title-first list, grouped just above the viewport centre. */
 .home-shell {
-  background: var(--paper);
+  background: color-mix(in srgb, var(--paper) 92%, #f4f1eb);
   color: var(--ink);
   min-height: 100svh;
   display: flex;
@@ -1280,10 +1280,10 @@ button, input, select, textarea { font: inherit; }
   border: 0;
 }
 .home-shell .experiment-index {
-  flex: 1;
+  flex: 0 0 auto;
   display: grid;
-  grid-auto-rows: minmax(min-content, 1fr);
-  min-height: calc(100svh - 80px);
+  margin-block: auto;
+  padding-block: 16px;
 }
 .home-shell .experiment-row {
   display: flex;
@@ -1291,7 +1291,7 @@ button, input, select, textarea { font: inherit; }
   flex-wrap: wrap;
   align-content: center;
   gap: 8px 28px;
-  min-height: 64px;
+  min-height: 52px;
   border: 0;
   padding: 12px 0;
   transition: color 150ms ease;
@@ -1318,4 +1318,8 @@ button, input, select, textarea { font: inherit; }
   .home-shell .experiment-title { font-size: 1.3rem; }
   .home-shell .experiment-tags { display: inline; }
   .home-entry-meta { gap: 6px 12px; }
+}
+
+@media (min-height: 700px) and (min-width: 761px) {
+  .home-shell .experiment-index { transform: translateY(-5svh); }
 }

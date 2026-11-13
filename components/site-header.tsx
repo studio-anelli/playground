@@ -1,13 +1,12 @@
-import Link from "next/link";
-
+/* Native navigation avoids the client-router failures on the Workers preview. */
+/* eslint-disable @next/next/no-html-link-for-pages */
 export function SiteHeader() {
   return (
     <header className="site-header">
       <nav className="site-nav" aria-label="Main navigation">
-        <Link href="/">Index</Link>
-        <Link href="/archive">Archive</Link>
-        <Link href="/diary">Diary</Link>
-        <Link href="/manual">Manual</Link>
+        <a href="/">Index</a>
+        <a href="/archive">Archive</a>
+        <a href="/diary">Diary</a>
       </nav>
     </header>
   );
