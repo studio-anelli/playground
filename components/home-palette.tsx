@@ -9,8 +9,8 @@ export function HomePalette() {
     if (!shell) return;
     const apply = () => {
       const palette = readDiaryPalette();
-      shell.style.setProperty("--paper", palette.background);
-      shell.style.setProperty("--ink", palette.ink);
+      shell.style.setProperty("--paper", palette.ink);
+      shell.style.setProperty("--ink", palette.background);
       shell.style.setProperty("--signal", palette.accent);
     };
     const onStorage = (event: StorageEvent) => {

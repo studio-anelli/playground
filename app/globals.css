@@ -1262,43 +1262,60 @@ button, input, select, textarea { font: inherit; }
 }
 .diary-shell .diary-index a:hover { border-color: #000000; }
 
-/* The homepage keeps navigation and the working collection without index chrome. */
-.home-shell .site-header { justify-content: flex-end; }
-.home-shell .experiment-index { margin-top: 40px; }
-.home-shell .experiment-row { grid-template-columns: 0.6fr 2.3fr 1.4fr; }
-@media (max-width: 760px) {
-  .home-shell .experiment-row { grid-template-columns: 58px minmax(0, 1fr); }
-}
+/* Shared navigation, without the old platform mark or release readout. */
+.site-header { justify-content: flex-end; }
 
-/* Diary palette and a quieter, more spacious homepage index. */
+/* A title-first list that uses one desktop viewport without ornamental rules. */
 .home-shell {
   background: var(--paper);
   color: var(--ink);
-  --line: color-mix(in srgb, var(--ink) 25%, transparent);
-  padding-bottom: 0;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
 }
-.home-shell .experiment-index { margin-top: clamp(48px, 9vh, 110px); }
+.home-shell .site-header {
+  min-height: 60px;
+  flex: 0 0 60px;
+  border: 0;
+}
+.home-shell .experiment-index {
+  flex: 1;
+  display: grid;
+  grid-auto-rows: minmax(min-content, 1fr);
+  min-height: calc(100svh - 80px);
+}
 .home-shell .experiment-row {
-  min-height: clamp(128px, 19vh, 190px);
-  grid-template-columns: minmax(80px, 0.6fr) minmax(0, 2.3fr) minmax(0, 1.4fr);
-  column-gap: 20px;
-  padding-block: 24px;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 8px 28px;
+  min-height: 64px;
+  border: 0;
+  padding: 12px 0;
+  transition: color 150ms ease;
 }
 .home-shell .experiment-row:hover,
-.home-shell .experiment-row:focus-visible { padding-block: 24px; }
+.home-shell .experiment-row:focus-visible {
+  background: transparent;
+  color: var(--signal);
+  padding: 12px 0;
+}
+.home-shell .experiment-row:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
 .home-shell .experiment-title {
-  font-size: clamp(1.5rem, 2.35vw, 2.25rem);
+  font-size: clamp(1.25rem, 1.8vw, 1.75rem);
   line-height: 1.2;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
   text-transform: none;
 }
-.home-shell .experiment-tags { line-height: 1.7; text-transform: none; }
+.home-entry-meta { display: inline-flex; flex-wrap: wrap; gap: 8px 18px; }
+.home-shell .experiment-id,
+.home-shell .experiment-tags { font-size: 0.7rem; line-height: 1.5; }
+.home-shell .experiment-tags { text-transform: none; }
 @media (max-width: 760px) {
-  .home-shell .experiment-index { margin-top: 48px; }
-  .home-shell .experiment-row {
-    min-height: 132px;
-    grid-template-columns: 58px minmax(0, 1fr);
-    column-gap: 14px;
-  }
-  .home-shell .experiment-title { font-size: clamp(1.4rem, 6vw, 1.9rem); }
+  .home-shell .experiment-row { gap: 6px; flex-direction: column; align-items: flex-start; justify-content: center; }
+  .home-shell .experiment-title { font-size: 1.3rem; }
+  .home-shell .experiment-tags { display: inline; }
+  .home-entry-meta { gap: 6px 12px; }
 }

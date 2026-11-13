@@ -14,19 +14,18 @@ const homeTitles: Record<string, string> = {
 
 export default function Home() {
   return (
-    <main className="site-shell home-shell" style={{ "--paper": diaryPalette.background, "--ink": diaryPalette.ink, "--signal": diaryPalette.accent } as CSSProperties}>
+    <main className="site-shell home-shell" style={{ "--paper": diaryPalette.ink, "--ink": diaryPalette.background, "--signal": diaryPalette.accent } as CSSProperties}>
       <HomePalette />
-      <SiteHeader hideWordmark />
+      <SiteHeader />
 
-      <section className="experiment-index" aria-labelledby="index-title">
-        <div className="section-label" id="index-title">
-          <span>Working index</span>
-        </div>
+      <section className="experiment-index" aria-label="Experiments">
         {experiments.map((experiment) => (
           <a className="experiment-row" href={experiment.href ?? `/experiments/${experiment.slug}`} key={experiment.id}>
-            <span className="experiment-id">{experiment.id}</span>
             <span className="experiment-title">{homeTitles[experiment.slug] ?? experiment.title}</span>
-            <span className="experiment-tags">{experiment.tags.join(" / ")}</span>
+            <span className="home-entry-meta">
+              <span className="experiment-id">{experiment.id}</span>
+              <span className="experiment-tags">{experiment.tags.join(" / ")}</span>
+            </span>
           </a>
         ))}
       </section>
