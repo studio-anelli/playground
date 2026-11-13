@@ -1529,3 +1529,9 @@ html { scrollbar-gutter: stable; }
 @media (max-width: 760px) {
   .terminal-line-number { text-align: left; }
 }
+
+/* Safari rubber-band scrolling and the scrollbar gutter share the page ground. */
+html:has(.home-shell), html:has(.terminal-shell),
+body:has(.home-shell), body:has(.terminal-shell) {
+  background: var(--shell-background, color-mix(in srgb, #000000 92%, #f4f1eb));
+}
