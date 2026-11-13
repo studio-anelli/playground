@@ -1269,3 +1269,36 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 760px) {
   .home-shell .experiment-row { grid-template-columns: 58px minmax(0, 1fr); }
 }
+
+/* Diary palette and a quieter, more spacious homepage index. */
+.home-shell {
+  background: var(--paper);
+  color: var(--ink);
+  --line: color-mix(in srgb, var(--ink) 25%, transparent);
+  padding-bottom: 0;
+}
+.home-shell .experiment-index { margin-top: clamp(48px, 9vh, 110px); }
+.home-shell .experiment-row {
+  min-height: clamp(128px, 19vh, 190px);
+  grid-template-columns: minmax(80px, 0.6fr) minmax(0, 2.3fr) minmax(0, 1.4fr);
+  column-gap: 20px;
+  padding-block: 24px;
+}
+.home-shell .experiment-row:hover,
+.home-shell .experiment-row:focus-visible { padding-block: 24px; }
+.home-shell .experiment-title {
+  font-size: clamp(1.5rem, 2.35vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  text-transform: none;
+}
+.home-shell .experiment-tags { line-height: 1.7; text-transform: none; }
+@media (max-width: 760px) {
+  .home-shell .experiment-index { margin-top: 48px; }
+  .home-shell .experiment-row {
+    min-height: 132px;
+    grid-template-columns: 58px minmax(0, 1fr);
+    column-gap: 14px;
+  }
+  .home-shell .experiment-title { font-size: clamp(1.4rem, 6vw, 1.9rem); }
+}

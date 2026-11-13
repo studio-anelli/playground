@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { DIARY_STYLE_STORAGE, diaryPalette } from "@/lib/diary-palette";
 
 type Screen = "desktop" | "tablet" | "mobile";
 type StyleValues = {
@@ -10,7 +11,7 @@ type StyleValues = {
   mobile: { h1: number; h2: number; lead: number; body: number; section: number; outer: number; h1Tracking: number; h2Tracking: number; leadTracking: number; bodyTracking: number; h3Tracking: number; labelTracking: number; metaTracking: number; h1Line: number; h1Top: number; h1Bottom: number; h2Line: number; h2Top: number; h2Bottom: number; leadLine: number; leadTop: number; leadBottom: number; bodyLine: number; bodyTop: number; bodyBottom: number; h3Line: number; h3Top: number; h3Bottom: number; labelLine: number; labelTop: number; labelBottom: number; metaLine: number; metaTop: number; metaBottom: number; h1Width: number; h2Width: number; leadWidth: number; bodyWidth: number };
 };
 const DEFAULTS: StyleValues = {
-  background: "#0433ff", ink: "#000000", accent: "#d6d6d6",
+  ...diaryPalette,
   desktop: { h1: 123, h2: 72, lead: 35, body: 20, section: 32, outer: 36, h1Tracking: -7.2, h2Tracking: -3.4, leadTracking: 2.3, bodyTracking: -0.1, h3Tracking: -2, labelTracking: 0.3, metaTracking: 0, h1Line: 1.22, h1Top: 92, h1Bottom: 0, h2Line: 1.24, h2Top: 107, h2Bottom: 73, leadLine: 1.69, leadTop: 80, leadBottom: 0, bodyLine: 1.49, bodyTop: 0, bodyBottom: 40, h3Line: 1.25, h3Top: 7, h3Bottom: 0, labelLine: 1.3, labelTop: 0, labelBottom: 0, metaLine: 1.5, metaTop: 0, metaBottom: 0, h1Width: 900, h2Width: 660, leadWidth: 970, bodyWidth: 810 },
   tablet: { h1: 79, h2: 48, lead: 27, body: 19, section: 32, outer: 30, h1Tracking: -4.6, h2Tracking: -2.3, leadTracking: 1.5, bodyTracking: -0.1, h3Tracking: -1.3, labelTracking: 0.3, metaTracking: 0, h1Line: 1.22, h1Top: 65, h1Bottom: 0, h2Line: 1.24, h2Top: 76, h2Bottom: 52, leadLine: 1.56, leadTop: 60, leadBottom: 0, bodyLine: 1.49, bodyTop: 0, bodyBottom: 32, h3Line: 1.25, h3Top: 7, h3Bottom: 0, labelLine: 1.3, labelTop: 0, labelBottom: 0, metaLine: 1.5, metaTop: 0, metaBottom: 0, h1Width: 690, h2Width: 540, leadWidth: 670, bodyWidth: 620 },
   mobile: { h1: 48, h2: 36, lead: 23, body: 18, section: 26, outer: 20, h1Tracking: -2.8, h2Tracking: -1.7, leadTracking: 0.8, bodyTracking: -0.1, h3Tracking: -0.8, labelTracking: 0.3, metaTracking: 0, h1Line: 1.18, h1Top: 40, h1Bottom: 0, h2Line: 1.21, h2Top: 52, h2Bottom: 32, leadLine: 1.43, leadTop: 38, leadBottom: 0, bodyLine: 1.49, bodyTop: 0, bodyBottom: 26, h3Line: 1.25, h3Top: 7, h3Bottom: 0, labelLine: 1.3, labelTop: 0, labelBottom: 0, metaLine: 1.5, metaTop: 0, metaBottom: 0, h1Width: 540, h2Width: 480, leadWidth: 540, bodyWidth: 540 },
@@ -33,7 +34,7 @@ const trackingLabels: { key: keyof StyleValues["desktop"]; title: string }[] = [
   { key: "labelTracking", title: "Section labels" },
   { key: "metaTracking", title: "Metadata" },
 ];
-const STORAGE = "playground-diary-editor-beta02-blue-v2";
+const STORAGE = DIARY_STYLE_STORAGE;
 function readSaved(): StyleValues {
   try {
     const stored = window.localStorage.getItem(STORAGE);
