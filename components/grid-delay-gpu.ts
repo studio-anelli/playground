@@ -4,11 +4,12 @@
  * 2D canvas; the history, grid composition and deformation live on the GPU. */
 export type DelayGeometry = {
   columns:number; rows:number; spacing:number; delay:number; pattern:number;
-  delayMode:number; blackHold:number; delayType:number; echoMix:number; tapeWear:number; waveBlend:number;
+  delayMode:number; blackHold:number; delayType:number; echoMix:number; tapeWear:number; waveBlend:number; warpSpeed:number;
   mode:number; amount:number; frequency:number; flow:number; time:number; elapsed:number;
   globalMode:number; globalStrength:number; globalSize:number; globalGrowth:number;
   grid:boolean; background:[number,number,number]; blend:number; backgroundInside:boolean;
   feedbackEnabled:boolean;feedbackAmount:number;feedbackDecay:number;feedbackRefresh:number;feedbackBlend:number;
+  feedbackZoom:number;feedbackDrift:number;feedbackRotation:number;feedbackWarp:number;
 };
 export type DelayQuality="balanced"|"sharp"|"fluid";
 export type DelayGPU = {
@@ -40,6 +41,7 @@ uniform float uBlackHold;
 uniform int uDelayType;
 uniform float uEchoMix;
 uniform float uTapeWear;
+uniform float uWarpSpeed;
 uniform int uWaveBlend;
 uniform int uPattern;
 uniform int uNewest;
@@ -173,54 +175,28 @@ void main(){
  vec4 sampleColor=textureLod(uFrames,vec3(sourceUV,float(selectedLayer)),0.);
  vec3 rendered=compose(sampleColor.rgb,uBackground);
  vec3 result=uBackgroundInside?rendered:mix(uBackground,rendered,clamp(sampleColor.a,0.,1.));
- if(uDelayType==1 || uDelayType==2){
-   // Wave strength controls REFRACTION (UV displacement) only.
-   // The refracted source replaces the pixels inside the wave: no alpha
-   // fading of successive copies, and the source is never mirrored.
-   float waveStrength=clamp(uEchoMix,0.,1.);
-   float interval=clamp(uDelay*.28,.20,1.35);
-   float phase=uTime/interval;
-   float wear=clamp(uTapeWear,0.,1.);
-   float front=0.;
-   vec2 bend=vec2(0.);
-   float age=secondsAgo;
-   if(uDelayType==1){
-     // Tape: two meandering horizontal refraction belts continuously
-     // expose two different moments of history.
-     float drift=.05*sin(uTime*.93)+wear*.035*sin(uTime*4.2);
-     float flow=fract(phase*.13+drift);
-     float distA=abs(sourceUV.y-flow);
-     float distB=abs(sourceUV.y-fract(flow+.52));
-     float bandA=1.-step(.105,distA);
-     float bandB=1.-step(.085,distB);
-     bool chooseA=bandA>=bandB;
-     front=max(bandA,bandB);
-     float dist=chooseA?distA:distB;
-     // Stronger wave -> more displacement, never less opacity.
-     float ripple=sin(dist*48.-uTime*(2.8+wear*6.))*waveStrength;
-     bend=vec2((.012+.057*wear)*ripple*front, .006*wear*ripple*front);
-     age=min(5.,secondsAgo+interval*(chooseA?1.:2.));
-   }else{
-     // Ping-Pong: each clock interval sends one *unmirrored* refraction
-     // belt across the image, alternating travel direction every beat.
-     float travel=fract(phase);
-     float direction=mod(floor(phase),2.)<1.?1.:-1.;
-     float center=direction>0.?travel:1.-travel;
-     float distance=abs(sourceUV.x-center);
-     front=1.-step(.125,distance);
-     float ripple=sin(distance*44.-uTime*3.2)*waveStrength*front;
-     bend=vec2(.018*ripple, direction*.078*ripple);
-     age=min(5.,secondsAgo+interval*(direction>0.?1.:2.));
-   }
-   if(waveStrength>.0001 && front>.0001){
-     vec2 refractedUV=clamp(sourceUV+bend,vec2(0.),vec2(1.));
-     vec4 previous=textureLod(uFrames,vec3(refractedUV,float(historyLayer(age))),0.);
-     vec3 past=compose(previous.rgb,uBackground);
-     vec3 pastVisible=uBackgroundInside?past:mix(uBackground,past,clamp(previous.a,0.,1.));
-     // Binary cut: no feathered transition, alpha fade, or glow.
-     // Blend is applied at full strength only inside the refractive band.
-     result=waveComposite(result,pastVisible);
-   }
+ if(uDelayType==1){
+   // Spatial domain warping: a two-stage coupled sine field displaces
+   // source coordinates. Past-frame age is fixed per tile, so typography
+   // remains coherent and no layer-index tearing occurs inside glyphs.
+   float strength=clamp(uEchoMix,0.,1.);
+   float frequency=mix(1.5,15.,clamp(uTapeWear,0.,1.));
+   float t=uTime*max(.0,uWarpSpeed);
+   vec2 q=sourceUV;
+   vec2 field=vec2(
+      sin(q.y*frequency*6.2831853+t*.83)+.45*cos(q.x*frequency*3.1-t*.67),
+      cos(q.x*frequency*6.2831853-t*.72)+.45*sin(q.y*frequency*3.4+t*.91)
+   );
+   vec2 nested=q+field*.035;
+   vec2 warp=vec2(
+      sin(nested.y*frequency*4.9+t*.58),
+      cos(nested.x*frequency*5.2-t*.61)
+   )+field*.35;
+   vec2 warpedUV=clamp(sourceUV+warp*(strength*.08),vec2(0.),vec2(1.));
+   vec4 pastSample=textureLod(uFrames,vec3(warpedUV,float(selectedLayer)),0.);
+   vec3 past=compose(pastSample.rgb,uBackground);
+   vec3 pastVisible=uBackgroundInside?past:mix(uBackground,past,clamp(pastSample.a,0.,1.));
+   result=waveComposite(result,pastVisible);
  }
  if(uGridVisible){
    vec2 rim=min(local,1.-local)*cellSize*cells;
@@ -241,6 +217,11 @@ uniform float uAmount;
 uniform float uDecay;
 uniform int uBlendMode;
 uniform bool uHasHistory;
+uniform float uZoom;
+uniform float uDrift;
+uniform float uRotation;
+uniform float uWarp;
+uniform float uTime;
 vec3 blendFrames(vec3 a,vec3 b){
  if(uBlendMode==1)return a*b;
  if(uBlendMode==2)return 1.-(1.-a)*(1.-b);
@@ -253,19 +234,38 @@ vec3 blendFrames(vec3 a,vec3 b){
 }
 void main(){
  vec2 uv=gl_FragCoord.xy/uResolution;
- vec3 source=texture(uScene,uv).rgb;
- if(!uHasHistory||uAmount<=0.){
-  outColor=vec4(source,1.);return;
+ // Exact pixel fetch: even repeated transforms cannot soften the source.
+ ivec2 scenePixel=ivec2(gl_FragCoord.xy);
+ vec3 incoming=texelFetch(uScene,scenePixel,0).rgb;
+ if(!uHasHistory||uAmount<=0.){outColor=vec4(incoming,1.);return;}
+ // Recursive transform: the PREVIOUS COMPOSITE is the next pass's input.
+ // Each iteration expands, rotates and drifts an already transformed image.
+ vec2 centered=uv-.5;
+ float theta=uRotation*.01745329252;
+ mat2 spin=mat2(cos(theta),-sin(theta),sin(theta),cos(theta));
+ centered=spin*centered/max(.5,1.+uZoom);
+ centered+=vec2(uDrift*.003,-uDrift*.0015);
+ vec2 perturb=vec2(
+   sin(centered.y*21.+uTime*.32),
+   cos(centered.x*19.-uTime*.27)
+ )*uWarp*.015;
+ vec2 prevUV=centered+perturb+.5;
+ // Avoid clamped-edge streaks outside the previous canvas.
+ vec3 previous=incoming;
+ if(all(greaterThanEqual(prevUV,vec2(0.)))&&all(lessThanEqual(prevUV,vec2(1.)))){
+   // Snapped sampling preserves hard pixel edges through every recursion.
+   ivec2 previousPixel=clamp(ivec2(floor(prevUV*uResolution)),ivec2(0),ivec2(uResolution)-ivec2(1));
+   previous=texelFetch(uPrevious,previousPixel,0).rgb;
  }
- // Decay toward the incoming image, not toward black: full-colour opaque
- // backgrounds remain stable while differences between frames fade.
- vec3 previous=mix(source,texture(uPrevious,uv).rgb,clamp(uDecay,0.,1.));
- // Conventional layer compositing: the current frame is the base layer
- // and the faded feedback frame is the blend layer. The old self-blend
- // subtraction cancelled the familiar Screen/Multiply/Overlay response.
- // Amount is equivalent to the feedback layer's opacity.
- vec3 blended=blendFrames(source,previous);
- vec3 result=mix(source,blended,clamp(uAmount,0.,1.));
+ // Sharp feedback: Amount and Persistence select *where* transformed
+ // history replaces the source, rather than turning it into a translucent
+ // overlay. Select the largest changed features first.
+ float changed=max(max(abs(previous.r-incoming.r),abs(previous.g-incoming.g)),abs(previous.b-incoming.b));
+ float coverage=clamp(uAmount,0.,1.)*clamp(uDecay,0.,1.);
+ float threshold=mix(.72,.002,coverage);
+ float choosePast=step(threshold,changed);
+ vec3 transformed=blendFrames(incoming,previous);
+ vec3 result=choosePast>0.5?transformed:incoming;
  outColor=vec4(result,1.);
 }`;
 
@@ -324,7 +324,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
  const uniforms=(name:string)=>gl.getUniformLocation(prog,name);
  const loc={
   frames:uniforms("uFrames"),grid:uniforms("uGrid"),gap:uniforms("uGap"),
-  delay:uniforms("uDelay"),delayMode:uniforms("uDelayMode"),blackHold:uniforms("uBlackHold"),delayType:uniforms("uDelayType"),echoMix:uniforms("uEchoMix"),tapeWear:uniforms("uTapeWear"),waveBlend:uniforms("uWaveBlend"),pattern:uniforms("uPattern"),newest:uniforms("uNewest"),
+  delay:uniforms("uDelay"),delayMode:uniforms("uDelayMode"),blackHold:uniforms("uBlackHold"),delayType:uniforms("uDelayType"),echoMix:uniforms("uEchoMix"),tapeWear:uniforms("uTapeWear"),warpSpeed:uniforms("uWarpSpeed"),waveBlend:uniforms("uWaveBlend"),pattern:uniforms("uPattern"),newest:uniforms("uNewest"),
   count:uniforms("uCount"),capacity:uniforms("uCapacity"),liveLayer:uniforms("uLiveLayer"),interval:uniforms("uInterval"),elapsed:uniforms("uElapsed"),
   background:uniforms("uBackground"),blend:uniforms("uBlend"),backgroundInside:uniforms("uBackgroundInside"),gridVisible:uniforms("uGridVisible"),
   mode:uniforms("uMode"),amount:uniforms("uAmount"),frequency:uniforms("uFrequency"),
@@ -388,7 +388,10 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   amount:gl.getUniformLocation(feedbackProgram,"uAmount"),
   decay:gl.getUniformLocation(feedbackProgram,"uDecay"),
   blend:gl.getUniformLocation(feedbackProgram,"uBlendMode"),
-  hasHistory:gl.getUniformLocation(feedbackProgram,"uHasHistory")
+  hasHistory:gl.getUniformLocation(feedbackProgram,"uHasHistory"),
+  zoom:gl.getUniformLocation(feedbackProgram,"uZoom"),drift:gl.getUniformLocation(feedbackProgram,"uDrift"),
+  rotation:gl.getUniformLocation(feedbackProgram,"uRotation"),warp:gl.getUniformLocation(feedbackProgram,"uWarp"),
+  time:gl.getUniformLocation(feedbackProgram,"uTime")
  };
  const deleteFeedback=()=>{
   if(feedbackTargets)for(const target of feedbackTargets){gl.deleteFramebuffer(target.framebuffer);gl.deleteTexture(target.texture)}
@@ -401,8 +404,10 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
    const tex=gl.createTexture(),fb=gl.createFramebuffer();
    if(!tex||!fb){if(tex)gl.deleteTexture(tex);if(fb)gl.deleteFramebuffer(fb);break}
    gl.bindTexture(gl.TEXTURE_2D,tex);
-   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
-   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+   // Recursive feedback is intentionally sharp: never interpolate a
+   // previously transformed frame with neighbouring texels.
+   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);
+   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA8,canvas.width,canvas.height,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
@@ -434,7 +439,7 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.uniform1i(loc.frames,0);gl.uniform2f(loc.grid,p.columns,p.rows);
   gl.uniform1f(loc.gap,p.spacing/200);gl.uniform1f(loc.delay,p.delay);
   gl.uniform1i(loc.delayMode,p.delayMode);gl.uniform1f(loc.blackHold,p.blackHold);
-  gl.uniform1i(loc.delayType,p.delayType);gl.uniform1f(loc.echoMix,p.echoMix);gl.uniform1f(loc.tapeWear,p.tapeWear);gl.uniform1i(loc.waveBlend,p.waveBlend);
+  gl.uniform1i(loc.delayType,p.delayType);gl.uniform1f(loc.echoMix,p.echoMix);gl.uniform1f(loc.tapeWear,p.tapeWear);gl.uniform1f(loc.warpSpeed,p.warpSpeed);gl.uniform1i(loc.waveBlend,p.waveBlend);
   gl.uniform1i(loc.pattern,p.pattern);gl.uniform1i(loc.newest,newest);
   gl.uniform1i(loc.count,count);gl.uniform1i(loc.capacity,historyCapacity);gl.uniform1i(loc.liveLayer,liveLayer);gl.uniform1f(loc.interval,interval);gl.uniform1f(loc.elapsed,p.elapsed);
   gl.uniform3f(loc.background,...p.background);gl.uniform1i(loc.blend,p.blend);gl.uniform1i(loc.backgroundInside,p.backgroundInside?1:0);
@@ -466,6 +471,9 @@ export function createDelayGPU(canvas:HTMLCanvasElement,w:number,h:number,qualit
   gl.uniform1f(feedbackUniform.decay,p.feedbackDecay);
   gl.uniform1i(feedbackUniform.blend,p.feedbackBlend);
   gl.uniform1i(feedbackUniform.hasHistory,feedbackNewest>=0?1:0);
+  gl.uniform1f(feedbackUniform.zoom,p.feedbackZoom);gl.uniform1f(feedbackUniform.drift,p.feedbackDrift);
+  gl.uniform1f(feedbackUniform.rotation,p.feedbackRotation);gl.uniform1f(feedbackUniform.warp,p.feedbackWarp);
+  gl.uniform1f(feedbackUniform.time,p.time);
   gl.drawArrays(gl.TRIANGLES,0,3);
   if(due&&outputTarget){
    // The feedback pass already rendered to the snapshot. Present it using

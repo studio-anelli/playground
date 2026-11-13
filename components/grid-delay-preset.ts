@@ -15,9 +15,9 @@ export type GridDelayPreset={
  blend:GridDelayBlend;
  linked:boolean;grid:boolean;playing:boolean;quality:DelayQuality;
  transport?:{bpm:number;delaySync:boolean;delayDivision:BeatDivision};backgroundInside?:boolean;
- delay:{mode:"image"|"black";blackHold:number;type?:"digital"|"tape"|"ping-pong";echoMix?:number;tapeWear?:number;waveBlend?:"replace"|"multiply"|"screen"|"difference"};
+ delay:{mode:"image"|"black";blackHold:number;type?:"digital"|"domain-warp"|"tape"|"ping-pong";echoMix?:number;tapeWear?:number;warpSpeed?:number;waveBlend?:"replace"|"multiply"|"screen"|"difference"};
  globalLens:{enabled:boolean;mode:"fisheye"|"pinch";strength:number;size:number;growth:number};
- feedback:{enabled:boolean;amount:number;decay:number;refresh:number;blend:GridDelayBlend};
+ feedback:{enabled:boolean;amount:number;decay:number;refresh:number;blend:GridDelayBlend;zoom?:number;drift?:number;rotation?:number;warp?:number};
  image?:string|null;
 };
 const object=(v:unknown):v is Record<string,unknown>=>typeof v==="object"&&v!==null&&!Array.isArray(v);
@@ -54,14 +54,19 @@ export function parseGridDelayPreset(input:unknown,ranges:Record<string,readonly
  if(p.transport!==undefined&&(!object(p.transport)||!number(p.transport.bpm,40,240)||
     typeof p.transport.delaySync!=="boolean"||!option(p.transport.delayDivision,beatDivisions)))throw Error("Invalid tempo settings.");
  if(!object(p.delay)||!option(p.delay.mode,["image","black"])||!number(p.delay.blackHold,0,100)||
-   (p.delay.type!==undefined&&!option(p.delay.type,["digital","tape","ping-pong"]))||
+   (p.delay.type!==undefined&&!option(p.delay.type,["digital","domain-warp","tape","ping-pong"]))||
    (p.delay.echoMix!==undefined&&!number(p.delay.echoMix,0,100))||
    (p.delay.tapeWear!==undefined&&!number(p.delay.tapeWear,0,100))||
+   (p.delay.warpSpeed!==undefined&&!number(p.delay.warpSpeed,0,4))||
    (p.delay.waveBlend!==undefined&&!option(p.delay.waveBlend,["replace","multiply","screen","difference"])))throw Error("Invalid delay mode.");
  if(!object(p.globalLens)||typeof p.globalLens.enabled!=="boolean"||!option(p.globalLens.mode,["fisheye","pinch"])||
     !number(p.globalLens.strength,0,100)||!number(p.globalLens.size,15,150)||!number(p.globalLens.growth,0,3))throw Error("Invalid global lens.");
  if(!object(p.feedback)||typeof p.feedback.enabled!=="boolean"||!number(p.feedback.amount,0,100)||
-    !number(p.feedback.decay,0,100)||!number(p.feedback.refresh,16,500)||!option(p.feedback.blend,blends))throw Error("Invalid feedback settings.");
+    !number(p.feedback.decay,0,100)||!number(p.feedback.refresh,16,500)||!option(p.feedback.blend,blends)||
+    (p.feedback.zoom!==undefined&&!number(p.feedback.zoom,-5,5))||
+    (p.feedback.drift!==undefined&&!number(p.feedback.drift,-100,100))||
+    (p.feedback.rotation!==undefined&&!number(p.feedback.rotation,-10,10))||
+    (p.feedback.warp!==undefined&&!number(p.feedback.warp,0,100)))throw Error("Invalid feedback settings.");
  if(p.image!==undefined&&p.image!==null&&(typeof p.image!=="string"||p.image.length>10_000_000||!/^data:image\/(?:png|jpeg|webp);base64,/i.test(p.image)))throw Error("Unsupported or oversized embedded image.");
  return {...p,settings:validatedSettings} as GridDelayPreset;
 }
