@@ -1284,8 +1284,8 @@ button, input, select, textarea { font: inherit; }
   display: grid;
   margin-block: auto;
   margin-inline: auto;
-  width: fit-content;
-  max-width: 100%;
+  width: 600px;
+  max-width: calc(100% - 140px);
   padding-block: 16px;
 }
 .home-shell .experiment-row {
@@ -1325,4 +1325,26 @@ button, input, select, textarea { font: inherit; }
 
 @media (min-height: 700px) and (min-width: 761px) {
   .home-shell .experiment-index { transform: translateY(-5svh); }
+}
+
+/* REC numbers hang left of the established title edge. */
+.home-entry-heading { position: relative; flex: 0 0 auto; }
+.home-entry-heading .experiment-id {
+  position: absolute;
+  right: calc(100% + 20px);
+  bottom: 0.15em;
+  white-space: nowrap;
+}
+.home-shell .experiment-row { width: calc(50vw + 300px - 28px); flex-wrap: nowrap; }
+.home-entry-meta { min-width: 0; font: 400 0.7rem/1.5 var(--ui-mono); }
+.home-entry-meta time { white-space: nowrap; }
+@media (max-width: 900px) {
+  .home-shell .experiment-index { width: calc(100% - 80px); max-width: none; margin-left: 80px; margin-right: 0; }
+  .home-shell .experiment-row { width: 100%; flex-wrap: wrap; }
+}
+@media (max-width: 760px) {
+  .home-shell .experiment-index { width: 100%; margin-inline: 0; }
+  .home-entry-heading { display: flex; align-items: baseline; gap: 14px; }
+  .home-entry-heading .experiment-id { position: static; flex: 0 0 46px; }
+  .home-entry-meta { padding-left: 60px; }
 }
