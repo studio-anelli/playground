@@ -14,7 +14,7 @@ export function HomePalette() {
       shell.style.setProperty("--paper", palette.ink);
       shell.style.setProperty("--ink", palette.background);
       shell.style.setProperty("--signal", palette.accent);
-      root.style.setProperty("--shell-background", `color-mix(in srgb, ${palette.ink} 92%, #f4f1eb)`);
+      root.style.setProperty("--shell-background", "var(--site-ground, #000000)");
     };
     const onStorage = (event: StorageEvent) => {
       if (event.key === DIARY_STYLE_STORAGE || event.key === null) apply();
