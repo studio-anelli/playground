@@ -1587,7 +1587,8 @@ body:has(.home-shell), body:has(.terminal-shell) {
 
 /* Independent palette and inversion controls, shared by the three reading pages. */
 :root {
-  --site-ground: #000000;
+  --site-charcoal: color-mix(in srgb, #000000 92%, #f4f1eb);
+  --site-ground: var(--site-charcoal);
   --site-title: #0433ff;
   --site-reading: #5271ff;
   --site-detail: #5c7cff;
@@ -1597,9 +1598,9 @@ body:has(.home-shell), body:has(.terminal-shell) {
 }
 html[data-site-palette="blue"][data-site-inverted="true"] {
   --site-ground: #0433ff;
-  --site-title: #000000;
-  --site-reading: #000000;
-  --site-detail: #000000;
+  --site-title: var(--site-charcoal);
+  --site-reading: var(--site-charcoal);
+  --site-detail: var(--site-charcoal);
   --site-rule: #001a80;
   --site-hover: #f2eddf;
 }
