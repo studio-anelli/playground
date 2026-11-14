@@ -1774,3 +1774,6 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
 @media (prefers-reduced-motion: reduce) {
   .playground-logo canvas, .playground-logo-poster { transition: none; }
 }
+
+/* A wider logo can extend below the header without being centred above the page. */
+.site-logo-link { align-self: flex-start; margin-top: 8px; }
