@@ -9,6 +9,7 @@ export function SiteHeader() {
         <a href="/">Index</a>
         <a href="/archive">Archive</a>
         <a href="/diary">Diary</a>
+        <a href="/colophon">Colophon</a>
         <SiteAppearanceControls />
       </nav>
     </header>
