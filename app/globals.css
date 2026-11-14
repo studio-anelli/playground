@@ -1555,3 +1555,21 @@ body:has(.home-shell), body:has(.terminal-shell) {
 /* Trial a more readable metadata size on the experiment lists. */
 .home-shell .home-entry-meta,
 .home-shell .experiment-id { font-size: 0.88rem; }
+
+/* Fine page-width rules with a little air above each experiment. */
+.home-shell .experiment-row { position: relative; }
+.home-shell .experiment-row,
+.home-shell .experiment-row:hover,
+.home-shell .experiment-row:focus-visible { padding-top: 12px; }
+.home-shell .experiment-row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: min(-64px, calc((940px - 100cqw) / 2 - 64px));
+  width: 100cqw;
+  border-top: 1px solid #0433ff;
+  pointer-events: none;
+}
+@media (max-width: 760px) {
+  .home-shell .experiment-row::before { left: 0; }
+}
