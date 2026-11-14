@@ -1584,3 +1584,83 @@ body:has(.home-shell), body:has(.terminal-shell) {
 
 .terminal-shell .terminal-paragraph.is-reading .terminal-line-number,
 .terminal-shell .terminal-paragraph[data-reading-block]:hover .terminal-line-number { color: #fff; }
+
+/* Independent palette and inversion controls, shared by the three reading pages. */
+:root {
+  --site-ground: #000000;
+  --site-title: #0433ff;
+  --site-reading: #5271ff;
+  --site-detail: #5c7cff;
+  --site-rule: #0324b3;
+  --site-hover: #ffffff;
+  --site-focus-ground: transparent;
+}
+html[data-site-palette="blue"][data-site-inverted="true"] {
+  --site-ground: #0433ff;
+  --site-title: #000000;
+  --site-reading: #000000;
+  --site-detail: #000000;
+  --site-rule: #001a80;
+  --site-hover: #f2eddf;
+}
+html[data-site-palette="bw"] {
+  --site-ground: #000000;
+  --site-title: #f2eddf;
+  --site-reading: #f2eddf;
+  --site-detail: #f2eddf;
+  --site-rule: #66635c;
+  --site-hover: #fff8e9;
+  --site-focus-ground: #f2eddf0d;
+}
+html[data-site-palette="bw"][data-site-inverted="true"] {
+  --site-ground: #f2eddf;
+  --site-title: #000000;
+  --site-reading: #000000;
+  --site-detail: #000000;
+  --site-rule: #8f8b82;
+  --site-hover: #000000;
+  --site-focus-ground: #0000000d;
+}
+.home-shell, .terminal-shell {
+  background: var(--site-ground);
+  --reading-blue: var(--site-reading);
+  --detail-blue: var(--site-detail);
+}
+.home-shell { color: var(--site-title); }
+html:has(.home-shell), html:has(.terminal-shell),
+body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground); }
+.home-shell .experiment-row::before { border-color: var(--site-rule); }
+.site-appearance-controls { display: inline-flex; align-items: center; gap: 6px; }
+.site-appearance-controls button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  padding: 4px 6px;
+  min-width: 32px;
+  min-height: 32px;
+  cursor: pointer;
+}
+.site-nav a:hover, .site-nav a:focus-visible,
+.site-appearance-controls button:hover,
+.site-appearance-controls button:focus-visible,
+.home-shell .experiment-row:hover,
+.home-shell .experiment-row:focus-visible,
+.home-shell .experiment-row:hover .home-entry-meta,
+.home-shell .experiment-row:focus-visible .home-entry-meta,
+.home-shell .experiment-row:hover .experiment-id,
+.home-shell .experiment-row:focus-visible .experiment-id,
+.terminal-index a:hover, .terminal-index a:focus-visible,
+.terminal-paragraph.is-reading,
+.terminal-paragraph[data-reading-block]:hover,
+.terminal-shell .terminal-paragraph.is-reading .terminal-line-number,
+.terminal-shell .terminal-paragraph[data-reading-block]:hover .terminal-line-number { color: var(--site-hover); }
+.site-appearance-controls button:focus-visible { outline: 1px solid currentColor; outline-offset: 2px; }
+.terminal-paragraph.is-reading { background: var(--site-focus-ground); }
+@media (max-width: 760px) {
+  .site-nav, .terminal-shell .site-nav { gap: 14px; }
+}
+@media (max-width: 360px) {
+  .site-nav, .terminal-shell .site-nav { gap: 8px; }
+  .site-appearance-controls { gap: 0; }
+}

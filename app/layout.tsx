@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { appearanceInitScript } from "@/lib/site-appearance";
 
 export const metadata: Metadata = {
   title: "Anelli Prototype Platform",
@@ -10,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body><script dangerouslySetInnerHTML={{ __html: appearanceInitScript }} />{children}</body>
     </html>
   );
 }
