@@ -26,6 +26,14 @@ export function PlaygroundLogo() {
   useEffect(() => {
     let disposed = false, raf = 0, visible = true, last = -Infinity, elapsed = 0;
     let refresh = () => {};
+    const saveFrame = () => {
+      if (!canvas.current?.dataset.frame) return;
+      try {
+        sessionStorage.setItem("playground-logo2-frame", canvas.current.toDataURL("image/png"));
+        sessionStorage.setItem("playground-logo2-phase", String(elapsed));
+      } catch { /* Storage restrictions must not interrupt navigation. */ }
+    };
+    window.addEventListener("pagehide", saveFrame);
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     const abort = new AbortController();
     const observer = new IntersectionObserver(entries => { visible = entries[0]?.isIntersecting ?? true; });
@@ -40,6 +48,7 @@ export function PlaygroundLogo() {
       const response = await fetch("/branding/playground-logo.json", { signal: abort.signal });
       if (!response.ok) throw new Error("Logo preset unavailable");
       const { state: s } = await response.json() as LogoPreset;
+      try { const phase = Number(sessionStorage.getItem("playground-logo2-phase")); if (Number.isFinite(phase) && phase >= 0) elapsed = phase; } catch { /* Start at zero. */ }
       await Promise.all(s.customFonts.map(loadImportedFont));
       if (disposed || !canvas.current) return;
       const source = makeCanvas(), sampled = makeCanvas(), vertices = makeCanvas(), repeated = makeCanvas();
@@ -158,10 +167,10 @@ export function PlaygroundLogo() {
       };
       raf = requestAnimationFrame(frame);
     })().catch(error => { if (!disposed) console.warn("Playground logo:", error); });
-    return () => { disposed = true; abort.abort(); cancelAnimationFrame(raf); observer.disconnect(); resize.disconnect(); theme.disconnect(); reduced.removeEventListener("change", onMotion); };
+    return () => { saveFrame(); window.removeEventListener("pagehide", saveFrame); disposed = true; abort.abort(); cancelAnimationFrame(raf); observer.disconnect(); resize.disconnect(); theme.disconnect(); reduced.removeEventListener("change", onMotion); };
   }, []);
   return <span className="playground-logo" data-ready={ready}>
-    {!ready && <span className="playground-logo-fallback">PLAYGROUND</span>}
+    <span className="playground-logo-poster" aria-hidden="true" />
     <canvas ref={canvas} width={1080} height={144} aria-hidden="true" />
   </span>;
 }

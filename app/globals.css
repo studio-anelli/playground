@@ -1756,3 +1756,21 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
   .site-logo-link { position: absolute; top: 54px; left: 0; }
   .playground-logo { width: 48vw; }
 }
+
+/* Keep the last animated frame visible during a full document navigation. */
+.playground-logo-poster {
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  mask: var(--logo-poster, linear-gradient(transparent, transparent)) center / 100% 100% no-repeat;
+  -webkit-mask: var(--logo-poster, linear-gradient(transparent, transparent)) center / 100% 100% no-repeat;
+  opacity: 1;
+  transition: opacity 120ms linear;
+}
+.playground-logo canvas { opacity: 0; transition: opacity 120ms linear; }
+.playground-logo[data-ready="true"] canvas { opacity: 1; }
+.playground-logo[data-ready="true"] .playground-logo-poster { opacity: 0; }
+.playground-logo[data-ready="false"] canvas { visibility: visible; }
+@media (prefers-reduced-motion: reduce) {
+  .playground-logo canvas, .playground-logo-poster { transition: none; }
+}
