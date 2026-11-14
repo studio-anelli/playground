@@ -1567,9 +1567,17 @@ body:has(.home-shell), body:has(.terminal-shell) {
   top: 0;
   left: min(-64px, calc((940px - 100cqw) / 2 - 64px));
   width: 100cqw;
-  border-top: 1px solid #0433ff;
+  border-top: 0.5px solid #0324b3;
   pointer-events: none;
 }
 @media (max-width: 760px) {
   .home-shell .experiment-row::before { left: 0; }
+}
+
+/* The paragraph crossing the reading centre uses the existing white hover color. */
+.terminal-paragraph { transition: color 160ms ease; }
+.terminal-paragraph.is-reading,
+.terminal-paragraph[data-reading-block]:hover { color: #fff; }
+@media (prefers-reduced-motion: reduce) {
+  .terminal-paragraph { transition: none; }
 }
