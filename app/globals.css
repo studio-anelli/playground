@@ -1777,3 +1777,16 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
 
 /* A wider logo can extend below the header without being centred above the page. */
 .site-logo-link { align-self: flex-start; margin-top: 8px; }
+
+/* Trial the wordmark flush with the viewport’s top-left edge. */
+.site-logo-link { position: absolute; top: 0; left: -28px; margin: 0; }
+@media (max-width: 760px) { .site-logo-link { left: -16px; } }
+@media (max-width: 600px) {
+  .home-shell .site-header, .terminal-shell .site-header {
+    height: 100px;
+    min-height: 100px;
+    flex-basis: 100px;
+    align-items: flex-end;
+    padding-bottom: 12px;
+  }
+}
