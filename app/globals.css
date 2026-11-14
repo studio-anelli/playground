@@ -1665,3 +1665,36 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
   .site-nav, .terminal-shell .site-nav { gap: 8px; }
   .site-appearance-controls { gap: 0; }
 }
+
+/* A quiet colophon, sharing the experiment titles’ left edge. */
+.colophon-document {
+  width: min(940px, 100%);
+  margin: var(--content-start-gap) auto 0;
+  padding: 0 0 64px 64px;
+  color: var(--site-reading);
+  font: 400 0.88rem/2 var(--ui-mono);
+  letter-spacing: 0.02em;
+}
+.colophon-document h1 {
+  margin: 0 0 48px;
+  font: inherit;
+}
+.colophon-copy { max-width: 72ch; }
+.colophon-copy p { margin: 0 0 2.4em; }
+.colophon-document a { text-decoration: underline; text-underline-offset: 0.22em; }
+.colophon-document a:hover, .colophon-document a:focus-visible { color: var(--site-hover); }
+.colophon-document a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
+.colophon-footer { margin-top: 64px; color: var(--site-detail); }
+.colophon-footer p { margin: 0; }
+@media (max-width: 900px) and (min-width: 761px) {
+  .colophon-document { margin-left: 80px; width: calc(100% - 80px); }
+}
+@media (max-width: 760px) {
+  .colophon-document { padding-left: 60px; padding-bottom: 40px; }
+  .colophon-shell .site-nav { gap: 10px; }
+  .colophon-document h1 { margin-bottom: 32px; }
+}
+@media (max-width: 420px) {
+  .home-shell .site-nav, .terminal-shell .site-nav { gap: 5px; font-size: 0.75rem; }
+  .site-appearance-controls button { min-width: 28px; padding-inline: 3px; }
+}
