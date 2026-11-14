@@ -1551,3 +1551,7 @@ body:has(.home-shell), body:has(.terminal-shell) {
 .home-shell .experiment-row:focus-visible .home-entry-meta,
 .home-shell .experiment-row:hover .experiment-id,
 .home-shell .experiment-row:focus-visible .experiment-id { color: #fff; }
+
+/* Trial a more readable metadata size on the experiment lists. */
+.home-shell .home-entry-meta,
+.home-shell .experiment-id { font-size: 0.88rem; }
