@@ -27,6 +27,7 @@ export default function DiaryPage() {
       <div className="terminal-document">
         <nav className="terminal-index" aria-label="Diary entries">
           <span>Development diary</span>
+          <a href="#beta-03">Beta 03</a>
           <a href="#beta-02">Beta 02</a>
           <a href="#beta-01">Beta 01</a>
         </nav>
