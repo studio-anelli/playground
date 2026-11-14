@@ -17,7 +17,7 @@ type LogoPreset = { state: {
   manual: { tracking: number; threshold: number; repeatRows: number };
   patches: { wave: number; target: string; amount: number }[];
 } };
-const W = 960, H = 800;
+const W = 2048, H = 1707;
 const makeCanvas = () => { const c = document.createElement("canvas"); c.width = W; c.height = H; return c; };
 
 export function PlaygroundLogo() {
@@ -30,6 +30,8 @@ export function PlaygroundLogo() {
     const abort = new AbortController();
     const observer = new IntersectionObserver(entries => { visible = entries[0]?.isIntersecting ?? true; });
     if (canvas.current) observer.observe(canvas.current);
+    const resize = new ResizeObserver(() => refresh());
+    if (canvas.current) resize.observe(canvas.current);
     const theme = new MutationObserver(() => refresh());
     theme.observe(document.documentElement, { attributes: true, attributeFilter: ["data-site-palette", "data-site-inverted"] });
     const onMotion = () => refresh();
@@ -96,6 +98,13 @@ export function PlaygroundLogo() {
       const accepted = [...spacedSites(sites, s.vertexSpacing / 100 * em, site => String(glyphs.indexOf((site as typeof sites[number]).glyph)))]
         .filter(site => sampledPixels[(Math.floor(site.y) * W + Math.floor(site.x)) * 4 + 3] > 0);
       const draw = () => {
+        const bounds = out.getBoundingClientRect();
+        const density = Math.min(window.devicePixelRatio || 1, 3);
+        const width = Math.max(1, Math.round(bounds.width * density));
+        const height = Math.max(1, Math.round(bounds.height * density));
+        if (out.width !== width || out.height !== height) { out.width = width; out.height = height; }
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
         const phases = s.waves.map(w => elapsed * waveHz(w, s.bpm));
         vc.clearRect(0, 0, W, H); vc.fillStyle = "white";
         vc.textAlign = "center"; vc.textBaseline = "middle";
@@ -149,7 +158,7 @@ export function PlaygroundLogo() {
       };
       raf = requestAnimationFrame(frame);
     })().catch(error => { if (!disposed) console.warn("Playground logo:", error); });
-    return () => { disposed = true; abort.abort(); cancelAnimationFrame(raf); observer.disconnect(); theme.disconnect(); reduced.removeEventListener("change", onMotion); };
+    return () => { disposed = true; abort.abort(); cancelAnimationFrame(raf); observer.disconnect(); resize.disconnect(); theme.disconnect(); reduced.removeEventListener("change", onMotion); };
   }, []);
   return <span className="playground-logo" data-ready={ready}>
     {!ready && <span className="playground-logo-fallback">PLAYGROUND</span>}
