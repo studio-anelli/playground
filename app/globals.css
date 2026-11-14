@@ -1581,3 +1581,6 @@ body:has(.home-shell), body:has(.terminal-shell) {
 @media (prefers-reduced-motion: reduce) {
   .terminal-paragraph { transition: none; }
 }
+
+.terminal-shell .terminal-paragraph.is-reading .terminal-line-number,
+.terminal-shell .terminal-paragraph[data-reading-block]:hover .terminal-line-number { color: #fff; }
