@@ -1755,3 +1755,16 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
   .site-appearance-controls { gap: 0; }
   .site-appearance-controls button { min-width: 24px; padding-inline: 2px; }
 }
+
+/* Keep the larger mark outside header flow so page starts stay aligned. */
+.site-header { position: relative; }
+.site-logo-link { position: absolute; left: 0; top: 6px; }
+.playground-logo { width: 360px; height: 192px; }
+@media (max-width: 760px) {
+  .site-logo-link { top: 48px; }
+  .playground-logo { width: min(360px, 70vw); height: auto; aspect-ratio: 15 / 8; }
+  .playground-logo canvas { height: auto; aspect-ratio: 15 / 8; }
+  .home-shell:has(.site-logo-link), .terminal-shell:has(.site-logo-link) {
+    --content-start-gap: calc(min(360px, 70vw) * 8 / 15 + 32px);
+  }
+}

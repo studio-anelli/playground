@@ -141,6 +141,6 @@ export function PlaygroundLogo() {
   }, []);
   return <span className="playground-logo" data-ready={ready}>
     {!ready && <span className="playground-logo-fallback">Play<br />ground</span>}
-    <canvas ref={canvas} width={240} height={128} aria-hidden="true" />
+    <canvas ref={canvas} width={720} height={384} aria-hidden="true" />
   </span>;
 }
