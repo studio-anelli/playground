@@ -1,596 +1,661 @@
-// Diary text preserved from the editorial version, set as numbered source lines.
+// Diary entries set as numbered source lines.
 export const diaryEntries = [
-{
-  "id": "beta-03",
-  "title": "Things are starting to connect.",
-  "lines": [
-    {
-      "text": "BETA 03",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "14.11.2026",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Things are starting to connect.",
-      "heading": true,
-      "indent": 0
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Last time, we wondered whether the Playground needed fewer knobs. Since",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "then, we have added a record collection, a machine that delays images, and",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "several more knobs. We did, however, remove the logo.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Period: 13.10—14.11.26",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Focus: Time, geography and unexpected connections",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Housekeeping: Three experiments moved into the archive",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Manifesto: Still pending",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "01 / The records left the shelf",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Music That Travels began with a personal record collection. Around 610",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "copies, which seemed manageable until we started asking where the music came",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "from.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "A record can contain music made in one place, released in another, and",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "reissued somewhere else several decades later. The country printed on the",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "sleeve does not explain all of that. Neither does a flag beside the artist’s",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "name.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "The experiment separates the music from the edition. Switching between them",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "moves the covers across the map, making some of those journeys visible",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "before asking anyone to read an explanation.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "The research became considerably larger than expected. It also clarified the",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "intention: enough reliable information to encourage discovery, with deeper",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "context where a story deserves it. Some origins remain uncertain. They can",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "stay uncertain.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "This is a way of listening to a collection and finding connections inside",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "it. The documentation should help that happen.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "02 / A shuffle with strong preferences",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Geographic shuffle introduced another question. What does it mean to explore",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "through proximity?",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Our first attempts were remarkably good at finding familiar records. An",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "impressive result for a collection containing several hundred alternatives.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "We had to reconsider the journey. Following the nearest neighbour can become",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "a route that repeatedly visits the same few places. Exploring the",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "surroundings needs a wider sense of curiosity.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "The distinction is small in the description and quite noticeable after",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "hearing the same record again.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "03 / Giving images a memory",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Grid Delay approaches movement through time.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Instead of showing the whole image at the same moment, different cells show",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "different moments. A word passes through the grid and leaves pieces of its",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "recent past behind.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Then came feedback, domain warping and the usual discussion about whether",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "something should be softer, sharper or substantially less blurry.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "There is a useful connection here with the sound experiments. Delay,",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "modulation and feedback become ways of constructing an image. The vocabulary",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "starts making sense through use.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Sometimes the interesting material is the interval between two states.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "04 / Making movement editable",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "K-tic-synth continued becoming more of an instrument.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "The patch bay gained more connections. The timeline gained keyframes, curves",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "and the ability to preserve movement inside a preset. Controls became easier",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "to grab, including by their labels, which turns out to be a more useful",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "improvement than another mysterious parameter.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "A preset can now hold a behaviour as well as an appearance.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "That makes it easier to return to an experiment, change one relationship and",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "see what follows. It also makes it easier to remember what we were doing",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "before everything became incomprehensible.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "05 / The homepage became a list",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "We spent some time removing things.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "The platform label, status badges, oversized titles and several explanations",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "disappeared. REC numbers moved to the margin. Short descriptions identify",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "the experiments. Dates indicate when something actually changed.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "The diary became a numbered monospace document. Paragraphs turn white as",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "they pass through the reading area. A small concession to the possibility",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "that somebody might read them.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Blue remains, paired with a softer dark grey. Ivory and black are now",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "available for anyone who has had enough blue.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "The page feels closer to a working index. It gives the experiments somewhere",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "to live without requiring the surroundings to perform quite so much.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "06 / Keeping the earlier attempts",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Kinetic Composer, A_SCII and K-NET-C moved into the archive.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "They remain accessible, with their own behaviour and particular",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "complications. Moving them makes room for the experiments currently asking",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "more interesting questions.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "Some methods are beginning to overlap. A typographic instrument borrows from",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "synthesis. A grid borrows from delay. A record collection becomes a way of",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "thinking about movement and place.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "The next task is to spend more time with what these systems produce.",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "",
-      "heading": false,
-      "indent": 0
-    },
-    {
-      "text": "We have become reasonably efficient at building the conditions. It would be",
-      "heading": false,
-      "indent": 1
-    },
-    {
-      "text": "good to stay around for the results.",
-      "heading": false,
-      "indent": 1
-    }
-  ]
-},
+  {
+    "id": "beta-03",
+    "title": "We did remove some knobs. Elsewhere, things escalated.",
+    "lines": [
+      {
+        "text": "BETA 03",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "14.11.2026",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "We did remove some knobs. Elsewhere, things escalated.",
+        "heading": true,
+        "indent": 0
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Last time, we suggested fewer controls and more results. Since then, we have",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "added a record collection, a machine that delays images, and a timeline. We",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "also spent a considerable amount of time deciding where to put a date.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Period: 13.10—14.11.26",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Focus: Records, delays and maintenance",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Housekeeping: Three experiments archived",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Manifesto: Still pending",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "01 / The records left the shelf",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Around 610 seemed manageable.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Music That Travels started with a personal record collection and a fairly",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "simple idea: put the records on a map and listen to what happens nearby.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Then we had to decide where to put them.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "The artist might come from one country, make the record in another, and",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "appear in the collection through a reissue pressed somewhere else. The",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "country on the sleeve was not going to solve this.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "There are now two views: where the music comes from, and where the edition",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "was released. Switching between them moves the covers across the map.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Researching the collection became a project of its own. We eventually had to",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "remind ourselves that the point was to discover and listen to records. Some",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "entries need more context. Others need a reasonably accurate location and a",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "working play button.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "02 / A shuffle with strong preferences",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "We have heard this one.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Geographic shuffle was supposed to help explore the collection through",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "nearby records.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "It developed a preference for a small number of them.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "With several hundred records available, hearing the same few again the",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "following day suggested that something needed attention. Following the",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "nearest record was producing familiar routes. We wanted to explore an area,",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "rather than repeatedly take the same road through it.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "We revised the selection, looked at listening history across sessions, and",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "checked for duplicate playback links.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "A shuffle requires rather a lot of instructions about how to be",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "unpredictable.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "03 / Giving images a memory",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Then asking them to be less blurry.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Grid Delay divides an image into cells and shows a different moment in each",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "one. Moving type gets pulled apart in time while remaining in the same",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "frame.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "This was interesting enough to warrant more controls.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Feedback and domain warping followed. So did several attempts to stop the",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "feedback turning everything into a soft, transparent smudge.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "We wanted the image to repeat and accumulate while keeping its edges.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "Apparently, “more feedback” and “more blur” do not need to mean the same",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "thing.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "The experiment now borrows quite directly from audio processing. The results",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "are easier to assess than the terminology: move something, change the delay,",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "see whether it is worth looking at.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "04 / Making movement editable",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Preferably without starting again.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "K-tic-synth gained a timeline, keyframes and editable curves. Presets can",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "now save the animation as well as the settings.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "This makes it possible to return to a particular movement instead of vaguely",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "remembering that something looked good before lunch.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "The patch bay gained more connections. Knobs became easier to drag,",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "including by their labels. A small change, but useful when the alternative",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "is repeatedly missing a tiny circle.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "There are still plenty of controls. At least more of them can now be saved",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "in a useful state.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "05 / The homepage became a list",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Several decisions were required to achieve this.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "The platform label, badges, oversized titles and various explanations",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "disappeared. Titles come first, descriptions follow, and dates indicate the",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "last update.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "REC numbers moved to the left edge. Then we adjusted the spacing. Then the",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "alignment. Then the spacing again.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "The diary became a numbered monospace document, with paragraphs highlighted",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "near the middle of the screen. Somebody now has a reasonable chance of",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "reading it.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Blue and dark grey remain the default. Ivory and black are available too.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "Both can be inverted.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "We also added a Colophon, which required deciding what this place actually",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "is. The text fitted on one screen after we made the column wider. A",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "surprisingly effective technique.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "06 / Keeping the earlier attempts",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "The archive has acquired some residents.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Kinetic Composer, A_SCII and K-NET-C moved out of the main index. They",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "remain accessible, along with their particular complications.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Some of their functions already live elsewhere. Keeping every experiment",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "equally prominent was becoming difficult to justify, especially while",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "building new ones.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "The next task remains fairly close to the previous next task: spend more",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "time making things with these tools.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "We now have more ways to animate letters, delay images and listen to",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "records. It would be reasonable to use them for a while before deciding that",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "the missing ingredient is another panel.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "STATUS / BETA 03",
+        "heading": false,
+        "indent": 0
+      },
+      {
+        "text": "Music That Travels: playing favourites, under review. Grid Delay: sharper.",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "K-tic-synth: remembers its movements. Homepage: mostly a list. Archive:",
+        "heading": false,
+        "indent": 1
+      },
+      {
+        "text": "occupied. Manifesto: no immediate danger.",
+        "heading": false,
+        "indent": 1
+      }
+    ]
+  },
   {
     "id": "beta-02",
     "title": "Things are getting complicated.",
