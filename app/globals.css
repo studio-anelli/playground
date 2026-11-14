@@ -1672,14 +1672,14 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
   margin: var(--content-start-gap) auto 0;
   padding: 0 0 64px 64px;
   color: var(--site-reading);
-  font: 400 0.88rem/2 var(--ui-mono);
+  font: 400 0.88rem/2.4 var(--ui-mono);
   letter-spacing: 0.02em;
 }
 .colophon-document h1 {
   margin: 0 0 48px;
   font: inherit;
 }
-.colophon-copy { max-width: 72ch; }
+.colophon-copy { max-width: 92ch; }
 .colophon-copy p { margin: 0 0 2.4em; }
 .colophon-document a { text-decoration: underline; text-underline-offset: 0.22em; }
 .colophon-document a:hover, .colophon-document a:focus-visible { color: var(--site-hover); }
