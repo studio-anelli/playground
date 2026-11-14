@@ -16,7 +16,7 @@ const experimentCatalog: Experiment[] = [
   {
     id: "REC-13",
     slug: "grid-delay-machine",
-    title: "GRID DELAY MACHINE",
+    title: "MEM‑FLD",
     kind: "experiment",
     status: "test",
     year: "2026",

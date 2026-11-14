@@ -4,7 +4,7 @@ import { experimentIndexDetails } from "@/app/data/experiment-index";
 const updateDate = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 
 const homeTitles: Record<string, string> = {
-  "grid-delay-machine": "Grid delay machine",
+  "grid-delay-machine": "MEM‑FLD",
   "music-that-travels": "Music that travels",
   "durf-dots": "●●●",
   "k-tic-synth": "K-tic-synth",
