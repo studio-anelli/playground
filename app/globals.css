@@ -1740,3 +1740,18 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
 /* Let the credits rest at the screen edge, with breathing room on shorter screens. */
 .colophon-document { display: flex; flex-direction: column; flex: 1 0 auto; }
 .colophon-footer { margin-top: auto; padding-top: 32px; }
+
+/* The temporary mark is a live rendering of Christian’s synth preset. */
+.site-logo-link { display: block; margin-right: auto; color: var(--site-title); flex: 0 0 auto; }
+.playground-logo { display: block; width: 90px; height: 48px; position: relative; }
+.playground-logo canvas { display: block; width: 100%; height: 100%; color: inherit; }
+.playground-logo-fallback { position: absolute; inset: 0; font: 300 18px/1 var(--ui-sans); padding-top: 5px; }
+.playground-logo[data-ready="false"] canvas { visibility: hidden; }
+.site-logo-link:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
+@media (max-width: 520px) {
+  .playground-logo { width: 64px; height: 35px; }
+  .site-header { gap: 8px; }
+  .home-shell .site-nav, .terminal-shell .site-nav { gap: 5px; font-size: 0.7rem; }
+  .site-appearance-controls { gap: 0; }
+  .site-appearance-controls button { min-width: 24px; padding-inline: 2px; }
+}
