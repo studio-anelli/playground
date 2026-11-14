@@ -6,7 +6,7 @@ const updateDate = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "lo
 const homeTitles: Record<string, string> = {
   "grid-delay-machine": "Grid delay machine",
   "music-that-travels": "Music that travels",
-  "durf-dots": "DURF / Dot system",
+  "durf-dots": "3 dotted glyphs",
   "k-tic-synth": "K-tic-synth",
   "font-drawing": "Low/fi world",
   "kinetic-composer": "GR_D",

@@ -1736,3 +1736,7 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
 @media (max-width: 760px) {
   .colophon-document { line-height: 1.8; }
 }
+
+/* Let the credits rest at the screen edge, with breathing room on shorter screens. */
+.colophon-document { display: flex; flex-direction: column; flex: 1 0 auto; }
+.colophon-footer { margin-top: auto; padding-top: 32px; }

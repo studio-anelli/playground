@@ -37,7 +37,7 @@ const experimentCatalog: Experiment[] = [
   {
     id: "REC-11",
     slug: "durf-dots",
-    title: "DURF / DOT SYSTEM",
+    title: "3 dotted glyphs",
     kind: "tool",
     status: "test",
     year: "2026",
