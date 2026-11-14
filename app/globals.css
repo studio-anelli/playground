@@ -1721,3 +1721,22 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
   .terminal-index { display: flex; flex-wrap: wrap; gap: 12px 20px; }
   .terminal-index > span { flex-basis: 100%; }
 }
+
+/* GT Era gives the colophon a softer editorial voice. */
+.colophon-document {
+  font-family: var(--ui-sans);
+  font-size: 1.125rem;
+  font-weight: 300;
+  letter-spacing: 0.005em;
+}
+.colophon-footer {
+  font: 400 0.88rem/2 var(--ui-mono);
+  letter-spacing: 0.02em;
+}
+@media (max-width: 760px) {
+  .colophon-document { line-height: 1.8; }
+}
+
+/* Let the credits rest at the screen edge, with breathing room on shorter screens. */
+.colophon-document { display: flex; flex-direction: column; flex: 1 0 auto; }
+.colophon-footer { margin-top: auto; padding-top: 32px; }
