@@ -4,7 +4,7 @@ import {exportBounds} from "../../../lib/durf-dots/export-bounds";
 import {pngMovie} from "../../../lib/durf-dots/mov";
 import {useCallback,useEffect,useMemo,useRef,useState} from "react";
 
-const initial:Config={shape:"matrix",patternX:"peak",patternY:"peak",blend:"average",columns:9,rows:11,copies:5,direction:"horizontal",spacingX:82,spacingY:82,minSize:8,maxSize:39,overlap:28,offsetX:0,offsetY:10,scrollStrength:100,pointerStrength:70,pointerRadius:165,motion:"invert",speed:1,ease:0.085,foreground:"#F16A37",background:"#507568",transparent:false,width:1080,height:1080,videoDuration:6,fps:30,exportCrop:false,exportPadding:16};
+const initial:Config={shape:"matrix",patternX:"peak",patternY:"peak",blend:"average",columns:9,rows:11,copies:5,direction:"horizontal",spacingX:82,spacingY:82,minSize:8,maxSize:39,overlap:28,offsetX:0,offsetY:10,scrollStrength:100,pointerStrength:70,pointerRadius:165,motion:"invert",speed:1,ease:0.085,foreground:"#F16A37",background:"#507568",transparent:false,width:1080,height:1080,videoDuration:6,fps:30,exportCrop:false,exportPadding:16,exportScale:1};
 const presets:Record<string,Partial<Config>>={
  "DURF / Matrix":{...initial},
  "CTA / Bubble bands":{shape:"repeater",direction:"horizontal",patternX:"uniform",copies:5,columns:7,rows:5,minSize:7,maxSize:69,spacingX:67,spacingY:53,overlap:46,foreground:"#F16A37",background:"#DD8EB9",motion:"invert"},
@@ -16,8 +16,8 @@ function validateConfig(value:unknown):Config{
  if(!value||typeof value!=="object")throw new Error("Invalid settings");
  const input=value as Record<string,unknown>,result={...initial};
  const enums:Record<string,string[]>={shape:["matrix","horizontal","vertical","repeater"],patternX:["uniform","peak","valley","ascending","descending"],patternY:["uniform","peak","valley","ascending","descending"],blend:["average","multiply","x","y"],direction:["horizontal","vertical"],motion:["invert","pulse","drift","none"]};
- const ranges:Record<string,number[]>={columns:[1,25],rows:[1,25],copies:[1,16],spacingX:[20,150],spacingY:[20,150],minSize:[1,80],maxSize:[4,130],overlap:[0,200],offsetX:[-100,100],offsetY:[-100,100],scrollStrength:[0,100],pointerStrength:[0,200],pointerRadius:[0,800],speed:[.2,4],ease:[0,1],width:[720,1920],height:[720,1920],videoDuration:[3,15],fps:[24,60],exportPadding:[0,200]};
- for(const key of Object.keys(initial) as (keyof Config)[]){const v=input[key];if(v===undefined)continue;if(enums[key]){if(typeof v!=="string"||!enums[key].includes(v))throw new Error("Invalid option")}else if(ranges[key]){const [lo,hi]=ranges[key];if(typeof v!=="number"||!Number.isFinite(v)||v<lo||v>hi||(["width","height","columns","rows","copies","fps"].includes(key)&&!Number.isInteger(v)))throw new Error("Invalid number")}else if(key==="transparent"||key==="exportCrop"){if(typeof v!=="boolean")throw new Error("Invalid transparency")}else if(typeof v!=="string"||!/^#[0-9a-f]{6}$/i.test(v))throw new Error("Invalid colour");Object.assign(result,{[key]:v})}
+ const ranges:Record<string,number[]>={columns:[1,25],rows:[1,25],copies:[1,16],spacingX:[20,150],spacingY:[20,150],minSize:[1,80],maxSize:[4,130],overlap:[0,200],offsetX:[-100,100],offsetY:[-100,100],scrollStrength:[0,100],pointerStrength:[0,200],pointerRadius:[0,800],speed:[.2,4],ease:[0,1],width:[720,1920],height:[720,1920],videoDuration:[3,15],fps:[24,60],exportPadding:[0,200],exportScale:[1,2]};
+ for(const key of Object.keys(initial) as (keyof Config)[]){const v=input[key];if(v===undefined)continue;if(enums[key]){if(typeof v!=="string"||!enums[key].includes(v))throw new Error("Invalid option")}else if(ranges[key]){const [lo,hi]=ranges[key];if(typeof v!=="number"||!Number.isFinite(v)||v<lo||v>hi||(["width","height","columns","rows","copies","fps","exportScale"].includes(key)&&!Number.isInteger(v)))throw new Error("Invalid number")}else if(key==="transparent"||key==="exportCrop"){if(typeof v!=="boolean")throw new Error("Invalid transparency")}else if(typeof v!=="string"||!/^#[0-9a-f]{6}$/i.test(v))throw new Error("Invalid colour");Object.assign(result,{[key]:v})}
  return result;
 }
 const clamp=(v:number,min:number,max:number)=>Math.min(max,Math.max(min,v));
@@ -75,13 +75,13 @@ export default function DurfDotsLab(){
  const set=<K extends keyof Config>(key:K,v:Config[K])=>{setCfg(p=>({...p,[key]:v}));};
  const applyPreset=(name:string)=>{setPreset(name);setCfg(p=>({...p,...presets[name]}))};
  const exportSvg=()=>saveBlob(new Blob([svgString(visible,cfg)],{type:"image/svg+xml;charset=utf-8"}),"durf-dots.svg");
- const exportPng=()=>{const cv=document.createElement("canvas");const box=exportBounds(buildDots(cfg),cfg);cv.width=box.width;cv.height=box.height;const ctx=cv.getContext("2d");if(!ctx)return;draw(ctx,visible,cfg);cv.toBlob(b=>b&&saveBlob(b,"durf-dots.png"),"image/png")};
- function draw(ctx:CanvasRenderingContext2D,arr:Dot[],c:Config){const box=exportBounds(buildDots(c),c);ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);if(!c.transparent){ctx.fillStyle=c.background;ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height)}ctx.save();ctx.translate(-box.x,-box.y);ctx.fillStyle=c.foreground;ctx.beginPath();arr.forEach(d=>{ctx.moveTo(d.x+d.radius,d.y);ctx.arc(d.x,d.y,d.radius,0,Math.PI*2)});ctx.fill();ctx.restore()}
+ const exportPng=()=>{const cv=document.createElement("canvas");const box=exportBounds(buildDots(cfg),cfg);cv.width=box.width*cfg.exportScale;cv.height=box.height*cfg.exportScale;const ctx=cv.getContext("2d");if(!ctx)return;draw(ctx,visible,cfg);cv.toBlob(b=>b&&saveBlob(b,cfg.exportScale===2?"durf-dots@2x.png":"durf-dots.png"),"image/png")};
+ function draw(ctx:CanvasRenderingContext2D,arr:Dot[],c:Config){const box=exportBounds(buildDots(c),c);ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);if(!c.transparent){ctx.fillStyle=c.background;ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height)}ctx.save();ctx.scale(c.exportScale,c.exportScale);ctx.translate(-box.x,-box.y);ctx.fillStyle=c.foreground;ctx.beginPath();arr.forEach(d=>{ctx.moveTo(d.x+d.radius,d.y);ctx.arc(d.x,d.y,d.radius,0,Math.PI*2)});ctx.fill();ctx.restore()}
  const exportTransparentVideo=async(preview=false)=>{
   if(recording)return;
   const c={...cfgRef.current,transparent:true};const wasPlaying=playingRef.current;playingRef.current=false;setPlaying(false);if(preview){phaseRef.current=0;setPhase(0);setPointer({x:0,y:0,active:false})}setRecording(true);setMessage("Rendering transparent MOV…");
   try{
-   const canvas=document.createElement("canvas");const box=exportBounds(buildDots(c),c);canvas.width=box.width;canvas.height=box.height;
+   const canvas=document.createElement("canvas");const box=exportBounds(buildDots(c),c);canvas.width=box.width*c.exportScale;canvas.height=box.height*c.exportScale;
    const ctx=canvas.getContext("2d");if(!ctx)throw new Error("Canvas unavailable");
    const arr=buildDots(c),frames:Uint8Array[]=[];const count=Math.round(c.videoDuration*c.fps);let size=0;const started=performance.now();
    for(let i=0;i<count;i++){
@@ -92,29 +92,30 @@ export default function DurfDotsLab(){
     frames.push(new Uint8Array(await blob.arrayBuffer()));
     if(i%10===0){setMessage(`Rendering transparent MOV: ${Math.round((i+1)/count*100)}%`);await new Promise(r=>setTimeout(r,0))}
    }
-   saveBlob(pngMovie(frames,box.width,box.height,c.fps),"durf-dots-transparent.mov");setMessage("Transparent MOV ready. Test in Keynote over a coloured slide. Uses lossless PNG video, not ProRes.");
+   saveBlob(pngMovie(frames,canvas.width,canvas.height,c.fps),c.exportScale===2?"durf-dots-transparent@2x.mov":"durf-dots-transparent.mov");setMessage("Transparent MOV ready. Test in Keynote over a coloured slide. Uses lossless PNG video, not ProRes.");
   }catch(e){setMessage(e instanceof Error?e.message:"Transparent export failed.")}finally{setRecording(false);setPlaying(wasPlaying);if(preview)setPhase(0)}
  };
  const exportVideo=async(preview=false)=>{
   if(cfgRef.current.transparent){await exportTransparentVideo(preview);return}
   if(recording)return;
   if(!("MediaRecorder" in window)||!HTMLCanvasElement.prototype.captureStream){setMessage("This browser cannot record canvas video. Try Chrome or Edge.");return}
-  const c={...cfgRef.current};const arr=buildDots(c);const canvas=document.createElement("canvas");const box=exportBounds(buildDots(c),c);canvas.width=box.width;canvas.height=box.height;
+  const c={...cfgRef.current};const arr=buildDots(c);const canvas=document.createElement("canvas");const box=exportBounds(buildDots(c),c);canvas.width=box.width*c.exportScale;canvas.height=box.height*c.exportScale;
   const ctx=canvas.getContext("2d");if(!ctx)return;
-  const mime=["video/mp4;codecs=avc1.42E01E","video/webm;codecs=vp9","video/webm"].find(s=>MediaRecorder.isTypeSupported(s));
+  const mime=["video/mp4;codecs=avc1","video/mp4","video/webm;codecs=vp9","video/webm"].find(s=>MediaRecorder.isTypeSupported(s));
   if(!mime){setMessage("No supported video format in this browser.");return}
   setRecording(true);setMessage("Recording a short motion loop…");
-  const stream=canvas.captureStream(c.fps);const chunks:BlobPart[]=[];const recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:9000000});
+  const stream=canvas.captureStream(c.fps);const chunks:BlobPart[]=[];let recorder:MediaRecorder;
+  try{recorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:9000000*c.exportScale*c.exportScale})}catch{stream.getTracks().forEach(t=>t.stop());setRecording(false);setMessage("This browser cannot record at this resolution. Try 1× or a smaller canvas.");return}
   recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
-  recorder.onstop=()=>{stream.getTracks().forEach(t=>t.stop());saveBlob(new Blob(chunks,{type:mime}),"durf-dots."+(mime.startsWith("video/mp4")?"mp4":"webm"));setRecording(false);setMessage("Video ready.")};
-  recorder.onerror=()=>{stream.getTracks().forEach(t=>t.stop());setRecording(false);setMessage("Recording failed; try another browser.")};
-  const wasPlaying=playingRef.current;playingRef.current=false;setPlaying(false);if(preview){phaseRef.current=0;setPhase(0);setPointer({x:0,y:0,active:false})}draw(ctx,renderedDots(arr,c,0,{x:0,y:0,active:false}),c);recorder.start(250);
+  recorder.onstop=()=>{stream.getTracks().forEach(t=>t.stop());saveBlob(new Blob(chunks,{type:mime}),(c.exportScale===2?"durf-dots@2x.":"durf-dots.")+(mime.startsWith("video/mp4")?"mp4":"webm"));setRecording(false);setMessage("Video ready.")};
+  recorder.onerror=()=>{stream.getTracks().forEach(t=>t.stop());setRecording(false);setPlaying(wasPlaying);setMessage("Recording failed. Try 1×, a smaller canvas or another browser.")};
+  const wasPlaying=playingRef.current;playingRef.current=false;setPlaying(false);if(preview){phaseRef.current=0;setPhase(0);setPointer({x:0,y:0,active:false})}draw(ctx,renderedDots(arr,c,0,{x:0,y:0,active:false}),c);try{recorder.start(250)}catch{stream.getTracks().forEach(t=>t.stop());setRecording(false);setPlaying(wasPlaying);setMessage("This browser cannot record at this resolution. Try 1× or a smaller canvas.");return}
   const start=performance.now();const duration=c.videoDuration*1000;const run=(now:number)=>{const t=clamp((now-start)/duration,0,1);if(preview)setPhase(t);draw(ctx,renderedDots(arr,c,t,{x:0,y:0,active:false}),c);if(t<1&&recorder.state==="recording")requestAnimationFrame(run);else if(recorder.state==="recording"){window.setTimeout(()=>{if(recorder.state==="recording")recorder.stop();setPlaying(wasPlaying);if(preview)setPhase(0)},100)}};requestAnimationFrame(run);
  };
  const onPointer=(e:React.PointerEvent<SVGSVGElement>)=>{if(recording)return;const b=e.currentTarget.getBoundingClientRect();setPointer({x:exportBox.x+(e.clientX-b.left)/b.width*exportBox.width,y:exportBox.y+(e.clientY-b.top)/b.height*exportBox.height,active:true})};
  return <main className="dd"><style>{css}</style><header className="dd-head"><a href="/" aria-label="Back to Playground index">← BACK TO INDEX</a><h1>●●●</h1><span className="dd-badge">REC-11 · BETA</span></header>
  <div className="dd-shell"><div className="dd-main"><div className="dd-view">
- <div className="dd-canvas-info"><strong>EXPORT · {exportBox.width} × {exportBox.height} PX</strong><span>{clipsArtwork&&<span className="dd-canvas-warning">Artwork extends outside canvas. </span>}<button className="dd-button" disabled={recording} onClick={()=>{set("exportCrop",!cfg.exportCrop);setPointer({x:0,y:0,active:false})}}>{cfg.exportCrop?"Full canvas":"Fit artwork"}</button></span></div>
+ <div className="dd-canvas-info"><strong>EXPORT · {exportBox.width*cfg.exportScale} × {exportBox.height*cfg.exportScale} PX · {cfg.exportScale}×</strong><span>{clipsArtwork&&<span className="dd-canvas-warning">Artwork extends outside canvas. </span>}<button className="dd-button" disabled={recording} onClick={()=>{set("exportCrop",!cfg.exportCrop);setPointer({x:0,y:0,active:false})}}>{cfg.exportCrop?"Full canvas":"Fit artwork"}</button></span></div>
  <svg ref={svgRef} width={exportBox.width} height={exportBox.height} style={{width:`min(100%, ${Math.min(900,Math.max(160,560*exportBox.width/exportBox.height))}px, calc((100vh - 285px) * ${exportBox.width/exportBox.height}))`,background:cfg.transparent?"repeating-conic-gradient(#ddd 0% 25%,#fff 0% 50%) 50% / 24px 24px":cfg.background}} viewBox={`${exportBox.x} ${exportBox.y} ${exportBox.width} ${exportBox.height}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive dot composition" onPointerMove={onPointer} onPointerLeave={()=>setPointer(p=>({...p,active:false}))}>
  {visible.map((d,i)=><circle key={i} cx={number(d.x)} cy={number(d.y)} r={number(d.radius)} fill={cfg.foreground}/>)}</svg>
  </div><div className="dd-actions"><button className="dd-button" disabled={recording} onClick={()=>setPlaying(p=>!p)}>{playing?"Ⅱ Pause":"▶ Play"}</button><button className="dd-button" disabled={recording} onClick={()=>setPhase(0)}>↺ Reset</button><button className="dd-button primary" disabled={recording} onClick={()=>void exportVideo(true)}>● Rec &amp; play</button><span className="dd-spacer"/><button className="dd-button" onClick={exportSvg}>Export SVG</button><button className="dd-button" onClick={exportPng}>PNG</button><button className="dd-button primary" disabled={recording} onClick={()=>void exportVideo()}>{recording?"Exporting…":cfg.transparent?"Export transparent MOV":"Record video"}</button></div>
@@ -151,6 +152,8 @@ export default function DurfDotsLab(){
  {cfg.exportCrop&&<Labeled name="Export padding" value={cfg.exportPadding} min={0} max={200} unit="px" onChange={v=>set("exportPadding",v)}/>}
  <p className="dd-footnote">The framed area is exactly what SVG, PNG and video export. Fit artwork trims empty space and includes the whole motion. Rec &amp; play restarts at 0% and records while the preview plays.</p>
  <div className="dd-two"><Select label="Width" value={String(cfg.width)} options={["720","1080","1440","1920"]} onChange={v=>set("width",Number(v))}/><Select label="Height" value={String(cfg.height)} options={["720","1080","1440","1920"]} onChange={v=>set("height",Number(v))}/></div>
+ <label className="dd-select"><span>Export resolution</span><select value={cfg.exportScale} onChange={e=>set("exportScale",Number(e.target.value) as 1|2)}><option value={1}>1× · Standard</option><option value={2}>2× · Retina</option></select></label>
+ <p className="dd-footnote">1 = standard · 2 = Retina. Doubles PNG and video dimensions while preserving the composition. SVG stays vector.</p>
  <div className="dd-two"><Select label="Duration (seconds)" value={String(cfg.videoDuration)} options={["3","6","10","15"]} onChange={v=>set("videoDuration",Number(v))}/><Select label="Frame rate" value={String(cfg.fps)} options={["24","30","60"]} onChange={v=>set("fps",Number(v))}/></div>
  <p className="dd-footnote">Transparent video uses lossless PNG-in-MOV with alpha. Test in your Keynote version before presenting. Opaque video uses MP4 or WebM. PNG and SVG also preserve transparency.</p></div></details>
  <p className="dd-footnote" style={{paddingTop:16}}>Independent Playground prototype. Nothing is connected to the WordPress plugin or the live DURF website.</p>
