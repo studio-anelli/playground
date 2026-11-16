@@ -1,7 +1,7 @@
 export type Shape="matrix"|"horizontal"|"vertical"|"repeater";
 export type Pattern="uniform"|"peak"|"valley"|"ascending"|"descending";
 export type Motion="invert"|"pulse"|"drift"|"none";
-export type Config={shape:Shape;patternX:Pattern;patternY:Pattern;blend:"average"|"multiply"|"x"|"y";columns:number;rows:number;copies:number;direction:"horizontal"|"vertical";spacingX:number;spacingY:number;minSize:number;maxSize:number;overlap:number;offsetX:number;offsetY:number;scrollStrength:number;pointerStrength:number;pointerRadius:number;motion:Motion;speed:number;ease:number;foreground:string;background:string;transparent:boolean;width:number;height:number;videoDuration:number;fps:number;exportCrop:boolean;exportPadding:number};
+export type Config={shape:Shape;patternX:Pattern;patternY:Pattern;blend:"average"|"multiply"|"x"|"y";columns:number;rows:number;copies:number;direction:"horizontal"|"vertical";spacingX:number;spacingY:number;minSize:number;maxSize:number;overlap:number;offsetX:number;offsetY:number;scrollStrength:number;pointerStrength:number;pointerRadius:number;motion:Motion;speed:number;ease:number;foreground:string;background:string;transparent:boolean;width:number;height:number;videoDuration:number;fps:number;exportCrop:boolean;exportPadding:number;exportScale:1|2};
 export type Dot={x:number;y:number;radius:number;endRadius:number};
 
 const clamp=(v:number,min:number,max:number)=>Math.min(max,Math.max(min,v));
