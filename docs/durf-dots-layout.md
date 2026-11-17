@@ -1,6 +1,6 @@
 # Dots layout workspace
 
-Choose a format under **Page & grid**, set margins and gutter, then choose the first column and the number of columns occupied by the artwork. Area height and vertical placement define its vertical position. The full animation is fitted uniformly inside that area, preserving circular dots. Guides appear only in the preview.
+Choose a format under **Page & grid**, set margins and gutter, then choose the starting column/row and the number of columns/rows occupied by the artwork. The gutter applies in both directions. With a single grid row, area height and vertical placement remain available for free vertical positioning. Existing presets default to one row and preserve their placement. The full animation is fitted uniformly inside that area, preserving circular dots. Guides appear only in the preview.
 
 - **Full layout:** exports the whole page, including the artwork's placement and margins.
 - **Artwork only:** SVG and PNG crop the current frame; video uses one frame that contains the entire motion. Artwork padding is optional.
