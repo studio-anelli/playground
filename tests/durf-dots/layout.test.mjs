@@ -27,3 +27,28 @@ test('column changes clamp invalid spans and gutters',()=>{
  const grid=layoutGrid({...cfg,gridColumns:2,columnStart:3,columnSpan:3,gridGutter:500});
  assert.equal(grid.start,2);assert.equal(grid.span,1);assert.ok(grid.area.width>0);
 });
+for(const motion of ['invert','drift'])for(const [rowStart,rowSpan] of [[1,1],[2,2],[3,1]])test(`${motion}: row ${rowStart} spanning ${rowSpan} contains the full animation`,()=>{
+ const c={...cfg,motion,gridRows:3,rowStart,rowSpan,columnStart:2,columnSpan:2};
+ const grid=layoutGrid(c),bounds=motionBounds(buildDots(c),c);
+ assert.equal(grid.rowStart,rowStart);assert.equal(grid.rowSpan,rowSpan);
+ assert.ok(bounds.x>=grid.area.x-1e-6&&bounds.y>=grid.area.y-1e-6);
+ assert.ok(bounds.x+bounds.width<=grid.area.x+grid.area.width+1e-6);
+ assert.ok(bounds.y+bounds.height<=grid.area.y+grid.area.height+1e-6);
+});
+test('changing the row count clamps row selection and span',()=>{
+ const grid=layoutGrid({...cfg,gridRows:2,rowStart:3,rowSpan:3});
+ assert.equal(grid.rowStart,2);assert.equal(grid.rowSpan,1);
+ assert.ok(grid.area.height>0);
+});
+test('single-row presets preserve free vertical positioning',()=>{
+ const legacy={...cfg,blockHeight:45,verticalAlign:'bottom'};
+ delete legacy.gridRows;delete legacy.rowStart;delete legacy.rowSpan;
+ const old=layoutGrid(legacy),current=layoutGrid({...legacy,gridRows:1,rowStart:1,rowSpan:1});
+ assert.deepEqual(old.area,current.area);
+ assert.ok(Math.abs(old.area.y+old.area.height-(cfg.height-old.margin))<1e-6);
+});
+test('spanning every row includes gutters and fills the content height',()=>{
+ const grid=layoutGrid({...cfg,gridRows:3,rowStart:1,rowSpan:3});
+ assert.equal(grid.area.y,grid.content.y);
+ assert.ok(Math.abs(grid.area.height-grid.content.height)<1e-6);
+});

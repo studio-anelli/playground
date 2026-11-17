@@ -11,8 +11,8 @@ export const formats={
  square:{label:'1080 × 1080',width:1080,height:1080}
 };
 export type PageFormat=keyof typeof formats;
-export type LayoutSettings={layoutEnabled:boolean;pageFormat:PageFormat;pageMargin:number;gridColumns:number;gridGutter:number;columnStart:number;columnSpan:number;blockHeight:number;verticalAlign:'top'|'center'|'bottom';showGuides:boolean};
-export const layoutDefaults:LayoutSettings={layoutEnabled:false,pageFormat:'custom',pageMargin:48,gridColumns:3,gridGutter:24,columnStart:1,columnSpan:3,blockHeight:100,verticalAlign:'center',showGuides:true};
+export type LayoutSettings={layoutEnabled:boolean;pageFormat:PageFormat;pageMargin:number;gridColumns:number;gridRows:number;rowStart:number;rowSpan:number;gridGutter:number;columnStart:number;columnSpan:number;blockHeight:number;verticalAlign:'top'|'center'|'bottom';showGuides:boolean};
+export const layoutDefaults:LayoutSettings={layoutEnabled:false,pageFormat:'custom',pageMargin:48,gridColumns:3,gridRows:1,rowStart:1,rowSpan:1,gridGutter:24,columnStart:1,columnSpan:3,blockHeight:100,verticalAlign:'center',showGuides:true};
 export const isPaper=(format:PageFormat)=>/^A[2-5]$/.test(format);
 const even=(n:number)=>Math.round(n/2)*2;
 export function formatSettings(format:PageFormat):Partial<Config>{
@@ -29,9 +29,14 @@ export function layoutGrid(c:Config){
  const columnWidth=(width-gutter*(columns-1))/columns;
  const start=Math.max(1,Math.min(columns,Math.round(c.columnStart)));
  const span=Math.max(1,Math.min(columns-start+1,Math.round(c.columnSpan)));
- const blockHeight=height*Math.max(.1,Math.min(1,c.blockHeight/100));
- const top=margin+(c.verticalAlign==='top'?0:c.verticalAlign==='bottom'?height-blockHeight:(height-blockHeight)/2);
- return {margin,gutter,columnWidth,columns,start,span,content:{x:margin,y:margin,width,height},area:{x:margin+(start-1)*(columnWidth+gutter),y:top,width:span*columnWidth+(span-1)*gutter,height:blockHeight}};
+ const rows=Math.max(1,Math.min(12,Math.round(c.gridRows??1)));
+ const rowGutter=rows===1?0:Math.min(Math.max(0,c.gridGutter*unit),height/(rows-1)*.8);
+ const rowHeight=(height-rowGutter*(rows-1))/rows;
+ const rowStart=Math.max(1,Math.min(rows,Math.round(c.rowStart??1)));
+ const rowSpan=Math.max(1,Math.min(rows-rowStart+1,Math.round(c.rowSpan??1)));
+ const blockHeight=rows>1?rowSpan*rowHeight+(rowSpan-1)*rowGutter:height*Math.max(.1,Math.min(1,c.blockHeight/100));
+ const top=rows>1?margin+(rowStart-1)*(rowHeight+rowGutter):margin+(c.verticalAlign==='top'?0:c.verticalAlign==='bottom'?height-blockHeight:(height-blockHeight)/2);
+ return {margin,gutter,columnWidth,columns,start,span,rows,rowGutter,rowHeight,rowStart,rowSpan,content:{x:margin,y:margin,width,height},area:{x:margin+(start-1)*(columnWidth+gutter),y:top,width:span*columnWidth+(span-1)*gutter,height:blockHeight}};
 }
 export function fitDotsToLayout(dots:Dot[],c:Config):Dot[]{
  if(!c.layoutEnabled||!dots.length)return dots;
