@@ -1367,6 +1367,13 @@ button, input, select, textarea { font: inherit; }
 }
 .home-entry-heading .experiment-id { letter-spacing: 0.02em; }
 .home-entry-date { display: grid; text-align: right; font-size: 0.76rem; }
+@media (min-width: 761px) {
+  .home-shell .experiment-row {
+    display: grid;
+    grid-template-columns: minmax(0, 24%) minmax(0, 1fr);
+    column-gap: 32px;
+  }
+}
 @media (max-width: 900px) {
   .home-shell .experiment-row { width: 100%; }
   .home-entry-meta { flex-basis: 100%; }
