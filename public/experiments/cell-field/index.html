@@ -1,0 +1,949 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cell Field</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#efede7;color:#283824;font:15px system-ui,sans-serif}main{display:grid;grid-template-columns:minmax(0,1fr) 255px;min-height:100svh}section{display:grid;place-items:center;padding:clamp(16px,4vw,56px);background:#dedbd3}svg{display:block;width:min(100%,calc(78svh * var(--page-ratio,1.414141)));height:auto;overflow:hidden}aside{padding:24px;display:flex;flex-direction:column;gap:17px}label{display:grid;gap:6px}label span{display:flex;justify-content:space-between}input[type=range]{width:100%;margin:0;accent-color:#283824}output{font-variant-numeric:tabular-nums}@media(max-width:720px){main{grid-template-columns:1fr}svg{width:min(100%,calc(60svh * var(--page-ratio,1.414141)))}}
+
+#art{touch-action:none;user-select:none}
+[data-bubble]{cursor:grab}
+#art.dragging [data-bubble]{cursor:grabbing}
+.guide{stroke:#283824;stroke-width:1.5;fill:none;pointer-events:none;vector-effect:non-scaling-stroke}
+.anchor,.scale{fill:#fdfdfd;stroke:#283824;stroke-width:2;vector-effect:non-scaling-stroke}
+.anchor{cursor:crosshair}.scale{cursor:nwse-resize}
+aside p{margin:2px 0 0;color:#50594c;font-size:13px;line-height:1.5}
+.toolset{display:flex;gap:5px}
+.toolset button{flex:1;font:inherit;padding:6px;border:1px solid #a7ac9e;background:transparent;color:inherit;cursor:pointer}
+.toolset button[aria-pressed="true"]{background:#283824;color:#f7f6ee}
+.auto-growth{display:flex;align-items:center;gap:8px}
+details{border-top:1px solid #b9bcaf;padding-top:8px}
+summary{cursor:pointer}
+.layout-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.layout-controls label:first-child{grid-column:1/-1}
+select,input[type=number]{color:inherit;background:transparent;border:1px solid #a7ac9e;padding:5px;font:inherit;width:100%}
+button:disabled{opacity:.45;cursor:default}
+.file-controls{display:grid;gap:8px}
+.standalone-back{display:none;margin:12px 20px;color:#283824;width:fit-content}
+.standalone .standalone-back{display:block}
+</style>
+
+<a class="standalone-back" href="/">← Back to Playground</a>
+<main>
+<section aria-label="Artwork preview">
+  <svg id="art" viewBox="0 0 1400 990" role="img" aria-label="Cell Field composition">
+    <rect id="page-background" width="1400" height="990" fill="#efede7"/>
+    <defs><clipPath id="artboard"><rect id="artwork-clip" width="1400" height="990"/></clipPath></defs>
+    <g id="artwork" clip-path="url(#artboard)">
+      <rect id="artwork-background" width="1400" height="990" fill="#b65756"/>
+      <g id="circles" fill="#e3dfd7"></g>
+      <g id="selection"></g>
+    </g>
+    <g id="layout-guides" pointer-events="none"></g>
+  </svg>
+</section>
+<aside aria-label="Composition controls">
+<details>
+  <summary>Layout</summary>
+  <div class="layout-controls">
+    <label>Format<select id="format"></select></label>
+    <label>Orientation<select id="orientation"><option value="portrait">Vertical</option><option value="landscape" selected>Horizontal</option></select></label>
+    <label>Margin <span id="margin-unit">(px)</span><input id="margin" type="number" min="0" max="300" value="0"></label>
+    <label>Columns<input id="columns" type="number" min="1" max="12" value="1"></label>
+    <label>Rows<input id="rows" type="number" min="1" max="12" value="1"></label>
+    <label>Column start<input id="column-start" type="number" min="1" max="12" value="1"></label>
+    <label>Row start<input id="row-start" type="number" min="1" max="12" value="1"></label>
+    <label>Column span<input id="column-span" type="number" min="1" max="12" value="1"></label>
+    <label>Row span<input id="row-span" type="number" min="1" max="12" value="1"></label>
+    <label>Gutter <span id="gutter-unit">(px)</span><input id="gutter" type="number" min="0" max="120" value="0"></label>
+    <label><span><input id="guides" type="checkbox"> Guides</span></label>
+  </div>
+</details>
+  <label><span>Surrounding cells <output for="density"></output></span><input id="density" type="range" min="3" max="60" value="15"></label>
+  <label><span>Growth <output for="growth"></output></span><input id="growth" type="range" min="0" max="100" value="50"></label>
+  <label><span>Gap <output for="gap"></output></span><input id="gap" type="range" min="0" max="18" step="0.1" value="1"></label>
+<label><span>Corner radius <output for="rounding"></output></span><input id="rounding" type="range" min="0" max="100" value="15"></label>
+<label><span>Segments per edge <output for="edges"></output></span><input id="edges" type="range" min="1" max="32" value="1"></label>
+<label><span>Roundness <output for="roundness"></output></span><input id="roundness" type="range" min="0" max="100" value="0"></label>
+<div class="toolset" role="group" aria-label="Cell tools">
+  <button type="button" data-tool="edit" aria-pressed="true">Edit</button>
+  <button type="button" data-tool="pop" aria-pressed="false">Pop</button>
+  <button type="button" data-tool="merge" aria-pressed="false">Merge</button>
+</div>
+<label class="auto-growth"><input id="auto-growth" type="checkbox"> Spontaneous growth</label>
+<p id="tool-help" aria-live="polite">Drag to move a cell. Use the square handle to scale and the round handles to reshape.</p>
+<details class="file-controls">
+  <summary>Save and export</summary>
+  <div class="file-controls">
+    <div class="toolset">
+      <button id="save" type="button">Save locally</button>
+      <button id="load" type="button">Load saved</button>
+    </div>
+    <label>Export area<select id="export-area"><option value="layout">Full layout</option><option value="artwork">Artwork only</option></select></label>
+    <div class="toolset"><button id="export" type="button">Export SVG</button></div>
+    <p id="file-status" role="status"></p>
+  </div>
+</details>
+</aside>
+</main>
+<script type="module">
+import { formats, isPaper, layoutGrid } from '/studio-layout.mjs';
+
+if (window.self === window.top) document.documentElement.classList.add('standalone');
+let width = 1400;
+let height = 990;
+const byId = id => document.getElementById(id);
+const format = byId('format');
+const orientation = byId('orientation');
+const paperUnit = 96 / 25.4;
+const option = (value,label) => new Option(label,value);
+format.add(option('custom','Original · 1400 × 990'));
+for (const [key,preset] of Object.entries(formats)) {
+  if (key !== 'custom') format.add(option(key,preset.label));
+}
+const layoutControls = ['format','orientation','margin','columns','rows','column-start','row-start','column-span','row-span','gutter','guides'].map(byId);
+const storageKey = 'playground.cell-field.v1';
+let page = null;
+let layoutInputKey = null;
+function packCluster(width, height, count, growth, gap) {
+  const short = Math.min(width, height);
+  const central = {x:width * .48, y:height * .49, r:short * (.25 + growth * .10)};
+  const bubbles = [central];
+  const cornerInset = short * .085;
+  const cornerRadius = short * (.24 + growth * .12);
+  const corners = [
+    [cornerInset, cornerInset],
+    [width - cornerInset, height - cornerInset],
+    [width - cornerInset, cornerInset],
+    [cornerInset, height - cornerInset]
+  ];
+
+  function availableRadius(x, y) {
+    let radius = Infinity;
+    for (const bubble of bubbles) {
+      radius = Math.min(radius, Math.hypot(x - bubble.x, y - bubble.y) - bubble.r - gap);
+    }
+    return radius;
+  }
+
+  for (const [x,y] of corners.slice(0,count)) {
+    bubbles.push({x, y, r:Math.min(cornerRadius, availableRadius(x,y))});
+  }
+
+  // Find the largest remaining pockets across the artboard, including along its edges.
+  const inset = short * .026;
+  for (let i = corners.length; i < count; i++) {
+    let best;
+    for (let row = 0; row <= 36; row++) {
+      const y = inset + (height - 2 * inset) * row / 36;
+      for (let col = 0; col <= 52; col++) {
+        const x = inset + (width - 2 * inset) * col / 52;
+        const radius = availableRadius(x, y);
+        if (radius <= 0) continue;
+        const edge = Math.min(x, y, width - x, height - y);
+        const score = radius * (.78 + .22 * Math.min(1, edge / radius));
+        if (!best || score > best.score) best = {x, y, radius, score};
+      }
+    }
+    if (!best) break;
+
+    // Refine the grid result so the new circle sits close to the surrounding contours.
+    for (const step of [12, 6, 3, 1]) {
+      const origin = best;
+      for (const dx of [-step, 0, step]) {
+        for (const dy of [-step, 0, step]) {
+          const x = clamp(origin.x + dx, inset, width - inset);
+          const y = clamp(origin.y + dy, inset, height - inset);
+          const radius = availableRadius(x,y);
+          if (radius <= 0) continue;
+          const edge = Math.min(x, y, width - x, height - y);
+          const score = radius * (.78 + .22 * Math.min(1, edge / radius));
+          if (score > best.score) best = {x, y, radius, score};
+        }
+      }
+    }
+    bubbles.push({x:best.x, y:best.y, r:best.radius * (.92 + .08 * growth)});
+  }
+  return bubbles;
+}
+
+const art = document.getElementById('art');
+const circles = document.getElementById('circles');
+const selection = document.getElementById('selection');
+const controls = [...document.querySelectorAll('input[type="range"]')];
+const [density, growth, gap, rounding, edges, roundness] = controls;
+const anchors = [[0,-1],[1,0],[0,1],[-1,0]];
+const edits = new Map();
+const popped = new Set();
+const growthPressure = new Map();
+const newborns = new Map();
+let nextBirthIndex = 1000;
+let birthClock = 1.7;
+const autoGrowth = document.getElementById('auto-growth');
+const toolHelp = document.getElementById('tool-help');
+const toolButtons = [...document.querySelectorAll('[data-tool]')];
+let tool = 'edit';
+let growthFrame = null;
+let lastGrowthFrame = null;
+let shrinking = null;
+let bubbles = [];
+let baseLayout = [];
+let compactLayout = null;
+let layoutKey;
+let selected = null;
+let drag = null;
+
+const clamp = (value, low, high) => Math.min(high, Math.max(low, value));
+const fixed = value => value.toFixed(2);
+const pair = point => point.map(fixed).join(' ');
+
+function getEdit(index) {
+  if (!edits.has(index)) edits.set(index, {x:0, y:0, scale:1, points:null});
+  return edits.get(index);
+}
+
+function cutPolygon(polygon, nx, ny, limit) {
+  const clipped = [];
+  for (const [index, point] of polygon.entries()) {
+    const previous = polygon[(index + polygon.length - 1) % polygon.length];
+    const before = nx * previous[0] + ny * previous[1] - limit;
+    const after = nx * point[0] + ny * point[1] - limit;
+    if ((before <= 0) !== (after <= 0)) {
+      const t = before / (before - after);
+      clipped.push(previous.map((value, axis) => value + t * (point[axis] - value)));
+    }
+    if (after <= 0) clipped.push(point);
+  }
+  return clipped;
+}
+
+function roundedPath(polygon, radius, rounding, subdivisions, preference = 0, tightness = 0) {
+  if (polygon.length < 3) return {path:'', nodes:[]};
+  const mix = (a,b,t) => a.map((value,axis) => value + (b[axis] - value) * t);
+  const towards = (from,to) => {
+    const distance = Math.hypot(to[0] - from[0], to[1] - from[1]);
+    const base = Math.min(.24, radius / Math.max(distance, .001));
+    const fraction = rounding <= .15
+      ? base * rounding / .15
+      : base + (.5 - base) * (rounding - .15) / .85;
+    return mix(from,to,fraction * (1 - .25 * preference * rounding) * (1 - .34 * tightness));
+  };
+
+  const corners = polygon.map((vertex,index) => ({
+    vertex,
+    start:towards(vertex,polygon[(index + polygon.length - 1) % polygon.length]),
+    end:towards(vertex,polygon[(index + 1) % polygon.length])
+  }));
+  if (subdivisions === 1 && preference === 0) {
+    const path = corners.map(({vertex,start,end},index) =>
+      (index === 0 ? 'M' : ' L') + pair(start) +
+      (rounding > 0 ? ' Q' + pair(vertex) + ' ' + pair(end) : '')
+    ).join('');
+    return {path:path + ' Z', nodes:[]};
+  }
+
+  const samples = corners.flatMap(({vertex,start,end}) => {
+    if (rounding === 0) return [start];
+    const steps = Math.max(8, subdivisions);
+    return Array.from({length:steps + 1},(_,index) => {
+      const t = index / steps;
+      return mix(mix(start,vertex,t),mix(vertex,end,t),t);
+    });
+  });
+  if (preference === 0) return smoothContour(samples, subdivisions, corners.length, mix);
+
+  const disk = inscribedDisk(samples);
+  const rounder = samples.map(point => {
+    const dx = point[0] - disk.x;
+    const dy = point[1] - disk.y;
+    const length = Math.hypot(dx,dy);
+    // Keep contact edges close to their neighbours. Longer tips can recede a little
+    // more, while the short sides of the same cell stay near their existing position.
+    const availableInset = Math.max(0,length - disk.radius);
+    const insetLimit = Math.min(8, Math.max(1, disk.radius * .10));
+    const inset = Math.min(availableInset * .55,insetLimit) * preference * (1 - .5 * tightness);
+    const scale = length > .001 ? 1 - inset / length : 1;
+    return [disk.x + dx * scale, disk.y + dy * scale];
+  });
+  return smoothContour(rounder, subdivisions, corners.length, mix, preference, disk.radius);
+}
+
+function inscribedDisk(polygon) {
+  const count = polygon.length;
+  let x = 0;
+  let y = 0;
+  for (const point of polygon) {
+    x += point[0] / count;
+    y += point[1] / count;
+  }
+  const walls = polygon.flatMap(([ax,ay],index) => {
+    const [bx,by] = polygon[(index + 1) % count];
+    const length = Math.hypot(bx - ax,by - ay);
+    if (length < .001) return [];
+    const nx = (ay - by) / length;
+    const ny = (bx - ax) / length;
+    return [{nx,ny,limit:nx * ax + ny * ay}];
+  });
+  function clearance(cx,cy) {
+    let radius = Infinity;
+    for (const {nx,ny,limit} of walls) radius = Math.min(radius,nx * cx + ny * cy - limit);
+    return radius;
+  }
+  const directions = Array.from({length:8},(_,i) =>
+    [Math.cos(i * Math.PI / 4), Math.sin(i * Math.PI / 4)]);
+  let radius = clearance(x,y);
+  let step = Math.max(...polygon.map(point => Math.hypot(point[0] - x,point[1] - y))) / 2;
+  for (let iteration = 0; iteration < 24 && step > .05; iteration++) {
+    const startX = x;
+    const startY = y;
+    for (const [dx,dy] of directions) {
+      const cx = startX + dx * step;
+      const cy = startY + dy * step;
+      const available = clearance(cx,cy);
+      if (available > radius + .0001) {
+        x = cx;
+        y = cy;
+        radius = available;
+      }
+    }
+    if (x === startX && y === startY) step *= .5;
+  }
+  return {x,y,radius:Number.isFinite(radius) ? Math.max(0,radius) : 0};
+}
+
+function smoothContour(samples, subdivisions, cornerCount, mix, preference = 0, cellRadius = 0) {
+  // Even spacing makes short edges and acute tips respond to the same smoothing distance.
+  const distances = [0];
+  for (const [index,point] of samples.entries()) {
+    const next = samples[(index + 1) % samples.length];
+    distances.push(distances[index] + Math.hypot(next[0] - point[0],next[1] - point[1]));
+  }
+  const length = distances.at(-1);
+  if (length < .001) return {path:'', nodes:[]};
+  const count = Math.max(80, Math.min(192, cornerCount * subdivisions));
+  let edge = 0;
+  const spaced = Array.from({length:count},(_,index) => {
+    const distance = index * length / count;
+    while (distances[edge + 1] <= distance) edge++;
+    const fraction = (distance - distances[edge]) / (distances[edge + 1] - distances[edge]);
+    return mix(samples[edge],samples[(edge + 1) % samples.length],fraction);
+  });
+
+  const strength = Math.sqrt((subdivisions - 1) / 31);
+  const reach = count * Math.max(.085 * strength, .035 * preference);
+  const kernel = reach === 0 ? [[0,1]] : [];
+  for (let offset = -Math.ceil(reach); offset <= Math.ceil(reach); offset++) {
+    if (reach === 0 || Math.abs(offset) > reach) continue;
+    kernel.push([offset, .5 + .5 * Math.cos(Math.PI * offset / reach)]);
+  }
+  const weight = kernel.reduce((sum,[,value]) => sum + value,0);
+  const contour = spaced.map((_,index) => {
+    let x = 0;
+    let y = 0;
+    for (const [offset,value] of kernel) {
+      const point = spaced[(index + offset + count) % count];
+      x += point[0] * value;
+      y += point[1] * value;
+    }
+    const smoothed = [x / weight,y / weight];
+    if (preference === 0) return smoothed;
+    const original = spaced[index];
+    const shift = Math.hypot(smoothed[0] - original[0],smoothed[1] - original[1]);
+    // Bound the smoothing displacement too, so it cannot undo the tighter packing.
+    const limit = Math.max(2, Math.min(14, cellRadius * (.14 + .16 * strength)));
+    return shift > limit ? mix(original,smoothed,limit / shift) : smoothed;
+  });
+  const midpoint = index => mix(contour[index],contour[(index + 1) % count],.5);
+  const path = 'M' + pair(midpoint(count - 1)) + contour.map((point,index) =>
+    ' Q' + pair(point) + ' ' + pair(midpoint(index))
+  ).join('');
+  const guideStep = Math.max(2, Math.floor(count / (cornerCount * subdivisions)));
+  return {path:path + ' Z', nodes:subdivisions === 1 ? [] : contour.filter((_,index) => index % guideStep === 0)};
+}
+
+function regionFor(sites, index, clearance) {
+  const a = sites[index];
+  let polygon = [[0,0],[width,0],[width,height],[0,height]];
+  for (const [j,b] of sites.entries()) {
+    if (j === index || polygon.length < 3) continue;
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const distance = Math.hypot(dx,dy);
+    const nx = distance > .001 ? dx / distance : (j > index ? 1 : -1);
+    const ny = distance > .001 ? dy / distance : 0;
+    const midpoint = nx * (a.x + b.x) / 2 + ny * (a.y + b.y) / 2;
+    const bias = (a.weight - b.weight) / (2 * Math.max(distance,.001));
+    polygon = cutPolygon(polygon, nx, ny, midpoint + bias - Math.min(clearance, distance * .24) / 2);
+  }
+  return polygon;
+}
+
+function polygonArea(polygon) {
+  return Math.abs(polygon.reduce((area, point, index) => {
+    const next = polygon[(index + 1) % polygon.length];
+    return area + point[0] * next[1] - point[1] * next[0];
+  },0)) / 2;
+}
+
+function balanceAreas(cells, growth) {
+  const ranked = [...cells].sort((a,b) => b.r - a.r);
+  const targets = new Map(ranked.map((cell,index) => {
+    const rank = index / (cells.length - 1);
+    const smallMix = rank < .18 ? 5.5 : .55;
+    const largeMix = rank < .68 ? 2.2 : .24;
+    const balanced = 1.28 - rank * .56;
+    const mix = growth < .5 ? smallMix : largeMix;
+    const amount = Math.abs(growth * 2 - 1);
+    return [cell, balanced * (1 - amount) + mix * amount];
+  }));
+  const sum = [...targets.values()].reduce((total,target) => total + target, 0);
+  const areas = cells.map(cell => width * height * targets.get(cell) / sum);
+  for (const cell of cells) cell.weight = 0;
+  for (let step = 0; step < 76; step++) {
+    const changes = cells.map((_,index) => areas[index] - polygonArea(regionFor(cells,index,0)));
+    if (changes.every(change => Math.abs(change) < width * height * .00012)) break;
+    for (const [index,cell] of cells.entries()) cell.weight += changes[index] * Math.min(.24, 4 / cells.length);
+  }
+  // A zero-area region falls back to a less aggressive redistribution.
+  for (let pass = 0; pass < 24; pass++) {
+    if (cells.every((_,index) => polygonArea(regionFor(cells,index,0)) > 3)) break;
+    for (const cell of cells) cell.weight *= .65;
+  }
+  for (const [index,cell] of cells.entries()) cell.r = Math.sqrt(areas[index] / Math.PI);
+}
+
+function compactPacking(layout) {
+  const cells = layout.map(cell => ({...cell}));
+  for (let step = 0; step < 12; step++) {
+    const regions = cells.map((_,index) => regionFor(cells,index,0));
+    for (const [index,cell] of cells.entries()) {
+      const region = regions[index];
+      let twiceArea = 0;
+      let x = 0;
+      let y = 0;
+      for (const [i,point] of region.entries()) {
+        const next = region[(i + 1) % region.length];
+        const cross = point[0] * next[1] - next[0] * point[1];
+        twiceArea += cross;
+        x += (point[0] + next[0]) * cross;
+        y += (point[1] + next[1]) * cross;
+      }
+      if (Math.abs(twiceArea) > 2) {
+        cell.x += (x / (3 * twiceArea) - cell.x) * .65;
+        cell.y += (y / (3 * twiceArea) - cell.y) * .65;
+      }
+      cell.weight += (Math.PI * cell.r ** 2 - Math.abs(twiceArea) / 2) * .10;
+    }
+  }
+  for (let retry = 0; retry < 14; retry++) {
+    if (cells.every((_,index) => polygonArea(regionFor(cells,index,0)) > 4)) break;
+    for (const cell of cells) cell.weight *= .72;
+  }
+  return cells;
+}
+
+function fitMembranes(cells, clearance, growth, rounding, edgeCount, preference) {
+  const sites = cells.map(cell => {
+    const [top,right,bottom,left] = cell.points ?? anchors;
+    const x = clamp(cell.x + (right[0] + left[0]) * cell.r * .38, 1, width - 1);
+    const y = clamp(cell.y + (bottom[1] + top[1]) * cell.r * .38, 1, height - 1);
+    const span = Math.max(.30, (right[0] - left[0] + bottom[1] - top[1]) / 4);
+    const base = baseLayout[cell.index] ?? newborns.get(cell.index);
+    return {x,y, weight:cell.weight + (growthPressure.get(cell.index) ?? 0) + ((cell.r * span) ** 2 - base.r ** 2) * .65};
+  });
+
+  // Keep the edited site represented even after a large move.
+  if (edits.size || popped.size) {
+    // Preserve the cores of large cells. Smaller cells yield and slide around them.
+    const bySize = sites.map((site,index) => ({site, radius:cells[index].r}))
+      .sort((a,b) => b.radius - a.radius);
+    for (const [index,small] of bySize.entries()) {
+      for (const big of bySize.slice(0,index)) {
+        if (big.radius < small.radius * 1.8) continue;
+        const dx = small.site.x - big.site.x;
+        const dy = small.site.y - big.site.y;
+        const distance = Math.hypot(dx,dy);
+        const core = big.radius * .74 + small.radius * .20;
+        if (distance >= core) continue;
+        const ux = distance > .001 ? dx / distance : 1;
+        const uy = distance > .001 ? dy / distance : 0;
+        small.site.x = clamp(big.site.x + ux * core, 1, width - 1);
+        small.site.y = clamp(big.site.y + uy * core, 1, height - 1);
+      }
+    }
+    for (const [index,a] of sites.entries()) {
+      for (const b of sites.slice(index + 1)) {
+        const cap = 80 + .95 * ((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
+        if (a.weight > b.weight + cap) a.weight = b.weight + cap;
+        if (b.weight > a.weight + cap) b.weight = a.weight + cap;
+      }
+    }
+  }
+  for (const [index,cell] of cells.entries()) {
+    let region = regionFor(sites,index,clearance);
+    if (region.length < 3) region = regionFor(sites,index,0);
+    cell.area = polygonArea(region);
+    cell.region = region;
+    cell.site = sites[index];
+    const shape = roundedPath(region, Math.min(cell.r * .19, 11 + 10 * (1 - growth)), rounding, edgeCount, preference, Math.max(0, 1 - clearance / (height * .006)));
+    cell.path = shape.path;
+    cell.nodes = shape.nodes;
+  }
+}
+
+function scaleHandle(bubble) {
+  const directionX = bubble.x > width * .78 ? -1 : 1;
+  const directionY = bubble.y > height * .78 ? -1 : 1;
+  const distance = Math.max(35, bubble.r * .82 + 16);
+  return [clamp(bubble.x + distance * directionX, 12, width - 12),
+    clamp(bubble.y + distance * directionY, 12, height - 12)];
+}
+
+function showSelection() {
+  const bubble = bubbles[selected];
+  if (!bubble) {
+    selection.innerHTML = '';
+    return;
+  }
+  if (tool !== 'edit') {
+    selection.innerHTML = '<path class="guide" d="' + bubble.path + '"/>';
+    return;
+  }
+  const points = bubble.points ?? anchors;
+  const [x,y] = scaleHandle(bubble);
+  const outline = '<path class="guide" d="' + bubble.path + '"/>';
+  const nodes = bubble.nodes.map(([x,y]) =>
+    '<circle cx="' + fixed(x) + '" cy="' + fixed(y) + '" r="2.5" fill="#283824" pointer-events="none"/>'
+  ).join('');
+  selection.innerHTML = outline + nodes + points.map((point,index) =>
+    '<circle class="anchor" data-handle="' + index + '" cx="' + fixed(clamp(bubble.x + point[0] * bubble.r, 12, width - 12)) +
+    '" cy="' + fixed(clamp(bubble.y + point[1] * bubble.r, 12, height - 12)) + '" r="10"/>'
+  ).join('') + '<rect class="scale" data-handle="scale" x="' + fixed(x - 9) +
+    '" y="' + fixed(y - 9) + '" width="18" height="18"/>';
+}
+
+function resizeComposition(newWidth,newHeight) {
+  if (newWidth === width && newHeight === height) return;
+  const sx = newWidth / width;
+  const sy = newHeight / height;
+  for (const edit of edits.values()) {
+    edit.x *= sx;
+    edit.y *= sy;
+  }
+  for (const birth of newborns.values()) {
+    birth.x *= sx;
+    birth.y *= sy;
+    birth.r *= Math.sqrt(sx * sy);
+    birth.weight *= sx * sy;
+  }
+  for (const [index,pressure] of growthPressure) growthPressure.set(index,pressure * sx * sy);
+  width = newWidth;
+  height = newHeight;
+  shrinking = null;
+}
+
+function updateLayout() {
+  const key = layoutControls.map(control => control.type === 'checkbox' ? control.checked : control.value).join('/');
+  if (key === layoutInputKey) return;
+  const preset = formats[format.value];
+  const paper = isPaper(format.value);
+  const unit = paper ? paperUnit : 1;
+  const horizontal = orientation.value === 'landscape';
+  orientation.disabled = format.value === 'square';
+  orientation.title = orientation.disabled ? 'Square artboards have the same width and height.' : '';
+  for (const id of ['margin','gutter']) byId(id + '-unit').textContent = paper ? '(mm)' : '(px)';
+  let pageWidth = format.value === 'custom' ? 1400 : preset.width * unit;
+  let pageHeight = format.value === 'custom' ? 990 : preset.height * unit;
+  if (horizontal !== (pageWidth >= pageHeight)) [pageWidth,pageHeight] = [pageHeight,pageWidth];
+  const number = (id,min,max) => clamp(Number(byId(id).value) || min,min,max);
+  const grid = layoutGrid({
+    width:pageWidth,height:pageHeight,pageFormat:format.value,pageMargin:number('margin',0,300),
+    gridColumns:number('columns',1,12),gridRows:number('rows',1,12),gridGutter:number('gutter',0,120),
+    columnStart:number('column-start',1,12),rowStart:number('row-start',1,12),
+    columnSpan:number('column-span',1,12),rowSpan:number('row-span',1,12),
+    blockHeight:100,verticalAlign:'center'
+  });
+  const area = grid.area;
+  resizeComposition(area.width,area.height);
+  page = {width:pageWidth,height:pageHeight,area,paper};
+  layoutInputKey = key;
+  art.setAttribute('viewBox','0 0 ' + pageWidth + ' ' + pageHeight);
+  art.style.setProperty('--page-ratio',pageWidth / pageHeight);
+  byId('artwork').setAttribute('transform','translate(' + area.x + ' ' + area.y + ')');
+  for (const [id,w,h] of [['page-background',pageWidth,pageHeight],['artwork-background',width,height],['artwork-clip',width,height]]) {
+    byId(id).setAttribute('width',w);
+    byId(id).setAttribute('height',h);
+  }
+  const guide = byId('layout-guides');
+  guide.innerHTML = byId('guides').checked ? Array.from({length:grid.columns * grid.rows},(_,index) => {
+    const x = grid.margin + (index % grid.columns) * (grid.columnWidth + grid.gutter);
+    const y = grid.margin + Math.floor(index / grid.columns) * (grid.rowHeight + grid.rowGutter);
+    return '<rect x="' + x + '" y="' + y + '" width="' + grid.columnWidth + '" height="' + grid.rowHeight +
+      '" fill="none" stroke="#283824" stroke-opacity=".55" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"/>';
+  }).join('') : '';
+}
+
+function render() {
+  updateLayout();
+  const clearance = Math.min(width,height) * Number(gap.value) / 1000;
+  const key = [width,height,density.value,growth.value].join('/');
+  if (key !== layoutKey) {
+    baseLayout = packCluster(width, height, Number(density.value), .65, Math.min(3, Math.min(width,height) * .01));
+    balanceAreas(baseLayout, Number(growth.value) / 100);
+    compactLayout = null;
+    layoutKey = key;
+  }
+  const preference = Number(roundness.value) / 100;
+  if (preference > 0 && !compactLayout) compactLayout = compactPacking(baseLayout);
+  bubbles = baseLayout.flatMap((bubble,index) => {
+    if (popped.has(index)) return [];
+    const compact = compactLayout?.[index] ?? bubble;
+    const x = bubble.x + (compact.x - bubble.x) * preference;
+    const y = bubble.y + (compact.y - bubble.y) * preference;
+    const weight = bubble.weight + (compact.weight - bubble.weight) * preference;
+    const edit = edits.get(index);
+    if (!edit) return [{...bubble,index,x,y,weight,originX:x,originY:y}];
+    return [{index,x:x + edit.x, y:y + edit.y, r:bubble.r * edit.scale,
+      points:edit.points,weight,originX:x,originY:y}];
+  });
+  for (const [index,birth] of newborns) {
+    const edit = edits.get(index);
+    bubbles.push({...birth,index,originX:birth.x,originY:birth.y,
+      x:birth.x + (edit?.x ?? 0),y:birth.y + (edit?.y ?? 0),
+      r:birth.r * (edit?.scale ?? 1),points:edit?.points});
+  }
+  if (selected !== null && !bubbles[selected]) selected = null;
+  fitMembranes(bubbles, clearance, Number(growth.value) / 100, Number(rounding.value) / 100, Number(edges.value), Number(roundness.value) / 100);
+  circles.innerHTML = bubbles.map((bubble,index) =>
+    '<path data-bubble="' + index + '" d="' + bubble.path + '"/>'
+  ).join('');
+  showSelection();
+  for (const control of controls) {
+    const unit = {density:'', growth:'%', gap:' ‰', rounding:'%', edges:'', roundness:'%'}[control.id];
+    document.querySelector('output[for="' + control.id + '"]').value = control.value + unit;
+  }
+}
+
+function pointerPosition(event) {
+  const point = art.createSVGPoint();
+  point.x = event.clientX;
+  point.y = event.clientY;
+  return point.matrixTransform(byId('artwork').getScreenCTM().inverse());
+}
+
+function showToolHelp() {
+  toolHelp.textContent = {
+    edit:'Drag to move a cell. Use the square handle to scale and the round handles to reshape.',
+    pop:'Click a cell to pop it and let its neighbours fill the space.',
+    merge:selected === null ? 'Click the first cell to merge.' : 'Click a second cell to merge the pair.'
+  }[tool];
+}
+
+function popCell(cell) {
+  popped.add(cell.index);
+  edits.delete(cell.index);
+  growthPressure.delete(cell.index);
+  newborns.delete(cell.index);
+  if (shrinking?.index === cell.index) shrinking = null;
+  selected = null;
+}
+
+function mergeCells(first, second) {
+  const [keep, remove] = first.area >= second.area ? [first,second] : [second,first];
+  const total = keep.area + remove.area;
+  if (total <= 0) return;
+  const share = remove.area / total;
+  const edit = getEdit(keep.index);
+  edit.x = keep.x + (remove.x - keep.x) * share - keep.originX;
+  edit.y = keep.y + (remove.y - keep.y) * share - keep.originY;
+  edit.scale = Math.min(3.5, keep.r * Math.sqrt(total / Math.max(keep.area,1)) / (baseLayout[keep.index] ?? newborns.get(keep.index)).r);
+  popCell(remove);
+  selected = bubbles.filter(cell => !popped.has(cell.index)).findIndex(cell => cell.index === keep.index);
+}
+
+function seedBubble(average) {
+  const spacing = Math.sqrt(average);
+  let best;
+  for (const cell of bubbles) {
+    for (const [x,y] of cell.region) {
+      if (Math.min(x,y,width - x,height - y) < spacing * .12) continue;
+      let nearest = Infinity;
+      let power = Infinity;
+      for (const other of bubbles) {
+        const distance = (x - other.site.x) ** 2 + (y - other.site.y) ** 2;
+        nearest = Math.min(nearest,distance);
+        power = Math.min(power,distance - other.site.weight);
+      }
+      if (!best || nearest > best.nearest) best = {x,y,power,nearest};
+    }
+  }
+  if (!best) return false;
+  const index = nextBirthIndex++;
+  newborns.set(index,{x:best.x,y:best.y,weight:-best.power + average * .025,
+    r:spacing * .14,age:0});
+  return true;
+}
+
+function growthStep(seconds) {
+  const average = bubbles.reduce((sum,cell) => sum + cell.area,0) / bubbles.length;
+  let changed = false;
+  birthClock += seconds;
+  if (birthClock >= 3 && bubbles.length < Number(density.value) + 7) {
+    birthClock = 0;
+    changed = seedBubble(average);
+  }
+  for (const [index,birth] of newborns) {
+    birth.age += seconds;
+    if (birth.age > 1.6) continue;
+    const pressure = growthPressure.get(index) ?? 0;
+    growthPressure.set(index,pressure + average * .14 * seconds);
+    changed = true;
+  }
+  if (bubbles.length <= 4) {
+    if (changed) render();
+    return;
+  }
+  let cell = shrinking && bubbles.find(candidate => candidate.index === shrinking.index);
+  if (!cell) {
+    const mature = bubbles.filter(candidate => (newborns.get(candidate.index)?.age ?? 5) >= 5);
+    cell = mature.reduce((a,b) => !a || b.area < a.area ? b : a,null);
+    if (!cell || cell.area > average * .80) {
+      if (changed) render();
+      return;
+    }
+    const neighbours = bubbles.filter(candidate => candidate.area > cell.area)
+      .map(candidate => ({index:candidate.index, distance:Math.hypot(candidate.x - cell.x,candidate.y - cell.y)}))
+      .sort((a,b) => a.distance - b.distance)
+      .slice(0,3)
+      .map(candidate => candidate.index);
+    shrinking = {index:cell.index, area:cell.area, neighbours};
+  }
+
+  for (const [rank,index] of shrinking.neighbours.entries()) {
+    if (popped.has(index)) continue;
+    const pressure = growthPressure.get(index) ?? 0;
+    growthPressure.set(index, pressure + average * .15 * seconds / (1 + rank * .45));
+  }
+  render();
+  const compressed = bubbles.find(candidate => candidate.index === cell.index);
+  if (compressed.area < Math.max(6,shrinking.area * .045)) {
+    popCell(compressed);
+    render();
+    showToolHelp();
+  }
+}
+
+for (const button of toolButtons) button.addEventListener('click', () => {
+  tool = button.dataset.tool;
+  selected = null;
+  for (const choice of toolButtons) choice.setAttribute('aria-pressed', String(choice === button));
+  showSelection();
+  showToolHelp();
+});
+
+function animateGrowth(now) {
+  if (!autoGrowth.checked) return;
+  const elapsed = lastGrowthFrame === null ? 0 : now - lastGrowthFrame;
+  if (drag || lastGrowthFrame === null) {
+    lastGrowthFrame = now;
+  } else if (elapsed >= 1000 / 60 - 1) {
+    lastGrowthFrame = now;
+    growthStep(Math.min(elapsed, 50) / 1000);
+  }
+  growthFrame = requestAnimationFrame(animateGrowth);
+}
+
+autoGrowth.addEventListener('change', () => {
+  if (growthFrame !== null) cancelAnimationFrame(growthFrame);
+  lastGrowthFrame = null;
+  growthFrame = autoGrowth.checked ? requestAnimationFrame(animateGrowth) : null;
+});
+
+art.addEventListener('pointerdown', event => {
+  if (event.button !== 0 || drag) return;
+  const {bubble, handle} = event.target.dataset;
+  if (tool !== 'edit') {
+    const index = Number(bubble);
+    const cell = bubbles[index];
+    if (!cell) return;
+    if (tool === 'pop' && bubbles.length > 1) popCell(cell);
+    if (tool === 'merge') {
+      if (selected === null) selected = index;
+      else if (selected !== index) mergeCells(bubbles[selected],cell);
+    }
+    render();
+    showToolHelp();
+    return;
+  }
+  if (bubble === undefined && handle === undefined) {
+    selected = null;
+    showSelection();
+    return;
+  }
+  if (bubble !== undefined) selected = Number(bubble);
+  const item = bubbles[selected];
+  const point = pointerPosition(event);
+  const edit = getEdit(item.index);
+  edit.x = item.x - item.originX;
+  edit.y = item.y - item.originY;
+  drag = {id:event.pointerId, point, item, x:edit.x, y:edit.y, scale:edit.scale,
+    handle:handle ?? 'move', anchor:(item.points ?? anchors)[Number(handle)]};
+  if (event.pointerType !== 'mouse') art.setPointerCapture(event.pointerId);
+  art.classList.add('dragging');
+  showSelection();
+  event.preventDefault();
+});
+
+window.addEventListener('pointermove', event => {
+  if (!drag || event.pointerId !== drag.id) return;
+  const point = pointerPosition(event);
+  const {item, handle} = drag;
+  const edit = getEdit(item.index);
+  if (handle === 'move') {
+    edit.x = drag.x + clamp(item.x + point.x - drag.point.x, 12, width - 12) - item.x;
+    edit.y = drag.y + clamp(item.y + point.y - drag.point.y, 12, height - 12) - item.y;
+  } else if (handle === 'scale') {
+    const before = Math.hypot(drag.point.x - item.x, drag.point.y - item.y);
+    const after = Math.hypot(point.x - item.x, point.y - item.y);
+    edit.scale = clamp(drag.scale * after / Math.max(before, 1), .2, 3);
+  } else {
+    if (!edit.points) edit.points = (item.points ?? anchors).map(anchor => [...anchor]);
+    const index = Number(handle);
+    const [nx,ny] = anchors[index];
+    const x = drag.anchor[0] + (point.x - drag.point.x) / item.r;
+    const y = drag.anchor[1] + (point.y - drag.point.y) / item.r;
+    const normal = clamp(x * nx + y * ny, .24, 2.3);
+    const tangent = clamp(x * -ny + y * nx, -.60 * normal, .60 * normal);
+    edit.points[index] = [normal * nx - tangent * ny, normal * ny + tangent * nx];
+  }
+  render();
+});
+
+function endDrag(event) {
+  if (drag?.id !== event.pointerId) return;
+  drag = null;
+  art.classList.remove('dragging');
+}
+for (const event of ['pointerup','pointercancel','lostpointercapture']) window.addEventListener(event,endDrag);
+art.addEventListener('dblclick', event => {
+  const cell = bubbles[Number(event.target.dataset.bubble)];
+  if (tool !== 'edit' || !cell || cell.r >= height * .18 || bubbles.length <= 1) return;
+  popCell(cell);
+  render();
+});
+let roundnessFrame = null;
+roundness.addEventListener('input', () => {
+  document.querySelector('output[for="roundness"]').value = roundness.value + '%';
+  if (roundnessFrame !== null) return;
+  roundnessFrame = requestAnimationFrame(() => {
+    roundnessFrame = null;
+    render();
+  });
+});
+for (const control of controls) {
+  if (control !== roundness) control.addEventListener('input',render);
+}
+for (const control of layoutControls) {
+  if (control !== format) control.addEventListener('change',render);
+}
+format.addEventListener('change', () => {
+  if (format.value === 'portrait') orientation.value = 'portrait';
+  if (format.value === 'widescreen') orientation.value = 'landscape';
+  const paper = isPaper(format.value);
+  byId('margin').value = format.value === 'custom' ? 0 : paper ? 15 : 48;
+  byId('gutter').value = format.value === 'custom' ? 0 : paper ? 5 : 24;
+  render();
+});
+
+const savedControls = [...controls,...layoutControls,byId('export-area')];
+const fileStatus = byId('file-status');
+function snapshot() {
+  return {
+    version:1,width,height,
+    settings:Object.fromEntries(savedControls.map(control =>
+      [control.id,control.type === 'checkbox' ? control.checked : control.value])),
+    edits:[...edits], popped:[...popped], births:[...newborns], pressure:[...growthPressure],
+    nextBirthIndex,birthClock,shrinking
+  };
+}
+
+function restore(snapshot) {
+  if (snapshot?.version !== 1 || !snapshot.settings ||
+      !['edits','popped','births','pressure'].every(key => Array.isArray(snapshot[key])) ||
+      ![snapshot.width,snapshot.height,snapshot.nextBirthIndex,snapshot.birthClock].every(Number.isFinite) ||
+      snapshot.width <= 0 || snapshot.height <= 0 || !Object.hasOwn(formats,snapshot.settings.format)) {
+    throw new Error('Invalid saved composition');
+  }
+  autoGrowth.checked = false;
+  autoGrowth.dispatchEvent(new Event('change'));
+  for (const control of savedControls) {
+    if (!(control.id in snapshot.settings)) continue;
+    if (control.type === 'checkbox') control.checked = snapshot.settings[control.id];
+    else control.value = snapshot.settings[control.id];
+  }
+  for (const [map,items] of [[edits,snapshot.edits],[newborns,snapshot.births],[growthPressure,snapshot.pressure]]) {
+    map.clear();
+    for (const [key,value] of items) map.set(key,value);
+  }
+  popped.clear();
+  for (const key of snapshot.popped) popped.add(key);
+  width = snapshot.width;
+  height = snapshot.height;
+  nextBirthIndex = snapshot.nextBirthIndex;
+  birthClock = snapshot.birthClock;
+  shrinking = snapshot.shrinking;
+  selected = null;
+  layoutInputKey = null;
+  layoutKey = null;
+  render();
+}
+
+byId('save').addEventListener('click',() => {
+  try {
+    localStorage.setItem(storageKey,JSON.stringify(snapshot()));
+    fileStatus.textContent = 'Composition saved in this browser.';
+  } catch {
+    fileStatus.textContent = 'This browser could not save the composition.';
+  }
+});
+byId('load').addEventListener('click',() => {
+  try {
+    const saved = localStorage.getItem(storageKey);
+    if (!saved) {
+      fileStatus.textContent = 'There is no saved composition in this browser.';
+      return;
+    }
+    restore(JSON.parse(saved));
+    fileStatus.textContent = 'Saved composition loaded.';
+  } catch {
+    fileStatus.textContent = 'This browser could not load the saved composition.';
+  }
+});
+
+function exportSvg(full) {
+  const w = full ? page.width : width;
+  const h = full ? page.height : height;
+  const canvasSize = value => page.paper ? fixed(value / paperUnit) + 'mm' : fixed(value);
+  const background = full ? '<rect width="100%" height="100%" fill="#efede7"/>' : '';
+  const transform = full ? ' transform="translate(' + page.area.x + ' ' + page.area.y + ')"' : '';
+  const paths = bubbles.filter(cell => cell.path).map(cell => '<path d="' + cell.path + '"/>').join('');
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="' + canvasSize(w) + '" height="' + canvasSize(h) +
+    '" viewBox="0 0 ' + w + ' ' + h + '">' + background +
+    '<defs><clipPath id="cell-field-artwork"><rect width="' + width + '" height="' + height + '"/></clipPath></defs>' +
+    '<g' + transform + '><g clip-path="url(#cell-field-artwork)">' +
+    '<rect width="' + width + '" height="' + height + '" fill="#b65756"/><g fill="#e3dfd7">' + paths +
+    '</g></g></g></svg>';
+}
+byId('export').addEventListener('click',() => {
+  const full = byId('export-area').value === 'layout';
+  const url = URL.createObjectURL(new Blob([exportSvg(full)],{type:'image/svg+xml'}));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = full ? 'cell-field-layout.svg' : 'cell-field-artwork.svg';
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url),30000);
+});
+
+render();
+</script>
+</html>

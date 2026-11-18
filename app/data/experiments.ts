@@ -14,6 +14,16 @@ export type Experiment = {
 
 const experimentCatalog: Experiment[] = [
   {
+    id: "REC-14",
+    slug: "cell-field",
+    title: "Cell Field",
+    kind: "tool",
+    status: "test",
+    year: "2026",
+    tags: ["generative graphics", "tessellation", "SVG"],
+    summary: "Compose living fields of cells that grow, merge, pop and reshape around their neighbours.",
+  },
+  {
     id: "REC-13",
     slug: "grid-delay-machine",
     title: "MEM‑FLD",
