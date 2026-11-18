@@ -1349,7 +1349,7 @@ button, input, select, textarea { font: inherit; }
   .home-entry-meta { padding-left: 60px; }
 }
 
-/* Open metadata spacing and a consistent right-aligned update column. */
+/* Open metadata spacing and two aligned date columns. */
 .home-shell .experiment-row {
   width: min(860px, calc(50vw + 300px - 28px));
   min-height: 64px;
@@ -1358,15 +1358,15 @@ button, input, select, textarea { font: inherit; }
 }
 .home-entry-meta {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) repeat(2, 18ch);
   align-items: center;
   flex: 1;
-  gap: 12px 36px;
+  gap: 12px 18px;
   letter-spacing: 0.02em;
   line-height: 1.65;
 }
 .home-entry-heading .experiment-id { letter-spacing: 0.02em; }
-.home-entry-updated { display: grid; text-align: right; }
+.home-entry-date { display: grid; text-align: right; }
 @media (max-width: 900px) {
   .home-shell .experiment-row { width: 100%; }
   .home-entry-meta { flex-basis: 100%; }
@@ -1375,11 +1375,10 @@ button, input, select, textarea { font: inherit; }
   .home-shell .experiment-row { align-items: stretch; padding-block: 14px; }
   .home-shell .experiment-row:hover,
   .home-shell .experiment-row:focus-visible { padding-block: 14px; }
-  .home-entry-meta { flex: auto; width: 100%; gap: 8px 20px; }
-}
-@media (max-width: 420px) {
-  .home-entry-meta { grid-template-columns: minmax(0, 1fr); }
-  .home-entry-updated { justify-self: end; }
+  .home-entry-meta { flex: auto; width: 100%; gap: 8px 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-entry-description { grid-column: 1 / -1; }
+  .home-entry-date { text-align: left; }
+  .home-entry-meta time { white-space: normal; }
 }
 
 /* Centre the complete REC/title/metadata block and align row content at its top. */
