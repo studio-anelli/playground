@@ -24,8 +24,11 @@ summary{cursor:pointer}
 select,input[type=number]{color:inherit;background:transparent;border:1px solid #a7ac9e;padding:5px;font:inherit;width:100%}
 button:disabled{opacity:.45;cursor:default}
 .file-controls{display:grid;gap:8px}
+.standalone-back{display:none;margin:12px 20px;color:#283824;width:fit-content}
+.standalone .standalone-back{display:block}
 </style>
 
+<a class="standalone-back" href="/">← Back to Playground</a>
 <main>
 <section aria-label="Artwork preview">
   <svg id="art" viewBox="0 0 1400 990" role="img" aria-label="Cell Field composition">
@@ -44,7 +47,7 @@ button:disabled{opacity:.45;cursor:default}
   <summary>Layout</summary>
   <div class="layout-controls">
     <label>Format<select id="format"></select></label>
-    <label>Orientation<select id="orientation"><option value="portrait">Portrait</option><option value="landscape" selected>Landscape</option></select></label>
+    <label>Orientation<select id="orientation"><option value="portrait">Vertical</option><option value="landscape" selected>Horizontal</option></select></label>
     <label>Margin <span id="margin-unit">(px)</span><input id="margin" type="number" min="0" max="300" value="0"></label>
     <label>Columns<input id="columns" type="number" min="1" max="12" value="1"></label>
     <label>Rows<input id="rows" type="number" min="1" max="12" value="1"></label>
@@ -85,6 +88,8 @@ button:disabled{opacity:.45;cursor:default}
 </main>
 <script type="module">
 import { formats, isPaper, layoutGrid } from '/studio-layout.mjs';
+
+if (window.self === window.top) document.documentElement.classList.add('standalone');
 let width = 1400;
 let height = 990;
 const byId = id => document.getElementById(id);
@@ -544,11 +549,12 @@ function updateLayout() {
   const paper = isPaper(format.value);
   const unit = paper ? paperUnit : 1;
   const horizontal = orientation.value === 'landscape';
-  orientation.disabled = !paper;
+  orientation.disabled = format.value === 'square';
+  orientation.title = orientation.disabled ? 'Square artboards have the same width and height.' : '';
   for (const id of ['margin','gutter']) byId(id + '-unit').textContent = paper ? '(mm)' : '(px)';
   let pageWidth = format.value === 'custom' ? 1400 : preset.width * unit;
   let pageHeight = format.value === 'custom' ? 990 : preset.height * unit;
-  if (paper && horizontal) [pageWidth,pageHeight] = [pageHeight,pageWidth];
+  if (horizontal !== (pageWidth >= pageHeight)) [pageWidth,pageHeight] = [pageHeight,pageWidth];
   const number = (id,min,max) => clamp(Number(byId(id).value) || min,min,max);
   const grid = layoutGrid({
     width:pageWidth,height:pageHeight,pageFormat:format.value,pageMargin:number('margin',0,300),
@@ -841,6 +847,8 @@ for (const control of layoutControls) {
   if (control !== format) control.addEventListener('change',render);
 }
 format.addEventListener('change', () => {
+  if (format.value === 'portrait') orientation.value = 'portrait';
+  if (format.value === 'widescreen') orientation.value = 'landscape';
   const paper = isPaper(format.value);
   byId('margin').value = format.value === 'custom' ? 0 : paper ? 15 : 48;
   byId('gutter').value = format.value === 'custom' ? 0 : paper ? 5 : 24;
