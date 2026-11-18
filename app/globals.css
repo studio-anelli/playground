@@ -1366,7 +1366,7 @@ button, input, select, textarea { font: inherit; }
   line-height: 1.65;
 }
 .home-entry-heading .experiment-id { letter-spacing: 0.02em; }
-.home-entry-date { display: grid; text-align: right; }
+.home-entry-date { display: grid; text-align: right; font-size: 0.76rem; }
 @media (max-width: 900px) {
   .home-shell .experiment-row { width: 100%; }
   .home-entry-meta { flex-basis: 100%; }
