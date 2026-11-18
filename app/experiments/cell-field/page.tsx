@@ -11,7 +11,7 @@ export default function CellFieldPage() {
           <ArrowLeft aria-hidden="true" /> Back to Playground
         </a>
         <h1>Cell Field</h1>
-        <span>REC-14 / Generative Graphics</span>
+        <span>REC-14 / Tool / Test</span>
       </header>
       <iframe
         title="Cell Field editor"

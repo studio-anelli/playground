@@ -4,7 +4,6 @@ export type Experiment = {
   id: string;
   slug: string;
   href?: string;
-  group?: "Generative Graphics";
   title: string;
   kind: "experiment" | "tool" | "study";
   status: ExperimentStatus;
@@ -14,6 +13,16 @@ export type Experiment = {
 };
 
 const experimentCatalog: Experiment[] = [
+  {
+    id: "REC-14",
+    slug: "cell-field",
+    title: "Cell Field",
+    kind: "tool",
+    status: "test",
+    year: "2026",
+    tags: ["generative graphics", "tessellation", "SVG"],
+    summary: "Compose living fields of cells that grow, merge, pop and reshape around their neighbours.",
+  },
   {
     id: "REC-13",
     slug: "grid-delay-machine",
@@ -36,20 +45,8 @@ const experimentCatalog: Experiment[] = [
     summary: "Explore a personal record collection through musical origins, cultural connections and release markets.",
   },
   {
-    id: "REC-14",
-    slug: "cell-field",
-    group: "Generative Graphics",
-    title: "Cell Field",
-    kind: "tool",
-    status: "test",
-    year: "2026",
-    tags: ["generative graphics", "tessellation", "SVG"],
-    summary: "Compose living fields of cells that grow, merge, pop and reshape around their neighbours.",
-  },
-  {
     id: "REC-11",
     slug: "durf-dots",
-    group: "Generative Graphics",
     title: "●●●",
     kind: "tool",
     status: "test",
