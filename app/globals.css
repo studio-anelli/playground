@@ -1740,3 +1740,11 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
 /* Let the credits rest at the screen edge, with breathing room on shorter screens. */
 .colophon-document { display: flex; flex-direction: column; flex: 1 0 auto; }
 .colophon-footer { margin-top: auto; padding-top: 32px; }
+
+.experiment-group-title {
+  margin: 10px 0 0;
+  font: 400 0.7rem/1.5 var(--ui-mono);
+}
+@media (max-width: 760px) {
+  .experiment-group-title { padding-left: 60px; }
+}
