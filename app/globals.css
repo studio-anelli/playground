@@ -1397,9 +1397,6 @@ button, input, select, textarea { font: inherit; }
   --index-title-shift: 16px;
   --site-nav-inset: calc(max(0px, (100% - var(--index-width)) / 2) + var(--index-title-padding) - var(--index-title-shift));
 }
-@media (761px <= width <= 900px) {
-  .home-shell, .terminal-shell { --site-nav-inset: calc(80px + var(--index-title-padding) - var(--index-title-shift)); }
-}
 @media (max-width: 760px) {
   .home-shell, .terminal-shell { --site-nav-inset: 60px; }
 }
