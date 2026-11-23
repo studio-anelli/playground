@@ -1494,7 +1494,7 @@ html { scrollbar-gutter: stable; }
   height: 60px;
   align-items: flex-end;
   transform: translateY(calc(var(--content-start-gap) - 8px));
-  font: 300 0.9rem/1.5 var(--ui-sans);
+  font: 300 1.2rem/1.5 var(--ui-sans);
   text-transform: none;
 }
 .home-shell .experiment-index {
@@ -1705,7 +1705,7 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
   .colophon-document h1 { margin-bottom: 32px; }
 }
 @media (max-width: 420px) {
-  .home-shell .site-nav, .terminal-shell .site-nav { gap: 5px; font-size: 0.75rem; }
+  .home-shell .site-nav, .terminal-shell .site-nav { gap: 5px; font-size: 1rem; }
   .site-appearance-controls button { min-width: 28px; padding-inline: 3px; }
 }
 
