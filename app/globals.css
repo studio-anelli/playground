@@ -1750,3 +1750,18 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
 /* Let the credits rest at the screen edge, with breathing room on shorter screens. */
 .colophon-document { display: flex; flex-direction: column; flex: 1 0 auto; }
 .colophon-footer { margin-top: auto; padding-top: 32px; }
+
+/* Leave a separate right-hand column for the menu on wide screens. */
+@media (min-width: 1280px) {
+  .home-shell, .colophon-shell { --menu-column: 440px; }
+  .home-shell .experiment-index {
+    width: min(940px, calc(100% - var(--menu-column)));
+    margin-inline: 0 auto;
+  }
+  .home-shell .home-entry-heading .experiment-id,
+  .home-shell .experiment-row::before { left: -64px; }
+  .colophon-document {
+    width: min(892px, calc(100% - var(--menu-column) - 48px));
+    margin-inline: 48px auto;
+  }
+}
