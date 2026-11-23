@@ -1373,8 +1373,8 @@ button, input, select, textarea { font: inherit; }
     grid-template-columns: minmax(0, 24%) minmax(0, 1fr);
     column-gap: 32px;
   }
-  .home-shell .home-entry-heading { margin-inline-start: -16px; }
-  .home-shell .home-entry-heading .experiment-id { transform: translateX(16px); }
+  .home-shell .home-entry-heading { margin-inline-start: calc(-1 * var(--index-title-shift)); }
+  .home-shell .home-entry-heading .experiment-id { transform: translateX(var(--index-title-shift)); }
 }
 @media (max-width: 900px) {
   .home-shell .experiment-row { width: 100%; }
@@ -1390,11 +1390,28 @@ button, input, select, textarea { font: inherit; }
   .home-entry-meta time { white-space: normal; }
 }
 
+/* Share the experiment title edge with the navigation. */
+.home-shell, .terminal-shell {
+  --index-width: 940px;
+  --index-title-padding: 64px;
+  --index-title-shift: 16px;
+  --site-nav-inset: calc(max(0px, (100% - var(--index-width)) / 2) + var(--index-title-padding) - var(--index-title-shift));
+}
+@media (761px <= width <= 900px) {
+  .home-shell, .terminal-shell { --site-nav-inset: calc(80px + var(--index-title-padding) - var(--index-title-shift)); }
+}
+@media (max-width: 760px) {
+  .home-shell, .terminal-shell { --site-nav-inset: 60px; }
+}
+@media (max-width: 420px) {
+  .home-shell, .terminal-shell { --site-nav-inset: 0px; }
+}
+
 /* Centre the complete REC/title/metadata block and align row content at its top. */
 .home-shell .experiment-index {
-  width: 940px;
+  width: var(--index-width);
   max-width: 100%;
-  padding-left: 64px;
+  padding-left: var(--index-title-padding);
   margin-inline: auto;
   transform: translateY(-20px);
 }
@@ -1492,7 +1509,9 @@ html { scrollbar-gutter: stable; }
 .home-shell .site-header, .terminal-shell .site-header {
   min-height: 60px;
   height: 60px;
-  font: 400 0.82rem/1.5 var(--ui-mono);
+  justify-content: flex-start;
+  padding-inline-start: var(--site-nav-inset);
+  font: 300 0.9rem/1.5 var(--ui-sans);
   text-transform: none;
 }
 .home-shell .experiment-index {
