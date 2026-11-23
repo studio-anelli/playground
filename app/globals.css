@@ -1495,6 +1495,7 @@ html { scrollbar-gutter: stable; }
   align-items: flex-end;
   transform: translateY(calc(var(--content-start-gap) - 8px));
   font: 300 1.2rem/1.5 var(--ui-sans);
+  letter-spacing: 0;
   text-transform: none;
 }
 .home-shell .experiment-index {
@@ -1701,7 +1702,6 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
 }
 @media (max-width: 760px) {
   .colophon-document { padding-left: 60px; padding-bottom: 40px; }
-  .colophon-shell .site-nav { gap: 10px; }
   .colophon-document h1 { margin-bottom: 32px; }
 }
 @media (max-width: 420px) {
@@ -1751,17 +1751,16 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
 .colophon-document { display: flex; flex-direction: column; flex: 1 0 auto; }
 .colophon-footer { margin-top: auto; padding-top: 32px; }
 
-/* Leave a separate right-hand column for the menu on wide screens. */
+/* Nudge the content while keeping the REC labels and rules at the page edge. */
 @media (min-width: 1280px) {
-  .home-shell, .colophon-shell { --menu-column: 440px; }
-  .home-shell .experiment-index {
-    width: min(940px, calc(100% - var(--menu-column)));
-    margin-inline: 0 auto;
-  }
+  .home-shell { --content-nudge: 0.25rem; }
+  .home-shell .experiment-index { padding-left: calc(64px - var(--content-nudge)); }
   .home-shell .home-entry-heading .experiment-id,
-  .home-shell .experiment-row::before { left: -64px; }
+  .home-shell .experiment-row::before {
+    left: calc(min(-64px, (940px - 100cqw) / 2 - 64px) + var(--content-nudge));
+  }
   .colophon-document {
-    width: min(892px, calc(100% - var(--menu-column) - 48px));
-    margin-inline: 48px auto;
+    margin-left: calc(max(64px, (100% - 940px) / 2 + 64px) - var(--content-nudge));
+    margin-right: var(--content-nudge);
   }
 }
