@@ -1492,7 +1492,7 @@ html { scrollbar-gutter: stable; }
 .home-shell .site-header, .terminal-shell .site-header {
   min-height: 60px;
   height: 60px;
-  font: 400 0.82rem/1.5 var(--ui-mono);
+  font: 300 1rem/1.5 var(--ui-sans);
   text-transform: none;
 }
 .home-shell .experiment-index {
@@ -1703,7 +1703,7 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
   .colophon-document h1 { margin-bottom: 32px; }
 }
 @media (max-width: 420px) {
-  .home-shell .site-nav, .terminal-shell .site-nav { gap: 5px; font-size: 0.75rem; }
+  .home-shell .site-nav, .terminal-shell .site-nav { gap: 5px; }
   .site-appearance-controls button { min-width: 28px; padding-inline: 3px; }
 }
 
