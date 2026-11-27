@@ -1748,3 +1748,53 @@ body:has(.home-shell), body:has(.terminal-shell) { background: var(--site-ground
 /* Let the credits rest at the screen edge, with breathing room on shorter screens. */
 .colophon-document { display: flex; flex-direction: column; flex: 1 0 auto; }
 .colophon-footer { margin-top: auto; padding-top: 32px; }
+
+/* Single-line animated wordmark from the LOGO2 synth preset. */
+.site-logo-link { display: block; margin-right: auto; color: var(--site-title); flex: 0 0 auto; }
+.playground-logo { display: block; position: relative; width: 48vw; height: auto; aspect-ratio: 15 / 2; }
+.playground-logo canvas { display: block; width: 100%; height: 100%; color: inherit; }
+.playground-logo-fallback { position: absolute; inset: 0; display: flex; align-items: center; font: 300 18px/1 var(--ui-sans); }
+.playground-logo[data-ready="false"] canvas { visibility: hidden; }
+.site-logo-link:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
+@media (max-width: 900px) {
+  .playground-logo { width: 44vw; }
+}
+@media (max-width: 600px) {
+  .home-shell .site-header, .terminal-shell .site-header { position: relative; }
+  .site-logo-link { position: absolute; top: 54px; left: 0; }
+  .playground-logo { width: 48vw; }
+}
+
+/* Keep the last animated frame visible during a full document navigation. */
+.playground-logo-poster {
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  mask: var(--logo-poster, linear-gradient(transparent, transparent)) center / 100% 100% no-repeat;
+  -webkit-mask: var(--logo-poster, linear-gradient(transparent, transparent)) center / 100% 100% no-repeat;
+  opacity: 1;
+  transition: opacity 120ms linear;
+}
+.playground-logo canvas { opacity: 0; transition: opacity 120ms linear; }
+.playground-logo[data-ready="true"] canvas { opacity: 1; }
+.playground-logo[data-ready="true"] .playground-logo-poster { opacity: 0; }
+.playground-logo[data-ready="false"] canvas { visibility: visible; }
+@media (prefers-reduced-motion: reduce) {
+  .playground-logo canvas, .playground-logo-poster { transition: none; }
+}
+
+/* A wider logo can extend below the header without being centred above the page. */
+.site-logo-link { align-self: flex-start; margin-top: 8px; }
+
+/* Trial the wordmark flush with the viewport’s top-left edge. */
+.site-logo-link { position: absolute; top: 0; left: -28px; margin: 0; }
+@media (max-width: 760px) { .site-logo-link { left: -16px; } }
+@media (max-width: 600px) {
+  .home-shell .site-header, .terminal-shell .site-header {
+    height: 100px;
+    min-height: 100px;
+    flex-basis: 100px;
+    align-items: flex-end;
+    padding-bottom: 12px;
+  }
+}
