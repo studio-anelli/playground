@@ -1,0 +1,435 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import {EditorialRowView,initialEditorialRows,defaultColumn,editorialCss,type EditorialRow,type EditorialColumn} from "./editorial-row";
+import {EditorialColumnInspector} from "./editorial-controls";
+import {DotPhoto,editorialV2Css} from "./editorial-v2";
+import {IllustratorLanding,illustratorCss,defaultIllustratorType,type IllustratorTypeRole,type IllustratorTypeSettings} from "./illustrator-landing";
+
+
+type Item = { title: string; description: string };
+type AssetSlot = "hero"|"process1"|"process2";
+const photoLibrary=[
+["Filmmaking","Eq_dtBylgoE"],["Fieldwork","3fgC5r65CU0"],["Workshop","80n_J7TsQX0"],["Collaboration","DZkYOtfxEvU"],["City encounter","Jvg1cfbzaz4"],["Making","C0eP-46jmFk"],["Workshop craft","UZUzvJEvKnI"],["Rotterdam street","1Qk6BsWZaME"],["Research","7zztVGeYOs0"],["Exchange","35_nYjsRo5Y"]
+] as const;
+const photoUrl=(id:string)=>"/durf-campus/photos/"+String(photoLibrary.findIndex(([,key])=>key===id)+1).padStart(2,"0")+".webp";
+function DurfLogo(){return <svg aria-label="DURF" role="img" viewBox="0 0 452 106" xmlns="http://www.w3.org/2000/svg" className="dp-logo-vector"><path fill="currentColor" fillRule="evenodd" d="M451 0L397 0L387 3L379 10L374 23L374 105L402 105L402 79L429 78L429 56L402 55L402 28L451 27ZM243 0L243 105L270 105L271 78L291 78L315 105L345 105L345 99L324 79L341 74L351 62L352 19L348 10L342 4L332 0ZM270 28L322 27L327 34L326 51L319 56L272 56L270 54ZM126 0L126 76L132 92L142 101L153 105L198 105L211 100L220 91L225 78L225 0L195 0L195 72L189 78L162 78L156 72L156 0ZM0 0L0 105L78 105L91 100L102 90L109 73L109 32L104 18L95 8L87 3L77 0ZM26 28L71 27L78 31L83 39L83 66L80 72L74 77L67 79L27 79Z"/></svg>}
+function DurfCircles({variant}:{variant:1|2}){return <svg role="img" aria-label="DURF circular graphic" viewBox="0 0 345 345" className="dp-brand-circles">{Array.from({length:64},(_,i)=>{const x=i%8,y=Math.floor(i/8),mid=1-Math.abs(y-3.5)/4;const radius=variant===1?9+Math.min(x,7-x)*2.5+mid*7:Math.max(5,21-x*1.8+mid*3);return <circle key={i} cx={28+x*40} cy={28+y*40} r={radius} fill="currentColor"/>})}</svg>}
+
+type ElementStyle={marginTop:number;marginBottom:number,padding:number,maxWidth:number,align:"left"|"center"|"right",colour:BrandColour|"inherit",background:BrandColour|"transparent",radius:number};
+const defaultElement:ElementStyle={marginTop:0,marginBottom:0,padding:0,maxWidth:100,align:"left",colour:"inherit",background:"transparent",radius:0};
+type FontRole = "display" | "heading" | "lead" | "body" | "mono";
+type FontStyle = { size: number; weight: number; tracking: number; lineHeight: number };
+type BrandColour = "green" | "orange" | "pink" | "paper" | "ink";
+const initialFonts: Record<FontRole,FontStyle> = {
+  display:{size:100,weight:800,tracking:-7.5,lineHeight:.92},
+  heading:{size:100,weight:800,tracking:-7,lineHeight:1.01},
+  lead:{size:100,weight:400,tracking:-2.5,lineHeight:1.25},
+  body:{size:100,weight:400,tracking:0,lineHeight:1.4},
+  mono:{size:100,weight:500,tracking:0,lineHeight:1.5}
+};
+const initialPalette:Record<BrandColour,string>={green:"#507568",orange:"#F16A37",pink:"#DD8EB9",paper:"#F8F4EC",ink:"#25231F"};
+const colourNames:Record<BrandColour,string>={green:"Mooi Groen",orange:"Heel Oranje",pink:"Ultra Roze",paper:"Oud Wit",ink:"Bijna Zwart"};
+type Selection = {kind:"asset";slot:AssetSlot} | {kind:"field";key:string} | {kind:"item";list:"themes"|"functions"|"milestones";index:number} | {kind:"section";key:SectionKey};
+type SectionKey = "hero" | "intro" | "themes" | "functions" | "process" | "editorial" | "next" | "cta" | "footer";
+type EditorTab = "general"|"images"|"layout";
+type RowKey = "themes"|"functions"|"process"|"next";
+type BackgroundSettings={src:string;x:number;y:number;fit:"cover"|"contain";};
+const defaultBackground:BackgroundSettings={src:"",x:50,y:50,fit:"cover"};
+type PageData = {
+  designTheme:"original"|"editorial"|"illustrator";
+  illustratorType:IllustratorTypeSettings;
+  editorialOptions:{themesLayout:"matrix"|"index";functionsLayout:"large"|"rows";dotMode:"none"|"field"|"cutout";spacing:"compact"|"standard"|"generous";imageLayout:"spread"|"standard";};
+  heroTitle: string; heroText: string; introTitle: string; introText: string;
+  processTitle: string; processText: string; ctaTitle: string; ctaText: string;
+  themesLead:string;functionsLead:string;approachText:string;locationText:string;nextTitle:string;nextLead:string;
+  themes: Item[]; functions: Item[]; milestones: Item[];
+  order: SectionKey[]; hidden: SectionKey[];
+  graphic: "circles" | "delta" | "type"; colour: "balanced" | "green" | "bright";
+  density: number; scale: number; typeScale: number; compact: boolean;
+  fonts: Record<FontRole,FontStyle>; palette:Record<BrandColour,string>;
+  sectionColours:Record<"hero"|"functions"|"cta",BrandColour>;
+  images:Record<AssetSlot,string>; graphicAsset:"a"|"b"|"procedural"; logoColour:BrandColour; elementStyles:Record<string,ElementStyle>; columns:Record<RowKey,number>; columnBalance:Record<RowKey,number>; backgrounds:Record<SectionKey,BackgroundSettings>;editorialRows:EditorialRow[];
+};
+const KEY = "durf-campus-lab-v1";
+const original: PageData = {
+  designTheme:"original",
+  illustratorType:defaultIllustratorType,
+  editorialOptions:{themesLayout:"matrix",functionsLayout:"large",dotMode:"cutout",spacing:"standard",imageLayout:"spread"},
+  heroTitle: "EEN PLEK OM HET VERSCHIL TE MAKEN.",
+  heroText: "DURF verbindt kennis, onderwijs, praktijk en beleid om samen te werken aan de grote vraagstukken van Rotterdam.",
+  introTitle: "Samen leren. Samen veranderen.",
+  introText: "Rotterdam staat voor grote transitieopgaven. Tegelijk groeien verschillen tussen wijken en staat de arbeidsmarkt onder druk. DURF CAMPUS verbindt kennis, onderwijs en praktijk om oplossingen sneller te ontwikkelen, toe te passen en op te schalen.",
+  processTitle: "Eén campus. Midden in de stad.",
+  processText: "DURF verkent een centrale hub met satellieten in Rotterdamse wijken: plekken waar studenten, onderzoekers, professionals en bewoners elkaar ontmoeten, samen leren en nieuwe oplossingen ontwikkelen.",
+  ctaTitle: "DURF JIJ OOK?",
+  ctaText: "Werk jij aan een vraagstuk in de stad? DURF zoekt verbinding met maatschappelijke partners, professionals, ondernemers en initiatiefnemers. Denk mee over onderzoek, onderwijs en nieuwe kickstartprojecten.",
+  themesLead:"Vier samenhangende perspectieven op de maatschappelijke opgaven van Rotterdam.",
+  functionsLead:"Vier functies die onderzoek, onderwijs, de stad en de route naar impact met elkaar verbinden.",
+  approachText:"Onze aanpak: transdisciplinair, vraaggestuurd en oplossingsgericht. We verbinden bestaande initiatieven, versterken samenwerking en werken aan schaalbare impact.",
+  locationText:"Het hub-en-spoke-model is nog in verkenning. Voor de kortetermijnhub worden Centrum, Woudestein en Zuid onderzocht; voor de langere termijn ligt de focus op Rotterdam Zuid. Bestaande plekken van partners kunnen als satelliet fungeren.",
+  nextTitle:"Samen werken aan de volgende stap.",
+  nextLead:"De propositie, organisatie en locaties zijn nog in ontwikkeling. Dit zijn de beoogde vervolgstappen uit de presentatie van september 2026.",
+  themes: [
+    {title:"De duurzame stad",description:"Gebiedsontwikkeling, stedelijk ontwerp, energie en grondstoffen, mobiliteit en wonen."},
+    {title:"De klimaatbestendige stad",description:"Klimaatadaptatie, bodemdaling, vitale systemen en deltavraagstukken."},
+    {title:"De veerkrachtige stad",description:"Veiligheid, weerbaarheid, samenredzaamheid, leefbaarheid, vertrouwen en cohesie."},
+    {title:"De gezonde stad",description:"Een kansrijke start, gezond leven, sport en bewegen, gezondheidsverschillen en mentale gezondheid."}
+  ],
+  functions: [
+    {title:"Kennishub",description:"Transdisciplinair, vraaggestuurd en oplossingsgericht onderzoek naar grootstedelijke vraagstukken."},
+    {title:"Talentmotor",description:"Huidig en toekomstig talent opleiden voor de vraagstukken van de stad, met kansen voor iedereen."},
+    {title:"Stadspartner",description:"Met de stad bouwen aan een rechtvaardige en vitale toekomst, zichtbaar, nabij en als gelijkwaardige partner."},
+    {title:"Impactversneller",description:"De route van maatschappelijk vraagstuk naar schaalbare oplossing versnellen en gezamenlijke impact mogelijk maken."}
+  ],
+  milestones:[
+    {title:"Nu",description:"De gezamenlijke kennisagenda aanscherpen en maatschappelijke opgaven prioriteren."},
+    {title:"24 november 2026",description:"De propositie en vervolgstappen bespreken in de Strategic Campus Board met de zes kernpartners."},
+    {title:"Komende zes maanden",description:"Businesscase, locatiekeuze, governance en partnerrollen uitwerken; kickstartprojecten en gezamenlijke activiteiten opstarten."}
+  ],
+  order:["hero","intro","themes","functions","process","editorial","next","cta","footer"], hidden:[],
+  graphic:"circles",colour:"balanced",density:60,scale:100,typeScale:100,compact:false,
+  fonts:initialFonts,palette:initialPalette,sectionColours:{hero:"green",functions:"orange",cta:"pink"},
+  images:{hero:"",process1:photoUrl(photoLibrary[3][1]),process2:photoUrl(photoLibrary[7][1])},graphicAsset:"a",logoColour:"green",elementStyles:{},columns:{themes:2,functions:1,process:2,next:1},columnBalance:{themes:50,functions:50,process:58,next:50},backgrounds:{hero:{...defaultBackground},intro:{...defaultBackground},themes:{...defaultBackground},functions:{...defaultBackground},process:{...defaultBackground},editorial:{...defaultBackground},next:{...defaultBackground},cta:{...defaultBackground},footer:{...defaultBackground}},editorialRows:initialEditorialRows
+};
+const sectionNames: Record<SectionKey,string> = {hero:"Hero",intro:"Proposition",themes:"Four themes",functions:"Four functions",process:"Development photography",editorial:"Editorial compositions",next:"Next steps",cta:"Collaboration CTA",footer:"Partners / contact"};
+const partners=["Gemeente Rotterdam","Erasmus Universiteit Rotterdam","Technische Universiteit Delft","Erasmus MC","Hogeschool Rotterdam","Albeda MBO"];
+const clone = (x: PageData):PageData => JSON.parse(JSON.stringify(x));
+function migrateContent(previous:PageData):PageData {
+  const next=clone(previous);
+  const oldFields:Record<string,string>={
+    heroText:"Waar kennis, ideeën en mensen samenkomen om nieuwe oplossingen voor de stad te ontwikkelen.",
+    introTitle:"De stad als plek voor verandering.",
+    introText:"DURF Campus is het werkmerk van het Rotterdamse innovatie-ecosysteem voor grootstedelijke vraagstukken. In deze ontwikkelfase bouwen we met partners in de stad aan onze propositie. Samen verkennen we hoe we écht het verschil maken.",
+    processTitle:"Een campus in wording.",
+    processText:"DURF krijgt vorm door samenwerking. We brengen mensen, perspectieven en ideeën bij elkaar.",
+    ctaText:"Heb jij ideeën, kennis of energie om bij te dragen? We komen graag met je in contact."
+  };
+  for(const key of Object.keys(oldFields)){
+    const field=key as keyof PageData;
+    if(previous[field]===oldFields[key])Object.assign(next,{[field]:original[field]});
+  }
+  if(previous.themes?.length===4)next.themes=previous.themes.map((x,i)=>x.title==="Thema "+(i+1)&&x.description==="Voeg de vastgestelde themabeschrijving toe."?{...original.themes[i]}:x);
+  if(previous.functions?.length===4)next.functions=previous.functions.map((x,i)=>x.title==="Functie "+(i+1)&&x.description==="Voeg de vastgestelde functiebeschrijving toe."?{...original.functions[i]}:x);
+  const oldMilestones=["Het concept samen verder ontwikkelen","Perspectieven en ideeën samenbrengen","Nieuwe initiatieven concreet maken"];
+  if(previous.milestones?.length===3)next.milestones=previous.milestones.map((x,i)=>x.description===oldMilestones[i]?{...original.milestones[i]}:x);
+  // Upgrade only untouched typography defaults from the previous Illustrator theme.
+  // Explicitly adjusted variable-axis settings remain intact.
+  for (const [role,oldWeight,oldWidth] of [["body",500,90],["caption",600,90]] as const) {
+    const axes=next.illustratorType?.[role];
+    if (axes?.weight===oldWeight && axes?.width===oldWidth) next.illustratorType[role]={...defaultIllustratorType[role]};
+  }
+  return next;
+}
+function isPageData(x: unknown): x is PageData {
+  if (!x || typeof x !== "object") return false;
+  const d=x as Partial<PageData>;
+  return typeof d.heroTitle === "string" && Array.isArray(d.themes) && Array.isArray(d.functions) && Array.isArray(d.order) && Array.isArray(d.hidden) && Array.isArray(d.milestones);
+}
+function Dots({density,scale}:{density:number;scale:number}) {
+  const dots=useMemo(()=>Array.from({length:121},(_,i)=>{const x=i%11,y=Math.floor(i/11);const dist=Math.hypot(x-5,y-5);const wave=(Math.sin(x*2.4+y*1.8)+Math.cos(y*1.9-x*.7)+2)/4;const visible=wave*(1-dist/12)*100+Math.sin(x*13.2+y*8.6)*9>100-density;return {visible,size:Math.max(.15,1-dist/13+Math.sin(x+y)*.12)};}),[density]);
+  return <div className="durf-dots" aria-hidden="true" style={{transform:`rotate(-12deg) scale(${scale/100})`}}>{dots.map((d,i)=><i key={i} style={{opacity:d.visible?1:0,transform:`scale(${d.size})`}} />)}</div>;
+}
+function Page({data,photo1,photo2,heroPhoto,selected,onColumnSelect}:{data:PageData;photo1?:string;photo2?:string;heroPhoto?:string;selected:Selection|null;onColumnSelect:(rowId:string,index:number)=>void}) {
+  const elementStyle=(id:string):import("react").CSSProperties=>{const c={...defaultElement,...data.elementStyles[id]};return {marginTop:c.marginTop,marginBottom:c.marginBottom,padding:c.padding,maxWidth:c.maxWidth+"%",textAlign:c.align,color:c.colour==="inherit"?undefined:data.palette[c.colour],backgroundColor:c.background==="transparent"?undefined:data.palette[c.background],borderRadius:c.radius};};
+
+  if(data.designTheme==="illustrator")return <IllustratorLanding palette={data.palette} heroTitle={data.heroTitle} heroText={data.heroText} introText={data.introText} themes={data.themes} functions={data.functions} milestones={data.milestones} functionsLead={data.functionsLead} nextTitle={data.nextTitle} ctaTitle={data.ctaTitle} ctaText={data.ctaText} typeSettings={data.illustratorType||defaultIllustratorType} images={data.images} heroOverride={heroPhoto} process1Override={photo1} process2Override={photo2}/>;
+  const section=(key:SectionKey)=>{
+    switch(key){
+    case "hero": return <section className="dp-section dp-hero" key={key}><div className="dp-art">{(heroPhoto||data.images.hero)&&<img className="dp-hero-photo" data-edit-asset="hero" src={heroPhoto||data.images.hero} alt="DURF hero"/>}{data.graphic==="circles"?(data.graphicAsset==="procedural"?<Dots density={data.density} scale={data.scale}/>:<div className="dp-brand-circles-wrap" style={{transform:`scale(${data.scale/100})`}}><DurfCircles variant={data.graphicAsset==="a"?1:2}/></div>):data.graphic==="delta"?<svg className="dp-delta" viewBox="0 0 500 500" fill="none" aria-hidden="true"><path d="M250 35L480 450H20Z" stroke="currentColor" strokeWidth="27" strokeLinejoin="round"/><path d="M250 155L370 385H130Z" stroke="currentColor" strokeWidth="10" strokeLinejoin="round"/></svg>:null}</div>{data.designTheme==="editorial"&&data.editorialOptions?.dotMode!=="none"&&<div className="dp-v2-dot-hero"><DotPhoto src={heroPhoto||data.images.hero||photoUrl(photoLibrary[3][1])} mode={data.editorialOptions?.dotMode||"cutout"} accent={data.palette.green} bg={data.palette.paper}/></div>}<div className="dp-overline"><span>ROTTERDAM / CAMPUS IN ONTWIKKELING</span><span>001</span></div><div className="dp-hero-content"><h1 data-edit-key="heroTitle" data-element-id="heroTitle" style={elementStyle("heroTitle")}>{data.heroTitle}</h1><p data-edit-key="heroText" data-element-id="heroText" style={elementStyle("heroText")}>{data.heroText}</p><a href="#durf-lab-cta" className="dp-button">Ontdek DURF <span>↗</span></a></div><div className="dp-overline"><span>SAMEN DENKEN. SAMEN DOEN.</span><span>↓ SCROLL</span></div></section>;
+    case "intro":return <section className="dp-section" key={key}><div className="dp-overline"><span>01 / DE AMBITIE</span><span>ROTTERDAM</span></div><h2 data-edit-key="introTitle" data-element-id="introTitle" style={elementStyle("introTitle")}>{data.introTitle}</h2><p className="dp-lead" data-edit-key="introText" data-element-id="introText" style={elementStyle("introText")}>{data.introText}</p></section>;
+    case "themes":return <section className="dp-section" key={key}><div className="dp-overline"><span>02 / INHOUD</span><span>VIER THEMA'S</span></div><h2>De vraagstukken van morgen.</h2><p className="dp-lead">{data.themesLead}</p><div className={`dp-grid ${data.designTheme==="editorial"?"dp-v2-"+(data.editorialOptions?.themesLayout||"matrix"):""}`} style={{gridTemplateColumns:data.columns.themes===2?`${data.columnBalance?.themes||50}fr ${100-(data.columnBalance?.themes||50)}fr`:`repeat(${data.columns.themes||2},minmax(0,1fr))`}}>{data.themes.map((t,i)=><article className="dp-tile" data-edit-list="themes" data-edit-index={i} data-element-id={"themes-"+i} style={elementStyle("themes-"+i)} key={i}><div className="dp-tile-top"><span className="dp-mono">0{i+1}</span><i style={{background:["var(--green)","var(--orange)","var(--pink)","var(--ink)"][i]}}/></div><div><h3>{t.title}</h3><p>{t.description}</p></div></article>)}</div></section>;
+    case "functions":return <section className="dp-section dp-functions" key={key}><div className="dp-overline"><span>03 / AANPAK</span><span>VIER FUNCTIES</span></div><h2>Van denken naar doen.</h2><p className="dp-lead">{data.functionsLead}</p><div className={`dp-rows ${data.columns.functions>1?"dp-multi":""} ${data.designTheme==="editorial"&&data.editorialOptions?.functionsLayout==="large"?"dp-v2-large":""}`} style={data.columns.functions>1?{display:"grid",gridTemplateColumns:`repeat(${data.columns.functions},minmax(0,1fr))`,gap:18}:undefined}>{data.functions.map((t,i)=><article key={i} className="dp-function" data-edit-list="functions" data-edit-index={i} data-element-id={"functions-"+i} style={elementStyle("functions-"+i)}><span className="dp-mono">0{i+1}</span><div><h3>{t.title}</h3><p>{t.description}</p></div><span>↗</span></article>)}</div><p className="dp-detail" data-edit-key="approachText" data-element-id="approachText" style={elementStyle("approachText")}>{data.approachText}</p></section>;
+    case "process":return <section className="dp-section" key={key}><div className="dp-overline"><span>04 / HET PROCES</span><span>IN ONTWIKKELING</span></div><h2 data-edit-key="processTitle" data-element-id="processTitle" style={elementStyle("processTitle")}>{data.processTitle}</h2><p className="dp-lead" data-edit-key="processText" data-element-id="processText" style={elementStyle("processText")}>{data.processText}</p><p className="dp-detail" data-edit-key="locationText" data-element-id="locationText" style={elementStyle("locationText")}>{data.locationText}</p><div className={`dp-photos ${data.designTheme==="editorial"&&data.editorialOptions?.imageLayout==="spread"?"dp-v2-image-spread":""}`} style={{gridTemplateColumns:data.columns.process===2?`${data.columnBalance?.process||58}fr ${100-(data.columnBalance?.process||58)}fr`:`repeat(${data.columns.process||2},minmax(0,1fr))`}}><div className="dp-photo" data-edit-asset="process1">{(photo1||data.images.process1)?<img src={photo1||data.images.process1} alt="DURF development process, first photograph"/>:<><span>01 / IN GESPREK</span><span>FOTO VOLGT</span></>}</div><div className="dp-photo" data-edit-asset="process2">{(photo2||data.images.process2)?<img src={photo2||data.images.process2} alt="DURF development process, second photograph"/>:<span>02 / IN ONTWIKKELING</span>}{data.designTheme==="editorial"&&data.editorialOptions?.dotMode!=="none"&&<div className="dp-v2-photo-graphic"><DotPhoto src={photo2||data.images.process2||photoUrl(photoLibrary[2][1])} mode={data.editorialOptions?.dotMode||"field"} accent={data.palette.green} bg={data.palette.paper}/></div>}</div></div><p className="dp-mono dp-photo-note">FOTOGRAFIE / SESSIE 17 NOVEMBER 2026</p></section>;
+    case "editorial":return <div key={key}>{(data.editorialRows||[]).map(row=><EditorialRowView key={row.id} row={row} palette={data.palette} onSelect={index=>onColumnSelect(row.id,index)}/>)}</div>;
+    case "next":return <section className="dp-section" key={key}><div className="dp-overline"><span>05 / PLANNING</span><span>VOLGENDE STAPPEN</span></div><h2 data-edit-key="nextTitle">{data.nextTitle}</h2><p className="dp-detail" data-edit-key="nextLead">{data.nextLead}</p><div className={`dp-rows ${data.columns.next>1?"dp-multi":""}`} style={data.columns.next>1?{display:"grid",gridTemplateColumns:`repeat(${data.columns.next},minmax(0,1fr))`,gap:18}:undefined}>{data.milestones.map((m,i)=><article className="dp-event" data-edit-list="milestones" data-edit-index={i} key={i}><span className="dp-mono">0{i+1} / {m.title}</span><h3>{m.description}</h3></article>)}</div></section>;
+    case "cta":return <section className="dp-section dp-cta" id="durf-lab-cta" key={key}><div className="dp-overline"><span>06 / SAMENWERKEN</span><span>DOE MEE ↗</span></div><h2 data-edit-key="ctaTitle" data-element-id="ctaTitle" style={elementStyle("ctaTitle")}>{data.ctaTitle}</h2><p className="dp-lead" data-edit-key="ctaText" data-element-id="ctaText" style={elementStyle("ctaText")}>{data.ctaText}</p><a className="dp-button" href="#durf-lab-footer">Laten we verbinden <span>↗</span></a></section>;
+    case "footer":return <footer className="dp-section dp-footer" id="durf-lab-footer" key={key}><div className="dp-logo"><DurfLogo/><span>CAMPUS</span></div><div className="dp-mono">DE ZES KERNPARTNERS</div>{data.designTheme==="editorial"&&<div className="dp-v2-footer-mark" aria-hidden="true">{Array.from({length:6},(_,i)=><i key={i}/>)}</div>}<div className="dp-partners">{partners.map(p=><span key={p}>{p}</span>)}</div><div className="dp-footline dp-mono"><span>ROTTERDAM / 2026</span><span>CONTACTGEGEVENS VOLGEN</span></div></footer>;
+    }
+  };
+  return <div className={`durf-page ${data.compact?"dp-compact":""} ${data.designTheme==="editorial"?"dp-editorial-theme dp-v2-space-"+(data.editorialOptions?.spacing||"standard"):""}`} style={{
+  ["--display" as string]:`clamp(${46*data.typeScale/100*data.fonts.display.size/100}px,${8.3*data.typeScale/100*data.fonts.display.size/100}vw,${115*data.typeScale/100*data.fonts.display.size/100}px)`,
+  ["--heading" as string]:`clamp(${32*data.fonts.heading.size/100}px,${5.5*data.fonts.heading.size/100}vw,${76*data.fonts.heading.size/100}px)`,
+  ["--green" as string]:data.palette.green,["--orange" as string]:data.palette.orange,
+  ["--pink" as string]:data.palette.pink,["--paper" as string]:data.palette.paper,["--ink" as string]:data.palette.ink,
+  ["--hero-bg" as string]:data.palette[data.sectionColours.hero],
+  ["--functions-bg" as string]:data.palette[data.sectionColours.functions],
+  ["--cta-bg" as string]:data.palette[data.sectionColours.cta],
+  ["--display-weight" as string]:data.fonts.display.weight,["--display-tracking" as string]:data.fonts.display.tracking/100+"em",["--display-line" as string]:data.fonts.display.lineHeight,
+  ["--heading-weight" as string]:data.fonts.heading.weight,["--heading-tracking" as string]:data.fonts.heading.tracking/100+"em",["--heading-line" as string]:data.fonts.heading.lineHeight,
+  ["--lead-size" as string]:data.fonts.lead.size/100,["--lead-weight" as string]:data.fonts.lead.weight,["--lead-tracking" as string]:data.fonts.lead.tracking/100+"em",["--lead-line" as string]:data.fonts.lead.lineHeight,
+  ["--body-size" as string]:data.fonts.body.size/100,["--body-weight" as string]:data.fonts.body.weight,["--body-tracking" as string]:data.fonts.body.tracking/100+"em",["--body-line" as string]:data.fonts.body.lineHeight,
+  ["--mono-size" as string]:data.fonts.mono.size/100,["--mono-weight" as string]:data.fonts.mono.weight,["--mono-tracking" as string]:data.fonts.mono.tracking/100+"em",["--mono-line" as string]:data.fonts.mono.lineHeight
+}}><style>{Object.entries(data.elementStyles).filter(([id])=>id.startsWith("auto|")).map(([id,v])=>{const c={...defaultElement,...v};const selector=".durf-page "+id.slice(5).replaceAll(":scope > ","> ");return selector+"{margin-top:"+c.marginTop+"px!important;margin-bottom:"+c.marginBottom+"px!important;padding:"+c.padding+"px!important;max-width:"+c.maxWidth+"%!important;text-align:"+c.align+"!important;"+(c.colour!=="inherit"?"color:"+data.palette[c.colour]+"!important;":"")+(c.background!=="transparent"?"background-color:"+data.palette[c.background]+"!important;":"")+"border-radius:"+c.radius+"px!important;}";}).join("\n")}</style><header className="dp-nav"><div className="dp-brand-header" style={{color:data.palette[data.logoColour]}}><DurfLogo/><span>CAMPUS</span></div><nav>HET IDEE　 THEMA'S　 DOE MEE ↗</nav></header>{data.order.filter(s=>!data.hidden.includes(s)).map(key=>{const bg=data.backgrounds?.[key]||defaultBackground;return <div className={["dp-section-wrap",bg.src?"dp-has-bg":"",selected?.kind==="section"&&selected.key===key?"dp-selected-section":""].join(" ")} data-edit-section={key} key={key} style={bg.src?{backgroundImage:'url("'+bg.src.replaceAll('"',"%22")+'")',backgroundSize:bg.fit,backgroundPosition:bg.x+"% "+bg.y+"%",backgroundRepeat:"no-repeat"}:undefined}>{section(key)}</div>})}</div>;
+}
+export default function DurfCampusLab(){
+  const [data,setData]=useState<PageData>(()=>clone(original));
+  const [ready,setReady]=useState(false);
+  const [view,setView]=useState<"desktop"|"mobile">("desktop");
+  const [sidebarCollapsed,setSidebarCollapsed]=useState(false);
+  const [photo1,setPhoto1]=useState<string>();
+  const [photo2,setPhoto2]=useState<string>();
+  const [heroPhoto,setHeroPhoto]=useState<string>();
+  const [status,setStatus]=useState("");
+  const [selected,setSelected]=useState<Selection|null>(null);
+  const [activeElement,setActiveElement]=useState<string|null>(null);
+  const [tab,setTab]=useState<EditorTab>("general");
+  const [inspectorOpen,setInspectorOpen]=useState(false);
+  const [inspectorPosition,setInspectorPosition]=useState({x:80,y:115});
+  const dragOrigin=useRef<{x:number;y:number;startX:number;startY:number}|null>(null);
+  const [floatingKind,setFloatingKind]=useState<"field"|"item"|"asset"|"section"|"element"|"column">("element");
+  const [floatingId,setFloatingId]=useState<string|null>(null);
+  useEffect(()=>{const move=(e:PointerEvent)=>{if(!dragOrigin.current)return;const d=dragOrigin.current;setInspectorPosition({x:Math.max(0,Math.min(window.innerWidth-170,d.startX+e.clientX-d.x)),y:Math.max(0,Math.min(window.innerHeight-80,d.startY+e.clientY-d.y))});};const up=()=>{dragOrigin.current=null;};window.addEventListener("pointermove",move);window.addEventListener("pointerup",up);return()=>{window.removeEventListener("pointermove",move);window.removeEventListener("pointerup",up)};},[]);
+  const openInspector=(kind:"field"|"item"|"asset"|"section"|"element"|"column",id:string)=>{setFloatingKind(kind);setFloatingId(id);setInspectorOpen(true);};
+
+  const resolveImage=(src:string)=>{if(src.startsWith("library:")){const key=src.slice(8);const n=Number(key.replace("photo-",""));return Number.isInteger(n)&&n>0&&n<=10?"/durf-campus/photos/"+String(n).padStart(2,"0")+".webp":"";}if(src.includes("unsplash.com/photos/")){const id=photoLibrary.find(([,id])=>src.includes(id));return id?photoUrl(id[1]):src;}return src;};
+  useEffect(()=>{try{const saved=localStorage.getItem(KEY);if(saved){const parsed:unknown=JSON.parse(saved);if(isPageData(parsed)){setData(migrateContent({...clone(original),...parsed,fonts:{...initialFonts,...parsed.fonts},palette:{...initialPalette,...parsed.palette},sectionColours:{...original.sectionColours,...parsed.sectionColours},editorialOptions:{...original.editorialOptions,...parsed.editorialOptions},illustratorType:{...defaultIllustratorType,...parsed.illustratorType},images:{...original.images,...parsed.images},elementStyles:{...original.elementStyles,...parsed.elementStyles},columns:{...original.columns,...parsed.columns},columnBalance:{...original.columnBalance,...parsed.columnBalance},backgrounds:{...original.backgrounds,...parsed.backgrounds},editorialRows:Array.isArray(parsed.editorialRows)?parsed.editorialRows:clone(original).editorialRows,order:parsed.order.includes("editorial")?parsed.order:[...parsed.order.slice(0,-1),"editorial","footer"]}));}}}catch{}setReady(true);},[]);
+  useEffect(()=>{if(!ready)return;try{localStorage.setItem(KEY,JSON.stringify(data));}catch{}},[data,ready]);
+  const update=<K extends keyof PageData>(key:K,value:PageData[K])=>setData(p=>({...p,[key]:value}));
+  const updateIllustratorType=(role:IllustratorTypeRole,axis:"weight"|"width",value:number)=>setData(p=>({...p,illustratorType:{...(p.illustratorType||defaultIllustratorType),[role]:{...defaultIllustratorType[role],...p.illustratorType?.[role],[axis]:value}}}));
+  const updateEditorial=<K extends keyof PageData["editorialOptions"]>(key:K,value:PageData["editorialOptions"][K])=>setData(p=>({...p,editorialOptions:{...original.editorialOptions,...p.editorialOptions,[key]:value}}));
+  const setFont=(role:FontRole,key:keyof FontStyle,value:number)=>setData(p=>({...p,fonts:{...p.fonts,[role]:{...p.fonts[role],[key]:value}}}));
+  const updatePalette=(key:BrandColour,value:string)=>setData(p=>({...p,palette:{...p.palette,[key]:value}}));
+  const updateSectionColour=(key:"hero"|"functions"|"cta",value:BrandColour)=>setData(p=>({...p,sectionColours:{...p.sectionColours,[key]:value}}));
+  const onColumnSelect=(rowId:string,index:number)=>{setActiveElement(null);openInspector("column",rowId+":"+index);};
+  const editRow=(id:string,patch:Partial<EditorialRow>)=>setData(p=>({...p,editorialRows:(p.editorialRows||[]).map(row=>row.id===id?{...row,...patch}:row)}));
+  const editColumn=(id:string,index:number,patch:Partial<EditorialColumn>)=>setData(p=>({...p,editorialRows:(p.editorialRows||[]).map(row=>row.id===id?{...row,columns:row.columns.map((c,i)=>i===index?{...c,...patch}:c) as [EditorialColumn,EditorialColumn]}:row)}));
+  const addRow=()=>{const id="editorial-"+Date.now().toString(36);setData(p=>({...p,hidden:p.hidden.filter(k=>k!=="editorial"),editorialRows:[...(p.editorialRows||[]),{id,title:"New editorial row",ratio:50,gap:16,columns:[defaultColumn("image"),defaultColumn("text")]}]}));onColumnSelect(id,0);};
+  const selectPreview=(event:import("react").MouseEvent<HTMLDivElement>)=>{
+    const target=event.target as HTMLElement;
+    const el=target.closest<HTMLElement>("[data-element-id]");
+    if(el?.dataset.elementId){setActiveElement(el.dataset.elementId);}
+    else {const root=target.closest(".durf-page");const generic=target.closest<HTMLElement>("h1,h2,h3,p,a,span,img,button,article,footer,header,section,div,svg");if(root&&generic){let current:Element|null=generic;const chain:string[]=[];while(current&&current!==root){const parent:Element|null=current.parentElement;if(!parent)break;chain.unshift(":scope > :nth-child("+(Array.from(parent.children).indexOf(current)+1)+")");current=parent;}setActiveElement("auto|"+chain.join(" "));}}
+    if(target.closest("a"))event.preventDefault();
+    const asset=target.closest<HTMLElement>("[data-edit-asset]");
+    if(asset?.dataset.editAsset){setSelected({kind:"asset",slot:asset.dataset.editAsset as AssetSlot});openInspector("asset",asset.dataset.editAsset);return;}
+    const field=target.closest<HTMLElement>("[data-edit-key]");
+    const item=target.closest<HTMLElement>("[data-edit-list]");
+    const section=target.closest<HTMLElement>("[data-edit-section]");
+    if(field?.dataset.editKey){setSelected({kind:"field",key:field.dataset.editKey});openInspector("field",field.dataset.editKey);return;}
+    if(item?.dataset.editList){setSelected({kind:"item",list:item.dataset.editList as "themes"|"functions"|"milestones",index:Number(item.dataset.editIndex)});openInspector("item",item.dataset.editList+":"+item.dataset.editIndex);return;}
+    if(section?.dataset.editSection){setSelected({kind:"section",key:section.dataset.editSection as SectionKey});openInspector("section",section.dataset.editSection);return;}
+    const fallback=target.closest<HTMLElement>("h1,h2,h3,p,a,span,img,button,article,footer,header,section,div");if(fallback&&fallback.closest(".durf-page")){const root=fallback.closest(".durf-page");let current:Element|null=fallback;const parts:string[]=[];while(current&&current!==root){const parent:Element|null=current.parentElement;if(!parent)break;parts.unshift(":scope > :nth-child("+Array.from(parent.children).indexOf(current as Element).toString().replace(/^(\d+)$/,n=>String(Number(n)+1))+")");current=parent;}const path=parts.join(" ");setActiveElement("auto|"+path);openInspector("element","auto|"+path);}
+  };
+  const updateBackground=(key:SectionKey,patch:Partial<BackgroundSettings>)=>setData(p=>({...p,backgrounds:{...p.backgrounds,[key]:{...defaultBackground,...p.backgrounds?.[key],...patch}}}));
+  const backgroundPicker=(key:SectionKey)=>{const bg=data.backgrounds?.[key]||defaultBackground;return <div className="dl-stack"><strong>{sectionNames[key]} / background image</strong><div className="dl-asset-grid">{photoLibrary.map(([name,id],i)=><button type="button" key={id} title={name} className={bg.src===photoUrl(id)?"active":""} onClick={()=>updateBackground(key,{src:photoUrl(id)})}><img src={photoUrl(id)} alt={name} loading="lazy"/><span>{i+1}</span></button>)}</div><label className="dl-field"><span>Image URL</span><input value={bg.src} placeholder="https://... or /durf-campus/photos/01.webp" onChange={e=>updateBackground(key,{src:e.target.value})}/></label><label className="dl-field"><span>Horizontal position: {bg.x}%</span><input type="range" min="0" max="100" value={bg.x} onChange={e=>updateBackground(key,{x:Number(e.target.value)})}/></label><label className="dl-field"><span>Vertical position: {bg.y}%</span><input type="range" min="0" max="100" value={bg.y} onChange={e=>updateBackground(key,{y:Number(e.target.value)})}/></label><label className="dl-field"><span>Image fit</span><select value={bg.fit} onChange={e=>updateBackground(key,{fit:e.target.value as BackgroundSettings["fit"]})}><option value="cover">Cover</option><option value="contain">Contain</option></select></label><button className="dl-small-button" onClick={()=>updateBackground(key,{src:""})}>Remove background photo</button><p className="dl-tip">No tinted overlay. Adjust the text colour independently if the photo makes the copy difficult to read.</p></div>};
+  const updateBalance=(key:RowKey,value:number)=>setData(p=>({...p,columnBalance:{...p.columnBalance,[key]:value}}));
+  const updateColumns=(key:RowKey,value:number)=>setData(p=>({...p,columns:{...p.columns,[key]:value}}));
+  const updateElement=(id:string,key:keyof ElementStyle,value:number|string)=>setData(p=>({...p,elementStyles:{...p.elementStyles,[id]:{...defaultElement,...p.elementStyles[id],[key]:value}}}));
+  const changeItem=(key:"themes"|"functions"|"milestones",idx:number,field:keyof Item,value:string)=>setData(p=>({...p,[key]:p[key].map((item,i)=>i===idx?{...item,[field]:value}:item)}));
+  function move(key:SectionKey,by:number){setData(p=>{const order=[...p.order],i=order.indexOf(key),j=i+by;if(j<0||j>=order.length)return p;[order[i],order[j]]=[order[j],order[i]];return {...p,order};});}
+  function download(text:string,name:string,type:string){const url=URL.createObjectURL(new Blob([text],{type}));const a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);}
+  function importJson(file:File|undefined){if(!file)return;file.text().then(t=>{try{const parsed:unknown=JSON.parse(t);if(!isPageData(parsed))throw Error("Invalid format");setData(migrateContent({...clone(original),...parsed,fonts:{...initialFonts,...parsed.fonts},palette:{...initialPalette,...parsed.palette},sectionColours:{...original.sectionColours,...parsed.sectionColours},images:{...original.images,...parsed.images},elementStyles:{...original.elementStyles,...parsed.elementStyles},columns:{...original.columns,...parsed.columns},backgrounds:{...original.backgrounds,...parsed.backgrounds},editorialRows:Array.isArray(parsed.editorialRows)?parsed.editorialRows:clone(original).editorialRows,order:parsed.order.includes("editorial")?parsed.order:[...parsed.order.slice(0,-1),"editorial","footer"]}));setStatus("Imported project settings.");}catch{setStatus("Invalid DURF project JSON.");}});}
+  function loadPhoto(file:File|undefined,which:0|1|2){if(!file)return;if(!file.type.startsWith("image/")){setStatus("Please select an image.");return;}const reader=new FileReader();reader.onload=()=>{if(typeof reader.result==="string"){(which===0?setHeroPhoto:which===1?setPhoto1:setPhoto2)(reader.result);setStatus("Photo loaded for this browser session. Images are not saved in JSON.");}};reader.readAsDataURL(file);}
+  const setImage=(slot:AssetSlot,url:string)=>{setData(p=>({...p,images:{...p.images,[slot]:url}}));if(slot==="hero")setHeroPhoto(undefined);else if(slot==="process1")setPhoto1(undefined);else setPhoto2(undefined);};
+  const assetPicker=(slot:AssetSlot)=><div className="dl-stack"><strong>{slot==="hero"?"Hero photo":slot==="process1"?"Process photo 01":"Process photo 02"}</strong><div className="dl-asset-grid">{photoLibrary.map(([name,id],i)=><button type="button" key={id} title={name} className={resolveImage(data.images[slot])===photoUrl(id)?"active":""} onClick={()=>setImage(slot,photoUrl(id))}><img src={photoUrl(id)} alt={name} loading="lazy"/><span>{i+1}</span></button>)}</div><label className="dl-field"><span>Source URL</span><input value={data.images[slot]} onChange={e=>setImage(slot,e.target.value)} placeholder="https://..." /></label><label className="dl-field"><span>Or upload your own image (session only)</span><input type="file" accept="image/*" onChange={e=>loadPhoto(e.target.files?.[0],slot==="hero"?0:slot==="process1"?1:2)}/></label><button className="dl-small-button" onClick={()=>setImage(slot,"")}>Clear source</button></div>;
+  const label=(key:keyof PageData,name:string,multiline=false)=><label className="dl-field" key={key}><span>{name}</span>{multiline?<textarea value={String(data[key])} onChange={e=>update(key,e.target.value as never)} rows={3}/>:<input value={String(data[key])} onChange={e=>update(key,e.target.value as never)}/>}</label>;
+  const collection=(key:"themes"|"functions"|"milestones")=><div className="dl-stack">{data[key].map((item,i)=><div className="dl-item" key={i}><label className="dl-field"><span>{String(i+1).padStart(2,"0")} / Title</span><input value={item.title} onChange={e=>changeItem(key,i,"title",e.target.value)}/></label><label className="dl-field"><span>Description</span><textarea rows={2} value={item.description} onChange={e=>changeItem(key,i,"description",e.target.value)}/></label></div>)}</div>;
+  return <main className="durf-lab">
+    <style>{styles}</style>
+    <div className="dl-toolbar"><div className="dl-actions"><strong>DURF / WEB LAB <small>04</small></strong><button className={view==="desktop"?"active":""} onClick={()=>setView("desktop")}>Desktop</button><button className={view==="mobile"?"active":""} onClick={()=>setView("mobile")}>Mobile</button></div><div className="dl-actions"><button type="button" className="dl-sidebar-toggle" aria-expanded={!sidebarCollapsed} aria-controls="durf-editor-sidebar" onClick={()=>{setSidebarCollapsed(v=>!v);setInspectorOpen(false)}} title={sidebarCollapsed?"Show editing controls":"Preview at full width"}>{sidebarCollapsed?"☷ Show editor":"◧ Hide editor"}</button><label className="dl-theme-select"><span>THEME</span><select aria-label="Landing page visual theme" value={data.designTheme||"original"} onChange={e=>update("designTheme",e.target.value as PageData["designTheme"])}><option value="original">01 · Original</option><option value="editorial">02 · Editorial Grid</option><option value="illustrator">03 · Illustrator layout</option></select></label><button onClick={()=>download(JSON.stringify(data,null,2),"durf-campus-project.json","application/json")}>Export JSON ↓</button><label className="dl-upload">Import JSON<input aria-label="Import DURF JSON" type="file" accept=".json,application/json" onChange={e=>importJson(e.target.files?.[0])}/></label></div></div>
+    <div className={`dl-layout ${sidebarCollapsed?"dl-layout-expanded":""}`}><div className="dl-frame"><div className="dl-browser"><span>○ ○ ○</span><span>durf-campus / work in progress</span><span>↕ SCROLL</span></div><div className={`dl-viewport ${view==="mobile"?"mobile":""}`} onClick={sidebarCollapsed?undefined:selectPreview}><Page data={{...data,images:{hero:resolveImage(data.images.hero),process1:resolveImage(data.images.process1),process2:resolveImage(data.images.process2)}}} photo1={photo1} photo2={photo2} heroPhoto={heroPhoto} selected={selected} onColumnSelect={onColumnSelect}/></div></div>
+    {!sidebarCollapsed&&inspectorOpen&&floatingId&&<div className="dl-inspector" role="dialog" aria-label="Element properties" style={{left:inspectorPosition.x,top:inspectorPosition.y}}>
+<div className="dl-inspector-head" onPointerDown={e=>{if((e.target as HTMLElement).closest("button"))return;dragOrigin.current={x:e.clientX,y:e.clientY,startX:inspectorPosition.x,startY:inspectorPosition.y};e.currentTarget.setPointerCapture(e.pointerId);}}>
+<span>⠿　{floatingKind.toUpperCase()} / {floatingId.startsWith("auto|")?"Selected element":floatingId}</span><button type="button" aria-label="Close inspector" onClick={()=>setInspectorOpen(false)}>×</button></div>
+<div className="dl-inspector-body">
+{floatingKind==="asset"&&assetPicker(floatingId as AssetSlot)}
+{floatingKind==="column"&&(()=>{const [id,i]=floatingId.split(":");const row=data.editorialRows?.find(r=>r.id===id);return row?<EditorialColumnInspector row={row} index={Number(i)} onChange={patch=>editColumn(id,Number(i),patch)}/>:null;})()}
+{floatingKind==="field"&&floatingId in data&&<label className="dl-field"><span>Content</span><textarea rows={4} value={String(data[floatingId as keyof PageData]??"")} onChange={e=>update(floatingId as keyof PageData,e.target.value as never)}/></label>}
+{floatingKind==="item"&&(()=>{const [list,indexRaw]=floatingId.split(":");const index=Number(indexRaw),key=list as "themes"|"functions"|"milestones";return data[key]?.[index]?<div className="dl-stack"><label className="dl-field"><span>Title</span><input value={data[key][index].title} onChange={e=>changeItem(key,index,"title",e.target.value)}/></label><label className="dl-field"><span>Description</span><textarea rows={3} value={data[key][index].description} onChange={e=>changeItem(key,index,"description",e.target.value)}/></label></div>:null;})()}
+{floatingKind==="section"&&<div className="dl-stack"><span className="dl-tip">{sectionNames[floatingId as SectionKey]}</span>{backgroundPicker(floatingId as SectionKey)}{(["hero","functions","cta"] as string[]).includes(floatingId)&&<label className="dl-field"><span>Section background</span><select value={data.sectionColours[floatingId as "hero"|"functions"|"cta"]} onChange={e=>updateSectionColour(floatingId as "hero"|"functions"|"cta",e.target.value as BrandColour)}>{(Object.keys(initialPalette) as BrandColour[]).map(k=><option key={k} value={k}>{colourNames[k]}</option>)}</select></label>}{(["themes","functions","process","next"] as string[]).includes(floatingId)&&<label className="dl-field"><span>Columns</span><select value={data.columns[floatingId as RowKey]} onChange={e=>updateColumns(floatingId as RowKey,Number(e.target.value))}>{[1,2,3,4].filter(n=>n<=(floatingId==="process"?2:floatingId==="next"?3:4)).map(n=><option key={n} value={n}>{n}</option>)}</select></label>}</div>}
+{floatingKind!=="column"&&<div className="dl-stack"><strong>Appearance</strong>
+{(["marginTop","marginBottom","padding","maxWidth","radius"] as const).map(k=><label className="dl-field" key={k}><span>{k}: {data.elementStyles[activeElement||floatingId]?.[k]??defaultElement[k]}{k==="maxWidth"?"%":"px"}</span><input type="range" min={k==="maxWidth"?"20":"0"} max={k==="maxWidth"?100:k==="radius"?100:160} step={k==="maxWidth"?1:2} value={data.elementStyles[activeElement||floatingId]?.[k]??defaultElement[k]} onChange={e=>updateElement(activeElement||floatingId,k,Number(e.target.value))}/></label>)}
+<label className="dl-field"><span>Alignment</span><select value={data.elementStyles[activeElement||floatingId]?.align??"left"} onChange={e=>updateElement(activeElement||floatingId,"align",e.target.value)}><option value="left">Left</option><option value="center">Center</option><option value="right">Right</option></select></label>
+{(["colour","background"] as const).map(k=><label className="dl-field" key={k}><span>{k==="colour"?"Text colour":"Background"}</span><select value={data.elementStyles[activeElement||floatingId]?.[k]??defaultElement[k]} onChange={e=>updateElement(activeElement||floatingId,k,e.target.value)}><option value={k==="colour"?"inherit":"transparent"}>{k==="colour"?"Inherit":"Transparent"}</option>{(Object.keys(initialPalette) as BrandColour[]).map(c=><option key={c} value={c}>{colourNames[c]}</option>)}</select></label>)}
+<button className="dl-small-button" onClick={()=>setData(p=>{const next={...p.elementStyles};delete next[activeElement||floatingId];return {...p,elementStyles:next}})}>Reset appearance</button>
+</div>}
+</div></div>}
+    {!sidebarCollapsed&&<aside id="durf-editor-sidebar" className="dl-panel" data-tab={tab}><div className="dl-panel-title"><strong>Landing page editor</strong><p>DURF identity v1.1 · saved locally in this browser</p><div className="dl-tabs" role="tablist" aria-label="Editor settings">{([["general","General"],["images","Images"],["layout","Layout / Structure"]] as const).map(([id,name])=><button type="button" role="tab" aria-selected={tab===id} className={tab===id?"active":""} key={id} onClick={()=>setTab(id)}>{name}</button>)}</div></div>
+      <details className="dl-tab-hidden"><summary>00 / Click to edit</summary><div className="dl-stack">
+      <p className="dl-tip">Click any headline, paragraph, card or section in the preview to select it here. Selected text and cards can be edited below.</p>
+      {selected?.kind==="asset"&&assetPicker(selected.slot)}
+      {selected?.kind==="field"&&<label className="dl-field"><span>{selected.key}</span><textarea rows={4} value={String(data[selected.key as keyof PageData]??"")} onChange={e=>update(selected.key as keyof PageData,e.target.value as never)}/></label>}
+      {selected?.kind==="item"&&<div className="dl-stack"><strong>{selected.list} / 0{selected.index+1}</strong><label className="dl-field"><span>Title</span><input value={data[selected.list][selected.index]?.title??""} onChange={e=>changeItem(selected.list,selected.index,"title",e.target.value)}/></label><label className="dl-field"><span>Description</span><textarea rows={3} value={data[selected.list][selected.index]?.description??""} onChange={e=>changeItem(selected.list,selected.index,"description",e.target.value)}/></label></div>}
+      {selected?.kind==="section"&&<div className="dl-stack"><strong>{sectionNames[selected.key]}</strong><p className="dl-tip">Selected section. Choose a palette background below, or use Sections & order to reposition it.</p>{(["hero","functions","cta"] as const).includes(selected.key as "hero"|"functions"|"cta")&&<label className="dl-field"><span>Background colour</span><select value={data.sectionColours[selected.key as "hero"|"functions"|"cta"]} onChange={e=>updateSectionColour(selected.key as "hero"|"functions"|"cta",e.target.value as BrandColour)}>{(Object.keys(initialPalette) as BrandColour[]).map(k=><option key={k} value={k}>{colourNames[k]}</option>)}</select></label>}</div>}
+      {!selected&&<p className="dl-tip">Nothing selected yet. Click on an element in the page preview to edit it here.</p>}
+      </div></details>
+      <details className="dl-tab-images" open><summary>00 / Section image backgrounds</summary><div className="dl-stack"><p className="dl-tip">Choose a background photo for any row. Click empty space within a section to open the floating row inspector.</p>{data.order.map(key=><details key={key} className="dl-background-subpanel"><summary>{sectionNames[key]}</summary>{backgroundPicker(key)}</details>)}</div></details>
+      <details className="dl-tab-images" open><summary>01 / Hosted images</summary><div className="dl-stack"><p className="dl-tip">All ten original DURF photographs are now hosted on Playground. Click a photo on the canvas, choose another thumbnail, paste an image URL, or upload a temporary local image.</p>{assetPicker("hero")}{assetPicker("process1")}{assetPicker("process2")}</div></details>
+      <details className="dl-tab-hidden"><summary>02 / Individual element controls</summary><div className="dl-stack"><p className="dl-tip">Click a headline, paragraph or card in the preview to adjust its layout, independently of the shared font styles.</p>
+{activeElement?<><strong>{activeElement}</strong>{(["marginTop","marginBottom","padding","maxWidth","radius"] as const).map(k=><label className="dl-field" key={k}><span>{k}: {data.elementStyles[activeElement]?.[k]??defaultElement[k]}{k==="maxWidth"?"%":"px"}</span><input type="range" min="0" max={k==="maxWidth"?100:k==="radius"?100:160} step={k==="maxWidth"?1:2} value={data.elementStyles[activeElement]?.[k]??defaultElement[k]} onChange={e=>updateElement(activeElement,k,Number(e.target.value))}/></label>)}
+<label className="dl-field"><span>Text alignment</span><select value={data.elementStyles[activeElement]?.align??"left"} onChange={e=>updateElement(activeElement,"align",e.target.value)}><option value="left">Left</option><option value="center">Center</option><option value="right">Right</option></select></label>
+{(["colour","background"] as const).map(k=><label className="dl-field" key={k}><span>{k==="colour"?"Text colour":"Background"}</span><select value={data.elementStyles[activeElement]?.[k]??defaultElement[k]} onChange={e=>updateElement(activeElement,k,e.target.value)}><option value={k==="colour"?"inherit":"transparent"}>{k==="colour"?"Inherit":"Transparent"}</option>{(Object.keys(initialPalette) as BrandColour[]).map(c=><option key={c} value={c}>{colourNames[c]}</option>)}</select></label>)}
+<button className="dl-small-button" onClick={()=>setData(p=>{const next={...p.elementStyles};delete next[activeElement];return {...p,elementStyles:next}})}>Reset this element</button></>:<p className="dl-tip">Select an element in the preview.</p>}
+</div></details>
+<details className="dl-tab-general" open><summary>00 / Design direction</summary><div className="dl-stack"><p className="dl-tip">Change visual direction without replacing the copy, images or layout settings. Editorial Grid is an initial experiment based on the requested grid-based, minimal aesthetic.</p><label className="dl-field"><span>Theme</span><select value={data.designTheme||"original"} onChange={e=>update("designTheme",e.target.value as PageData["designTheme"])}><option value="original">01 / Original DURF</option><option value="editorial">02 / Editorial Grid</option><option value="illustrator">03 / Illustrator layout</option></select></label></div></details>
+<details className="dl-tab-general" open><summary>03 / Illustrator typography · variable axes</summary><div className="dl-stack">
+<p className="dl-tip">Theme 03. Instrument Sans variable font: width (wdth) 75–100 and weight (wght) 400–700. Changes update the page live and are saved with your project. These are tunable reference values, not verified numeric axis values from the Illustrator source.</p>
+{(["navigation","display","heading","condensed","body","caption","cta"] as IllustratorTypeRole[]).map(role=><div key={role} className="dl-type-axis-group">
+<strong>{({navigation:"Navigation / side labels",display:"Opening slogan",heading:"Major headings / theme titles",condensed:"VAN DENKEN NAAR DOEN",body:"Body paragraphs",caption:"Emphasised paragraphs / footer",cta:"Durf jij ook?"} as Record<IllustratorTypeRole,string>)[role]}</strong>
+<label className="dl-field"><span>Weight · {data.illustratorType?.[role]?.weight??defaultIllustratorType[role].weight}</span><input type="range" min="400" max="700" step="10" value={data.illustratorType?.[role]?.weight??defaultIllustratorType[role].weight} onChange={e=>updateIllustratorType(role,"weight",Number(e.target.value))}/></label>
+<label className="dl-field"><span>Width · {data.illustratorType?.[role]?.width??defaultIllustratorType[role].width}%</span><input type="range" min="75" max="100" step="1" value={data.illustratorType?.[role]?.width??defaultIllustratorType[role].width} onChange={e=>updateIllustratorType(role,"width",Number(e.target.value))}/></label>
+</div>)}
+<button type="button" className="dl-small-button" onClick={()=>update("illustratorType",JSON.parse(JSON.stringify(defaultIllustratorType)))}>Reset typography axes</button>
+</div></details>
+<details className="dl-tab-general" open><summary>00 / Editorial Grid v2</summary><div className="dl-stack">
+<p className="dl-tip">Theme 02 only. These controls preserve the original theme and are saved with the project JSON.</p>
+<label className="dl-field"><span>Themes</span><select value={data.editorialOptions?.themesLayout||"matrix"} onChange={e=>updateEditorial("themesLayout",e.target.value as PageData["editorialOptions"]["themesLayout"])}><option value="matrix">Two-by-two matrix</option><option value="index">Editorial index</option></select></label>
+<label className="dl-field"><span>Functions</span><select value={data.editorialOptions?.functionsLayout||"large"} onChange={e=>updateEditorial("functionsLayout",e.target.value as PageData["editorialOptions"]["functionsLayout"])}><option value="large">Large typography</option><option value="rows">Compact rows</option></select></label>
+<label className="dl-field"><span>Circle treatment</span><select value={data.editorialOptions?.dotMode||"cutout"} onChange={e=>updateEditorial("dotMode",e.target.value as PageData["editorialOptions"]["dotMode"])}><option value="cutout">Photo through circles</option><option value="field">Solid dot field</option><option value="none">None</option></select></label>
+<label className="dl-field"><span>Photography layout</span><select value={data.editorialOptions?.imageLayout||"spread"} onChange={e=>updateEditorial("imageLayout",e.target.value as PageData["editorialOptions"]["imageLayout"])}><option value="spread">8/4 editorial spread</option><option value="standard">Adjustable columns</option></select></label>
+<label className="dl-field"><span>Section spacing</span><select value={data.editorialOptions?.spacing||"standard"} onChange={e=>updateEditorial("spacing",e.target.value as PageData["editorialOptions"]["spacing"])}><option value="compact">Compact</option><option value="standard">Standard</option><option value="generous">Generous</option></select></label>
+</div></details>
+<details className="dl-tab-general"><summary>01 / Visual language</summary><div className="dl-stack">
+        <label className="dl-field"><span>Graphic source</span><select value={data.graphicAsset} onChange={e=>update("graphicAsset",e.target.value as PageData["graphicAsset"])}><option value="a">DURF circular composition A</option><option value="b">DURF circular composition B</option><option value="procedural">Procedural circles</option></select></label><label className="dl-field"><span>Wordmark colour</span><select value={data.logoColour} onChange={e=>update("logoColour",e.target.value as BrandColour)}>{(Object.keys(initialPalette) as BrandColour[]).map(k=><option value={k} key={k}>{colourNames[k]}</option>)}</select></label>
+        <label className="dl-field"><span>Hero treatment</span><select value={data.graphic} onChange={e=>update("graphic",e.target.value as PageData["graphic"])}><option value="circles">Circular system</option><option value="type">Typography only</option><option value="delta">Delta exploration</option></select></label>
+        <div className="dl-stack"><strong>Section colours</strong>{(["hero","functions","cta"] as const).map(key=><label className="dl-field" key={key}><span>{sectionNames[key]} background</span><select value={data.sectionColours[key]} onChange={e=>updateSectionColour(key,e.target.value as BrandColour)}>{(Object.keys(initialPalette) as BrandColour[]).map(k=><option key={k} value={k}>{colourNames[k]}</option>)}</select></label>)}</div>
+        {([["density","Circle density",10,100],["scale","Circle scale",50,150],["typeScale","Type scale",75,125]] as const).map(([key,name,min,max])=><label className="dl-field" key={key}><span>{name} / {data[key]}%</span><input type="range" min={min} max={max} step="5" value={data[key]} onChange={e=>update(key,Number(e.target.value))}/></label>)}
+        <label className="dl-checkbox"><input type="checkbox" checked={data.compact} onChange={e=>update("compact",e.target.checked)}/> Compact section spacing</label>
+        <div className="dl-swatches">{(Object.keys(initialPalette) as BrandColour[]).map(k=><i key={k} title={colourNames[k]+" "+data.palette[k]} style={{background:data.palette[k]}}/>)}</div>
+        <p className="dl-tip">All swatches are editable locally. Changes update every element using that colour token.</p>
+        {(Object.keys(initialPalette) as BrandColour[]).map(k=><label className="dl-palette-edit" key={k}><input type="color" aria-label={colourNames[k]} value={data.palette[k]} onChange={e=>updatePalette(k,e.target.value)}/><span>{colourNames[k]}</span><code>{data.palette[k].toUpperCase()}</code><button onClick={()=>updatePalette(k,initialPalette[k])} title="Restore official colour">↺</button></label>)}
+      </div></details>
+      <details className="dl-tab-general"><summary>02 / Reusable font styles</summary><div className="dl-stack"><p className="dl-tip">Instrument Sans for display, heading, lead and body. IBM Plex Mono Medium for metadata. All values update the full page.</p>
+      {(["display","heading","lead","body","mono"] as FontRole[]).map(role=><div className="dl-item" key={role}><strong>{role.toUpperCase()}</strong>
+      {([["size","Scale %",60,160,5],["weight","Weight",400,800,100],["tracking","Tracking / 0.01em",-12,12,.5],["lineHeight","Line height",.8,2,.05]] as const).map(([key,title,min,max,step])=><label className="dl-field" key={key}><span>{title} · {data.fonts[role][key]}</span><input type="range" min={min} max={max} step={step} value={data.fonts[role][key]} onChange={e=>setFont(role,key,Number(e.target.value))}/></label>)}
+      <button className="dl-small-button" onClick={()=>setData(p=>({...p,fonts:{...p.fonts,[role]:{...initialFonts[role]}}}))}>Reset {role}</button></div>)}
+      </div></details>
+      <details className="dl-tab-general"><summary>03 / Hero & proposition</summary><div className="dl-stack">{label("heroTitle","Hero headline",true)}{label("heroText","Hero description",true)}{label("introTitle","Proposition headline",true)}{label("introText","Proposition text",true)}{label("themesLead","Themes intro",true)}{label("functionsLead","Functions intro",true)}{label("approachText","DURF approach",true)}{label("locationText","Campus hub & spokes",true)}{label("nextTitle","Next steps heading")}{label("nextLead","Next steps introduction",true)}</div></details>
+      <details className="dl-tab-general"><summary>03 / Four themes</summary>{collection("themes")}</details>
+      <details className="dl-tab-general"><summary>04 / Four functions</summary>{collection("functions")}</details>
+      <details className="dl-tab-images" open><summary>05 / Process & photography</summary><div className="dl-stack">{label("processTitle","Headline")}{label("processText","Description",true)}<label className="dl-field"><span>Photo 01 (session only)</span><input type="file" accept="image/*" onChange={e=>loadPhoto(e.target.files?.[0],1)}/></label><label className="dl-field"><span>Photo 02 (session only)</span><input type="file" accept="image/*" onChange={e=>loadPhoto(e.target.files?.[0],2)}/></label></div></details>
+      <details className="dl-tab-layout" open><summary>06 / Next steps</summary>{collection("milestones")}</details>
+      <details className="dl-tab-general"><summary>07 / Collaboration CTA</summary><div className="dl-stack">{label("ctaTitle","Headline",true)}{label("ctaText","Description",true)}</div></details>
+      <details className="dl-tab-layout" open><summary>10 / Editable editorial rows</summary><div className="dl-stack"><p className="dl-tip">Each column can contain text, an image, or be empty. Click either column to edit its content and appearance.</p><button type="button" className="dl-small-button" onClick={addRow}>+ Add editable row</button>{(data.editorialRows||[]).map(row=><div className="dl-item" key={row.id}><label className="dl-field"><span>Row name</span><input value={row.title} onChange={e=>editRow(row.id,{title:e.target.value})}/></label><label className="dl-field"><span>Width split: {row.ratio}% / {100-row.ratio}%</span><input type="range" min="20" max="80" step="5" value={row.ratio} onChange={e=>editRow(row.id,{ratio:Number(e.target.value)})}/></label><label className="dl-field"><span>Gap: {row.gap}px</span><input type="range" min="0" max="80" step="4" value={row.gap} onChange={e=>editRow(row.id,{gap:Number(e.target.value)})}/></label><div className="dl-row-buttons"><button type="button" onClick={()=>onColumnSelect(row.id,0)}>Left column</button><button type="button" onClick={()=>onColumnSelect(row.id,1)}>Right column</button><button type="button" onClick={()=>setData(p=>({...p,editorialRows:p.editorialRows.filter(x=>x.id!==row.id)}))}>Remove</button></div></div>)}</div></details>
+      <details className="dl-tab-layout" open><summary>09 / Column division</summary><div className="dl-stack"><p className="dl-tip">Choose column division for each content row. Mobile layouts stack automatically.</p>{(["themes","functions","process","next"] as RowKey[]).map(key=><div className="dl-field" key={key}><span>{sectionNames[key]} / columns</span><select value={data.columns[key]} onChange={e=>updateColumns(key,Number(e.target.value))}>{Array.from({length:key==="process"?2:key==="next"?3:4},(_,i)=><option key={i} value={i+1}>{i+1} column{i?"s":""}</option>)}</select>{data.columns[key]===2&&<label className="dl-field"><span>Left / right width: {data.columnBalance?.[key]||50}% / {100-(data.columnBalance?.[key]||50)}%</span><input type="range" min="20" max="80" step="5" value={data.columnBalance?.[key]||50} onChange={e=>updateBalance(key,Number(e.target.value))}/></label>}</div>)}</div></details>
+      <details className="dl-tab-layout" open><summary>08 / Sections & order</summary><div className="dl-stack">{data.order.map((s,i)=><div className="dl-order" key={s}><label><input type="checkbox" checked={!data.hidden.includes(s)} onChange={e=>update("hidden",e.target.checked?data.hidden.filter(x=>x!==s):[...data.hidden,s])}/>{sectionNames[s]}</label><div><button title="Move up" disabled={i===0} onClick={()=>move(s,-1)}>↑</button><button title="Move down" disabled={i===data.order.length-1} onClick={()=>move(s,1)}>↓</button></div></div>)}</div></details>
+      <div className="dl-bottom"><button onClick={()=>{if(confirm("Restore the original DURF prototype settings?")){setData(clone(original));setStatus("Prototype reset.");}}}>Reset prototype</button><p>Draft copy for themes and functions. Delta is schematic, not an official logo. Contact is intentionally not live.</p>{status&&<p role="status">{status}</p>}</div>
+    </aside>}</div>
+  </main>;
+}
+const styles = `
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap');
+
+${illustratorCss}
+
+
+.dp-detail{font-family:"Instrument Sans",sans-serif;font-size:clamp(14px,1.65vw,19px);line-height:1.45;max-width:750px;margin:24px 0 0;letter-spacing:-.01em}
+
+${editorialCss}
+.dl-row-buttons{display:flex;gap:5px}.dl-row-buttons button{flex:1;border:1px solid #ccc;background:white;padding:7px 3px;font-size:10px}
+
+.dp-section-wrap{position:relative}.dp-section-wrap.dp-has-bg>.dp-section{background:transparent!important}.dp-section-wrap.dp-has-bg .dp-hero-photo{display:none}.dp-section-wrap.dp-has-bg>.dp-section:not(.dp-hero){min-height:300px}.dp-section-wrap.dp-has-bg{background-color:var(--paper)}.dl-background-subpanel{border:1px solid #ddd;padding:0 9px}.dl-background-subpanel summary{cursor:pointer}.dl-background-subpanel>.dl-stack{padding:10px 0}.dp-section-wrap.dp-has-bg>.dp-hero{background:transparent!important}
+
+.dl-tabs{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:4px;margin-top:14px}.dl-tabs button{font-size:10px;padding:9px 3px;border:1px solid #cfcfca;background:#f5f5f1;border-radius:4px}.dl-tabs button.active{background:#25231F;color:#fff;border-color:#25231F}
+.dl-panel details.dl-tab-hidden{display:none!important}
+.dl-panel[data-tab="general"] details:not(.dl-tab-general){display:none}
+.dl-panel[data-tab="images"] details:not(.dl-tab-images){display:none}
+.dl-panel[data-tab="layout"] details:not(.dl-tab-layout){display:none}
+.dl-inspector{position:fixed;z-index:100;width:min(345px,calc(100vw - 20px));max-height:min(78vh,740px);overflow:hidden;background:#fff;border:1px solid #25231F;box-shadow:0 15px 45px #0003;border-radius:8px;display:flex;flex-direction:column;color:#25231F}
+.dl-inspector-head{display:flex;justify-content:space-between;align-items:center;background:#25231F;color:#F8F4EC;padding:12px 14px;font:600 11px 'IBM Plex Mono',monospace;cursor:move;touch-action:none;user-select:none;gap:10px}
+.dl-inspector-head span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dl-inspector-head button{background:transparent;color:inherit;border:0;font-size:24px;line-height:1;padding:0 3px;cursor:pointer}
+.dl-inspector-body{padding:14px;overflow:auto;min-height:0;display:grid;gap:15px;scrollbar-width:thin}
+.dl-inspector-body .dl-asset-grid{grid-template-columns:repeat(5,1fr)}
+.dp-multi .dp-function,.dp-multi .dp-event{grid-template-columns:1fr;align-content:start}
+@media(max-width:580px){.dl-viewport.mobile .dp-grid,.dl-viewport.mobile .dp-photos,.dl-viewport.mobile .dp-rows.dp-multi{grid-template-columns:1fr!important}.dl-inspector{left:10px!important;top:12vh!important;width:calc(100vw - 20px)}}
+
+
+.durf-lab{font-family:Arial,sans-serif;color:#25231F;background:#f1f0eb;min-height:100vh;padding:16px;font-size:13px}
+.durf-lab *{box-sizing:border-box}.durf-lab button,.durf-lab input,.durf-lab textarea,.durf-lab select{font:inherit}.durf-lab button{cursor:pointer}
+.dl-toolbar,.dl-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.dl-toolbar{justify-content:space-between;margin-bottom:12px}.dl-actions strong{margin-right:13px;font-size:12px}.dl-actions small{opacity:.5}.dl-actions button,.dl-upload,.dl-bottom button{padding:9px 11px;background:white;border:1px solid #c8c8c0;border-radius:5px;font-size:12px;cursor:pointer}.dl-actions button.active{background:#25231F;color:#F8F4EC}.dl-upload input{display:none}
+.dl-layout{display:grid;grid-template-columns:minmax(0,1fr) 285px;align-items:start;gap:13px}.dl-frame{border:1px solid #c8c8c0;border-radius:8px;overflow:hidden;min-width:0;background:white}.dl-browser{display:flex;align-items:center;justify-content:space-between;height:34px;background:#e8e7e2;padding:0 13px;font:10px 'IBM Plex Mono',monospace;color:#777}.dl-viewport{height:calc(100vh - 130px);min-height:600px;overflow:auto;background:#F8F4EC;scrollbar-width:thin}.dl-viewport.mobile{width:min(375px,100%);margin:auto;border-left:1px solid #ddd;border-right:1px solid #ddd}
+.dl-panel{background:white;border:1px solid #c8c8c0;border-radius:8px;max-height:calc(100vh - 91px);min-height:600px;overflow-y:auto;scrollbar-width:thin}.dl-panel-title{padding:17px;border-bottom:1px solid #ddd}.dl-panel-title p{font-size:11px;color:#777;margin:5px 0 0;line-height:1.4}.dl-panel details{padding:0 14px;border-bottom:1px solid #ddd}.dl-panel summary{font-size:12px;font-weight:700;padding:14px 0;cursor:pointer}.dl-stack{padding-bottom:16px;display:grid;gap:12px}.dl-field{display:grid;gap:5px;font-size:11px}.dl-field>span{font-size:10px;color:#666;font-weight:700}.dl-field input:not([type=range]),.dl-field textarea,.dl-field select{border:1px solid #ccc;background:#f9f9f8;padding:8px;border-radius:4px;min-width:0;width:100%;color:#25231F}.dl-field textarea{resize:vertical}.dl-field input[type=range]{width:100%;accent-color:#507568}.dl-checkbox{display:flex;align-items:center;gap:7px;font-size:11px}.dl-swatches{display:flex;gap:3px}.dl-swatches i{height:33px;flex:1;border:1px solid #ddd}.dl-item{display:grid;gap:8px;border-bottom:1px solid #ddd;padding:0 0 12px}.dl-order{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee;padding-bottom:7px;gap:7px}.dl-order label{display:flex;gap:5px;align-items:center;font-size:11px}.dl-order button{padding:2px 6px;border:1px solid #ddd;background:#fafafa}.dl-order button:disabled{opacity:.25}.dl-bottom{padding:14px}.dl-bottom p{font-size:10px;line-height:1.6;color:#777}
+.durf-page{--green:#507568;--orange:#F16A37;--pink:#DD8EB9;--paper:#F8F4EC;--ink:#25231F;background:var(--paper);color:var(--ink);font-family:'Instrument Sans',Arial,sans-serif;overflow:hidden}
+.dp-nav{padding:20px 5.5%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--ink)}.dp-nav strong{font-size:23px;font-weight:800;letter-spacing:-.075em}.dp-nav strong span,.dp-logo span{font-weight:400}.dp-nav nav{font:10px 'IBM Plex Mono',monospace}
+.dp-section{padding:65px 5.5%;border-bottom:1px solid var(--ink)}.dp-overline,.dp-mono{font:500 10px 'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.01em}.dp-overline{display:flex;justify-content:space-between;gap:15px;margin-bottom:34px}.dp-section h2{font-size:var(--heading);letter-spacing:-.07em;line-height:1.01;font-weight:800;max-width:830px;margin:0 0 24px}.dp-lead{font-size:clamp(17px,2.2vw,27px);line-height:1.25;letter-spacing:-.025em;max-width:700px;margin:0}
+.dp-hero{min-height:560px;background:var(--green);color:var(--paper);position:relative;display:flex;flex-direction:column;justify-content:space-between;isolation:isolate}.dp-hero>*:not(.dp-art){position:relative;z-index:2}.dp-hero-content{padding:50px 0 30px}.dp-hero h1{font-size:var(--display);font-weight:800;letter-spacing:-.075em;line-height:.92;margin:0 0 27px;max-width:1100px;overflow-wrap:break-word}.dp-hero p{font-size:17px;line-height:1.4;max-width:450px;margin:0 0 24px}.dp-button{background:var(--orange);color:var(--ink);display:inline-flex;gap:36px;align-items:center;justify-content:space-between;padding:14px 17px;text-decoration:none;font-weight:700;font-size:13px}.dp-art{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}.durf-dots{position:absolute;right:-7%;top:5%;width:53%;aspect-ratio:1;display:grid;grid-template-columns:repeat(11,1fr);grid-template-rows:repeat(11,1fr);gap:2.6%}.durf-dots i{border-radius:50%;background:var(--pink);aspect-ratio:1;width:100%;align-self:center;justify-self:center}.dp-delta{position:absolute;width:55%;height:80%;right:-7%;top:10%;color:var(--pink);opacity:.85}
+.dp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--ink);border:1px solid var(--ink);margin-top:42px}.dp-tile{min-height:180px;background:var(--paper);padding:22px;display:flex;flex-direction:column;justify-content:space-between;gap:24px}.dp-tile-top{display:flex;justify-content:space-between;align-items:center}.dp-tile-top i{width:30px;height:30px;border-radius:50%}.dp-tile h3{font-size:clamp(22px,2.8vw,34px);letter-spacing:-.05em;font-weight:700;margin:0 0 8px}.dp-tile p,.dp-function p{font-size:13px;line-height:1.4;margin:0;max-width:400px}
+.dp-functions{background:var(--orange)}.dp-rows{margin-top:42px}.dp-function{border-top:1px solid var(--ink);display:grid;grid-template-columns:65px 1fr 20px;gap:12px;padding:25px 0;align-items:start}.dp-function h3{font-size:clamp(24px,3vw,42px);line-height:1;letter-spacing:-.055em;margin:0 0 10px}
+.dp-photos{display:grid;grid-template-columns:1.4fr 1fr;gap:9px;margin-top:37px}.dp-photo{min-height:230px;background:#c7c4ba;padding:13px;display:flex;align-items:end;justify-content:space-between;position:relative;overflow:hidden}.dp-photo:first-child{min-height:310px}.dp-photo:nth-child(2){background:#d8d3c8}.dp-photo:before{content:"";position:absolute;inset:-50%;transform:rotate(18deg);background:repeating-linear-gradient(60deg,transparent 0 45px,#50756822 45px 90px)}.dp-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}.dp-photo span{position:relative;z-index:2;background:var(--paper);font:10px 'IBM Plex Mono',monospace;padding:7px}.dp-photo-note{margin-top:15px}
+.dp-event{border-top:1px solid var(--ink);padding:22px 0;display:grid;grid-template-columns:125px 1fr;gap:15px}.dp-event h3{font-size:20px;line-height:1.2;font-weight:600;margin:0}
+.dp-cta{background:var(--pink)}.dp-cta h2{font-size:var(--display)}.dp-cta .dp-button{background:var(--ink);color:var(--paper);margin-top:24px}
+.dp-footer{background:var(--ink);color:var(--paper);border:0}.dp-logo{font-size:clamp(45px,7vw,95px);font-weight:800;letter-spacing:-.075em;line-height:1;margin-bottom:50px}.dp-partners{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:22px 0 55px}.dp-partners span{font-size:13px;line-height:1.4}.dp-footline{border-top:1px solid #999;padding-top:18px;display:flex;justify-content:space-between;gap:15px}
+.dp-green .dp-functions{background:var(--paper)}.dp-green .dp-cta{background:var(--green);color:var(--paper)}.dp-bright .dp-hero{background:var(--orange);color:var(--ink)}.dp-bright .dp-functions{background:var(--pink)}.dp-bright .dp-cta{background:var(--green);color:var(--paper)}
+.dp-hero{background:var(--hero-bg)!important}.dp-functions{background:var(--functions-bg)!important}.dp-cta{background:var(--cta-bg)!important}
+.dp-hero,.dp-cta{color:var(--ink)}.dp-hero .dp-button{background:var(--orange)}.dp-hero{color:var(--paper)}
+.dp-hero h1,.dp-cta h2{font-weight:var(--display-weight);letter-spacing:var(--display-tracking);line-height:var(--display-line)}
+.dp-section h2:not(.dp-cta h2){font-weight:var(--heading-weight);letter-spacing:var(--heading-tracking);line-height:var(--heading-line)}
+.dp-lead{font-size:calc(clamp(17px,2.2vw,27px)*var(--lead-size));font-weight:var(--lead-weight);letter-spacing:var(--lead-tracking);line-height:var(--lead-line)}
+.dp-hero p,.dp-tile p,.dp-function p,.dp-event h3{font-size:calc(1em * var(--body-size));font-weight:var(--body-weight);letter-spacing:var(--body-tracking);line-height:var(--body-line)}
+.dp-mono,.dp-overline{font-size:calc(10px * var(--mono-size));font-weight:var(--mono-weight);letter-spacing:var(--mono-tracking);line-height:var(--mono-line)}
+.dl-viewport [data-edit-key],.dl-viewport [data-edit-list],.dl-viewport [data-edit-section]{cursor:pointer}
+.dl-viewport [data-edit-key]:hover,.dl-viewport [data-edit-list]:hover{outline:2px solid var(--orange);outline-offset:3px}
+.dp-selected-section{outline:3px dashed var(--orange);outline-offset:-3px}
+.dl-tip{font-size:11px;line-height:1.5;color:#777;margin:0}
+.dl-missing-photo{height:70px;background:#f0f0ec;display:grid;place-content:center;gap:5px;color:#777;font:600 12px 'IBM Plex Mono',monospace}.dl-missing-photo small{font-size:8px}
+.dl-palette-edit{display:flex;align-items:center;gap:7px;font-size:11px}.dl-palette-edit input[type=color]{width:34px;height:30px;padding:0;border:0;cursor:pointer}.dl-palette-edit span{flex:1}.dl-palette-edit code{font-size:10px}.dl-palette-edit button,.dl-small-button{background:#fafafa;border:1px solid #ddd;border-radius:4px;padding:5px;font-size:11px}
+.dp-brand-header{display:flex;align-items:center;gap:9px}.dp-brand-header .dp-logo-vector{width:100px;height:auto}.dp-brand-header span{font-weight:500;letter-spacing:-.05em;font-size:16px}.dp-logo .dp-logo-vector{width:min(330px,80%);height:auto;display:block;color:var(--paper)}.dp-logo span{display:block;font-size:20px;margin-top:6px}
+.dp-hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;cursor:pointer;pointer-events:auto}
+.dp-brand-circles-wrap{position:absolute;top:5%;right:-4%;width:53%;color:var(--pink);opacity:.92}.dp-brand-circles{width:100%;height:auto;display:block}
+.dp-photo{cursor:pointer}.dp-photo img{pointer-events:none}
+.dl-asset-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}.dl-asset-grid button{border:2px solid transparent;padding:0;background:#efefea;aspect-ratio:1;overflow:hidden;position:relative;cursor:pointer}.dl-asset-grid button.active{border-color:#F16A37}.dl-asset-grid img{width:100%;height:100%;object-fit:cover}.dl-asset-grid span{position:absolute;left:1px;bottom:1px;background:white;font-size:9px;padding:2px}
+.dl-tip{font-size:11px;line-height:1.5;color:#777}.dp-compact .dp-section{padding-top:37px;padding-bottom:37px}.dp-compact .dp-hero{min-height:430px}
+.dl-viewport.mobile .durf-page{--display:48px!important;--heading:37px!important}.dl-viewport.mobile .dp-nav nav{display:none}.dl-viewport.mobile .dp-section{padding:45px 7%}.dl-viewport.mobile .dp-hero{min-height:530px}.dl-viewport.mobile .durf-dots{width:105%;right:-43%;top:15%}.dl-viewport.mobile .dp-delta{width:95%;right:-30%}.dl-viewport.mobile .dp-grid,.dl-viewport.mobile .dp-photos{grid-template-columns:1fr}.dl-viewport.mobile .dp-tile{min-height:145px}.dl-viewport.mobile .dp-function{grid-template-columns:40px 1fr 15px}.dl-viewport.mobile .dp-event{grid-template-columns:85px 1fr}.dl-viewport.mobile .dp-partners{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.dl-layout{grid-template-columns:1fr}.dl-panel{max-height:none;min-height:0}.dl-viewport{height:670px}.durf-page{--display:clamp(44px,8vw,90px);--heading:clamp(32px,5vw,66px)}}@media(max-width:520px){.durf-lab{padding:8px}.dp-nav nav{display:none}.dp-grid,.dp-photos{grid-template-columns:1fr}.dp-partners{grid-template-columns:repeat(2,1fr)}.dp-event{grid-template-columns:80px 1fr}}
+
+/* 02 / EDITORIAL GRID — distinct design direction; original remains untouched */
+.dl-theme-select{display:flex;align-items:center;gap:7px;padding:0 7px;background:#fff;border:1px solid #c8c8c0;border-radius:5px;height:35px}
+.dl-theme-select span{font:500 9px 'IBM Plex Mono',monospace;letter-spacing:.05em;color:#777}.dl-theme-select select{font-size:11px;max-width:142px;border:0;background:transparent;color:inherit;outline:0}
+.dp-editorial-theme{--editorial-line:1px solid var(--ink);font-family:'Instrument Sans',sans-serif;background:var(--paper)}
+.dp-editorial-theme .dp-nav{border-bottom:var(--editorial-line);padding:14px 3.2%;min-height:76px;align-items:center}
+.dp-editorial-theme .dp-nav nav{font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.03em}
+.dp-editorial-theme .dp-brand-header{gap:7px}
+.dp-editorial-theme .dp-section-wrap{border-bottom:var(--editorial-line)}
+.dp-editorial-theme .dp-section{padding:46px 3.2% 65px}
+.dp-editorial-theme .dp-overline{border-bottom:var(--editorial-line);padding-bottom:16px;margin-bottom:27px;letter-spacing:.025em;font-size:10px}
+.dp-editorial-theme .dp-overline span{font-family:'IBM Plex Mono',monospace}
+.dp-editorial-theme .dp-section h2{font-weight:700;letter-spacing:-.065em;line-height:.98;max-width:950px}
+.dp-editorial-theme .dp-section .dp-lead{font-size:clamp(17px,2vw,26px);max-width:760px;line-height:1.34}
+.dp-editorial-theme .dp-hero{min-height:680px;display:flex;flex-direction:column;justify-content:space-between;background:var(--paper)!important;color:var(--ink)!important;position:relative;isolation:isolate}
+.dp-editorial-theme .dp-hero .dp-overline{position:relative;z-index:4}
+.dp-editorial-theme .dp-hero-content{position:relative;z-index:4;max-width:74%;margin-top:55px}
+.dp-editorial-theme .dp-hero-content h1{font-weight:800;font-size:clamp(62px,9.4vw,146px);line-height:.86;letter-spacing:-.085em;max-width:1040px;text-wrap:balance}
+.dp-editorial-theme .dp-hero-content p{font-size:clamp(17px,1.75vw,24px);line-height:1.3;max-width:530px}
+.dp-editorial-theme .dp-hero .dp-button{background:var(--orange);color:var(--ink);border:1px solid var(--ink);border-radius:0}
+.dp-editorial-theme .dp-art{width:46%;height:70%;position:absolute;right:0;top:14%;overflow:hidden;z-index:0}
+.dp-editorial-theme .dp-hero-photo{object-fit:cover;opacity:1}
+.dp-editorial-theme .dp-brand-circles-wrap{width:74%;right:-18%;top:17%;color:var(--green);opacity:.85}
+.dp-editorial-theme .dp-hero .dp-overline:last-child{margin-bottom:0;margin-top:30px}
+.dp-editorial-theme .dp-grid{margin-top:38px;border:0;background:none;gap:0;border-top:var(--editorial-line);border-left:var(--editorial-line)}
+.dp-editorial-theme .dp-tile{min-height:250px;border-right:var(--editorial-line);border-bottom:var(--editorial-line);padding:18px 18px 25px;gap:35px;background:transparent}
+.dp-editorial-theme .dp-tile h3{font-size:clamp(28px,3.3vw,46px);letter-spacing:-.06em;line-height:1.01}
+.dp-editorial-theme .dp-tile p{font-size:14px;max-width:360px}
+.dp-editorial-theme .dp-tile-top i{width:14px;height:14px}
+.dp-editorial-theme .dp-functions{background:var(--paper)!important;color:var(--ink)}
+.dp-editorial-theme .dp-function{border-top:var(--editorial-line);padding:25px 3px 33px;grid-template-columns:90px minmax(0,1fr) 22px}
+.dp-editorial-theme .dp-function:last-child{border-bottom:var(--editorial-line)}
+.dp-editorial-theme .dp-function h3{font-size:clamp(28px,4.5vw,60px);line-height:1;letter-spacing:-.065em}
+.dp-editorial-theme .dp-photos{gap:2px;background:var(--ink);border:2px solid var(--ink);margin-top:36px}
+.dp-editorial-theme .dp-photo{padding:0;min-height:345px}
+.dp-editorial-theme .dp-photo:before{display:none}
+.dp-editorial-theme .dp-photo img{filter:none}
+.dp-editorial-theme .dp-photo-note{margin-top:12px}
+.dp-editorial-theme .dp-event{border-top:var(--editorial-line);grid-template-columns:185px minmax(0,1fr);padding:22px 0 26px}
+.dp-editorial-theme .dp-event h3{font-size:clamp(20px,2.6vw,33px);line-height:1.14}
+.dp-editorial-theme .dp-cta{background:var(--orange)!important;color:var(--ink);min-height:480px}
+.dp-editorial-theme .dp-cta .dp-button{border-radius:0;background:var(--ink);color:var(--paper)}
+.dp-editorial-theme .dp-footer{background:var(--ink);color:var(--paper);border-top:var(--editorial-line)}
+.dp-editorial-theme .dp-partners{gap:0;border-top:1px solid var(--paper)}
+.dp-editorial-theme .dp-partners span{padding:15px 5px;border-bottom:1px solid var(--paper);font-size:13px}
+.dp-editorial-theme .dp-editorial-row{background:var(--paper);padding:48px 3.2%;border-bottom:var(--editorial-line)}
+.dp-editorial-theme .dp-editorial-grid{gap:0!important}
+.dp-editorial-theme .dp-editorial-col{border:1px solid var(--ink)}
+.dp-editorial-theme .dp-editorial-copy h2{font-size:clamp(28px,4vw,58px);letter-spacing:-.07em}
+.dp-editorial-theme .dp-detail{border-left:3px solid var(--orange);padding-left:18px}
+@media(max-width:760px){.dp-editorial-theme .dp-hero-content{max-width:100%}.dp-editorial-theme .dp-art{width:75%;opacity:.24}.dp-editorial-theme .dp-hero-content h1{font-size:clamp(50px,12vw,90px)}.dp-editorial-theme .dp-section{padding:32px 5% 48px}.dp-editorial-theme .dp-event{grid-template-columns:95px 1fr}.dp-editorial-theme .dp-tile{min-height:175px}.dp-editorial-theme .dp-editorial-grid{grid-template-columns:1fr!important}}
+.dl-viewport.mobile .dp-editorial-theme .dp-section{padding:32px 5% 48px}.dl-viewport.mobile .dp-editorial-theme .dp-hero-content{max-width:100%}.dl-viewport.mobile .dp-editorial-theme .dp-art{width:80%;opacity:.24}.dl-viewport.mobile .dp-editorial-theme .dp-grid,.dl-viewport.mobile .dp-editorial-theme .dp-photos,.dl-viewport.mobile .dp-editorial-theme .dp-editorial-grid{grid-template-columns:1fr!important}
+
+${editorialV2Css}
+
+.dl-layout.dl-layout-expanded{grid-template-columns:minmax(0,1fr)!important}
+.dl-layout-expanded .dl-frame{width:100%;max-width:none}
+.dl-sidebar-toggle{white-space:nowrap;font-weight:600}
+@media(min-width:900px){.dl-layout-expanded .dl-viewport{height:calc(100vh - 125px)}}
+.dl-type-axis-group{border:1px solid #ddd;padding:10px;display:grid;gap:10px;background:#f9f9f7}.dl-type-axis-group strong{font-size:11px}
+`;

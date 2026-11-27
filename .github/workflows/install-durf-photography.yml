@@ -1,0 +1,49 @@
+name: Install DURF hosted photographs
+on:
+  push:
+    branches: [feature/durf-campus-landing-lab]
+    paths:
+      - ".github/workflows/install-durf-photography.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download approved PR attachment and verify archive contents
+        run: |
+          python - <<'PY'
+          import io,urllib.request,zipfile
+          from pathlib import Path
+          url="https://github.com/user-attachments/files/34183198/durf-hosting-assets.zip"
+          request=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0"})
+          with urllib.request.urlopen(request,timeout=60) as response:
+              payload=response.read()
+          if len(payload)>15000000:
+              raise RuntimeError("Archive unexpectedly large")
+          archive=zipfile.ZipFile(io.BytesIO(payload))
+          expected={f"public/durf-campus/photos/{i:02d}.webp" for i in range(1,11)}
+          if set(archive.namelist())!=expected:
+              raise RuntimeError("Unexpected ZIP contents: "+repr(archive.namelist()))
+          for name in sorted(expected):
+              content=archive.read(name)
+              if not content.startswith(b"RIFF") or content[8:12]!=b"WEBP":
+                  raise RuntimeError("Invalid WebP asset: "+name)
+              path=Path(name)
+              path.parent.mkdir(parents=True,exist_ok=True)
+              path.write_bytes(content)
+              print(name,len(content))
+          PY
+      - name: Commit public photographs to the draft branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/durf-campus/photos/
+          if ! git diff --cached --quiet; then
+            git commit -m "Add DURF supplied photography to public assets"
+            git push origin HEAD:feature/durf-campus-landing-lab
+          fi
